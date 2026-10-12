@@ -1,0 +1,739 @@
+{
+  "check_id": "svg-stall",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T14:21:46Z",
+  "operator": "Codex SVG route subagent",
+  "reviewer": "Codex setup_requirements: independent review of SVG route source, measured geometry, artifact hashes and native64px contact sheet",
+  "source_revision": "5ee9e816eb027a2070453243c358430f2589e0a4",
+  "source_state": "SVG route additions and figure integration are uncommitted at measurement; exact source/input hashes accompany this record.",
+  "dependency_versions": {
+    "three": "0.180.0",
+    "bun": "1.4.0",
+    "playwright": "1.64.0",
+    "browser": "156.0.8078.4"
+  },
+  "api_evidence": [
+    {
+      "path": "node_modules/three/src/geometries/ExtrudeGeometry.js",
+      "finding": "Extrudes Shape boundaries with depth, steps and optional bevel controls."
+    },
+    {
+      "path": "node_modules/three/src/geometries/LatheGeometry.js",
+      "finding": "Revolves Vector2 radial-height points; collapsed triangles at radial-zero endpoints are discarded by this route."
+    }
+  ],
+  "execution_target": "Local macOS Apple Silicon, asserted Chromium SwiftShader WebGL",
+  "runtime_configuration": {
+    "raster_css": [
+      64,
+      64
+    ],
+    "dpr": 1,
+    "theme": "day",
+    "technique": "B",
+    "canvas_variants": 3,
+    "camera": {
+      "matrixWorld": [
+        0.7071067811865476,
+        -2.7755575615628914e-17,
+        -0.7071067811865475,
+        0,
+        -0.35355338681762394,
+        0.8660254068672438,
+        -0.353553386817624,
+        0,
+        0.612372437875667,
+        0.49999999466042483,
+        0.612372437875667,
+        0,
+        35.355339,
+        30.117513,
+        35.355339,
+        1
+      ],
+      "projectionMatrix": [
+        0.47619047619047616,
+        0,
+        0,
+        0,
+        0,
+        0.47619047619047616,
+        0,
+        0,
+        0,
+        0,
+        -0.010005002501250625,
+        0,
+        0,
+        0,
+        -1.001000500250125,
+        1
+      ]
+    },
+    "svg_commands": [
+      "M",
+      "L",
+      "Z"
+    ],
+    "cylinder_radial_segments": 24,
+    "kit_unit": "provisional stand-in unit; not a Part B choice"
+  },
+  "stage_and_resources": "Local SVG source and isolated comparison page only; no hosted resources",
+  "inputs": [
+    {
+      "path": "apps/web/spikes/look-a/atlas-tokens.json",
+      "bytes": 10023,
+      "sha256": "a4339a8f6c132b49658828e4b27d62747b8ba646890bc5d31dd82c18149a28e0"
+    },
+    {
+      "path": "apps/web/spikes/look-a/scene.ts",
+      "bytes": 10004,
+      "sha256": "1a1a58825802f2214caabfbe84efa2e6c90a8cf4ef988b1f336b04841c487c6b"
+    },
+    {
+      "path": "apps/web/spikes/look-a/renderer.ts",
+      "bytes": 9570,
+      "sha256": "86097c5c730eeff58097ac235811092731718cadf64e724296a3206b8e31930c"
+    },
+    {
+      "path": "apps/web/spikes/look-a/vite.config.ts",
+      "bytes": 248,
+      "sha256": "8335df47df518d185edfc6dcdb341fcf4c4a88f72f832329319d6df238ba8dd8"
+    },
+    {
+      "path": "work/spikes/look/scene.json",
+      "bytes": 1084353,
+      "sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638"
+    }
+  ],
+  "procedure": [
+    "Started observed authoring/validation interval at14:09:07UTC after revised no-Blender specification arrived.",
+    "Authored normalized rectangular and revolution SVG paths plus a pure absolute M/L/Z parser.",
+    "Extruded/revolved independently specified profiles and assembled the same three stand-in stall variants; original generator is used only in separate validator/comparison modules.",
+    "Discarded collapsed axis triangles, assigned six semantic box faces and three cylinder surfaces, flat cap normals and smooth cylinder wall normals.",
+    "Compared bidirectional unique-vertex distances, triangle counts, palette slots and semantic boundary edge sets.",
+    "Exported BufferGeometry JSON and checked all four attributes and kit unit after reload.",
+    "Captured both routes at native64px with the same B renderer/camera, compared color pixels and edge masks, and displayed the paired contact sheet.",
+    "Ran typecheck, lint, application build and final headed demonstration; all passed. Closed all launched browser processes.",
+    "Finished authoring/validation interval at14:21:46UTC; final evidence packaging is outside that interval."
+  ],
+  "expected_result": "Equivalent geometry, Atlas attributes and 64px silhouettes for independently authored SVG-profile assets.",
+  "observed_result": "All three variants match exactly by vertex sets; triangle counts192/132/204 and semantic edge boundaries agree. Six64px images form three byte-identical route pairs; edgeIoU1. Exported attributes and kit unit survive round-trip.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/commands.txt",
+      "committed": true,
+      "bytes": 961,
+      "sha256": "de08ea399a5760ee66820659acf07ce604c337df5be4c02fd977a0d9577b5657",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/comparison.png",
+      "committed": true,
+      "bytes": 30550,
+      "sha256": "dc0223e51b9485402860470d5034577f96caee3a3851cf8f85111b35a3106a71",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/findings.md",
+      "committed": true,
+      "bytes": 3770,
+      "sha256": "4b9ff3c211a11f70227e02df52227472f2a79b06f146a05d52d407339e580c50",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/geometry-report.json",
+      "committed": true,
+      "bytes": 3943,
+      "sha256": "3033f9fe0b2c4f2857a36941ceecb80c69a1c3287835d07f31f0d691cf9bbe74",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/headed.json",
+      "committed": true,
+      "bytes": 6448,
+      "sha256": "eef666c4c8ae67ed55a9faf72f0a2f1d72b352b45a707406adad0b659036b637",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/profiles.svg",
+      "committed": true,
+      "bytes": 294,
+      "sha256": "3e3e77b17c501eda8984000bf63247db384e2c5bd5857d0d13f37db2a3ce0aaa",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/render-report.json",
+      "committed": true,
+      "bytes": 18995,
+      "sha256": "c445b72158ec218a9d7e01c3ba915c1b61954cb9a1462b66e4a31176274253c1",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/svg-0-64.png",
+      "committed": true,
+      "bytes": 765,
+      "sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/svg-1-64.png",
+      "committed": true,
+      "bytes": 814,
+      "sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/svg-2-64.png",
+      "committed": true,
+      "bytes": 779,
+      "sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/three-0-64.png",
+      "committed": true,
+      "bytes": 765,
+      "sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/three-1-64.png",
+      "committed": true,
+      "bytes": 814,
+      "sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/svg-stall/002/three-2-64.png",
+      "committed": true,
+      "bytes": 779,
+      "sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+      "regenerate": "See commands.txt; findings are observed technical interpretation."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/build-final.log",
+      "committed": false,
+      "bytes": 787,
+      "sha256": "753298f9acb68d349a5bbdbbca69b3ff90fc3f730e58bacb298ca9162dd2a778",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/build.log",
+      "committed": false,
+      "bytes": 775,
+      "sha256": "e4f06e3be3ec6f41227746d5e06621e770ad123384963cba18f7bb919db29a17",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/capture.log",
+      "committed": false,
+      "bytes": 927,
+      "sha256": "8c1a48d60e06e4d6e5360e887a8733f3b6093d4ec40e165504b8597f2ba42e19",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/capture.mjs",
+      "committed": false,
+      "bytes": 3619,
+      "sha256": "d4d28fd9ec790526ca4d9ea3717c63c4f9cee9b2e0381f98132ca95a0c35ba1f",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/comparison-initial-clipped.png",
+      "committed": false,
+      "bytes": 29369,
+      "sha256": "cc5fc278f40d0b48d5c8a18ccaf78e199864ad5741999088eb52798ea866890a",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/comparison.png",
+      "committed": false,
+      "bytes": 30550,
+      "sha256": "dc0223e51b9485402860470d5034577f96caee3a3851cf8f85111b35a3106a71",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/export.log",
+      "committed": false,
+      "bytes": 3943,
+      "sha256": "3033f9fe0b2c4f2857a36941ceecb80c69a1c3287835d07f31f0d691cf9bbe74",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/geometry-report-initial.json",
+      "committed": false,
+      "bytes": 3369,
+      "sha256": "c72d0827b974e5e5bb41484ce586a829368a2b658fbcc28abb45193381a62c45",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/geometry-report.json",
+      "committed": false,
+      "bytes": 3943,
+      "sha256": "3033f9fe0b2c4f2857a36941ceecb80c69a1c3287835d07f31f0d691cf9bbe74",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/headed-comparison.png",
+      "committed": false,
+      "bytes": 30390,
+      "sha256": "e220cf72780c7b685659fc0fe33e53db1def7aede595b2d5a6270b7f3b8be675",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/headed-initial-failure.txt",
+      "committed": false,
+      "bytes": 271,
+      "sha256": "8d88bb5edcd30e25b78cfc8c83d291288d00c5c3d492b5715cbff9bf9a60c0be",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/headed.json",
+      "committed": false,
+      "bytes": 6448,
+      "sha256": "eef666c4c8ae67ed55a9faf72f0a2f1d72b352b45a707406adad0b659036b637",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/headed.log",
+      "committed": false,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/lint.log",
+      "committed": false,
+      "bytes": 116,
+      "sha256": "15a27b3683f0ad0e3c3dba39e1c9ec7190a9b333431e67b1961f43eab1d633f8",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/profiles.svg",
+      "committed": false,
+      "bytes": 294,
+      "sha256": "3e3e77b17c501eda8984000bf63247db384e2c5bd5857d0d13f37db2a3ce0aaa",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/render-report.json",
+      "committed": false,
+      "bytes": 18995,
+      "sha256": "c445b72158ec218a9d7e01c3ba915c1b61954cb9a1462b66e4a31176274253c1",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-0-64.png",
+      "committed": false,
+      "bytes": 765,
+      "sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-0-edges-64.png",
+      "committed": false,
+      "bytes": 652,
+      "sha256": "e6de4046071027fdcdd3a08aa9221452d6a5a6be78922704c601ab55f232b97f",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-1-64.png",
+      "committed": false,
+      "bytes": 814,
+      "sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-1-edges-64.png",
+      "committed": false,
+      "bytes": 681,
+      "sha256": "d4b477eb71ee99b2454dc3f5c940302a2f012e8c95c8041befff18f2cbc23595",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-2-64.png",
+      "committed": false,
+      "bytes": 779,
+      "sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-2-edges-64.png",
+      "committed": false,
+      "bytes": 664,
+      "sha256": "6b24677db6c34a8cde20fbe7e3270b7fccd6fc7a8bbed84ec567788316dcce6f",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-stall-0.geometry.json",
+      "committed": false,
+      "bytes": 43003,
+      "sha256": "df50b37de6b7b2208771a984170f1d3da2fb6141493cf4b1fc724c8b4bea95ab",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-stall-1.geometry.json",
+      "committed": false,
+      "bytes": 26743,
+      "sha256": "b83ec3f4f8342fd444b58eebcfb1a608c7579f484c6ae56925ed3481150e912e",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/svg-stall-2.geometry.json",
+      "committed": false,
+      "bytes": 46291,
+      "sha256": "4bc32e99311b044d67f0ceaa93ddd7252ec60ce51197e69370c1171b5a08613c",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-0-64.png",
+      "committed": false,
+      "bytes": 765,
+      "sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-0-edges-64.png",
+      "committed": false,
+      "bytes": 652,
+      "sha256": "e6de4046071027fdcdd3a08aa9221452d6a5a6be78922704c601ab55f232b97f",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-1-64.png",
+      "committed": false,
+      "bytes": 814,
+      "sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-1-edges-64.png",
+      "committed": false,
+      "bytes": 681,
+      "sha256": "d4b477eb71ee99b2454dc3f5c940302a2f012e8c95c8041befff18f2cbc23595",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-2-64.png",
+      "committed": false,
+      "bytes": 779,
+      "sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/three-2-edges-64.png",
+      "committed": false,
+      "bytes": 664,
+      "sha256": "6b24677db6c34a8cde20fbe7e3270b7fccd6fc7a8bbed84ec567788316dcce6f",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "work/spikes/look/svg-stall/002/typecheck.log",
+      "committed": false,
+      "bytes": 55,
+      "sha256": "6deb85ea94c6244075b145bd087dfd700b4ee90187686c7516e2b6bab3d65d04",
+      "regenerate": "See commands.txt; initial diagnostic files preserve the recorded failed/clipped intermediate attempt."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-profiles.ts",
+      "committed": true,
+      "bytes": 2109,
+      "sha256": "c2565261cc12ffd5aa190cbad3768614e886d1c3f6e5b6055021b23203461a97",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-capture.ts",
+      "committed": true,
+      "bytes": 4213,
+      "sha256": "534b76a2c0ad534cb820a7e17e41a428ca5a8ab46bc0e9d82a84e16d9a0eb124",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-export.ts",
+      "committed": true,
+      "bytes": 1425,
+      "sha256": "1e3be577c5546b27932e4c7ad42f4a109c25f8352635f149ff97533f328f4213",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-page.ts",
+      "committed": true,
+      "bytes": 3531,
+      "sha256": "3205fdbcc09315f73585d46de31187a09c7d86163b61ffdfa804f59278d23709",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-validation.ts",
+      "committed": true,
+      "bytes": 4947,
+      "sha256": "f73fa94a5cbf3e7ab0395e7dd6333acd9dc8fbbdd8eb10bfde457b6e9a6aa95d",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall.html",
+      "committed": true,
+      "bytes": 1097,
+      "sha256": "66692cfb5eedd4cf4c09269bdb9c05f463587b3ff8f35fe4a2721670f6177a1e",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall.ts",
+      "committed": true,
+      "bytes": 5052,
+      "sha256": "2a6cc0d1c0a8fbd692e530f416492e195db8c440ad8d9fb4f3d7806d39e78ab5",
+      "regenerate": "Authored source; no source geometry imported by SVG construction."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local development server only during this route; no paid services invoked.",
+    "budget": "unknown",
+    "observed_cost": "unknown; local compute only"
+  },
+  "cleanup_result": "All route capture/browser processes closed. Source and generated assets retained; parent-owned server left running. No Blender execution.",
+  "decision_link": "docs/decisions.md: No Blender for the MVP; three.js generators and SVG profiles; line target three-edge-projection.",
+  "limitations_and_next_action": "Independent review pending; no art approval. One64px camera/theme/technique tested. Only absolute polygonal SVG M/L/Z paths accepted. Original Three authoring effort unavailable; SVG effort measured for the shared three-variant task, not per variant.",
+  "look": {
+    "technique": "B, unchanged isolated render mount",
+    "tone_set": "Existing atlas-tokens.json, hash in inputs",
+    "theme": "day",
+    "rung": "isolated stall thumbnail; orthographic vertical extent4.2worldunits",
+    "dpr": [
+      1
+    ],
+    "camera": {
+      "matrixWorld": [
+        0.7071067811865476,
+        -2.7755575615628914e-17,
+        -0.7071067811865475,
+        0,
+        -0.35355338681762394,
+        0.8660254068672438,
+        -0.353553386817624,
+        0,
+        0.612372437875667,
+        0.49999999466042483,
+        0.612372437875667,
+        0,
+        35.355339,
+        30.117513,
+        35.355339,
+        1
+      ],
+      "projectionMatrix": [
+        0.47619047619047616,
+        0,
+        0,
+        0,
+        0,
+        0.47619047619047616,
+        0,
+        0,
+        0,
+        0,
+        -0.010005002501250625,
+        0,
+        0,
+        0,
+        -1.001000500250125,
+        1
+      ]
+    },
+    "canvas": {
+      "css_width": 64,
+      "css_height": 64
+    },
+    "backend": "WebGL",
+    "renderer_string": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "device_profile": "Local SwiftShader; not a real phone",
+    "clock_and_seed": "No randomness or animation; same camera and geometry per route",
+    "metrics": {
+      "geometry": {
+        "variants": [
+          {
+            "variant": 0,
+            "svg_runtime_ms": 4.890957999999998,
+            "three_runtime_ms": 1.2246670000000037,
+            "maximum_bidirectional_vertex_error_world": 0,
+            "svg": {
+              "triangles": 192,
+              "surfaceGroups": 51,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "provisional stand-in unit; not a Part B choice"
+            },
+            "three": {
+              "triangles": 192,
+              "surfaceGroups": 51,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "source mesh convention recorded in shared scene"
+            },
+            "svg_unique_vertices": 114,
+            "three_unique_vertices": 114,
+            "semantic_boundary_edge_count": 144,
+            "semantic_boundary_parity": true
+          },
+          {
+            "variant": 1,
+            "svg_runtime_ms": 1.2509999999999977,
+            "three_runtime_ms": 0.3383749999999992,
+            "maximum_bidirectional_vertex_error_world": 0,
+            "svg": {
+              "triangles": 132,
+              "surfaceGroups": 66,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "provisional stand-in unit; not a Part B choice"
+            },
+            "three": {
+              "triangles": 132,
+              "surfaceGroups": 66,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "source mesh convention recorded in shared scene"
+            },
+            "svg_unique_vertices": 88,
+            "three_unique_vertices": 88,
+            "semantic_boundary_edge_count": 132,
+            "semantic_boundary_parity": true
+          },
+          {
+            "variant": 2,
+            "svg_runtime_ms": 1.058374999999998,
+            "three_runtime_ms": 0.3917500000000018,
+            "maximum_bidirectional_vertex_error_world": 0,
+            "svg": {
+              "triangles": 204,
+              "surfaceGroups": 57,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "provisional stand-in unit; not a Part B choice"
+            },
+            "three": {
+              "triangles": 204,
+              "surfaceGroups": 57,
+              "paletteSlots": [
+                3,
+                14
+              ],
+              "perTriangleConstant": true,
+              "validIds": true,
+              "validSlots": true,
+              "kitUnit": "source mesh convention recorded in shared scene"
+            },
+            "svg_unique_vertices": 122,
+            "three_unique_vertices": 122,
+            "semantic_boundary_edge_count": 156,
+            "semantic_boundary_parity": true
+          }
+        ],
+        "method": "Independently authored SVG M/L/Z profiles extruded or revolved; original generator is imported only by the validation module. Bidirectional vertex-set distance <=1e-6 world units, triangle counts, palette slots, and semantic boundary edge sets are checked. Boundary comparison rounds coordinates to1e-5; numerical IDs and triangle diagonals may differ.",
+        "limits": [
+          "Runtime is not authoring effort.",
+          "This checks geometry and semantic boundaries; it does not choose asset art direction or establish production budgets."
+        ],
+        "exports": [
+          {
+            "variant": 0,
+            "path": "work/spikes/look/svg-stall/002/svg-stall-0.geometry.json",
+            "all_four_attributes_identical": true,
+            "kit_unit_preserved": true
+          },
+          {
+            "variant": 1,
+            "path": "work/spikes/look/svg-stall/002/svg-stall-1.geometry.json",
+            "all_four_attributes_identical": true,
+            "kit_unit_preserved": true
+          },
+          {
+            "variant": 2,
+            "path": "work/spikes/look/svg-stall/002/svg-stall-2.geometry.json",
+            "all_four_attributes_identical": true,
+            "kit_unit_preserved": true
+          }
+        ]
+      },
+      "pixels": [
+        {
+          "variant": 0,
+          "changed_color_pixels": 0,
+          "max_channel_delta": 0,
+          "changed_edge_pixels": 0,
+          "edge_iou": 1,
+          "three_sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+          "svg_sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292"
+        },
+        {
+          "variant": 1,
+          "changed_color_pixels": 0,
+          "max_channel_delta": 0,
+          "changed_edge_pixels": 0,
+          "edge_iou": 1,
+          "three_sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+          "svg_sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb"
+        },
+        {
+          "variant": 2,
+          "changed_color_pixels": 0,
+          "max_channel_delta": 0,
+          "changed_edge_pixels": 0,
+          "edge_iou": 1,
+          "three_sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+          "svg_sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed"
+        }
+      ],
+      "effort": {
+        "svg_observed_start_utc": "2026-10-12T14:09:07Z",
+        "svg_validation_complete_utc": "2026-10-12T14:21:46Z",
+        "svg_observed_elapsed_seconds": 759,
+        "scope": "Shared SVG profiles/parser, three stall variants, exact figure helper, export and visual validation, source checks and headed demo; evidence packaging excluded.",
+        "per_variant_authoring_seconds": "not separately instrumented; shared preparation is not divided into an invented per-asset figure",
+        "three_original_authoring_seconds": "unavailable; original task was not instrumented",
+        "runtime_note": "Single-run construction milliseconds are recorded separately and are not authoring effort or a statistically controlled performance benchmark."
+      }
+    },
+    "made_by": "SVG profiles and route authored by this subagent; preexisting Three generator authored by parent agent",
+    "cross_review": {
+      "reviewer_agent": "Codex setup_requirements (did not author SVG route)",
+      "verdict": "technical_pass",
+      "notes": "SVG construction imports profiles and token data, not the original stall generator. Separate validation compares exact vertex sets, triangle counts, palette slots and rounded semantic boundaries. Inspected native64px paired images and readable contact sheet; no visible differences. Authoring wall time is correctly scoped and no unsupported per-asset speed winner is claimed. This is not owner approval."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [
+        "Three generator variants1\u20133 at64px",
+        "SVG profiles variants1\u20133 at64px"
+      ],
+      "picked": "n/a",
+      "owner_note": "Technical contact sheet created; no owner approval recorded.",
+      "date": "n/a"
+    }
+  }
+}

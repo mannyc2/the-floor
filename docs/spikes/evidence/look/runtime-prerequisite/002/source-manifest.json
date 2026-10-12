@@ -1,0 +1,181 @@
+{
+  "base_revision": "5ee9e816eb027a2070453243c358430f2589e0a4",
+  "scope": "Final authored spike sources; no Stage0 implementation",
+  "files": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "bytes": 5046,
+      "sha256": "83449742e93b152cc6d2a3971aeb23c957c30e8f0431b57480474546900d3fb2"
+    },
+    {
+      "path": "apps/web/spikes/look-a/atlas-tokens.json",
+      "bytes": 10023,
+      "sha256": "a4339a8f6c132b49658828e4b27d62747b8ba646890bc5d31dd82c18149a28e0"
+    },
+    {
+      "path": "apps/web/spikes/look-a/blender.py",
+      "bytes": 18354,
+      "sha256": "09742ef7e423c3fab666289bc6723448eac34bb0c438a1fb61b8cfb41a8adf3c"
+    },
+    {
+      "path": "apps/web/spikes/look-a/blender_stall.py",
+      "bytes": 7997,
+      "sha256": "e9dbf10328211ce7518ecdafea4e5e184cdb813a6fef770aacd7eb2d82a8cf0c"
+    },
+    {
+      "path": "apps/web/spikes/look-a/contact-sheet.ts",
+      "bytes": 2954,
+      "sha256": "38ea80f43e644b94ae6b4ce79f9cfac1e90c9e4b4215e1c12c760b5700e572eb"
+    },
+    {
+      "path": "apps/web/spikes/look-a/export-scene.ts",
+      "bytes": 342,
+      "sha256": "546b5fb55a39df6f46ec6d003374adab8dc00b08d8f2a0699bf5777fa8f750f2"
+    },
+    {
+      "path": "apps/web/spikes/look-a/gpu-substrate.ts",
+      "bytes": 1803,
+      "sha256": "7e966add82317dd999bfa3ec00b249b6453e2515644ef400d71eb007b61f06c0"
+    },
+    {
+      "path": "apps/web/spikes/look-a/impostors.ts",
+      "bytes": 2779,
+      "sha256": "5a2752d562ced3082ef0e3d8e528eaf14dd651b6c8c8dad0a1d1a0032ca343f8"
+    },
+    {
+      "path": "apps/web/spikes/look-a/index.html",
+      "bytes": 1111,
+      "sha256": "84ed6a66507c6784db8e96841533cc8358d2e656aed75e0562f4b94ba40514e3"
+    },
+    {
+      "path": "apps/web/spikes/look-a/interaction.spec.ts",
+      "bytes": 809,
+      "sha256": "fabdf173b67819f08c3c2a80afdd6ff784bedd74bc6506d30861bb82e4d85f7e"
+    },
+    {
+      "path": "apps/web/spikes/look-a/main.ts",
+      "bytes": 5956,
+      "sha256": "348b46d27e407ed453a163ef582a3094bd261ab9d1363d280f613b5adb678bd0"
+    },
+    {
+      "path": "apps/web/spikes/look-a/matrix.ts",
+      "bytes": 4464,
+      "sha256": "8dc3ab88c9a2dc735ade2e1731c408db6de9f582e57b21670a653dfe45e6e36b"
+    },
+    {
+      "path": "apps/web/spikes/look-a/metrics.py",
+      "bytes": 13979,
+      "sha256": "ae6509749c8945c3a9a18b7b5b2331522a27e98ba59ca03c657c2773b2043dd7"
+    },
+    {
+      "path": "apps/web/spikes/look-a/oxlint.json",
+      "bytes": 173,
+      "sha256": "4e91f6a081ea25cc1dafbf71755ee07e3d9f2c85b53f724f1fb7f043e7f542c0"
+    },
+    {
+      "path": "apps/web/spikes/look-a/performance.ts",
+      "bytes": 3265,
+      "sha256": "ae7a3bae9e195c165ec08e109b71bc6d75e3ab1c991d63ba8fde8ccf60e3b42a"
+    },
+    {
+      "path": "apps/web/spikes/look-a/playwright.config.ts",
+      "bytes": 435,
+      "sha256": "89ccb5300643d0be5845050efd8a090b09013a1cbbd7f98790df51fc98d005f4"
+    },
+    {
+      "path": "apps/web/spikes/look-a/primitive-silhouettes.ts",
+      "bytes": 5871,
+      "sha256": "ca34a5f12c57146193ef0f4abf255d6009f6ff99fb1b451fc7eb5813838923ea"
+    },
+    {
+      "path": "apps/web/spikes/look-a/probe-gpu.ts",
+      "bytes": 1348,
+      "sha256": "2e80f1c271f6692d2b7d20df0cc19916aaf5e736fa05a4803bfe07e74868cb64"
+    },
+    {
+      "path": "apps/web/spikes/look-a/project-edges.ts",
+      "bytes": 3318,
+      "sha256": "5819105ef2d954bda81adcca271c2f420ec6ae241e44bee35f471e35bbe9d60c"
+    },
+    {
+      "path": "apps/web/spikes/look-a/projection.d.ts",
+      "bytes": 391,
+      "sha256": "04236216ca9812c0de7a97728b665eda8f2562cb2f1317697b91635493d0df33"
+    },
+    {
+      "path": "apps/web/spikes/look-a/renderer.ts",
+      "bytes": 9570,
+      "sha256": "86097c5c730eeff58097ac235811092731718cadf64e724296a3206b8e31930c"
+    },
+    {
+      "path": "apps/web/spikes/look-a/scene.ts",
+      "bytes": 10004,
+      "sha256": "1a1a58825802f2214caabfbe84efa2e6c90a8cf4ef988b1f336b04841c487c6b"
+    },
+    {
+      "path": "apps/web/spikes/look-a/serve-static.ts",
+      "bytes": 593,
+      "sha256": "37b646fe4a578ec289a0c0f75f1925e67f8b0c32d6d93dccab5d0d45b2032cbf"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-profiles.ts",
+      "bytes": 2109,
+      "sha256": "c2565261cc12ffd5aa190cbad3768614e886d1c3f6e5b6055021b23203461a97"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-capture.ts",
+      "bytes": 4213,
+      "sha256": "534b76a2c0ad534cb820a7e17e41a428ca5a8ab46bc0e9d82a84e16d9a0eb124"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-export.ts",
+      "bytes": 1425,
+      "sha256": "1e3be577c5546b27932e4c7ad42f4a109c25f8352635f149ff97533f328f4213"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-page.ts",
+      "bytes": 3531,
+      "sha256": "3205fdbcc09315f73585d46de31187a09c7d86163b61ffdfa804f59278d23709"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall-validation.ts",
+      "bytes": 4947,
+      "sha256": "f73fa94a5cbf3e7ab0395e7dd6333acd9dc8fbbdd8eb10bfde457b6e9a6aa95d"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall.html",
+      "bytes": 1097,
+      "sha256": "66692cfb5eedd4cf4c09269bdb9c05f463587b3ff8f35fe4a2721670f6177a1e"
+    },
+    {
+      "path": "apps/web/spikes/look-a/svg-stall.ts",
+      "bytes": 5052,
+      "sha256": "2a6cc0d1c0a8fbd692e530f416492e195db8c440ad8d9fb4f3d7806d39e78ab5"
+    },
+    {
+      "path": "apps/web/spikes/look-a/tsconfig.json",
+      "bytes": 409,
+      "sha256": "d980b89f64fcce3aee86c09857d90fd2b10ae3700db0700708ad53fa673bb0f5"
+    },
+    {
+      "path": "apps/web/spikes/look-a/vite.config.ts",
+      "bytes": 248,
+      "sha256": "8335df47df518d185edfc6dcdb341fcf4c4a88f72f832329319d6df238ba8dd8"
+    },
+    {
+      "path": "apps/web/spikes/look-a/webgpu.ts",
+      "bytes": 7476,
+      "sha256": "e7ed33d8ed93c761a1384f44e529d73fdafc7ae984c40e294d6f7650a810790c"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1072,
+      "sha256": "86b5a14894023a3bacbde3f6bb92071dd83580d2e82fd589efdb9bdced69143f"
+    },
+    {
+      "path": "bun.lock",
+      "bytes": 27129,
+      "sha256": "a8bd706adcb7f467aca6191053cd5e3d4db312f5b40678943910caea6569cb3b"
+    }
+  ]
+}

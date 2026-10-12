@@ -1,0 +1,493 @@
+{
+  "status": "measured",
+  "browser": "156.0.8078.4",
+  "canvas": {
+    "width": 64,
+    "height": 64,
+    "dpr": 1
+  },
+  "technique": "B",
+  "theme": "day",
+  "error": null,
+  "images": [
+    {
+      "id": "three-0",
+      "route": "three",
+      "variant": 0,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 192,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    },
+    {
+      "id": "svg-0",
+      "route": "svg",
+      "variant": 0,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 192,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    },
+    {
+      "id": "three-1",
+      "route": "three",
+      "variant": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 132,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    },
+    {
+      "id": "svg-1",
+      "route": "svg",
+      "variant": 1,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 132,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    },
+    {
+      "id": "three-2",
+      "route": "three",
+      "variant": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 204,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    },
+    {
+      "id": "svg-2",
+      "route": "svg",
+      "variant": 2,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+      "triangles": 204,
+      "kitUnit": "provisional stand-in unit; not a Part B choice",
+      "camera": {
+        "matrixWorld": [
+          0.7071067811865476,
+          -2.7755575615628914e-17,
+          -0.7071067811865475,
+          0,
+          -0.35355338681762394,
+          0.8660254068672438,
+          -0.353553386817624,
+          0,
+          0.612372437875667,
+          0.49999999466042483,
+          0.612372437875667,
+          0,
+          35.355339,
+          30.117513,
+          35.355339,
+          1
+        ],
+        "projectionMatrix": [
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          0.47619047619047616,
+          0,
+          0,
+          0,
+          0,
+          -0.010005002501250625,
+          0,
+          0,
+          0,
+          -1.001000500250125,
+          1
+        ]
+      }
+    }
+  ],
+  "validation": {
+    "variants": [
+      {
+        "variant": 0,
+        "svg_runtime_ms": 10.300000011920929,
+        "three_runtime_ms": 1.600000023841858,
+        "maximum_bidirectional_vertex_error_world": 0,
+        "svg": {
+          "triangles": 192,
+          "surfaceGroups": 51,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "provisional stand-in unit; not a Part B choice"
+        },
+        "three": {
+          "triangles": 192,
+          "surfaceGroups": 51,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "source mesh convention recorded in shared scene"
+        },
+        "svg_unique_vertices": 114,
+        "three_unique_vertices": 114,
+        "semantic_boundary_edge_count": 144,
+        "semantic_boundary_parity": true
+      },
+      {
+        "variant": 1,
+        "svg_runtime_ms": 1.5,
+        "three_runtime_ms": 0.30000001192092896,
+        "maximum_bidirectional_vertex_error_world": 0,
+        "svg": {
+          "triangles": 132,
+          "surfaceGroups": 66,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "provisional stand-in unit; not a Part B choice"
+        },
+        "three": {
+          "triangles": 132,
+          "surfaceGroups": 66,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "source mesh convention recorded in shared scene"
+        },
+        "svg_unique_vertices": 88,
+        "three_unique_vertices": 88,
+        "semantic_boundary_edge_count": 132,
+        "semantic_boundary_parity": true
+      },
+      {
+        "variant": 2,
+        "svg_runtime_ms": 0.699999988079071,
+        "three_runtime_ms": 0.5999999642372131,
+        "maximum_bidirectional_vertex_error_world": 0,
+        "svg": {
+          "triangles": 204,
+          "surfaceGroups": 57,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "provisional stand-in unit; not a Part B choice"
+        },
+        "three": {
+          "triangles": 204,
+          "surfaceGroups": 57,
+          "paletteSlots": [
+            3,
+            14
+          ],
+          "perTriangleConstant": true,
+          "validIds": true,
+          "validSlots": true,
+          "kitUnit": "source mesh convention recorded in shared scene"
+        },
+        "svg_unique_vertices": 122,
+        "three_unique_vertices": 122,
+        "semantic_boundary_edge_count": 156,
+        "semantic_boundary_parity": true
+      }
+    ],
+    "method": "Independently authored SVG M/L/Z profiles extruded or revolved; original generator is imported only by the validation module. Bidirectional vertex-set distance <=1e-6 world units, triangle counts, palette slots, and semantic boundary edge sets are checked. Boundary comparison rounds coordinates to1e-5; numerical IDs and triangle diagonals may differ.",
+    "limits": [
+      "Runtime is not authoring effort.",
+      "This checks geometry and semantic boundaries; it does not choose asset art direction or establish production budgets."
+    ]
+  },
+  "variants": [
+    {
+      "variant": 0,
+      "changed_color_pixels": 0,
+      "max_channel_delta": 0,
+      "changed_edge_pixels": 0,
+      "edge_iou": 1,
+      "three_sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292",
+      "svg_sha256": "a1b55d80f069ca97c6de56631f3d44b3d3ca056efd5835caa00135e177a5c292"
+    },
+    {
+      "variant": 1,
+      "changed_color_pixels": 0,
+      "max_channel_delta": 0,
+      "changed_edge_pixels": 0,
+      "edge_iou": 1,
+      "three_sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb",
+      "svg_sha256": "8ae83ead06213eec659b4b646c6fd90cb955c1ac3723a2f0500d77a8132b6cbb"
+    },
+    {
+      "variant": 2,
+      "changed_color_pixels": 0,
+      "max_channel_delta": 0,
+      "changed_edge_pixels": 0,
+      "edge_iou": 1,
+      "three_sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed",
+      "svg_sha256": "ecf8e2d95ed3d712b12045d56ef2e3b08667c68a8d7a57695131170ffd09a1ed"
+    }
+  ],
+  "errors": [],
+  "messages": [
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "svg-route:geometry-validated {\"variants\":[{\"variant\":0,\"svg_runtime_ms\":10.300000011920929,\"three_runtime_ms\":1.600000023841858,\"maximum_bidirectional_vertex_error_world\":0,\"svg\":{\"triangles\":192,\"surfaceGroups\":51,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\"},\"three\":{\"triangles\":192,\"surfaceGroups\":51,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"source mesh convention recorded in shared scene\"},\"svg_unique_vertices\":114,\"three_unique_vertices\":114,\"semantic_boundary_edge_count\":144,\"semantic_boundary_parity\":true},{\"variant\":1,\"svg_runtime_ms\":1.5,\"three_runtime_ms\":0.30000001192092896,\"maximum_bidirectional_vertex_error_world\":0,\"svg\":{\"triangles\":132,\"surfaceGroups\":66,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\"},\"three\":{\"triangles\":132,\"surfaceGroups\":66,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"source mesh convention recorded in shared scene\"},\"svg_unique_vertices\":88,\"three_unique_vertices\":88,\"semantic_boundary_edge_count\":132,\"semantic_boundary_parity\":true},{\"variant\":2,\"svg_runtime_ms\":0.699999988079071,\"three_runtime_ms\":0.5999999642372131,\"maximum_bidirectional_vertex_error_world\":0,\"svg\":{\"triangles\":204,\"surfaceGroups\":57,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\"},\"three\":{\"triangles\":204,\"surfaceGroups\":57,\"paletteSlots\":[3,14],\"perTriangleConstant\":true,\"validIds\":true,\"validSlots\":true,\"kitUnit\":\"source mesh convention recorded in shared scene\"},\"svg_unique_vertices\":122,\"three_unique_vertices\":122,\"semantic_boundary_edge_count\":156,\"semantic_boundary_parity\":true}],\"method\":\"Independently authored SVG M/L/Z profiles extruded or revolved; original generator is imported only by the validation module. Bidirectional vertex-set distance <=1e-6 world units, triangle counts, palette slots, and semantic boundary edge sets are checked. Boundary comparison rounds coordinates to1e-5; numerical IDs and triangle diagonals may differ.\",\"limits\":[\"Runtime is not authoring effort.\",\"This checks geometry and semantic boundaries; it does not choose asset art direction or establish production budgets.\"]}"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"three-0\",\"route\":\"three\",\"variant\":0,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":192,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c00446800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"svg-0\",\"route\":\"svg\",\"variant\":0,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":192,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c00444400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c0044f800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"three-1\",\"route\":\"three\",\"variant\":1,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":132,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c00451c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"svg-1\",\"route\":\"svg\",\"variant\":1,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":132,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"three-2\",\"route\":\"three\",\"variant\":2,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":204,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    },
+    {
+      "type": "info",
+      "text": "svg-route:rendered {\"id\":\"svg-2\",\"route\":\"svg\",\"variant\":2,\"renderer\":\"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)\",\"triangles\":204,\"kitUnit\":\"provisional stand-in unit; not a Part B choice\",\"camera\":{\"matrixWorld\":[0.7071067811865476,-2.7755575615628914e-17,-0.7071067811865475,0,-0.35355338681762394,0.8660254068672438,-0.353553386817624,0,0.612372437875667,0.49999999466042483,0.612372437875667,0,35.355339,30.117513,35.355339,1],\"projectionMatrix\":[0.47619047619047616,0,0,0,0,0.47619047619047616,0,0,0,0,-0.010005002501250625,0,0,0,-1.001000500250125,1]}}"
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-# Planned; Blender binary not downloaded or executed while disk is full.
-# Download official 4.5.14 arm64 DMG and SHA256 list into the attempt runtime folder.
-# Verify the DMG hash against the official SHA256 list before mounting/copying.
-# Extract into runtime/Blender.app, not /Applications.
-work/spikes/look/blender-line-art/001/runtime/Blender.app/Contents/MacOS/Blender --background --factory-startup --python apps/web/spikes/look-a/blender.py -- --scene work/spikes/look/scene.json --out work/spikes/look/blender-line-art/001
-
-# Executed static validation (does not import bpy or validate runtime APIs):
-python3 -c 'import ast; from pathlib import Path; ast.parse(Path("apps/web/spikes/look-a/blender.py").read_text()); print("Python syntax passes; bpy runtime not yet available")'

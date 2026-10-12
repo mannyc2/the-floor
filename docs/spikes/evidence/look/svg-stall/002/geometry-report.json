@@ -1,0 +1,131 @@
+{
+  "variants": [
+    {
+      "variant": 0,
+      "svg_runtime_ms": 4.890957999999998,
+      "three_runtime_ms": 1.2246670000000037,
+      "maximum_bidirectional_vertex_error_world": 0,
+      "svg": {
+        "triangles": 192,
+        "surfaceGroups": 51,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "provisional stand-in unit; not a Part B choice"
+      },
+      "three": {
+        "triangles": 192,
+        "surfaceGroups": 51,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "source mesh convention recorded in shared scene"
+      },
+      "svg_unique_vertices": 114,
+      "three_unique_vertices": 114,
+      "semantic_boundary_edge_count": 144,
+      "semantic_boundary_parity": true
+    },
+    {
+      "variant": 1,
+      "svg_runtime_ms": 1.2509999999999977,
+      "three_runtime_ms": 0.3383749999999992,
+      "maximum_bidirectional_vertex_error_world": 0,
+      "svg": {
+        "triangles": 132,
+        "surfaceGroups": 66,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "provisional stand-in unit; not a Part B choice"
+      },
+      "three": {
+        "triangles": 132,
+        "surfaceGroups": 66,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "source mesh convention recorded in shared scene"
+      },
+      "svg_unique_vertices": 88,
+      "three_unique_vertices": 88,
+      "semantic_boundary_edge_count": 132,
+      "semantic_boundary_parity": true
+    },
+    {
+      "variant": 2,
+      "svg_runtime_ms": 1.058374999999998,
+      "three_runtime_ms": 0.3917500000000018,
+      "maximum_bidirectional_vertex_error_world": 0,
+      "svg": {
+        "triangles": 204,
+        "surfaceGroups": 57,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "provisional stand-in unit; not a Part B choice"
+      },
+      "three": {
+        "triangles": 204,
+        "surfaceGroups": 57,
+        "paletteSlots": [
+          3,
+          14
+        ],
+        "perTriangleConstant": true,
+        "validIds": true,
+        "validSlots": true,
+        "kitUnit": "source mesh convention recorded in shared scene"
+      },
+      "svg_unique_vertices": 122,
+      "three_unique_vertices": 122,
+      "semantic_boundary_edge_count": 156,
+      "semantic_boundary_parity": true
+    }
+  ],
+  "method": "Independently authored SVG M/L/Z profiles extruded or revolved; original generator is imported only by the validation module. Bidirectional vertex-set distance <=1e-6 world units, triangle counts, palette slots, and semantic boundary edge sets are checked. Boundary comparison rounds coordinates to1e-5; numerical IDs and triangle diagonals may differ.",
+  "limits": [
+    "Runtime is not authoring effort.",
+    "This checks geometry and semantic boundaries; it does not choose asset art direction or establish production budgets."
+  ],
+  "exports": [
+    {
+      "variant": 0,
+      "path": "work/spikes/look/svg-stall/002/svg-stall-0.geometry.json",
+      "all_four_attributes_identical": true,
+      "kit_unit_preserved": true
+    },
+    {
+      "variant": 1,
+      "path": "work/spikes/look/svg-stall/002/svg-stall-1.geometry.json",
+      "all_four_attributes_identical": true,
+      "kit_unit_preserved": true
+    },
+    {
+      "variant": 2,
+      "path": "work/spikes/look/svg-stall/002/svg-stall-2.geometry.json",
+      "all_four_attributes_identical": true,
+      "kit_unit_preserved": true
+    }
+  ]
+}

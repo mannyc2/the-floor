@@ -1,0 +1,1 @@
+$ tsc --noEmit -p apps/web/spikes/look-a/tsconfig.json

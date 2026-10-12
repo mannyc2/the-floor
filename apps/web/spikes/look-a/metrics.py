@@ -1,4 +1,4 @@
-"""Measure captured Part A line masks against genuine Blender and projection targets.
+"""Measure captured Part A line masks against the validated CPU edge-projection target.
 
 Requires NumPy and Pillow. Captures must exclude DOM labels and use the shared scene.
 """
@@ -143,8 +143,8 @@ def summary(rows):
             continue
         metrics = {}
         for name, values in {
-            "exact_f1": [row["against_blender"]["exact_f1"] for row in selected],
-            "tolerant_f1": [row["against_blender"]["tolerant_f1"] for row in selected],
+            "exact_f1": [row["against_target"]["exact_f1"] for row in selected],
+            "tolerant_f1": [row["against_target"]["tolerant_f1"] for row in selected],
             "cylinder_width_css_px": [row["cylinder_width"]["threshold_width_css_px"] for row in selected],
             "false_crossings_per_100_css_px": [row["cylinder_interior"]["mean_false_crossings_per_100_css_px"] for row in selected],
         }.items():
@@ -158,16 +158,19 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--captures", type=Path, required=True)
     parser.add_argument("--targets", type=Path, required=True)
-    parser.add_argument("--projection", type=Path, required=True)
+    parser.add_argument("--primitive-report", type=Path, required=True)
     parser.add_argument("--scene", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     scene = json.loads(args.scene.read_text())
-    target_report = json.loads((args.targets / "render-report.json").read_text())
-    if digest(args.scene) != target_report["input_sha256"]:
-        raise ValueError("Blender targets do not use the current shared scene")
-    rows, target_cache, crosschecks = [], {}, []
+    target_report = json.loads((args.targets / "manifest.json").read_text())
+    primitive_report = json.loads(args.primitive_report.read_text())
+    if digest(args.scene) != target_report["source_scene_sha256"]:
+        raise ValueError("CPU targets do not use the current shared scene")
+    if primitive_report["failures"]:
+        raise ValueError("Primitive silhouette validation failed")
+    rows, target_cache, target_checks = [], {}, []
     for metadata_path in sorted(args.captures.glob("*/result.json")):
         metadata = json.loads(metadata_path.read_text())
         row = {key: metadata[key] for key in ["id", "technique", "theme", "rung", "dpr", "backend"]}
@@ -178,27 +181,35 @@ def main():
         rung, dpr = metadata["rung"], metadata["dpr"]
         key = (rung, dpr)
         if key not in target_cache:
-            path = args.targets / f"line-art-{rung}-dpr-{dpr}.png"
+            path = args.targets / f"{rung}-{dpr}.png"
             target_gray = grayscale(path)
             target = target_gray < 128
-            projection_path = args.projection / f"{rung}-{dpr}.png"
-            projected = grayscale(projection_path) < 128
             roi, specification = drum_roi(scene, rung, dpr, target.shape)
-            target_cache[key] = (target, projected, roi, path, projection_path)
-            crosschecks.append({"rung": rung, "dpr": dpr, "projection_against_blender": scores(projected, target, dpr), "blender_local_stroke_width": cylinder_width(target_gray, scene, rung, dpr), "projection_cylinder_interior": cylinder_density(projected, target, roi, dpr), "cylinder_roi": specification, "blender_sha256": digest(path), "projection_sha256": digest(projection_path)})
-        target, projected, roi, target_path, projection_path = target_cache[key]
+            target_cache[key] = (target, roi, path)
+            target_checks.append({"rung": rung, "dpr": dpr, "target_local_stroke_width": cylinder_width(target_gray, scene, rung, dpr), "cylinder_roi": specification, "target_sha256": digest(path)})
+        target, roi, target_path = target_cache[key]
         gray = grayscale(capture)
         prediction = gray < 128
-        row.update(status="measured", capture=str(capture), capture_sha256=digest(capture), blender_target=str(target_path), projection_target=str(projection_path), against_blender=scores(prediction, target, dpr), against_projection=scores(prediction, projected, dpr), cylinder_width=cylinder_width(gray, scene, rung, dpr), cylinder_interior=cylinder_density(prediction, target, roi, dpr))
+        row.update(status="measured", capture=str(capture), capture_sha256=digest(capture), target=str(target_path), against_target=scores(prediction, target, dpr), cylinder_width=cylinder_width(gray, scene, rung, dpr), cylinder_interior=cylinder_density(prediction, target, roi, dpr))
         rows.append(row)
-    output = {"methodology": {"threshold":"8-bit grayscale <128 after alpha composite on white", "exact":"Pixel precision, recall and harmonic-mean F1 with no spatial tolerance", "tolerant":"Precision matches predicted pixels within a Euclidean disk of radius DPR around target pixels; recall reverses roles. Radius is exactly 1 CSS pixel. F1 is harmonic mean; matching is many-to-many, not skeleton or topology accuracy.", "cylinder_interior":"Visible front half of source paper drum, middle 50% of world-space height, projected and eroded by 2 CSS pixels. False pixels exclude any pixel within 1 CSS pixel of a Blender line. On one horizontal row per CSS pixel, count contiguous false runs and divide by the row's ROI width in CSS pixels, times100; report mean across rows.", "stroke":"Nearest thresholded contiguous run within 2 CSS pixels of the clean drum right silhouette midpoint; report threshold width and full-profile integrated darkness. Only width1 +/-0.25 is treated as a requirement from the handoff.", "blender_deviation":"Classifier-only local-Y epsilon1e-6 radians; original raster camera retained. See blender-line-art/002/findings.md.", "limits":["Single synthetic stand-in scene, not art quality or approval.","DOM labels must be hidden before capture.","One clean-cylinder profile cannot establish all-angle stroke widths.","Pixel F1 is sensitive to rasterizer phase, thickness and occlusion semantics.","Cylinder ROI may miss defects elsewhere; no quality cutoff was invented for F1 or density.","Unsupported or missing cells remain explicitly unmeasured."]}, "source_scene_sha256":digest(args.scene), "captures":str(args.captures), "targets":str(args.targets), "cells":rows, "by_technique":summary(rows), "projection_crosscheck":crosschecks}
+    output = {"methodology": {
+        "ground_truth":"three-edge-projection CPU visible-edge extraction using identical scene vertices and orthographic camera; current owner decision in docs/decisions.md",
+        "threshold":"8-bit grayscale <128 after alpha composite on white",
+        "exact":"Pixel precision, recall and harmonic-mean F1 with no spatial tolerance",
+        "tolerant":"Precision matches predicted pixels within a Euclidean disk of radius DPR around target pixels; recall reverses roles. Radius is exactly 1 CSS pixel. F1 is harmonic mean; matching is many-to-many, not skeleton or topology accuracy.",
+        "cylinder_interior":"Visible front half of source paper drum, middle 50% of world-space height, projected and eroded by 2 CSS pixels. False pixels exclude any pixel within 1 CSS pixel of a CPU target line. On one horizontal row per CSS pixel, count contiguous false runs and divide by the row ROI width in CSS pixels, times100; report mean across rows.",
+        "stroke":"Nearest thresholded contiguous run within 2 CSS pixels of the clean drum right silhouette midpoint; report threshold width and full-profile integrated darkness. Only width1 +/-0.25 is treated as a requirement from the handoff.",
+        "limits":["Single synthetic stand-in scene, not art quality or approval.","DOM labels are hidden before capture.","One clean-cylinder profile cannot establish all-angle stroke widths.","Pixel F1 is sensitive to rasterizer phase, thickness and occlusion semantics.","The primitive check validates convex outer silhouettes, not all hidden/intersection edges.","Cylinder ROI may miss defects elsewhere; no quality cutoff was invented for F1 or density.","Unsupported or missing cells remain explicitly unmeasured."]},
+        "source_scene_sha256":digest(args.scene), "captures":str(args.captures), "targets":str(args.targets),
+        "primitive_validation":{"path":str(args.primitive_report),"sha256":digest(args.primitive_report),"cases":len(primitive_report["cases"]),"failures":primitive_report["failures"]},
+        "cells":rows, "by_technique":summary(rows), "target_checks":target_checks}
     (args.out / "metrics.json").write_text(json.dumps(output, indent=2) + "\n")
     with (args.out / "metrics.csv").open("w",newline="") as stream:
-        writer=csv.writer(stream, lineterminator="\n")
+        writer=csv.writer(stream,lineterminator="\n")
         writer.writerow(["id","status","technique","theme","rung","dpr","exact_f1","tolerant_1_css_f1","local_width_css","width_within_requirement","false_crossings_per_100_css_px"])
         for row in rows:
             if row["status"]=="measured":
-                writer.writerow([row["id"],row["status"],row["technique"],row["theme"],row["rung"],row["dpr"],row["against_blender"]["exact_f1"],row["against_blender"]["tolerant_f1"],row["cylinder_width"]["threshold_width_css_px"],row["cylinder_width"]["within_1_plus_minus_0_25"],row["cylinder_interior"]["mean_false_crossings_per_100_css_px"]])
+                writer.writerow([row["id"],row["status"],row["technique"],row["theme"],row["rung"],row["dpr"],row["against_target"]["exact_f1"],row["against_target"]["tolerant_f1"],row["cylinder_width"]["threshold_width_css_px"],row["cylinder_width"]["within_1_plus_minus_0_25"],row["cylinder_interior"]["mean_false_crossings_per_100_css_px"]])
             else:
                 writer.writerow([row["id"],row["status"],row["technique"],row["theme"],row["rung"],row["dpr"]])
     print(json.dumps({"cells":len(rows),"by_technique":output["by_technique"],"output":str(args.out)},indent=2))

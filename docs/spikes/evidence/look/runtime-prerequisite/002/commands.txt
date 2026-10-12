@@ -1,0 +1,7 @@
+bun run typecheck
+bun run lint
+LOOK_BUILD_OUT=../../../../work/spikes/look/build-delivery bun run build
+bun run test:look --headed
+python3 work/spikes/look/audit-evidence.py
+
+Full matrix, CPU target, metrics and profile reproduction commands are in apps/web/spikes/look-a/README.md and each record. Reruns use new attempt ids. Original raw data and measured build-release remain immutable.

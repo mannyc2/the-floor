@@ -35,9 +35,11 @@ bun run test:look --headed
 
 The performance and impostor commands accept `LOOK_ATTEMPT`; always use a new identifier to retain earlier results. Run performance with other renderer jobs stopped. It uses 390×844, DPR 3 and four-times CPU throttling on local Apple hardware; that is not a real phone. GPU time comes only from actual timer queries. End-to-end completion includes synchronization and is reported separately from renderer CPU submission time.
 
-`metrics.py` uses NumPy and Pillow to score a capture folder against both targets. Its `--captures`, `--targets`, `--projection`, `--scene` and `--out` arguments make the input paths explicit; the scene checksum must match the Blender report. Use the configured bundled Python runtime when system Python lacks these libraries.
+`metrics.py` uses NumPy and Pillow to score a capture folder against the authoritative CPU target. Its `--captures`, `--targets`, `--primitive-report`, `--scene` and `--out` arguments make the input paths explicit; the scene checksum must match the CPU target manifest. Use the configured bundled Python runtime when system Python lacks these libraries.
 
-The Blender evidence's `commands.txt` contains the exact official binary path and Python commands. Its record explains the classifier-only epsilon needed for this Blender version's exact-angle silhouette degeneracy, and retains the uncorrected renders. The raster camera is unchanged. The separate stall script constructs geometry independently; it does not import the shared scene triangles.
+`bun apps/web/spikes/look-a/primitive-silhouettes.ts` independently checks CPU target silhouettes against convex hulls of projected box, cylinder and tray vertices. The current target and comparison use only this geometry check and three-edge-projection. Earlier Blender scripts and executed measurements remain historical evidence from the superseded handoff; they are not an MVP dependency or a source of current acceptance.
+
+The SVG route uses independently authored paths. The figures also read an SVG radial profile; changing their source representation left the entire shared geometry/camera JSON byte-identical, so the final rendering matrices remain valid.
 
 ## Scope and measurement limits
 

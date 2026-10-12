@@ -1,0 +1,20 @@
+{
+  "source_scene_sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+  "generator": "three-edge-projection",
+  "version": "0.0.10",
+  "revision": "3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567",
+  "target": "Authoritative current Part A CPU edge target; primitive silhouette validation is separate",
+  "rungs": [
+    "district",
+    "works",
+    "machine"
+  ],
+  "dprs": [
+    1,
+    2,
+    3
+  ],
+  "width_css": 480,
+  "height_css": 360,
+  "line_width_css": 1
+}

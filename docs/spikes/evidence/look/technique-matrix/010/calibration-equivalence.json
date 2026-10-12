@@ -1,0 +1,763 @@
+{
+  "final_attempt": "010",
+  "calibration_attempt": "008",
+  "files": [
+    {
+      "cell": "A-day-district-1",
+      "artifact": "run-01.png",
+      "sha256": "ef4fe7bebea762a66d3c99ac5dc63303e076b3e607354fddf2b6c0d192ad6ac9",
+      "calibration_sha256": "ef4fe7bebea762a66d3c99ac5dc63303e076b3e607354fddf2b6c0d192ad6ac9",
+      "identical": true
+    },
+    {
+      "cell": "A-day-district-1",
+      "artifact": "edges.png",
+      "sha256": "9ac7a0076c65e6baf6c8e3d9698dd9825511dd8328f3afb06339cba6ac454224",
+      "calibration_sha256": "9ac7a0076c65e6baf6c8e3d9698dd9825511dd8328f3afb06339cba6ac454224",
+      "identical": true
+    },
+    {
+      "cell": "A-day-district-2",
+      "artifact": "run-01.png",
+      "sha256": "ef219a239b9269d0a7fa4cc7b99059b8e9f1760510052f9ebdd03c2e519ac35e",
+      "calibration_sha256": "ef219a239b9269d0a7fa4cc7b99059b8e9f1760510052f9ebdd03c2e519ac35e",
+      "identical": true
+    },
+    {
+      "cell": "A-day-district-2",
+      "artifact": "edges.png",
+      "sha256": "4fd0211b3a1b275c92b52a6e29ace15a4e2dfbdc334e14bd37951e7c08391f8a",
+      "calibration_sha256": "4fd0211b3a1b275c92b52a6e29ace15a4e2dfbdc334e14bd37951e7c08391f8a",
+      "identical": true
+    },
+    {
+      "cell": "A-day-district-3",
+      "artifact": "run-01.png",
+      "sha256": "08b94ad5cfc4cf834cd4f7ec326b60380237e78dfd4f93cda3148ed0b24d6d83",
+      "calibration_sha256": "08b94ad5cfc4cf834cd4f7ec326b60380237e78dfd4f93cda3148ed0b24d6d83",
+      "identical": true
+    },
+    {
+      "cell": "A-day-district-3",
+      "artifact": "edges.png",
+      "sha256": "ba328f86665e813b2a5c0df25889d53fa31c7253554c99b3f05c3d7b6ce349a0",
+      "calibration_sha256": "ba328f86665e813b2a5c0df25889d53fa31c7253554c99b3f05c3d7b6ce349a0",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-1",
+      "artifact": "run-01.png",
+      "sha256": "48ec70cdcba9a88eda76658a4675188535c87bbfcf2af6fcbc267bbafddf89ee",
+      "calibration_sha256": "48ec70cdcba9a88eda76658a4675188535c87bbfcf2af6fcbc267bbafddf89ee",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-1",
+      "artifact": "edges.png",
+      "sha256": "63a843b225e0ba296e33389d2dda998c0180c7eae107ab61a9f53ec35a574d14",
+      "calibration_sha256": "63a843b225e0ba296e33389d2dda998c0180c7eae107ab61a9f53ec35a574d14",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-2",
+      "artifact": "run-01.png",
+      "sha256": "5abf6f05a588cd40433b6019f5151f40fad3b8a19ae9933a7535361740812005",
+      "calibration_sha256": "5abf6f05a588cd40433b6019f5151f40fad3b8a19ae9933a7535361740812005",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-2",
+      "artifact": "edges.png",
+      "sha256": "4cf734f21fcbc3f0f794fe051013b861ec47163390a24b82aefed929bfc24446",
+      "calibration_sha256": "4cf734f21fcbc3f0f794fe051013b861ec47163390a24b82aefed929bfc24446",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-3",
+      "artifact": "run-01.png",
+      "sha256": "c5419470f7ee2bf5f6c76e0644f3173a8457b7224547149458d96123dc212ac3",
+      "calibration_sha256": "c5419470f7ee2bf5f6c76e0644f3173a8457b7224547149458d96123dc212ac3",
+      "identical": true
+    },
+    {
+      "cell": "A-day-works-3",
+      "artifact": "edges.png",
+      "sha256": "9def0ed4360ec898e5e6ede0cb47bdf554ffaf580a410f670b21fd962a64500b",
+      "calibration_sha256": "9def0ed4360ec898e5e6ede0cb47bdf554ffaf580a410f670b21fd962a64500b",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "38e52b5bc68388c6cac4bf82aa3c76179c1e831efb15f832a306a048064e6a4f",
+      "calibration_sha256": "38e52b5bc68388c6cac4bf82aa3c76179c1e831efb15f832a306a048064e6a4f",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-1",
+      "artifact": "edges.png",
+      "sha256": "e8431ba30809757c9363f0c30268d4ae5e45b6cf03342218338d93ab506e133c",
+      "calibration_sha256": "e8431ba30809757c9363f0c30268d4ae5e45b6cf03342218338d93ab506e133c",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "134bb7a0f1b1d5ba072b1b560c10b9229c84db39b0b0571be7848be63558b9d7",
+      "calibration_sha256": "134bb7a0f1b1d5ba072b1b560c10b9229c84db39b0b0571be7848be63558b9d7",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-2",
+      "artifact": "edges.png",
+      "sha256": "da49222f7bc2b40a8b03a9dc2e6be0c1575ccee36ca50538c48d43ed85e9bbf6",
+      "calibration_sha256": "da49222f7bc2b40a8b03a9dc2e6be0c1575ccee36ca50538c48d43ed85e9bbf6",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "05a5da2422060779a9323d451d260880f03181c91c5f1f8bd8c573975410bb35",
+      "calibration_sha256": "05a5da2422060779a9323d451d260880f03181c91c5f1f8bd8c573975410bb35",
+      "identical": true
+    },
+    {
+      "cell": "A-day-machine-3",
+      "artifact": "edges.png",
+      "sha256": "fdd672c16d721bffc9749534b5daaad35f3127777934883f2f12522ca344e93c",
+      "calibration_sha256": "fdd672c16d721bffc9749534b5daaad35f3127777934883f2f12522ca344e93c",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-1",
+      "artifact": "run-01.png",
+      "sha256": "a27367da62e259eea5524d39ac178b4fe2604912802c5297d50c39e24a4c7c50",
+      "calibration_sha256": "a27367da62e259eea5524d39ac178b4fe2604912802c5297d50c39e24a4c7c50",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-1",
+      "artifact": "edges.png",
+      "sha256": "9ac7a0076c65e6baf6c8e3d9698dd9825511dd8328f3afb06339cba6ac454224",
+      "calibration_sha256": "9ac7a0076c65e6baf6c8e3d9698dd9825511dd8328f3afb06339cba6ac454224",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-2",
+      "artifact": "run-01.png",
+      "sha256": "4aa5f2f3603ccfe2756c3ecf501a6d71ed4f275ac3e772cf996b8672d6963550",
+      "calibration_sha256": "4aa5f2f3603ccfe2756c3ecf501a6d71ed4f275ac3e772cf996b8672d6963550",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-2",
+      "artifact": "edges.png",
+      "sha256": "4fd0211b3a1b275c92b52a6e29ace15a4e2dfbdc334e14bd37951e7c08391f8a",
+      "calibration_sha256": "4fd0211b3a1b275c92b52a6e29ace15a4e2dfbdc334e14bd37951e7c08391f8a",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-3",
+      "artifact": "run-01.png",
+      "sha256": "2a876eb43e55ae82ad08886b1f9d60156a85019fb157e54e31f32225cf5da6e8",
+      "calibration_sha256": "2a876eb43e55ae82ad08886b1f9d60156a85019fb157e54e31f32225cf5da6e8",
+      "identical": true
+    },
+    {
+      "cell": "A-night-district-3",
+      "artifact": "edges.png",
+      "sha256": "ba328f86665e813b2a5c0df25889d53fa31c7253554c99b3f05c3d7b6ce349a0",
+      "calibration_sha256": "ba328f86665e813b2a5c0df25889d53fa31c7253554c99b3f05c3d7b6ce349a0",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-1",
+      "artifact": "run-01.png",
+      "sha256": "f8906a9aa57c1188bc85f4d3ebdc5556677d75891955af7fd5dca86ee60572cb",
+      "calibration_sha256": "f8906a9aa57c1188bc85f4d3ebdc5556677d75891955af7fd5dca86ee60572cb",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-1",
+      "artifact": "edges.png",
+      "sha256": "63a843b225e0ba296e33389d2dda998c0180c7eae107ab61a9f53ec35a574d14",
+      "calibration_sha256": "63a843b225e0ba296e33389d2dda998c0180c7eae107ab61a9f53ec35a574d14",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-2",
+      "artifact": "run-01.png",
+      "sha256": "6789cfc9e576ff127651fc30d433db6c19320d2542b726a25aa25b47734d90aa",
+      "calibration_sha256": "6789cfc9e576ff127651fc30d433db6c19320d2542b726a25aa25b47734d90aa",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-2",
+      "artifact": "edges.png",
+      "sha256": "4cf734f21fcbc3f0f794fe051013b861ec47163390a24b82aefed929bfc24446",
+      "calibration_sha256": "4cf734f21fcbc3f0f794fe051013b861ec47163390a24b82aefed929bfc24446",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-3",
+      "artifact": "run-01.png",
+      "sha256": "aff68606d4bb8a565ccc2f6d1518bdb778c88f3e3551b9f70690b7440eb8f2a7",
+      "calibration_sha256": "aff68606d4bb8a565ccc2f6d1518bdb778c88f3e3551b9f70690b7440eb8f2a7",
+      "identical": true
+    },
+    {
+      "cell": "A-night-works-3",
+      "artifact": "edges.png",
+      "sha256": "9def0ed4360ec898e5e6ede0cb47bdf554ffaf580a410f670b21fd962a64500b",
+      "calibration_sha256": "9def0ed4360ec898e5e6ede0cb47bdf554ffaf580a410f670b21fd962a64500b",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "b5c5a5b9265c8a1276ff26ca2f53fd63d9fd6fb4fc6f7f322f71adec4918baba",
+      "calibration_sha256": "b5c5a5b9265c8a1276ff26ca2f53fd63d9fd6fb4fc6f7f322f71adec4918baba",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-1",
+      "artifact": "edges.png",
+      "sha256": "e8431ba30809757c9363f0c30268d4ae5e45b6cf03342218338d93ab506e133c",
+      "calibration_sha256": "e8431ba30809757c9363f0c30268d4ae5e45b6cf03342218338d93ab506e133c",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "a8610f14d8bdddc27ae25c76e50d19780479767b314b19ea1e998f5bdd5f5872",
+      "calibration_sha256": "a8610f14d8bdddc27ae25c76e50d19780479767b314b19ea1e998f5bdd5f5872",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-2",
+      "artifact": "edges.png",
+      "sha256": "da49222f7bc2b40a8b03a9dc2e6be0c1575ccee36ca50538c48d43ed85e9bbf6",
+      "calibration_sha256": "da49222f7bc2b40a8b03a9dc2e6be0c1575ccee36ca50538c48d43ed85e9bbf6",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "3331c670a1db734d4376d2a28fdc6593fcce54573c0181533ac16e7219e14a69",
+      "calibration_sha256": "3331c670a1db734d4376d2a28fdc6593fcce54573c0181533ac16e7219e14a69",
+      "identical": true
+    },
+    {
+      "cell": "A-night-machine-3",
+      "artifact": "edges.png",
+      "sha256": "fdd672c16d721bffc9749534b5daaad35f3127777934883f2f12522ca344e93c",
+      "calibration_sha256": "fdd672c16d721bffc9749534b5daaad35f3127777934883f2f12522ca344e93c",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-1",
+      "artifact": "run-01.png",
+      "sha256": "5aa1affdb19fee857893197092a865debac90af6c51d1f8b6375eb0883f386af",
+      "calibration_sha256": "5aa1affdb19fee857893197092a865debac90af6c51d1f8b6375eb0883f386af",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-1",
+      "artifact": "edges.png",
+      "sha256": "de1b98fdbf099e75f4731f500c4e012244787fc70fcb7d0cdc95ca6e1136f669",
+      "calibration_sha256": "de1b98fdbf099e75f4731f500c4e012244787fc70fcb7d0cdc95ca6e1136f669",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-2",
+      "artifact": "run-01.png",
+      "sha256": "ef6d968726d50df451c1ca78a919ae52cd0d96bcaec3d05baa5cb03ec8594136",
+      "calibration_sha256": "ef6d968726d50df451c1ca78a919ae52cd0d96bcaec3d05baa5cb03ec8594136",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-2",
+      "artifact": "edges.png",
+      "sha256": "4166c88c0e45b6ecdb19885c32eb6dfaaf739a9bf07c0f3dfe8b10e127e54ec9",
+      "calibration_sha256": "4166c88c0e45b6ecdb19885c32eb6dfaaf739a9bf07c0f3dfe8b10e127e54ec9",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-3",
+      "artifact": "run-01.png",
+      "sha256": "7404d247e3abd18fee3a7e6402def439a7f3717e5b4ef37bb0def506bf2f04cf",
+      "calibration_sha256": "7404d247e3abd18fee3a7e6402def439a7f3717e5b4ef37bb0def506bf2f04cf",
+      "identical": true
+    },
+    {
+      "cell": "B-day-district-3",
+      "artifact": "edges.png",
+      "sha256": "29fa5356ece15b321170b48523940d2c73f118745fa38ca0878c78bbb9ec18a5",
+      "calibration_sha256": "29fa5356ece15b321170b48523940d2c73f118745fa38ca0878c78bbb9ec18a5",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-1",
+      "artifact": "run-01.png",
+      "sha256": "5f3926604f0d150eccd31c818fc0200f5cf4f677ce8aa4007c1f2f78b3f35fa4",
+      "calibration_sha256": "5f3926604f0d150eccd31c818fc0200f5cf4f677ce8aa4007c1f2f78b3f35fa4",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-1",
+      "artifact": "edges.png",
+      "sha256": "3598a021ebd12fd7b2d8e83571bf33591e45fbaf6b324e8bd7e7b343a36b4700",
+      "calibration_sha256": "3598a021ebd12fd7b2d8e83571bf33591e45fbaf6b324e8bd7e7b343a36b4700",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-2",
+      "artifact": "run-01.png",
+      "sha256": "560c24454fa43062fac4f7a2cd262c7c637a4a729a291c05f51636c5bbad4b1d",
+      "calibration_sha256": "560c24454fa43062fac4f7a2cd262c7c637a4a729a291c05f51636c5bbad4b1d",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-2",
+      "artifact": "edges.png",
+      "sha256": "a53a7407e3aca5111ec9ef939494fd0e73714f40695e67ba4754fef360840259",
+      "calibration_sha256": "a53a7407e3aca5111ec9ef939494fd0e73714f40695e67ba4754fef360840259",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-3",
+      "artifact": "run-01.png",
+      "sha256": "01548ef4279bfe831185eb785a8bd891269b3f2c678cbdc76c1a63405b629e9e",
+      "calibration_sha256": "01548ef4279bfe831185eb785a8bd891269b3f2c678cbdc76c1a63405b629e9e",
+      "identical": true
+    },
+    {
+      "cell": "B-day-works-3",
+      "artifact": "edges.png",
+      "sha256": "96a7c564b798b70e5df78ee64f669c7f383e42a7323d335a658c254b2942acd5",
+      "calibration_sha256": "96a7c564b798b70e5df78ee64f669c7f383e42a7323d335a658c254b2942acd5",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "2dc894d1f4079a473fb483462878a9a0d0b42f0a3f13285deaf6c592cd204079",
+      "calibration_sha256": "2dc894d1f4079a473fb483462878a9a0d0b42f0a3f13285deaf6c592cd204079",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-1",
+      "artifact": "edges.png",
+      "sha256": "aa11d2d2b54be4e039e535f9ae320b504c18d56e4f73f27f6c2d3e62196940f2",
+      "calibration_sha256": "aa11d2d2b54be4e039e535f9ae320b504c18d56e4f73f27f6c2d3e62196940f2",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "1e8a0bc9e9ab0b40399e7e2190f46246be47e3439b6aba68cf8ea66d05e53cf4",
+      "calibration_sha256": "1e8a0bc9e9ab0b40399e7e2190f46246be47e3439b6aba68cf8ea66d05e53cf4",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-2",
+      "artifact": "edges.png",
+      "sha256": "08182eb886e03def1fd7d02cfc7c5b46d76012bf04d4cb0ba56a3f281d1ac114",
+      "calibration_sha256": "08182eb886e03def1fd7d02cfc7c5b46d76012bf04d4cb0ba56a3f281d1ac114",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "c8ef58bea722d43b9225d961bc1a1da7fbd490913eba6eaa9c5a4cae481c7cc6",
+      "calibration_sha256": "c8ef58bea722d43b9225d961bc1a1da7fbd490913eba6eaa9c5a4cae481c7cc6",
+      "identical": true
+    },
+    {
+      "cell": "B-day-machine-3",
+      "artifact": "edges.png",
+      "sha256": "add076a4c49373bdb2c15ff7d00de12cce8bb7e88e2b68a88b93c480cace2697",
+      "calibration_sha256": "add076a4c49373bdb2c15ff7d00de12cce8bb7e88e2b68a88b93c480cace2697",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-1",
+      "artifact": "run-01.png",
+      "sha256": "a138b6334ea90a98d86b5bb7a7794a1ab160c2f7edae1a9e982efa7519ca9518",
+      "calibration_sha256": "a138b6334ea90a98d86b5bb7a7794a1ab160c2f7edae1a9e982efa7519ca9518",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-1",
+      "artifact": "edges.png",
+      "sha256": "de1b98fdbf099e75f4731f500c4e012244787fc70fcb7d0cdc95ca6e1136f669",
+      "calibration_sha256": "de1b98fdbf099e75f4731f500c4e012244787fc70fcb7d0cdc95ca6e1136f669",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-2",
+      "artifact": "run-01.png",
+      "sha256": "1513105f631daf7442ac54711470c483ca3412a609dd4da49ccb66a8ec1b909b",
+      "calibration_sha256": "1513105f631daf7442ac54711470c483ca3412a609dd4da49ccb66a8ec1b909b",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-2",
+      "artifact": "edges.png",
+      "sha256": "4166c88c0e45b6ecdb19885c32eb6dfaaf739a9bf07c0f3dfe8b10e127e54ec9",
+      "calibration_sha256": "4166c88c0e45b6ecdb19885c32eb6dfaaf739a9bf07c0f3dfe8b10e127e54ec9",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-3",
+      "artifact": "run-01.png",
+      "sha256": "1e4fd9db470cd47aed7d53672ec66d7b6902431bd2d3a7eeeac09682b58d444f",
+      "calibration_sha256": "1e4fd9db470cd47aed7d53672ec66d7b6902431bd2d3a7eeeac09682b58d444f",
+      "identical": true
+    },
+    {
+      "cell": "B-night-district-3",
+      "artifact": "edges.png",
+      "sha256": "29fa5356ece15b321170b48523940d2c73f118745fa38ca0878c78bbb9ec18a5",
+      "calibration_sha256": "29fa5356ece15b321170b48523940d2c73f118745fa38ca0878c78bbb9ec18a5",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-1",
+      "artifact": "run-01.png",
+      "sha256": "ac21cf55f0def3154dd0098ed3f3b26a44159b9ab0f5a1d539fd3ebc61abcedb",
+      "calibration_sha256": "ac21cf55f0def3154dd0098ed3f3b26a44159b9ab0f5a1d539fd3ebc61abcedb",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-1",
+      "artifact": "edges.png",
+      "sha256": "3598a021ebd12fd7b2d8e83571bf33591e45fbaf6b324e8bd7e7b343a36b4700",
+      "calibration_sha256": "3598a021ebd12fd7b2d8e83571bf33591e45fbaf6b324e8bd7e7b343a36b4700",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-2",
+      "artifact": "run-01.png",
+      "sha256": "239d908338c66e62870337626d771a06245085ce540b62217762c11f3d199cf5",
+      "calibration_sha256": "239d908338c66e62870337626d771a06245085ce540b62217762c11f3d199cf5",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-2",
+      "artifact": "edges.png",
+      "sha256": "a53a7407e3aca5111ec9ef939494fd0e73714f40695e67ba4754fef360840259",
+      "calibration_sha256": "a53a7407e3aca5111ec9ef939494fd0e73714f40695e67ba4754fef360840259",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-3",
+      "artifact": "run-01.png",
+      "sha256": "c98b06b5f14c6619a2e46d8c61c9c3dcdfbc90b8b2b5a552ea152510f4764a0f",
+      "calibration_sha256": "c98b06b5f14c6619a2e46d8c61c9c3dcdfbc90b8b2b5a552ea152510f4764a0f",
+      "identical": true
+    },
+    {
+      "cell": "B-night-works-3",
+      "artifact": "edges.png",
+      "sha256": "96a7c564b798b70e5df78ee64f669c7f383e42a7323d335a658c254b2942acd5",
+      "calibration_sha256": "96a7c564b798b70e5df78ee64f669c7f383e42a7323d335a658c254b2942acd5",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "5bd42d8922e186693a4eed0eaadcb258d0f4c00ef6c4887f5e7ff499bfd4625f",
+      "calibration_sha256": "5bd42d8922e186693a4eed0eaadcb258d0f4c00ef6c4887f5e7ff499bfd4625f",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-1",
+      "artifact": "edges.png",
+      "sha256": "aa11d2d2b54be4e039e535f9ae320b504c18d56e4f73f27f6c2d3e62196940f2",
+      "calibration_sha256": "aa11d2d2b54be4e039e535f9ae320b504c18d56e4f73f27f6c2d3e62196940f2",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "1a87daff139fea58f6439dde8389b5267a46e6eb314d0bf8aef89d44d7ed88e7",
+      "calibration_sha256": "1a87daff139fea58f6439dde8389b5267a46e6eb314d0bf8aef89d44d7ed88e7",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-2",
+      "artifact": "edges.png",
+      "sha256": "08182eb886e03def1fd7d02cfc7c5b46d76012bf04d4cb0ba56a3f281d1ac114",
+      "calibration_sha256": "08182eb886e03def1fd7d02cfc7c5b46d76012bf04d4cb0ba56a3f281d1ac114",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "2298fa9ffc28f47aabc9dd71bdd7d7e184e78802a893219cfa120f7345b0b4cf",
+      "calibration_sha256": "2298fa9ffc28f47aabc9dd71bdd7d7e184e78802a893219cfa120f7345b0b4cf",
+      "identical": true
+    },
+    {
+      "cell": "B-night-machine-3",
+      "artifact": "edges.png",
+      "sha256": "add076a4c49373bdb2c15ff7d00de12cce8bb7e88e2b68a88b93c480cace2697",
+      "calibration_sha256": "add076a4c49373bdb2c15ff7d00de12cce8bb7e88e2b68a88b93c480cace2697",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-1",
+      "artifact": "run-01.png",
+      "sha256": "7dc5545ffe46ecfb830fafa15295f83de069eb2977b11ae3a7a31bb66ff986e9",
+      "calibration_sha256": "7dc5545ffe46ecfb830fafa15295f83de069eb2977b11ae3a7a31bb66ff986e9",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-1",
+      "artifact": "edges.png",
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "calibration_sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-2",
+      "artifact": "run-01.png",
+      "sha256": "a02fb0538f8f8bf0532c97f85d13d46d961b3f1613c50835ceeedc371ca00e3f",
+      "calibration_sha256": "a02fb0538f8f8bf0532c97f85d13d46d961b3f1613c50835ceeedc371ca00e3f",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-2",
+      "artifact": "edges.png",
+      "sha256": "59b08c279d9a2d88896f2f4f934b775ef2cddf4d5e0e733b887d2ab4f6603104",
+      "calibration_sha256": "59b08c279d9a2d88896f2f4f934b775ef2cddf4d5e0e733b887d2ab4f6603104",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-3",
+      "artifact": "run-01.png",
+      "sha256": "980155bdad09fa388d71d11146aa9c51853cf2eb530c6374c2872f1048f509a8",
+      "calibration_sha256": "980155bdad09fa388d71d11146aa9c51853cf2eb530c6374c2872f1048f509a8",
+      "identical": true
+    },
+    {
+      "cell": "C-day-district-3",
+      "artifact": "edges.png",
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "calibration_sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-1",
+      "artifact": "run-01.png",
+      "sha256": "2505d916ba9e0358553af00219b3c7c787d459d6995c9fc1d054f6ec4f37fe75",
+      "calibration_sha256": "2505d916ba9e0358553af00219b3c7c787d459d6995c9fc1d054f6ec4f37fe75",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-1",
+      "artifact": "edges.png",
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "calibration_sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-2",
+      "artifact": "run-01.png",
+      "sha256": "4b9baa49a9d81dca0d97e3592160e6350e882469688a394fab2c90b799d1559b",
+      "calibration_sha256": "4b9baa49a9d81dca0d97e3592160e6350e882469688a394fab2c90b799d1559b",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-2",
+      "artifact": "edges.png",
+      "sha256": "a8fae0d196ce559dc0395b40edd7fa2973b0ff650cea8860d6cdf4ae9633696f",
+      "calibration_sha256": "a8fae0d196ce559dc0395b40edd7fa2973b0ff650cea8860d6cdf4ae9633696f",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-3",
+      "artifact": "run-01.png",
+      "sha256": "81705707787de2b8837c27fdbc673469e3b4945674a52f534f6007076b05ed86",
+      "calibration_sha256": "81705707787de2b8837c27fdbc673469e3b4945674a52f534f6007076b05ed86",
+      "identical": true
+    },
+    {
+      "cell": "C-day-works-3",
+      "artifact": "edges.png",
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "calibration_sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "df75a7d836a01cc47c9701b89691eb5009debcfb85e7f6ed23359f7f8f69aaf8",
+      "calibration_sha256": "df75a7d836a01cc47c9701b89691eb5009debcfb85e7f6ed23359f7f8f69aaf8",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-1",
+      "artifact": "edges.png",
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "calibration_sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "ea44fd945ecfb89557ed928114e8a2fe0095ea2ca0dc5416ad4f11fb483d474f",
+      "calibration_sha256": "ea44fd945ecfb89557ed928114e8a2fe0095ea2ca0dc5416ad4f11fb483d474f",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-2",
+      "artifact": "edges.png",
+      "sha256": "ac0f8236a0c05028dd06252fa4bb138bcf36c3a9de91804d589265634fba65ef",
+      "calibration_sha256": "ac0f8236a0c05028dd06252fa4bb138bcf36c3a9de91804d589265634fba65ef",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "e6e0048a3f1905678bfcb25e8b76d0d553c23223cbdbd1388fac2741dd74ae74",
+      "calibration_sha256": "e6e0048a3f1905678bfcb25e8b76d0d553c23223cbdbd1388fac2741dd74ae74",
+      "identical": true
+    },
+    {
+      "cell": "C-day-machine-3",
+      "artifact": "edges.png",
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "calibration_sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-1",
+      "artifact": "run-01.png",
+      "sha256": "3025c6692f66229dfdf6e77113249c41f0692049cdb2c89155c4c6635bb43f97",
+      "calibration_sha256": "3025c6692f66229dfdf6e77113249c41f0692049cdb2c89155c4c6635bb43f97",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-1",
+      "artifact": "edges.png",
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "calibration_sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-2",
+      "artifact": "run-01.png",
+      "sha256": "3e3f4b3b430413e0422ddc10fb53c3887f8a3830bc3dd0aed4e6052fafec01cb",
+      "calibration_sha256": "3e3f4b3b430413e0422ddc10fb53c3887f8a3830bc3dd0aed4e6052fafec01cb",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-2",
+      "artifact": "edges.png",
+      "sha256": "59b08c279d9a2d88896f2f4f934b775ef2cddf4d5e0e733b887d2ab4f6603104",
+      "calibration_sha256": "59b08c279d9a2d88896f2f4f934b775ef2cddf4d5e0e733b887d2ab4f6603104",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-3",
+      "artifact": "run-01.png",
+      "sha256": "7411da6fed2d161e1b3d6db3e2a73ac1861ab0e4b349fd4cd2b41323bb0dd0b5",
+      "calibration_sha256": "7411da6fed2d161e1b3d6db3e2a73ac1861ab0e4b349fd4cd2b41323bb0dd0b5",
+      "identical": true
+    },
+    {
+      "cell": "C-night-district-3",
+      "artifact": "edges.png",
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "calibration_sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-1",
+      "artifact": "run-01.png",
+      "sha256": "986ec6a00a171bf3a39f2208c951b7df896865739324ff37b8b64ce0bab29ba9",
+      "calibration_sha256": "986ec6a00a171bf3a39f2208c951b7df896865739324ff37b8b64ce0bab29ba9",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-1",
+      "artifact": "edges.png",
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "calibration_sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-2",
+      "artifact": "run-01.png",
+      "sha256": "f1645ac3222e909a3f1adafcf9ac1777a970d06ec7bcbbbfe68002a5e41e1c1b",
+      "calibration_sha256": "f1645ac3222e909a3f1adafcf9ac1777a970d06ec7bcbbbfe68002a5e41e1c1b",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-2",
+      "artifact": "edges.png",
+      "sha256": "a8fae0d196ce559dc0395b40edd7fa2973b0ff650cea8860d6cdf4ae9633696f",
+      "calibration_sha256": "a8fae0d196ce559dc0395b40edd7fa2973b0ff650cea8860d6cdf4ae9633696f",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-3",
+      "artifact": "run-01.png",
+      "sha256": "a7c4756ff30ab80fa60d322136a5d8f4263f5c88f5384b24b08ef92236f23e82",
+      "calibration_sha256": "a7c4756ff30ab80fa60d322136a5d8f4263f5c88f5384b24b08ef92236f23e82",
+      "identical": true
+    },
+    {
+      "cell": "C-night-works-3",
+      "artifact": "edges.png",
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "calibration_sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-1",
+      "artifact": "run-01.png",
+      "sha256": "f970c9232c02e80225d0c456846af924587e973e8c1ff2e2226955db78bcb58b",
+      "calibration_sha256": "f970c9232c02e80225d0c456846af924587e973e8c1ff2e2226955db78bcb58b",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-1",
+      "artifact": "edges.png",
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "calibration_sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-2",
+      "artifact": "run-01.png",
+      "sha256": "2486c63f45cff49a2e4762c77723156e044dea06733c18d540c64f81edd46f4b",
+      "calibration_sha256": "2486c63f45cff49a2e4762c77723156e044dea06733c18d540c64f81edd46f4b",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-2",
+      "artifact": "edges.png",
+      "sha256": "ac0f8236a0c05028dd06252fa4bb138bcf36c3a9de91804d589265634fba65ef",
+      "calibration_sha256": "ac0f8236a0c05028dd06252fa4bb138bcf36c3a9de91804d589265634fba65ef",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-3",
+      "artifact": "run-01.png",
+      "sha256": "de40313dea5e88b27e9ab62d2658f1b1362eba178f0f76823ca2a142cd83e957",
+      "calibration_sha256": "de40313dea5e88b27e9ab62d2658f1b1362eba178f0f76823ca2a142cd83e957",
+      "identical": true
+    },
+    {
+      "cell": "C-night-machine-3",
+      "artifact": "edges.png",
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "calibration_sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "identical": true
+    }
+  ],
+  "all_identical": true
+}

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import tokens from './atlas-tokens.json';
+import { FIGURE_RADIAL_PROFILE, svgPathPoints } from './svg-profiles';
 
 export type Theme = 'day' | 'night';
 export type Rung = 'district' | 'works' | 'machine';
@@ -56,7 +57,7 @@ export function stall(variant: number): THREE.BufferGeometry {
   return joined(pieces);
 }
 function figure(x: number, z: number): THREE.BufferGeometry {
-  const points = [[.14, 0], [.26, .15], [.2, .52], [.11, .62]].map(([r = 0, y = 0]) => new THREE.Vector2(r, y));
+  const points = svgPathPoints(FIGURE_RADIAL_PROFILE);
   return joined([part(new THREE.LatheGeometry(points, 16), 'steel', x, .1, z), part(new THREE.SphereGeometry(.14, 16, 8), 'tone-2', x, .83, z), box(.08, .3, .1, x - .1, .15, z), box(.08, .3, .1, x + .1, .15, z)]);
 }
 export interface SceneData { scene: THREE.Scene; camera: THREE.OrthographicCamera; meshes: THREE.Mesh[]; geometries: THREE.BufferGeometry[]; labels: { text: string; at: THREE.Vector3 }[] }
@@ -93,6 +94,7 @@ export function makeScene(config: Config, material: THREE.Material): SceneData {
   for (let i = 0; i < 15; i++) tide.push(box(.16, .025, .05, -4.5, .4 + i * .17, -3.25, 'engraving'));
   add('tide-gauge', joined(tide));
   add('figure-one', figure(2.8, -2)); add('figure-two', figure(-2.4, -1.8));
+  for(const mesh of meshes)mesh.userData.kitUnit='provisional stand-in unit; not a Part B choice';
   if(config.asset==='rack')for(const mesh of meshes)if(mesh.name!=='depth-rack')scene.remove(mesh);
   const camera=cameraFor(config);
   if(config.stalls>12){

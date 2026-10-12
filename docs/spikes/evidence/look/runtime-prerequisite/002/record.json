@@ -1,0 +1,210 @@
+{
+  "check_id": "runtime-prerequisite",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T14:25:36.237243+00:00",
+  "operator": "Codex setup_requirements agent; independently authored synthetic experiment",
+  "reviewer": "Independent review by root agent requested; SVG route separately reviewed by setup_requirements",
+  "source_revision": "5ee9e816eb027a2070453243c358430f2589e0a4 plus measured spike additions; exact current source fingerprints in runtime-prerequisite/002/source-manifest.json and retained build inputs",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed renderer, line-material, timer-query and edge-projection implementations; native node material is separate from WebGL."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; browser and renderer versions are recorded per result",
+  "runtime_configuration": {
+    "part": "A only",
+    "command": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md",
+    "scene": "Synthetic authored stand-in; fixed camera and tokens",
+    "network": "localhost only while measuring"
+  },
+  "stage_and_resources": "No hosted resources, deploy, provider spend or Browser Rendering",
+  "inputs": [
+    {
+      "path": "work/spikes/look/scene.json",
+      "sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+      "bytes": 1084353
+    },
+    "Original Atlas token data; no first-build renderer or asset code imported"
+  ],
+  "procedure": [
+    "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md",
+    "Use new attempt identifiers for reruns; retain this executed evidence"
+  ],
+  "expected_result": "Measure the current Part A handoff; preserve all failures and distinguish technical results from owner approval",
+  "observed_result": "Final scoped typecheck, lint and application build passed. Final headed browser interaction rendered A, switched toB through UI controls, asserted SwiftShader and captured the actual scene. All5926pre-runtime artifact/input hashes resolved, including one historical scene source through preserved commitc03cc1a. All local servers and driver browsers closed.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/source-manifest.json",
+      "committed": true,
+      "bytes": 6121,
+      "sha256": "178510ae3bc04ba4907827aad9a5b65b7f96b874d3bc70fce49f6054caaa6cc2",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/cleanup.txt",
+      "committed": true,
+      "bytes": 379,
+      "sha256": "033ff64614c55e979dff6b5ae618c3af40828c60316b54d528e8785c966fa6d2",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/commands.txt",
+      "committed": true,
+      "bytes": 390,
+      "sha256": "2464d1afa2dcb1f03cd49fe00d259d243383cdee0d5821638df1fb887d2118c9",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/evidence-integrity.json",
+      "committed": true,
+      "bytes": 507,
+      "sha256": "359366ce9123a43cd347423b560cf576b712e65a3eea893ce23fb45610a4cf29",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/final-typecheck.log",
+      "committed": true,
+      "bytes": 55,
+      "sha256": "6deb85ea94c6244075b145bd087dfd700b4ee90187686c7516e2b6bab3d65d04",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/final-lint.log",
+      "committed": true,
+      "bytes": 116,
+      "sha256": "15a27b3683f0ad0e3c3dba39e1c9ec7190a9b333431e67b1961f43eab1d633f8",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/final-build.log",
+      "committed": true,
+      "bytes": 764,
+      "sha256": "70592e68162a9d0c62d0885d2e6425ebd779084aa4b4cd348f9eea75b9b118b9",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/final-headed.log",
+      "committed": true,
+      "bytes": 1363,
+      "sha256": "31d225235e55c454ccd2595a4f3707d05365f2578e1f1e9ad6c70a9f12201438",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "docs/spikes/evidence/look/runtime-prerequisite/002/interaction.png",
+      "committed": true,
+      "bytes": 13230,
+      "sha256": "74478b6054df9043e8a0b4fb1cdbe6c6b9ee5093abf75c75a6975bd47c0dd946",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/build-delivery/assets/index-CIzrTuev.js",
+      "committed": false,
+      "bytes": 1132230,
+      "sha256": "3f882d57bbf55ac4376af6ace38f49ace6f975330c7fb77cf37f691d4c45cded",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/build-delivery/index.html",
+      "committed": false,
+      "bytes": 1142,
+      "sha256": "224343967928f092546d51e94f87057395ef89e410e3f9e6a4aba36b57f019f8",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/interaction.png",
+      "committed": false,
+      "bytes": 13230,
+      "sha256": "74478b6054df9043e8a0b4fb1cdbe6c6b9ee5093abf75c75a6975bd47c0dd946",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/final-typecheck.log",
+      "committed": false,
+      "bytes": 55,
+      "sha256": "6deb85ea94c6244075b145bd087dfd700b4ee90187686c7516e2b6bab3d65d04",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/final-lint.log",
+      "committed": false,
+      "bytes": 116,
+      "sha256": "15a27b3683f0ad0e3c3dba39e1c9ec7190a9b333431e67b1961f43eab1d633f8",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/final-build.log",
+      "committed": false,
+      "bytes": 765,
+      "sha256": "836add7a38300df39f90e73e4df69626914d8db217e91c4693333ece56631b1a",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/final-headed.log",
+      "committed": false,
+      "bytes": 1363,
+      "sha256": "31d225235e55c454ccd2595a4f3707d05365f2578e1f1e9ad6c70a9f12201438",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    },
+    {
+      "path": "work/spikes/look/audit-evidence.py",
+      "committed": false,
+      "bytes": 1742,
+      "sha256": "b4666874662738beb624042397d4b7969dd75fcf9d282ebb9ccfd3f881dec9e4",
+      "regenerate": "Commands in runtime-prerequisite/002/commands.txt and apps/web/spikes/look-a/README.md"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local-only measurements; earlier official dependency downloads are recorded separately",
+    "budget": "No hosted spend authorized for this run",
+    "observed_cost": "No provider or hosting calls; local compute cost not measured"
+  },
+  "cleanup_result": "Browsers closed by drivers; all local experiment servers stopped in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "This is a standalone PartA experiment, not the Stage0 Effect/Workers compiler pipeline or a production acceptance flow. Bundle1.13MB emits the existing large-chunk warning because both backends are included. ReadPixels performance warnings during screenshots are preserved. Current source fingerprints accompany this record.",
+  "look": {
+    "technique": "A toB via actual UI interaction",
+    "tone_set": "Original archived Atlas token data; no tone choice",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 1,
+    "camera": "Identical exported orthographic matrices, pitch30deg/yaw45deg; provisional extents21/12/7",
+    "canvas": "480x360CSS; phone390x844CSS or isolated64px sprites as recorded",
+    "backend": "WebGL",
+    "renderer_string": "Exact asserted string is retained in results.json",
+    "device_profile": "Apple M1Pro desktop,16GiB; phone emulation is not a real phone",
+    "clock_and_seed": "Matrix clock frozen2026-10-12T12:01:00Z; geometry is static and uses no randomness",
+    "metrics": {
+      "typecheck": "pass",
+      "lint": "pass",
+      "build": "pass; large-chunk warning",
+      "headed_interaction": "1passed",
+      "artifact_integrity_checked_before_this_record": 5926,
+      "unresolved_artifact_mismatches": 0,
+      "historical_source_count": 1,
+      "servers_remaining": 0,
+      "stage0": "not_started"
+    },
+    "made_by": "Codex setup_requirements; SVG route separately authored by blender_target agent",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "pending_final_packaging_review",
+      "notes": "Root previously reviewed comparison sheet; this record reports executed checks and cleanup, not owner approval."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No owner technique choice recorded",
+      "date": "n/a"
+    }
+  }
+}

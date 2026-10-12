@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 import { ProjectionGenerator } from 'three-edge-projection';
 import { chromium } from '@playwright/test';
-import { mkdir,writeFile } from 'node:fs/promises';
+import { mkdir,writeFile,readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { defaults,makeScene,cameraFor } from './scene';
-const output='work/spikes/look/edge-projection/002';await mkdir(output,{recursive:true});
+const output=`work/spikes/look/edge-projection/${process.env.LOOK_ATTEMPT??'003'}`;await mkdir(output,{recursive:true});
 const material=new THREE.MeshBasicMaterial(),data=makeScene(defaults,material);
 const browser=await chromium.launch({headless:true});
 try{for(const rung of ['district','works','machine']) {
@@ -21,4 +22,6 @@ try{for(const rung of ['district','works','machine']) {
   await writeFile(`${output}/${rung}.svg`,svg);await writeFile(`${output}/${rung}.json`,JSON.stringify({rung,projection_ms:performance.now()-start,segments:points.count/2,camera:camera.projectionMatrix.toArray(),generator:{angleThreshold:35,includeIntersectionEdges:true}},null,2));
   for(const dpr of [1,2,3]){const page=await browser.newPage({viewport:{width:480,height:360},deviceScaleFactor:dpr});await page.setContent(`<style>body{margin:0}</style>${svg}`);await page.screenshot({path:`${output}/${rung}-${dpr}.png`});await page.close();}
   console.log(`Projected ${rung}: ${points.count/2} visible line segments`);
-}}finally{await browser.close();}
+}
+await writeFile(`${output}/manifest.json`,JSON.stringify({source_scene_sha256:createHash('sha256').update(await readFile('work/spikes/look/scene.json')).digest('hex'),generator:'three-edge-projection',version:'0.0.10',revision:'3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567',target:'Authoritative current Part A CPU edge target; primitive silhouette validation is separate',rungs:['district','works','machine'],dprs:[1,2,3],width_css:480,height_css:360,line_width_css:1},null,2));
+}finally{await browser.close();}

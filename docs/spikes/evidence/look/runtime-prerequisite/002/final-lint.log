@@ -1,0 +1,1 @@
+$ oxlint --deny-warnings --config apps/web/spikes/look-a/oxlint.json apps/web/spikes/look-a --ignore-pattern '*.py'
