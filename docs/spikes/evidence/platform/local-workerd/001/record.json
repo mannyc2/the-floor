@@ -1,0 +1,162 @@
+{
+  "check_id": "local-workerd",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T13:33:29.011927+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: artifact hashes verified; evidence acceptance failed because the exact pre-edit source was not retained. Superseded by attempt 002.",
+  "source_revision": "4d452cd567c843a0cff303f141a299f4923e22e1 plus the uncommitted source SHA-256 manifest retained with this attempt.",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268"
+  },
+  "api_evidence": [
+    "@effect/sql-sqlite-do4.0.3 src/SqliteClient.ts: storage-backed transaction implementation and unsupported concurrent sibling transaction contract; src/SqliteMigrator.ts: versioned migrations.",
+    "@effect/sql-d1 4.0.3 src/D1Client.ts: batch forwards to binding; interactive transaction acquirer dies explicitly.",
+    "@effect/platform-browser4.0.3 src/BrowserCrypto.ts and effect4.0.3 src/Crypto.ts: Web Crypto digest and randomUUIDv4() (a function in this version).",
+    "Consumer operations verified in read-only first-build server/agent-runner.ts and signing/scoped-accounts/accounts.ts: UUID IDs and SHA-256 policy hashes."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "no_nodejs_compat",
+      "no_nodejs_compat_v2"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1"
+    ],
+    "state": "work/spikes/platform/local-state (mutable scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "SHA-256 UTF-8 abc vector; 32 sampled UUIDv4 values per crypto request.",
+    "Journal migration v1 writes persisted=7; conditional reservation changes7 to8.",
+    "D1 initial persisted row=13; duplicate-key batch deliberately fails.",
+    "Native alarm delay750ms; request-free observation interval at least2000ms."
+  ],
+  "procedure": [
+    "bun run format:check && bun run typecheck && bun run lint; build Worker with Wrangler --dry-run.",
+    "Start bun run dev:bare (original run used equivalent worker.ts before it was split into bare-worker.ts). Use a fresh --persist-to directory for each new attempt.",
+    "Copy this attempt run.py into a new ignored work/spikes/platform/local-workerd/<new-attempt>/ directory; python3 <new-path>/run.py before-restart.",
+    "Stop the complete Wrangler/workerd process with SIGINT; restart the same configuration against the same --persist-to directory.",
+    "python3 <new-path>/run.py after-restart; stop Wrangler/workerd.",
+    "Compare before/after response rows, migration count and alarm count; sum all20 reservation results."
+  ],
+  "expected_result": {
+    "crypto": "Known SHA-256 digest,32 valid distinct UUIDv4 samples, no Bun or process global.",
+    "journal": "Outer rollback leaves no row; caught child rollback preserves parent; one of20 reservations wins; migration count1 and resulting rows survive restart.",
+    "d1": "Failed batch leaves no partial write; interactive transactions unsupported; persisted row survives restart.",
+    "alarm": "Counter increments once without a polling request and remains1 after restart."
+  },
+  "observed_result": {
+    "outcome": "Historical responses passed the then-declared assertions. Evidence review rejected the source provenance and overly broad outer-rollback/D1 failure assertions; attempt 002 strengthens both.",
+    "reservations": {
+      "requests": 20,
+      "winners": 1
+    },
+    "journal_after_restart": {
+      "parent": 11,
+      "persisted": 8,
+      "migrations": 1
+    },
+    "d1_after_restart": {
+      "persisted": 13
+    },
+    "d1_interactive_transactions": "unsupported, explicit error: transactions are not supported in D1",
+    "alarm": {
+      "request_free_ms": 2005.07,
+      "wake_count_before_and_after_restart": 1
+    },
+    "crypto": {
+      "abc_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "bun_global": false,
+      "process_global": false
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/001/before-restart.json",
+      "committed": true,
+      "bytes": 7338,
+      "sha256": "f25f2ebe8731631d3e1d36ed836a38a1587b33c3e9cb24a871c1155fa8bad225",
+      "regenerate": "Use the exact procedure in record.json with a new attempt directory and fresh local persistence. Never overwrite this attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/001/after-restart.json",
+      "committed": true,
+      "bytes": 1558,
+      "sha256": "6b12ce059c046667533af8acae371322f30f6e48877a02140395d04224d39a80",
+      "regenerate": "Use the exact procedure in record.json with a new attempt directory and fresh local persistence. Never overwrite this attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/001/source-manifest.json",
+      "committed": true,
+      "bytes": 1248,
+      "sha256": "e2ea882362dc3a0e69b99aba92c476c13bf073dbfeafba430378ab2d50a03f73",
+      "regenerate": "Use the exact procedure in record.json with a new attempt directory and fresh local persistence. Never overwrite this attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/001/run.py",
+      "committed": true,
+      "bytes": 2093,
+      "sha256": "07a3c33b4daa0605eb41e5b5f1a36d4ee379d0bc5af8b43e4c34c6df0d27c387",
+      "regenerate": "Use the exact procedure in record.json with a new attempt directory and fresh local persistence. Never overwrite this attempt."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Local Wrangler/workerd process stopped after the check. Local SQLite state retained in ignored scratch for subsequent checks; no hosted resources exist.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Local workerd emulation only. Native alarm evidence is not a Yielded agent loop. Restart is a controlled process stop/start, not a Cloudflare eviction or power-loss test. One20-request CAS race does not prove the complete journal protocol; concurrent sibling transactions remain unsupported by the driver. Hosted checks remain pending under the local-only instruction. EVIDENCE REVIEW: several uncommitted source versions named by the original digest manifest are no longer retained. These historical results do not establish the committed implementation. Attempt 002 reruns against an exact source commit. Original response and manifest bytes are preserved. The native counter was observed after a request-free gap; this attempt did not record its firing timestamp. Agent-alarm/002 supplies direct timestamp evidence separately.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

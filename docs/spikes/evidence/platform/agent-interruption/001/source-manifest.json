@@ -1,0 +1,65 @@
+{
+  "git_revision": "181bd364ecd64b3e73e64a508d035eac958d668a",
+  "files": {
+    "package.json": {
+      "bytes": 1932,
+      "sha256": "6adc730a31e1716c34b51dce627dda7381aa18f5730e6f2df9562df8132a6a09"
+    },
+    "bun.lock": {
+      "bytes": 125981,
+      "sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268"
+    },
+    "tsconfig.json": {
+      "bytes": 5624,
+      "sha256": "087009608f8fce460d4f4347e00413fb279e60683732961157ff2e92282ce96e"
+    },
+    ".oxlintrc.json": {
+      "bytes": 3105,
+      "sha256": "7dac45b1206a0618ac086cd032e2378ba87595a2dbe70b4ba838dd9b60137e8f"
+    },
+    "apps/floor/spikes/platform/errors.ts": {
+      "bytes": 440,
+      "sha256": "a3ebbe23cda905fd76c55ffcf47b21d75dd145f7daaa0daf6e40d2b26ebe1520"
+    },
+    "apps/floor/spikes/platform/wrangler.jsonc": {
+      "bytes": 941,
+      "sha256": "0bb5c6dda8e33db666d76c122754299b4865a608a4bec4bda05a603561ce4f8d"
+    },
+    "apps/floor/spikes/platform/agent.ts": {
+      "bytes": 9430,
+      "sha256": "6e81f1dbf9178458d97b22bd1977cf476ed9245f6399f80c7c0efbb54dcd5c1c"
+    },
+    "apps/floor/spikes/platform/storage.ts": {
+      "bytes": 10327,
+      "sha256": "5038d91fc4d7770d2e5de3bc9e364f88af01ba4e6dcf024ef968d8bc34ad28af"
+    },
+    "apps/floor/spikes/platform/launch.ts": {
+      "bytes": 15081,
+      "sha256": "a0f13d34204ea259892d4579019d88015dc763a1fc783b25291f0de5e9aa88a9"
+    },
+    "apps/floor/spikes/platform/crypto.ts": {
+      "bytes": 2340,
+      "sha256": "bd02688dd96321dc76dff67f2ae2bd9e3681ffcda3d71ceaee3bb35226b3e4cc"
+    },
+    "apps/floor/spikes/platform/bare-worker.ts": {
+      "bytes": 5565,
+      "sha256": "71b4029792efd509cdc52db7c96c4aa684c6dba674899c965d5041724a7a94ea"
+    },
+    "apps/floor/spikes/platform/wrangler.bare.jsonc": {
+      "bytes": 822,
+      "sha256": "feae1279f1b322014827cd3dc3eb1cab0955f8973c9b13e7ad318461f86ac44a"
+    },
+    "apps/floor/spikes/platform/README.md": {
+      "bytes": 4104,
+      "sha256": "6684e2652ce22d1af93e3c6e0425513c9cdf63561f3f524eb6c511d751d3eaa0"
+    },
+    "apps/floor/spikes/platform/tsconfig.json": {
+      "bytes": 457,
+      "sha256": "a11e45396e83bcff0185628ee446272c7981d92d15baa1db599070cc99986d46"
+    },
+    "apps/floor/spikes/platform/worker.ts": {
+      "bytes": 1701,
+      "sha256": "781c3c2fd0dbaadcb448fd4153254b66f2e829cef813f002318ad80a5b3abe78"
+    }
+  }
+}

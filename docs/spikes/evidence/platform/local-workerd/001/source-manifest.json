@@ -1,0 +1,16 @@
+{
+  "base_revision": "4d452cd567c843a0cff303f141a299f4923e22e1",
+  "uncommitted_source_sha256": {
+    ".oxlintrc.json": "7dac45b1206a0618ac086cd032e2378ba87595a2dbe70b4ba838dd9b60137e8f",
+    "apps/floor/spikes/platform/crypto.ts": "c74ae0b63f0851730430489d8d752a8a31b349875f1d1415fbb569b889b61e1c",
+    "apps/floor/spikes/platform/errors.ts": "a3ebbe23cda905fd76c55ffcf47b21d75dd145f7daaa0daf6e40d2b26ebe1520",
+    "apps/floor/spikes/platform/launch.ts": "dccf2445c35198b3e5ed2565e30b261a083c2bceebf6b674436fdc7007c096ad",
+    "apps/floor/spikes/platform/storage.ts": "4642afa88b70cddd937ea4712b5453e674bb516d1f5efda07c8caf3d28528463",
+    "apps/floor/spikes/platform/tsconfig.json": "a11e45396e83bcff0185628ee446272c7981d92d15baa1db599070cc99986d46",
+    "apps/floor/spikes/platform/worker.ts": "42803ff79407d6c7d90eb04d0f41736c13cc142f02fc75928b8721955a4ebb75",
+    "apps/floor/spikes/platform/wrangler.jsonc": "28be4a529aed000c16b33975b84a73d29490cb48fdbe596f7e632c8775e54e69",
+    "bun.lock": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "package.json": "8feccbd9449f68589d9c865b62204dc299376af2b9a409d65713acf1202964e7",
+    "tsconfig.json": "087009608f8fce460d4f4347e00413fb279e60683732961157ff2e92282ce96e"
+  }
+}

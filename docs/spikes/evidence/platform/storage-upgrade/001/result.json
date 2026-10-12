@@ -1,0 +1,81 @@
+{
+  "executed_at_utc": "2026-10-12T13:39:09.606492+00:00",
+  "execution_target": "local_workerd",
+  "responses": [
+    {
+      "path": "/crypto",
+      "status": 200,
+      "elapsed_ms": 59.247,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "invalidSizeError": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer\n    at badArgument (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-RA1KdO/worker.js:60382:55)\n    at validateSize (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-RA1KdO/worker.js:61164:134)\n    at Object.randomBytes (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-RA1KdO/worker.js:61110:64)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-RA1KdO/worker.js:62664:39",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": true
+        }
+      }
+    },
+    {
+      "path": "/d1/migrate",
+      "status": 200,
+      "elapsed_ms": 42.267,
+      "body": {
+        "ok": true,
+        "result": {
+          "fromVersion": 0,
+          "toVersion": 2,
+          "repeatedWithoutChanges": false,
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13,
+              "marker": "v2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/migrate",
+      "status": 200,
+      "elapsed_ms": 7.518,
+      "body": {
+        "ok": true,
+        "result": {
+          "fromVersion": 2,
+          "toVersion": 2,
+          "repeatedWithoutChanges": true,
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13,
+              "marker": "v2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/read",
+      "status": 200,
+      "elapsed_ms": 10.697,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

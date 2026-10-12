@@ -1,0 +1,142 @@
+{
+  "check_id": "storage-upgrade",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T13:39:09.606492+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: artifact hashes verified; evidence acceptance failed because the exact pre-edit source was not retained. Superseded by attempt 002.",
+  "source_revision": "4d452cd567c843a0cff303f141a299f4923e22e1 plus the uncommitted source SHA-256 manifest retained with this attempt.",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268"
+  },
+  "api_evidence": [
+    "Pinned D1Client.batch from @effect/sql-d1 4.0.3 supplies atomic DDL+version-record batches. This package has no D1Migrator export.",
+    "Effect4.0.3 Crypto validates negative sizes before random-byte allocation; BrowserCrypto supplies Web Crypto digests."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1"
+    ],
+    "state": "work/spikes/platform/local-state (mutable scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "Existing D1 persisted=13 row from local-workerd/001.",
+    "Version1 schema adopted into a version table, then ALTER TABLE adds marker with defaultv2 and stores version2 in one D1 batch.",
+    "SHA-256 empty input and abc; randomBytes(-1) negative control."
+  ],
+  "procedure": [
+    "After format/typecheck/lint/build pass, start local workerd using nodejs_compat.",
+    "GET /crypto, GET /d1/migrate twice, then GET /d1/read.",
+    "Retain response bodies and stop workerd."
+  ],
+  "expected_result": "Schema upgrade preserves persisted=13 and adds markerv2. Second call observes version2 and performs no migration. SHA-256 known vectors match and a negative random-byte size returns a typed failure.",
+  "observed_result": {
+    "first_migration": {
+      "fromVersion": 0,
+      "toVersion": 2,
+      "repeatedWithoutChanges": false,
+      "rows": [
+        {
+          "id": "persisted",
+          "value": 13,
+          "marker": "v2"
+        }
+      ]
+    },
+    "repeat": {
+      "fromVersion": 2,
+      "toVersion": 2,
+      "repeatedWithoutChanges": true,
+      "rows": [
+        {
+          "id": "persisted",
+          "value": 13,
+          "marker": "v2"
+        }
+      ]
+    },
+    "crypto": {
+      "abc_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "empty_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "invalid_size_failure": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/storage-upgrade/001/result.json",
+      "committed": true,
+      "bytes": 2631,
+      "sha256": "3af7ce1794bd7b030e19be95f92699fdfcf07c26a14f8bbf8fbc662081b9802f",
+      "regenerate": "Use a new attempt, initialize a fresh local D1 database with /d1/initialize, then request /crypto, /d1/migrate twice and /d1/read. Keep the updated timestamps and code/lockfile digests."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/storage-upgrade/001/source-manifest.json",
+      "committed": true,
+      "bytes": 866,
+      "sha256": "aeb2e15f9126a547980e3c441a901c7ab5ee10e7bc4d8f2bb33be168a29b3e40",
+      "regenerate": "Use a new attempt, initialize a fresh local D1 database with /d1/initialize, then request /crypto, /d1/migrate twice and /d1/read. Keep the updated timestamps and code/lockfile digests."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Local Wrangler/workerd process stopped after the check. Local SQLite state retained in ignored scratch for subsequent checks; no hosted resources exist.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "The migration runs with one runner and does not establish a production concurrency coordinator. The crypto negative control proves validation failure, not a forced native Web Crypto engine failure. Hosted behavior and full journal lifecycle remain pending. EVIDENCE REVIEW: several uncommitted source versions named by the original digest manifest are no longer retained. These historical results do not establish the committed implementation. Attempt 002 reruns against an exact source commit. Original response and manifest bytes are preserved.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

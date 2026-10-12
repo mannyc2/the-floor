@@ -1,0 +1,180 @@
+{
+  "check_id": "launch-construction",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T13:36:51.766307+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: artifact hashes verified; evidence acceptance failed because the exact pre-edit source was not retained. Superseded by attempt 002.",
+  "source_revision": "4d452cd567c843a0cff303f141a299f4923e22e1 plus the uncommitted source SHA-256 manifest retained with this attempt.",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "@meteora-ag/dynamic-bonding-curve-sdk": "1.5.13",
+    "@whetstone-research/doppler-sdk": "1.0.43",
+    "@solana/web3.js": "1.98.4",
+    "viem": "2.44.2",
+    "@types/bn.js": "5.2.0"
+  },
+  "api_evidence": [
+    "Meteora1.5.13 dist/index.js: createConfigAndPool29946, buildCreatePoolTx28859, getTokenType681. Combined construction performs one quote-mint account read per construction.",
+    "Doppler1.0.43 /evm distribution dist/evm/index.js: synchronous encoder9706 and explicit salt9967.",
+    "Meteora declares TypeScript^5 peer; retained TypeScript7.0.2+effect-tsgo0.51.1 passes strict typecheck. Missing @types/bn.js was resolved with exact5.2.0 rather than suppressing unsafe assignment."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1"
+    ],
+    "state": "work/spikes/platform/local-state (mutable scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "Exact synthetic inputs in apps/floor/spikes/platform/launch.ts: Solana public identities only, zero-signature transaction, fixed blockhash, owner-only quote mint fixture at slot0.",
+    "Base chain8453 Airlock encoding only; fixed synthetic owner and salt; no wallet client."
+  ],
+  "procedure": [
+    "bun run format:check && bun run typecheck && bun run lint && bun run build",
+    "bun run dev --local with nodejs_compat and no remote bindings",
+    "GET http://127.0.0.1:8791/crypto then /launch. Each SDK constructs twice in one invocation; negative controls attempt a forbidden RPC against the rejecting transport.",
+    "Stop Wrangler/workerd and retain the JSON responses and source manifest."
+  ],
+  "expected_result": "Both SDKs build nonempty, repeatable unsigned outputs in workerd. Meteora uses exactly one synthetic quote-mint read per construction; Doppler performs no construction transport request. Every forbidden negative-control request is rejected and no signature is attached.",
+  "observed_result": {
+    "scope": "unsigned construction with synthetic inputs; no network, simulation, signing or broadcast",
+    "meteora": {
+      "sdkVersion": "1.5.13",
+      "chain": "Solana; no observed network checkpoint",
+      "venue": "Meteora Dynamic Bonding Curve",
+      "construction": "createConfigAndPool",
+      "quoteMintFixture": {
+        "kind": "synthetic",
+        "address": "So11111111111111111111111111111111111111112",
+        "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "slot": 0
+      },
+      "syntheticBlockhash": "11111111111111111111111111111111",
+      "result": {
+        "byteLength": 1025,
+        "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+        "repeatSha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+        "instructionCount": 2,
+        "destinations": [
+          "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"
+        ],
+        "requiredSigners": [
+          "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+          "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+          "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8"
+        ],
+        "attachedSignatures": 0,
+        "constructionTransportRequests": 2,
+        "syntheticReads": 2,
+        "rejectedConstructionRequests": 0,
+        "negativeControlRejected": true,
+        "negativeControlRequests": 1
+      }
+    },
+    "doppler": {
+      "sdkVersion": "1.0.43",
+      "chainId": 8453,
+      "venue": "Doppler Airlock multicurve",
+      "construction": "encodeCreateMulticurveParams plus Airlock create calldata",
+      "syntheticOwner": "0x1111111111111111111111111111111111111111",
+      "syntheticSalt": "0x1111111111111111111111111111111111111111111111111111111111111111",
+      "result": {
+        "byteLength": 2020,
+        "sha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+        "repeatSha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+        "instructionCount": 1,
+        "destinations": [
+          "0x660eAaEdEBc968f8f3694354FA8EC0b4c5Ba8D12"
+        ],
+        "requiredSigners": [
+          "0x1111111111111111111111111111111111111111"
+        ],
+        "attachedSignatures": 0,
+        "constructionTransportRequests": 0,
+        "syntheticReads": 0,
+        "rejectedConstructionRequests": 0,
+        "negativeControlRejected": true,
+        "negativeControlRequests": 1
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/launch-construction/001/result.json",
+      "committed": true,
+      "bytes": 3610,
+      "sha256": "0f1359ba268746d531b2ef2ea32e6ce081b075c849bd56d8a08a363ffe641157",
+      "regenerate": "Start bun run dev using nodejs_compat, request /launch, save the result under a new attempt and record the current code/lockfile digests."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/launch-construction/001/source-manifest.json",
+      "committed": true,
+      "bytes": 866,
+      "sha256": "aee81cf292ad88bf1f518ca38d6ba3fe8b270b6a02d1e0e70a53f568828ff88c",
+      "regenerate": "Start bun run dev using nodejs_compat, request /launch, save the result under a new attempt and record the current code/lockfile digests."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Local Wrangler/workerd process stopped after the check. Local SQLite state retained in ignored scratch for subsequent checks; no hosted resources exist.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "This proves local runtime construction only. Synthetic quote data is not chain evidence; no checkpoint, simulation, signature, broadcast, launch economics, migration, vesting or allocation-lock behavior is established. Privy sandbox co-signing remains blocked by access and the local-only scope. EVIDENCE REVIEW: several uncommitted source versions named by the original digest manifest are no longer retained. These historical results do not establish the committed implementation. Attempt 002 reruns against an exact source commit. Original response and manifest bytes are preserved. The historical EVM requiredSigners field is a configured sender, not a proven signer requirement. Attempt 002 corrects the field shape.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

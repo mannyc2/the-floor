@@ -1,0 +1,172 @@
+{
+  "check_id": "storage-upgrade",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T13:57:59.425065+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: all75 source byte/hash comparisons matched frozen commit181bd364; independently checked53 responses, asserted criteria and timing; technical review passed. No hosted or stage approval.",
+  "source_revision": "181bd364ecd64b3e73e64a508d035eac958d668a",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "compiler_reported_version": "7.0.2+effect-tsgo.0.51.1",
+    "patch": "prepare: effect-tsgo patch --typescript --oxlint; frozen installation succeeded; exact lockfile retained in source commit."
+  },
+  "api_evidence": [
+    "Pinned D1Client.batch from @effect/sql-d1 4.0.3 supplies atomic DDL+version-record batches. This package has no D1Migrator export.",
+    "Effect4.0.3 Crypto validates negative sizes before random-byte allocation; BrowserCrypto supplies Web Crypto digests."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1",
+      "AGENT: SQLite Durable Object"
+    ],
+    "state": "work/spikes/platform/final-002-state (mutable local scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "Existing D1 persisted=13 row from local-workerd/002.",
+    "Version1 schema adopted into a version table, then ALTER TABLE adds marker with defaultv2 and stores version2 in one D1 batch.",
+    "SHA-256 empty input and abc; randomBytes(-1) negative control."
+  ],
+  "procedure": [
+    "Check out source commit 181bd364ecd64b3e73e64a508d035eac958d668a in an isolated worktree; bun install --frozen-lockfile.",
+    "Run bun run format:check, bun run typecheck, bun run lint, bun run build and bun run build:bare. Both builds are local --dry-run bundles.",
+    "Copy local-workerd/002/run.py to ignored work/spikes/platform/<new-driver>.py. Choose fresh attempt/output/state names before a new run.",
+    "Run python3 work/spikes/platform/<new-driver>.py. It starts only --local Wrangler bindings, drives all five bounded checks, stops/restarts complete process groups and asserts the observed results.",
+    "The retained driver was changed after execution only to normalize the first agent-interruption output directory from 002 to 001. Runtime operations and assertions are unchanged."
+  ],
+  "expected_result": "Schema upgrade preserves persisted=13 and adds markerv2. Second call observes version2 and performs no migration. SHA-256 known vectors match and a negative random-byte size returns a typed failure.",
+  "observed_result": {
+    "first_migration": {
+      "fromVersion": 0,
+      "toVersion": 2,
+      "repeatedWithoutChanges": false,
+      "rows": [
+        {
+          "id": "persisted",
+          "value": 13,
+          "marker": "v2"
+        }
+      ]
+    },
+    "repeat": {
+      "fromVersion": 2,
+      "toVersion": 2,
+      "repeatedWithoutChanges": true,
+      "rows": [
+        {
+          "id": "persisted",
+          "value": 13,
+          "marker": "v2"
+        }
+      ]
+    },
+    "after_process_restart": {
+      "fromVersion": 2,
+      "toVersion": 2,
+      "repeatedWithoutChanges": true,
+      "rows": [
+        {
+          "id": "persisted",
+          "value": 13,
+          "marker": "v2"
+        }
+      ]
+    },
+    "crypto": {
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "invalidSizeError": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer\n    at badArgument (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-P14fUG/worker.js:65990:55)\n    at validateSize (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-P14fUG/worker.js:69080:135)\n    at Object.randomBytes (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-P14fUG/worker.js:69026:64)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-P14fUG/worker.js:115835:39",
+      "uuidCount": 32,
+      "uuidVersion": 4,
+      "uuidDistinct": true,
+      "platformLayer": "@effect/platform-browser/BrowserCrypto",
+      "bunGlobalPresent": false,
+      "processGlobalPresent": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/storage-upgrade/002/after-restart.json",
+      "committed": true,
+      "bytes": 563,
+      "sha256": "36bab9dcdfece0d6c9b5f0b553fc998428482f0b380a15da8b3a5e93872c68dd",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/storage-upgrade/002/result.json",
+      "committed": true,
+      "bytes": 2882,
+      "sha256": "7879a12d0050342c5e185457ca8ceadc4ed4bf21afdd40a338e96fe86b857b86",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/storage-upgrade/002/source-manifest.json",
+      "committed": true,
+      "bytes": 2364,
+      "sha256": "675b316a594e33b92e92256b66e81e687a4b8d918c0fff8e05020d2c99e7791f",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Each complete Wrangler/workerd process group was stopped after its check. Port 8791 was verified closed. Local SQLite scratch remains for inspection. No hosted resources were created, so no hosted teardown is pending.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "The migration runs with one runner and does not establish a production concurrency coordinator. The crypto negative control proves validation failure, not a forced native Web Crypto engine failure. Hosted behavior and full journal lifecycle remain pending.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

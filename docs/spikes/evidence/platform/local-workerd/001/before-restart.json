@@ -1,0 +1,391 @@
+{
+  "phase": "before-restart",
+  "executed_at_utc": "2026-10-12T13:33:29.011927+00:00",
+  "execution_target": "local_workerd",
+  "responses": [
+    {
+      "path": "/crypto",
+      "status": 200,
+      "elapsed_ms": 91.102,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": false
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "status": 200,
+      "elapsed_ms": 34.447,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 7
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/journal/rollback",
+      "status": 200,
+      "elapsed_ms": 8.123,
+      "body": {
+        "ok": true,
+        "result": {
+          "failureObserved": true,
+          "rolledBackRows": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/nested",
+      "status": 200,
+      "elapsed_ms": 4.981,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/initialize",
+      "status": 200,
+      "elapsed_ms": 18.542,
+      "body": {
+        "ok": true,
+        "result": {
+          "initialized": true
+        }
+      }
+    },
+    {
+      "path": "/d1/read",
+      "status": 200,
+      "elapsed_ms": 4.269,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/batch",
+      "status": 200,
+      "elapsed_ms": 10.991,
+      "body": {
+        "ok": true,
+        "result": {
+          "batchFailureObserved": true,
+          "rolledBackRows": 0,
+          "interactiveTransactionSupported": false,
+          "interactiveTransactionError": "Error: transactions are not supported in D1"
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "status": 200,
+      "elapsed_ms": 4.657,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            },
+            {
+              "id": "persisted",
+              "value": 8
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "status": 200,
+      "elapsed_ms": 4.751,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": false,
+          "wakeCount": 0,
+          "alarmPending": false
+        }
+      }
+    },
+    {
+      "path": "/alarm/schedule",
+      "status": 200,
+      "elapsed_ms": 6.928,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "status": 200,
+      "elapsed_ms": 2.888,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true,
+          "wakeCount": 1,
+          "alarmPending": false
+        }
+      }
+    }
+  ],
+  "concurrent_reservations": [
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 7.05,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 1
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 10.05,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 19.372,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 19.168,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 15.293,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 27.409,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 23.155,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 23.605,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 22.764,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 22.121,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 31.821,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 32.312,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 31.228,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 21.311,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.803,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.935,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.938,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.709,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.97,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "status": 200,
+      "elapsed_ms": 30.932,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    }
+  ],
+  "request_free_interval_ms": 2005.07
+}

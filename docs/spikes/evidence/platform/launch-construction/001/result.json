@@ -1,0 +1,94 @@
+{
+  "executed_at_utc": "2026-10-12T13:36:51.766307+00:00",
+  "execution_target": "local_workerd",
+  "responses": [
+    {
+      "path": "/crypto",
+      "status": 200,
+      "elapsed_ms": 88.22,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": true
+        }
+      }
+    },
+    {
+      "path": "/launch",
+      "status": 200,
+      "elapsed_ms": 187.255,
+      "body": {
+        "ok": true,
+        "result": {
+          "scope": "unsigned construction with synthetic inputs; no network, simulation, signing or broadcast",
+          "meteora": {
+            "sdkVersion": "1.5.13",
+            "chain": "Solana; no observed network checkpoint",
+            "venue": "Meteora Dynamic Bonding Curve",
+            "construction": "createConfigAndPool",
+            "quoteMintFixture": {
+              "kind": "synthetic",
+              "address": "So11111111111111111111111111111111111111112",
+              "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "slot": 0
+            },
+            "syntheticBlockhash": "11111111111111111111111111111111",
+            "result": {
+              "byteLength": 1025,
+              "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+              "repeatSha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+              "instructionCount": 2,
+              "destinations": [
+                "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+                "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"
+              ],
+              "requiredSigners": [
+                "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+                "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8"
+              ],
+              "attachedSignatures": 0,
+              "constructionTransportRequests": 2,
+              "syntheticReads": 2,
+              "rejectedConstructionRequests": 0,
+              "negativeControlRejected": true,
+              "negativeControlRequests": 1
+            }
+          },
+          "doppler": {
+            "sdkVersion": "1.0.43",
+            "chainId": 8453,
+            "venue": "Doppler Airlock multicurve",
+            "construction": "encodeCreateMulticurveParams plus Airlock create calldata",
+            "syntheticOwner": "0x1111111111111111111111111111111111111111",
+            "syntheticSalt": "0x1111111111111111111111111111111111111111111111111111111111111111",
+            "result": {
+              "byteLength": 2020,
+              "sha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+              "repeatSha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+              "instructionCount": 1,
+              "destinations": [
+                "0x660eAaEdEBc968f8f3694354FA8EC0b4c5Ba8D12"
+              ],
+              "requiredSigners": [
+                "0x1111111111111111111111111111111111111111"
+              ],
+              "attachedSignatures": 0,
+              "constructionTransportRequests": 0,
+              "syntheticReads": 0,
+              "rejectedConstructionRequests": 0,
+              "negativeControlRejected": true,
+              "negativeControlRequests": 1
+            }
+          }
+        }
+      }
+    }
+  ]
+}

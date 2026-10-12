@@ -1,0 +1,161 @@
+{
+  "check_id": "agent-alarm",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T13:57:59.450714+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: all75 source byte/hash comparisons matched frozen commit181bd364; independently checked53 responses, asserted criteria and timing; technical review passed. No hosted or stage approval.",
+  "source_revision": "181bd364ecd64b3e73e64a508d035eac958d668a",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "compiler_reported_version": "7.0.2+effect-tsgo.0.51.1",
+    "patch": "prepare: effect-tsgo patch --typescript --oxlint; frozen installation succeeded; exact lockfile retained in source commit.",
+    "@yielded/agent": "0.1.0-beta.170",
+    "@yielded/agent-platform-cloudflare": "0.1.0-beta.170",
+    "effect-cf": "0.56.0"
+  },
+  "api_evidence": [
+    "@yielded/agent-platform-cloudflare 0.1.0-beta.170 src/ThreadObject.ts:465-528 pre-armed ThreadMutationGate and conditional post-response hint; :1131-1145 maintenance alarm registration and constructor ensureAlarm; :1264-1315 native Durable Object/layer construction.",
+    "effect-cf 0.56.0 src/DurableObjectAlarm.ts:49 default inflight recovery=1000ms; :56-75 ScheduleConfiguration; :223-242 configuration resolution; :393-403 retained recovery alarm; :1810-1815 dispatchAfterEvent gate. src/DurableObject.ts:401-424 native alarm handler dispatch.",
+    "@yielded/agent 0.1.0-beta.170 src/durable/Records.ts:363-380 ModelResponseRecorded.messages; :659-677 SubmissionSettled outcome authority. src/durable/DurableAgentRuntime.ts:4726-4758 interrupted response journal; :7796-7808 recovery of input without response.",
+    "@yielded/agent-platform-cloudflare 0.1.0-beta.170 src/Alarm.ts:1624-1721 recovery cursor/wake handling; :1897 recoverThread before resumed work. src/CloudflareThreadClient.ts:597-607 layerFromBinding; :1003-1016 readAll reads pages without a work-execution call.",
+    "All installed source citations inspected 2026-10-12; source guarantees are not hosted runtime evidence."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791",
+    "dispatchAfterEvent": false,
+    "synthetic_model_delay_ms": 1500,
+    "inflight_recovery_ms": 1000
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1",
+      "AGENT: SQLite Durable Object"
+    ],
+    "state": "work/spikes/platform/final-002-state (mutable local scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "Deterministic fixed text synthetic-alarm-completion-v1, local-spike principal, empty toolkit, maxTurns=1, maxDuration=20seconds.",
+    "No language-model provider, browser, wallet or external tool. Fresh Thread identity and idempotency key are retained in raw response artifacts."
+  ],
+  "procedure": [
+    "Check out source commit 181bd364ecd64b3e73e64a508d035eac958d668a in an isolated worktree; bun install --frozen-lockfile.",
+    "Run bun run format:check, bun run typecheck, bun run lint, bun run build and bun run build:bare. Both builds are local --dry-run bundles.",
+    "Copy local-workerd/002/run.py to ignored work/spikes/platform/<new-driver>.py. Choose fresh attempt/output/state names before a new run.",
+    "Run python3 work/spikes/platform/<new-driver>.py. It starts only --local Wrangler bindings, drives all five bounded checks, stops/restarts complete process groups and asserts the observed results.",
+    "The retained driver was changed after execution only to normalize the first agent-interruption output directory from 002 to 001. Runtime operations and assertions are unchanged."
+  ],
+  "expected_result": "Native alarm completes the accepted synthetic turn before the first follow-up request after a five-second quiet interval. Canonical records and alarm completion timestamp survive full process restart; same idempotency key returns the same receipt.",
+  "observed_result": {
+    "native_alarm_invocations": 1,
+    "native_alarm_completed_at_ms": 1791813481236,
+    "first_followup_started_at_ms": 1791813484541,
+    "request_free_interval_ms": 5002,
+    "canonical_kinds": [
+      "ThreadCreated",
+      "UserInputRecorded",
+      "ModelResponseRecorded",
+      "SubmissionSettled"
+    ],
+    "settlement": "completed",
+    "fixed_model_text_retained": true,
+    "records_and_alarm_timestamp_identical_after_restart": true,
+    "duplicate_submission_receipt_identical": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/002/after-restart.json",
+      "committed": true,
+      "bytes": 4859,
+      "sha256": "6d4e53364c37ad8fbc901fc35b8e5326911338bbbca8b195b71cb462cf5477f7",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/002/before-restart.json",
+      "committed": true,
+      "bytes": 4413,
+      "sha256": "a0be44e098a50e3b1270b125dfff178ce97a4eb4c307a571bb35d8efd0263da4",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/002/source-manifest.json",
+      "committed": true,
+      "bytes": 2364,
+      "sha256": "675b316a594e33b92e92256b66e81e687a4b8d918c0fff8e05020d2c99e7791f",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "work/spikes/platform/final-run-002/node-before.log",
+      "committed": false,
+      "bytes": 2920,
+      "sha256": "eaa91cc6a306d9de28d5afe1cfb7e0812f1f185ead83c88da3bcd25ee60690f6",
+      "regenerate": "Run the retained local-only driver from frozen runtime source with new attempt/state/output paths. These are full local Wrangler logs; no provider secrets are present."
+    },
+    {
+      "path": "work/spikes/platform/final-run-002/node-after.log",
+      "committed": false,
+      "bytes": 2596,
+      "sha256": "1aa79baaad33354c82fe6ade364c6d512f6ee7f26c29547c2f95853e49b63f57",
+      "regenerate": "Run the retained local-only driver from frozen runtime source with new attempt/state/output paths. These are full local Wrangler logs; no provider secrets are present."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Each complete Wrangler/workerd process group was stopped after its check. Port 8791 was verified closed. Local SQLite scratch remains for inspection. No hosted resources were created, so no hosted teardown is pending.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Local workerd with a synthetic model only. Does not prove hosted eviction/power-loss behavior, provider billing or exactly-once inference/tool effects. Interrupted inference can be repeated; agent-interruption/001 separately includes ModelResponseInterrupted. No session/browser resource is acquired by this fixture. Production resource lifecycle and hosted runtime checks remain pending. Existing native alarm dispatch is delegated unchanged; added storage writes only instrument its start/completion. Startup includes /crypto readiness requests; no agent polling runs during the recorded quiet interval. Duplicate receipt reuse does not establish exactly-once execution or a post-duplicate no-extra-work observation.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

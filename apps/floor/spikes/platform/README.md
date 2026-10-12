@@ -36,4 +36,4 @@ The synthetic model waits 1.5 seconds before yielding fixed text. The probe sets
 
 The strict native compiler options, 91 Effect diagnostics and Effect lint presets remain enabled. Runtime types live at this app boundary. The obsolete custom Floor fence plugin is not activated; Stage 0 must adapt and test those fences. The spike has **11 single-line suppressions**: eight standalone request/entrypoint Layer provisions and three native SDK/Worker Promise boundaries, each with a reason beside it. No broad file or rule suppression, application unstable-API allowlist, `any`, type cast or non-null assertion is introduced.
 
-Secrets, generated bundles, raw results and local SQLite files belong in ignored scratch, never in this directory or evidence. The immutable `reference/` snapshot is excluded from all checks and bundles.
+Secrets never enter evidence. Generated bundles, bulky raw traces and local SQLite files belong in ignored scratch. Small reviewed response JSON is retained under the evidence protocol. The immutable `reference/` snapshot is excluded from all checks and bundles.

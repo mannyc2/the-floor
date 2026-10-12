@@ -1,0 +1,82 @@
+{
+  "executed_at_utc": "2026-10-12T13:57:57.069538+00:00",
+  "responses": [
+    {
+      "path": "/crypto",
+      "method": "GET",
+      "started_at_ms": 1791813477069,
+      "finished_at_ms": 1791813477073,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "invalidSizeError": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer\n    at badArgument (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-HPNNWB/bare-worker.js:22711:55)\n    at validateSize (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-HPNNWB/bare-worker.js:23487:130)\n    at Object.randomBytes (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-HPNNWB/bare-worker.js:23433:63)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-HPNNWB/bare-worker.js:24968:39",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": false
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "method": "GET",
+      "started_at_ms": 1791813477073,
+      "finished_at_ms": 1791813477082,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            },
+            {
+              "id": "persisted",
+              "value": 8
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/d1/read",
+      "method": "GET",
+      "started_at_ms": 1791813477082,
+      "finished_at_ms": 1791813477090,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "method": "GET",
+      "started_at_ms": 1791813477090,
+      "finished_at_ms": 1791813477094,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true,
+          "wakeCount": 1,
+          "alarmPending": false
+        }
+      }
+    }
+  ]
+}

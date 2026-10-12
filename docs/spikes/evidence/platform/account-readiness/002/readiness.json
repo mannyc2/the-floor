@@ -1,0 +1,38 @@
+{
+  "executed_at_utc": "2026-10-12T13:42:27.127948+00:00",
+  "configured_environment_variables": {
+    "PRIVY_APP_ID": false,
+    "PRIVY_APP_SECRET": false,
+    "PRIVY_AUTHORIZATION_KEY": false,
+    "ANTHROPIC_API_KEY": false,
+    "OPENAI_API_KEY": false,
+    "CODEX_API_KEY": false,
+    "CODEX_MARKET_DATA_API_KEY": false,
+    "BROWSERBASE_API_KEY": false,
+    "BROWSERBASE_PROJECT_ID": false
+  },
+  "worktree_secret_files": {
+    ".env": false,
+    ".env.local": false,
+    ".dev.vars": false
+  },
+  "cloudflare": {
+    "wrangler_version": "4.149.0",
+    "login_check": "success; existing OAuth credential refreshed by Wrangler",
+    "account_id": "7aa7065a7e971d97435b3f22098d78b0",
+    "account_name": "C20carroll@gmail.com\u2019s Account",
+    "relevant_granted_scopes": [
+      "workers:write",
+      "d1:write",
+      "browser:write"
+    ],
+    "unrelated_missing_scopes": [
+      "k2.read",
+      "k2.write"
+    ],
+    "entitlements": "not verified by workload",
+    "hosted_resources_created": false
+  },
+  "scope": "User selected Local checks only for now after the read-only login check. No hosted deployment, browser, wallet, inference or market-data workload is authorized in this resumed run.",
+  "disk_free_bytes": 64622047232
+}

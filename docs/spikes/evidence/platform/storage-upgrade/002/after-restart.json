@@ -1,0 +1,27 @@
+{
+  "executed_at_utc": "2026-10-12T13:58:07.378897+00:00",
+  "responses": [
+    {
+      "path": "/d1/migrate",
+      "method": "GET",
+      "started_at_ms": 1791813487362,
+      "finished_at_ms": 1791813487377,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "fromVersion": 2,
+          "toVersion": 2,
+          "repeatedWithoutChanges": true,
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13,
+              "marker": "v2"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

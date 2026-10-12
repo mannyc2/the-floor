@@ -1,6 +1,6 @@
 # Platform spike handoff
 
-Status: **authorized 12 October 2026; not yet run.** Results go in [`evidence/platform/`](evidence/README.md).
+Status: **local portion run 12 October 2026; hosted portion deferred by the owner.** See the [result report](evidence/platform/report.md). The original requirements below remain exit gates; local success does not pass hosted gates.
 
 ## Purpose and scope
 

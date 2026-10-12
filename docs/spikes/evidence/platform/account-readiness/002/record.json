@@ -1,0 +1,127 @@
+{
+  "check_id": "account-readiness",
+  "attempt": "002",
+  "status": "blocked",
+  "executed_at_utc": "2026-10-12T13:42:27.127948+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Platform executor presence-only inspection; independent toolchain agent reviewed the scope distinction.",
+  "source_revision": "4d452cd567c843a0cff303f141a299f4923e22e1; read-only readiness check, no application execution.",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268"
+  },
+  "api_evidence": [
+    "Installed Wrangler4.149.0 whoami refreshed the existing OAuth credential and reported account identity and scopes. Missing k2 scopes are not exercised by this spike."
+  ],
+  "execution_target": "local_bun",
+  "runtime_configuration": {
+    "wrangler": "4.149.0",
+    "operation": "whoami plus presence-only configured environment/file checks"
+  },
+  "stage_and_resources": "No hosted stage created.",
+  "inputs": [
+    "Known environment variable names and worktree secret-file presence, never their values.",
+    "Existing Wrangler OAuth login."
+  ],
+  "procedure": [
+    "WRANGLER_SEND_METRICS=false bunx --no-install wrangler whoami",
+    "Record account identity/scopes without token values.",
+    "Check bool(os.environ.get(name)) for known provider variable names; check .env/.env.local/.dev.vars existence only.",
+    "Apply the subsequent user instruction: Local checks only for now."
+  ],
+  "expected_result": "Distinguish configured access from verified hosted compatibility, and preserve the user-selected execution boundary.",
+  "observed_result": {
+    "executed_at_utc": "2026-10-12T13:42:27.127948+00:00",
+    "configured_environment_variables": {
+      "PRIVY_APP_ID": false,
+      "PRIVY_APP_SECRET": false,
+      "PRIVY_AUTHORIZATION_KEY": false,
+      "ANTHROPIC_API_KEY": false,
+      "OPENAI_API_KEY": false,
+      "CODEX_API_KEY": false,
+      "CODEX_MARKET_DATA_API_KEY": false,
+      "BROWSERBASE_API_KEY": false,
+      "BROWSERBASE_PROJECT_ID": false
+    },
+    "worktree_secret_files": {
+      ".env": false,
+      ".env.local": false,
+      ".dev.vars": false
+    },
+    "cloudflare": {
+      "wrangler_version": "4.149.0",
+      "login_check": "success; existing OAuth credential refreshed by Wrangler",
+      "account_id": "7aa7065a7e971d97435b3f22098d78b0",
+      "account_name": "C20carroll@gmail.com\u2019s Account",
+      "relevant_granted_scopes": [
+        "workers:write",
+        "d1:write",
+        "browser:write"
+      ],
+      "unrelated_missing_scopes": [
+        "k2.read",
+        "k2.write"
+      ],
+      "entitlements": "not verified by workload",
+      "hosted_resources_created": false
+    },
+    "scope": "User selected Local checks only for now after the read-only login check. No hosted deployment, browser, wallet, inference or market-data workload is authorized in this resumed run.",
+    "disk_free_bytes": 64622047232
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/account-readiness/002/readiness.json",
+      "committed": true,
+      "bytes": 1244,
+      "sha256": "5a505de6a6e383b57259b946d2c1cd52cc4287d9b21039ea93c7e9776c6f53b9",
+      "regenerate": "Re-run supported Wrangler account inspection only when appropriate, then repeat presence-only checks under a new attempt. Never dump credential files or environment values."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Read-only Cloudflare account metadata query completed before the user selected local-only checks. No hosted workload after that instruction.",
+    "budget": "No hosted spend authorized in resumed run.",
+    "observed_cost": "unknown: no billing query; no paid provider workload issued."
+  },
+  "cleanup_result": "No resources to destroy. Wrangler retained its refreshed existing login through its normal secret storage; no credential values entered evidence.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Cloudflare authentication is working; entitlements and hosted compatibility remain untested. Privy sandbox, inference and market-data keys are not configured in the inspected scope. Hosted execution awaits a future instruction and spending bound; do not bypass those limits with local claims.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: account inspection, no visual output",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

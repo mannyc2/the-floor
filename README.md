@@ -1,6 +1,6 @@
 # The Floor workspace
 
-Prepared on 12 October 2026 for the look and platform spikes. This is a fresh local preparation workspace. Read-only snapshots of the first build and the cafe reference are in [reference/](reference/README.md). Neither spike nor Stage 0 has run.
+Prepared on 12 October 2026 for the look and platform spikes. This branch now contains the bounded local platform probes and their [result report](docs/spikes/evidence/platform/report.md). The owner limited the resumed run to local checks; hosted gates remain open. Read-only snapshots are in [reference/](reference/README.md). Stage 0 has not started.
 
 ## Start here
 
@@ -23,10 +23,10 @@ The cookbook at the repository root links to the copied source, so there is one 
 
 ## Next work
 
-The [platform spike](docs/spikes/platform.md) and [look spike Part A](docs/spikes/look.md) are authorized and can start now. Look Part B (references, tones, proportions, assets) follows Part A, with Codex generating the reference images and the owner picking. Evidence goes in [docs/spikes/evidence/](docs/spikes/evidence/README.md). Both spikes report before Stage 0 begins.
+Review the [platform result](docs/spikes/evidence/platform/report.md) and the separate `spike/look-a` branch's Part A report before selecting further work. Platform hosted checks await renewed scope and spend authorization. Look Part B (references, tones, proportions, assets) follows Part A, with Codex generating the reference images and the owner picking. Part B has not started. Both spikes report before Stage 0 begins.
 
 `reference/` is temporary. It is deleted at the end of Stage 0, once the skeleton has ported what it needs, and stays recoverable from the initial commit.
 
 ## Status
 
-Documentation and reserved directories only: no dependencies, entry points or build configuration yet. `bun run typecheck`, `bun run lint` and `bun run build` become required when Stage 0 sets up the toolchain. To check the snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.
+The [local platform probe](apps/floor/spikes/platform/README.md) has a locked Bun toolchain, native Worker entrypoints and two local bundle configurations. Format, typecheck, lint, both build dry runs and frozen installation pass. This does not establish Stage 0's product packages, architecture fences or CI. To check the immutable snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.

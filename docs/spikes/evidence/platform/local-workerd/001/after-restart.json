@@ -1,0 +1,74 @@
+{
+  "phase": "after-restart",
+  "executed_at_utc": "2026-10-12T13:35:09.083615+00:00",
+  "execution_target": "local_workerd",
+  "responses": [
+    {
+      "path": "/crypto",
+      "status": 200,
+      "elapsed_ms": 89.997,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": false
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "status": 200,
+      "elapsed_ms": 31.062,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            },
+            {
+              "id": "persisted",
+              "value": 8
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/d1/read",
+      "status": 200,
+      "elapsed_ms": 28.01,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "status": 200,
+      "elapsed_ms": 6.092,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true,
+          "wakeCount": 1,
+          "alarmPending": false
+        }
+      }
+    }
+  ]
+}
