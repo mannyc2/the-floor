@@ -125,7 +125,7 @@ Not every token gets a place, and no place is permanent.
 
 ### The look
 
-The floor's reference frames come from a reference round (see [the look](look.md)), which starts by letting the owner pick the floor's tradition: an exchange hall of wood, marble and chalkboards, a stepped trading pit, or a modern floor of long desks and screens. The rules:
+The floor's reference frames come from a reference round (see [the look](look.md)), which starts by letting the owner pick the floor's tradition: an early-1990s brokerage bullpen, a 1980s exchange floor, or a 2000s bank trading floor. Whichever it is, it reads as a working trading floor, crowded and loud mid-session, never a hall. The rules:
 - **Camera.** Orthographic isometric from one corner, about 30° down. It can turn in quarter turns, and the cutaway follows the turn.
 - **Line.** One hairline weight everywhere. Each piece's authored surfaces decide where lines fall.
 - **Shading.** Four tones by face direction, tops lightest.

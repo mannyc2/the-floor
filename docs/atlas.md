@@ -308,6 +308,7 @@ Renderers and image models drift in predictable ways. Check every render and ref
 - **Highlighting activity:** any accent colour or glow marking where things are happening.
 - **Brass on decoration** (rails, lamp bases, trim), or brass readings without engraved scales.
 - **Sameness:** identical desks in identical rows, generic office cubicles, or generic steampunk clutter instead of the floor's tradition.
+- **A hall instead of a floor:** arches, banners, pews, banker's lamps, wood panelling or statues on plinths that make it read as a church, library or museum rather than a working trading floor.
 - **Wrong figures:** faces on the automata, or people in suits.
 - **Floating things:** objects with no base, plates with no logo, desks with no name plate.
 - **Logos pasted flat** over the drawing instead of printed onto a surface.

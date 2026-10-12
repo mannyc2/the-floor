@@ -32,7 +32,8 @@ What earlier rounds showed references can and can't do:
 - **Forms have to be designed.** Every asset is built from designed modules. The desk gets the most care, because most of what people see is desks.
 - **Tones need structure.** Four tones by face direction, tops lightest, sampled from the picked references, so that by day tops, sides and ground don't merge into one white.
 - **The ground stays quiet.** Floor joints take a lighter line tone than objects. B knows which surface each edge belongs to, so the weight stays even while the tone varies.
-- **Density and composition.** The target is rows packed with desks, the pit and its wall, the bell and a lobby of plinths, not a few objects on an empty grid.
+- **Density and composition.** The target is a packed, busy floor: banks of desks, a crowd at the front by the wall of screens and the bell, not a few objects on an empty grid.
+- **A trading floor, not a hall.** It reads as a working trading floor, crowded and loud mid-session, never as a church, library or museum. Arches, banners, banker's lamps, wood panelling and statues on plinths pull it toward a hall, so the prompts rule them out and ask for the energy instead.
 - **A tradition comes first.** Nothing looks built from anything until the place has a tradition and materials.
 - **References set mood, not geometry.** Image models drift on exactly what the Floor cares about: true orthographic projection, readable brass scales and no text. A reference sets composition, density, silhouettes and tonal mood. The rules are checked on the Floor's own renders, and line accuracy comes from the edge-projection target, because generated images have no clean line layer.
 
@@ -56,37 +57,37 @@ The style and avoid blocks wrap every frame.
 **Style block** (prepend to every frame):
 
 ```text
-Isometric technical illustration, orthographic camera from one corner looking down 30 degrees, no perspective. A cutaway model: the two nearest walls and the ceiling are removed so the interior is seen whole. Hairline even-weight linework on every edge. Flat four-tone shading by face direction, top faces lightest. Warm paper background for day scenes, dark navy-charcoal for night. Only parts that show live data are brass, and each carries fine engraved scale marks; every other material follows the scene's tradition. Engineering-drawing precision with dense, purposeful detail. Calm, legible and serious, like a plate in an engineering atlas.
+Isometric technical illustration, orthographic camera from one corner looking down 30 degrees, no perspective. A cutaway model: the two nearest walls and the ceiling are removed so the interior is seen whole. Hairline even-weight linework on every edge. Flat four-tone shading by face direction, top faces lightest. Warm paper background for day scenes, dark navy-charcoal for night. Only parts that show live data are brass, and each carries fine engraved scale marks; every other material follows the scene's tradition. Engineering-drawing precision with dense, purposeful detail. However busy the scene, the drawing stays precise and legible, like a plate in an engineering atlas.
 ```
 
 **Avoid block** (append to every frame):
 
 ```text
-Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, people in suits, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts.
+Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, human figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths.
 ```
 
 **Traditions** (the tradition round inserts one after the style block):
 
-- *Built as an exchange hall of dark wood and marble, with tall arched windows, chalkboards and ticker-tape machines.*
-- *Built around a sunken, stepped trading pit at the centre of a hall of desks, under a high trussed roof.*
-- *Built as a modern trading floor of long rows of desks with screens, in glass, pale wood and steel.*
+- *Built as an early-1990s brokerage bullpen: a low drop ceiling with fluorescent light panels, grey carpet, long banks of desks pushed together, a beige monitor and a corded phone on every desk, glass-walled corner offices, a podium with a microphone at the front, and whiteboards on the walls.*
+- *Built as a 1980s exchange floor: crowded horseshoe trading posts, each crowned with a cluster of monitors hanging from the ceiling, order slips littering the floor, and figures packed shoulder to shoulder around the posts.*
+- *Built as a 2000s investment-bank trading floor: long rows of desks with four to six flat screens at every seat, a low ceiling, glass partitions, and a wall of screens at one end.*
 
 **1. The floor**
 
 ```text
-A large trading floor seen whole as a cutaway model, filled with rows of small desks, each with a tiny faceless automaton figure, a small lit screen, a desk lamp and papers. At one end, a trading pit in front of a tall wall of plates, each a simple painted emblem over a brass gauge with engraved scale marks. A large bell on a raised stand beside the pit. Along one side wall, a row of corkboards with pinned cards. Through an open doorway, a records room of filing cabinets. At the entrance, a lobby with a few plinths holding small statues and odd machines. Plain banners with simple painted emblems hang from the rafters. A few paper planes in flight between desks.
+A large, crowded trading floor seen whole as a cutaway model, packed with banks of desks, each with a tiny faceless automaton figure, a lit screen, a phone and piles of paper. The room is loud and busy mid-session: many figures stand, shout into phones and wave slips of paper, a few stand on their desks, and a crowd has gathered in the open area at the front. At the front, a wall of screens and plates, each plate a simple painted emblem over a brass gauge with engraved scale marks, and a bell on a stand. Along one wall, whiteboards with pinned cards. Through an open door, a file room of grey cabinets. By the entrance, a small reception area with a few odd sculptures and machines on stands. Small pennants with simple painted emblems hang from the ceiling. Paper planes and loose papers in the air.
 ```
 
 **2. One desk**
 
 ```text
-A single trading desk seen close, centred with wide margins. On it: a small screen showing an abstract web page, a desk lamp, a telephone, a ticker-tape machine printing a paper strip, a stack of papers and an open notebook, and a small painted frog mascot on a lily-pad base with a brass gauge with engraved marks at its foot. A faceless automaton figure with a diamond emblem on its chest sits reading the screen. A small flag on a pole is clipped to the desk's edge, lowered.
+A single trading desk seen close, centred with wide margins. On it: a screen showing an abstract web page, a corded phone, a small black desk lamp, a ticker-tape machine printing a paper strip, piles of papers and a notebook, and a small painted frog mascot on a lily-pad base with a brass gauge with engraved marks at its foot. A faceless automaton figure with a diamond emblem on its chest stands at the desk with the phone to its head and one arm raised. A small flag on a pole is clipped to the desk's edge, lowered.
 ```
 
 **3. Agents at work**
 
 ```text
-Two rows of desks seen from above, agents at work. One figure has just thrown a paper plane, mid-flight toward a desk in the other row. Another stands at a corkboard on the wall, pinning a card. One desk's lamp is off and its figure is slumped asleep. One desk has a small raised flag. One figure walks down the aisle toward the pit, carrying a slip of paper.
+Two banks of desks seen from above, agents at work, busy and loud. One figure has just thrown a paper plane toward a desk across the aisle. Another stands at a whiteboard on the wall, pinning a card. One figure stands on its desk, shouting into a phone. One desk's lamp is off and its figure is slumped asleep. One desk has a small raised flag. One figure hurries down the aisle toward the front, carrying a slip of paper.
 ```
 
 **4. The screen**
@@ -94,7 +95,7 @@ Two rows of desks seen from above, agents at work. One figure has just thrown a 
 The one frame that includes the interface. It drops "text" and "letters" from the avoid block, and keeps the captions as blank lines of type.
 
 ```text
-A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected desk and not covering it. Everything else is the floor: rows of desks, the pit and its wall of plates, the bell, corkboards and the lobby, dense and varied.
+A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected desk and not covering it. Everything else is the floor: banks of desks, the crowded front with its wall of screens and plates, the bell, whiteboards and the reception area, dense and busy.
 ```
 
-For night versions, add: *At night, desk lamps lit, a few desks dark.*
+For night versions, add: *At night, the overhead lights are off; screens and small desk lamps glow, and a few desks are dark.*
