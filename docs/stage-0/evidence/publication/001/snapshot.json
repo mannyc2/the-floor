@@ -1,0 +1,89 @@
+{
+  "started_at_utc": "2026-10-12T17:53:11.544493+00:00",
+  "refs": {
+    "refs/heads/main": "fb9082651bf02a7f71b6a66e4fe024c2845b2828",
+    "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "refs/heads/spike/platform": "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+    "refs/heads/stage-0": "8afbfa77aec975a3d5256d7dd07c0ca431584b76"
+  },
+  "revisions": [
+    "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+    "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+    "fb9082651bf02a7f71b6a66e4fe024c2845b2828"
+  ],
+  "commit_count": 49,
+  "commits": [
+    "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "fb9082651bf02a7f71b6a66e4fe024c2845b2828",
+    "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+    "07d0b64e2d2f6fed77f270bfb9e74b921c75f843",
+    "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+    "9e8c59a92362aea3fb09138d2bc0975ef549f89f",
+    "c4ed4860c2a6f1bed97c138ff7ac4ed06717546d",
+    "b3c80caf098f617f7124821366e47ceb4f5c1e88",
+    "072b8346937e2c90b8dadc28e64685be30a0cccb",
+    "525dcd8836d85ee77da81adbb451b62924d60e7f",
+    "f034ee8822f1ebd8423741ec4b952d70b3ae069f",
+    "c414bc0410e5d390d103455f2d20a52171f9eef0",
+    "4907895fb253786631b85abcec5fb5937c7c4611",
+    "22434f33d98998d27accd0d93c4cb9ec9ff37640",
+    "fad5aad7ac586f6ff34a11548ff46a659e61e17a",
+    "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
+    "932477e3bf6d7c8283162bbd7dfe3be259190b2a",
+    "b93d107b6eb00c7f194f1a845700c868b94195cf",
+    "bc751dca33b4142511ac90bd8638b541f96d795a",
+    "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "03af37f8969caa417588e0d664bb615cf3190b8d",
+    "90e9cd3a9193e738619a67f67c8b359c82c5a9dd",
+    "56e2fe2f772e41fbfb2e150986769e2b7026327a",
+    "7caccafdd85ea43a187f8539896fb8efe51ee702",
+    "d583f336e0b0a3815430c634c8a1dfd0d1a9ca00",
+    "d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382",
+    "14501e7e02c2209f23fff1461041c926446402dd",
+    "80090f8aaba6e17121c3aa6e39be317fa8ab64f2",
+    "5ee9e816eb027a2070453243c358430f2589e0a4",
+    "76a4422c7953b5126cefc2384b9cb13227d13a0f",
+    "5d86077af5b1dba1f62c1c978257cdf92a332b1e",
+    "92b559246626a0e64c2a48ad124221e4c700a8a6",
+    "28289cb9ba462e4ed33ab19a3981adf54b44a5dd",
+    "47af362c46049280ff42900a144f57238c1c7197",
+    "e60ac6fb7c33c00e5f627499ba0d6b8a2105ea3d",
+    "c03cc1a4011cd48088406356217f3455db05311a",
+    "ee43aad5bd6bc00284eedbac3d6f4c3b65db34ec",
+    "181bd364ecd64b3e73e64a508d035eac958d668a",
+    "26ed1b176aebd28e27071d88692c902d6af54d8e",
+    "4f523b0c211b568d84055d18a3fc72552cc046ca",
+    "8a5112e9063b96d1ff2877b18f91a3473555868d",
+    "89336df4d8e7fc8c4c1b78dbabda19d5f29053df",
+    "820d46232577654b36e4328c56644109771b55fc",
+    "e5736fd188fa720c2d95996d2bb72b6c276b6621",
+    "4d452cd567c843a0cff303f141a299f4923e22e1",
+    "f454507c006185dd74b2d136b5b75e7560ed7dcd",
+    "40082234967a9680a157b09aa412aba32fc5ddbc",
+    "15c62be0f8b9648c0226fa2d577f1bb48d3f634e",
+    "880f213389a11f1ec57903dcbfbd9334d0a1bce8"
+  ],
+  "working_tree_changes": "Excluded. Stage0 is concurrently integrating LookB and CI changes; only the frozen commits listed here are audited.",
+  "original_repository": "the-floor shared local repository; no history mutations or publication performed by this audit",
+  "ended_at_utc": "2026-10-12T17:56:59.001881+00:00",
+  "refs_at_end_observation": {
+    "refs/heads/main": "fb9082651bf02a7f71b6a66e4fe024c2845b2828",
+    "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "refs/heads/spike/platform": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+    "refs/heads/stage-0": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285"
+  },
+  "later_ref_changes": {
+    "refs/heads/spike/platform": {
+      "audited": "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+      "observed_at_end": "af4285b13d495c92bc6be6470f35ffae6d3d879d"
+    },
+    "refs/heads/stage-0": {
+      "audited": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+      "observed_at_end": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285"
+    }
+  }
+}

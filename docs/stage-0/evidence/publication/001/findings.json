@@ -1,0 +1,232 @@
+{
+  "audit_status": "complete_for_frozen_snapshot",
+  "public_release_as_is": "hold: unresolved cafe redistribution grant",
+  "snapshot_file": "snapshot.json",
+  "counts": {
+    "git_objects": 1828,
+    "git_blobs": 1257,
+    "blob_bytes": 334790552,
+    "text_blobs": 2443,
+    "text_blobs_with_local_paths": 113,
+    "png": 146,
+    "binary_skipped": 96,
+    "reachable_commits": 49,
+    "frozen_refs": 5,
+    "zip_members": 50,
+    "tar_tgz_members": 1398,
+    "pdf_documents": 2,
+    "pdf_pages": 51,
+    "generated_reference_originals": 84,
+    "credential_candidates": 3,
+    "validated_fixture_false_positives": 3,
+    "actual_credentials_found": 0
+  },
+  "byte_count_definition": "blob_bytes includes outer archives, decoded nested members and extracted PDF text/metadata; it is processed volume, not unique repository size.",
+  "credential_pattern_families": [
+    "private PEM keys",
+    "GitHub tokens",
+    "OpenAI-style keys",
+    "AWS access-key IDs",
+    "Slack tokens",
+    "Stripe live keys",
+    "Google API keys",
+    "JWTs",
+    "HTTP URL credentials",
+    "quoted secret/key/token assignments"
+  ],
+  "credential_results": {
+    "actual_credentials_found": 0,
+    "false_positives": [
+      {
+        "path": "reference/first-build/packages/agents/test/agents.test.ts",
+        "oid": "27ca363043d1795bcec070450b4a721cef14361f",
+        "category": "url-credentials",
+        "line": 70,
+        "matched_chars": 20,
+        "value": "REDACTED",
+        "classification": "validated_test_fixture_false_positive",
+        "reason": "Negative URL-permission test using example.com and placeholder URL credentials."
+      },
+      {
+        "path": "reference/first-build/testing/flows/_fixtures/financial-floor.ts",
+        "oid": "3660c3999701100124539da33663328e9ac9b68b",
+        "category": "assigned-secret",
+        "line": 28,
+        "matched_chars": 38,
+        "value": "REDACTED",
+        "classification": "validated_test_fixture_false_positive",
+        "reason": "Isolated signer fixture configuration using the isolated-signer.example endpoint and a fixture token."
+      },
+      {
+        "path": "reference/first-build/testing/flows/_fixtures/recorded-research.ts",
+        "oid": "db789d47ae041bc166d4cf57f98f56fb0f63d68b",
+        "category": "assigned-secret",
+        "line": 136,
+        "matched_chars": 32,
+        "value": "REDACTED",
+        "classification": "validated_test_fixture_false_positive",
+        "reason": "Recorded-provider test layer with a fixture API-key literal and recorded model."
+      }
+    ]
+  },
+  "cafe": {
+    "url": "https://github.com/Effect-TS/cafe",
+    "source_revision": "24b11ca81ff476386c5b428d425ad2ee50cb4c66",
+    "recorded_remote": "https://github.com/Effect-TS/cafe.git",
+    "repository_api": {
+      "default_branch": "main",
+      "full_name": "Effect-TS/cafe",
+      "html_url": "https://github.com/Effect-TS/cafe",
+      "license": null,
+      "visibility": "public"
+    },
+    "license_notice_paths_at_source_revision": [],
+    "manifest_and_source_grant_search": "No license, copyright, SPDX or permission grant found in tracked source/readme/package manifests; dependency lockfiles excluded from the grant-text search because dependency licenses do not license the cafe application.",
+    "finding": "No redistribution grant located for the copied cafe application. Public visibility alone does not supply a general redistribution license.",
+    "required_public_history_omission": [
+      "reference/cafe-reference/"
+    ],
+    "alternative": "Obtain an explicit applicable redistribution grant before retaining the snapshot publicly."
+  },
+  "licensed_inputs": {
+    "yielded_upstream": {
+      "repository": "https://github.com/yielded-dev/agent",
+      "revision": "0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968",
+      "pullRequest": "https://github.com/yielded-dev/agent/pull/557",
+      "implementationModified": true,
+      "patch": "effect-4.0.3-crypto.patch",
+      "patchSha256": "da6f14648b2137fc0b6e5b88209c1e8c8d2e06b0991e586450b3ffb7dd9f5e43"
+    },
+    "licenses": [
+      {
+        "subject": "Yielded vendored source",
+        "source_revision": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+        "notice_path": "vendor/yielded/0adbcff-effect-4.0.3/LICENSE",
+        "license": "MIT License",
+        "copyright_line": "Copyright (c) 2026 Daniel van der Merwe",
+        "sha256": "7638799d026fcd2ccc7859039782484a5eae2b28f5ba76449a8f3ee6a21f9af7"
+      },
+      {
+        "subject": "Meteora generated client/math inputs",
+        "source_revision": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+        "notice_path": "packages/chains/METEORA-LICENSE",
+        "license": "MIT License",
+        "copyright_line": "Copyright (c) 2026 Meteora",
+        "sha256": "c74e2ec3078823228742dba9f9e9b79ec0fffdb4bcdd79295130cf42b4ed1020"
+      }
+    ],
+    "meteora_source": {
+      "url": "https://raw.githubusercontent.com/MeteoraAg/dynamic-bonding-curve-sdk/a28b7239e71899eb52ff7aacac4dec90441885c4/packages/dynamic-bonding-curve/src/idl/dynamic-bonding-curve/idl.json",
+      "commit": "a28b7239e71899eb52ff7aacac4dec90441885c4",
+      "sha256": "beedc8c869bc04865c26349a72a3ba9c773e61f48be2d33093c591a015fe82fd"
+    }
+  },
+  "cafe_copy_checks": {
+    "all_commit_path_aliases": {
+      "commits_checked": 49,
+      "cafe_blob_aliases_outside_snapshot": []
+    },
+    "exact_blob_and_archive_copies_outside_snapshot": [],
+    "minimum_exact_copy_file_bytes": 100,
+    "active_source_overlap": {
+      "source_revision": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+      "cafe_files": 45,
+      "active_files": 147,
+      "token_overlap": [
+        {
+          "cafe": "reference/cafe-reference/alchemy.run.ts",
+          "active": "stacks/github.ts",
+          "maximum_identical_tokens": 41
+        },
+        {
+          "cafe": "reference/cafe-reference/packages/frontend/index.html",
+          "active": "apps/web/index.html",
+          "maximum_identical_tokens": 48
+        },
+        {
+          "cafe": "reference/cafe-reference/stacks/github.ts",
+          "active": "stacks/github.ts",
+          "maximum_identical_tokens": 41
+        }
+      ],
+      "line_overlap": [],
+      "interpretation": "Only common Alchemy import/provider-stack setup and standard HTML metadata boilerplate matched. No cafe-specific chat/UI copied block identified. Text matching cannot prove independent authorship."
+    }
+  },
+  "metadata": {
+    "text_blobs_with_local_paths": 113,
+    "local_path_meaning": "Local username, workspace/tool-output paths and provenance locations; not credential values.",
+    "generated_pngs_with_text_or_exif_metadata": 0,
+    "all_pngs_inspected": 146,
+    "blender_png_metadata": "Eight prior Blender calibration/reference PNGs carry render file/date/time/frame/camera/scene/render-time metadata.",
+    "appledouble_sidecars": {
+      "count": 96,
+      "all_named_appledouble": true,
+      "sizes": [
+        163
+      ],
+      "magic_values": [
+        "00051607"
+      ],
+      "metadata_keys": [
+        "com.apple.provenance"
+      ],
+      "raw_byte_credential_pattern_findings": []
+    }
+  },
+  "archived_pdfs": [
+    {
+      "path": "reference/first-build/docs/floor-archive-2026-10-11(1).zip!floor-archive-2026-10-11/docs/technical-design.pdf",
+      "pages": 25,
+      "text_chars": 37722,
+      "metadata_keys": [
+        "/Title",
+        "/Creator",
+        "/Producer",
+        "/CreationDate",
+        "/ModDate"
+      ]
+    },
+    {
+      "path": "reference/first-build/docs/floor-archive-2026-10-11(1).zip!floor-archive-2026-10-11/docs/the-floor.pdf",
+      "pages": 26,
+      "text_chars": 46345,
+      "metadata_keys": [
+        "/Title",
+        "/Creator",
+        "/Producer",
+        "/CreationDate",
+        "/ModDate"
+      ]
+    }
+  ],
+  "retention": "All 84 generated originals and seven contact sheets are retained by explicit user instruction; no art omission is authorized by this audit.",
+  "limitations": [
+    "Only objects reachable from the five frozen commit heads were scanned. Uncommitted, ignored, unreachable/reflog-only and later-committed material is outside this record.",
+    "Credential matching covers the recorded common token/key formats and quoted assignments, plus review of flagged fixtures; it cannot establish the absence of every possible credential encoding.",
+    "Image checks cover original provenance and PNG metadata, not a new OCR/content review of every historical screenshot. The 84 generated references were made without input reference images; this does not establish exclusive copyright in generated output.",
+    "Cafe matching checks exact blobs and normalized text blocks. It cannot prove independent authorship or resolve rights beyond the grants located. This is a provenance/notice audit, not a legal determination.",
+    "The full original local repository/history remains intact. This record does not claim that a sanitized export has been verified or pushed."
+  ],
+  "incremental_review": {
+    "status": "pending_after_final_integration",
+    "base_refs": {
+      "refs/heads/main": "fb9082651bf02a7f71b6a66e4fe024c2845b2828",
+      "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+      "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+      "refs/heads/spike/platform": "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+      "refs/heads/stage-0": "8afbfa77aec975a3d5256d7dd07c0ca431584b76"
+    },
+    "known_ref_changes_during_audit": {
+      "refs/heads/spike/platform": {
+        "audited": "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+        "observed_at_end": "af4285b13d495c92bc6be6470f35ffae6d3d879d"
+      },
+      "refs/heads/stage-0": {
+        "audited": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+        "observed_at_end": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285"
+      }
+    },
+    "required_next_check": "Compare final integrated commit against the frozen source set; inspect newly reachable commits/blobs and changed active-source files, rerun credential/archive/metadata checks, then verify cafe omission throughout the separate public export. Do not infer clearance from this historical report."
+  }
+}

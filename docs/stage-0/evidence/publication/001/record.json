@@ -1,0 +1,159 @@
+{
+  "check_id": "public-release-audit",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T17:56:59.001881+00:00",
+  "operator": "Codex; read-only bounded audit",
+  "reviewer": "Parent integration review pending; no legal review asserted",
+  "source_revision": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+  "dependency_versions": {
+    "Python": "3.12.14",
+    "pypdf": "6.10.0",
+    "Git": "git version 2.40.1",
+    "GitHub CLI": "gh version 2.79.0 (2025-09-08)"
+  },
+  "api_evidence": [
+    {
+      "source": "GitHub REST repository metadata",
+      "url": "https://api.github.com/repos/Effect-TS/cafe",
+      "observed": {
+        "default_branch": "main",
+        "full_name": "Effect-TS/cafe",
+        "html_url": "https://github.com/Effect-TS/cafe",
+        "license": null,
+        "visibility": "public"
+      }
+    },
+    {
+      "source": "GitHub REST pinned tree",
+      "url": "https://api.github.com/repos/Effect-TS/cafe/git/trees/24b11ca81ff476386c5b428d425ad2ee50cb4c66?recursive=1",
+      "license_notice_paths": []
+    }
+  ],
+  "execution_target": "Shared local repository, frozen multi-ref reachable history and embedded archives; read-only upstream GitHub metadata",
+  "runtime_configuration": {
+    "snapshot": "docs/stage-0/evidence/publication/001/snapshot.json",
+    "scan_scope": "all blobs reachable from the immutable snapshot.json revisions; ZIP/tar/tgz contents recursively; PNG metadata keywords; read-only",
+    "working_tree_excluded": true,
+    "credential_values_redacted": true,
+    "no_history_mutations": true
+  },
+  "stage_and_resources": "No deployment or hosted stage; public empty repository existence is outside this scan result",
+  "inputs": [
+    {
+      "path": "docs/stage-0/evidence/publication/001/snapshot.json",
+      "sha256": "b2d10a4bf1d2012e4751ea2298a533268ead4a9371575bbcec1f7b9da8093ac6"
+    }
+  ],
+  "procedure": [
+    "Freeze five ref-to-commit mappings and enumerate all49 reachable commits.",
+    "Read every reachable Git blob; recursively inspect ZIP/tar/tgz members; extract PDF text/metadata and PNG text/EXIF metadata; inspect AppleDouble sidecar bytes.",
+    "Scan common credential patterns and classify the three flagged test fixtures without publishing values.",
+    "Verify cafe upstream remote/revision/license absence; inspect retained Yielded and Meteora notices.",
+    "Check all-commit cafe blob aliases, exact archive/file copies and normalized active-source overlap.",
+    "Record exact boundary and leave final integrated/export incremental verification pending."
+  ],
+  "expected_result": "A frozen publication candidate with located third-party redistribution grants and no detected actual credential exposure.",
+  "observed_result": {
+    "audit_execution": "complete",
+    "status_scope": "As-is public release of this frozen snapshot; fail reflects the unresolved cafe redistribution grant, not a failed scanner run.",
+    "only_required_omission_path": "reference/cafe-reference/",
+    "actual_credentials_found": 0,
+    "fixture_false_positives": 3,
+    "counts": {
+      "git_objects": 1828,
+      "git_blobs": 1257,
+      "blob_bytes": 334790552,
+      "text_blobs": 2443,
+      "text_blobs_with_local_paths": 113,
+      "png": 146,
+      "binary_skipped": 96,
+      "reachable_commits": 49,
+      "frozen_refs": 5,
+      "zip_members": 50,
+      "tar_tgz_members": 1398,
+      "pdf_documents": 2,
+      "pdf_pages": 51,
+      "generated_reference_originals": 84,
+      "credential_candidates": 3,
+      "validated_fixture_false_positives": 3,
+      "actual_credentials_found": 0
+    },
+    "later_changes_require_incremental_review": {
+      "refs/heads/spike/platform": {
+        "audited": "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+        "observed_at_end": "af4285b13d495c92bc6be6470f35ffae6d3d879d"
+      },
+      "refs/heads/stage-0": {
+        "audited": "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+        "observed_at_end": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285"
+      }
+    },
+    "incremental_review": "pending_after_final_integration"
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/publication/001/report.md",
+      "committed": true,
+      "bytes": 6464,
+      "sha256": "78ffd907bc63a620ca588aae6b84180d703cf0483b554f068cb5b0696a3bfff4",
+      "regenerate": "Preserve this historical audit boundary. Repeat the scanner against snapshot.json; new final integration belongs in an incremental record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/001/snapshot.json",
+      "committed": true,
+      "bytes": 4178,
+      "sha256": "b2d10a4bf1d2012e4751ea2298a533268ead4a9371575bbcec1f7b9da8093ac6",
+      "regenerate": "Preserve this historical audit boundary. Repeat the scanner against snapshot.json; new final integration belongs in an incremental record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/001/findings.json",
+      "committed": true,
+      "bytes": 10164,
+      "sha256": "1d48aba4cb7133699f7734e214b764fa8eeaa590c7b9fc532ab2a8d5b1149665",
+      "regenerate": "Preserve this historical audit boundary. Repeat the scanner against snapshot.json; new final integration belongs in an incremental record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/001/scan.py",
+      "committed": true,
+      "bytes": 6218,
+      "sha256": "e6ba18fa9b558df864f4bd420963e88e393306431a9c81f313cf05fb5d7d6efd",
+      "regenerate": "Preserve this historical audit boundary. Repeat the scanner against snapshot.json; new final integration belongs in an incremental record."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Read-only GitHub API metadata and official GitHub licensing guidance; no messages, push, deploy or external writes.",
+    "budget": "No provider compute or real funds used.",
+    "observed_cost": "No metered provider spend observed."
+  },
+  "cleanup_result": "Original repository/history/worktrees unchanged by audit. Scratch scan data retained under ignored work/public-audit; this evidence folder written only, not staged or committed.",
+  "decision_link": "docs/decisions.md plus current owner authorization for public GitHub hosting; preservation of all84 image candidates remains in force.",
+  "limitations_and_next_action": "See report.md and findings.json. Final integration may add CI/Privy changes after the frozen snapshot; inspect that delta, verify the separate all-history cafe omission, preserve notices and original local history, then let the parent handle publication.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "This is a publication audit, not a new art review."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}
