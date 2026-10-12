@@ -1,0 +1,84 @@
+{
+  "check_id": "account-readiness",
+  "attempt": "001",
+  "status": "blocked",
+  "executed_at_utc": "2026-10-12T13:01:30.278707+00:00",
+  "operator": "Codex platform spike",
+  "reviewer": "Independent look-spike agent: record scope, account classification and artifact integrity reviewed; no runtime or art approval.",
+  "source_revision": "880f213389a11f1ec57903dcbfbd9334d0a1bce8",
+  "dependency_versions": {
+    "python": "standard library only; metadata inspection",
+    "provider_sdks": "n/a: no authenticated requests made"
+  },
+  "api_evidence": [
+    "docs/spikes/platform.md: account prerequisites"
+  ],
+  "execution_target": "local metadata inspection",
+  "runtime_configuration": {
+    "scope": "Known environment variables, this worktree secret filenames, and documented local Wrangler login metadata only. No general credential search."
+  },
+  "stage_and_resources": "n/a: no stage or hosted resources created",
+  "inputs": [
+    "Presence of known provider configuration keys; Wrangler login metadata"
+  ],
+  "procedure": [
+    "Inspect only boolean presence of known environment variable names",
+    "Check .env, .env.local and .dev.vars filenames in the platform worktree",
+    "Read only safe Wrangler login status fields into evidence; do not emit token or refresh-token values"
+  ],
+  "expected_result": "Identify configured accounts and distinguish missing keys from unverified access.",
+  "observed_result": {
+    "cloudflare_browser_storage_deploy_destroy": "not_run: disk prevents supported Wrangler login refresh/account check; account availability unknown",
+    "privy_cosigning": "blocked: sandbox application/secret and co-signing configuration are unavailable to this worktree",
+    "anthropic_inference": "blocked: ANTHROPIC_API_KEY is not configured",
+    "openai_decisions": "blocked: OPENAI_API_KEY is not configured",
+    "codex_market_data": "blocked: market-data API key is not configured",
+    "browserbase_fallback": "not_run: fallback not selected and credentials not configured"
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/account-readiness/001/readiness.json",
+      "committed": true,
+      "bytes": 1897,
+      "sha256": "64e815e2a534296df5a2fa67f8352a0ec6d551dfcbd6d26c3b4bc61b69229fd5",
+      "regenerate": "Run the provider-presence preflight again after configuration changes; retain this attempt."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "No provider requests",
+    "budget": "n/a: local inspection",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "n/a: read-only checks, no external resources created",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Configure missing sandbox/inference/market-data access using the intended secret mechanism; once disk space is available, allow Wrangler to refresh the existing Cloudflare login and inspect account scope. No secret values should be pasted into reports.",
+  "look": {
+    "technique": "n/a: platform account metadata, no visual artifact",
+    "tone_set": "n/a: platform account metadata, no visual artifact",
+    "theme": "n/a: platform account metadata, no visual artifact",
+    "rung": "n/a: platform account metadata, no visual artifact",
+    "dpr": "n/a: platform account metadata, no visual artifact",
+    "camera": "n/a: platform account metadata, no visual artifact",
+    "canvas": "n/a: platform account metadata, no visual artifact",
+    "backend": "n/a: platform account metadata, no visual artifact",
+    "renderer_string": "n/a: platform account metadata, no visual artifact",
+    "device_profile": "n/a: platform account metadata, no visual artifact",
+    "clock_and_seed": "n/a: platform account metadata, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render performed"
+    },
+    "made_by": "n/a: platform account metadata, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent look-spike agent",
+      "verdict": "n/a: platform evidence review only",
+      "notes": "Record scope and artifact integrity reviewed; no rendered artifact or artistic approval."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a: no visual choice",
+      "owner_note": "n/a: no visual choice",
+      "date": "n/a: no visual choice"
+    }
+  }
+}

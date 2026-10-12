@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-10-12T13:01:30.278707+00:00",
+  "environment_variable_presence": {
+    "CLOUDFLARE_API_TOKEN": false,
+    "CLOUDFLARE_ACCOUNT_ID": false,
+    "CLOUDFLARE_API_KEY": false,
+    "CLOUDFLARE_EMAIL": false,
+    "PRIVY_APP_ID": false,
+    "PRIVY_APP_SECRET": false,
+    "PRIVY_AUTHORIZATION_KEY": false,
+    "OPENAI_API_KEY": false,
+    "ANTHROPIC_API_KEY": false,
+    "CODEX_API_KEY": false,
+    "CODEX_MARKET_DATA_API_KEY": false,
+    "BROWSERBASE_API_KEY": false,
+    "BROWSERBASE_PROJECT_ID": false
+  },
+  "project_secret_file_presence": {
+    ".env": false,
+    ".env.local": false,
+    ".dev.vars": false
+  },
+  "cloudflare_local_login": {
+    "configuration_exists": true,
+    "oauth_token_present": true,
+    "refresh_token_present": true,
+    "expiration_time": "2026-09-22T05:39:20.422Z",
+    "refresh_attempted": false,
+    "account_identity_checked": false,
+    "limitation": "Expired access token with refresh capability stored; account access is unverified, not proven absent. Wrangler could not be installed due disk capacity."
+  },
+  "scope": "Known environment variables, this worktree secret filenames, and documented local Wrangler login metadata only. No general credential search.",
+  "secret_values_printed_or_stored_in_evidence": false,
+  "hosted_checks": {
+    "cloudflare_browser_storage_deploy_destroy": "not_run: disk prevents supported Wrangler login refresh/account check; account availability unknown",
+    "privy_cosigning": "blocked: sandbox application/secret and co-signing configuration are unavailable to this worktree",
+    "anthropic_inference": "blocked: ANTHROPIC_API_KEY is not configured",
+    "openai_decisions": "blocked: OPENAI_API_KEY is not configured",
+    "codex_market_data": "blocked: market-data API key is not configured",
+    "browserbase_fallback": "not_run: fallback not selected and credentials not configured"
+  }
+}

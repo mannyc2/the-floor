@@ -1,0 +1,117 @@
+{
+  "check_id": "local-runtime-prerequisites",
+  "attempt": "001",
+  "status": "blocked",
+  "executed_at_utc": "2026-10-12T13:00:38.318870+00:00",
+  "operator": "Codex platform spike",
+  "reviewer": "Independent look-spike agent reviewed prerequisite/account scope and initial artifact integrity; package-audit agent reviewed source-only wording and audit artifact integrity. No runtime or art approval.",
+  "source_revision": "880f213389a11f1ec57903dcbfbd9334d0a1bce8",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "attempted_wranger": "4.149.0",
+    "attempted_workers_types": "5.20261012.1",
+    "initial_effect": "4.0.0",
+    "initial_sql_adapters": "4.0.3",
+    "lockfile_status": "Initial bootstrap lockfile exists only in scratch; peer mismatch requires Effect 4.0.3 before execution."
+  },
+  "api_evidence": [
+    "Installed SQL driver peer dependency requires effect ^4.0.3; see docs/spikes/evidence/platform/local-runtime-prerequisites/001/api-findings.md.",
+    "Published package source inspection identifies candidate APIs only. Temporary excerpts were removed under ENOSPC; six exact distribution URLs and verified SHA-512 digests are retained in api-findings.md.",
+    "Candidate launch snippets are unexecuted and untypechecked. They do not establish runtime compatibility."
+  ],
+  "execution_target": "local_bun",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "workerd": "not installed; not started",
+    "disk_preflight": {
+      "executed_at_utc": "2026-10-12T13:00:38.318870+00:00",
+      "total_bytes": 494384795648,
+      "used_bytes": 494291931136,
+      "free_bytes": 92864512,
+      "minimum_bytes_for_spike": 3221225472,
+      "minimum_basis": "Conservative execution prerequisite for package extraction, workerd, browser/Blender renders and evidence; not a Cloudflare limit.",
+      "status": "blocked",
+      "observed_installation_failure": {
+        "command": "bun add --dev --exact wrangler@4.149.0 @cloudflare/workers-types@5.20261012.1",
+        "exit_code": 1,
+        "stderr": "error: bun is unable to access tempdir: ENOSPC",
+        "time": "Earlier in this execution; precise timestamp not retained."
+      },
+      "task_owned_cleanup": "Removed only newly installed platform/node_modules. Retained manifests and source. Free space remained under 100 MiB."
+    }
+  },
+  "stage_and_resources": "n/a: local dependency setup only; no Cloudflare resources created",
+  "inputs": [
+    "Existing workspace and exact toolchain pins from reference-sources.json"
+  ],
+  "procedure": [
+    "bun --version",
+    "bun install (initial bootstrap succeeded with Effect peer mismatch warnings)",
+    "bun add --dev --exact wrangler@4.149.0 @cloudflare/workers-types@5.20261012.1 (failed ENOSPC)",
+    "Remove only newly generated platform/node_modules to release task-owned space",
+    "Measure free disk bytes with Python shutil.disk_usage",
+    "Inspect primary package metadata and selected distribution files, verify archive integrity where recorded, and preserve source-only findings; remove only task-created temporary excerpts when disk writes fail again."
+  ],
+  "expected_result": "Install compatible dependencies and launch local workerd checks before any hosted check.",
+  "observed_result": "Installation failed with ENOSPC. Source writes subsequently also failed until task-owned dependencies were removed. Runtime checks have not started.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/local-runtime-prerequisites/001/preflight.json",
+      "committed": true,
+      "bytes": 804,
+      "sha256": "c02ad960c5330bf8da944e74edd9caab6c61780da7abc7e93b5531c84bdf2737",
+      "regenerate": "Re-run the explicit disk preflight; preserve this attempt and write the new observation under a new attempt number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-runtime-prerequisites/001/api-findings.md",
+      "committed": true,
+      "bytes": 18526,
+      "sha256": "5b52bd0da34fe84833a6713f130ec1dd8b0650ea0cd549a6f6d0849a65edbc52",
+      "regenerate": "Fetch the exact npm distribution URLs listed in api-findings.md, verify their SHA-512 integrity, then inspect the named source paths and original line numbers. Re-run and typecheck candidate snippets only after installing and pinning the full dependency graph; preserve this source-only attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-runtime-prerequisites/001/launch-snippets.md",
+      "committed": true,
+      "bytes": 5706,
+      "sha256": "4e9a75845d8646719ddbba5d7b1ee0a8fb219de3a4a885d0fe3c2b63916c8059",
+      "regenerate": "Fetch the exact npm distribution URLs listed in api-findings.md, verify their SHA-512 integrity, then inspect the named source paths and original line numbers. Re-run and typecheck candidate snippets only after installing and pinning the full dependency graph; preserve this source-only attempt."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Package registry metadata/tarballs and primary documentation only; no provider workload",
+    "budget": "n/a: no paid provider call",
+    "observed_cost": "unknown: no provider billing query; no provider workload issued"
+  },
+  "cleanup_result": "Task-owned node_modules removed; prototype source and initial bootstrap files retained in ignored work for resumption. No hosted stage exists.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Free several GB or authorize disposable-cache cleanup, install the peer-compatible dependency set, then create a new immutable runtime attempt. No runtime compatibility, transaction, browser or rendering claim is established.",
+  "look": {
+    "technique": "n/a: platform prerequisite and source audit; no visual artifact",
+    "tone_set": "n/a: platform prerequisite and source audit; no visual artifact",
+    "theme": "n/a: platform prerequisite and source audit; no visual artifact",
+    "rung": "n/a: platform prerequisite and source audit; no visual artifact",
+    "dpr": "n/a: platform prerequisite and source audit; no visual artifact",
+    "camera": "n/a: platform prerequisite and source audit; no visual artifact",
+    "canvas": "n/a: platform prerequisite and source audit; no visual artifact",
+    "backend": "n/a: platform prerequisite and source audit; no visual artifact",
+    "renderer_string": "n/a: platform prerequisite and source audit; no visual artifact",
+    "device_profile": "n/a: platform prerequisite and source audit; no visual artifact",
+    "clock_and_seed": "n/a: platform prerequisite and source audit; no visual artifact",
+    "metrics": {
+      "not_applicable": "No render performed"
+    },
+    "made_by": "n/a: platform prerequisite and source audit; no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent look-spike agent",
+      "verdict": "n/a: platform evidence review only",
+      "notes": "Record scope and artifact integrity reviewed; no rendered artifact or artistic approval."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a: no visual choice",
+      "owner_note": "n/a: no visual choice",
+      "date": "n/a: no visual choice"
+    }
+  }
+}
