@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "bun"
+    ]
+  },
+  "include": [
+    "scripts/**/*.ts",
+    "stacks/**/*.ts",
+    "alchemy.run.ts"
+  ],
+  "exclude": [
+    "work",
+    "node_modules",
+    "apps/**/spikes"
+  ]
+}

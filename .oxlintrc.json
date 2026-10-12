@@ -1,0 +1,173 @@
+{
+  "$schema": "./node_modules/@effect/tsgo/oxlint-schema.json",
+  "extends": [
+    "./node_modules/oxlint-plugin-effect/presets/recommended.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/strict.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/maintainers.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/effect-native.json"
+  ],
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "promise",
+    "effecttsgo"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true,
+    "respectEslintDisableDirectives": false
+  },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "error",
+    "typescript/no-floating-promises": [
+      "error",
+      {
+        "ignoreVoid": false
+      }
+    ],
+    "typescript/no-misused-promises": "error",
+    "typescript/await-thenable": "error",
+    "typescript/return-await": [
+      "error",
+      "always"
+    ],
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/strict-boolean-expressions": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    "eslint/no-eval": "error",
+    "eslint/no-implied-eval": "error",
+    "eslint/eqeqeq": [
+      "error",
+      "always"
+    ],
+    "import/no-cycle": "error",
+    "effect/noTernary": "off",
+    "effect/noShapeInSymbolNames": "off",
+    "effecttsgo/api-stability-leak": "error",
+    "effecttsgo/abort-controller-in-effect": "error",
+    "effecttsgo/async-function": "error",
+    "effecttsgo/crypto-random-uuid": "error",
+    "effecttsgo/crypto-random-uuid-in-effect": "error",
+    "effecttsgo/extends-native-error": "error",
+    "effecttsgo/global-console": "error",
+    "effecttsgo/global-console-in-effect": "error",
+    "effecttsgo/global-date": "error",
+    "effecttsgo/global-date-in-effect": "error",
+    "effecttsgo/global-fetch": "error",
+    "effecttsgo/global-fetch-in-effect": "error",
+    "effecttsgo/global-random": "error",
+    "effecttsgo/global-random-in-effect": "error",
+    "effecttsgo/global-timers": "error",
+    "effecttsgo/global-timers-in-effect": "error",
+    "effecttsgo/instance-of-schema": "error",
+    "effecttsgo/new-promise": "error",
+    "effecttsgo/node-builtin-import": "error",
+    "effecttsgo/prefer-schema-over-json": "error",
+    "effecttsgo/process-env": "error",
+    "effecttsgo/process-env-in-effect": "error",
+    "effecttsgo/schema-sync": "error",
+    "eslint/no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_tag",
+          "_id"
+        ]
+      }
+    ],
+    "floor/contract-isolation": "error",
+    "floor/app-isolation": "error",
+    "floor/feature-isolation": "error",
+    "floor/signer-isolation": "error",
+    "floor/three-isolation": "error",
+    "floor/production-fixtures": "error",
+    "floor/static-modules": "error",
+    "floor/data-reads": "error",
+    "floor/atlas-literals": "error",
+    "floor/legacy-dependencies": "error"
+  },
+  "ignorePatterns": [
+    "work/**",
+    "node_modules/**",
+    "dist/**"
+  ],
+  "jsPlugins": [
+    {
+      "name": "floor",
+      "specifier": "./work/lint/plugin.mjs"
+    },
+    {
+      "name": "foldkit",
+      "specifier": "@foldkit/oxlint-plugin"
+    }
+  ],
+  "overrides": [
+    {
+      "files": [
+        "apps/web/src/**/*.ts"
+      ],
+      "rules": {
+        "foldkit/acquire-release-constructs-in-acquire-body": "error",
+        "foldkit/command-binding-matches-name": "error",
+        "foldkit/command-define-pascal-const": "error",
+        "foldkit/got-prefix-requires-submodel-payload": "error",
+        "foldkit/got-submodel-message-name": "error",
+        "foldkit/got-wrapper-carries-only-routing": "error",
+        "foldkit/keyed-required-for-mapped-rows": "error",
+        "foldkit/lazy-view-stable-references": "error",
+        "foldkit/mount-factory-must-use-element": "error",
+        "foldkit/no-array-index-view-keys": "error",
+        "foldkit/no-child-message-construction-in-root": "error",
+        "foldkit/no-direct-submodel-state-update": "error",
+        "foldkit/no-disabling-dev-guardrails": "error",
+        "foldkit/no-duplicate-onmount-per-element": "error",
+        "foldkit/no-empty-children-array": "error",
+        "foldkit/no-empty-commands-array": "error",
+        "foldkit/no-empty-to-parent-out-message": "error",
+        "foldkit/no-empty-object-tagged-call": "error",
+        "foldkit/no-hand-rolled-command-struct": "error",
+        "foldkit/no-hardcoded-route-strings": "error",
+        "foldkit/no-impure-call-at-decision-time": "error",
+        "foldkit/no-module-level-mutable-state": "error",
+        "foldkit/no-nonportable-server-globals": "off",
+        "foldkit/no-noop-message": "error",
+        "foldkit/no-prevent-default-in-stream-operator": "error",
+        "foldkit/no-raw-dom-event-attributes": "error",
+        "foldkit/no-route-query-constructor-default": "error",
+        "foldkit/no-spread-in-modify-fields": "error",
+        "foldkit/no-switch-on-message-tag": "error",
+        "foldkit/prefer-callable-message-constructor": "error",
+        "foldkit/prefer-command-mapmessage": "error",
+        "foldkit/prefer-effect-module-names": "error",
+        "foldkit/prefer-option-over-nullable-in-model": "error",
+        "foldkit/require-fold-for-child-update-result": "error",
+        "foldkit/require-rel-for-external-link": "error",
+        "foldkit/selection-submodel-factory-at-module-scope": "error",
+        "foldkit/wrap-child-output-in-got-message": "error"
+      }
+    },
+    {
+      "files": [
+        "apps/web/src/entry.ts"
+      ],
+      "rules": {
+        "foldkit/no-impure-call-at-decision-time": "off"
+      }
+    }
+  ]
+}

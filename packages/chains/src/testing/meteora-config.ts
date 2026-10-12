@@ -1,0 +1,68 @@
+import { none } from "@solana/kit";
+import type { ConfigParametersArgs } from "../solana/_generated/configParameters";
+// Controlled dev-oracle output, never a price quote or network snapshot.
+export const config: ConfigParametersArgs = {
+  "poolFees": {
+    "baseFee": {
+      "cliffFeeNumerator": 10000000n,
+      "firstFactor": 0,
+      "secondFactor": 0n,
+      "thirdFactor": 0n,
+      "baseFeeMode": 0,
+    },
+    "dynamicFee": none(),
+  },
+  "collectFeeMode": 0,
+  "migrationOption": 1,
+  "activationType": 1,
+  "tokenType": 0,
+  "tokenDecimal": 6,
+  "partnerLiquidityPercentage": 50,
+  "partnerPermanentLockedLiquidityPercentage": 5,
+  "creatorLiquidityPercentage": 40,
+  "creatorPermanentLockedLiquidityPercentage": 5,
+  "migrationQuoteThreshold": 10000000000n,
+  "sqrtStartPrice": 32609545905467449n,
+  "lockedVesting": {
+    "amountPerPeriod": 0n,
+    "cliffDurationFromMigrationTime": 0n,
+    "frequency": 0n,
+    "numberOfPeriod": 0n,
+    "cliffUnlockAmount": 0n,
+  },
+  "migrationFeeOption": 3,
+  "tokenSupply": { "preMigrationTokenSupply": 1000000000000000n, "postMigrationTokenSupply": 1000000000000000n },
+  "creatorTradingFeePercentage": 50,
+  "tokenUpdateAuthority": 1,
+  "migrationFee": { "feePercentage": 0, "creatorFeePercentage": 0 },
+  "migratedPoolFee": { "collectFeeMode": 0, "dynamicFee": 0, "poolFeeBps": 0 },
+  "poolCreationFee": 0n,
+  "partnerLiquidityVestingInfo": {
+    "vestingPercentage": 0,
+    "bpsPerPeriod": 0,
+    "numberOfPeriods": 0,
+    "cliffDurationFromMigrationTime": 0,
+    "frequency": 0,
+  },
+  "creatorLiquidityVestingInfo": {
+    "vestingPercentage": 0,
+    "bpsPerPeriod": 0,
+    "numberOfPeriods": 0,
+    "cliffDurationFromMigrationTime": 0,
+    "frequency": 0,
+  },
+  "migratedPoolBaseFeeMode": 0,
+  "migratedPoolMarketCapFeeSchedulerParams": {
+    "numberOfPeriod": 0,
+    "sqrtPriceStepBps": 0,
+    "schedulerExpirationDuration": 0,
+    "reductionFactor": 0n,
+  },
+  "enableFirstSwapWithMinFee": false,
+  "compoundingFeeBps": 0,
+  "padding": new Uint8Array(2),
+  "curve": [{ "sqrtPrice": 130438178253327822n, "liquidity": 34783514678091156834964035168207n }, {
+    "sqrtPrice": 79226673521066979257578248091n,
+    "liquidity": 3435866574973078303503357n,
+  }],
+};

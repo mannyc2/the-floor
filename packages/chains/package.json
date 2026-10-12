@@ -1,0 +1,27 @@
+{
+  "name": "@floor/chains",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./solana": "./src/solana/index.ts",
+    "./evm": "./src/evm/index.ts",
+    "./math": "./src/solana/math.ts",
+    "./testing": "./src/testing/index.ts"
+  },
+  "dependencies": {
+    "@solana/kit": "8.4.0",
+    "@whetstone-research/doppler-sdk": "1.0.43",
+    "effect": "4.0.3",
+    "viem": "2.44.2"
+  },
+  "devDependencies": {
+    "@codama/nodes-from-anchor": "1.5.6",
+    "@codama/renderers-js": "2.5.0",
+    "codama": "1.11.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test ./test",
+    "generate": "codama run js && bun scripts/bounded-client.ts"
+  }
+}

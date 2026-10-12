@@ -1,0 +1,34 @@
+{
+  "includes": [
+    "apps/*/src/**/*.ts",
+    "apps/*/test/**/*.ts",
+    "apps/*/package.json",
+    "apps/*/tsconfig.json",
+    "apps/web/*.ts",
+    "packages/**/*.ts",
+    "packages/**/*.json",
+    "scripts/**/*.ts",
+    "stacks/**/*.ts",
+    "testing/**/*.ts",
+    "testing/**/*.json",
+    "alchemy.run.ts",
+    "package.json",
+    "tsconfig*.json",
+    "dprint.json",
+    ".oxlintrc.json"
+  ],
+  "excludes": [
+    "work/**",
+    "node_modules/**",
+    "**/node_modules/**",
+    "**/.alchemy/**",
+    "**/client/**",
+    "**/spikes/**",
+    "packages/chains/idl/**",
+    "packages/chains/test/fixtures/**"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.11.wasm",
+    "https://plugins.dprint.dev/json-0.21.0.wasm"
+  ]
+}

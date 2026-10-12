@@ -1,0 +1,22 @@
+{
+  "name": "@floor/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "foldkit": "0.168.0",
+    "three": "0.180.0",
+    "@floor/contract": "workspace:*",
+    "@floor/api": "workspace:*"
+  },
+  "devDependencies": {
+    "@foldkit/vite-plugin": "0.27.1",
+    "@types/three": "0.180.0"
+  }
+}
