@@ -2,6 +2,8 @@
 
 Use Bun, never npm, yarn or pnpm. No explicit or implicit `any`, type casts or non-null assertions. No assistant attribution in commits.
 
+Use Effect's own modules first. Add a third-party dependency only where Effect can't do the job, and record why in `docs/decisions.md`.
+
 ## Read first
 
 - `README.md` and `docs/decisions.md` for the current scope and unresolved choices.
