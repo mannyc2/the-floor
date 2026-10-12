@@ -1,6 +1,6 @@
 # Workspace decisions
 
-This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. No spike results, deployment results or art approvals have been recorded here.
+This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. The line technique is the only owner pick recorded so far; no deployment results have been recorded here.
 
 ## Current scope
 
@@ -20,18 +20,20 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 | 12 October 2026 | Alchemy v2 is how the Floor is built on Cloudflare, not only how it is deployed. Workers and Durable Objects are Alchemy resources with Effect bindings; scheduled work uses durable callbacks; local runs use `alchemy dev`; hosted tests use Alchemy's harness; credentials are Alchemy profiles. No Wrangler config or `effect-cf` | Accepted by the owner. The first build skipped Alchemy entirely, and the platform spike started on raw Wrangler. Alchemy's runtime is Effect-native, so it fits the Floor's services and Layers directly. Details are in the [platform handoff](spikes/platform.md). |
 | 12 October 2026 | No Blender for the MVP. Assets are three.js generators and SVG profiles turned into geometry; the line target is three-edge-projection | Accepted by the owner: Blender is polish for later, not MVP work. The Atlas conventions (`_SURFACE`, `_MAT`, sockets, the kit unit) stay as written, so Blender-made assets can join later without changes. Supersedes the Blender routes in the copied Atlas plan and technical design. |
 | 12 October 2026 | Split the look spike into Part A (rendering technique, runnable without art inputs) and Part B (references, tones, proportions, assets, owner picks) | Accepted at the owner's request, so the technique work isn't blocked on references. See [the look handoff](spikes/look.md). |
+| 12 October 2026 | Line technique: B, a surface-id-and-depth edge pass, on WebGL. A (normal and depth) is the fallback. WebGPU is not the baseline | The owner's pick ("whatever's optimal") from Part A's comparison sheet. The owner saw no visible difference between A and B, so the measurements decide: B is closest to the edge-projection target (F1 within one CSS pixel 0.9999, against A's 0.989) and cheapest on CPU, and its lines come from authored `_SURFACE` ids, so where lines fall is designed rather than left to normals. C fails the stroke-width target. Software WebGPU won't start under SwiftShader, so it can't pass the repeatability gate. Evidence: `docs/spikes/evidence/look/report.md` on `spike/look-a` at `80090f8`. |
+| 12 October 2026 | Look Part B starts. Part A's stand-in scene is test geometry, not a candidate look | The owner found the stand-in world "quite ugly". Its faults are listed in [the look handoff](spikes/look.md) as what Part B has to fix. |
 
 ## Decisions and inputs still needed
 
 | Item | Current starting point | Evidence or owner needed | Required by |
 | --- | --- | --- | --- |
-| Owner's picks | Roles settled above; no picks yet | The owner's picks of reference frames, technique, tones and proportions from shortlisted options | Look spike Part B exit |
+| Owner's picks | Roles settled above; technique picked | The owner's picks of reference frames, tones and proportions from shortlisted options | Look spike Part B exit |
 | Cloudflare access | Account readiness unchecked | Workers, Durable Objects and Browser Rendering access; scoped test stage and cleanup | Hosted platform checks |
 | Wallet, inference and market-data accounts | Readiness unchecked | Privy sandbox; selected inference providers; Codex market-data account (codex.io) | Respective platform checks and Stage 0 needs |
 | Yielded on Alchemy | yielded-dev/agent#557 (open, unpublished) needs a patch on Alchemy beta.80 | The PR merged and `@yielded/agent-platform-alchemy-cloudflare` published, with its Alchemy fixes released upstream, or a decision to carry a pinned build and patch until then | Stage 0 |
 | Browser package and containment | Cloudflare default, Browserbase fallback | Package/version exporting the adapters; tested network containment, live view and takeover | Platform spike exit |
 | Runtime compatibility | Workers and Durable Objects target | workerd evidence for SDKs, storage, Web Crypto and renderer; logged deviations where necessary | Platform spike exit |
-| Rendering technique and Atlas values | Unselected | Part A's measurements, then the owner's picks of technique, tones, kit unit, line spec and proportions | Look spike exit |
+| Atlas values | Technique B on WebGL picked; values unselected | The owner's picks of tones, kit unit, line spec and proportions | Look spike exit |
 | Islands | Revised default: Solana plus Robinhood Chain; Base through the EVM adapter | Validate with `fomo-analytics` before Stage 3; current dataset availability not established | Stage 3 |
 | Source control hosting | Local repository with an initial commit | A remote | Parallel worktrees in the cloud and preview CI |
 

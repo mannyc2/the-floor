@@ -1,14 +1,14 @@
-# Look Part A: B on WebGL recommended; owner pick pending
+# Look Part A complete: owner picked B on WebGL
 
-**Recommend B, the surface-ID-and-depth pass, on WebGL.** A, the normal-and-depth pass, is an eligible alternative. Both repeat exactly in the required SwiftShader matrix, meet the sampled one-CSS-pixel stroke requirement at all three rungs and DPRs, and remain within the local phone-profile CPU budget. B retains more of the CPU reference's edges at similar cost. C loses parts of thin silhouettes to depth testing and fails eight of eighteen stroke samples per backend, so it is not offered as an option.
+**The owner picked B, the surface-ID-and-depth pass, on WebGL on 12 October 2026.** A, the normal-and-depth pass, remains the fallback. Both repeat exactly in the required SwiftShader matrix, meet the sampled one-CSS-pixel stroke requirement at all three rungs and DPRs, and remain within the local phone-profile CPU budget. B retains more of the CPU reference's edges at similar cost. C loses parts of thin silhouettes to depth testing and fails eight of eighteen stroke samples per backend, so it is not offered as an option.
 
-**Recommendation: proceed to the owner’s technique pick with B/WebGL as the preferred Part A candidate; hold Stage 0 pending the remaining gates.**
+**Part A is complete; hold Stage 0 pending the remaining gates.** The owner saw no visible difference between A and B and chose “whatever’s optimal”; the measured comparison determined B. The pick is recorded in the [decision log](../../../decisions.md) by commit `14501e7`.
 
-This is a technical recommendation for **Part A only**. The owner has not picked a technique. Tones, proportions, kit unit, references and assets are not approved; Part B and Stage 0 have not started. No hosted run, deployment, provider spend, merge or push occurred.
+The owner has started Part B in the [current handoff](../../look.md). **This branch’s work executed Part A only; it did not execute Part B or Stage 0.** Tones, proportions, kit unit, reference frames and assets remain unpicked. Part A’s stand-in scene is test geometry, not an approved look. No hosted run, deployment, provider spend or push occurred.
 
 ## What to review
 
-[Open the comparison sheet](technique-comparison/003/contact-sheet.png): A, B, C and the current CPU edge target on the same district, works, machine and night frames. C is shown to explain its rejection. The full-size A/B frames and the [comparison record](technique-comparison/003/record.json) are committed. The root agent independently reviewed this sheet as legible and suitable for technical comparison; that review is not owner approval.
+[Open the comparison sheet](technique-comparison/003/contact-sheet.png): A, B, C and the current CPU edge target on the same district, works, machine and night frames. C is shown to explain its rejection. The full-size A/B frames and the [comparison record](technique-comparison/003/record.json) are committed. The root agent independently reviewed this sheet as legible and suitable for technical comparison. That technical review preceded the owner’s recorded technique pick; it did not approve the stand-in scene’s appearance.
 
 The scene is newly authored code: twelve instanced stalls in three variants, the rack and its trays/float/gauge, two figures from an SVG radial profile, paving, quay and labels. Every mesh carries semantic surface IDs, palette slots and a provisional kit unit. Only original Atlas token data was copied from the first-build archive. No reference renderer or asset code was imported or executed. Labels are hidden in scored captures so the line metrics measure geometry.
 
@@ -62,10 +62,12 @@ The observed SVG authoring and validation task took **12 minutes 39 seconds**, i
 
 Switching the figures' input representation to an SVG path left the complete shared scene/camera JSON byte-identical (SHA-256 `205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638`). Final render evidence therefore still describes the current geometry.
 
-## Verification and remaining decisions
+## Verification, promotion and remaining gates
 
 [Runtime verification](runtime-prerequisite/002/record.json) records successful scoped typecheck, lint, build and the final headed control interaction, plus source fingerprints and cleanup. The spike bundle includes both backends and emits Vite's large-chunk warning; it is not a production bundle-budget result. All experiment servers and driver browsers were closed. This does not establish the Stage 0 Effect diagnostics, production build or deployed acceptance flow.
 
 Initial setup was delayed by a full disk before rendering could run; it resumed after disk space was restored. Executed calibration, interrupted runs and superseded Blender experiments remain historical evidence from the earlier handoff. They are excluded from current acceptance; Blender is not an MVP dependency. Historical source fingerprints resolve through the preserved experiment commit identified in the runtime provenance audit. Pre-execution blocked records were removed under the revised evidence policy.
 
-The next decision is the owner's **B/WebGL, A/WebGL, or neither** pick. The measured limitations remain: distant sprite line survival, untested real-phone behavior, C width/native-night defects, software-WebGPU startup failure, and unavailable comparable per-asset authoring time. Tone sets, proportions, kit unit, reference picks and newcomer testing belong to the still-unstarted Part B. No approval or Stage 0 readiness is inferred from this report.
+The measured limitations remain: distant sprite line survival, untested real-phone behavior, C width/native-night defects, software-WebGPU startup failure, and unavailable comparable per-asset authoring time. Tone sets, proportions, kit unit, reference picks and newcomer testing belong to Part B. The technique pick does not settle those choices or establish Stage 0 readiness.
+
+The [Stage 0 promotion plan](../../../stage-0.md), recorded in commit `d583f33`, carries the existing B renderer, mesh attribution, SVG route and look harness into their permanent homes with the specified readability, token and TypeScript-driver work. A, C, WebGPU and the historical Blender experiments remain evidence. This reconciliation changes documentation only; it preserves every source file and recorded measurement and performs none of that promotion work.

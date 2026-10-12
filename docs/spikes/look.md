@@ -1,13 +1,11 @@
 # Look spike handoff
 
-Status: **Part A authorized 12 October 2026, not yet run. Part B starts when Part A reports.** Nothing has been approved.
+Status: **Part A done; the owner picked technique B on WebGL on 12 October 2026. Part B starts now.** Tones, proportions, the kit unit and reference frames are not picked yet.
 
 The spike settles how the map is drawn before Stage 0 writes the Floor Atlas. It runs in two parts:
 
 - **Part A, the rendering technique.** It needs no art inputs.
 - **Part B, references and the look.** Agents make the reference images and assets, a different agent reviews them, and the owner picks between shortlisted options.
-
-Part A runs alongside the platform spike.
 
 ## Who does what
 
@@ -75,9 +73,23 @@ Start on WebGL, then record WebGPU support and cost for each technique. three.js
 
 **Exit.** A technique recommendation with its measurements, and one page of side-by-sides (the three techniques on the same frames) for the owner. The owner's pick, or "any of these", is recorded. A technique that fails repeatability or the phone budget isn't shown as an option.
 
+**Result.** B, the surface-id-and-depth pass, on WebGL; A is the fallback. The owner saw no difference between A and B and took the optimal one, so the measurements decided (see the [decision log](../decisions.md)). Two findings carry into Stage 0: thin lines don't survive being baked into 64-pixel impostors, so distant rungs need their own outline pass or LOD; and no real phone has been tested. Evidence: `docs/spikes/evidence/look/report.md` on `spike/look-a`.
+
 ## Part B: references and the look
 
 Part B makes the reference frames, then fixes tones, proportions and the kit unit against them.
+
+### What Part B has to fix
+
+The owner's verdict on Part A's stand-in world was "quite ugly". It was test geometry in the first build's tokens, and it shows the product doc's warning that rules aren't a target:
+
+- **Nobody designed the forms.** Stalls are boxes with a slot cut in, the rack is a stack of identical slabs, and the figures are plain turned shapes. Every asset is designed from modules, and the stall gets the most care.
+- **There is no tonal structure.** By day almost every face is white on near-white paper, so tops, sides and ground merge; the only colour is the flat blue of the trays and quay. By night everything is one grey-blue. The style block asks for four tones by face direction, tops lightest, sampled from the picked references.
+- **The ground is the loudest thing in the frame.** Paving joints are drawn as heavily as buildings, so an empty grid dominates. Try a lighter line tone for ground joints: B knows which surface each edge belongs to, so the weight can stay even while the tone varies.
+- **There is no density or composition.** Twelve stalls sit in a grid on an empty plaza, with no hall, signage, paths, plinths or tower. Key frame 6 is the target: a covered hall packed with dozens of tiny stalls, a ring of compounds, and one tower.
+- **There is no tradition or material.** Nothing says canal town, brick or riveted steel.
+
+The owner's next look at the Floor is the reference contact sheets, not more renders of stand-in geometry. Renders go back to the owner once assets are rebuilt against picked references.
 
 ### 1. References
 
@@ -102,7 +114,7 @@ Image models drift on exactly what the Floor cares about: true orthographic proj
 
 ### 4. Assets by route
 
-Make the stall, the rack housing and one figure by both routes: a three.js generator, and SVG profiles turned into geometry. Compare each against the picked references using:
+Make the stall, the rack housing and one figure by both routes: a three.js generator, and SVG profiles turned into geometry. These are the real assets, not stand-ins: write them formatted and commented, as Stage 0 will move them into `apps/web` unchanged. Compare each against the picked references using:
 - the tone histogram;
 - edge density per tile;
 - silhouette overlap with the reference's main forms;
