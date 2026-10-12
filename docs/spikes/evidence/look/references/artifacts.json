@@ -1,0 +1,1476 @@
+{
+  "scope": "Committed reference package, excluding this self-referential inventory; raw scratch artifacts are inventoried per attempt record.",
+  "files": [
+    {
+      "path": "docs/spikes/evidence/look/references/README.md",
+      "bytes": 10401,
+      "sha256": "7fd3e293aeee59c5e41b1ae11b65f66b34e8e56b00ebebe9c037058d6cf4eb51"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/.gitignore",
+      "bytes": 19,
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/contact-sheet.mjs",
+      "bytes": 4134,
+      "sha256": "a23bd8455c912db7d9228cd8c6d35e5fc92a4fecb817c3745ca8cbe2cb2901ed"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/control-check.py",
+      "bytes": 1812,
+      "sha256": "d511d1849b7f29bab877e9beb54c48558180d6871b2001056b98d47c8615c415"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/package-evidence.py",
+      "bytes": 13342,
+      "sha256": "367c725ce5b7dce7056f31313f2b48708126aecbdd6132ca8bfbb39e572cdbe7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/requirements.txt",
+      "bytes": 61,
+      "sha256": "9fca190ebf13b2d579ce0e19c2d84df61d54158e35c41e30e7a8b682e763e4a9"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/screen.py",
+      "bytes": 7432,
+      "sha256": "cd566c4fb1a4feb56d09297bda0a13c4c0a086beb580339d8e00943c9ae9aa92"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/_tools/verify-evidence.py",
+      "bytes": 5258,
+      "sha256": "dfd6886282864e5499530360b61cd24e63ecc5e71b22c33060fe407f68129069"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/candidates.csv",
+      "bytes": 30380,
+      "sha256": "f60ca5a49723f85aec17d7908e1e6a83f6c87e085e3160849af8c31f74346963"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.png",
+      "bytes": 3127758,
+      "sha256": "b8887ff807ee2c1c00cb2f047d125572467730d5b412f7b4f8c2c7bc51d653d2"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.provenance.json",
+      "bytes": 805,
+      "sha256": "e03e0211a1589540a35f8882910b4648f2a8f70b0b25f4719dedf2b6950579c4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.screening.json",
+      "bytes": 3666,
+      "sha256": "370342e8035d2e589249311f5e80fcf027363a7fb32b8f3c63005166958b0ec3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.png",
+      "bytes": 2801815,
+      "sha256": "8a004415dd0d9f7d14864e7418f2475ab61cdadc6e11ab04876a04cbb600a29a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.provenance.json",
+      "bytes": 805,
+      "sha256": "bdf6150742013602cd07578234d72f317d9c5caddc46dc882f4e2713999019cc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.screening.json",
+      "bytes": 2495,
+      "sha256": "0385795016cbcd50c370e36a892591d745950b3d23f9ff11a35c1fcb2ac0d91c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.png",
+      "bytes": 3359197,
+      "sha256": "b4e4563fe22d2a8165b88a38d82381ee4da0033fb06be29d6a6329943996914a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.provenance.json",
+      "bytes": 805,
+      "sha256": "14664c2cdadb71b3784c792c2bc892e3198bfd9257b924c5431fea1de5c82454"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.screening.json",
+      "bytes": 4193,
+      "sha256": "030feb385c2d0185af28433ec9ed249a5185789fe35be061be593e04479a4e03"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.png",
+      "bytes": 2938379,
+      "sha256": "40b8e77c1ee5b59a2762aa76fc51acfe89b8180c0df443486008bfb2fecb2abe"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.provenance.json",
+      "bytes": 805,
+      "sha256": "003956d9b6a0b3a164f7ce10b1158e838bb86b1994a915b3f1d277e9f17b6524"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.screening.json",
+      "bytes": 3492,
+      "sha256": "c60c9587789c258c00fed5ad8c33824b8b9f8fdca3c7973fe2ffef9ee1078826"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.png",
+      "bytes": 3379070,
+      "sha256": "ff35c77845f5087e354ab86c793ffe518c457ef27108a13eaf833041aef4946a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.provenance.json",
+      "bytes": 805,
+      "sha256": "04bd1038908c186c87a3d1e31da982361dc6b9744e6ebd21f24debce7bafd248"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.screening.json",
+      "bytes": 3566,
+      "sha256": "9d0e4cd031170278805813c9c0015d2a555a7ae0a4293adbd96a3cceeb5d9fde"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.png",
+      "bytes": 3118639,
+      "sha256": "67ac4e81318581496ad77ad1b47f1fef886ce4c10aca46ee6589f1a39bc401f1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.provenance.json",
+      "bytes": 805,
+      "sha256": "7bb55ed1afe75708fdab5ae46c6dbc5b33c5ec0bee1f4a36cdd5b54aa04f707d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.screening.json",
+      "bytes": 3542,
+      "sha256": "96cc714fff3ff90d938d8734fa32e9bc3d24399d5f96a48a4ad80efe49a9cf20"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.png",
+      "bytes": 3349645,
+      "sha256": "2bccb73a35e978d599e9ad0c4b654ffd93f6cf0867dd415911e8b4406f478704"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.provenance.json",
+      "bytes": 805,
+      "sha256": "ed72e6eebbaf28ad6b5ba11a98a6539bdc0fbee4f3cb67d3d7378a2d6cd95229"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.screening.json",
+      "bytes": 4142,
+      "sha256": "2f3900f8cc8066694cb0bc842b99c0ea48a75fdf591a5370f9def5d32de5c88b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.png",
+      "bytes": 3409645,
+      "sha256": "2d4f3b21635b15a116e8734dce9fa67bbd43800df914a4b06ced725b3b38e219"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.provenance.json",
+      "bytes": 805,
+      "sha256": "b10ea53fb32b0d51c6838d3ac9b6b85f6e744d623f6e1be9fe7c01de73e58e8e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.screening.json",
+      "bytes": 4352,
+      "sha256": "2ce042a8a129fd7f35a777d526021e8e9ea7876fa88d4649ca7fa41be1b16e6f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.png",
+      "bytes": 3310444,
+      "sha256": "30064d81ea4c7114c99664439179cc86aa2a6d732673d48f760337f9a5846b97"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.provenance.json",
+      "bytes": 805,
+      "sha256": "fb1c340a9758e565d470c6e8597ed835ae8221d6224afbc8bcfe410c49623bbf"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.screening.json",
+      "bytes": 3756,
+      "sha256": "87b744da63d3b8629fb833e5cd302128b7a4529b77d02c76fdbb93bbf6724785"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.png",
+      "bytes": 3363301,
+      "sha256": "3046ac83014185c2ad66889a89ab3cbe5186434d068e8f5c4579a6486ee99d3c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.provenance.json",
+      "bytes": 805,
+      "sha256": "e9a8200a4a16de6a351a6f0fa98846a83624f16e522ed44d338a2730415f5bbb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.screening.json",
+      "bytes": 3587,
+      "sha256": "77ac2ab3a95dcb7a659e56e2f79d97df3f03b96af232b6057ba6c94aef5e3472"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.png",
+      "bytes": 3026779,
+      "sha256": "6c45bf1840aed3fbad78fb961c1d39e1dc5dbdd5b13304f8b161c1cf8c5b6043"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.provenance.json",
+      "bytes": 805,
+      "sha256": "e901910732932016c39acef39c3c5d101f2518d6e9dd7746b93b1d02ea35051c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.screening.json",
+      "bytes": 3109,
+      "sha256": "a641e655f6ed7b2f1d4cfd2e702f3f6a138b8c3dfd6751852509c655ade49ea4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.png",
+      "bytes": 3072631,
+      "sha256": "88054eb6a1c5949bf3207716ce19a83506beb8ee10a45da243dd8c6b707675b3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.provenance.json",
+      "bytes": 805,
+      "sha256": "a5b7904ddffc4ac655ed9ef8b990df40376b41624a66eed86c057c215e95e8bc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.screening.json",
+      "bytes": 4151,
+      "sha256": "b873dfe30bf3262f4365e21541e09fc1e0f83c3218cf755e790272ff3f82584f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/contact-sheet.html",
+      "bytes": 3457,
+      "sha256": "e64e4bb73de231db366fd51a7b326e64ddb0d9fc2f6548d51ccb9d2e6eb2d805"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/contact-sheet.png",
+      "bytes": 8636445,
+      "sha256": "6a134ec33cf50d95f6c987dd7382d90ba677362b159b4eea003db01aa1dc6ceb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/prompts.json",
+      "bytes": 41925,
+      "sha256": "7f45ee998e4c9efba8f447eb217d8de7c53a8cb6e3d628a21779338f27ccac00"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/record.json",
+      "bytes": 37374,
+      "sha256": "45b374b9f60e740eb56e26eadcdb034ecf4030549f729dd4aee80a552afbf34d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-01.png",
+      "bytes": 2730176,
+      "sha256": "a66e0c5c48b017a1e8beba9e1ff9983a5bc75b3007fb8195a114055576b91ba3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-01.provenance.json",
+      "bytes": 809,
+      "sha256": "a17b684890d1c82deb510fac4cf6704037b8ae3795d5c57d59c27becc9caacaf"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-01.screening.json",
+      "bytes": 3919,
+      "sha256": "7e1813318a76c617c9c2e967220928a85284861905e26000decd074c454d5b24"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-02.png",
+      "bytes": 2634065,
+      "sha256": "3e51e33aa98c2cb65ce79ddb3e6a6ceeefcf8a69788a4ae28f166497d9e3d1cc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-02.provenance.json",
+      "bytes": 809,
+      "sha256": "e049d1f316b3e57e458fc2cf676dcbf054cb4b1c543010a2290bf93bd3600d75"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-02.screening.json",
+      "bytes": 2935,
+      "sha256": "4a4001c993090302065cbb12729502323117e9095a9c7c9caef8f2c4a2b244e7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-03.png",
+      "bytes": 2883639,
+      "sha256": "505b9928b4f2a8f1c17e3ae50e413703a0e8c338819ec626b69f4eb84b59f3c6"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-03.provenance.json",
+      "bytes": 809,
+      "sha256": "c3267f0d0293fbdc2c48c24fa6a53fecfb1ecd21e82136bfd634cd327093c700"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-03.screening.json",
+      "bytes": 3055,
+      "sha256": "7ba32da649d077c47f9402ed1a95d4e3b88fe1c9776bf12ca83965cc076032b8"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-04.png",
+      "bytes": 2906507,
+      "sha256": "0f4ea72f576be03710cc245f57f7454266e5cb498798bca15d6aa6cb99c65809"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-04.provenance.json",
+      "bytes": 809,
+      "sha256": "ba5d49b0937ec209733ada28bc0d36e5e8290148e589e8e83f359be5d7c264ca"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-04.screening.json",
+      "bytes": 3360,
+      "sha256": "87405d9976aef478605f92d0ea2ad29c6c80dbc7bddf069e8a119e15c620d6a7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-05.png",
+      "bytes": 2821264,
+      "sha256": "b0e6bad3f176e5cacebc0626112c93ddeea500a27fe1f32e07d97e88c144cea4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-05.provenance.json",
+      "bytes": 809,
+      "sha256": "e6e26be34bd150809c9cf4288135303ec78ffcda09824e6f203ab053661c3099"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-05.screening.json",
+      "bytes": 4158,
+      "sha256": "b1d5e1633a6369ea9371188e21123aabbe304fd17d76259322fc8ecac86b2e13"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-06.png",
+      "bytes": 3006543,
+      "sha256": "29753bf7daab04cd90a92a5cbc1cc72227638061ec14606345330e1f3a491dd7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-06.provenance.json",
+      "bytes": 809,
+      "sha256": "c5db7dfe5de569e6f8c266cc1bf473183c930a04575e737aa534e9b5f779bbbe"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-06.screening.json",
+      "bytes": 3756,
+      "sha256": "a1ce1b91b7720f9ebbb3e7007c7c67ea7660c819d17a91c6616f64bd70967555"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-07.png",
+      "bytes": 2888189,
+      "sha256": "3539cd93c9fc0c02327f201b57edf37e9a8572fcebba72f78eceb91d9eacd7d5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-07.provenance.json",
+      "bytes": 809,
+      "sha256": "d4c9e4139a805564a0363cdab662b3d56a716ffbdd2ab11304f816331247ea87"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-07.screening.json",
+      "bytes": 4550,
+      "sha256": "8dbb69e98e2d64bce1815d050deb7a1e09adeec0635df831d249efd642287180"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-08.png",
+      "bytes": 3159361,
+      "sha256": "3de61a09e7a5de411fd2d8e4db423b9849101bc1972e668988061e34b9513ae3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-08.provenance.json",
+      "bytes": 809,
+      "sha256": "23bbd1208c40f0e090cdf9fbfeceb69c8a59b60103cee295a8c6629a9bc50492"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-08.screening.json",
+      "bytes": 3294,
+      "sha256": "9a643cc55fc35ccbe3a9f7b617420cad756db4c5e46440064b2a1255aeeac18d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-09.png",
+      "bytes": 2759080,
+      "sha256": "64fa5492f1b5cf56f68e4ae2fc1398e16336536b105d025f9c8cc6fa746bdd59"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-09.provenance.json",
+      "bytes": 809,
+      "sha256": "d8f6727079a5a469df6d2d90b604ecaeb794dbd52212b68ea8629e5ff436204e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-09.screening.json",
+      "bytes": 3234,
+      "sha256": "a8c0004d57ee506dcd4ff6e414676451598ff5deb672a1c5bde93f7b6e7c6fe5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-10.png",
+      "bytes": 2815620,
+      "sha256": "6ef9196ed8121df1ad720502ab3f43eb9e232c4107cf173436faf315a3e7a3d5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-10.provenance.json",
+      "bytes": 809,
+      "sha256": "a7b19cd253808286bf74db7cd95a477e3ee3b1d060de23da1573858094938d0e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-10.screening.json",
+      "bytes": 3056,
+      "sha256": "6ff2dca20bda2386a4cda1f5da15daf9aa3d4155ff833c7893566f599b392e74"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-11.png",
+      "bytes": 2837688,
+      "sha256": "1dc6466481308792bf5392f1ee9625d7bf44aab3a697ce8186fef48e7b653eed"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-11.provenance.json",
+      "bytes": 809,
+      "sha256": "8b35fc11bf27fe3ef08c4b8c0b90d04e7e26ed5ae1012dc4d4c39106d5a33597"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-11.screening.json",
+      "bytes": 3451,
+      "sha256": "357045d169a47b33566708a1c685d38c55a19bfcd9b571b0cbe26ed8d5e378cc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-12.png",
+      "bytes": 2685798,
+      "sha256": "4ffb95bd7fb1ecae6dfdc026475d08960f6e9ceb76e446cf1abb88cff4458d7b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-12.provenance.json",
+      "bytes": 809,
+      "sha256": "98b402c070f4532a4c93b8d04c2322350191778b8e1592b189fbbdf087e6387c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/candidate-12.screening.json",
+      "bytes": 3751,
+      "sha256": "9a8687df393618f0a08dfd56e97e5ce849f233d715b0c5cac73b2f2323ea7ffa"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/contact-sheet.html",
+      "bytes": 3437,
+      "sha256": "dd219a1c79a29e4e81dce03590adeb3bbfb27c951ec14d0b61f6bf709cb3245c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/contact-sheet.png",
+      "bytes": 7705977,
+      "sha256": "bb86cfdb1824b205cc56573bc3cae8f81916709b7b12d2de2cd371ee029d9db5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/prompts.json",
+      "bytes": 43317,
+      "sha256": "47e7ae768af1f36adf37e3e906d322dd71732c364f60cdcb6a834d7badbace48"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-night/001/record.json",
+      "bytes": 37655,
+      "sha256": "34326041c89f9e11f0061e3ce6943b600735203fff583e5d45a33e2efd8e88b7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/prompt-provenance.json",
+      "bytes": 1654,
+      "sha256": "04aa4cd944c925548c54dabd92234c29b61521a7f4e562f6967da18414124dbc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-01.png",
+      "bytes": 2702520,
+      "sha256": "eba8b38ed6d3305e828b2f8fa790e8ef79aebb81ca02c91153615379d5f62b42"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-01.provenance.json",
+      "bytes": 894,
+      "sha256": "ccb36ee6a6b13d979a4e5ed2c4232dd00248116001c26bcdc4e4cf87540882b1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-01.screening.json",
+      "bytes": 2747,
+      "sha256": "3b12bc9a9c3b1631caaab50487a0b5d5ad2e4fb64d19b033dbb77b7042aba8f5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-02.png",
+      "bytes": 3088482,
+      "sha256": "4b9a0c8a0a419f27cac41d4f2bdf139ef057aec4a42155791294a045f4fea7ee"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-02.provenance.json",
+      "bytes": 797,
+      "sha256": "2860c27db4826f34fb56e8a90a33664de98f2a57b674a6506732e7e8dc87f6df"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-02.screening.json",
+      "bytes": 3668,
+      "sha256": "40d6a3a8a20de31cd232d771ec13865fd250107b311f1df7d6d59d16607a09d1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-03.png",
+      "bytes": 2938175,
+      "sha256": "303b38889674c65c4611ae9912dba34e51ea1c208e21e2446cc9946c9208fa04"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-03.provenance.json",
+      "bytes": 797,
+      "sha256": "cd6f3d182508d1ec44c42ba1b9764df1d3ba5584fe7d2555e4c060b339639cca"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-03.screening.json",
+      "bytes": 3152,
+      "sha256": "4c7ac1fcb081f6d6844233086a8061877502ba7734af3ed23eeba9bcb5634253"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-04.png",
+      "bytes": 2980435,
+      "sha256": "b19cb3b2d5db8af8cddca0757e9526b5e62b7a03f1eef3006f28d85e5f253714"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-04.provenance.json",
+      "bytes": 797,
+      "sha256": "c7050494487c134e0217ee2ec3e68d203506d37252fc5379411fc124c0bad950"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-04.screening.json",
+      "bytes": 3282,
+      "sha256": "70ff4a17a68e4f1c5facab4690b2f93eb00728ccb1b6138830a5ef006401e586"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-05.png",
+      "bytes": 2821247,
+      "sha256": "be2bb0ab3db0f676b08bd305448ac6ae607a55dcacf21e7934ce237b8a25a057"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-05.provenance.json",
+      "bytes": 797,
+      "sha256": "3a3bc703342822d07ff5b7a64d52d1e408b3e36cf74cb5373fe2f7ecf2ac8499"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-05.screening.json",
+      "bytes": 3128,
+      "sha256": "9f48225e182102c1d4cddcc0b8088633c991d411fe9cc3161d2cdc80c5a2369b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-06.png",
+      "bytes": 2869641,
+      "sha256": "668c66aba274f289b2e71b6eb0b93eb95c561610d051646241528fabde121ac5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-06.provenance.json",
+      "bytes": 797,
+      "sha256": "8d0bd0d6d9a182cf61da431ac8812542f855ecf096b1b5920f809ffc87938692"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-06.screening.json",
+      "bytes": 3149,
+      "sha256": "01d276d86e196667087cb6d90bd1ea13647049fcb3fd7ce7e158aa70fa10fd1a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-07.png",
+      "bytes": 2923789,
+      "sha256": "73f672026e2bd7596b5f39ea333f16d72fd9919c0108a840b6c03bd42276689a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-07.provenance.json",
+      "bytes": 797,
+      "sha256": "c8fcb6dd5aa3ead66e6c123e728c9c06ff39e9fb341541f08a10823fe231b941"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-07.screening.json",
+      "bytes": 2853,
+      "sha256": "0d3d1653d8bda37b38e65d650ccbdc1cb74b580f516e3fc9ca6ba43e23fb04fa"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-08.png",
+      "bytes": 2947291,
+      "sha256": "03a627eaa8a94ae0272429594004337822eb7d713f9a05da6efdf03318e29c8a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-08.provenance.json",
+      "bytes": 797,
+      "sha256": "32c4b43fbe7903b03c387f6109e7f099c3429b4b50a15e3e9e2fdf2c48f8b4af"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-08.screening.json",
+      "bytes": 3351,
+      "sha256": "642e684425781568278c1bf95203ebd795ff3dd66631c755aa44c6615cb1e51b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-09.png",
+      "bytes": 2924860,
+      "sha256": "0d607f15aa4a032f9065db0b14a069a482feba9078e771f812160f35efd3a0cf"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-09.provenance.json",
+      "bytes": 797,
+      "sha256": "f66c4650202a87d909d098a994bc1f951d1680a5a958bcfa75c5dc9dc74af7ed"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-09.screening.json",
+      "bytes": 3752,
+      "sha256": "b5e52ec06d44219a0523bc61dd4d9a34e275e6a6b80921a1e029dc202edd4eb3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-10.png",
+      "bytes": 2799336,
+      "sha256": "c11f2c0bfd425704d982c62e9219134b3055b33b5823f19c72e956bb0e55705b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-10.provenance.json",
+      "bytes": 797,
+      "sha256": "9ce770498cfa4c0ba99386e6704743e73415769c424f39637e4ba879e4484ca7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-10.screening.json",
+      "bytes": 3872,
+      "sha256": "93a326606a5987c0a65a33adc048e45c330d328f1c4e2b4f897bb0e04aacd34a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-11.png",
+      "bytes": 2788552,
+      "sha256": "11abe98220b184352d72cb200212f9c9d26f7286e3b15a5b479afd76547d5f96"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-11.provenance.json",
+      "bytes": 797,
+      "sha256": "e6352f2d562ea943a23828ffa5ad3ffe5947d91f2da76d7f1c0dad2cf17c59aa"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-11.screening.json",
+      "bytes": 3534,
+      "sha256": "b8dab3e94e962fdd067659c80fef7b8f5fb0607d9bf0a06d36ac3c74693ed86a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-12.png",
+      "bytes": 2967065,
+      "sha256": "370c4e9217b23a590eb228f74f3e27bbd5800b83b664b7a6f7ce1bb1b431c5bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-12.provenance.json",
+      "bytes": 797,
+      "sha256": "5bcb20f083b3beaef5d4efba4bff8c7c50db5570e1f11206089ee502bbaec9ef"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/candidate-12.screening.json",
+      "bytes": 3471,
+      "sha256": "e89815233bb64350fc73187f4569a14b7578b9a45b2cf6ccf4893c511f578b6e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/contact-sheet.html",
+      "bytes": 3486,
+      "sha256": "5a458419bfdfa8761e469f2b3ca2106f4c1ead5b859d6c36a18e3250824a7f19"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/contact-sheet.png",
+      "bytes": 8014579,
+      "sha256": "433fc4a8b84e524ee42c0cff19653b8e66224db6def5860f22f1020b8bc2ba70"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/prompts.json",
+      "bytes": 35063,
+      "sha256": "cef673f513f8a0a528aa2eef420a16843208ec9d91a0e27d20050bdc01b2c311"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-day/001/record.json",
+      "bytes": 36785,
+      "sha256": "7146f5d99be8f2815f5354ecbcc4b0331072588d836ef94beb48ed92302497de"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-01.png",
+      "bytes": 2414958,
+      "sha256": "bc923af35d6d11ff55e5a7bea3c80e1c6af7cd0862245b3a090351fbaddc51e2"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-01.provenance.json",
+      "bytes": 801,
+      "sha256": "56d01e120cd478765ca2915398b3638f28132695b99d53a004266ec0abdf2eed"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-01.screening.json",
+      "bytes": 2881,
+      "sha256": "2b3d9ae0f748171607ce623378157c1fd732d848ee90d5e9cc6e45be6f9d6c76"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-02.png",
+      "bytes": 2772634,
+      "sha256": "046e125186cb0ebfd9c22d220f25b223b205e0383c5d21550e6b604dc587d641"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-02.provenance.json",
+      "bytes": 801,
+      "sha256": "f669be6f5cb82f9cc8647809e02b9d5478705a4a22c015acddd9fdc4967ae805"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-02.screening.json",
+      "bytes": 3412,
+      "sha256": "0d2aa4e4a8d47dd336624d8adc056404fe8cf76b8b4d80bb68fd7a881ffc7365"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-03.png",
+      "bytes": 2575243,
+      "sha256": "d095bbc149bc794ba47f605e100db484c724a0498e6021f83b7656096cf331cc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-03.provenance.json",
+      "bytes": 801,
+      "sha256": "85834d5680b75f03ace412815711b0db3b84e0feed8c5109f3fb7d3e755e126c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-03.screening.json",
+      "bytes": 3493,
+      "sha256": "ba91e3b96ef5d71b3129e572e8f452974c519b6006da58d5083cf8dead85136b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-04.png",
+      "bytes": 2705054,
+      "sha256": "3be3ecfab6eee76ff69241a229bcb76d4ddae5cd5337f01bf4781849f450d654"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-04.provenance.json",
+      "bytes": 801,
+      "sha256": "f74e954c63d3be548ea1805328f789b593338f63e05328917f4a336c5e8da3db"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-04.screening.json",
+      "bytes": 2879,
+      "sha256": "3cdde8690eda657839b558e5b7ec683879403dc37b28c39d5e68be338f0a59cd"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-05.png",
+      "bytes": 2677645,
+      "sha256": "c56dc1a04d30043d53da2e69be3787b42e276512bb09542e217977e3c8192619"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-05.provenance.json",
+      "bytes": 801,
+      "sha256": "8b8a48334b716dc5bd23d669c6abd73c2839e9c042a3af8a2d9e0fa7263b3a8f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-05.screening.json",
+      "bytes": 3137,
+      "sha256": "f25c8c88f7d3edbdd4d50d5069aa51250e58422c2c6e9ec31371eaee5010126f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-06.png",
+      "bytes": 2621417,
+      "sha256": "601160806123a05a389cfffdb4bde939cdec3a17140e52df4dc227141221a5ef"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-06.provenance.json",
+      "bytes": 801,
+      "sha256": "9f44beb06105184c57d8811905818ae080693bab9bce17d6b181646f9a0d1fa4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-06.screening.json",
+      "bytes": 3088,
+      "sha256": "130ae78eca1a6e9adcaa620f08037ff3b1c434a995e6698a38390175cfc1b29b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-07.png",
+      "bytes": 2659483,
+      "sha256": "e21c7fe62e8ec2365eefd3a079c9df8d2f91000d9112e393367c53f967332d9e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-07.provenance.json",
+      "bytes": 801,
+      "sha256": "27b16b390d8a06874d768a81c8eed7279be7e90abc8af6df0f2ed6d1b9fd07d0"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-07.screening.json",
+      "bytes": 3060,
+      "sha256": "fc231306031ce8fe595fc60d7f1039da2e3834841654322a6ec98acdc50cf1f7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-08.png",
+      "bytes": 2549245,
+      "sha256": "f77bfa32f99c20802b4dbabd78334badd93fd2d5cfa981f649b4587bfc7b2709"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-08.provenance.json",
+      "bytes": 801,
+      "sha256": "0acc484155f68457e05021013821e0eb3a4c419c7bbdb650c7a9a8d540bf0757"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-08.screening.json",
+      "bytes": 3622,
+      "sha256": "4cb3f9331fb1b5224acb35a51a19b147615614d765a6612eb2b9ac0a70bd9bed"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-09.png",
+      "bytes": 2450908,
+      "sha256": "6e9fa7568e2b91e3d3562452434f60843266806ccd1dd572355449aeb21856b7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-09.provenance.json",
+      "bytes": 801,
+      "sha256": "ee6ce9fc7e7df747f80c3baedab167a0f97cffb1846ffaba9f19bcbd12895e3f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-09.screening.json",
+      "bytes": 3154,
+      "sha256": "ab4203106e6bfe3cb6d6f3b95ca4890060eef9585b457b73bdfa58f37dae8350"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-10.png",
+      "bytes": 2371129,
+      "sha256": "060ec97fcb7c45e820228e3c770cd714b6d7f9d8192a7d455d1fdf93abd1af3d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-10.provenance.json",
+      "bytes": 801,
+      "sha256": "347b5b09b9d2ae5ec3646c263afe3a97356981d608d4a551c8e50efd851ea52d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-10.screening.json",
+      "bytes": 3530,
+      "sha256": "8d76644704026d3c44d25b56dda4f122b0272c883e8e07c4ec11308458fe95bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-11.png",
+      "bytes": 2722821,
+      "sha256": "33bfd232bb2c317707aca7c2dfb7c2b46ca53ef7f86447f2ac02d09c2c348da6"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-11.provenance.json",
+      "bytes": 801,
+      "sha256": "796215f46e93b41f699944fa662819f715c43f6956a3ab0ac0ec59bd3db3c44a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-11.screening.json",
+      "bytes": 3571,
+      "sha256": "97143ea893655f0de2e1512327212028c74f5485ba468883149e5a903a93f67f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-12.png",
+      "bytes": 2361015,
+      "sha256": "77745680f20a4ce2c11bc49c6154d03b6c947dbb2ba4255e642328b1d42a6a4f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-12.provenance.json",
+      "bytes": 801,
+      "sha256": "08ba0584589a14ef1901f661546e2b1abcfc9e79768abdc2f2e0d62122dd1094"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/candidate-12.screening.json",
+      "bytes": 3410,
+      "sha256": "3c41005a3a7a3eb528deb6c5d8865260f9eac19ee2d1c760bb1ecfcc03207c03"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/contact-sheet.html",
+      "bytes": 3531,
+      "sha256": "c6037be01484515c68d10bca99f8f1bb0db3d76368b295a213dc00a42e9dcb37"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/contact-sheet.png",
+      "bytes": 7156875,
+      "sha256": "6fa8c01832d796ece4dce46939665fcd16166cd614b8219dde7fa5991b8662bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/prompts.json",
+      "bytes": 36432,
+      "sha256": "87caa81848a8dc4f54a00b87dea82b7e5758a0fdffcc39ecdafa8ca5aa7c1944"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/rack-night/001/record.json",
+      "bytes": 37078,
+      "sha256": "8846da8a0b2250ed9955acfe6bd61d4beabdddc1f0823319f42abd35196e7ad9"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-01.png",
+      "bytes": 3368860,
+      "sha256": "1f1314c4ce6c3a826cea517b53ac14ff794695795b8fe2e26568c789ad4da449"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-01.provenance.json",
+      "bytes": 801,
+      "sha256": "4b309a2bf649b2a0dcb81bce7c8758e4e59ec847ca11f5462d9d0945e014931c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-01.screening.json",
+      "bytes": 3395,
+      "sha256": "ab6b5291a3bcf4c7106c27bc7e2ca0a04b965bff9640a40b4763e88b6ac57d2a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-02.png",
+      "bytes": 3112971,
+      "sha256": "0d6f95e25592890777a868333263b844a284b984c5d7e40c3b56efd77c3469ae"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-02.provenance.json",
+      "bytes": 801,
+      "sha256": "5d14c79218ed0991fb73ac10cbbce398a4cecd2a5ef72557ab74ac50170c18fe"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-02.screening.json",
+      "bytes": 3146,
+      "sha256": "e995ef7495489366a2f1bbdb731a27d33af88f0b0204d7ecd1ba8dff22a563f4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-03.png",
+      "bytes": 3435577,
+      "sha256": "c1378a50c71a104594e4937daab693859a5f11b2681890876081be062b97406c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-03.provenance.json",
+      "bytes": 801,
+      "sha256": "03dd731feda733349bbad7ce30f2d1773648972fcd5d4ffc17e9737321c5a1de"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-03.screening.json",
+      "bytes": 3702,
+      "sha256": "5e7a97a057fe251f77a5e40de5bb067fa4b40d54a1d4bc6de3338abda969057d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-04.png",
+      "bytes": 3085096,
+      "sha256": "693fd99257b36e4f7c2c7b98cdd5885b59229ac7e561a0830ef06b9e12bd3905"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-04.provenance.json",
+      "bytes": 801,
+      "sha256": "dd0d0eab4ed17856b5a25d56b00e9fe16bdb74f73fc51b5a51ff9d3ba289eae5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-04.screening.json",
+      "bytes": 2704,
+      "sha256": "2bd4d734781e690c5670aba0fdddf5289afe9a59b8693cf0ffb548395dd0f368"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-05.png",
+      "bytes": 3159795,
+      "sha256": "ca42afbce54ba0439ae0f2efbb8daa670f65791d99c58825b77379fcd55882fb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-05.provenance.json",
+      "bytes": 801,
+      "sha256": "9c52b4913e1097eac8ef357d31f906af0ce75025a22b40f4ea2a2f98d575747d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-05.screening.json",
+      "bytes": 3097,
+      "sha256": "9daee4c4813211a78d6c26d5836680154ee74e018c6e6ac7e432d1dda8ee0b88"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-06.png",
+      "bytes": 3289170,
+      "sha256": "84d908a3bb8868c3568aad9bff6e6d7a34f8022fda739c45e8ce815bcdc3d118"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-06.provenance.json",
+      "bytes": 801,
+      "sha256": "d3c266110810b74844d4444cb57dec4fb377e7abb8fc1df6b6436b991a2dcac3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-06.screening.json",
+      "bytes": 3351,
+      "sha256": "86508034605b18f4b30a5f3a1aff5d7aba77cb33a8dad637a866056eef065164"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-07.png",
+      "bytes": 3463750,
+      "sha256": "349c93b4f3320c852df4a6d06f0c2cac9f55d74cc371759b1ad60f8842f7d6f8"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-07.provenance.json",
+      "bytes": 801,
+      "sha256": "6f84f81f5715032e379affb2a2c2c78cda88ee1490a371aa7aefd1479e0ecb45"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-07.screening.json",
+      "bytes": 3900,
+      "sha256": "f183bcc31e6382cde6115923e62ec6ceedcea8ae3d45d3d0084d91d508dfecd4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-08.png",
+      "bytes": 3340886,
+      "sha256": "d2805d5fcd2a163ab520896890f42828c4ddba3d96eb5b0a86f4d6a050e333f1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-08.provenance.json",
+      "bytes": 801,
+      "sha256": "e0a60f169f7328bfd53fee6bb1b4e0c4716e0b8630de14512d83d5c18374a19d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-08.screening.json",
+      "bytes": 2541,
+      "sha256": "bf92ddd759d41a146b5f30216737e3a46a6356587add9b675a904d86f7d1aeae"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-09.png",
+      "bytes": 3030676,
+      "sha256": "89544d60eefa075ee627bcf0ea2a5f2df78b3b9e63be9026a5d7d08d0296dffd"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-09.provenance.json",
+      "bytes": 801,
+      "sha256": "ef8e33fa58eb9377a273587843af311307263d83f99b846ba6971097d0719500"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-09.screening.json",
+      "bytes": 2988,
+      "sha256": "844bc24386996af25f9d6390a10279a0a9f5310432ed4a93496b17993dfe6c1c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-10.png",
+      "bytes": 3204469,
+      "sha256": "fe71cac4a6a5a9a812551f3c1a50054ce5c82e9316601c29547ad30716277f25"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-10.provenance.json",
+      "bytes": 801,
+      "sha256": "e3260f66eeb5a554ed517bd3cb276add8e0d2e3ef53528b326d7276763eab762"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-10.screening.json",
+      "bytes": 3528,
+      "sha256": "db79660d40641d044725cecd92ec044cc34de6812b988f38d52eb19275d52cb5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-11.png",
+      "bytes": 3299274,
+      "sha256": "038eb5483999f532724d4f929c0bec3f8a266775799b9a028a554f5b88c56996"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-11.provenance.json",
+      "bytes": 801,
+      "sha256": "23be024e73c663e3f5f50c830a7c3b889faacfa1b8c62180aa53d2aa988f2bdb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-11.screening.json",
+      "bytes": 3159,
+      "sha256": "0f5a089135eb4eedfe0d11f1f4fd00b7269e000ab7e864081920cbd84834a629"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-12.png",
+      "bytes": 3045539,
+      "sha256": "a94777108f80b6c3e76e618c258d8ed562afe685f45c53cf4cec00d0a8230981"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-12.provenance.json",
+      "bytes": 801,
+      "sha256": "2301fcac805631a76a161e0395de27a2050dfb5fdaa58188357b1951e74d27c3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/candidate-12.screening.json",
+      "bytes": 2928,
+      "sha256": "060f7b925af1c97055204a5d866639a890fe0913dfcc2e88707b3c5f4e44d5a5"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/contact-sheet.html",
+      "bytes": 3354,
+      "sha256": "ef6c25aa612c26a03d3393e00dbe9d29de453e69057c3eb86578357bb74dab1b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/contact-sheet.png",
+      "bytes": 5373565,
+      "sha256": "b7d825a7aaaa50ac429328590e2447f0f740570aaef05971287d98b7d847f8a2"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/prompts.json",
+      "bytes": 44303,
+      "sha256": "aa447045047c5fd0bbb4ee9a40b1ea13caadd2c1112c454c8b4adf6ca60ae120"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screen-day/001/record.json",
+      "bytes": 37090,
+      "sha256": "91516b7d65ecc713649b2cebd89b61a69adbef65ec1131995a82f6e9a5fe99da"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screening-controls-compact-convergence.json",
+      "bytes": 4189,
+      "sha256": "cb35dad2344fab07b64434df1c61d0a4d9fdc197668721ac2b90150045ac7d27"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/screening-controls.json",
+      "bytes": 4187,
+      "sha256": "6ffac92b664207d3463e97bce93495edb7a6e1108aae5c2b2aef81731d389daa"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-01.png",
+      "bytes": 2504819,
+      "sha256": "b229543315d9f549c1d920ab128c90ea6fe9d6d9fc79d8d7ea19ba9343785f88"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-01.provenance.json",
+      "bytes": 799,
+      "sha256": "cf64cc9ba74bb5c944e9769e6b834ee3b2353fc770bc4d053c33d0cd143714ae"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-01.screening.json",
+      "bytes": 3059,
+      "sha256": "513298febdbd50c20ce6277240016529441a236a906fc3ed214e2b160f38cadb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-02.png",
+      "bytes": 2392776,
+      "sha256": "6bc2d40dc7eba7b7b9fd03c6e02256685e9017596a2ea165e2d223f00741d1b7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-02.provenance.json",
+      "bytes": 799,
+      "sha256": "6d3c9e99b9b94f3f0112b403be988132b66aee59eeb49c13aab049a7fb5b8f16"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-02.screening.json",
+      "bytes": 3315,
+      "sha256": "3a5beca11732867a0a610cec2ef03d6b756d42ec08cfd371c1f9a25f60f86d1d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-03.png",
+      "bytes": 2585817,
+      "sha256": "61496bb2312e5793646cd59a1717ea52665f840f7dcb81f85ca0a12d7a664daa"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-03.provenance.json",
+      "bytes": 799,
+      "sha256": "cc72474280fd5d52fdda7c455554ca0f0fd47ae1d270e152d0b0977a72c618f4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-03.screening.json",
+      "bytes": 2852,
+      "sha256": "7e4246961955b1ec28b91bca6d4e11a543eecc4e1052b1c5e2bcb1856a027d46"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-04.png",
+      "bytes": 2749811,
+      "sha256": "efb886bf80206f14135051815e53f9d754977273b50f75d35a797a7534162039"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-04.provenance.json",
+      "bytes": 799,
+      "sha256": "95b51fedcbff48bccadd217ca8ba1237dc139be2615a97fa38207ecddd734157"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-04.screening.json",
+      "bytes": 3226,
+      "sha256": "7a146d4c6af532c1f9e206d4bdb3892353f11fa481026deffa302f24121f9a5b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-05.png",
+      "bytes": 2490773,
+      "sha256": "52d037dc8ec8232bc7e2b84354d616dc987042396ca2c14c9a989686e9d1d256"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-05.provenance.json",
+      "bytes": 799,
+      "sha256": "af027986ec705a4d39bc095dea49fdc1d4dc7b9632e5dac16ae3c749f66ebc8a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-05.screening.json",
+      "bytes": 3359,
+      "sha256": "cf747784f2a84f377349f64aa2ee88b3d908fc8da0a03daa1875c2f0777d0366"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-06.png",
+      "bytes": 2769719,
+      "sha256": "1955fb1468ac3f0685494c9c7886bf7b363138dc8decf06f7cbc9dd4d68332f6"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-06.provenance.json",
+      "bytes": 799,
+      "sha256": "4c0f88a42835c74c7563f80e36775e5052d234b80d14d6556b43b1fcb51973ba"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-06.screening.json",
+      "bytes": 3528,
+      "sha256": "a3f2ad0e33f3a908d35d13177a367dc3d72bc3c3315fa0ce1545f98bebc53dfe"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-07.png",
+      "bytes": 2482210,
+      "sha256": "c17b650fe463608b1ee28fba451d1a93073382d1df515b994f1943c8100e3356"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-07.provenance.json",
+      "bytes": 799,
+      "sha256": "c7c63f37de1f9629f437101b200d8872694afacddb28610a7859868560ee373f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-07.screening.json",
+      "bytes": 3021,
+      "sha256": "269741c6057e30b80ae5dc972171b66cce566b590c7c1fdb452cad2718d16755"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-08.png",
+      "bytes": 2453958,
+      "sha256": "1a9c1cb6720a0d63a957cefda88dea65bb050133943ea99311c291b7dd3a4d17"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-08.provenance.json",
+      "bytes": 799,
+      "sha256": "4f188f8c569ea531ec77f986689f56c6907ee32306393a55efa58aa91da749bf"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-08.screening.json",
+      "bytes": 3059,
+      "sha256": "d11e3d9d92331e614b92e1335355de0b8023819d50e0f919a87773f2f8398bd4"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-09.png",
+      "bytes": 2549994,
+      "sha256": "273d75b2bd9a76b14d346d7a59bb72415e23802043665182f046ae397f15d69f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-09.provenance.json",
+      "bytes": 799,
+      "sha256": "ac9a406407235f92b7e323d2f17f42dc5ea9000db7bc86fef43d4ab2ab01bb9b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-09.screening.json",
+      "bytes": 3017,
+      "sha256": "62fb70f1bb4da59118085861ee4db25777cfd31ee1daddccb87bbad4ec320cdd"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-10.png",
+      "bytes": 2536369,
+      "sha256": "6153c5404f1a56d289d5a14f6b70a36ed8837ad8834c789f3e23d8bfdc17555c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-10.provenance.json",
+      "bytes": 799,
+      "sha256": "de10bdaa274a3a709b43f0b24669c6d7d0f2ecdb011570e3b3a505179637b9ab"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-10.screening.json",
+      "bytes": 2978,
+      "sha256": "62a73da7137af46d07c0842a180d5956a379a3ebec4a2233e931049837bbac04"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-11.png",
+      "bytes": 2392612,
+      "sha256": "b180e8e2d7d5a76c993e3b92ee639c80be1c48164cb2ec0619dfb687224c0ec7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-11.provenance.json",
+      "bytes": 799,
+      "sha256": "81a6065722f72049e92ee73c18fe8cd7d73f7ad2a9522dba07c6c66b45263361"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-11.screening.json",
+      "bytes": 3364,
+      "sha256": "20bbb342c3f70386b45315f96d6183f01f5da4140d922711f6ce12a91f42d8fc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-12.png",
+      "bytes": 2255900,
+      "sha256": "5d6981e32b105d17fa347692472eb49ef7a7746a50a1aaa073a0158a57409580"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-12.provenance.json",
+      "bytes": 799,
+      "sha256": "06a917dbb6e0d37efec938afe6acbe015c63e69f17b95d20d0f15b12537e257d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/candidate-12.screening.json",
+      "bytes": 3018,
+      "sha256": "7426617dce6e4664f1a7e753462aa5e22d4e99fba0bb10cb5fd2b529e385fa4d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/contact-sheet.html",
+      "bytes": 3436,
+      "sha256": "132e07f7b58bf08e94ef191c81066f9a32fb42ef8db4bae6bb28e04a5c252579"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/contact-sheet.png",
+      "bytes": 7107201,
+      "sha256": "050a22c15ca7863e5e914b86e6996d39906da29dbea8a240a11836d897f7112c"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/prompts.json",
+      "bytes": 44474,
+      "sha256": "c57db44b5305679bf8bca881abfa088693267cc26edb1157a96cdb4e640b656e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-day/001/record.json",
+      "bytes": 36920,
+      "sha256": "41b3022fd1a1f9b0004d6abdfd204fc660666539502bde122aefec13313e98bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.png",
+      "bytes": 2210053,
+      "sha256": "a4e5e351e527f240669f8cbf7639be745ee88ffc1c2c9f203b8e912cd24e2e7b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.provenance.json",
+      "bytes": 803,
+      "sha256": "ce43c429b1c37d950f2660c2bb69bcf65322ab15975f849fba196007337d824a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.screening.json",
+      "bytes": 3979,
+      "sha256": "a4aa0d5ad3acc529ad63861d0f25aec621b1138d7f841ca39c8f591f1dc40b8e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.png",
+      "bytes": 2257108,
+      "sha256": "1cba1aae79b348d44fd58f52730f7f2181cf7fbecfaa9c39624a67ec6882e28d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.provenance.json",
+      "bytes": 803,
+      "sha256": "7be856bcbb097ae022b667fba673f7779b70b3778ca231405cba6ef162ff888b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.screening.json",
+      "bytes": 2855,
+      "sha256": "fa3b0efdeb01a8d0f3a70fbb266154041681ce5f18762ee058a383567b5c708f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.png",
+      "bytes": 2257204,
+      "sha256": "b29d8acfc47dfff6cab75397904cf6d7b622fa9b3e592af84f61bac1a771338d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.provenance.json",
+      "bytes": 803,
+      "sha256": "64638482a955a0cc2e8ba70fa0ae3a89a2625992a4e3cd237c73d4f30a41640f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.screening.json",
+      "bytes": 2858,
+      "sha256": "c7eda2ffd4261d708b52bc8c2fb26c66ec206d2233f7683239c5663f8238d4e9"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.png",
+      "bytes": 2353610,
+      "sha256": "f9c859de0ada3567223fecf27f4f9862c86ed7bbc0b4d9a2c05a5d3b237e3c04"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.provenance.json",
+      "bytes": 803,
+      "sha256": "47203cb7ea5392e8d297e682c2b2b07c10d7002e7d7f0c1eba4897d4ee58965f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.screening.json",
+      "bytes": 3023,
+      "sha256": "923bdad29db7f442c121a8b11264e11c232f2821531efe436e4b1dc3dd2d1b86"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.png",
+      "bytes": 2174884,
+      "sha256": "3b6c3e31d4d6d8194feb98b2751ef89e461216b491adda2b9eb339a40b0e5e34"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.provenance.json",
+      "bytes": 803,
+      "sha256": "d558ba694e1f5bd348e42b73296e3969b831955aca6f403557586f3e99d53e95"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.screening.json",
+      "bytes": 3232,
+      "sha256": "12f6f0182fb27dd7d7feb6c393d88b7ea083a173f5a10d78af2f157b682e4280"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.png",
+      "bytes": 2094786,
+      "sha256": "a3ca56228456f23224795e78f477b090911ebd15585ae91a09bcf576dd2de36d"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.provenance.json",
+      "bytes": 803,
+      "sha256": "ba1d56ed2243024cadfbc2f56554adbebdceb582721fcced5cab827a58c47616"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.screening.json",
+      "bytes": 3360,
+      "sha256": "a030304d5672a4824fdc546a519b42e8289f06e91ca0f77a5afdb5ce0db3bddc"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.png",
+      "bytes": 2281280,
+      "sha256": "104cd3041dc0dc00557db16812bfc8152e25750e6af3a0fcaa2f781b55119136"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.provenance.json",
+      "bytes": 803,
+      "sha256": "8f6948128a45eba5b5c65196a5241a13a25a44af885574ab5d59d541588029ca"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.screening.json",
+      "bytes": 3153,
+      "sha256": "922a9a6a89f0722286f7131f4495804fd660a21841ce4905da44f428a5c732c6"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.png",
+      "bytes": 2272050,
+      "sha256": "df17a4277a6afe3cc70d0587b994d0b2341801b546dd536739259f01d786ecc9"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.provenance.json",
+      "bytes": 803,
+      "sha256": "76ec072ca3c0cb13c6f363168411b838dbb2ee6ec25382830cfeae74d23159d1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.screening.json",
+      "bytes": 3893,
+      "sha256": "eeb459b7169526e526308bb4a1b0a7764d56eb8c5ed559138cdb50badae4999b"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.png",
+      "bytes": 2384108,
+      "sha256": "93ea823972ed1f78088c3a7c9e27631506110aa204de9760c3027937d975e751"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.provenance.json",
+      "bytes": 803,
+      "sha256": "a5b8ece79dc5b349965a0122730519f687ad376390c225e98c21edfdcdd480a3"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.screening.json",
+      "bytes": 3231,
+      "sha256": "ef84145e107ab9c5f0a9ebb6fbb61ecddd14fd80a000860ad3df6f2d36d9aa20"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.png",
+      "bytes": 2566649,
+      "sha256": "3cefc1ec5060b7ccac4051882c5bbf04227666de7583ffd21c628ff011241a34"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.provenance.json",
+      "bytes": 803,
+      "sha256": "7c99c20f5542119d3468ef93a17e998769f90b8885292e0b5ba0f4e36d0d52d1"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.screening.json",
+      "bytes": 3801,
+      "sha256": "c7e6e5c74c56d23b9cb5c20a8983e1cb38fe5ccd46683f8528b81f7c7e238ae2"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.png",
+      "bytes": 2065559,
+      "sha256": "addc78e4e160a230927de62cd1fdc73796eeb051d5036fc880104611641dbf31"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.provenance.json",
+      "bytes": 803,
+      "sha256": "24bb827a1d543800be665e634859deeb9466828944de9ce341c45cf81545d01a"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.screening.json",
+      "bytes": 3362,
+      "sha256": "6e4ba8f5f0dde38209ca3c02c1d4f01e2c5a53954c4c67009640614b77e2f4e8"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.png",
+      "bytes": 2248538,
+      "sha256": "c9b59d604910ebc4136c4977488006a92f3ba0e8a066c3c3ad5c5b841ca721db"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.provenance.json",
+      "bytes": 803,
+      "sha256": "1a1534520c74f28f31a156a844733cdf7e9fb7d158f9c51df436ed6eda2715b6"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.screening.json",
+      "bytes": 3452,
+      "sha256": "04b10bb7ba91e41ea68fe7c0508c4c7ef147a7ba0718a164e0b8c5220f98f46f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/contact-sheet.html",
+      "bytes": 3548,
+      "sha256": "3b25b51825eb57208420bed19a5500d9b70955b383f155364a1186f970b1b08f"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/contact-sheet.png",
+      "bytes": 6423938,
+      "sha256": "a43091d380d1d6eaad0ebcad254c1e06009f63ef917bc65f52d8c2907b74740e"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/prompts.json",
+      "bytes": 45866,
+      "sha256": "9f35d15bc3137be0cdcaea9a0340e364510712aa7a18bea4d130cc48cdbf5b24"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/record.json",
+      "bytes": 37214,
+      "sha256": "52183b5eaef92ca4211fb1aae49449e5583100165a9392a8600e15a065a3abf7"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/summary.json",
+      "bytes": 3973,
+      "sha256": "c6f03eb6d18fcd0671a3d21082f0d3f2a2e771e51429ebc22c36cab4b3409b85"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/verification.json",
+      "bytes": 2883,
+      "sha256": "2b3dfd85d43dc7eaef9433ce882695f93aaa8b21448e614e8d397dfbca47aa27"
+    }
+  ],
+  "total_bytes": 285618555
+}

@@ -1,0 +1,91 @@
+{
+  "candidate": "candidate-10",
+  "frame": "stall-day",
+  "image_sha256": "6153c5404f1a56d289d5a14f6b70a36ed8837ad8834c789f3e23d8bfdc17555c",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 173,
+    "families": [
+      {
+        "dominant_degrees": 22.75,
+        "segments": 115,
+        "position_span_pixels": 1012.8561289282947,
+        "fitted_angle_swing_degrees": 7.897548996284379,
+        "weighted_r_squared": 0.5418757749898333,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 16,
+        "position_span_pixels": 858.0838592079915,
+        "fitted_angle_swing_degrees": 0.046010437182938506,
+        "weighted_r_squared": 0.0189909668446544,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 157.25,
+        "segments": 38,
+        "position_span_pixels": 780.8671399627356,
+        "fitted_angle_swing_degrees": 3.0275783627496153,
+        "weighted_r_squared": 0.44784404730862526,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 2,
+    "components": [
+      {
+        "bbox": [
+          164,
+          208,
+          236,
+          179
+        ],
+        "area_pixels": 5386
+      },
+      {
+        "bbox": [
+          398,
+          402,
+          150,
+          195
+        ],
+        "area_pixels": 4276
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 9562,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/stall-day/001/candidate-10/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/stall-day/001/candidate-10/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

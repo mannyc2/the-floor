@@ -1,0 +1,15 @@
+{
+  "frame": "screen-day",
+  "candidate": "12",
+  "tool": "built-in image_gen.imagegen",
+  "input_reference_images": 0,
+  "prompt_sha256": "256f4a569d800df5aef6cab659ff80dc8f681f2d13c16daf9feebd940a1bdc2d",
+  "requested_at_utc": "2026-10-12T16:41:25.361Z",
+  "completed_at_utc": "2026-10-12T16:49:42.269Z",
+  "source_path": "/Users/chriscarroll/.codex/generated_images/01a13002-d54c-7f01-acc6-fb0fd36372d2/exec-bcf85ff6-f176-4a12-ac32-373bf677bebf.png",
+  "output_path": "docs/spikes/evidence/look/references/screen-day/001/candidate-12.png",
+  "generation_seed": "unavailable: built-in tool exposes no seed",
+  "provider_model_version": "unavailable: built-in tool exposes no exact model revision",
+  "bytes": 3045539,
+  "sha256": "a94777108f80b6c3e76e618c258d8ed562afe685f45c53cf4cec00d0a8230981"
+}

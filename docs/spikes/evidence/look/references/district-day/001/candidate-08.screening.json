@@ -1,0 +1,192 @@
+{
+  "candidate": "candidate-08",
+  "frame": "district-day",
+  "image_sha256": "2d4f3b21635b15a116e8734dce9fa67bbd43800df914a4b06ced725b3b38e219",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 133,
+    "families": [
+      {
+        "dominant_degrees": 33.75,
+        "segments": 47,
+        "position_span_pixels": 621.4953625278027,
+        "fitted_angle_swing_degrees": 4.265949507065549,
+        "weighted_r_squared": 0.10271263864246905,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 135.25,
+        "segments": 29,
+        "position_span_pixels": 264.84068944582657,
+        "fitted_angle_swing_degrees": 1.5825287497884777,
+        "weighted_r_squared": 0.08551889079857133,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 9,
+    "components": [
+      {
+        "bbox": [
+          647,
+          395,
+          378,
+          285
+        ],
+        "area_pixels": 21755
+      },
+      {
+        "bbox": [
+          805,
+          477,
+          60,
+          84
+        ],
+        "area_pixels": 1688
+      },
+      {
+        "bbox": [
+          792,
+          391,
+          78,
+          92
+        ],
+        "area_pixels": 1200
+      },
+      {
+        "bbox": [
+          875,
+          454,
+          17,
+          62
+        ],
+        "area_pixels": 452
+      },
+      {
+        "bbox": [
+          850,
+          604,
+          32,
+          41
+        ],
+        "area_pixels": 266
+      },
+      {
+        "bbox": [
+          783,
+          494,
+          8,
+          56
+        ],
+        "area_pixels": 216
+      },
+      {
+        "bbox": [
+          884,
+          412,
+          13,
+          9
+        ],
+        "area_pixels": 61
+      },
+      {
+        "bbox": [
+          801,
+          490,
+          13,
+          17
+        ],
+        "area_pixels": 37
+      },
+      {
+        "bbox": [
+          885,
+          613,
+          8,
+          13
+        ],
+        "area_pixels": 31
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 20037,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "aS",
+        "confidence": 71.583557,
+        "psm": 11,
+        "bbox": [
+          407,
+          84,
+          30,
+          16
+        ]
+      },
+      {
+        "text": "SS",
+        "confidence": 74.525673,
+        "psm": 11,
+        "bbox": [
+          20,
+          449,
+          18,
+          19
+        ]
+      },
+      {
+        "text": "4",
+        "confidence": 96.611679,
+        "psm": 6,
+        "bbox": [
+          1079,
+          205,
+          15,
+          31
+        ]
+      },
+      {
+        "text": "4",
+        "confidence": 92.045105,
+        "psm": 6,
+        "bbox": [
+          1238,
+          713,
+          16,
+          16
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-08/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-08/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

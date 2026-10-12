@@ -1,0 +1,88 @@
+{
+  "candidate": "candidate-02",
+  "frame": "district-day",
+  "image_sha256": "8a004415dd0d9f7d14864e7418f2475ab61cdadc6e11ab04876a04cbb600a29a",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "inconclusive",
+    "long_segments": 84,
+    "families": [],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 3,
+    "components": [
+      {
+        "bbox": [
+          693,
+          562,
+          130,
+          141
+        ],
+        "area_pixels": 8251
+      },
+      {
+        "bbox": [
+          764,
+          547,
+          11,
+          13
+        ],
+        "area_pixels": 71
+      },
+      {
+        "bbox": [
+          696,
+          670,
+          14,
+          8
+        ],
+        "area_pixels": 58
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 6145,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "SF",
+        "confidence": 75.094391,
+        "psm": 11,
+        "bbox": [
+          290,
+          216,
+          105,
+          34
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-02/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-02/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

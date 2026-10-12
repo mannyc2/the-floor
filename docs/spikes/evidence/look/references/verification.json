@@ -1,0 +1,70 @@
+{
+  "executed_at_utc": "2026-10-12T17:27:18.723558+00:00",
+  "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
+  "scope": "Static generated-reference evidence and local analysis utilities; no application implementation or art approval.",
+  "integrity": {
+    "status": "pass",
+    "readable_originals": 84,
+    "unique_original_hashes": 84,
+    "distinct_tool_output_paths": 84,
+    "matching_exact_prompt_hashes": 84,
+    "unchanged_source_copy_pairs": 84,
+    "template_complete_records": 7,
+    "record_artifacts_verified": 525,
+    "contact_sheets": 7,
+    "contact_sheet_width_pixels": 2048,
+    "contact_sheet_cards_each": 12,
+    "readme_links_resolve": true,
+    "python_syntax": "pass",
+    "staged_diff_check": "pass",
+    "assembler_command": "python3 docs/spikes/evidence/look/references/_tools/package-evidence.py",
+    "verification_command": "python3 docs/spikes/evidence/look/references/_tools/verify-evidence.py"
+  },
+  "visual_contact_sheet_check": {
+    "status": "pass",
+    "scope": "Layout and completeness only: seven sheets inspected with all twelve images and readable candidate/flag captions; no selection or artistic approval.",
+    "groups": [
+      "rack-day",
+      "rack-night",
+      "stall-day",
+      "stall-night",
+      "district-day",
+      "district-night",
+      "screen-day"
+    ]
+  },
+  "automatic_screen": {
+    "flagged": 83,
+    "not_flagged": 1,
+    "not_flagged_candidate": "screen-day/08",
+    "meaning": "No automatic flag is not approval or proof of orthographic projection."
+  },
+  "synthetic_controls": {
+    "broad_controls": "pass for parallel/converging lines and zero/one/two orange patches",
+    "compact_convergence": "known false negative retained; below coverage threshold; no detector threshold changed to hide it",
+    "files": [
+      "screening-controls.json",
+      "screening-controls-compact-convergence.json"
+    ]
+  },
+  "application_checks": [
+    {
+      "command": "bun run typecheck",
+      "status": "not_run",
+      "reason": "No root package.json or application scripts exist on this docs-only source revision. Recheck after integrating with Stage 0; no passing result is claimed."
+    },
+    {
+      "command": "bun run lint",
+      "status": "not_run",
+      "reason": "No root package.json or application scripts exist on this docs-only source revision. Recheck after integrating with Stage 0; no passing result is claimed."
+    },
+    {
+      "command": "bun run build",
+      "status": "not_run",
+      "reason": "No root package.json or application scripts exist on this docs-only source revision. Recheck after integrating with Stage 0; no passing result is claimed."
+    }
+  ],
+  "review": "Claude pending",
+  "owner_pick": "pending",
+  "next_action": "Claude reviews exclusions and common failures before a supported shortlist; owner then picks or rejects. Stop before tones/assets."
+}

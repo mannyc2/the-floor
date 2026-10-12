@@ -1,0 +1,108 @@
+{
+  "candidate": "candidate-05",
+  "frame": "rack-day",
+  "image_sha256": "be2bb0ab3db0f676b08bd305448ac6ae607a55dcacf21e7934ce237b8a25a057",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "perspective_convergence_heuristic",
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "rejected_by_heuristic",
+    "long_segments": 220,
+    "families": [
+      {
+        "dominant_degrees": 11.25,
+        "segments": 90,
+        "position_span_pixels": 778.373618681787,
+        "fitted_angle_swing_degrees": 8.609181448661827,
+        "weighted_r_squared": 0.9499572923194866,
+        "convergence_flag": true
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 93,
+        "position_span_pixels": 900.7732184033645,
+        "fitted_angle_swing_degrees": 0.0047270844672085725,
+        "weighted_r_squared": 6.26569448041181e-05,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 2,
+    "components": [
+      {
+        "bbox": [
+          259,
+          332,
+          424,
+          144
+        ],
+        "area_pixels": 19537
+      },
+      {
+        "bbox": [
+          929,
+          502,
+          63,
+          15
+        ],
+        "area_pixels": 198
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 17723,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "Sa",
+        "confidence": 76.301163,
+        "psm": 11,
+        "bbox": [
+          292,
+          414,
+          40,
+          26
+        ]
+      },
+      {
+        "text": "Ge",
+        "confidence": 83.350365,
+        "psm": 11,
+        "bbox": [
+          784,
+          673,
+          52,
+          34
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/rack-day/001/candidate-05/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/rack-day/001/candidate-05/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

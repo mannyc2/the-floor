@@ -1,0 +1,15 @@
+{
+  "frame": "stall-night",
+  "candidate": "12",
+  "tool": "built-in image_gen.imagegen",
+  "input_reference_images": 0,
+  "prompt_sha256": "a1f385d8f19e8786c1fc34c461cebd0b2fd986dc410dfc77ad6f32413aa0bb43",
+  "requested_at_utc": "2026-10-12T16:25:05.364Z",
+  "completed_at_utc": "2026-10-12T16:34:45.564Z",
+  "source_path": "/Users/chriscarroll/.codex/generated_images/01a13002-d54c-7f01-acc6-fb0fd36372d2/exec-9ebacb5c-5c85-46c9-b178-f6d2062b366e.png",
+  "output_path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.png",
+  "generation_seed": "unavailable: built-in tool exposes no seed",
+  "provider_model_version": "unavailable: built-in tool exposes no exact model revision",
+  "bytes": 2248538,
+  "sha256": "c9b59d604910ebc4136c4977488006a92f3ba0e8a066c3c3ad5c5b841ca721db"
+}

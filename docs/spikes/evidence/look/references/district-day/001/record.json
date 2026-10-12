@@ -1,0 +1,665 @@
+{
+  "check_id": "references-district-day",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T16:33:27.982Z",
+  "operator": "Codex using built-in image_gen.imagegen, one independent call per original",
+  "reviewer": "Claude pending; no cross-review performed in this generation track",
+  "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
+  "dependency_versions": {
+    "Bun": "1.4.0",
+    "Python": "3.12.14",
+    "opencv-python-headless": "5.0.0.93",
+    "cv2": "5.0.0",
+    "NumPy": "2.5.4",
+    "Pillow": "12.3.0",
+    "Tesseract": "5.5.1",
+    "Playwright": "1.62.1",
+    "Chrome": "155.0.8059.39",
+    "image_generation_model": "unknown: built-in tool exposes no exact model revision"
+  },
+  "api_evidence": [
+    {
+      "tool": "built-in image_gen.imagegen",
+      "independent_calls": 12,
+      "input_reference_images_per_call": 0,
+      "prompt_set": "docs/spikes/evidence/look/references/district-day/001/prompts.json",
+      "result_provenance": "candidate-NN.provenance.json",
+      "result_images": "candidate-NN.png",
+      "montage_substitution": false
+    }
+  ],
+  "execution_target": "Built-in image generation, followed by local static image screening and local contact-sheet composition on macOS 15.0; no application renderer executed",
+  "runtime_configuration": {
+    "generation": "Exact prompts in prompts.json; tool defaults; no references; seed and provider model revision unavailable",
+    "contact_sheet": {
+      "browser": "local system Google Chrome, headless",
+      "width": 2048,
+      "device_scale_factor": 1,
+      "dimensions": [
+        2048,
+        3062
+      ]
+    },
+    "screening": "Frozen thresholds described in ../../README.md and ../../_tools/screen.py"
+  },
+  "stage_and_resources": "n/a: no application stage or hosted resources for static reference generation",
+  "inputs": [
+    {
+      "path": "docs/floor-docs-2026-10-12/the-floor.md",
+      "sha256": "a95909be89ab604af5782992be6bae6849909876d1143dcfb40913b3dbd603bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/prompts.json",
+      "sha256": "7f45ee998e4c9efba8f447eb217d8de7c53a8cb6e3d628a21779338f27ccac00"
+    }
+  ],
+  "procedure": [
+    "Generate 12 independent original images with the exact prompts, preserving the source style/avoid blocks and the explicit key-frame-8 exception.",
+    "Copy each returned PNG without altering it, retaining the tool original; record bytes and SHA-256.",
+    "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png",
+    "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs district-day",
+    "Verify 12 readable unique originals, matching prompt/output hashes, a 2048px contact sheet and all required evidence fields."
+  ],
+  "expected_result": "Twelve retained independent originals and one contact sheet. Batch automatic screen passes only when none of the twelve is flagged; this status never establishes artistic approval.",
+  "observed_result": {
+    "generation_complete": true,
+    "contact_sheet_complete": true,
+    "automatic_screen": {
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 1,
+      "orange_count_flags": 11,
+      "ocr_flags": 12,
+      "claude_shortlist": "pending",
+      "owner_pick": "pending"
+    },
+    "status_scope": "This record status is the aggregate automatic screen across the batch; generation completion and art approval are separate."
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.png",
+      "committed": true,
+      "bytes": 3127758,
+      "sha256": "b8887ff807ee2c1c00cb2f047d125572467730d5b412f7b4f8c2c7bc51d653d2",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "e03e0211a1589540a35f8882910b4648f2a8f70b0b25f4719dedf2b6950579c4",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-01.screening.json",
+      "committed": true,
+      "bytes": 3666,
+      "sha256": "370342e8035d2e589249311f5e80fcf027363a7fb32b8f3c63005166958b0ec3",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.png",
+      "committed": true,
+      "bytes": 2801815,
+      "sha256": "8a004415dd0d9f7d14864e7418f2475ab61cdadc6e11ab04876a04cbb600a29a",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "bdf6150742013602cd07578234d72f317d9c5caddc46dc882f4e2713999019cc",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-02.screening.json",
+      "committed": true,
+      "bytes": 2495,
+      "sha256": "0385795016cbcd50c370e36a892591d745950b3d23f9ff11a35c1fcb2ac0d91c",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.png",
+      "committed": true,
+      "bytes": 3359197,
+      "sha256": "b4e4563fe22d2a8165b88a38d82381ee4da0033fb06be29d6a6329943996914a",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "14664c2cdadb71b3784c792c2bc892e3198bfd9257b924c5431fea1de5c82454",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-03.screening.json",
+      "committed": true,
+      "bytes": 4193,
+      "sha256": "030feb385c2d0185af28433ec9ed249a5185789fe35be061be593e04479a4e03",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.png",
+      "committed": true,
+      "bytes": 2938379,
+      "sha256": "40b8e77c1ee5b59a2762aa76fc51acfe89b8180c0df443486008bfb2fecb2abe",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "003956d9b6a0b3a164f7ce10b1158e838bb86b1994a915b3f1d277e9f17b6524",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-04.screening.json",
+      "committed": true,
+      "bytes": 3492,
+      "sha256": "c60c9587789c258c00fed5ad8c33824b8b9f8fdca3c7973fe2ffef9ee1078826",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.png",
+      "committed": true,
+      "bytes": 3379070,
+      "sha256": "ff35c77845f5087e354ab86c793ffe518c457ef27108a13eaf833041aef4946a",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "04bd1038908c186c87a3d1e31da982361dc6b9744e6ebd21f24debce7bafd248",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-05.screening.json",
+      "committed": true,
+      "bytes": 3566,
+      "sha256": "9d0e4cd031170278805813c9c0015d2a555a7ae0a4293adbd96a3cceeb5d9fde",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.png",
+      "committed": true,
+      "bytes": 3118639,
+      "sha256": "67ac4e81318581496ad77ad1b47f1fef886ce4c10aca46ee6589f1a39bc401f1",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "7bb55ed1afe75708fdab5ae46c6dbc5b33c5ec0bee1f4a36cdd5b54aa04f707d",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-06.screening.json",
+      "committed": true,
+      "bytes": 3542,
+      "sha256": "96cc714fff3ff90d938d8734fa32e9bc3d24399d5f96a48a4ad80efe49a9cf20",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.png",
+      "committed": true,
+      "bytes": 3349645,
+      "sha256": "2bccb73a35e978d599e9ad0c4b654ffd93f6cf0867dd415911e8b4406f478704",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "ed72e6eebbaf28ad6b5ba11a98a6539bdc0fbee4f3cb67d3d7378a2d6cd95229",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-07.screening.json",
+      "committed": true,
+      "bytes": 4142,
+      "sha256": "2f3900f8cc8066694cb0bc842b99c0ea48a75fdf591a5370f9def5d32de5c88b",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.png",
+      "committed": true,
+      "bytes": 3409645,
+      "sha256": "2d4f3b21635b15a116e8734dce9fa67bbd43800df914a4b06ced725b3b38e219",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "b10ea53fb32b0d51c6838d3ac9b6b85f6e744d623f6e1be9fe7c01de73e58e8e",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-08.screening.json",
+      "committed": true,
+      "bytes": 4352,
+      "sha256": "2ce042a8a129fd7f35a777d526021e8e9ea7876fa88d4649ca7fa41be1b16e6f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.png",
+      "committed": true,
+      "bytes": 3310444,
+      "sha256": "30064d81ea4c7114c99664439179cc86aa2a6d732673d48f760337f9a5846b97",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "fb1c340a9758e565d470c6e8597ed835ae8221d6224afbc8bcfe410c49623bbf",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-09.screening.json",
+      "committed": true,
+      "bytes": 3756,
+      "sha256": "87b744da63d3b8629fb833e5cd302128b7a4529b77d02c76fdbb93bbf6724785",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.png",
+      "committed": true,
+      "bytes": 3363301,
+      "sha256": "3046ac83014185c2ad66889a89ab3cbe5186434d068e8f5c4579a6486ee99d3c",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "e9a8200a4a16de6a351a6f0fa98846a83624f16e522ed44d338a2730415f5bbb",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-10.screening.json",
+      "committed": true,
+      "bytes": 3587,
+      "sha256": "77ac2ab3a95dcb7a659e56e2f79d97df3f03b96af232b6057ba6c94aef5e3472",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.png",
+      "committed": true,
+      "bytes": 3026779,
+      "sha256": "6c45bf1840aed3fbad78fb961c1d39e1dc5dbdd5b13304f8b161c1cf8c5b6043",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "e901910732932016c39acef39c3c5d101f2518d6e9dd7746b93b1d02ea35051c",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-11.screening.json",
+      "committed": true,
+      "bytes": 3109,
+      "sha256": "a641e655f6ed7b2f1d4cfd2e702f3f6a138b8c3dfd6751852509c655ade49ea4",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.png",
+      "committed": true,
+      "bytes": 3072631,
+      "sha256": "88054eb6a1c5949bf3207716ce19a83506beb8ee10a45da243dd8c6b707675b3",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in district-day/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.provenance.json",
+      "committed": true,
+      "bytes": 805,
+      "sha256": "a5b7904ddffc4ac655ed9ef8b990df40376b41624a66eed86c057c215e95e8bc",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/candidate-12.screening.json",
+      "committed": true,
+      "bytes": 4151,
+      "sha256": "b873dfe30bf3262f4365e21541e09fc1e0f83c3218cf755e790272ff3f82584f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/contact-sheet.html",
+      "committed": true,
+      "bytes": 3457,
+      "sha256": "e64e4bb73de231db366fd51a7b326e64ddb0d9fc2f6548d51ccb9d2e6eb2d805",
+      "regenerate": "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs district-day"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/contact-sheet.png",
+      "committed": true,
+      "bytes": 8636445,
+      "sha256": "6a134ec33cf50d95f6c987dd7382d90ba677362b159b4eea003db01aa1dc6ceb",
+      "regenerate": "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs district-day"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/district-day/001/prompts.json",
+      "committed": true,
+      "bytes": 41925,
+      "sha256": "7f45ee998e4c9efba8f447eb217d8de7c53a8cb6e3d628a21779338f27ccac00",
+      "regenerate": "Exact prompts are frozen generation inputs; preserve this file."
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-01/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 9149,
+      "sha256": "0a5acbe61571ffeb2045d98685958fafaf3876a954d8591e8462ef1e10f54691",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-01/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 2099,
+      "sha256": "db4b4b6440a3db70190a1752134abb7121b2c3e8a6b45da6401a4a336a7e4035",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-01/orange-mask.png",
+      "committed": false,
+      "bytes": 11022,
+      "sha256": "783788322dea15ed32f3349cc4385143c161fa86c39d0f4999e202a9aef02737",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-02/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 7135,
+      "sha256": "8ee357551995c2cdfdb6298e49a7adda1512a9630ce3271315bab92b0b518805",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-02/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 1194,
+      "sha256": "860c70d6dce0c1b2c9d051ba0986800a8ee135110b08fd2a44807133689fd0ca",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-02/orange-mask.png",
+      "committed": false,
+      "bytes": 6055,
+      "sha256": "a07b5ef276fc9482eab413dd4e3a1671dd396816772e967bf5c13b6685091936",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-03/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 9851,
+      "sha256": "881e9a0269844ba09e5bef0154df30eff84c0d95dd232bd4d086cb49b9341291",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-03/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 4369,
+      "sha256": "bebf14705de780fbee200131789a05ade7ed59b80386fb6e4c26c1bf16c1446f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-03/orange-mask.png",
+      "committed": false,
+      "bytes": 9805,
+      "sha256": "74e47b13b819fb3ea2a4ba2ea587fc143fa9a6038c5d2c481878220a6390ce71",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-04/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 7161,
+      "sha256": "68ef26c08cfcc8fb4a5cf1dcb873136ece11bfe2f2e6e4af68f6a77823d7b03e",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-04/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 3590,
+      "sha256": "b0d244a17000ce855187aa1fb4045fa7f2b85360856a691fef56326cc1758f1c",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-04/orange-mask.png",
+      "committed": false,
+      "bytes": 12338,
+      "sha256": "b8f8fadeb6a5f86cf06c619a8f8ad1d33adbd0d22a373d4d6bcafecddefa030b",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-05/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 8245,
+      "sha256": "1c6d5228c004a19e56fdb3455e98f51b463398854b937a8403a01ff8d6cb85d0",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-05/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 2597,
+      "sha256": "459e48eef203a9442164a45ed8bc0d33a0f49eb3152d267f771a39696272cb21",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-05/orange-mask.png",
+      "committed": false,
+      "bytes": 12826,
+      "sha256": "bba66753b8ed654e41cb9d1ec2eb3564662f7a63b17c00303107d0d725cfe6c7",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-06/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 9654,
+      "sha256": "5ccd7b08546e974db8e18599bb3ccd5107bb785a104355747cc99200ed848684",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-06/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 2763,
+      "sha256": "6b56237a95dc1233481682a1337d6cbe00ff7f5a56192352efaa07e8ee727125",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-06/orange-mask.png",
+      "committed": false,
+      "bytes": 11781,
+      "sha256": "2334d7cd7c5fc11365ea299cd71f5fe12ce497536b6adf2278eb0daba387e8b5",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-07/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 8912,
+      "sha256": "e8e555cf4954f0e642de83fecd171eec632328d705bda7f5145574cc778f0dae",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-07/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 6676,
+      "sha256": "55093fda9aea90b1b59f7bd961875c5a5bc011dd2667a3f7fe2b2d824941e0c9",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-07/orange-mask.png",
+      "committed": false,
+      "bytes": 15908,
+      "sha256": "cda79e1ef61ce4d54e5c0462ea6352ed61d740f84428a13408d50c4d838b0ec6",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-08/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 11118,
+      "sha256": "2f97d2ab20dec0cc662327eb50c2bdf22062a628295dc54e63f06abb0f265645",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-08/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 5362,
+      "sha256": "68cc0affd4b1d5b6e35e9a6909956127ae95a9e61cc8972bffee4be146993f75",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-08/orange-mask.png",
+      "committed": false,
+      "bytes": 11223,
+      "sha256": "b9dda77ab22d9dcb10de2d5541b0ce44608d69c99c30415a1aa7a7182b12857c",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-09/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 10261,
+      "sha256": "d8fd5b5ba89aea70401b529e39d8831266154e3efcbca1ad1934a67f4822cdc2",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-09/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 4438,
+      "sha256": "f884e16a084d3eff8681f3bbeffaae436a1583ebcaf8526e4b9f1cfd01bd7289",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-09/orange-mask.png",
+      "committed": false,
+      "bytes": 8066,
+      "sha256": "c3424c640ad7ab3ad8885555163d98e992a8c35ec1e314c8c73b56a058d0a0df",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-10/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 9836,
+      "sha256": "6d7d40b67306d57be4abc48a48631585b1b8cd1b2d85e7a902a3fffcc827dd96",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-10/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 3914,
+      "sha256": "c6d8300af8ecc66f6c28335211e5b6c5c39553487119c4866ea361de275e58ef",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-10/orange-mask.png",
+      "committed": false,
+      "bytes": 6599,
+      "sha256": "16733423dc59efa72bf9abef75e879974034cbc6d574a64c047ed2d35a7aa42a",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-11/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 7717,
+      "sha256": "75e70765e074e8efbe71d5467fd6f66db9c8a265662f1a3dcf1fa4e0e27b89a8",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-11/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 3582,
+      "sha256": "bd8c70a5633b9ee575c72469a57e3aea695c26e365eeea77e1bdeb9c37b57c3c",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-11/orange-mask.png",
+      "committed": false,
+      "bytes": 7445,
+      "sha256": "2b90b235c6d0e5bfbad094a752847ce8cc743731e65b652b086e904ac15ebd80",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-12/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 7631,
+      "sha256": "0650f607cd55736bf29dc698f65649d987da7c4f41450837481dec3c6b123cc0",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-12/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 3293,
+      "sha256": "ffceca1c64cb903deaa728fbe472aa700228fe9370f5d342e70a60a861788951",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/district-day/001/candidate-12/orange-mask.png",
+      "committed": false,
+      "bytes": 10668,
+      "sha256": "0559fa5470e4dac036b34f7e5c56fde7c05b75954de4b7e9e5d76c537676011f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/district-day/001/candidate-*.png"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Generation uses only the built-in image tool; no provider API fallback. Local contact-sheet composition permits file/data resources only.",
+    "budget": "User authorized 12\u201320 independent candidates per frame; 12 selected for each of 7 groups (84 total).",
+    "observed_cost": "unknown: built-in tool does not expose billing"
+  },
+  "cleanup_result": "Original tool outputs and copied evidence retained as requested. Scratch masks/OCR TSVs retained outside git. No hosted resources were created.",
+  "decision_link": "docs/decisions.md: owner chose technique B on WebGL; Part B references authorized, with no reference/tone/proportion picks yet",
+  "limitations_and_next_action": "Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude must review raw flags and common failures before shortlisting; the owner then picks or rejects. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.",
+  "look": {
+    "technique": "n/a: AI-generated references, not a run of technique B",
+    "tone_set": "n/a: tone selection awaits owner-picked references",
+    "theme": "day",
+    "rung": "district",
+    "dpr": "n/a: generated raster source; contact sheet uses deviceScaleFactor 1",
+    "camera": "Requested orthographic from one corner, looking down 30 degrees; actual projection is generated and not calibrated; see per-image convergence metrics",
+    "canvas": {
+      "original_dimensions": [
+        "1254x1254"
+      ],
+      "contact_sheet_dimensions": [
+        2048,
+        3062
+      ]
+    },
+    "backend": "n/a: no WebGL/WebGPU application rendering",
+    "renderer_string": "n/a: no graphics renderer evidence in this reference batch",
+    "device_profile": "n/a: no runtime/phone performance test for generated references",
+    "clock_and_seed": "Generation request/completion timestamps recorded per image except first-call timing unavailable; tool exposes no seed; not deterministic",
+    "metrics": {
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 1,
+      "orange_count_flags": 11,
+      "ocr_flags": 12,
+      "claude_shortlist": "pending",
+      "owner_pick": "pending"
+    },
+    "made_by": "Codex via built-in image generation, independent original calls; contact sheet composed locally from unchanged originals",
+    "cross_review": {
+      "reviewer_agent": "Claude",
+      "verdict": "pending",
+      "notes": "Automatic screening is not Claude review; no GPT substitute shortlist."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [
+        "district-day/001/contact-sheet.png (all 12, unshortlisted)"
+      ],
+      "picked": "n/a: not picked",
+      "owner_note": "n/a: no pick supplied",
+      "date": "n/a: pending"
+    }
+  }
+}
