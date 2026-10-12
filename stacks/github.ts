@@ -26,7 +26,9 @@ export default Alchemy.Stack(
       accountId,
       policies: [{
         effect: "allow",
-        permissionGroups: ["Workers Scripts Write", "D1 Write", "Secrets Store Read"],
+        // A fresh CI runner recovers state credentials through an ephemeral
+        // Worker secret binding. Cloudflare's metadata-only Read cannot bind.
+        permissionGroups: ["Workers Scripts Write", "D1 Write", "Secrets Store Write"],
         resources: { [`com.cloudflare.api.account.${accountId}`]: "*" },
       }],
     });

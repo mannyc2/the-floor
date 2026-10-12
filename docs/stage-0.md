@@ -7,9 +7,9 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 
 | Area | Current result | Remaining gate |
 | --- | --- | --- |
-| Toolchain and ownership fences | Active strict compiler/lint, source and emitted-graph checks, reasoned suppression budget, pinned packages | Fresh complete verification on the final integrated source |
+| Toolchain and ownership fences | Active strict compiler/lint, source and emitted-graph checks, reasoned suppression budget, pinned packages | [Integrated local verification passed](stage-0/evidence/workspace/002/record.json); remote CI remains |
 | Chains | Parameterized Kit/Codama and EVM construction; 940 dev-only math oracle cases | Product signing/broadcast belongs to later work |
-| Floor | Native agent/DOs, real provider Layers, predicate Decisions adapter, local admission/restart/storage checks | Hosted probe evidence and authorized live provider access |
+| Floor | Native agent/DOs, real provider Layers, predicate Decisions adapter, local admission/restart plus bounded hosted storage/crypto/alarm evidence | Authorized live provider access and unrun platform gates |
 | Web | Foldkit shell with production typed-health flow and a reserved map mount point | External map host, renderer, camera and picking |
 | Look harness | TypeScript metrics and deterministic drivers | External adapter, approved references, captures and phone measurements |
 | Art | Part A technique B/WebGL selected; 84 Part B candidates generated on their own branch | Cross-review and owner's recorded reference, tone and proportion picks |
@@ -20,7 +20,7 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 
 - [ ] Platform report records exact dependency versions and workerd results for browser/agent alarms, wallets, launch construction, renderer plates, DO/D1 storage, Web Crypto and deploy/destroy.
 - [ ] Browser adapter package, containment policy and live-view/takeover choice are settled; any runtime deviation is in the decision log.
-- [ ] Anthropic support and the Decisions adapter have been checked against installed source before relying on model defaults.
+- [x] Anthropic support and the Decisions adapter have been checked against installed source before relying on model defaults.
 - [ ] Look report records technique, tone values, kit unit, line specification and figure ratio, with the owner's recorded picks and the picked reference frames, under `docs/spikes/evidence/look/`.
 - [ ] Image-generation access, provider access and the replacement implementation decision are settled for the work that needs them.
 
@@ -47,11 +47,11 @@ What stays behind as evidence only: the retired Wrangler and `effect-cf` probe (
 
 ## Build the skeleton around it
 
-- [ ] Initialize only required workspace packages, with manifests and explicit exports; keep app-local code local.
-- [ ] Adapt exact toolchain pins, the `prepare` patch, compiler diagnostics, Oxlint and dprint, with `reference/` excluded from every tool; produce and verify the new lockfile.
-- [ ] Port and test import, app, signer, three.js, testing-data, Atlas and workbench fences; validate bundle contents as well as imports.
-- [ ] Configure the narrow API-package exception and a reasoned suppression budget.
-- [ ] Adapt the bundle-budget model and manifest walker, preserving structured failures.
+- [x] Initialize only required workspace packages, with manifests and explicit exports; keep app-local code local.
+- [x] Adapt exact toolchain pins, the `prepare` patch, compiler diagnostics, Oxlint and dprint, with `reference/` excluded from every tool; produce and verify the new lockfile.
+- [x] Port and test import, app, signer, three.js, testing-data, Atlas and workbench fences; validate bundle contents as well as imports.
+- [x] Configure the narrow API-package exception and a reasoned suppression budget.
+- [x] Adapt the bundle-budget model and manifest walker, preserving structured failures.
 - [ ] Implement `alchemy.run.ts` and CI as in [Alchemy's CI tutorial](https://alchemy.run/cloudflare/tutorial/part-5): a `pr-<number>` stage per pull request, cleanup on close with a guard against `prod`, a PR comment with the preview URL, and a scoped token minted by `stacks/github.ts` under a separate admin profile. Prove both creation and teardown of an isolated stage.
 - [ ] Run one production-entry flow against that stage, with an independent review of its assertions and stubs.
 - [ ] Fill `packages/atlas` with the picked look values; generate stylesheet and palette from it.

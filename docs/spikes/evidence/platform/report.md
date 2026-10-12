@@ -1,8 +1,19 @@
 # Platform spike report
 
-Current result: local primitives support the owner-authorized Stage 0 work; hosted browser, wallet, provider and deployment gates remain open. The owner subsequently accepted Effect 4.0.3, the private pinned Yielded build, and bounded hosted checks within the existing $5 Cloudflare subscription's included allowances. No hosted spike workload has run yet.
+Current result: local primitives and a bounded hosted native-agent, SQL and Web Crypto run support the owner-authorized Stage 0 work. Temporary deployment and independently verified destruction now pass. Hosted browser, renderer, wallet, chain and live-provider gates remain open. The owner accepted Effect 4.0.3, the private pinned Yielded build, and hosted checks within the existing $5 Cloudflare subscription's included allowances.
 
-Branch: `spike/platform`. This is bounded spike code, not the product skeleton. This task did not execute Look Part B or Stage 0. The [decision log](../../../decisions.md) records the current scope and the choices still required.
+The earlier isolated probes remain on `spike/platform`; the hosted native run uses the promoted Stage 0 agent services through their testing export. Each record preserves its executed source. The [decision log](../../../decisions.md) records the current scope and the choices still required.
+
+## Hosted native check
+
+The [first attempt](hosted-native/001/record.json) deployed successfully but failed its initial access check without retaining the unexpected HTTP response. Cleanup restored the account's original resource identities. The [second attempt](hosted-native/002/record.json) recorded two transient Cloudflare 404 responses before the secret gate became ready, then passed all executed runtime checks with 12 driver requests:
+
+- Alchemy's callback admitted the real native agent service; Yielded's alarm completed the injected offline model during a six-second interval with no polling. Duplicate admission preserved canonical records.
+- Native DO transactions and D1 batches rolled back intentional failures. Each store applied two migrations and admitted exactly one winner among 16 concurrent conditional updates. Rows survived an explicit reset of the test storage DO and fresh D1 requests.
+- The hosted Worker matched SHA-256 vectors, generated 32 distinct valid UUIDv4 values and returned a typed negative-size failure through BrowserCrypto. No Bun global was present.
+- Both temporary Workers, the D1 database and three native namespaces were destroyed. Independent inventory checks restored the original 5 Worker, 1 DO namespace, 3 D1 and 1 Secrets Store identity sets. The pre-existing state-store Worker remained unchanged at version 7.
+
+The two deployments used one temporary stage sequentially and made 13 driver requests in total. No Browser session, model-provider request, wallet operation, chain RPC or R2 resource was used. Exact incremental billing remains unknown because account usage is shared and delayed. The [budget ledger](../../hosted-budget.json) records the reservation and cleanup. Hosted agent eviction/interrupted-turn recovery was not tested; only the storage DO was forcibly reset. No browser or artistic acceptance follows from this result.
 
 ## Current local target
 
@@ -35,12 +46,13 @@ The [probe README](../../../../apps/floor/spikes/platform/README.md), [agent fix
 
 | Gate | Status and next action |
 | --- | --- |
-| Hosted agent and browser: containment, capture, live view, takeover, expiry/reconnection and release | **Not run under local-only scope.** Source inspection resolves the Cloudflare adapter and its rejection of `PublicWeb`; no tested containment policy or fallback provider is selected. Controlled hosted enforcement and lifecycle tests remain necessary. |
+| Hosted browser: containment, capture, live view, takeover, expiry/reconnection and release | **Not run.** Native agent alarm execution passes separately. The observed Browser Run graph omits the start of the account billing period, and the current OAuth scopes cannot read billing usage. Browser execution remains excluded until allowance and containment are established. |
 | Privy sandbox co-signing and native Effect wallet edge | **Not run.** No configured sandbox credentials or intended co-signing arrangement were found in the inspected environment/worktree files. The new native HttpClient/P-256 client is not implemented or verified here. A local construction result is not wallet-provider evidence. |
-| Anthropic and OpenAI Decisions | **Not run.** Provider keys are missing in the inspected scope. Anthropic 4.0.3 is resolved; the OpenAI package has no native Decisions provider. Live model wiring, Claude defaults and a custom Decisions adapter remain unverified. |
+| Anthropic and OpenAI Decisions | **Live calls not run.** Stage 0 contains actual Anthropic/OpenAI Layers and a dedicated predicate-only Decisions adapter with offline transport tests. Provider availability, selected model identifiers and live inference remain unverified and outside the current Cloudflare-only budget. |
 | Hosted renderer plate | **Not run under local-only scope.** Look Part A supplies a bounded web renderer; Cloudflare Browser Rendering still needs to produce its own plate from that source. Local captures do not pass this gate. |
-| Hosted SQL, Web Crypto and chain-edge behavior | **Not run under local-only scope.** Local emulation does not establish hosted equivalence, limits or entitlements. |
-| Temporary Alchemy deploy and verified destroy | **Not run under local-only scope.** The Alchemy profile is absent. Later work needs the profile, a unique non-production stage and an agreed spend limit, followed by verified teardown. There are no spike-owned hosted resources awaiting cleanup. |
+| Hosted SQL and Web Crypto | **Bounded check passes.** See hosted-native/002 above. Production history/journal repositories, failed migration recovery and broader distributed contention remain later work. |
+| Hosted chain-edge behavior | **Not run.** Local Kit/viem construction does not establish hosted execution or wallet-provider behavior. |
+| Temporary Alchemy deploy and verified destroy | **Passes for hosted-native/002.** The owner-selected OAuth profile and existing remote state were used. No shared bootstrap upgrade occurred; no spike-owned hosted resources remain. |
 | Codex market data | No configured API key found in inspected scope; no authenticated request or dataset-coverage evidence. This is codex.io, separate from the coding app. |
 
 Read-only account inspection refreshed the existing Wrangler OAuth login before the local-only instruction. That establishes only that account metadata was accessible; it is not the selected Alchemy profile and does not prove hosted service entitlements. Account inspection covered known variable names and worktree secret-file presence, not every account the owner might have elsewhere. No credential values were printed or committed. Browserbase remains an unselected fallback.
@@ -58,4 +70,4 @@ The first [storage/crypto](local-workerd/001/record.json), [launch](launch-const
 
 Initial disk exhaustion was resolved. Pre-execution environment/account blocker records were removed under the current evidence rules; the [published-source audit](local-runtime-prerequisites/001/api-findings.md) remains API discovery only. A corrupted locally cached workerd executable was replaced with the same version from a verified official distribution before the successful Alchemy runs; the records retain the executed binary digest.
 
-The current local evidence supports the bounded primitives above. Stage 0 is authorized by the owner; hosted compatibility remains unproven until the outstanding gates have their own execution and cleanup evidence.
+Stage 0 is authorized by the owner. The local and hosted evidence supports only the bounded primitives above; the remaining gates need their own execution and cleanup evidence.

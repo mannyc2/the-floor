@@ -1,0 +1,86 @@
+[
+  {
+    "count": 1,
+    "path": "/ready",
+    "status": 404,
+    "contentType": "text/html; charset=UTF-8",
+    "errorBodySummary": "Cloudflare Page not found HTML"
+  },
+  {
+    "count": 2,
+    "path": "/ready",
+    "status": 404,
+    "contentType": "text/html; charset=UTF-8",
+    "errorBodySummary": "Cloudflare Page not found HTML"
+  },
+  {
+    "count": 3,
+    "path": "/ready",
+    "status": 403,
+    "contentType": "unknown",
+    "errorBodySummary": ""
+  },
+  {
+    "count": 4,
+    "path": "/enqueue",
+    "status": 403,
+    "contentType": "unknown",
+    "errorBodySummary": ""
+  },
+  {
+    "count": 5,
+    "path": "/enqueue",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 6,
+    "path": "/snapshot",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 7,
+    "path": "/storage-run",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 8,
+    "path": "/storage-reset",
+    "status": 500,
+    "contentType": "unknown",
+    "errorBodySummary": ""
+  },
+  {
+    "count": 9,
+    "path": "/storage-snapshot",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 10,
+    "path": "/enqueue",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 11,
+    "path": "/snapshot",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  },
+  {
+    "count": 12,
+    "path": "/",
+    "status": 200,
+    "contentType": "application/json",
+    "errorBodySummary": "omitted-success-body"
+  }
+]

@@ -1,0 +1,70 @@
+• Refreshing Cloudflare State Store credentials
+✓ Refreshing Cloudflare State Store credentials
+•   url:     https://alchemy-state-store.c20carroll.workers.dev
+[13:09:59.204] INFO (#1027): Cloudflare Worker read: checking floorhostedplatform-floorhoste4wvnmv4o6puypdwb5es26eqa
+[13:09:59.557] INFO (#23): Plan: 3 to create, 6 binding changes
+[13:09:59.557] INFO (#23): [FloorHostedCrypto] create
+[13:09:59.557] INFO (#23): [FloorHostedCrypto/FLOOR_PROBE_TOKEN] create
+[13:09:59.557] INFO (#23): [FloorLocalAgent] create
+[13:09:59.557] INFO (#23): [FloorLocalAgent/FLOOR_MAILBOXES] create
+[13:09:59.558] INFO (#23): [FloorLocalAgent/FLOOR_PROBE_TOKEN] create
+[13:09:59.558] INFO (#23): [FloorLocalAgent/FLOOR_THREADS] create
+[13:09:59.558] INFO (#23): [FloorLocalAgent/FloorStorage] create
+[13:09:59.558] INFO (#23): [FloorLocalAgent/STORAGE] create
+[13:09:59.558] INFO (#23): [FloorStorage] create
+[13:09:59.558] INFO (#23): 
+[13:09:59.776] INFO (#1083): [FloorHostedCrypto] pre-creating
+[13:09:59.780] INFO (#1083): Cloudflare Worker precreate: starting floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6
+[13:09:59.780] INFO (#1083): Cloudflare Worker precreate: durable objects []
+[13:09:59.781] INFO (#1081): [FloorStorage] creating
+[13:09:59.892] INFO (#1082): [FloorLocalAgent] pre-creating
+[13:09:59.893] INFO (#1082): Cloudflare Worker precreate: starting floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz
+[13:09:59.893] INFO (#1082): Cloudflare Worker precreate: durable objects [{"logicalId":"FLOOR_THREADS","bindingName":"FLOOR_THREADS","className":"FLOOR_THREADS"},{"logicalId":"FLOOR_MAILBOXES","bindingName":"FLOOR_MAILBOXES","className":"FLOOR_MAILBOXES"},{"logicalId":"STORAGE","bindingName":"STORAGE","className":"STORAGE"}]
+[13:10:02.396] INFO (#1081): [FloorStorage] created (2.6s)
+[13:10:05.240] INFO (#1082): [FloorLocalAgent] creating
+[13:10:05.243] INFO (#1082): Cloudflare Worker reconcile: starting floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz
+[13:10:05.243] INFO (#1082): Cloudflare Worker reconcile: durable objects [{"logicalId":"FLOOR_MAILBOXES","className":"FLOOR_MAILBOXES"},{"logicalId":"FLOOR_THREADS","className":"FLOOR_THREADS"},{"logicalId":"STORAGE","className":"STORAGE"}]
+[13:10:05.244] INFO (#1083): [FloorHostedCrypto] creating
+[13:10:05.244] INFO (#1083): Cloudflare Worker reconcile: starting floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6
+[13:10:05.244] INFO (#1083): Cloudflare Worker reconcile: durable objects []
+[13:10:05.560] INFO (#1083): Cloudflare Worker reconcile: existing durable object tags []
+[13:10:05.560] INFO (#1083): Cloudflare Worker reconcile: previous durable object tags []
+[13:10:05.569] INFO (#1083): Cloudflare Worker create: preparing bundle for floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6
+[13:10:06.793] INFO (#1082): Cloudflare Worker reconcile: existing durable object tags ["alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS;STORAGE"]
+[13:10:06.793] INFO (#1082): Cloudflare Worker reconcile: previous durable object tags ["alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS;STORAGE"]
+[13:10:06.793] INFO (#1082): Cloudflare Worker create: preparing bundle for floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz
+[13:10:07.827] INFO (#1083): Cloudflare Worker create: uploading script for floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6
+[13:10:07.828] INFO (#1083): Cloudflare Worker put: durable object reconciliation {"oldDoClassNameByLogicalId":{},"currentDoClassNameByLogicalId":{},"deletedClasses":[],"renamedClasses":[],"transferredClasses":[],"newSqliteClasses":[]}
+[13:10:08.188] INFO (#1082): Cloudflare Worker create: uploading script for floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz
+[13:10:08.189] INFO (#1082): Cloudflare Worker put: durable object reconciliation {"oldDoClassNameByLogicalId":{"FLOOR_MAILBOXES":"FLOOR_MAILBOXES","FLOOR_THREADS":"FLOOR_THREADS","STORAGE":"STORAGE"},"currentDoClassNameByLogicalId":{"FLOOR_MAILBOXES":"FLOOR_MAILBOXES","FLOOR_THREADS":"FLOOR_THREADS","STORAGE":"STORAGE"},"deletedClasses":[],"renamedClasses":[],"transferredClasses":[],"newSqliteClasses":[]}
+[13:10:12.845] INFO (#1083): [FloorHostedCrypto] created — Enabling workers.dev subdomain... (13.1s)
+[13:10:19.373] INFO (#1082): [FloorLocalAgent] created — Enabling workers.dev subdomain... (19.5s)
+[13:10:19.427] INFO (#1275): [FloorStorage] created (19.6s)
+[13:10:19.427] INFO (#1276): [FloorHostedCrypto] created — Enabling workers.dev subdomain... (19.7s)
+[13:10:19.427] INFO (#1277): [FloorLocalAgent] created — Enabling workers.dev subdomain... (19.5s)
+[13:10:19.502] INFO (#23): 
+[13:10:19.502] INFO (#23): Done: 3 succeeded (19.9s)
+[13:10:19.970] INFO (#1593): Plan: 3 to delete, 6 binding changes
+[13:10:19.970] INFO (#1593): [FloorHostedCrypto] delete
+[13:10:19.970] INFO (#1593): [FloorHostedCrypto/FLOOR_PROBE_TOKEN] unbind
+[13:10:19.970] INFO (#1593): [FloorLocalAgent] delete
+[13:10:19.971] INFO (#1593): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+[13:10:19.971] INFO (#1593): [FloorLocalAgent/FLOOR_PROBE_TOKEN] unbind
+[13:10:19.971] INFO (#1593): [FloorLocalAgent/FLOOR_THREADS] unbind
+[13:10:19.971] INFO (#1593): [FloorLocalAgent/FloorStorage] unbind
+[13:10:19.971] INFO (#1593): [FloorLocalAgent/STORAGE] unbind
+[13:10:19.971] INFO (#1593): [FloorStorage] delete
+[13:10:19.971] INFO (#1593): 
+[13:10:20.173] INFO (#1970): [FloorHostedCrypto] deleting
+[13:10:20.175] INFO (#1972): [FloorLocalAgent] deleting
+[13:10:20.260] INFO (#1970): Cloudflare Worker delete: deleting floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6
+[13:10:20.269] INFO (#1972): Cloudflare Worker delete: deleting floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz
+[13:10:21.084] INFO (#1972): [FloorLocalAgent] deleted (909ms)
+[13:10:21.084] INFO (#1974): [FloorStorage] deleting
+[13:10:21.201] INFO (#1970): [FloorHostedCrypto] deleted (1.0s)
+[13:10:21.918] INFO (#1974): [FloorStorage] deleted (834ms)
+[13:10:22.136] INFO (#1593): 
+[13:10:22.136] INFO (#1593): Done: 3 succeeded (2.2s)
+[13:10:22.138] ERROR (#5): ProbeInvariant: 
+    at ensure ($REPO/apps/floor/test/hosted.run.ts:15:45)
+    at <anonymous> ($REPO/apps/floor/test/hosted.run.ts:109:10)

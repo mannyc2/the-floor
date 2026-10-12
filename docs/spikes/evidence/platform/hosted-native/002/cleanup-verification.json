@@ -1,0 +1,36 @@
+{
+  "verifiedAt": "2026-10-12T17:15:19.085Z",
+  "counts": {
+    "scripts": {
+      "before": 5,
+      "after": 5,
+      "identitiesMatch": true,
+      "beforeIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00",
+      "afterIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00"
+    },
+    "namespaces": {
+      "before": 1,
+      "after": 1,
+      "identitiesMatch": true,
+      "beforeIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c",
+      "afterIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c"
+    },
+    "databases": {
+      "before": 3,
+      "after": 3,
+      "identitiesMatch": true,
+      "beforeIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9",
+      "afterIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9"
+    },
+    "secretStores": {
+      "before": 1,
+      "after": 1,
+      "identitiesMatch": true,
+      "beforeIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba",
+      "afterIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba"
+    }
+  },
+  "stateWorkerUnchanged": true,
+  "expectedStateStoreVersion": 7,
+  "stageOwnedResourcesAbsent": true
+}

@@ -1,0 +1,11 @@
+{
+  "status": "fail",
+  "phase": "initial hosted unauthenticated gate",
+  "limitations": [
+    "The first runner did not retain the unexpected HTTP status/body; no propagation or configuration cause is asserted.",
+    "The driver made exactly one unauthenticated /enqueue request, so an unauthorized side effect cannot be excluded from the missing response alone; all owned resources were subsequently destroyed."
+  ],
+  "cleanup": "Independent identity inventory matches baseline; shared bootstrap unchanged",
+  "failedAt": "2026-10-12T17:10:22.138Z",
+  "executionCommand": "CI=false ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_EXECUTE_HOSTED_PROBE=true bun run apps/floor/test/hosted.run.ts"
+}

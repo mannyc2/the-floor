@@ -31,7 +31,7 @@
     "proposedMaximum": "One simultaneous browser; total browser execution at most 120 seconds"
   },
   "proposedRuntimeReservation": {
-    "state": "Reserved for floor-hosted-20261012-001, authorized native agent/storage/Web Crypto run; Browser Run remains excluded.",
+    "state": "Completed and released: two sequential attempts reused one temporary stage; all owned resources independently verified absent.",
     "temporaryStages": 1,
     "maximumLifetimeMinutes": 30,
     "driverWorkerRequests": 80,
@@ -68,11 +68,27 @@
       "stage": "floor-hosted-20261012-001",
       "attempt": "002",
       "reservedAt": "2026-10-12T17:13:23.808Z",
-      "state": "retry-reserved-after-verified-destruction",
+      "state": "passed; destroyed and independently verified",
       "browserSessions": 0,
       "paidProviderCalls": 0,
-      "originalReservationRetained": true
+      "originalReservationRetained": true,
+      "driverRequests": 12,
+      "maximumObservedLifetimeSeconds": 32,
+      "completedAt": "2026-10-12T17:13:59.332Z",
+      "cleanupVerifiedAt": "2026-10-12T17:15:19.085Z",
+      "evidence": "docs/spikes/evidence/platform/hosted-native/002/record.json"
     }
   ],
-  "outsideProviderCalls": "No Anthropic, OpenAI, Privy or other separately billed provider operation is currently included in this budget."
+  "outsideProviderCalls": "No Anthropic, OpenAI, Privy or other separately billed provider operation is currently included in this budget.",
+  "observedExecution": {
+    "totalDriverRequests": 13,
+    "concurrentTemporaryStages": 1,
+    "totalApproximateDeploymentSeconds": 56,
+    "browserSessions": 0,
+    "outsidePaidProviderCalls": 0,
+    "exactIncrementalCost": "unknown: account-wide metering and billing can lag",
+    "resourcesRemaining": 0,
+    "sharedStateStore": "version 7, existing Worker metadata unchanged",
+    "billingApiRead": "403 under current OAuth scopes"
+  }
 }

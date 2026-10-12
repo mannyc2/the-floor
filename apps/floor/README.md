@@ -46,3 +46,11 @@ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun --preload ./apps/floor/test/local-only.
 This serves the actual Worker and `apps/web/dist` on port 19740, holds the Alchemy scope open, and destroys its local resources on SIGTERM. No authentication or model service is stubbed for shell health.
 
 The private Yielded build and its four Effect Crypto call adaptations retain their [package provenance](../../vendor/yielded/0adbcff-effect-4.0.3/provenance.json) and [earlier native runtime evidence](../../docs/spikes/evidence/platform/yielded-effect403-package/002/record.json). The promoted application is checked against those compiled package exports, with no source clone, replay or TypeScript path aliases.
+
+## Bounded hosted check
+
+The [hosted-native evidence](../../docs/spikes/evidence/platform/hosted-native/002/record.json) proves native alarm execution with the testing model, DO/D1 rollback and conditional updates, storage persistence after a forced storage-object reset, Web Crypto and verified stage cleanup. It does not prove live model calls or hosted agent eviction. `test/run.sh` also checks the secret gate locally, bringing the native suite to 36 assertions.
+
+`test/hosted.run.ts` is an explicit manual probe, excluded from routine test commands. It requires `FLOOR_EXECUTE_HOSTED_PROBE=true`, the owner-selected account and the saved Alchemy profile. It uses `CI=false` because Alchemy's CI mode selects environment credentials. Test/Core still refuses interactive confirmations and leaves automatic state-store upgrades disabled. Probe requests require an ephemeral secret, CPU is capped at 10,000 ms per request, the driver is capped at 80 requests, and cleanup is installed before deployment. An existing result prevents accidental evidence overwrite; a repeat needs a fresh evidence directory and a valid budget reservation.
+
+The hosted probe adds four reasoned boundary suppressions: one at its Alchemy process boundary, one at the crypto Worker's Layer composition, and two lifecycle hooks in the local gate test. Production runtime code receives no additional suppression.

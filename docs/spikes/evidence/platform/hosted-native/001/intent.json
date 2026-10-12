@@ -1,0 +1,1 @@
+{"stage":"floor-hosted-20261012-001","startedAt":1791824994402,"authorizedAccountId":"7aa7065a7e971d97435b3f22098d78b0","maximumLifetimeMinutes":30,"maximumDriverRequests":80,"browser":false,"paidModelCalls":false,"resources":["FloorLocalAgent","FloorStorage","FLOOR_THREADS","FLOOR_MAILBOXES","STORAGE","FloorHostedCrypto"]}

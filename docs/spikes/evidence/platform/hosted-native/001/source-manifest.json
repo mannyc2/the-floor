@@ -1,0 +1,140 @@
+{
+  "archive": "executed-source.tar.gz",
+  "files": [
+    {
+      "path": ".oxlintrc.json",
+      "bytes": 6160,
+      "sha256": "8646378bb979143e112515a63d6e380611d5394425c9085bc1540e51920289be"
+    },
+    {
+      "path": "alchemy.run.ts",
+      "bytes": 847,
+      "sha256": "0029a7b668e6220efefd948b9c9db468b40271d8cec2d831b744aca4d5693a59"
+    },
+    {
+      "path": "apps/floor/package.json",
+      "bytes": 819,
+      "sha256": "664cac77b4cc40dd15279017b287db19442ee235af7300ec713b4db810492099"
+    },
+    {
+      "path": "apps/floor/src/agents/decisions.ts",
+      "bytes": 8910,
+      "sha256": "580c4bb1dbcab4168ec0aa12a67e3c5146da1fcc8e6c7ed7ae7a65a4a67b854c"
+    },
+    {
+      "path": "apps/floor/src/agents/models.ts",
+      "bytes": 1639,
+      "sha256": "c2d6b5ecdd03fa1f2b62194b448249e4efdaff9a82a6fcdae1e2e5f4b2c3370c"
+    },
+    {
+      "path": "apps/floor/src/agents/runtime.ts",
+      "bytes": 7809,
+      "sha256": "6f1213462b142d280714aa3f5b12842d1b430730b30af9c56d5fe28433a9c4f1"
+    },
+    {
+      "path": "apps/floor/src/testing/contract.ts",
+      "bytes": 1587,
+      "sha256": "104111f89e9afb888e799a829273909adb2b5c155684efb4ca05ea0134f234f9"
+    },
+    {
+      "path": "apps/floor/src/testing/index.ts",
+      "bytes": 9307,
+      "sha256": "89f75081ac9fe07628de89759e9d3b0a6d0f38d82afd72e469c6730a9db9a588"
+    },
+    {
+      "path": "apps/floor/src/worker.ts",
+      "bytes": 1589,
+      "sha256": "7b10f5ce7ed0fef4460d5323969851cfe07f2827c2937040b4b4486ac6ca7b51"
+    },
+    {
+      "path": "apps/floor/test/admission.test.ts",
+      "bytes": 4297,
+      "sha256": "fff00cbf4e31c2afe1ad62886101cfc05bf29f255b9e3843a703c340a2acd057"
+    },
+    {
+      "path": "apps/floor/test/build.test.ts",
+      "bytes": 2885,
+      "sha256": "36b80639ffdfdc17425782d36ad501a9e0b512229265e5b77af20e0fb473b180"
+    },
+    {
+      "path": "apps/floor/test/decisions.test.ts",
+      "bytes": 6394,
+      "sha256": "87fab00d520e5d2fda05c47e44cfd294beea2d2ba1a70589ec431cd6698115b4"
+    },
+    {
+      "path": "apps/floor/test/fixtures/hosted-crypto.ts",
+      "bytes": 2800,
+      "sha256": "26a3e467751c866e0c50016843f135466682bfb1573f07cc2ae23c0e8c9ad6fd"
+    },
+    {
+      "path": "apps/floor/test/fixtures/migrations/001_create.sql",
+      "bytes": 97,
+      "sha256": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+    },
+    {
+      "path": "apps/floor/test/fixtures/migrations/002_marker.sql",
+      "bytes": 81,
+      "sha256": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+    },
+    {
+      "path": "apps/floor/test/hosted.run.ts",
+      "bytes": 9810,
+      "sha256": "67d8134c92a2924ef4035dc46b8b8584e99bfebc31dc0c341b8350722a0ae63b"
+    },
+    {
+      "path": "apps/floor/test/local-only.ts",
+      "bytes": 1024,
+      "sha256": "be532b1dbbd02f8383335c58f2f8a7322a0fd3c9af1266aa582a67a1ff715f7e"
+    },
+    {
+      "path": "apps/floor/test/restart.test.ts",
+      "bytes": 3716,
+      "sha256": "10fe0339b103f742a5b5caafdd6c6eb5d49b6a718a1dcaa4e778e918f4635980"
+    },
+    {
+      "path": "apps/floor/test/run.sh",
+      "bytes": 320,
+      "sha256": "8802fd622a090bfcab6298b400dd8ef8d3b9c74d2144a65a16fc5d37ea6a7b0b"
+    },
+    {
+      "path": "apps/floor/test/serve-local.ts",
+      "bytes": 1213,
+      "sha256": "95816ce53e8482ec8c4b0e9ba6c5f28a8a5721fc7dc33de17104f31690aed8d3"
+    },
+    {
+      "path": "apps/floor/tsconfig.json",
+      "bytes": 246,
+      "sha256": "9fc5a3f5b1c21b74a32378aa2ad2b29a0b595f674e7e537f4a96ad9469fefbee"
+    },
+    {
+      "path": "bun.lock",
+      "bytes": 385940,
+      "sha256": "bd6e26da67b747033b32e061a69197014373223fadea56388600bc3a7aa3ae66"
+    },
+    {
+      "path": "package.json",
+      "bytes": 5914,
+      "sha256": "98997a59bc0cc2def632cd3033fa30df5c7dd117e77638adf37d1fc89cce1348"
+    },
+    {
+      "path": "packages/api/src/http.ts",
+      "bytes": 308,
+      "sha256": "0fc95a2808c44e6daa722188ea62f8a39c32e1392f09e43850cbaf5b9b8f41d0"
+    },
+    {
+      "path": "packages/contract/src/health.ts",
+      "bytes": 183,
+      "sha256": "6b837e272b5aafd88edecd909b1004f27599c56d8591b4e5d5f51c65d7ea38b6"
+    },
+    {
+      "path": "patches/alchemy@2.0.0-beta.80.patch",
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 5773,
+      "sha256": "880ae16d43ef3d0f6ebcaf84bcb0f134bd531cd2338ffe77e7900dd710aae9ba"
+    }
+  ]
+}

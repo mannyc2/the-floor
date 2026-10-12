@@ -1,0 +1,153 @@
+{
+  "check_id": "hosted-native",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T17:09:54.402Z",
+  "operator": "toolchain_readiness",
+  "reviewer": "Operator verified artifact hashes, emitted graph and archived source matches. Independent root review pending.",
+  "source_revision": {
+    "base": "4907895fb253786631b85abcec5fb5937c7c4611",
+    "branch": "stage-0",
+    "uncommittedExecutedSource": {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 92508,
+      "sha256": "55116ab4684a6b50bfe7741457ba3ede0aa2f55061a920432fb1e2c5c21336a0",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    "explanation": "The immutable archive and file manifest identify the exact shared-worktree inputs. Floor001 local evidence remains unchanged."
+  },
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "effectPlatformBrowser": "4.0.3",
+    "yieldedPrivateBuild": "0.1.0-beta.166-floor.0adbcff.403.2",
+    "alchemyPatchSha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+    "bunLockSha256": "bd6e26da67b747033b32e061a69197014373223fadea56388600bc3a7aa3ae66"
+  },
+  "api_evidence": [
+    "Installed Alchemy beta.80 Test/Core.deploy and destroy with dev:false, state:Cloudflare.state(), and noninteractive prompt handling. AlchemyContext.updateStateStore remains false.",
+    "Installed Alchemy auth resolver intentionally ignores saved profiles under CI=true. The predeployment CI invocation failed before resource creation; hosted execution uses CI=false and the existing default OAuth profile.",
+    "Existing shared state store returned version 7, matching installed STATE_STORE_VERSION. No local bootstrap-resume stage existed. Shared Worker metadata is unchanged after cleanup.",
+    "Cloudflare Durable Object State abort API: https://developers.cloudflare.com/durable-objects/api/state/ retrieved 2026-10-12; abort resets an object and terminates the active request.",
+    "Browser Run pricing: https://developers.cloudflare.com/browser-run/pricing/ retrieved 2026-10-12. Browser execution was excluded because the dashboard range omitted part of the Workers billing period and billing API reads returned 403."
+  ],
+  "execution_target": "hosted_cloudflare",
+  "runtime_configuration": {
+    "compatibilityDate": "2026-08-18",
+    "declaredFlags": [],
+    "alchemyDefaults": "new_module_registry; compatibility date has implicit Node support per the installed provider; no bare-Worker claim",
+    "perRequestCpuLimitMs": 10000,
+    "dev": false,
+    "sidecar": false,
+    "state": "Existing Cloudflare.state() version 7",
+    "inference": "ScriptedModel through ./testing only; production native Agents/mailbox/ThreadObject services",
+    "browserBinding": false,
+    "telemetry": false
+  },
+  "stage_and_resources": {
+    "stage": "floor-hosted-20261012-001",
+    "agent": {
+      "name": "floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz",
+      "url": "https://floorhostedplatform-floorlocalqqv67jfnrfn77fuope4ivjaz.c20carroll.workers.dev"
+    },
+    "crypto": {
+      "name": "floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6",
+      "url": "https://floorhostedplatform-floorhosteiqnlkmwcilzdnouzukumsev6.c20carroll.workers.dev"
+    },
+    "bindings": [
+      "FLOOR_THREADS native SQLite DO",
+      "FLOOR_MAILBOXES native SQLite DO",
+      "STORAGE native SQLite DO",
+      "FloorStorage D1",
+      "FLOOR_PROBE_TOKEN secret_text"
+    ],
+    "physicalD1AndNamespaceIds": "Not retained before deletion; logical resources are recorded by the plan, and the complete post-cleanup account identity sets match the baseline."
+  },
+  "inputs": [
+    "One synthetic question and fixed offline answer synthetic-done-v1",
+    "One unique thread per attempt, idempotency key first",
+    "Two SQL migrations and 16 concurrent conditional updates per store",
+    "SHA-256 abc/empty vectors; 32 UUIDv4 samples; negative random-byte size",
+    "Fresh in-memory probe secret, never logged or persisted in evidence"
+  ],
+  "procedure": [
+    "Read-only profile/account inventory and state-store version check; reserve one temporary stage against the included-allowance budget.",
+    "Freeze executed source and lockfile before deploying.",
+    "CI=false ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_EXECUTE_HOSTED_PROBE=true bun run apps/floor/test/hosted.run.ts",
+    "Install cleanup before deploy; use one unique stage and cap driver requests at 80, work at 20 minutes and cleanup at 4 minutes.",
+    "Require 403 without the secret before authenticated mutations. Attempt 002 retries at most five transient readiness responses and records bounded, secret-redacted error diagnostics.",
+    "Observe a six-second request-free interval for callback/agent alarms, test SQL behavior, abort only the test storage DO, verify retained rows, test duplicate admission and execute Web Crypto.",
+    "Destroy the exact stage in the finalizer; independently list Worker, DO, D1 and Secrets Store identities and compare with the original inventory."
+  ],
+  "expected_result": "Native callback and agent alarm complete without polling; SQL migrations/rollback/conditional updates behave as locally observed; data survives storage DO reset; duplicate admission preserves agent records; Web Crypto vectors pass; stage is destroyed without changing pre-existing resources.",
+  "observed_result": "Deployment succeeded, but the initial unauthenticated gate invariant failed. The first driver did not retain its unexpected HTTP status/body, so no cause is assigned. All created resources were destroyed and the baseline identity sets restored.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 92508,
+      "sha256": "55116ab4684a6b50bfe7741457ba3ede0aa2f55061a920432fb1e2c5c21336a0",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/intent.json",
+      "committed": true,
+      "bytes": 325,
+      "sha256": "941b20b9bd5ce7d910ae6c21dc0e0cdb761c812da9c2f99e2e38cc9b1166d007",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/resources.json",
+      "committed": true,
+      "bytes": 374,
+      "sha256": "d8d1068e3e0887954ad8337342e087e6efaf2cb20ba058ffafd18b65576d0e79",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/result.json",
+      "committed": true,
+      "bytes": 687,
+      "sha256": "4844e6f2299ce1a0c2cf982c38a0f51cd5ab443fda2fd9e986abcade1517836c",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/destroy.json",
+      "committed": true,
+      "bytes": 142,
+      "sha256": "b59bfe94cb64d56e99deb674d9d4a3d5f9d4dc3d13a1b76940672d844adcb70d",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/cleanup-verification.json",
+      "committed": true,
+      "bytes": 185,
+      "sha256": "05a82b0842d694b9f8ab59ead30cf437ce1154ff40646db99e6df14923d0825d",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/source-manifest.json",
+      "committed": true,
+      "bytes": 4458,
+      "sha256": "7fc9ae97fbcf2feccf966c521c1c4468c8f9b4d61f5003d945a671180a1a39fe",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/001/execution.log",
+      "committed": true,
+      "bytes": 6184,
+      "sha256": "e83f39117333a7e3eb97e154b93a6a86ab0824a388e58ccd160e25d8fbeca5f8",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Controlled Cloudflare management endpoints and temporary workers.dev endpoints only. No browser, model provider, wallet, chain RPC or broadcast. This is not an open-web containment result.",
+    "budget": "docs/spikes/hosted-budget.json; one concurrent temporary stage, no new subscription or task-caused overage, no R2. Combined driver count across attempts is 13. Per-request Worker CPU limit is 10,000 ms; included account headroom was checked before execution.",
+    "observed_cost": "Exact incremental cost is unknown because usage is account-wide and billing can lag. No paid outside-provider operation or Browser session was invoked. Resources were short-lived and the executed workload remained within the declared reservation."
+  },
+  "cleanup_result": "Alchemy destroyed both stage-owned Workers and the stage-owned D1 database; native DO namespaces disappeared with the Worker. Independent API inventories match the original 5 Worker IDs, 1 DO namespace ID, 3 D1 IDs and 1 Secrets Store ID. The shared alchemy-state-store Worker metadata is unchanged. No spike-owned hosted resource remains.",
+  "decision_link": "docs/decisions.md — bounded hosted authorization and native Alchemy runtime decisions",
+  "limitations_and_next_action": "Missing initial response instrumentation prevents distinguishing propagation from configuration in this attempt. A single unauthenticated /enqueue request ran before failure, so its response alone cannot exclude a side effect. Cleanup is independently established. Attempt 002 adds non-mutating readiness and response diagnostics.",
+  "look": "n/a — no rendering or artistic acceptance in this bounded runtime check"
+}

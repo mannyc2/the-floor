@@ -1,0 +1,300 @@
+{
+  "check_id": "hosted-native",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T17:13:25.817Z",
+  "operator": "toolchain_readiness",
+  "reviewer": "Operator verified artifact hashes, emitted graph and archived source matches. Independent root review pending.",
+  "source_revision": {
+    "base": "4907895fb253786631b85abcec5fb5937c7c4611",
+    "branch": "stage-0",
+    "uncommittedExecutedSource": {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 93164,
+      "sha256": "8dae38491e2553d37a41b5676c64206b982d9c61ba0fc1cddd8ac1d066e049ba",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    "explanation": "The immutable archive and file manifest identify the exact shared-worktree inputs. Floor001 local evidence remains unchanged."
+  },
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "effectPlatformBrowser": "4.0.3",
+    "yieldedPrivateBuild": "0.1.0-beta.166-floor.0adbcff.403.2",
+    "alchemyPatchSha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+    "bunLockSha256": "bd6e26da67b747033b32e061a69197014373223fadea56388600bc3a7aa3ae66"
+  },
+  "api_evidence": [
+    "Installed Alchemy beta.80 Test/Core.deploy and destroy with dev:false, state:Cloudflare.state(), and noninteractive prompt handling. AlchemyContext.updateStateStore remains false.",
+    "Installed Alchemy auth resolver intentionally ignores saved profiles under CI=true. The predeployment CI invocation failed before resource creation; hosted execution uses CI=false and the existing default OAuth profile.",
+    "Existing shared state store returned version 7, matching installed STATE_STORE_VERSION. No local bootstrap-resume stage existed. Shared Worker metadata is unchanged after cleanup.",
+    "Cloudflare Durable Object State abort API: https://developers.cloudflare.com/durable-objects/api/state/ retrieved 2026-10-12; abort resets an object and terminates the active request.",
+    "Browser Run pricing: https://developers.cloudflare.com/browser-run/pricing/ retrieved 2026-10-12. Browser execution was excluded because the dashboard range omitted part of the Workers billing period and billing API reads returned 403."
+  ],
+  "execution_target": "hosted_cloudflare",
+  "runtime_configuration": {
+    "compatibilityDate": "2026-08-18",
+    "declaredFlags": [],
+    "alchemyDefaults": "new_module_registry; compatibility date has implicit Node support per the installed provider; no bare-Worker claim",
+    "perRequestCpuLimitMs": 10000,
+    "dev": false,
+    "sidecar": false,
+    "state": "Existing Cloudflare.state() version 7",
+    "inference": "ScriptedModel through ./testing only; production native Agents/mailbox/ThreadObject services",
+    "browserBinding": false,
+    "telemetry": false
+  },
+  "stage_and_resources": {
+    "stage": "floor-hosted-20261012-001",
+    "agent": {
+      "name": "floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm",
+      "url": "https://floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm.c20carroll.workers.dev"
+    },
+    "crypto": {
+      "name": "floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7",
+      "url": "https://floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7.c20carroll.workers.dev"
+    },
+    "bindings": [
+      "FLOOR_THREADS native SQLite DO",
+      "FLOOR_MAILBOXES native SQLite DO",
+      "STORAGE native SQLite DO",
+      "FloorStorage D1",
+      "FLOOR_PROBE_TOKEN secret_text"
+    ],
+    "physicalD1AndNamespaceIds": "Not retained before deletion; logical resources are recorded by the plan, and the complete post-cleanup account identity sets match the baseline."
+  },
+  "inputs": [
+    "One synthetic question and fixed offline answer synthetic-done-v1",
+    "One unique thread per attempt, idempotency key first",
+    "Two SQL migrations and 16 concurrent conditional updates per store",
+    "SHA-256 abc/empty vectors; 32 UUIDv4 samples; negative random-byte size",
+    "Fresh in-memory probe secret, never logged or persisted in evidence"
+  ],
+  "procedure": [
+    "Read-only profile/account inventory and state-store version check; reserve one temporary stage against the included-allowance budget.",
+    "Freeze executed source and lockfile before deploying.",
+    "CI=false ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_EXECUTE_HOSTED_PROBE=true bun run apps/floor/test/hosted.run.ts",
+    "Install cleanup before deploy; use one unique stage and cap driver requests at 80, work at 20 minutes and cleanup at 4 minutes.",
+    "Require 403 without the secret before authenticated mutations. Attempt 002 retries at most five transient readiness responses and records bounded, secret-redacted error diagnostics.",
+    "Observe a six-second request-free interval for callback/agent alarms, test SQL behavior, abort only the test storage DO, verify retained rows, test duplicate admission and execute Web Crypto.",
+    "Destroy the exact stage in the finalizer; independently list Worker, DO, D1 and Secrets Store identities and compare with the original inventory."
+  ],
+  "expected_result": "Native callback and agent alarm complete without polling; SQL migrations/rollback/conditional updates behave as locally observed; data survives storage DO reset; duplicate admission preserves agent records; Web Crypto vectors pass; stage is destroyed without changing pre-existing resources.",
+  "observed_result": "All executed invariants passed. Readiness returned two Cloudflare 404 HTML responses before the correct 403. The unauthenticated mutation was rejected; 12 driver requests then proved callback/alarm completion, duplicate admission, DO and D1 rollback, exactly one winner among 16 conditional updates in each store, storage persistence after a 500 abort response, and Web Crypto. Bun was absent in the hosted Worker. Deployment lifetime was approximately 32 seconds.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 93164,
+      "sha256": "8dae38491e2553d37a41b5676c64206b982d9c61ba0fc1cddd8ac1d066e049ba",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/intent.json",
+      "committed": true,
+      "bytes": 325,
+      "sha256": "7a448538eb28daec8308f887d64ed801e96c4d263a103f8a7b04be0784de0168",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/resources.json",
+      "committed": true,
+      "bytes": 374,
+      "sha256": "79cb3ddc7b3362f8ae20a5d5d753c89f8a6b3cb7062e8bc69b3e1ff64ee9c25e",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/result.json",
+      "committed": true,
+      "bytes": 263,
+      "sha256": "39fa2fa9dd071e64f9e48596252a3700764e2e36666b1fb318839b4774c1f0b1",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/destroy.json",
+      "committed": true,
+      "bytes": 142,
+      "sha256": "26d1ebd498b4cddda53c07de73c7114152aeb96dd7a7d5b2e0de099c8383da55",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/cleanup-verification.json",
+      "committed": true,
+      "bytes": 1322,
+      "sha256": "6351b49ac68829a1196f54332ed34ae46734570c93fe9cfe425e34515c9b0d01",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/admission.json",
+      "committed": true,
+      "bytes": 870,
+      "sha256": "c49650f2bf4836261bc9223937525297814a6b991008c0fcf2ab5de938a046bb",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/storage.json",
+      "committed": true,
+      "bytes": 3308,
+      "sha256": "caa318d47dee33c42acfdc37e156ea1a4a8cf3ef89f338ed131eff24d82f4f58",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/storage-restart.json",
+      "committed": true,
+      "bytes": 654,
+      "sha256": "23db604867706ec725ddbe0b6c857d702aaaa1ff42cdb97625d835f6e82591bf",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/duplicate.json",
+      "committed": true,
+      "bytes": 767,
+      "sha256": "07b600a99c39b9b8545c20ad0bd62186511a21f84033dc812ca6272e89901847",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/crypto.json",
+      "committed": true,
+      "bytes": 580,
+      "sha256": "14a671871a45ce434f5cf5a8578c1766abeb307f253769b950da868ee72bf7cc",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/requests-summary.json",
+      "committed": true,
+      "bytes": 1811,
+      "sha256": "fff3bf63429cbcaea652c47b473b1ddb694013be17b1bc4a1ef56931f8184135",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/bundle-audit.json",
+      "committed": true,
+      "bytes": 88139,
+      "sha256": "2514206f97a94fc58ed67113eb93be4ef0730513f1b62a65456e54b54cda45a4",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/source-manifest.json",
+      "committed": true,
+      "bytes": 4622,
+      "sha256": "0a12e9edf460813910c82412a28fa5aab10ae69d2d3eb502bcceba96bf3a2975",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/execution.log",
+      "committed": true,
+      "bytes": 5851,
+      "sha256": "b43a7513ccce75b5e7775255948c1e068fe53814b503126a468289db7bf99d4f",
+      "regenerate": "Use the archived executed source under a fresh work directory and evidence attempt; follow the recorded hosted command only within the retained account/budget authorization."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/hosted-native/002/audit-bundles.ts",
+      "committed": true,
+      "bytes": 4618,
+      "sha256": "9a4a593c2cbb7a753366079abefa9ba2031690f232f2a5d053750b85a62c3675",
+      "regenerate": "Copy to work/hosted-readiness/audit-bundles.ts, retain the archived run-002 files, and run with Bun from the repository root."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/deployed-build-directories.tar.gz",
+      "committed": false,
+      "bytes": 3771320,
+      "sha256": "474344bb1476dd765b9a48d781ac88c395cd3106feca2658e6661fe883d80758",
+      "regenerate": "Rebuild both entry points from the recorded source; the preserved archive contains the actual inspected emitted directories, including unused stale chunks. Follow only the entry-reachable modules recorded by bundle-audit.json."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-11.json",
+      "committed": false,
+      "bytes": 224,
+      "sha256": "9542619da03f0be818728a703a8167b436ce47becd04c66775a37977ea79af0b",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-1.json",
+      "committed": false,
+      "bytes": 4597,
+      "sha256": "7b1a1efb80acebb018c1a535ad45e7e11c4bd6d644a7aa9b8a90cfc47c8c9306",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-10.json",
+      "committed": false,
+      "bytes": 223,
+      "sha256": "06e5ea8aa3c42d254d56f8a29bcc7647961542f72ed638d465811952a516f55e",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-6.json",
+      "committed": false,
+      "bytes": 223,
+      "sha256": "23af6208ed71ae3783c4bc9cf457b236fb115a4c0da5111cc542b929a5108481",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-7.json",
+      "committed": false,
+      "bytes": 226,
+      "sha256": "f4aa4cc5a73eba7e20d217e01869ed1e3728866a7404c34773f80d7d6cfec43a",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-4.json",
+      "committed": false,
+      "bytes": 185,
+      "sha256": "7d7e44407bd95d6625c072412ce61440e7ac3ef99c8710df1029460272cdd111",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-8.json",
+      "committed": false,
+      "bytes": 199,
+      "sha256": "80aaa1c0934bc2cf6b0619c4e8a50c7d44e61b8627cb9749fe400624785ce521",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-9.json",
+      "committed": false,
+      "bytes": 231,
+      "sha256": "56c5e739d91a3ea0a1aba2171c6fefb1022bbc47e5f4bf6c13fd03e4edc594da",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-5.json",
+      "committed": false,
+      "bytes": 222,
+      "sha256": "e8adc367c5fa3f5d60e62790e577029a716c777c46c434317d875d12b88970f7",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-2.json",
+      "committed": false,
+      "bytes": 4597,
+      "sha256": "50343f32a4b6892d727d0951452048d1448b05c68a2c5b1e58eb7778f1ce75ef",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-3.json",
+      "committed": false,
+      "bytes": 163,
+      "sha256": "8598c72ff1c923d97bef0c1bdf0d0724fb90111de4be5a04170ed481caed8182",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    },
+    {
+      "path": "work/hosted-readiness/run-002/request-12.json",
+      "committed": false,
+      "bytes": 187,
+      "sha256": "04cdcbef677616b851afd387143061405cf4962369656a0fc90702be2e3cb422",
+      "regenerate": "Rerun the bounded hosted driver; the committed requests-summary.json preserves the diagnostic result without default Cloudflare SVG markup."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Controlled Cloudflare management endpoints and temporary workers.dev endpoints only. No browser, model provider, wallet, chain RPC or broadcast. This is not an open-web containment result.",
+    "budget": "docs/spikes/hosted-budget.json; one concurrent temporary stage, no new subscription or task-caused overage, no R2. Combined driver count across attempts is 13. Per-request Worker CPU limit is 10,000 ms; included account headroom was checked before execution.",
+    "observed_cost": "Exact incremental cost is unknown because usage is account-wide and billing can lag. No paid outside-provider operation or Browser session was invoked. Resources were short-lived and the executed workload remained within the declared reservation."
+  },
+  "cleanup_result": "Alchemy destroyed both stage-owned Workers and the stage-owned D1 database; native DO namespaces disappeared with the Worker. Independent API inventories match the original 5 Worker IDs, 1 DO namespace ID, 3 D1 IDs and 1 Secrets Store ID. The shared alchemy-state-store Worker metadata is unchanged. No spike-owned hosted resource remains.",
+  "decision_link": "docs/decisions.md — bounded hosted authorization and native Alchemy runtime decisions",
+  "limitations_and_next_action": "This proves the production agent services with an injected offline model, not live inference. It proves reset of the test storage DO; hosted agent eviction/interrupted-turn recovery was not tested. Browser lifecycle/containment, hosted renderer, wallet co-signing, chain construction and live Anthropic/Decisions remain separate gates. Cloudflare version IDs and pre-deletion physical D1/namespace IDs were not retained. The final driver adds an explicit TypeScript error-union annotation and repeat-evidence guard; those changes do not alter the archived Worker source, whose six embedded source files match exactly. Final integrated local checks are recorded separately by root.",
+  "look": "n/a — no rendering or artistic acceptance in this bounded runtime check"
+}

@@ -1,0 +1,64 @@
+[13:13:27.036] INFO (#998): Cloudflare Worker read: checking floorhostedplatform-floorhostepmcwaerd26r3blgs6cuuugsv
+[13:13:27.310] INFO (#23): Plan: 3 to create, 6 binding changes
+[13:13:27.311] INFO (#23): [FloorHostedCrypto] create
+[13:13:27.311] INFO (#23): [FloorHostedCrypto/FLOOR_PROBE_TOKEN] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent/FLOOR_MAILBOXES] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent/FLOOR_PROBE_TOKEN] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent/FLOOR_THREADS] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent/FloorStorage] create
+[13:13:27.311] INFO (#23): [FloorLocalAgent/STORAGE] create
+[13:13:27.311] INFO (#23): [FloorStorage] create
+[13:13:27.311] INFO (#23): 
+[13:13:27.732] INFO (#1053): [FloorLocalAgent] pre-creating
+[13:13:27.734] INFO (#1053): Cloudflare Worker precreate: starting floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm
+[13:13:27.734] INFO (#1053): Cloudflare Worker precreate: durable objects [{"logicalId":"FLOOR_THREADS","bindingName":"FLOOR_THREADS","className":"FLOOR_THREADS"},{"logicalId":"FLOOR_MAILBOXES","bindingName":"FLOOR_MAILBOXES","className":"FLOOR_MAILBOXES"},{"logicalId":"STORAGE","bindingName":"STORAGE","className":"STORAGE"}]
+[13:13:27.735] INFO (#1052): [FloorStorage] creating
+[13:13:27.829] INFO (#1054): [FloorHostedCrypto] pre-creating
+[13:13:27.830] INFO (#1054): Cloudflare Worker precreate: starting floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7
+[13:13:27.830] INFO (#1054): Cloudflare Worker precreate: durable objects []
+[13:13:29.377] INFO (#1054): [FloorHostedCrypto] creating
+[13:13:29.378] INFO (#1054): Cloudflare Worker reconcile: starting floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7
+[13:13:29.378] INFO (#1054): Cloudflare Worker reconcile: durable objects []
+[13:13:29.567] INFO (#1054): Cloudflare Worker reconcile: existing durable object tags []
+[13:13:29.567] INFO (#1054): Cloudflare Worker reconcile: previous durable object tags []
+[13:13:29.573] INFO (#1054): Cloudflare Worker create: preparing bundle for floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7
+[13:13:29.858] INFO (#1052): [FloorStorage] created (2.1s)
+[13:13:30.651] INFO (#1053): [FloorLocalAgent] creating
+[13:13:30.652] INFO (#1053): Cloudflare Worker reconcile: starting floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm
+[13:13:30.652] INFO (#1053): Cloudflare Worker reconcile: durable objects [{"logicalId":"FLOOR_MAILBOXES","className":"FLOOR_MAILBOXES"},{"logicalId":"FLOOR_THREADS","className":"FLOOR_THREADS"},{"logicalId":"STORAGE","className":"STORAGE"}]
+[13:13:30.903] INFO (#1053): Cloudflare Worker reconcile: existing durable object tags ["alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS;STORAGE"]
+[13:13:30.903] INFO (#1053): Cloudflare Worker reconcile: previous durable object tags ["alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS;STORAGE"]
+[13:13:30.904] INFO (#1053): Cloudflare Worker create: preparing bundle for floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm
+[13:13:31.416] INFO (#1054): Cloudflare Worker create: uploading script for floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7
+[13:13:31.417] INFO (#1054): Cloudflare Worker put: durable object reconciliation {"oldDoClassNameByLogicalId":{},"currentDoClassNameByLogicalId":{},"deletedClasses":[],"renamedClasses":[],"transferredClasses":[],"newSqliteClasses":[]}
+[13:13:31.904] INFO (#1053): Cloudflare Worker create: uploading script for floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm
+[13:13:31.904] INFO (#1053): Cloudflare Worker put: durable object reconciliation {"oldDoClassNameByLogicalId":{"FLOOR_MAILBOXES":"FLOOR_MAILBOXES","FLOOR_THREADS":"FLOOR_THREADS","STORAGE":"STORAGE"},"currentDoClassNameByLogicalId":{"FLOOR_MAILBOXES":"FLOOR_MAILBOXES","FLOOR_THREADS":"FLOOR_THREADS","STORAGE":"STORAGE"},"deletedClasses":[],"renamedClasses":[],"transferredClasses":[],"newSqliteClasses":[]}
+[13:13:33.771] INFO (#1054): [FloorHostedCrypto] created — Enabling workers.dev subdomain... (5.9s)
+[13:13:39.177] INFO (#1053): [FloorLocalAgent] created — Enabling workers.dev subdomain... (11.4s)
+[13:13:39.237] INFO (#1246): [FloorStorage] created (11.5s)
+[13:13:39.237] INFO (#1247): [FloorHostedCrypto] created — Enabling workers.dev subdomain... (11.4s)
+[13:13:39.237] INFO (#1248): [FloorLocalAgent] created — Enabling workers.dev subdomain... (11.5s)
+[13:13:39.330] INFO (#23): 
+[13:13:39.330] INFO (#23): Done: 3 succeeded (12.0s)
+[13:13:57.096] INFO (#1606): Plan: 3 to delete, 6 binding changes
+[13:13:57.098] INFO (#1606): [FloorHostedCrypto] delete
+[13:13:57.098] INFO (#1606): [FloorHostedCrypto/FLOOR_PROBE_TOKEN] unbind
+[13:13:57.098] INFO (#1606): [FloorLocalAgent] delete
+[13:13:57.098] INFO (#1606): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+[13:13:57.098] INFO (#1606): [FloorLocalAgent/FLOOR_PROBE_TOKEN] unbind
+[13:13:57.098] INFO (#1606): [FloorLocalAgent/FLOOR_THREADS] unbind
+[13:13:57.098] INFO (#1606): [FloorLocalAgent/FloorStorage] unbind
+[13:13:57.098] INFO (#1606): [FloorLocalAgent/STORAGE] unbind
+[13:13:57.098] INFO (#1606): [FloorStorage] delete
+[13:13:57.098] INFO (#1606): 
+[13:13:57.315] INFO (#1983): [FloorHostedCrypto] deleting
+[13:13:57.324] INFO (#1985): [FloorLocalAgent] deleting
+[13:13:57.423] INFO (#1983): Cloudflare Worker delete: deleting floorhostedplatform-floorhosteipzzsuvzb2375j5nmvlknjy7
+[13:13:57.431] INFO (#1985): Cloudflare Worker delete: deleting floorhostedplatform-floorlocalq5wva7lz42a5x3ygmnspjylm
+[13:13:58.058] INFO (#1983): [FloorHostedCrypto] deleted (743ms)
+[13:13:58.266] INFO (#1985): [FloorLocalAgent] deleted (942ms)
+[13:13:58.266] INFO (#1987): [FloorStorage] deleting
+[13:13:59.162] INFO (#1987): [FloorStorage] deleted (895ms)
+[13:13:59.331] INFO (#1606): 
+[13:13:59.332] INFO (#1606): Done: 3 succeeded (2.2s)
