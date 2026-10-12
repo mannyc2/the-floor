@@ -1,0 +1,247 @@
+{
+  "check_id": "edge-projection",
+  "attempt": "003",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T14:15:27.763338+00:00",
+  "operator": "Codex setup_requirements agent; independently authored synthetic experiment",
+  "reviewer": "Codex root visual review; independent SVG-route agent target/metric review",
+  "source_revision": "5ee9e816eb027a2070453243c358430f2589e0a4 plus measured spike additions; exact current source fingerprints in runtime-prerequisite/002/source-manifest.json and retained build inputs",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed renderer, line-material, timer-query and edge-projection implementations; native node material is separate from WebGL."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; browser and renderer versions are recorded per result",
+  "runtime_configuration": {
+    "part": "A only",
+    "command": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts",
+    "scene": "Synthetic authored stand-in; fixed camera and tokens",
+    "network": "localhost only while measuring"
+  },
+  "stage_and_resources": "No hosted resources, deploy, provider spend or Browser Rendering",
+  "inputs": [
+    {
+      "path": "work/spikes/look/scene.json",
+      "sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+      "bytes": 1084353
+    },
+    "Original Atlas token data; no first-build renderer or asset code imported"
+  ],
+  "procedure": [
+    "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts",
+    "Use new attempt identifiers for reruns; retain this executed evidence"
+  ],
+  "expected_result": "Measure the current Part A handoff; preserve all failures and distinguish technical results from owner approval",
+  "observed_result": "Pinned CPU projection extracted visible scene edges at all3rungs, rasterized at3DPRs:9targets with identical exported geometry/camera. This is the current authoritative line target.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/edge-projection/003/manifest.json",
+      "committed": true,
+      "bytes": 483,
+      "sha256": "2437b1a8e527643ba42acaee73c8922129c8278f6cf1ea90ab43b9c44b7188eb",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "docs/spikes/evidence/look/edge-projection/003/district-1.png",
+      "committed": true,
+      "bytes": 29253,
+      "sha256": "afaf0309117352782a8523c8f568068e93a8b5ecd4aa847f84010499676fd746",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "docs/spikes/evidence/look/edge-projection/003/works-1.png",
+      "committed": true,
+      "bytes": 34650,
+      "sha256": "7717179cf242b0c42c3660d8d40dd79c89a1c434f5a0da37dac4912e4ad697c5",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "docs/spikes/evidence/look/edge-projection/003/machine-1.png",
+      "committed": true,
+      "bytes": 30118,
+      "sha256": "0c767fdea26d612cb8fb62e3246ea9b1573a1d1a92ffca3b9b31328f5b4de0dc",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/district-1.png",
+      "committed": false,
+      "bytes": 29253,
+      "sha256": "afaf0309117352782a8523c8f568068e93a8b5ecd4aa847f84010499676fd746",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/district-2.png",
+      "committed": false,
+      "bytes": 111752,
+      "sha256": "665cf5d4e47ca2396b55d27ecd5432face79a418282aaef9be8c1d7b8bb3f969",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/district-3.png",
+      "committed": false,
+      "bytes": 194353,
+      "sha256": "85ea054d56bdc5a9c3b3d3db7a86a4d04d7ddef0a48d54e0895e3d921d9ca9e4",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/district.json",
+      "committed": false,
+      "bytes": 372,
+      "sha256": "0657af407d55d722024c53466d2d75da7c86f1e59ae24568963b5674879641e2",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/district.svg",
+      "committed": false,
+      "bytes": 561891,
+      "sha256": "65b7c621b37094cc012b339b6a74034e5f98fa41aee5d3fb3a388db95be722bf",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/machine-1.png",
+      "committed": false,
+      "bytes": 30118,
+      "sha256": "0c767fdea26d612cb8fb62e3246ea9b1573a1d1a92ffca3b9b31328f5b4de0dc",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/machine-2.png",
+      "committed": false,
+      "bytes": 154491,
+      "sha256": "b625a55406c0ef68340acfce531e7a65e8594e02957ad0e2887f61dcb8c3c09c",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/machine-3.png",
+      "committed": false,
+      "bytes": 247463,
+      "sha256": "ab882e4f9ac7ff83f2a1ebdc0d125b2bfe6833d68374a3a5d79074c5798a0e5a",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/machine.json",
+      "committed": false,
+      "bytes": 360,
+      "sha256": "b07248c899349325ac753548d6606678c5f37f1af53d924afd7e576d2e794a81",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/machine.svg",
+      "committed": false,
+      "bytes": 556756,
+      "sha256": "84ee911784f07944224abaa1f7d43d7675f5bf6bf28f45bc5ed3f95ce0e09500",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/manifest.json",
+      "committed": false,
+      "bytes": 483,
+      "sha256": "2437b1a8e527643ba42acaee73c8922129c8278f6cf1ea90ab43b9c44b7188eb",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/works-1.png",
+      "committed": false,
+      "bytes": 34650,
+      "sha256": "7717179cf242b0c42c3660d8d40dd79c89a1c434f5a0da37dac4912e4ad697c5",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/works-2.png",
+      "committed": false,
+      "bytes": 150729,
+      "sha256": "4c0c9421fdc5893255156b538362acfc400a9139fc664d6748513770c33ca43b",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/works-3.png",
+      "committed": false,
+      "bytes": 246919,
+      "sha256": "ca6ed4e0b32e30fa6c57932f915c82aad03c36e8f9f78a106fd7e6c953c1cab6",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/works.json",
+      "committed": false,
+      "bytes": 354,
+      "sha256": "21d558d52bb7d103a5ff07bb42289e02a60e7c1e935ae1605ec191e4d45c5120",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection/003/works.svg",
+      "committed": false,
+      "bytes": 550113,
+      "sha256": "1b775e54dd12c41b6d34e02ccf26b9b4dbdeea386b71583c79669aa66f094f06",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    },
+    {
+      "path": "work/spikes/look/edge-projection-003.log",
+      "committed": false,
+      "bytes": 140,
+      "sha256": "4c069c45ec871d6066966a0a06ec40c0d2b53acdeda53332acc57856f2c823f0",
+      "regenerate": "LOOK_ATTEMPT=003 bun apps/web/spikes/look-a/project-edges.ts"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local-only measurements; earlier official dependency downloads are recorded separately",
+    "budget": "No hosted spend authorized for this run",
+    "observed_cost": "No provider or hosting calls; local compute cost not measured"
+  },
+  "cleanup_result": "Browsers closed by drivers; all local experiment servers stopped in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "CPU target does not choose art. Direct primitive validation is separate and covers convex exterior silhouettes only. Earlier Blender target remains historical evidence, excluded from current acceptance.",
+  "look": {
+    "technique": "A normal+depth; B surface-ID+depth; C hard edges+conditional silhouettes",
+    "tone_set": "Original archived Atlas token data; no tone choice",
+    "theme": "day and night unless procedure states a narrower scope",
+    "rung": "district, works and machine",
+    "dpr": "1,2,3 unless narrower procedure",
+    "camera": "Identical exported orthographic matrices, pitch30deg/yaw45deg; provisional extents21/12/7",
+    "canvas": "480x360CSS; phone390x844CSS or isolated64px sprites as recorded",
+    "backend": "Per-cell results distinguish SwiftShader WebGL from native Apple WebGPU",
+    "renderer_string": "Exact asserted string is retained in results.json",
+    "device_profile": "Apple M1Pro desktop,16GiB; phone emulation is not a real phone",
+    "clock_and_seed": "Matrix clock frozen2026-10-12T12:01:00Z; geometry is static and uses no randomness",
+    "metrics": {
+      "source_scene_sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+      "generator": "three-edge-projection",
+      "version": "0.0.10",
+      "revision": "3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567",
+      "target": "Authoritative current Part A CPU edge target; primitive silhouette validation is separate",
+      "rungs": [
+        "district",
+        "works",
+        "machine"
+      ],
+      "dprs": [
+        1,
+        2,
+        3
+      ],
+      "width_css": 480,
+      "height_css": 360,
+      "line_width_css": 1
+    },
+    "made_by": "Codex setup_requirements; SVG route separately authored by blender_target agent",
+    "cross_review": {
+      "reviewer_agent": "Codex root plus independent SVG-route agent",
+      "verdict": "technical_review_pass",
+      "notes": "Root visually reviewed comparison003: legible CPU target and A/B/C day/night grids, no Blender target. Independent SVG-route agent checked target manifest/scene checksum, primitive9/9 limits, finalB metrics/repetition and phone numbers; supports B/WebGL while preserving nativeC/night errors. No owner art or technique approval."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No owner technique choice recorded",
+      "date": "n/a"
+    }
+  }
+}

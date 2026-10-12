@@ -1,0 +1,14 @@
+{
+  "checked_artifacts_and_inputs": 5926,
+  "unresolved_mismatches": [],
+  "historical_sources": [
+    {
+      "record": "docs/spikes/evidence/look/asset-route-effort/002/record.json",
+      "path": "apps/web/spikes/look-a/scene.ts",
+      "sha256": "1c5e9d24e42c48cc36df2a23f77569da1ae0a587a26bbb43be0f653b6c0b7c17",
+      "bytes": 9892,
+      "historical_git_revision": "c03cc1a4011cd48088406356217f3455db05311a"
+    }
+  ],
+  "historical_preservation_commit": "c03cc1a4011cd48088406356217f3455db05311a"
+}

@@ -1,0 +1,1 @@
+2026-10-12: All six local experiment server sessions were stopped (ports5181–5186). lsof found no listeners on those ports after shutdown. Driver browsers closed in finally; process inspection found no remaining Look or Playwright/Chromium process. Ignored raw evidence, dependency cache and official historical Blender binary remain for reproducibility; nothing was deployed.

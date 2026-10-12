@@ -1,0 +1,19 @@
+$ playwright test --config apps/web/spikes/look-a/playwright.config.ts --headed
+
+Running 1 test using 1 worker
+
+browser:debug [vite] connecting...
+(node:33792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+browser:debug [vite] connected.
+browser:info look-spike:mount {"technique":"A","theme":"day","rung":"district","dpr":1,"width":480,"height":360,"stalls":12,"backend":"webgl"}
+browser:info look-spike:ready ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)
+browser:warning [.WebGL-0x12c000f3200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+browser:debug [vite] connecting...
+browser:info look-spike:mount {"technique":"B","theme":"day","rung":"district","dpr":1,"width":480,"height":360,"stalls":12,"backend":"webgl"}
+browser:info look-spike:ready ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)
+browser:debug [vite] connected.
+browser:warning [.WebGL-0x12c000f5000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels
+  ✓  1 apps/web/spikes/look-a/interaction.spec.ts:2:1 › renders actual scene and switches technique through the controls (2.2s)
+
+  1 passed (4.0s)

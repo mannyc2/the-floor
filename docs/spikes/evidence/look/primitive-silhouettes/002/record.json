@@ -1,0 +1,193 @@
+{
+  "check_id": "primitive-silhouettes",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T14:12:44.767371+00:00",
+  "operator": "Codex setup_requirements agent; independently authored synthetic experiment",
+  "reviewer": "Codex root visual review; independent SVG-route agent target/metric review",
+  "source_revision": "5ee9e816eb027a2070453243c358430f2589e0a4 plus measured spike additions; exact current source fingerprints in runtime-prerequisite/002/source-manifest.json and retained build inputs",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed renderer, line-material, timer-query and edge-projection implementations; native node material is separate from WebGL."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; browser and renderer versions are recorded per result",
+  "runtime_configuration": {
+    "part": "A only",
+    "command": "bun apps/web/spikes/look-a/primitive-silhouettes.ts",
+    "scene": "Synthetic authored stand-in; fixed camera and tokens",
+    "network": "localhost only while measuring"
+  },
+  "stage_and_resources": "No hosted resources, deploy, provider spend or Browser Rendering",
+  "inputs": [
+    {
+      "path": "work/spikes/look/scene.json",
+      "sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+      "bytes": 1084353
+    },
+    "Original Atlas token data; no first-build renderer or asset code imported"
+  ],
+  "procedure": [
+    "bun apps/web/spikes/look-a/primitive-silhouettes.ts",
+    "Use new attempt identifiers for reruns; retain this executed evidence"
+  ],
+  "expected_result": "Measure the current Part A handoff; preserve all failures and distinguish technical results from owner approval",
+  "observed_result": "All9box/cylinder/tray\u00d7rung exterior-silhouette checks pass. Worst boundary distance0.000012409CSSpx and outside-hull distance0.000009065CSSpx.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/primitive-silhouettes/002/results.json",
+      "committed": true,
+      "bytes": 84003,
+      "sha256": "0d7823d8f543e01aa749b5e35f2dad0b2391eb9a3bf5fcf42a6126811e5651ce",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/box-district.svg",
+      "committed": false,
+      "bytes": 1804,
+      "sha256": "c205e063b1e212a412bd0a6ec21d2a7babc5605dd3dad41793324f02d4ebd97a",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/box-machine.svg",
+      "committed": false,
+      "bytes": 1868,
+      "sha256": "db6c73031dc6d743eb1cbe0ef99c8de34d43838c5ee00e03241901414da754bb",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/box-works.png",
+      "committed": false,
+      "bytes": 2325,
+      "sha256": "2a62f74924d59833abf5e6e37fc929bd61d51c68cc28b210d291868f9203bae9",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/box-works.svg",
+      "committed": false,
+      "bytes": 1847,
+      "sha256": "302ead6094b200f12d68b586801cf38ddee78e0f9873bb2ae4381294d38fb61e",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/cylinder-24-district.svg",
+      "committed": false,
+      "bytes": 6872,
+      "sha256": "8c1d863747a06f2aeb6ac33b2dfaa7bf96962bc6ee3738b8eb88f97f288e6745",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/cylinder-24-machine.svg",
+      "committed": false,
+      "bytes": 6763,
+      "sha256": "010ce9123f43dddf3ff096c42c9c625a7ad9e449280e50bc6be564c3e495e9c5",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/cylinder-24-works.png",
+      "committed": false,
+      "bytes": 2448,
+      "sha256": "3e5c05173c3c6d76b0abc8ff524b24394f2524b5b6cf4288525889c762a1dfbc",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/cylinder-24-works.svg",
+      "committed": false,
+      "bytes": 6818,
+      "sha256": "62a9b7aa5e91a0083c9721335461728a7adacaac81794696a0473bcbb9c1e8d4",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/results.json",
+      "committed": false,
+      "bytes": 84003,
+      "sha256": "0d7823d8f543e01aa749b5e35f2dad0b2391eb9a3bf5fcf42a6126811e5651ce",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/tray-district.svg",
+      "committed": false,
+      "bytes": 1949,
+      "sha256": "020c54bb14f80ea038db81be66c80c3e1cb19b2687fb894e99dc1ff39d2c3956",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/tray-machine.svg",
+      "committed": false,
+      "bytes": 1758,
+      "sha256": "cef8c88f0b7b58ae2d3f99fbe4c85e7273463ffa592b0b0387df5cd40179285a",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/tray-works.png",
+      "committed": false,
+      "bytes": 2155,
+      "sha256": "4c1f36914b340583d2522459faf7168b1b5c34ba4e11faacd204b28f3d3b18c5",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes/002/tray-works.svg",
+      "committed": false,
+      "bytes": 1790,
+      "sha256": "1cefa1ce3057326302200afcf33073506c30935721e7183e3387734a153a846d",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    },
+    {
+      "path": "work/spikes/look/primitive-silhouettes-002.log",
+      "committed": false,
+      "bytes": 25,
+      "sha256": "1c664038cf10e5fadfe1929914858c3e9b8de1ebd01fd00e14f618b18277544d",
+      "regenerate": "bun apps/web/spikes/look-a/primitive-silhouettes.ts"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local-only measurements; earlier official dependency downloads are recorded separately",
+    "budget": "No hosted spend authorized for this run",
+    "observed_cost": "No provider or hosting calls; local compute cost not measured"
+  },
+  "cleanup_result": "Browsers closed by drivers; all local experiment servers stopped in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Convex hull is computed independently from projected source vertices. Hull boundary sampled every0.1CSSpx; this does not validate every hidden or intersection edge.",
+  "look": {
+    "technique": "A normal+depth; B surface-ID+depth; C hard edges+conditional silhouettes",
+    "tone_set": "Original archived Atlas token data; no tone choice",
+    "theme": "day and night unless procedure states a narrower scope",
+    "rung": "district, works and machine",
+    "dpr": "1,2,3 unless narrower procedure",
+    "camera": "Identical exported orthographic matrices, pitch30deg/yaw45deg; provisional extents21/12/7",
+    "canvas": "480x360CSS; phone390x844CSS or isolated64px sprites as recorded",
+    "backend": "Per-cell results distinguish SwiftShader WebGL from native Apple WebGPU",
+    "renderer_string": "Exact asserted string is retained in results.json",
+    "device_profile": "Apple M1Pro desktop,16GiB; phone emulation is not a real phone",
+    "clock_and_seed": "Matrix clock frozen2026-10-12T12:01:00Z; geometry is static and uses no randomness",
+    "metrics": {
+      "cases": 9,
+      "failures": 0,
+      "maximum_boundary_to_projection_css_px": 1.2408088780961814e-05,
+      "maximum_projection_outside_hull_css_px": 9.064747590337397e-06,
+      "engineering_tolerance_css_px": 0.0001,
+      "threshold_source": "0.0001CSSpx numerical agreement check, far below the0.25CSSpx stroke allowance; not an owner art-quality threshold"
+    },
+    "made_by": "Codex setup_requirements; SVG route separately authored by blender_target agent",
+    "cross_review": {
+      "reviewer_agent": "Codex root plus independent SVG-route agent",
+      "verdict": "technical_review_pass",
+      "notes": "Root visually reviewed comparison003: legible CPU target and A/B/C day/night grids, no Blender target. Independent SVG-route agent checked target manifest/scene checksum, primitive9/9 limits, finalB metrics/repetition and phone numbers; supports B/WebGL while preserving nativeC/night errors. No owner art or technique approval."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No owner technique choice recorded",
+      "date": "n/a"
+    }
+  }
+}

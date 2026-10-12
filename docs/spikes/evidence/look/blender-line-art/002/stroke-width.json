@@ -1,0 +1,294 @@
+{
+  "method": "One clean horizontal profile through the paper-cylinder right silhouette at world(-3.5+0.52/sqrt(2),1.15,-3.5-0.52/sqrt(2)); source float64 camera projection, rounded raster row; +/-5 CSS pixel window. Width is count of grayscale<128 pixels divided by DPR. These local samples do not measure every stroke.",
+  "target": "1 CSS pixel +/-0.25 from docs/spikes/look.md",
+  "measurements": [
+    {
+      "rung": "district",
+      "dpr": 1,
+      "sample_css_xy": [
+        248.9142857142857,
+        135.3466711070836
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0509803921568626,
+      "profile_uint8": [
+        255,
+        255,
+        254,
+        251,
+        0,
+        247,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rung": "district",
+      "dpr": 2,
+      "sample_css_xy": [
+        248.9142857142857,
+        135.3466711070836
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0313725490196077,
+      "profile_uint8": [
+        255,
+        255,
+        254,
+        255,
+        255,
+        255,
+        255,
+        255,
+        248,
+        0,
+        0,
+        247,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rung": "district",
+      "dpr": 3,
+      "sample_css_xy": [
+        248.9142857142857,
+        135.3466711070836
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0457516339869282,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        254,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        249,
+        1,
+        0,
+        0,
+        226,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rung": "works",
+      "dpr": 1,
+      "sample_css_xy": [
+        174.98982694473347,
+        181.13290384363145
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.1411764705882352,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        254,
+        1,
+        220,
+        255,
+        255,
+        254,
+        255
+      ]
+    },
+    {
+      "rung": "works",
+      "dpr": 2,
+      "sample_css_xy": [
+        174.98982694473347,
+        181.13290384363145
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0549019607843138,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        253,
+        0,
+        0,
+        230,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        254
+      ]
+    },
+    {
+      "rung": "works",
+      "dpr": 3,
+      "sample_css_xy": [
+        174.98982694473347,
+        181.13290384363145
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0339869281045753,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        254,
+        255,
+        0,
+        0,
+        0,
+        232,
+        255,
+        255,
+        255,
+        255,
+        254,
+        255,
+        255,
+        255,
+        254,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rung": "machine",
+      "dpr": 1,
+      "sample_css_xy": [
+        128.5539890481145,
+        181.94212087479679
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0274509803921568,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        254,
+        0,
+        249,
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "rung": "machine",
+      "dpr": 2,
+      "sample_css_xy": [
+        128.5539890481145,
+        181.94212087479679
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0529411764705883,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        0,
+        0,
+        231,
+        254,
+        255,
+        255,
+        254,
+        255,
+        255,
+        255,
+        254
+      ]
+    },
+    {
+      "rung": "machine",
+      "dpr": 3,
+      "sample_css_xy": [
+        128.5539890481145,
+        181.94212087479679
+      ],
+      "threshold_128_width_css": 1.0,
+      "integrated_darkness_css": 1.0052287581699346,
+      "profile_uint8": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        0,
+        0,
+        0,
+        252,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        254,
+        255,
+        255
+      ]
+    }
+  ]
+}

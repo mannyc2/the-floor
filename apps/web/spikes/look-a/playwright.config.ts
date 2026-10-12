@@ -1,0 +1,2 @@
+import { defineConfig } from '@playwright/test';
+export default defineConfig({testDir:'.',testMatch:'interaction.spec.ts',reporter:'list',outputDir:'../../../../work/spikes/look/playwright',use:{baseURL:'http://127.0.0.1:5181',viewport:{width:900,height:700},launchOptions:{args:['--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader']}},webServer:{command:'bun run dev',url:'http://127.0.0.1:5181',reuseExistingServer:true}});

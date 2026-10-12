@@ -1,26 +1,39 @@
 {
-  "name": "floor-platform-spike",
+  "name": "the-floor",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.4.0",
   "scripts": {
     "prepare": "effect-tsgo patch --typescript --oxlint",
-    "typecheck": "sh scripts/platform-spike.sh typecheck",
-    "lint": "sh scripts/platform-spike.sh lint",
-    "build": "sh scripts/platform-spike.sh build",
-    "test": "sh scripts/platform-spike.sh test",
+    "typecheck": "sh scripts/platform-spike.sh typecheck && tsc --noEmit -p apps/web/spikes/look-a/tsconfig.json",
+    "lint": "sh scripts/platform-spike.sh lint && oxlint --deny-warnings --config apps/web/spikes/look-a/oxlint.json apps/web/spikes/look-a --ignore-pattern '*.py'",
+    "build": "sh scripts/platform-spike.sh build && vite build --config apps/web/spikes/look-a/vite.config.ts",
+    "test": "sh scripts/platform-spike.sh test && bun run test:look",
     "format": "dprint fmt",
     "format:check": "dprint check",
-    "spike:prepare": "sh scripts/platform-spike.sh prepare"
+    "spike:prepare": "sh scripts/platform-spike.sh prepare",
+    "test:look": "playwright test --config apps/web/spikes/look-a/playwright.config.ts",
+    "dev": "vite --config apps/web/spikes/look-a/vite.config.ts --host 127.0.0.1 --port 5181"
   },
   "devDependencies": {
-    "@effect/tsgo": "0.51.1",
+    "@playwright/test": "1.64.0",
     "@types/bun": "1.4.2",
+    "@types/pngjs": "6.0.5",
+    "@types/three": "0.180.0",
+    "oxlint": "1.87.0",
+    "pngjs": "7.0.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.4",
+    "@effect/tsgo": "0.51.1",
     "dprint": "0.63.0",
     "effect-oxlint": "0.4.0",
-    "oxlint": "1.87.0",
     "oxlint-plugin-effect": "0.28.1",
-    "oxlint-tsgolint": "7.0.2003",
-    "typescript": "7.0.2"
+    "oxlint-tsgolint": "7.0.2003"
+  },
+  "dependencies": {
+    "three": "0.180.0",
+    "three-edge-projection": "git+https://github.com/gkjohnson/three-edge-projection.git#3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567",
+    "three-mesh-bvh": "0.9.9",
+    "clipper2-js": "0.9.0"
   }
 }

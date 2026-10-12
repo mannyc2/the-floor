@@ -1,0 +1,376 @@
+{
+  "check_id": "impostors",
+  "attempt": "002",
+  "status": "measured",
+  "executed_at_utc": "2026-10-12T13:46:47.887109+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "Baked isolatedrack line masks at256px then area-averagedto64px; comparedwith direct64px renders. Thin lines lose substantial contrast when a highresolution sprite is reduced.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/impostors/002/results.json",
+      "committed": true,
+      "bytes": 2323,
+      "sha256": "1f8c82dcdf41f75dfb201d85752eb9ef1af07431f328dbdd1c7f498ee627e293",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/results.json",
+      "committed": false,
+      "bytes": 2323,
+      "sha256": "1f8c82dcdf41f75dfb201d85752eb9ef1af07431f328dbdd1c7f498ee627e293",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-A-256-mask.png",
+      "committed": false,
+      "bytes": 2910,
+      "sha256": "7c9ee0c17f5300d41d301a10f4b627f776212ae12064413ba2cee33bfb1d0eff",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-A-256.png",
+      "committed": false,
+      "bytes": 3093,
+      "sha256": "99e195f4284a1dc678f8cd798c78b6d706f3c99e2fe240194ce1017a4c4e4772",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-A-64-mask.png",
+      "committed": false,
+      "bytes": 446,
+      "sha256": "a43ce474ea7d57733f7a2d4723fcdda1d828c4233d7c47a3daa022e86f1c35f3",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-A-64.png",
+      "committed": false,
+      "bytes": 477,
+      "sha256": "798ecbb49e58a60f686915f46f400318bb554878399b32c73f46fa91afe6cbd9",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-A-sprite64-mask.png",
+      "committed": false,
+      "bytes": 1930,
+      "sha256": "10ef4458e2363e7a4bdbb3515be9b2aa41d7511424bc76ad9059b53ab76266bc",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-B-256-mask.png",
+      "committed": false,
+      "bytes": 2920,
+      "sha256": "f8cf5d731d910752fb64fa33013059d491577256bf70128cfcd925540afead8f",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-B-256.png",
+      "committed": false,
+      "bytes": 3044,
+      "sha256": "1467a962b3e53cf2e1634c1d77023a32dcb0fb6000fd6c5bbaff26e84cc1f44a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-B-64-mask.png",
+      "committed": false,
+      "bytes": 362,
+      "sha256": "8b23ec88948c954759dc44d2adb56c0e32bbfeefe9a95b51acd5b71f77427db5",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-B-64.png",
+      "committed": false,
+      "bytes": 383,
+      "sha256": "326a35be725f76781ce7f594932e70dde77327675ade83d6e0fc0fcff75fa9dc",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-B-sprite64-mask.png",
+      "committed": false,
+      "bytes": 1938,
+      "sha256": "49030602617486f0f226bb1f3aeb9849b2d02e09b366ee32f8246ac9bf3ed510",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-C-256-mask.png",
+      "committed": false,
+      "bytes": 2960,
+      "sha256": "769e768d11018a3c0458edd2836157497204e3cd6571331a17bd47b2186da471",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-C-256.png",
+      "committed": false,
+      "bytes": 3135,
+      "sha256": "6acb5d10026ef9ba3ab06717f78ab3d81fbb2bba980ffe5119bb97b95371c5e2",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-C-64-mask.png",
+      "committed": false,
+      "bytes": 493,
+      "sha256": "ed5dd538c2a6089acca5b14b8b36d458638cd3613999ad1aa343d75264cddeb1",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-C-64.png",
+      "committed": false,
+      "bytes": 519,
+      "sha256": "f5252ad0baa2abb3eb894edfc504ec7fb95cc894dbd136e6da7e2fd40a17a39c",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgl-C-sprite64-mask.png",
+      "committed": false,
+      "bytes": 2001,
+      "sha256": "9cff909b243adaea42670f2a11fb068010c68b2f76d608b46ddfc3c2d51d4376",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-A-256-mask.png",
+      "committed": false,
+      "bytes": 2944,
+      "sha256": "4baeab373977e082027c1ef02d0f6380073e6e2768e6ef01ad6dc11fde74cddd",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-A-256.png",
+      "committed": false,
+      "bytes": 3088,
+      "sha256": "6861ba4b12767105eb08d7e8e27d2726fd0a37758289753eb2ef96b875fee6e3",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-A-64-mask.png",
+      "committed": false,
+      "bytes": 459,
+      "sha256": "65a8e15f9985f479d6c9f3319461d05cb2fb1f94b240d3dab870e619399f0e1f",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-A-64.png",
+      "committed": false,
+      "bytes": 462,
+      "sha256": "28743e02f9a9c8d5e01a4846034a94a5eb07864b06a3f2305b22faa11060764b",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-A-sprite64-mask.png",
+      "committed": false,
+      "bytes": 2183,
+      "sha256": "d02be7d4455da25c3597789999b7a7f256ba522bb646670c749566bdb710206e",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-B-256-mask.png",
+      "committed": false,
+      "bytes": 2979,
+      "sha256": "da6e9b9c76f7a28756002d3d5d4542264e280a4ce4f81f56b244d45151ea627a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-B-256.png",
+      "committed": false,
+      "bytes": 3036,
+      "sha256": "487e87425fa67cafe8ac45694b0416ade6abb63be532773dfce4c74544171165",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-B-64-mask.png",
+      "committed": false,
+      "bytes": 353,
+      "sha256": "b89ce59222887f7804e4f69f248597740829bf031031ae09f789aacfad6cddae",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-B-64.png",
+      "committed": false,
+      "bytes": 368,
+      "sha256": "a34ca10c0893190d0990a3f233e3ed3066e422637f33c0898c436870983c10a1",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-B-sprite64-mask.png",
+      "committed": false,
+      "bytes": 2191,
+      "sha256": "d5f43b8f8bd64396bf544d78dbea47dfc214768cebbd319a554b09a14ed13767",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-C-256-mask.png",
+      "committed": false,
+      "bytes": 2960,
+      "sha256": "769e768d11018a3c0458edd2836157497204e3cd6571331a17bd47b2186da471",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-C-256.png",
+      "committed": false,
+      "bytes": 3135,
+      "sha256": "6acb5d10026ef9ba3ab06717f78ab3d81fbb2bba980ffe5119bb97b95371c5e2",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-C-64-mask.png",
+      "committed": false,
+      "bytes": 493,
+      "sha256": "ed5dd538c2a6089acca5b14b8b36d458638cd3613999ad1aa343d75264cddeb1",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-C-64.png",
+      "committed": false,
+      "bytes": 519,
+      "sha256": "f5252ad0baa2abb3eb894edfc504ec7fb95cc894dbd136e6da7e2fd40a17a39c",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    },
+    {
+      "path": "work/spikes/look/impostors/002/webgpu-C-sprite64-mask.png",
+      "committed": false,
+      "bytes": 2001,
+      "sha256": "9cff909b243adaea42670f2a11fb068010c68b2f76d608b46ddfc3c2d51d4376",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/impostors.ts"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Static singleframe experiment only; no animated gateimpostor implementation. A finalsize outline or dedicatedLOD bake remains necessary; ratios describe this rack and filter, not universal survival thresholds.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "cases": [
+        {
+          "id": "webgl-A",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 3566,
+          "edgePixelsRetainedAtHalfDarkness": 1106,
+          "edgeSurvivalFraction": 0.31015143017386426,
+          "bakedHalfDarkPixels": 102,
+          "directHalfDarkPixels": 706,
+          "directToBakedCoverage": 0.14447592067988668
+        },
+        {
+          "id": "webgl-B",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 3660,
+          "edgePixelsRetainedAtHalfDarkness": 1257,
+          "edgeSurvivalFraction": 0.3434426229508197,
+          "bakedHalfDarkPixels": 117,
+          "directHalfDarkPixels": 747,
+          "directToBakedCoverage": 0.1566265060240964
+        },
+        {
+          "id": "webgl-C",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 3594,
+          "edgePixelsRetainedAtHalfDarkness": 1257,
+          "edgeSurvivalFraction": 0.34974958263772954,
+          "bakedHalfDarkPixels": 119,
+          "directHalfDarkPixels": 562,
+          "directToBakedCoverage": 0.2117437722419929
+        },
+        {
+          "id": "webgpu-A",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 3982,
+          "edgePixelsRetainedAtHalfDarkness": 1962,
+          "edgeSurvivalFraction": 0.4927172275238574,
+          "bakedHalfDarkPixels": 182,
+          "directHalfDarkPixels": 691,
+          "directToBakedCoverage": 0.2633863965267728
+        },
+        {
+          "id": "webgpu-B",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 4052,
+          "edgePixelsRetainedAtHalfDarkness": 2026,
+          "edgeSurvivalFraction": 0.5,
+          "bakedHalfDarkPixels": 188,
+          "directHalfDarkPixels": 750,
+          "directToBakedCoverage": 0.25066666666666665
+        },
+        {
+          "id": "webgpu-C",
+          "bakeCss": 256,
+          "spriteCss": 64,
+          "downsample": "4\u00d74 exact area average, no outline after sampling",
+          "highResolutionEdgePixels": 3594,
+          "edgePixelsRetainedAtHalfDarkness": 1257,
+          "edgeSurvivalFraction": 0.34974958263772954,
+          "bakedHalfDarkPixels": 119,
+          "directHalfDarkPixels": 562,
+          "directToBakedCoverage": 0.2117437722419929
+        }
+      ],
+      "threshold_source": "No numerical impostorline survival gate provided"
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

@@ -1,0 +1,694 @@
+{
+  "check_id": "phone-profile",
+  "attempt": "002",
+  "status": "measured",
+  "executed_at_utc": "2026-10-12T13:50:39.460156+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "Measured12backend\u00d7technique\u00d7stallcount cases at120frames each, with actual GPUtimerqueries, drawcounts, target/linebuffer bytes and browsertraces. All case-level results retained.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/phone-profile/002/results.json",
+      "committed": true,
+      "bytes": 102227,
+      "sha256": "c2e14ae7385ead7bb4781aadf75e1ee6de8f39462704a1ea9bd234ba02e87fa2",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/results.json",
+      "committed": false,
+      "bytes": 102227,
+      "sha256": "c2e14ae7385ead7bb4781aadf75e1ee6de8f39462704a1ea9bd234ba02e87fa2",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-1000.json",
+      "committed": false,
+      "bytes": 7671,
+      "sha256": "ad184e684906d86c102a3f0e7ce8cb984966dd180528889f2784334f935e42dc",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-1000.png",
+      "committed": false,
+      "bytes": 50723,
+      "sha256": "749e79cb90bf12ce047889b2b6e73f11cdd61d83d5da99d70b1d11624ef16bb6",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-1000.trace.json",
+      "committed": false,
+      "bytes": 2609272,
+      "sha256": "f8162a577e28c3e79b9da02a018ba2eab93314e42458429a38d40d55372cdd2c",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-12.json",
+      "committed": false,
+      "bytes": 7718,
+      "sha256": "e6d25c29e2add8c3ce84f6be92a5ea27e4cb8207d8949e39ae433ddc0b7cb107",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-12.png",
+      "committed": false,
+      "bytes": 78539,
+      "sha256": "674fb927a510e2bd055fb2d905d6c8a97c29e338200a839afb7c816eb07198c4",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-A-12.trace.json",
+      "committed": false,
+      "bytes": 2525390,
+      "sha256": "73812d6c31db842354b6b2ae57974b1d2875d0bce94dcf52644e8c1404406dd8",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-1000.json",
+      "committed": false,
+      "bytes": 7588,
+      "sha256": "20e1c29808d1f332d5c9c9ce67560bdfdb509b256b440812b8ae530e71c5b91e",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-1000.png",
+      "committed": false,
+      "bytes": 44720,
+      "sha256": "89f8a71ace189135e8f102d1feadc307a50cfe2a27556832cff87901dc9112f7",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-1000.trace.json",
+      "committed": false,
+      "bytes": 2630046,
+      "sha256": "a38791485da7a67c809dd0b2fef1c16ccf1569506b8ea5ae624305009000a720",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-12.json",
+      "committed": false,
+      "bytes": 7356,
+      "sha256": "752cd308c273a276d8eead391892e951d96838b84e328d036f8eab8db688df9b",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-12.png",
+      "committed": false,
+      "bytes": 78718,
+      "sha256": "1e576565b77ad4434cec2ee8765fa0d9fd664c601904f0c5a33e553998481cff",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-B-12.trace.json",
+      "committed": false,
+      "bytes": 2700899,
+      "sha256": "1b523929e95f130dbab1cdedf9eac70f59fe4454ddca06105d69e61954fc157a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-1000.json",
+      "committed": false,
+      "bytes": 7917,
+      "sha256": "734c8179b5d2f371367599c5301b1a59203ac66c3992ac5c076f1e6d672fb78c",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-1000.png",
+      "committed": false,
+      "bytes": 26958,
+      "sha256": "3c40c7b60d0a39a9b9967bfd4aed265a1ae129a73b207d1b6d810a98589f8f36",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-1000.trace.json",
+      "committed": false,
+      "bytes": 2914996,
+      "sha256": "3bedff6b10569a668388eaa0d02e94e4d3baa159dd84be9d39c67a2b8867c325",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-12.json",
+      "committed": false,
+      "bytes": 7780,
+      "sha256": "812d1c63e6e49ddb12c3eb32bf7768aa70ae7af66a9f3d5db63cef7f6a82cc51",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-12.png",
+      "committed": false,
+      "bytes": 66696,
+      "sha256": "5a2ce62266d3bdafd70ec49b2e027ffec33ac82158a8028e05d794c215c38cc1",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgl-C-12.trace.json",
+      "committed": false,
+      "bytes": 2531779,
+      "sha256": "0ef7153ee282cc751fcd49b931534a0f5db7864fde9e876fa2dbe55c74eb0521",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-1000.json",
+      "committed": false,
+      "bytes": 7871,
+      "sha256": "e10c04a43f59d9ab87626eb85896e572a8f0bef43978ef067362affb94b56224",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-1000.png",
+      "committed": false,
+      "bytes": 48059,
+      "sha256": "15f7266e5138a8d442807f654e955443bd8ca1d2de93da330661e9b60f052ede",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-1000.trace.json",
+      "committed": false,
+      "bytes": 5106849,
+      "sha256": "77bf649235d0806532c826a0829e6e229ca8fba4e0b88acf55055873a0e0bd62",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-12.json",
+      "committed": false,
+      "bytes": 7617,
+      "sha256": "f8a02b9913600cef5bf5b177603aa68a3589e3660be86df4381cc433337f74a0",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-12.png",
+      "committed": false,
+      "bytes": 70213,
+      "sha256": "8c25969e89c9102745bb434cdd0a6959e7ca9b10c66475047948c91bb994896e",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-A-12.trace.json",
+      "committed": false,
+      "bytes": 5084000,
+      "sha256": "81ae95bd2a9280f4944376dce4b157894eeab0c39a0cb4a95689a601eb78c0a7",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-1000.json",
+      "committed": false,
+      "bytes": 7767,
+      "sha256": "f6b110d23fddd95dc2b9ea0a838b17ee96e32a84858df8fdf1731f2286bd9e59",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-1000.png",
+      "committed": false,
+      "bytes": 40275,
+      "sha256": "658b449d1efeec42b7cd80612bf6cd546aa04bc40dac4791847053595a1e3133",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-1000.trace.json",
+      "committed": false,
+      "bytes": 4881649,
+      "sha256": "6e514c025007511c3e788e66bd309c7cbee9e35a401dcb86db03dd4c6f7f7f1a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-12.json",
+      "committed": false,
+      "bytes": 7687,
+      "sha256": "d3cc0b2eaeee2b61d599d2710aefc5ab21aaf280d595374e2d0b38863284f619",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-12.png",
+      "committed": false,
+      "bytes": 69985,
+      "sha256": "adea736fab1df3a9ec8807299f921450d4d3f5a4782da223ed34d33e01ea175a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-B-12.trace.json",
+      "committed": false,
+      "bytes": 5122832,
+      "sha256": "4abe59c28251ffcb594954db7a3b9ed344ffd75f13a5ef159a8ee07a788c11e8",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-1000.json",
+      "committed": false,
+      "bytes": 7685,
+      "sha256": "78aad33b1b6c19b2910f5324abd62c83e6585f6363f6ae521033be4642ff423f",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-1000.png",
+      "committed": false,
+      "bytes": 37807,
+      "sha256": "2bb721525a87d9f8e5bee69c29ea9c9a30244f4b4e69ed03eba4ce223e2d0bd0",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-1000.trace.json",
+      "committed": false,
+      "bytes": 4079591,
+      "sha256": "d1c0e11072d8f9ba87993cc12cd83d0e2decede8983f9c763cddac5c5211c4a8",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-12.json",
+      "committed": false,
+      "bytes": 7748,
+      "sha256": "809662d202dc2a6a50c16e560f41fc0cc4dcf01c0244d5bc074ed5740f93e670",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-12.png",
+      "committed": false,
+      "bytes": 69252,
+      "sha256": "d49d5c5aded93815612e6a95a5a83031bc8352008f1987965e4267b75708ebd6",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/phone-profile/002/webgpu-C-12.trace.json",
+      "committed": false,
+      "bytes": 3855377,
+      "sha256": "e2d374a8ae412c6389a2734dc7bb1649221f9e6d34c2aa468851fbd30d15dcba",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/build-perf/assets/index-BppzY-8M.js",
+      "committed": false,
+      "bytes": 1130714,
+      "sha256": "471e172c22e96a0b3c0da9332ed1066dedf8b995a124d8ee47afba73897ccf1a",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    },
+    {
+      "path": "work/spikes/look/build-perf/index.html",
+      "committed": false,
+      "bytes": 1111,
+      "sha256": "9082fdfa15b34e4862299309e27d8f3738138307dcbf11c695c25f913fc0feea",
+      "regenerate": "LOOK_ATTEMPT=002 LOOK_URL=http://127.0.0.1:5182 bun apps/web/spikes/look-a/performance.ts"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "CPUsubmission and actual GPUquery timestamps are valid; this initial attempt used gl.finish for WebGL completion, so completedFrameMs is not trusted as browser GPUcompletion latency. Final003usesexplicitWebGLfence. Initial linecalibration defects remain.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "frames_per_case": 120,
+      "warmup_draws": 10,
+      "profile": {
+        "width": 390,
+        "height": 844,
+        "dpr": 3,
+        "cpu_throttle": 4,
+        "hardware": "AppleM1Pro desktop,16GiB"
+      },
+      "real_phone": "not_run; no supplieddevice",
+      "cpu_gate": "p95rendererCPU\u226416.7ms, derivedfromtechnical-design60fpstarget; proxyonly, realphone target unverified",
+      "cases": [
+        {
+          "id": "webgl-A-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.699999988079071,
+            "p95": 1.300000011920929,
+            "p99": 1.5999999642372131,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 1.187125,
+            "p95": 1.866374,
+            "p99": 2.1725,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.7999999523162842,
+            "p95": 1.5999999642372131,
+            "p99": 1.899999976158142,
+            "over16_7ms": 0
+          },
+          "drawCalls": 17,
+          "triangles": 9274,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgl-A-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.5,
+            "p95": 1.199999988079071,
+            "p99": 1.300000011920929,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 1.922374,
+            "p95": 2.352291,
+            "p99": 2.419875,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.5999999642372131,
+            "p95": 1.300000011920929,
+            "p99": 1.600000023841858,
+            "over16_7ms": 0
+          },
+          "drawCalls": 17,
+          "triangles": 357082,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgl-B-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.5999999642372131,
+            "p95": 1.300000011920929,
+            "p99": 1.5,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 1.18675,
+            "p95": 1.562458,
+            "p99": 1.614166,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.6000000238418579,
+            "p95": 1.5,
+            "p99": 1.899999976158142,
+            "over16_7ms": 0
+          },
+          "drawCalls": 17,
+          "triangles": 9274,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgl-B-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.5999999642372131,
+            "p95": 1.5,
+            "p99": 1.600000023841858,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 1.921,
+            "p95": 2.391625,
+            "p99": 2.422499,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.6000000238418579,
+            "p95": 1.5,
+            "p99": 1.699999988079071,
+            "over16_7ms": 0
+          },
+          "drawCalls": 17,
+          "triangles": 357082,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgl-C-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.40000003576278687,
+            "p95": 1.199999988079071,
+            "p99": 1.5,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 0.395124,
+            "p95": 0.676875,
+            "p99": 0.707249,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.5,
+            "p95": 1.2999999523162842,
+            "p99": 1.5999999642372131,
+            "over16_7ms": 0
+          },
+          "drawCalls": 9,
+          "triangles": 26584,
+          "targetBytes": 0,
+          "lineBufferBytes": 87792,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgl-C-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.699999988079071,
+            "p95": 1.399999976158142,
+            "p99": 1.5,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 3.828625,
+            "p95": 4.791666,
+            "p99": 5.158374,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 0.800000011920929,
+            "p95": 1.399999976158142,
+            "p99": 1.5,
+            "over16_7ms": 0
+          },
+          "drawCalls": 9,
+          "triangles": 1062028,
+          "targetBytes": 0,
+          "lineBufferBytes": 3533952,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-A-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 1.100000023841858,
+            "p95": 2.699999988079071,
+            "p99": 3.5,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 2.359296,
+            "p95": 2.883584,
+            "p99": 3.0801920000000003,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 2.800000011920929,
+            "p95": 4.800000011920929,
+            "p99": 5.699999988079071,
+            "over16_7ms": 0
+          },
+          "drawCalls": 18,
+          "triangles": 9275,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-A-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 1.5999999642372131,
+            "p95": 2.5,
+            "p99": 3.099999964237213,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 3.60448,
+            "p95": 4.128768,
+            "p99": 4.25984,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 3.600000023841858,
+            "p95": 4.599999964237213,
+            "p99": 5.5,
+            "over16_7ms": 0
+          },
+          "drawCalls": 18,
+          "triangles": 357083,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-B-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 1.300000011920929,
+            "p95": 3.300000011920929,
+            "p99": 4,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 2.228224,
+            "p95": 2.9491199999999997,
+            "p99": 3.0801920000000003,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 3,
+            "p95": 5,
+            "p99": 7.099999964237213,
+            "over16_7ms": 0
+          },
+          "drawCalls": 18,
+          "triangles": 9275,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-B-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 1.699999988079071,
+            "p95": 2.5,
+            "p99": 3,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 3.538944,
+            "p95": 4.390912,
+            "p99": 4.653055999999999,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 3.600000023841858,
+            "p95": 4.699999988079071,
+            "p99": 6.200000047683716,
+            "over16_7ms": 0
+          },
+          "drawCalls": 18,
+          "triangles": 357083,
+          "targetBytes": 47399040,
+          "lineBufferBytes": 0,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-C-12",
+          "status": "pass",
+          "cpu": {
+            "p50": 0.8999999761581421,
+            "p95": 1.699999988079071,
+            "p99": 1.800000011920929,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 0.786432,
+            "p95": 1.179648,
+            "p99": 1.507328,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 2.199999988079071,
+            "p95": 3,
+            "p99": 3.399999976158142,
+            "over16_7ms": 0
+          },
+          "drawCalls": 10,
+          "triangles": 26585,
+          "targetBytes": 0,
+          "lineBufferBytes": 87792,
+          "cpuBudget16_7ms": true
+        },
+        {
+          "id": "webgpu-C-1000",
+          "status": "pass",
+          "cpu": {
+            "p50": 1.2999999523162842,
+            "p95": 2.100000023841858,
+            "p99": 2.399999976158142,
+            "over16_7ms": 0
+          },
+          "gpu": {
+            "p50": 6.1603840000000005,
+            "p95": 7.471104,
+            "p99": 7.602176,
+            "over16_7ms": 0
+          },
+          "completedFrame": {
+            "p50": 5.199999988079071,
+            "p95": 6.399999976158142,
+            "p99": 6.800000011920929,
+            "over16_7ms": 0
+          },
+          "drawCalls": 10,
+          "triangles": 1062029,
+          "targetBytes": 0,
+          "lineBufferBytes": 3533952,
+          "cpuBudget16_7ms": true
+        }
+      ]
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

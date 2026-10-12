@@ -1,0 +1,328 @@
+{
+  "blender": "4.5.14 LTS",
+  "parameters": {
+    "width": 2.4,
+    "depth": 1.8,
+    "postHeight": 2.3,
+    "variants": 3
+  },
+  "route": "Independent mathematical box/cylinder authoring in Blender Python",
+  "variants": [
+    {
+      "variant": 0,
+      "author_and_mesh_seconds": 0.0037765000015497208,
+      "export_seconds": 0.2060279159923084,
+      "geometry": {
+        "name": "independent-stall-0",
+        "source_triangles": 192,
+        "triangles": 192,
+        "welded_vertices": 114,
+        "max_weld_delta_world": 0.0
+      },
+      "parity": {
+        "source_mesh": "stall-variant-0-0",
+        "alignment_translation_world": [
+          -7.0,
+          0.05000000074505806,
+          1.399999976158142
+        ],
+        "bidirectional_vertex_set_max_distance_world": 4.805480102731963e-07,
+        "threshold_world": 2e-06,
+        "triangle_count": 192,
+        "source_triangle_count": 192,
+        "limitation": "Vertex-set and triangle-count parity permits different triangulation diagonals. It does not prove topology, normals or semantic surface-ID equality."
+      },
+      "export": {
+        "mesh_names": [
+          "independent-stall-0"
+        ],
+        "glb_primitives_with_attributes": 2,
+        "attribute_values": [
+          {
+            "vertex_count": 122,
+            "palette_slot": 3,
+            "distinct_surface_ids": [
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              49.0,
+              50.0,
+              51.0
+            ]
+          },
+          {
+            "vertex_count": 168,
+            "palette_slot": 14,
+            "distinct_surface_ids": [
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0,
+              21.0,
+              22.0,
+              23.0,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              31.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0
+            ]
+          }
+        ],
+        "coordinate_system": "Shared Y-up coordinates retained; export_yup=False prevents a second axis conversion",
+        "authoring_limit": "Independent Python parameter-to-mesh generation; shared helpers only serialize meshes/material attributes and glTF. Agent time is not per-asset modelling time."
+      }
+    },
+    {
+      "variant": 1,
+      "author_and_mesh_seconds": 0.0029249999788589776,
+      "export_seconds": 0.007336875016335398,
+      "geometry": {
+        "name": "independent-stall-1",
+        "source_triangles": 132,
+        "triangles": 132,
+        "welded_vertices": 88,
+        "max_weld_delta_world": 0.0
+      },
+      "parity": {
+        "source_mesh": "stall-variant-1-0",
+        "alignment_translation_world": [
+          -4.199999809265137,
+          0.05000000074505806,
+          1.399999976158142
+        ],
+        "bidirectional_vertex_set_max_distance_world": 2.6656007889869215e-07,
+        "threshold_world": 2e-06,
+        "triangle_count": 132,
+        "source_triangle_count": 132,
+        "limitation": "Vertex-set and triangle-count parity permits different triangulation diagonals. It does not prove topology, normals or semantic surface-ID equality."
+      },
+      "export": {
+        "mesh_names": [
+          "independent-stall-1"
+        ],
+        "glb_primitives_with_attributes": 2,
+        "attribute_values": [
+          {
+            "vertex_count": 24,
+            "palette_slot": 3,
+            "distinct_surface_ids": [
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0
+            ]
+          },
+          {
+            "vertex_count": 240,
+            "palette_slot": 14,
+            "distinct_surface_ids": [
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0,
+              21.0,
+              22.0,
+              23.0,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              31.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0,
+              55.0,
+              56.0,
+              57.0,
+              58.0,
+              59.0,
+              60.0,
+              61.0,
+              62.0,
+              63.0,
+              64.0,
+              65.0,
+              66.0
+            ]
+          }
+        ],
+        "coordinate_system": "Shared Y-up coordinates retained; export_yup=False prevents a second axis conversion",
+        "authoring_limit": "Independent Python parameter-to-mesh generation; shared helpers only serialize meshes/material attributes and glTF. Agent time is not per-asset modelling time."
+      }
+    },
+    {
+      "variant": 2,
+      "author_and_mesh_seconds": 0.0023241250310093164,
+      "export_seconds": 0.013839541003108025,
+      "geometry": {
+        "name": "independent-stall-2",
+        "source_triangles": 204,
+        "triangles": 204,
+        "welded_vertices": 122,
+        "max_weld_delta_world": 0.0
+      },
+      "parity": {
+        "source_mesh": "stall-variant-2-0",
+        "alignment_translation_world": [
+          -1.3999998569488525,
+          0.05000000074505806,
+          1.399999976158142
+        ],
+        "bidirectional_vertex_set_max_distance_world": 2.3888378564151935e-07,
+        "threshold_world": 2e-06,
+        "triangle_count": 204,
+        "source_triangle_count": 204,
+        "limitation": "Vertex-set and triangle-count parity permits different triangulation diagonals. It does not prove topology, normals or semantic surface-ID equality."
+      },
+      "export": {
+        "mesh_names": [
+          "independent-stall-2"
+        ],
+        "glb_primitives_with_attributes": 2,
+        "attribute_values": [
+          {
+            "vertex_count": 122,
+            "palette_slot": 3,
+            "distinct_surface_ids": [
+              43.0,
+              44.0,
+              45.0,
+              46.0,
+              47.0,
+              48.0,
+              55.0,
+              56.0,
+              57.0
+            ]
+          },
+          {
+            "vertex_count": 192,
+            "palette_slot": 14,
+            "distinct_surface_ids": [
+              1.0,
+              2.0,
+              3.0,
+              4.0,
+              5.0,
+              6.0,
+              7.0,
+              8.0,
+              9.0,
+              10.0,
+              11.0,
+              12.0,
+              13.0,
+              14.0,
+              15.0,
+              16.0,
+              17.0,
+              18.0,
+              19.0,
+              20.0,
+              21.0,
+              22.0,
+              23.0,
+              24.0,
+              25.0,
+              26.0,
+              27.0,
+              28.0,
+              29.0,
+              30.0,
+              31.0,
+              32.0,
+              33.0,
+              34.0,
+              35.0,
+              36.0,
+              37.0,
+              38.0,
+              39.0,
+              40.0,
+              41.0,
+              42.0,
+              49.0,
+              50.0,
+              51.0,
+              52.0,
+              53.0,
+              54.0
+            ]
+          }
+        ],
+        "coordinate_system": "Shared Y-up coordinates retained; export_yup=False prevents a second axis conversion",
+        "authoring_limit": "Independent Python parameter-to-mesh generation; shared helpers only serialize meshes/material attributes and glTF. Agent time is not per-asset modelling time."
+      }
+    }
+  ],
+  "approval": "pending"
+}

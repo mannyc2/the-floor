@@ -1,0 +1,74 @@
+[
+  {
+    "id": "webgl-A",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 3566,
+    "edgePixelsRetainedAtHalfDarkness": 1106,
+    "edgeSurvivalFraction": 0.31015143017386426,
+    "bakedHalfDarkPixels": 102,
+    "directHalfDarkPixels": 706,
+    "directToBakedCoverage": 0.14447592067988668
+  },
+  {
+    "id": "webgl-B",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 3660,
+    "edgePixelsRetainedAtHalfDarkness": 1257,
+    "edgeSurvivalFraction": 0.3434426229508197,
+    "bakedHalfDarkPixels": 117,
+    "directHalfDarkPixels": 747,
+    "directToBakedCoverage": 0.1566265060240964
+  },
+  {
+    "id": "webgl-C",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 3594,
+    "edgePixelsRetainedAtHalfDarkness": 1257,
+    "edgeSurvivalFraction": 0.34974958263772954,
+    "bakedHalfDarkPixels": 119,
+    "directHalfDarkPixels": 562,
+    "directToBakedCoverage": 0.2117437722419929
+  },
+  {
+    "id": "webgpu-A",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 3982,
+    "edgePixelsRetainedAtHalfDarkness": 1962,
+    "edgeSurvivalFraction": 0.4927172275238574,
+    "bakedHalfDarkPixels": 182,
+    "directHalfDarkPixels": 691,
+    "directToBakedCoverage": 0.2633863965267728
+  },
+  {
+    "id": "webgpu-B",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 4052,
+    "edgePixelsRetainedAtHalfDarkness": 2026,
+    "edgeSurvivalFraction": 0.5,
+    "bakedHalfDarkPixels": 188,
+    "directHalfDarkPixels": 750,
+    "directToBakedCoverage": 0.25066666666666665
+  },
+  {
+    "id": "webgpu-C",
+    "bakeCss": 256,
+    "spriteCss": 64,
+    "downsample": "4×4 exact area average, no outline after sampling",
+    "highResolutionEdgePixels": 3594,
+    "edgePixelsRetainedAtHalfDarkness": 1257,
+    "edgeSurvivalFraction": 0.34974958263772954,
+    "bakedHalfDarkPixels": 119,
+    "directHalfDarkPixels": 562,
+    "directToBakedCoverage": 0.2117437722419929
+  }
+]

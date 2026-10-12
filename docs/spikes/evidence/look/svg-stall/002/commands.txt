@@ -1,0 +1,11 @@
+Working directory: outputs/the-floor/work/look-a
+
+SVG_OUTPUT=work/spikes/look/svg-stall/002 bun apps/web/spikes/look-a/svg-stall-export.ts
+bun run dev
+LOOK_URL=http://127.0.0.1:5181 SVG_OUTPUT=work/spikes/look/svg-stall/002 bun apps/web/spikes/look-a/svg-stall-capture.ts
+LOOK_URL=http://127.0.0.1:5181 SVG_OUTPUT=work/spikes/look/svg-stall/002 SVG_HEADED=1 bun apps/web/spikes/look-a/svg-stall-capture.ts
+bun run typecheck
+bun run lint
+LOOK_BUILD_OUT=../../../../work/spikes/look/svg-stall/002/build-final bun run build
+
+The existing parent-owned development server served the comparison; this agent did not start or stop it. For a repeat, use a new SVG_OUTPUT attempt directory and a fresh LOOK_BUILD_OUT directory. The export script validates geometry/attributes and writes profile SVG and three BufferGeometry JSON assets. The capture script asserts SwiftShader, writes six 64px thumbnails and masks, compares pairs, and closes its browser even on failure.
