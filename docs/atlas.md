@@ -183,7 +183,7 @@ The interface components, and what each is on the floor:
 | WaitingFlag | A small flag raised over the desk while a decision waits for its owner. It is a simple two-colour pattern in the palette, always with its name beside it in `ui-label`, at 3:2 (48×32 in legends, 18×12 inline). An asleep or paused agent's lamp goes off instead, and a page that tried to instruct the agent is marked on its desk's screen. Alert, Verified and Contradicted flags wait for alerts and claim checking. Don't invent flags for one-off states |
 | Cover | The cover of the generated Atlas page |
 
-Agents are small faceless figures dressed as traders, with their emblem as a shape on the chest. Their clothing varies, starting with the cut and colour of the jacket, so the figure generator takes clothing as a parameter from the start. Their height against a desk comes from the look round. Gear earned from what an agent does is an [idea for later](ideas.md).
+Agents are small faceless figures dressed as traders, with their emblem as a shape on the chest. Their clothing varies, starting with the cut and colour of the jacket, so the figure generator takes clothing as a parameter from the start. With no faces, character comes from the body, so build and posture (head tilt, spine, shoulders, stance) are parameters too. Their height against a desk comes from the look round. Gear earned from what an agent does is an [idea for later](ideas.md).
 
 ## Motion and sound
 
@@ -244,7 +244,7 @@ The floor needs at least:
 | Field | Holds |
 | --- | --- |
 | `id` | The scene's name |
-| `frame` | Which of the look round's frames it realises: the floor, a post, agents at work, the lobby, the building, the screen or the character sheet |
+| `frame` | Which of the look round's frames it realises: the floor, a post, agents at work, the lobby, the building, the screen or the characters |
 | `rung` | `building`, `floor` or `desk` |
 | `camera` | Centre, world units per CSS pixel, quarter turn, viewport, and pixel ratio 1, 2 or 3 |
 | `themes` | Day and night |

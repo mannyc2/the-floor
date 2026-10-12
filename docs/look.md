@@ -2,7 +2,7 @@
 
 How the floor gets drawn, how art is approved, and the next reference round. The rules the drawing follows are in the [product doc](the-floor.md#the-look). The renderer that applies them is in the [technical design](technical-design.md#rendering-and-the-look).
 
-**Where it stands.** The line technique and the tradition are picked: a 1980s exchange floor, with exchange floor 05 from the second tradition round as the lead reference. Next come the reference frames and a character sheet, then tones, proportions and the kit unit. No Atlas value is picked yet.
+**Where it stands.** The line technique and the tradition are picked: a 1980s exchange floor, with exchange floor 05 from the second tradition round as the lead reference. The frames round made frames 1 to 6, which go to the owner as shortlists, and a character sheet with no pick. The characters run again as their own round. Then come tones, proportions and the kit unit. No Atlas value is picked yet.
 
 ## Who does what
 
@@ -42,8 +42,8 @@ What earlier rounds showed references can and can't do:
 ## The next round
 
 1. **Tradition.** Done: the 1980s exchange floor (see the [decision log](decisions.md#the-look)).
-2. **Frames.** Generate frames 1 to 6 below by day, 8 candidates per frame. Claude shortlists 3–4 per frame, with a one-line note on each candidate's weaknesses. Automatic flags for perspective or text are advisory, because they misfire often. The owner gets one contact sheet per frame and picks one. Night versions of the picked frames (all but the screen) follow, made the same way.
-3. **Characters.** Generate the character sheet (frame 7), 8 candidates, shortlisted and picked the same way. The figure generator is built from the pick, with clothing as a parameter.
+2. **Frames.** Frames 1 to 6 below, by day, 8 candidates per frame. Claude shortlists 3–4 per frame, with a one-line note on each candidate's weaknesses. Automatic flags for perspective or text are advisory, because they misfire often. The owner gets one contact sheet per frame and picks one. Night versions of the picked frames (all but the screen) follow, made the same way.
+3. **Characters.** The first character sheet had no pick: its poses read, but cube heads on one stiff body read as mannequins. The characters now run as their own round, separate from the frames: prompts 7a to 7c below, 8 candidates each, shortlisted and picked the same way. A build sheet in the picked direction follows (turnaround, poses and clothing variants), and the figure generator is built from it, with clothing and posture as parameters.
 4. **Tones.** Sample two or three tone sets from the picked frames. Each needs a range of at least 2.5:1, each side face at least 1.25:1 against the ground, and tops darker than the paper. Render a test scene in each with technique B. The other agent shortlists, and the owner picks blind, with the renders unlabelled and set beside the reference.
 5. **Proportions and the kit unit.** Derive the figure ratio, the post's size, station spacing and floor density from the picked frames, for example a figure's height against a station. Render two or three variants, then shortlist and pick the same way.
 6. **Assets.** Make the trading post with its stations, one figure and one token screen, both as a three.js generator and from SVG profiles. These are real assets for the web asset kit, so write them to the repository's standards. Compare each route against the picked frames using the tone histogram, edge density, silhouette overlap with the reference's main forms, whether a post, the wall of screens and a lobby piece are told apart as 64-pixel thumbnails, the budgets and sockets, and the effort. The owner picks only where the routes differ visibly.
@@ -69,7 +69,7 @@ Isometric technical illustration, orthographic camera from one corner looking do
 Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, identically dressed figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths, flags, pennants, coats of arms, heraldry, emblem panels with dials, pale mannequin figures.
 ```
 
-**Tradition** (insert after the style block in every frame but the character sheet):
+**Tradition** (insert after the style block in frames 1 to 6):
 
 *Built as a 1980s exchange floor: crowded horseshoe trading posts, each crowned with a cluster of monitors hanging from the ceiling, order slips littering a warm wood floor, and figures packed shoulder to shoulder around the posts.*
 
@@ -111,12 +111,34 @@ The one frame that includes the interface. It drops "text" and "letters" from th
 A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected station and not covering it. Everything else is the floor: trading posts crowded with traders, the wall of screens with the bell and the podium, whiteboards and the elevator landing, dense and busy.
 ```
 
-**7. The character sheet**
+For night versions, add: *At night, the overhead lights are off; the monitors and small desk lamps glow, and a few stations are dark.*
 
-It uses the style block without the cutaway sentence, and no tradition line.
+**7. The characters**
+
+Traders have no faces, so their bodies carry everything: posture, stance, stillness and props, as the Mandalorian does under his helmet. The first sheet's best poses (ringing the bell, one arm up, the phone call, throwing a paper plane) carry over; its cube heads and single stiff body don't. Each prompt uses the style block without the cutaway sentence, no tradition line, and the character line below. Add to the avoid block: *facial features, eyes, mouths, cube or box heads, robots, masks, identical bodies, stiff symmetrical stances, cartoon mascots.*
+
+**Character line** (insert after the style block in 7a to 7c):
 
 ```text
-A character reference sheet on warm paper, laid out in a grid: one small faceless figure dressed as a trader, with a simple geometric emblem, a diamond, on its chest. Top row: a turnaround in front, three-quarter, side and back views, in the same orthographic isometric style. Middle row: poses, working at a station, standing with a phone to its head, shouting with one arm raised, standing on a counter, pinning a card to a whiteboard, throwing a paper plane, ringing a bell, and slumped asleep. Bottom row: the same figure in six different jacket colours and cuts, and one taller figure at a podium with a microphone, the Floor's own voice. A small station and chair beside the turnaround show its scale.
+Faceless traders on a 1980s exchange floor. Each has a smooth, rounded head with no eyes, nose, mouth or eyebrows, and hair only as a simple shape. With no face, the body tells everything a figure feels: the tilt of the head, the curve of the spine, the set of the shoulders, the stance, the hands, and how still it holds. Builds and heights vary, and proportions are lightly stylised so a posture still reads when the figure is small: the head a little large, the hands clear, one strong line of action. Clothes and props are part of the character: trading jackets in varied colours with a blank badge, shirtsleeves with a loosened tie, braces, a sweater vest, a jacket slung over one shoulder, a corded phone, a fan of order slips, a pencil, a coffee cup. Each wears its agent's emblem, a small diamond, on its chest.
 ```
 
-For night versions, add: *At night, the overhead lights are off; the monitors and small desk lamps glow, and a few stations are dark.*
+**7a. The cast**
+
+```text
+A cast sheet on warm paper: eight different traders stand in a row, each a distinct person told apart only by build, posture, clothing and props. A veteran stands upright and very still, hands clasped behind the back. A hustler leans in on the balls of the feet, one arm thrown high with a slip. A runner is caught mid-stride, sleeves rolled, slips in hand. A closer hunches into a phone call, the cord wrapped round two fingers. A joker winds up to throw a paper plane. A night-shift trader stands with the jacket off and the tie undone, shoulders dropped. A newcomer clutches papers to the chest, head tilted, unsure. The Floor's own voice, taller than the rest, rings a bell on a stand beside a podium. Below each, the same trader seen from behind, to show the silhouette. A small station and chair at one end show the scale.
+```
+
+**7b. Moods**
+
+```text
+A character reference sheet on warm paper: one faceless trader, the same build and clothes throughout, in eight moods told only by the body, each beside a small station. Top row: confident, upright, weight on one hip, a phone held loosely; tense, shoulders up and arms tight, staring at a screen; elated after a winning trade, one fist thrown up; deflated after a loss, head down and shoulders slumped. Bottom row: bored, leaning on the counter, head propped on one hand; deep in thought, perfectly still, head tilted; urgent, leaning forward mid-shout, one arm high; exhausted, slumped asleep at the station. The calm moods are very still; each active one commits to a single clear gesture.
+```
+
+**7c. Moments**
+
+```text
+Four small moments on a 1980s exchange floor, as vignettes on warm paper in a two-by-two grid, each with two to four faceless traders whose bodies tell the story, and a little of the floor around them: a corner of a trading post, its monitors and scattered order slips. The bell: the Floor's own voice rings a bell on a stand by the podium, and the traders nearby turn and look up. The bid: one trader throws an arm high with a slip while the neighbours lean in, shouting into phones. The call: one trader turns away from the crowd to listen on the phone, a hand over the other ear, very still amid the noise. The plane: one trader throws a paper plane to another station, where someone half-rises to catch it.
+```
+
+The build sheet's prompt is written from the pick: front, three-quarter, side and back views, the poses, and six clothing variants of the picked figure.
