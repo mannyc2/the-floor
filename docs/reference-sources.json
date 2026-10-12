@@ -1,0 +1,187 @@
+{
+  "capturedOn": "2026-10-12",
+  "status": "preparation only; spikes and Stage 0 not started",
+  "snapshots": {
+    "firstBuild": {
+      "path": "reference/first-build",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor"
+    },
+    "cafeReference": {
+      "path": "reference/cafe-reference",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference"
+    },
+    "manifest": "reference/MANIFEST.sha256",
+    "readme": "reference/README.md"
+  },
+  "copiedDocs": [
+    {
+      "copy": "docs/floor-docs-2026-10-12/README.md",
+      "sha256": "5e6d90bdc5135024687f0028d2c3b77811ae12524c26e15c8af421ff81bbc2a6",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/README.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/archive.md",
+      "sha256": "d7a122686b701fd9c74fa3d601f35aca103a9d6712641109bc9986b17064b5bf",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/archive.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/effect-4-cookbook.md",
+      "sha256": "51325cdcee32e7c2104270a2be4c1e973d4d32d1c6b39942a5732dc53d8b38e7",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/effect-4-cookbook.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/floor-atlas-plan.md",
+      "sha256": "69f8a8f6dede77f2cfb02772a174fe58a38c65bd30895fd198a977f4f57908d1",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/floor-atlas-plan.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/next-steps.md",
+      "sha256": "b7aea2f913189b5eaabf47731baee2f49560b7250b6c058cffab919ebd5d123f",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/next-steps.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/retrospective.md",
+      "sha256": "a8a491537d860fb570af738784562eb7d29859a81585edd10f7e58717bc7e362",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/retrospective.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/technical-design.md",
+      "sha256": "629c8255b2b0e3754d4baa8abe54b0f8877a41041a578b44d6aaaa345324aeb5",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/technical-design.md"
+    },
+    {
+      "copy": "docs/floor-docs-2026-10-12/the-floor.md",
+      "sha256": "a95909be89ab604af5782992be6bae6849909876d1143dcfb40913b3dbd603bb",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/the-floor.md"
+    }
+  ],
+  "referenceFiles": [
+    {
+      "path": "reference/first-build/package.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/package.json",
+      "sha256": "ffa3d20d87303189d1ea186be7f30fe8f59ab98a6466c988b7707681eb84c11f"
+    },
+    {
+      "path": "reference/first-build/bun.lock",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/bun.lock",
+      "sha256": "9ee09f0e9efb93efd04b1b6606964238e315a9aff9f32e3db11ca95b3429f052"
+    },
+    {
+      "path": "reference/first-build/tsconfig.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/tsconfig.json",
+      "sha256": "f66f7dda96143382d575812ef8834573c8ee0e28221ab3c695345bbd98a57335"
+    },
+    {
+      "path": "reference/first-build/.oxlintrc.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/.oxlintrc.json",
+      "sha256": "b9028c1b06158d3da5a0f78cdc8e5d120a66935bd6eea94e092e5a83be39449f"
+    },
+    {
+      "path": "reference/first-build/dprint.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/dprint.json",
+      "sha256": "30e6b0278403faa341092887ed46502ede6d6040624e1d36b8bf907609e03424"
+    },
+    {
+      "path": "reference/first-build/.gitignore",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/.gitignore",
+      "sha256": "db5195eef5cb44854bb4acd9ed93858fc40a3ec98db9da8cac55b258c050814a"
+    },
+    {
+      "path": "reference/first-build/.github/workflows/verify.yml",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/.github/workflows/verify.yml",
+      "sha256": "22e252282d73c09651abef1dbf0caf6a0d399ec4e88f45539b2c5df96bf41ead"
+    },
+    {
+      "path": "reference/first-build/scripts/lint/plugin.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/scripts/lint/plugin.ts",
+      "sha256": "3d7cfc53a5ff611045b16404d599798247c3e5d872f44e8f65065aba0fb5e41c"
+    },
+    {
+      "path": "reference/first-build/scripts/lint/test/plugin.test.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/scripts/lint/test/plugin.test.ts",
+      "sha256": "d38f4b28ce9a6cd1e953ff887a675aaf860f14a7153062cce66e47f44ce68e04"
+    },
+    {
+      "path": "reference/first-build/scripts/bundle-budget.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/scripts/bundle-budget.ts",
+      "sha256": "8076b563eec71969d01899068227c7da767321f5843d6d0b3d4af8f1142b40cc"
+    },
+    {
+      "path": "reference/first-build/scripts/bundle-budget/model.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/scripts/bundle-budget/model.ts",
+      "sha256": "2527991b6eca832ebb72043efb0c52af98e35c3aa82ce3b284593eccec92b127"
+    },
+    {
+      "path": "reference/first-build/docs/Codex/comments.md",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/Codex/comments.md",
+      "sha256": "be3c325b6a020ac5b6d273893fb50268c6ac15cfaf8592eba2c18000230661f3"
+    },
+    {
+      "path": "reference/first-build/docs/Codex/file-structure.md",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/Codex/file-structure.md",
+      "sha256": "26d2918b3806869f1968bd4ef4fcb582803a09add5bc84da7ce177d97999fb62"
+    },
+    {
+      "path": "reference/first-build/docs/Codex/lint.md",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/Codex/lint.md",
+      "sha256": "a19351049a4308ea9f6a612719c48c087327d8d4cb9a1164165896dba0c4db73"
+    },
+    {
+      "path": "reference/first-build/docs/Codex/verification.md",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/Codex/verification.md",
+      "sha256": "3a6962e4fdfa76980f97d6459be47b1150ba869087793e317e5dbc7bac7019f7"
+    },
+    {
+      "path": "reference/cafe-reference/alchemy.run.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/alchemy.run.ts",
+      "sha256": "43d9dc27f9571c5179d3a4d28b7dd834d47f3a32e1415c933e1d042e7dd0aba2"
+    },
+    {
+      "path": "reference/cafe-reference/pnpm-workspace.yaml",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/pnpm-workspace.yaml",
+      "sha256": "41fddd1ad42b9f7ea9f63546edc0493bae45c87f4fa196cf44bd94ca589197cd"
+    },
+    {
+      "path": "reference/cafe-reference/patches/alchemy@2.0.0-beta.81.patch",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/patches/alchemy@2.0.0-beta.81.patch",
+      "sha256": "c1c44f14fd53000b0b2e56284648ebb0c0e1e89e168f1cee7cc797a977a4acb5"
+    },
+    {
+      "path": "reference/cafe-reference/.github/workflows/ci.yml",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/.github/workflows/ci.yml",
+      "sha256": "0b263e5f8620d96782345e965e01d76f25ad41c3d00e94dfc947e175daeb018e"
+    },
+    {
+      "path": "reference/cafe-reference/.github/workflows/cleanup.yml",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/.github/workflows/cleanup.yml",
+      "sha256": "55a6327bdc21f0247f76781ee6abcc32302c3b7c4e9382b61ad8821ac5d855be"
+    },
+    {
+      "path": "reference/cafe-reference/packages/api/package.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/work/cafe-reference/packages/api/package.json",
+      "sha256": "b211b08b2b61e5e4b4eaa1279b0cd70f741d0cd85a00b1320d62660b773dd70c"
+    }
+  ],
+  "toolchain": {
+    "packageManager": "bun@1.4.0",
+    "prepare": "effect-tsgo patch --typescript --oxlint",
+    "devDependencies": {
+      "typescript": "7.0.2",
+      "@effect/tsgo": "0.51.1",
+      "oxlint": "1.87.0",
+      "oxlint-tsgolint": "7.0.2003",
+      "effect-oxlint": "0.4.0",
+      "oxlint-plugin-effect": "0.28.1",
+      "dprint": "0.63.0",
+      "@foldkit/oxlint-plugin": "0.15.3",
+      "@types/bun": "1.4.2"
+    }
+  },
+  "versionCaveats": [
+    "Exact pins are reference data, not an installed toolchain in this new workspace.",
+    "Cafe pins alchemy and @alchemy.run/frontend-frameworks to 2.0.0-beta.81, with a local Alchemy patch; verify compatibility before adopting.",
+    "Old installed @effect/sql-sqlite-do and @effect/sql-d1 4.0.3 are not in the old lockfile.",
+    "Old @effect/ai-anthropic is absent.",
+    "Old @yielded/agent 0.1.0-beta.166 does not export the required Cloudflare adapters."
+  ]
+}

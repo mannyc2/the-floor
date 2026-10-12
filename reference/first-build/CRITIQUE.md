@@ -1,0 +1,21 @@
+- initially i had to do a lot of work in ensuring proper effect usage, engineering standards
+    - i think it helped a lot. codebase is in a much better spot (relatively)
+- too many packages and poor utilization of them
+    - most probably shouldnt exist or should be better and consistently utilized
+    - and folder structure is poor for the ones we heavily utilize
+- alchemy seems completely unused depsite being planned? 
+- camera controls suck
+- basically everything user-facing is ugly and bad 
+- we should have an "apps" split with packages. apps being deployable things
+- instead of writing our own foundry theres likely "create your own launchpad" helpers for each chain. 
+    - i.e solana's https://docs.meteora.ag/developer-guides/dbc
+- we should of planned to support more than one chain at start. solana, base, robinhood. it can be decided by where memecoins are most popular atm. i.e fomo. can look at /mnt/models/dev/fomo-analytics
+- ui/ux was done terribly. the map is terribly ugly and nothing like we imagined
+    - individual assets are bad but also as a whole
+    - too much ui frontend wise and not enough reliance on the map
+        - a search button on the maps not a bad idea tho
+- we should have researched different wallet providers. ideally we can abstract away crypo ui ux. not only like "Dont require a browser extension" but generally make it feel like you just use a credit card or some "credits"/balance
+- torn between utilizing this critique (and other findings from an agentic pass over codebase) to simply infrm and improve our initial docs and using this as a base for another iteration.
+    - leaning towards simply informing docs 
+    
+original docs: docs/floor-archive-2026-10-11(1).zip

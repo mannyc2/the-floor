@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.data/
+.alchemy/
+.wrangler/
+playwright-report/
+test-results/
+packages/foundry/out/
+packages/foundry/cache/
+.bench-baseline/
+testing/bench/reports/
+*.tsbuildinfo

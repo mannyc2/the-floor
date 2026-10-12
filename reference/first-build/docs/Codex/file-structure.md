@@ -1,0 +1,3 @@
+# File structure
+
+Use domain packages under packages/: contract, settings, markets, districts, agents, signing, research, foundry, gate, kit, renderer, frontend, surfaces and server. Frontend features live beside the view that owns them, in _components and _lib directories. Use relative imports inside a feature and @floor/<domain> imports for global packages. Never import from a sibling frontend feature. Production must not import testing paths. The contract package imports only Effect. Signing never imports agent runtimes or inference. Tests, recordings, fixtures and benchmarks live under testing/ or their domain's test/ and src/testing/ paths.

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'">
+    <title>The Floor — retained market plate</title>
+    <style>
+      *{box-sizing:border-box}body{margin:0;width:1440px;height:1000px;overflow:hidden;background:#f4f1ea;color:#303337;font:16px Georgia,serif}header{margin:26px 38px 0;border-top:2px solid #303337;padding-top:13px;height:135px}.eyebrow{font:11px monospace;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between}h1{font-size:32px;font-weight:normal;line-height:1.2;margin:13px 0 8px;max-width:1300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.subtitle{font:12px monospace;color:#5d6160}main{position:relative;margin:0 32px;width:1376px;height:650px;border-block:1px solid #d8d5cb}.label{position:absolute;transform:translate(-50%,-100%);max-width:200px;font:11px monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#f4f1eae6;padding:4px 6px;border:1px solid #d8d5cb}.selected{border-color:#a8874b;color:#655325}footer{margin:24px 38px 0;display:grid;grid-template-columns:1.4fr 1fr;gap:30px;font:11px/1.65 monospace}.source{border-left:2px solid #a8874b;padding-left:14px;overflow-wrap:anywhere}footer p{margin:0 0 4px}.caption{font:15px/1.55 Georgia,serif}#status{font-size:10px;color:#5d6160;margin-top:7px}
+    </style>
+  </head>
+  <body>
+    <header><div class="eyebrow"><span>THE FLOOR / THE PERMANENT RECORD</span><span id="view">RETAINED OBSERVATION</span></div><h1 id="title">Preparing a market plate</h1><div class="subtitle" id="market"></div></header>
+    <main id="scene"></main>
+    <footer><div class="source"><p id="block"></p><p id="time"></p><p id="hash"></p><p id="provenance"></p></div><div><p class="caption">A server-rendered plate of the selected market, built from its retained source readings. The composition is fixed; later market movements do not alter this record.</p><p id="status">Rendering retained observations.</p></div></footer>
+    <script type="module" src="../renderer/src/plate-page.ts"></script>
+  </body>
+</html>

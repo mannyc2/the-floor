@@ -1,0 +1,21 @@
+{
+  "includes": [
+    "packages/**/*.ts",
+    "scripts/**/*.ts",
+    "testing/**/*.ts",
+    "*.ts",
+    "package.json",
+    "tsconfig.json",
+    "dprint.json",
+    ".oxlintrc.json"
+  ],
+  "excludes": [
+    "node_modules",
+    "dist",
+    "packages/foundry/out",
+    "packages/foundry/cache",
+    "testing/bench/reports",
+    "test-results"
+  ],
+  "plugins": ["https://plugins.dprint.dev/typescript-0.95.11.wasm", "https://plugins.dprint.dev/json-0.21.0.wasm"]
+}

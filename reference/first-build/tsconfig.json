@@ -1,0 +1,191 @@
+{
+  "$schema": "./node_modules/@effect/tsgo/schema.json",
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "types": [
+      "bun",
+      "@cloudflare/workers-types"
+    ],
+    "paths": {
+      "@floor/markets/schema": [
+        "./packages/markets/src/types.ts"
+      ],
+      "@floor/*": [
+        "./packages/*/src/index.ts"
+      ],
+      "@/*": [
+        "./packages/frontend/src/*"
+      ],
+      "@floor/renderer/market-view": [
+        "./packages/renderer/src/market-view.ts"
+      ],
+      "@floor/renderer/layout": [
+        "./packages/renderer/src/layout.ts"
+      ],
+      "@floor/renderer/evidence": [
+        "./packages/renderer/src/evidence.ts"
+      ],
+      "@floor/renderer/plate": [
+        "./packages/renderer/src/plate.ts"
+      ],
+      "@floor/gate/geometry": [
+        "./packages/gate/src/geometry.ts"
+      ]
+    },
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedSideEffectImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+        "diagnosticSeverity": {
+          "abortControllerInEffect": "error",
+          "acquireReleaseDisposable": "error",
+          "allOfMapToForEach": "error",
+          "apiStabilityLeak": "error",
+          "asyncFunction": "error",
+          "catchAllTagDispatchToCatchTag": "error",
+          "catchAllToMapError": "error",
+          "catchChainToFirstSuccessOf": "error",
+          "catchConditionalRefailToCatchIf": "error",
+          "catchDieToOrDie": "error",
+          "catchIfTagToCatchTag": "error",
+          "catchRefailToTapError": "error",
+          "catchTagToCatchReason": "error",
+          "catchToIgnore": "error",
+          "catchToOrElseSucceed": "error",
+          "catchUnfailableEffect": "error",
+          "cryptoRandomUUID": "error",
+          "cryptoRandomUUIDInEffect": "error",
+          "duplicatePackage": "error",
+          "effectFnIife": "error",
+          "effectFnOpportunity": "error",
+          "effectGenUsesAdapter": "error",
+          "effectInFailure": "error",
+          "effectInVoidSuccess": "error",
+          "effectMapFlatten": "error",
+          "effectMapVoid": "error",
+          "effectSucceedWithVoid": "error",
+          "experimentalApiUsage": "error",
+          "extendsNativeError": "error",
+          "flatMapConditionalToFilterOrFail": "error",
+          "flatMapIgnoredParamToAndThen": "error",
+          "flatMapToMap": "error",
+          "genericEffectServices": "error",
+          "globalConsole": "error",
+          "globalConsoleInEffect": "error",
+          "globalDate": "error",
+          "globalDateInEffect": "error",
+          "globalErrorInEffectCatch": "error",
+          "globalErrorInEffectFailure": "error",
+          "globalFetch": "error",
+          "globalFetchInEffect": "error",
+          "globalRandom": "error",
+          "globalRandomInEffect": "error",
+          "globalTimers": "error",
+          "globalTimersInEffect": "error",
+          "instanceOfSchema": "error",
+          "layerMergeAllWithDependencies": "error",
+          "lazyEffect": "error",
+          "lazyPromiseInEffectSync": "error",
+          "leakingRequirements": "error",
+          "mapSomeToAsSome": "error",
+          "matchEffectToMapBoth": "error",
+          "matchEffectToMatch": "error",
+          "multipleCatchTag": "error",
+          "multipleEffectProvide": "error",
+          "newPromise": "error",
+          "nodeBuiltinImport": "error",
+          "obsoleteMatchImport": "error",
+          "obsoleteSchemaImport": "error",
+          "optionMatchToFromOption": "error",
+          "outdatedApi": "error",
+          "preferSchemaOverJson": "error",
+          "preferSucceedSomeOrNone": "error",
+          "preferTypedSchemaDecoder": "error",
+          "preferUnsafeConstructor": "error",
+          "processEnv": "error",
+          "processEnvInEffect": "error",
+          "promiseInEffectSuccess": "error",
+          "provideLayerSucceedToProvideService": "error",
+          "raceFirstWithSleepToTimeout": "error",
+          "redundantMapError": "error",
+          "redundantOrDie": "error",
+          "redundantSchemaTagIdentifier": "error",
+          "returnEffectInGen": "error",
+          "runEffectInsideEffect": "error",
+          "runOfExitToRunExit": "error",
+          "schemaNumber": "error",
+          "schemaStructWithTag": "error",
+          "schemaSync": "error",
+          "schemaSyncInEffect": "error",
+          "scopeInLayerEffect": "error",
+          "syncToSucceed": "error",
+          "timeoutCatchTagToTimeoutOrElse": "error",
+          "tryCatchInEffectGen": "error",
+          "unknownInEffectCatch": "error",
+          "unnecessaryEffectGen": "error",
+          "unnecessaryFailYieldableError": "error",
+          "unnecessaryPipe": "error",
+          "unnecessaryPipeChain": "error",
+          "unnecessaryTypeofType": "error",
+          "unstableApiUsage": "error"
+        },
+        "ignoreEffectSuggestionsInTscExitCode": false,
+        "ignoreEffectWarningsInTscExitCode": false,
+        "ignoreEffectErrorsInTscExitCode": false,
+        "allowedUnstableApis": [
+          "effect/ai",
+          "effect/cli",
+          "effect/http",
+          "effect/http-api",
+          "effect/rpc",
+          "effect/sql",
+          "effect/schema/Model",
+          "effect/reactivity",
+          "effect/devtools",
+          "effect/observability",
+          "@effect/ai-openai",
+          "effect/persistence/RateLimiter",
+          "the-floor/packages/server/src",
+          "the-floor/packages/agents/src",
+          "the-floor/packages/surfaces/src",
+          "effect/socket",
+          "effect/process",
+          "the-floor/packages/frontend/src",
+          "effect/persistence/KeyValueStore",
+          "the-floor/packages/markets/src",
+          "the-floor/packages/gate/src",
+          "the-floor/testing/flows/_fixtures",
+          "the-floor/packages/signing/src/scoped-accounts"
+        ]
+      }
+    ]
+  },
+  "include": [
+    "packages",
+    "scripts",
+    "testing",
+    "*.ts"
+  ]
+}

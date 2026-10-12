@@ -1,0 +1,100 @@
+name: Verify The Floor
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - run: bun install --frozen-lockfile
+      - run: bun run format:check
+      - run: bun run lint
+      - run: bun run typecheck
+      # Native integration flows use both Anvil and the gate's pinned browser before the browser journey runs.
+      - run: bunx playwright-core install --with-deps chromium
+      - run: bunx playwright install --with-deps chrome chromium
+      - run: bun run test
+      - run: bun run build
+      - run: bun run check:bundle
+      - run: bun run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-flow-evidence
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - run: forge test --root packages/foundry -vv
+
+  benchmark:
+    needs: application
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps chrome
+      - uses: actions/cache/restore@v4
+        with:
+          path: .bench-baseline
+          key: floor-bench-v3-${{ runner.os }}-${{ github.event.repository.default_branch }}-${{ github.sha }}
+          restore-keys: floor-bench-v3-${{ runner.os }}-${{ github.event.repository.default_branch }}-
+      - name: Run all five sixty-second workloads
+        run: |
+          if [ -f .bench-baseline/latest.json ]; then
+            bun run bench --scenario all --baseline .bench-baseline/latest.json
+          else
+            bun run bench --scenario all
+          fi
+      - name: Publish the performance table
+        if: always()
+        run: |
+          if [ -f testing/bench/reports/summary.md ]; then
+            cat testing/bench/reports/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-evidence
+          path: testing/bench/reports/
+          if-no-files-found: warn
+      - name: Save the successful default-branch baseline
+        if: success() && github.ref_name == github.event.repository.default_branch
+        run: |
+          mkdir -p .bench-baseline
+          cp testing/bench/reports/latest.json .bench-baseline/latest.json
+      - uses: actions/cache/save@v4
+        if: success() && github.ref_name == github.event.repository.default_branch
+        with:
+          path: .bench-baseline
+          key: floor-bench-v3-${{ runner.os }}-${{ github.event.repository.default_branch }}-${{ github.sha }}

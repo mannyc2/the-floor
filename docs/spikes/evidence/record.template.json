@@ -1,0 +1,62 @@
+{
+  "check_id": "",
+  "attempt": "001",
+  "status": "not_run",
+  "executed_at_utc": "not_run",
+  "operator": "",
+  "reviewer": "",
+  "source_revision": "",
+  "dependency_versions": {},
+  "api_evidence": [],
+  "execution_target": "",
+  "runtime_configuration": {},
+  "stage_and_resources": "n/a",
+  "inputs": [],
+  "procedure": [],
+  "expected_result": "",
+  "observed_result": "",
+  "artifacts": [
+    {
+      "path": "",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "",
+      "regenerate": ""
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "n/a",
+    "budget": "unknown",
+    "observed_cost": "unknown"
+  },
+  "cleanup_result": "n/a",
+  "decision_link": "none",
+  "limitations_and_next_action": "",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": ""
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}
