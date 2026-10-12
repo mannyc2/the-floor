@@ -1,0 +1,146 @@
+{
+  "check_id": "blender-line-art",
+  "attempt": "001",
+  "status": "blocked",
+  "executed_at_utc": "2026-10-12T12:58:22.734375+00:00",
+  "operator": "Codex blender_target subagent",
+  "reviewer": "Pending independent agent review",
+  "source_revision": "880f213389a11f1ec57903dcbfbd9334d0a1bce8",
+  "dependency_versions": {
+    "Blender": "not installed; planned 4.5.14 macOS arm64 LTS"
+  },
+  "api_evidence": [
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_modifier.cc",
+      "finding": "GreasePencilLineartModifier uses LINEART, radius, source_collection, target_layer, target_material, contour, crease, intersection and material-border properties."
+    },
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_main.cc",
+      "finding": "Blender 4.5 exposes grease_pencils_v3."
+    },
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.3/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "finding": "Underscore custom attributes in CORNER domain export as glTF vertex attributes."
+    },
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.3/source/blender/blenkernel/intern/camera.cc",
+      "finding": "Horizontal sensor fit makes ortho_scale the viewport width; shift is scaled by that width."
+    },
+    {
+      "url": "https://download.blender.org/release/Blender4.5/",
+      "finding": "Official macOS Apple Silicon Blender 4.5 LTS binary available."
+    }
+  ],
+  "execution_target": "Local Apple Silicon macOS; no Blender render executed",
+  "runtime_configuration": {
+    "planned_engine": "BLENDER_EEVEE_NEXT",
+    "planned_modifier": "LINEART",
+    "planned_rungs": [
+      "district",
+      "works",
+      "machine"
+    ],
+    "planned_dprs": [
+      1,
+      2,
+      3
+    ],
+    "planned_css_viewport": [
+      480,
+      360
+    ],
+    "coordinates": "Shared Y-up positions and exact column-major camera matrixWorld/projectionMatrix"
+  },
+  "stage_and_resources": "Local scratch only; no hosted resources",
+  "inputs": [
+    {
+      "path": "work/spikes/look/scene.json",
+      "status": "not generated yet; shared scene export awaits dependency installation"
+    }
+  ],
+  "procedure": [
+    "Read workspace instructions, decisions, look handoff, evidence conventions and relevant Atlas/product/technical sections.",
+    "Checked PATH and /Applications: Blender unavailable.",
+    "Attempted creating download/output folders: ENOSPC; binary download never started.",
+    "Read official Blender v4.5.3 source to verify API names and projection behavior.",
+    "After parent reclaimed task-created dependency files, persisted apps/web/spikes/look-a/blender.py and checked Python AST syntax without importing bpy.",
+    "Await free disk space before downloading/extracting official Blender binary and rendering nine targets.",
+    "Prototype moved into ignored work/spikes/look/prototype/ pending execution and validation."
+  ],
+  "expected_result": "Nine genuine Grease Pencil Line Art PNGs from shared geometry/cameras; standalone stall .blend/.glb retaining _SURFACE and _MAT; projection assertions and artifact metadata.",
+  "observed_result": "Script saved and Python syntax check passed. Blender unavailable and disk full (32 MiB initially, approximately 88 MiB after limited task-owned cleanup); no renders, .blend or .glb files exist.",
+  "artifacts": [
+    {
+      "path": "work/spikes/look/prototype/apps/web/spikes/look-a/blender.py",
+      "committed": false,
+      "bytes": 13593,
+      "sha256": "01c0d214057a9d94f01e34fc685007fa5d63cee6867b56dcfa2ff929526eb85f",
+      "regenerate": "Untracked prototype retained locally; syntax checked only. Do not treat as validated or committed spike implementation."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/001/commands.txt",
+      "committed": true,
+      "bytes": 788,
+      "sha256": "fd43311a1256ca6d6bae1c71f15362e4cffd424296e92f917e2d4aef2dcd0ccd",
+      "regenerate": "Recorded commands; no generated content."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/001/attempt-log.txt",
+      "committed": true,
+      "bytes": 521,
+      "sha256": "01e0c842df8831f669c7c2f5461fe957c320b517c1916b5c1dbc887f138ce0e1",
+      "regenerate": "Observed commands summarized in record.json."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Read-only official Blender source/documentation and release metadata; no binary downloaded.",
+    "budget": "unknown",
+    "observed_cost": "unknown; no paid service invoked"
+  },
+  "cleanup_result": "No binary or partial download was created; no unrelated files changed or removed.",
+  "decision_link": "docs/decisions.md: look Part A authorized, owner picks pending",
+  "limitations_and_next_action": "Restore at least 2 GB free space; download and verify official Blender binary; run script against shared scene JSON, inspect real Line Art output, measure projection and width, and add checksummed evidence. Current Blender route materializes shared triangle data, so it does not establish independently authored Blender asset effort. Prototype source remains untracked pending runtime validation; only prerequisite failure evidence is ready to commit.",
+  "look": {
+    "technique": "Planned genuine Grease Pencil Line Art; not executed",
+    "tone_set": "n/a \u2014 line target uses black strokes on white; standalone stall retains source palette",
+    "theme": "n/a \u2014 same binary line target reused across day/night",
+    "rung": [
+      "district",
+      "works",
+      "machine"
+    ],
+    "dpr": [
+      1,
+      2,
+      3
+    ],
+    "camera": "Exact shared orthographic matrices; not yet executed",
+    "canvas": {
+      "css_width": 480,
+      "css_height": 360
+    },
+    "backend": "Planned Blender EEVEE Next",
+    "renderer_string": "unknown \u2014 Blender not installed",
+    "device_profile": "Local arm64 macOS; not a phone performance result",
+    "clock_and_seed": "frame 1; deterministic supplied scene; no randomness",
+    "metrics": {
+      "projection_error_css_px": "not_run",
+      "line_width_css_px": "not_run",
+      "render_seconds": "not_run",
+      "route_effort": "Approximately 15 minutes research/script preparation including disk blocker investigation; no asset-generation runtime result"
+    },
+    "made_by": "Codex Blender target subagent; shared scene authored by parent agent",
+    "cross_review": {
+      "reviewer_agent": "Pending",
+      "verdict": "not_reviewed",
+      "notes": "No rendered target exists to review."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

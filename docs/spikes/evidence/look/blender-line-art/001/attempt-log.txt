@@ -1,0 +1,8 @@
+Initial filesystem check: 460 GiB volume, 437 GiB used, 32 MiB available, 100% capacity.
+mkdir: work/spikes/look/blender-line-art: No space left on device
+mkdir: docs/spikes/evidence/look/blender-line-art: No space left on device
+Download command was after mkdir and never started.
+Initial script write: Failed to write file; no space.
+After parent removed its own just-created dependency files: approximately 88 MiB free.
+Script source write succeeded.
+Static check: Python syntax passes; bpy runtime not yet available.
