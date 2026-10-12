@@ -1,0 +1,84 @@
+{
+  "check_id": "stage-0-manual-preview-guard",
+  "attempt": "001",
+  "status": "pass",
+  "status_scope": "Local synthetic checks of the retained workflow guards only; no GitHub execution, deployment, credential or teardown claim.",
+  "observed_at_utc": "2026-10-12T19:00:01.367Z",
+  "archived_at_utc": "2026-10-12T19:03:56.990Z",
+  "source": {
+    "base_revision": "8210d54599e6bc0487a654e3177b3512e3ea23ed",
+    "overlay": ".github/workflows/ci.yml, retained byte-for-byte as ci.yml.txt",
+    "unchanged_input": ".github/workflows/cleanup.yml from the base, retained as cleanup.yml.txt",
+    "unrelated_workspace_changes": "Concurrent document and budget overlays are outside this proof; the harness reads only the two retained workflows."
+  },
+  "environment": {
+    "execution_target": "Local macOS arm64",
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "typescript": "7.0.2"
+  },
+  "procedure": [
+    "Parse actual workflow YAML through Schema, then execute its guard and comment scripts in Node VM contexts with synthetic events, environment variables and GitHub API responses.",
+    "Check the JavaScript-compatible workflow expression subset, shared cleanup concurrency, bounded stage transport, teardown outcomes and shell syntax.",
+    "Typecheck the retained harness under strict settings."
+  ],
+  "commands": {
+    "tests": "bun test ./work/ci-proof/manual-preview/guard.test.ts",
+    "typecheck": "bunx --no-install tsc --ignoreConfig --noEmit --skipLibCheck --strict --target ES2024 --module ESNext --moduleResolution Bundler --types bun ./work/ci-proof/manual-preview/guard.test.ts"
+  },
+  "observed_result": {
+    "tests_passed": 35,
+    "tests_failed": 0,
+    "assertions": 116,
+    "test_exit_code": 0,
+    "typecheck_exit_code": 0,
+    "typecheck_log": "Empty on successful exit; exit code observed by the operator.",
+    "network_attempts": 0,
+    "shell_syntax": "pass"
+  },
+  "limitations": [
+    "Synthetic GitHub responses and event contexts; no GitHub API call, hosted runner, Cloudflare command or remote state access occurred.",
+    "Expression evaluation covers only the workflow JavaScript-compatible subset; this is not a GitHub service emulator.",
+    "This record does not retain or claim the seven separate root repository checks.",
+    "Gate variables are job snapshots. Queued and running jobs must be drained before changing admission.",
+    "Restore the archived harness to its original scratch path and the retained workflows to their paths in a disposable checkout of the base to reproduce. A new execution requires a new evidence attempt."
+  ],
+  "artifacts": [
+    {
+      "path": "ci.yml.txt",
+      "original_path": ".github/workflows/ci.yml",
+      "bytes": 8040,
+      "sha256": "976b4a6f3628e6d6e2a63f94724389989fcf0d82c15870d5ce2b53a8a86af1f2"
+    },
+    {
+      "path": "cleanup.yml.txt",
+      "original_path": ".github/workflows/cleanup.yml",
+      "bytes": 1756,
+      "sha256": "2d11989ff6364604cee0108eb9b69f13d6622c1feba088cb65e93eb6b7032dd4"
+    },
+    {
+      "path": "guard.test.ts.txt",
+      "original_path": "work/ci-proof/manual-preview/guard.test.ts",
+      "bytes": 14212,
+      "sha256": "7f296f02512959d8137964ab7dde94287c10bdf47760a41f712135a43908a120"
+    },
+    {
+      "path": "result.json",
+      "original_path": "work/ci-proof/manual-preview/result.json",
+      "bytes": 1483,
+      "sha256": "afac11bf4a88cb48a4563dee4d6a2a4a27f91942768dc0a979f0a87fa44ad714"
+    },
+    {
+      "path": "test.log",
+      "original_path": "work/ci-proof/manual-preview/test.log",
+      "bytes": 1754,
+      "sha256": "67c09b6de5b1cad1349e59ea999e82340fde43f0d124d5df93e1dddf94f00d15"
+    },
+    {
+      "path": "typecheck.log",
+      "original_path": "work/ci-proof/manual-preview/typecheck.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

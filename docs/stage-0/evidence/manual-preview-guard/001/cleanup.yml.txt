@@ -1,0 +1,46 @@
+name: Cleanup preview
+
+on:
+  pull_request_target:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Preview to clean up (pr-<number> only)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    # Forks cannot have previews, so closing one must not acquire account access.
+    # Manual recovery remains available after preview admission is disabled.
+    if: >-
+      vars.FLOOR_PREVIEW_CONFIGURED == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: floor-preview-${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || inputs.stage }}
+      cancel-in-progress: false
+      queue: max
+    env:
+      STAGE: ${{ github.event_name == 'pull_request_target' && format('pr-{0}', github.event.pull_request.number) || inputs.stage }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ALCHEMY_TELEMETRY_DISABLED: '1'
+    steps:
+      # pull_request_target executes only the trusted base checkout. Never check
+      # out the PR head in a cleanup job that receives account credentials.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: 1.4.0
+          no-cache: true
+      - run: bun install --frozen-lockfile
+      - run: bun run preview:destroy --stage "$STAGE"

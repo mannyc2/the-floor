@@ -2,6 +2,12 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      preview_pr:
+        description: 'Optional admitted PR number to preview; leave empty for checks only'
+        required: false
+        type: string
+        default: ''
   push:
     branches: [main]
   pull_request:
@@ -46,21 +52,23 @@ jobs:
     # One explicit PR holds the account's single temporary-stage allowance.
     # Keep its admission until teardown is verified; forks never receive secrets.
     if: >-
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.head.repo.full_name == github.repository &&
+      vars.FLOOR_PREVIEW_CONFIGURED == 'true' &&
       vars.FLOOR_PREVIEW_ENABLED == 'true' &&
-      vars.FLOOR_PREVIEW_PR == format('{0}', github.event.pull_request.number)
+      ((github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      vars.FLOOR_PREVIEW_PR == format('{0}', github.event.pull_request.number)) ||
+      (github.event_name == 'workflow_dispatch' && inputs.preview_pr != '' &&
+      vars.FLOOR_PREVIEW_PR == inputs.preview_pr))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     concurrency:
-      group: floor-preview-pr-${{ github.event.pull_request.number }}
+      group: floor-preview-pr-${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.preview_pr }}
       cancel-in-progress: false
       queue: max
     permissions:
       contents: read
       pull-requests: write
     env:
-      STAGE: pr-${{ github.event.pull_request.number }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
@@ -69,14 +77,36 @@ jobs:
       - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         id: current
         env:
+          FLOOR_PREVIEW_CONFIGURED: ${{ vars.FLOOR_PREVIEW_CONFIGURED }}
           FLOOR_PREVIEW_ENABLED: ${{ vars.FLOOR_PREVIEW_ENABLED }}
           FLOOR_PREVIEW_PR: ${{ vars.FLOOR_PREVIEW_PR }}
+          FLOOR_MANUAL_PREVIEW_PR: ${{ inputs.preview_pr }}
         with:
           script: |
-            const { data: pr } = await github.rest.pulls.get({ ...context.repo, pull_number: context.issue.number });
-            const admitted = process.env.FLOOR_PREVIEW_ENABLED === 'true' && process.env.FLOOR_PREVIEW_PR === String(pr.number);
-            const current = pr.state === 'open' && pr.head.sha === context.payload.pull_request.head.sha && pr.head.repo?.full_name === `${context.repo.owner}/${context.repo.repo}`;
-            core.setOutput('deploy', String(admitted && current));
+            core.setOutput('deploy', 'false');
+            const requested = context.eventName === 'pull_request'
+              ? String(context.payload.pull_request?.number ?? '')
+              : context.eventName === 'workflow_dispatch'
+                ? process.env.FLOOR_MANUAL_PREVIEW_PR ?? ''
+                : '';
+            // Match the CLI's bounded pr-<number> policy before any API read.
+            if (!/^[1-9][0-9]{0,8}$/.test(requested)) return;
+            const admitted = process.env.FLOOR_PREVIEW_CONFIGURED === 'true' &&
+              process.env.FLOOR_PREVIEW_ENABLED === 'true' && process.env.FLOOR_PREVIEW_PR === requested;
+            if (!admitted) return;
+            const repository = `${context.repo.owner}/${context.repo.repo}`;
+            if (context.eventName === 'pull_request' && context.payload.pull_request?.head.repo?.full_name !== repository) return;
+            // Manual checks test the dispatched commit; PR checks test a merge
+            // commit, so their freshness guard must keep using the event's head.
+            const expectedHead = context.eventName === 'workflow_dispatch' ? context.sha : context.payload.pull_request?.head.sha;
+            if (typeof expectedHead !== 'string' || !/^[0-9a-f]{40}$/i.test(expectedHead)) return;
+            const { data: pr } = await github.rest.pulls.get({ ...context.repo, pull_number: Number(requested) });
+            const current = String(pr.number) === requested && pr.state === 'open' &&
+              pr.head.sha === expectedHead && pr.head.repo?.full_name === repository;
+            if (!current) return;
+            core.setOutput('pr_number', String(pr.number));
+            core.setOutput('stage', `pr-${pr.number}`);
+            core.setOutput('deploy', 'true');
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.current.outputs.deploy == 'true'
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
@@ -91,6 +121,8 @@ jobs:
       - name: Deploy preview
         id: deploy
         if: steps.current.outputs.deploy == 'true'
+        env:
+          STAGE: ${{ steps.current.outputs.stage }}
         run: bun run preview --stage "$STAGE"
       - if: steps.current.outputs.deploy == 'true'
         run: bunx --no-install playwright install --with-deps chromium
@@ -103,18 +135,27 @@ jobs:
       - name: Publish preview link
         if: steps.current.outputs.deploy == 'true'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          FLOOR_PREVIEW_PR: ${{ steps.current.outputs.pr_number }}
         with:
           script: |
+            const issueNumber = Number(process.env.FLOOR_PREVIEW_PR);
+            if (!Number.isSafeInteger(issueNumber) || issueNumber < 1) throw new Error('Missing validated preview PR number');
             const fs = require('node:fs');
             const { url } = JSON.parse(fs.readFileSync('work/ci/preview.json', 'utf8'));
             const marker = '<!-- floor-preview -->';
             const body = `${marker}\nPreview: [The Floor](${url})\n\nThe production-entry connection flow passed. Renderer, look, and phone acceptance remain pending their recorded gates.`;
-            const comments = await github.paginate(github.rest.issues.listComments, { ...context.repo, issue_number: context.issue.number });
+            const comments = await github.paginate(github.rest.issues.listComments, { ...context.repo, issue_number: issueNumber });
             const previous = comments.find(comment => comment.user?.type === 'Bot' && comment.body?.includes(marker));
             if (previous) await github.rest.issues.updateComment({ ...context.repo, comment_id: previous.id, body });
-            else await github.rest.issues.createComment({ ...context.repo, issue_number: context.issue.number, body });
+            else await github.rest.issues.createComment({ ...context.repo, issue_number: issueNumber, body });
       - name: Tear down a failed or cancelled preview attempt
-        if: ${{ always() && steps.deploy.outcome != 'skipped' && (failure() || cancelled()) }}
+        if: >-
+          ${{ always() && steps.current.outputs.deploy == 'true' &&
+          (steps.deploy.outcome == 'success' || steps.deploy.outcome == 'failure' || steps.deploy.outcome == 'cancelled') &&
+          (failure() || cancelled()) }}
+        env:
+          STAGE: ${{ steps.current.outputs.stage }}
         run: bun run preview:destroy --stage "$STAGE"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ always() && vars.FLOOR_UPLOAD_ARTIFACTS == 'true' }}

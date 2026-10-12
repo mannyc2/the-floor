@@ -90,5 +90,26 @@
     "resourcesRemaining": 0,
     "sharedStateStore": "version 7, existing Worker metadata unchanged",
     "billingApiRead": "403 under current OAuth scopes"
+  },
+  "previewProofReservation": {
+    "state": "Prepared, not yet admitted or deployed. Set admission only immediately before the controlled proof and release it after all queued work and resources are absent.",
+    "stage": "pr-1",
+    "temporaryStages": 1,
+    "maximumLifetimeMinutes": 30,
+    "maximumDriverRequests": 80,
+    "expectedResources": {
+      "workers": 1,
+      "durableObjectNamespaces": 2,
+      "d1Databases": 0
+    },
+    "allowedOperations": "Build and deploy the production shell; run its typed-health connection flow once on GitHub and once locally for a retained recording; destroy the stage. No agent turn or external provider operation.",
+    "browserProviderSessions": 0,
+    "paidProviderCalls": 0,
+    "r2Operations": 0,
+    "allowanceRecheckedAt": "2026-10-12T18:43:00Z (minute precision)",
+    "allowanceObservation": "Cloudflare billable-usage view: Sep 22–Oct 21 cycle, observed through Oct 12. Workers requests 40.47k/10M, CPU 252.1k/30M; DO requests 42/1M and duration 0.1/400000 GB-seconds. Display values are rounded and can lag.",
+    "driverCpuMsConservativeUpperBound": 2400000,
+    "cleanup": "Disable new deployment, drain or cancel queued runs, then run trusted cleanup for pr-1 and independently compare resource identities with the baseline. Preserve the shared state store and all pre-existing resources. A failed/cancelled deploy also requests cleanup; explicit recovery remains required if the job cannot finish it.",
+    "runnerLimitations": "Manual workflow runs test the dispatched PR head, not a GitHub merge revision. GitHub artifact uploads and setup caching stay off; retain a separately labelled local remote-flow recording."
   }
 }

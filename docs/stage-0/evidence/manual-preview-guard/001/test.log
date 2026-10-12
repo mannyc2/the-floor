@@ -1,0 +1,43 @@
+bun test v1.4.0 (34cbb9a40)
+
+work/ci-proof/manual-preview/guard.test.ts:
+(pass) manual exact head [0.85ms]
+(pass) automatic PR tests merge SHA but checks event head [0.11ms]
+(pass) manual missing input [0.11ms]
+(pass) nonadmitted PR [0.07ms]
+(pass) configuration disabled [0.07ms]
+(pass) preview disabled [0.08ms]
+(pass) closed PR [0.07ms]
+(pass) fork PR [0.09ms]
+(pass) deleted head repository [0.07ms]
+(pass) PR changed after dispatch [0.07ms]
+(pass) dispatch selected a different commit [0.06ms]
+(pass) missing run commit [0.11ms]
+(pass) API returned wrong PR [0.17ms]
+(pass) unsupported push event [0.11ms]
+(pass) fork event rejected before API [0.09ms]
+(pass) automatic stale event [0.09ms]
+(pass) malformed input "0" [0.07ms]
+(pass) malformed input "01" [0.07ms]
+(pass) malformed input "-1" [0.07ms]
+(pass) malformed input "+1" [0.07ms]
+(pass) malformed input "1.0" [0.07ms]
+(pass) malformed input "1e0" [0.06ms]
+(pass) malformed input "1 " [0.06ms]
+(pass) malformed input " 1" [0.06ms]
+(pass) malformed input "1\n" [0.06ms]
+(pass) malformed input "prod" [0.06ms]
+(pass) malformed input "1; echo leak" [0.06ms]
+(pass) malformed input "9999999999" [0.07ms]
+(pass) malformed input "9007199254740993" [0.07ms]
+(pass) API failure cannot produce deployment outputs [0.16ms]
+(pass) manual checks remain the default and preview admission stays explicit [1.50ms]
+(pass) manual and PR preview use the existing cleanup concurrency group [2.45ms]
+(pass) cleanup requires validation and a failed or cancelled deployment attempt [0.54ms]
+(pass) manual comments target the validated PR without an event issue number [0.39ms]
+(pass) retained run steps have valid shell syntax [26.71ms]
+
+ 35 pass
+ 0 fail
+ 116 expect() calls
+Ran 35 tests across 1 file. [130.00ms]

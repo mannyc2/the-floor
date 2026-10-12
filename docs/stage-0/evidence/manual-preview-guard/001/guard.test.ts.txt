@@ -1,0 +1,265 @@
+import { afterAll, expect, test } from "bun:test";
+import { Script } from "node:vm";
+import { Schema } from "effect";
+
+const source = await Bun.file(".github/workflows/ci.yml").text();
+const cleanupSource = await Bun.file(".github/workflows/cleanup.yml").text();
+const Fields = Schema.Record(Schema.String, Schema.String);
+const Step = Schema.Struct({
+  id: Schema.optional(Schema.String),
+  name: Schema.optional(Schema.String),
+  uses: Schema.optional(Schema.String),
+  if: Schema.optional(Schema.String),
+  run: Schema.optional(Schema.String),
+  env: Schema.optional(Fields),
+  with: Schema.optional(Schema.Record(Schema.String, Schema.Unknown)),
+});
+const Job = Schema.Struct({
+  if: Schema.optional(Schema.String),
+  needs: Schema.optional(Schema.String),
+  env: Schema.optional(Fields),
+  permissions: Schema.optional(Fields),
+  concurrency: Schema.optional(Schema.Struct({
+    group: Schema.String,
+    "cancel-in-progress": Schema.Boolean,
+    queue: Schema.String,
+  })),
+  steps: Schema.Array(Step),
+});
+const workflow = Schema.decodeUnknownSync(Schema.Struct({
+  on: Schema.Struct({
+    workflow_dispatch: Schema.Struct({
+      inputs: Schema.Struct({
+        preview_pr: Schema.Struct({ type: Schema.String, required: Schema.Boolean, default: Schema.String }),
+      }),
+    }),
+  }),
+  permissions: Fields,
+  jobs: Schema.Struct({ check: Job, preview: Job }),
+}))(Bun.YAML.parse(source));
+const cleanupWorkflow = Schema.decodeUnknownSync(Schema.Struct({ jobs: Schema.Struct({ cleanup: Job }) }))(
+  Bun.YAML.parse(cleanupSource),
+);
+const step = (key: string) => {
+  const found = workflow.jobs.preview.steps.find((item) => item.id === key || item.name === key);
+  if (found === undefined) throw new Error(`Missing workflow step: ${key}`);
+  return found;
+};
+const script = (key: string) => Schema.decodeUnknownSync(Schema.Struct({ script: Schema.String }))(step(key).with).script;
+const guardSource = script("current");
+const commentSource = script("Publish preview link");
+const teardown = step("Tear down a failed or cancelled preview attempt");
+const expression = (value: string) => value.trim().replace(/^\$\{\{/, "").replace(/\}\}$/, "").trim();
+const evaluate = (value: string, sandbox: object): unknown =>
+  new Script(expression(value)).runInNewContext(sandbox, { timeout: 1000 });
+const resolveGroup = (value: string, sandbox: object) => {
+  const start = value.indexOf("${{");
+  const end = value.indexOf("}}", start);
+  if (start < 0 || end < 0) throw new Error("Expected one workflow concurrency expression");
+  return value.slice(0, start) + String(evaluate(value.slice(start, end + 2), sandbox)) + value.slice(end + 2);
+};
+
+interface PullRequest {
+  readonly number: number;
+  readonly state: "open" | "closed";
+  readonly head: { readonly sha: string; readonly repo: { readonly full_name: string } | null };
+}
+interface EventContext {
+  readonly eventName: string;
+  readonly sha: string;
+  readonly repo: { readonly owner: string; readonly repo: string };
+  readonly payload: { readonly pull_request?: PullRequest };
+}
+interface Environment {
+  readonly FLOOR_PREVIEW_CONFIGURED: string;
+  readonly FLOOR_PREVIEW_ENABLED: string;
+  readonly FLOOR_PREVIEW_PR: string;
+  readonly FLOOR_MANUAL_PREVIEW_PR: string;
+}
+interface PullRead {
+  readonly owner: string;
+  readonly repo: string;
+  readonly pull_number: number;
+}
+interface GuardCase {
+  readonly name: string;
+  readonly context?: EventContext;
+  readonly env?: Partial<Environment>;
+  readonly pr?: PullRequest;
+  readonly deployed: boolean;
+  readonly reads: number;
+}
+const headSha = "a".repeat(40);
+const mergeSha = "b".repeat(40);
+const repository = "mannyc2/the-floor";
+const pr: PullRequest = { number: 1, state: "open", head: { sha: headSha, repo: { full_name: repository } } };
+const manual: EventContext = { eventName: "workflow_dispatch", sha: headSha, repo: { owner: "mannyc2", repo: "the-floor" }, payload: {} };
+const automatic: EventContext = { ...manual, eventName: "pull_request", sha: mergeSha, payload: { pull_request: pr } };
+const environment: Environment = { FLOOR_PREVIEW_CONFIGURED: "true", FLOOR_PREVIEW_ENABLED: "true", FLOOR_PREVIEW_PR: "1", FLOOR_MANUAL_PREVIEW_PR: "1" };
+let networkAttempts = 0;
+const denyNetwork = () => {
+  networkAttempts += 1;
+  throw new Error("Network access is forbidden in this synthetic proof");
+};
+const runGuard = async (scenario: GuardCase, rejectApi = false) => {
+  const outputs: Record<string, string> = {};
+  const reads: PullRead[] = [];
+  const result: unknown = new Script(`(async () => {\n${guardSource}\n})()`).runInNewContext({
+    context: scenario.context ?? manual,
+    process: { env: { ...environment, ...scenario.env } },
+    core: { setOutput: (key: string, value: string) => { outputs[key] = value; } },
+    github: { rest: { pulls: { get: async (query: PullRead) => {
+      reads.push(query);
+      if (rejectApi) throw new Error("Synthetic API rejection");
+      return { data: scenario.pr ?? pr };
+    } } } },
+    fetch: denyNetwork,
+  }, { timeout: 1000 });
+  await result;
+  return { outputs, reads };
+};
+const cases: GuardCase[] = [
+  { name: "manual exact head", deployed: true, reads: 1 },
+  { name: "automatic PR tests merge SHA but checks event head", context: automatic, deployed: true, reads: 1 },
+  { name: "manual missing input", env: { FLOOR_MANUAL_PREVIEW_PR: "" }, deployed: false, reads: 0 },
+  { name: "nonadmitted PR", env: { FLOOR_MANUAL_PREVIEW_PR: "2" }, deployed: false, reads: 0 },
+  { name: "configuration disabled", env: { FLOOR_PREVIEW_CONFIGURED: "false" }, deployed: false, reads: 0 },
+  { name: "preview disabled", env: { FLOOR_PREVIEW_ENABLED: "false" }, deployed: false, reads: 0 },
+  { name: "closed PR", pr: { ...pr, state: "closed" }, deployed: false, reads: 1 },
+  { name: "fork PR", pr: { ...pr, head: { ...pr.head, repo: { full_name: "fork/the-floor" } } }, deployed: false, reads: 1 },
+  { name: "deleted head repository", pr: { ...pr, head: { ...pr.head, repo: null } }, deployed: false, reads: 1 },
+  { name: "PR changed after dispatch", pr: { ...pr, head: { ...pr.head, sha: mergeSha } }, deployed: false, reads: 1 },
+  { name: "dispatch selected a different commit", context: { ...manual, sha: mergeSha }, deployed: false, reads: 1 },
+  { name: "missing run commit", context: { ...manual, sha: "" }, deployed: false, reads: 0 },
+  { name: "API returned wrong PR", pr: { ...pr, number: 2 }, deployed: false, reads: 1 },
+  { name: "unsupported push event", context: { ...manual, eventName: "push" }, deployed: false, reads: 0 },
+  { name: "fork event rejected before API", context: { ...automatic, payload: { pull_request: { ...pr, head: { ...pr.head, repo: { full_name: "fork/the-floor" } } } } }, deployed: false, reads: 0 },
+  { name: "automatic stale event", context: { ...automatic, payload: { pull_request: { ...pr, head: { ...pr.head, sha: mergeSha } } } }, deployed: false, reads: 1 },
+  ...["0", "01", "-1", "+1", "1.0", "1e0", "1 ", " 1", "1\n", "prod", "1; echo leak", "9999999999", "9007199254740993"].map((value) => ({
+    name: `malformed input ${JSON.stringify(value)}`,
+    env: { FLOOR_MANUAL_PREVIEW_PR: value, FLOOR_PREVIEW_PR: value },
+    deployed: false,
+    reads: 0,
+  })),
+];
+const executed: string[] = [];
+for (const scenario of cases) {
+  test(scenario.name, async () => {
+    const result = await runGuard(scenario);
+    expect(result.outputs).toEqual(scenario.deployed ? { deploy: "true", pr_number: "1", stage: "pr-1" } : { deploy: "false" });
+    expect(result.reads).toHaveLength(scenario.reads);
+    for (const read of result.reads) expect(read).toEqual({ owner: "mannyc2", repo: "the-floor", pull_number: 1 });
+    executed.push(scenario.name);
+  });
+}
+test("API failure cannot produce deployment outputs", async () => {
+  await expect(runGuard({ name: "API failure", deployed: false, reads: 1 }, true)).rejects.toThrow("Synthetic API rejection");
+  executed.push("API failure");
+});
+
+const expressionSandbox = (event: EventContext, env: Environment = environment) => ({
+  github: { event_name: event.eventName, repository, event: event.payload },
+  inputs: { preview_pr: env.FLOOR_MANUAL_PREVIEW_PR, stage: "pr-1" },
+  vars: env,
+  format: (pattern: string, value: string | number) => pattern.replace("{0}", String(value)),
+});
+test("manual checks remain the default and preview admission stays explicit", () => {
+  expect(workflow.on.workflow_dispatch.inputs.preview_pr).toEqual({ type: "string", required: false, default: "" });
+  const gate = Schema.decodeUnknownSync(Schema.String)(workflow.jobs.preview.if);
+  for (const event of [manual, automatic]) expect(evaluate(gate, expressionSandbox(event))).toBe(true);
+  for (const env of [
+    { ...environment, FLOOR_MANUAL_PREVIEW_PR: "" },
+    { ...environment, FLOOR_MANUAL_PREVIEW_PR: "2" },
+    { ...environment, FLOOR_PREVIEW_ENABLED: "false" },
+    { ...environment, FLOOR_PREVIEW_CONFIGURED: "false" },
+  ]) expect(evaluate(gate, expressionSandbox(manual, env))).toBe(false);
+  expect(workflow.jobs.preview.needs).toBe("check");
+  expect(workflow.jobs.check.if).toBeUndefined();
+  expect(workflow.jobs.check.env).toBeUndefined();
+  expect(workflow.permissions).toEqual({ contents: "read" });
+  expect(workflow.jobs.preview.permissions).toEqual({ contents: "read", "pull-requests": "write" });
+  executed.push("job admission and checks-only default");
+});
+test("manual and PR preview use the existing cleanup concurrency group", () => {
+  const preview = Schema.decodeUnknownSync(Schema.NonEmptyString)(workflow.jobs.preview.concurrency?.group);
+  const cleanup = Schema.decodeUnknownSync(Schema.NonEmptyString)(cleanupWorkflow.jobs.cleanup.concurrency?.group);
+  for (const event of [manual, automatic]) expect(resolveGroup(preview, expressionSandbox(event))).toBe("floor-preview-pr-1");
+  expect(resolveGroup(cleanup, expressionSandbox(manual))).toBe("floor-preview-pr-1");
+  expect(resolveGroup(cleanup, expressionSandbox({ ...automatic, eventName: "pull_request_target" }))).toBe("floor-preview-pr-1");
+  expect(workflow.jobs.preview.concurrency?.queue).toBe("max");
+  expect(workflow.jobs.preview.concurrency?.["cancel-in-progress"]).toBe(false);
+  expect(workflow.jobs.preview.env?.["STAGE"]).toBeUndefined();
+  expect(step("deploy").env?.["STAGE"]).toBe("${{ steps.current.outputs.stage }}");
+  expect(teardown.env?.["STAGE"]).toBe("${{ steps.current.outputs.stage }}");
+  executed.push("concurrency and validated stage transport");
+});
+test("cleanup requires validation and a failed or cancelled deployment attempt", () => {
+  const gate = Schema.decodeUnknownSync(Schema.String)(teardown.if);
+  for (const scenario of [
+    { admitted: "false", outcome: "failure", failed: true, cancelled: false, expected: false },
+    { admitted: "true", outcome: "skipped", failed: true, cancelled: false, expected: false },
+    { admitted: "true", outcome: "", failed: true, cancelled: false, expected: false },
+    { admitted: "true", outcome: "success", failed: false, cancelled: false, expected: false },
+    { admitted: "true", outcome: "success", failed: true, cancelled: false, expected: true },
+    { admitted: "true", outcome: "failure", failed: true, cancelled: false, expected: true },
+    { admitted: "true", outcome: "cancelled", failed: false, cancelled: true, expected: true },
+    { admitted: "false", outcome: "cancelled", failed: false, cancelled: true, expected: false },
+  ]) expect(evaluate(gate, {
+    always: () => true,
+    failure: () => scenario.failed,
+    cancelled: () => scenario.cancelled,
+    steps: { current: { outputs: { deploy: scenario.admitted } }, deploy: { outcome: scenario.outcome } },
+  })).toBe(scenario.expected);
+  executed.push("teardown outcomes");
+});
+test("manual comments target the validated PR without an event issue number", async () => {
+  const calls: Array<{ readonly operation: string; readonly options: unknown }> = [];
+  const pending: unknown = new Script(`(async () => {\n${commentSource}\n})()`).runInNewContext({
+    context: { ...manual, issue: { number: 999 } },
+    process: { env: { FLOOR_PREVIEW_PR: "1" } },
+    require: (name: string) => {
+      if (name !== "node:fs") throw new Error("Unexpected comment module");
+      return { readFileSync: (path: string) => {
+        if (path !== "work/ci/preview.json") throw new Error("Unexpected comment file");
+        return JSON.stringify({ url: "https://synthetic-pr-1.example.workers.dev" });
+      } };
+    },
+    github: {
+      paginate: async (_route: unknown, options: unknown) => { calls.push({ operation: "list", options }); return []; },
+      rest: { issues: {
+        listComments: () => { throw new Error("Route must be passed to paginate"); },
+        createComment: async (options: unknown) => { calls.push({ operation: "create", options }); },
+        updateComment: async (_options: unknown) => { throw new Error("No existing comment was returned"); },
+      } },
+    },
+    fetch: denyNetwork,
+  }, { timeout: 1000 });
+  await pending;
+  expect(calls).toHaveLength(2);
+  for (const call of calls) expect(call.options).toMatchObject({ owner: "mannyc2", repo: "the-floor", issue_number: 1 });
+  expect(step("Publish preview link").env?.["FLOOR_PREVIEW_PR"]).toBe("${{ steps.current.outputs.pr_number }}");
+  executed.push("validated manual comment target");
+});
+test("retained run steps have valid shell syntax", () => {
+  for (const job of [workflow.jobs.check, workflow.jobs.preview]) {
+    for (const item of job.steps) {
+      if (item.run === undefined) continue;
+      const checked = Bun.spawnSync(["bash", "-n"], { stdin: new TextEncoder().encode(item.run) });
+      expect(checked.exitCode).toBe(0);
+    }
+  }
+  executed.push("shell syntax");
+});
+afterAll(async () => {
+  expect(networkAttempts).toBe(0);
+  await Bun.write("work/ci-proof/manual-preview/result.json", JSON.stringify({
+    observedAt: new Date().toISOString(),
+    source: ".github/workflows/ci.yml",
+    sourceSha256: new Bun.CryptoHasher("sha256").update(source).digest("hex"),
+    runtime: Bun.version,
+    syntheticOnly: true,
+    networkAttempts,
+    expressionScope: "The workflow's JavaScript-compatible expression subset; not a GitHub service emulator.",
+    completedCases: executed,
+  }, null, 2));
+});
