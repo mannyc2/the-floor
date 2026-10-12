@@ -23,7 +23,7 @@ The cookbook at the repository root links to the copied source, so there is one 
 
 ## Next work
 
-The [platform spike](docs/spikes/platform.md) and [look spike Part A](docs/spikes/look.md) are authorized and can start now. Look Part B (references, tones, proportions, assets) follows Part A, with Codex generating the reference images and the owner picking. Evidence goes in [docs/spikes/evidence/](docs/spikes/evidence/README.md). Both spikes report before Stage 0 begins.
+The [platform spike](docs/spikes/platform.md) is running, local checks only for now. [Look spike](docs/spikes/look.md) Part A is done (technique B on WebGL, picked by the owner); Part B (references, tones, proportions, assets) is next, with Codex generating the reference images and the owner picking. Evidence goes in [docs/spikes/evidence/](docs/spikes/evidence/README.md). Both spikes report before Stage 0 begins.
 
 `reference/` is temporary. It is deleted at the end of Stage 0, once the skeleton has ported what it needs, and stays recoverable from the initial commit.
 
