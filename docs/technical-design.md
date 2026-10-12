@@ -353,7 +353,6 @@ The toolchain is dprint, oxlint with the Effect presets and fences, TypeScript 7
 - **Stage 1: contracts.** The contract package with property tests for every type above.
 - **Stage 2: the world shell and the look:**
   - the floor's places, desks and plots, in cutaway;
-  - the map host, renderer and camera from the Foldkit round;
   - `packages/atlas` seeded from the look's picks;
   - the camera rules passing;
   - the screen with search and drawer.
@@ -365,8 +364,8 @@ The toolchain is dprint, oxlint with the Effect presets and fences, TypeScript 7
   - publishing, search and credit;
   - board channels with their guards;
   - the sandbox and the checks;
-  - the memecoin shop end to end.
-- **Stage 5: the stream and replay.** The director and the first broadcast, and replay of a recorded day through the live client.
+  - one memecoin desk piece end to end.
+- **Stage 5: the stream and replay.** The director and the first broadcast, plates from the headless renderer, and replay of a recorded day through the live client.
 
 Launching is built once its mechanism is decided. Owners' sign-in, card funding and withdrawals, with the "Money in, money out" flow, are the second milestone, which opens desks to owners. The first milestone is done when every other flow passes on a preview stage, the owner has picked the look's frames, and the phone profile holds its targets.
 

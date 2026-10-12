@@ -19,10 +19,9 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 - [ ] **Complete renderer acceptance.** The scoped host, technique B renderer, ID-image picking, camera interaction subset, development workbench and independent look targets are implemented. Quarter-turn rotation and camera-dependent wall/ceiling cutaway still need implementation and checks. Moving-target follow, sustained snapshot updates with exact upload accounting, and the drag-through-Model comparison remain explicit [open items](decisions.md#open-items). The updated renderer has not had a hosted run.
 - [ ] **The look.** The owner picks the floor's tradition, then its reference frames, tones, proportions and kit unit (see [the look](look.md)). `packages/atlas` holds the values, the stylesheet and palette are generated from it, the picked frames are in `testing/reference/`, and the desk, figure and ticker-wall plate generators are in the web asset kit.
 - [x] **Look checks wired in.** The look harness runs against the real renderer as part of `bun run test:flow`, with building, floor and desk zoom names and desk counts. Production build fences exclude the workbench. Synthetic targets remain unapproved; the local results are below.
-- [ ] **The agent's browser.** Containment is chosen and tested, and live view and owner takeover are proved (see [the platform](platform.md#the-agents-browser)).
-- [ ] **Providers.** Privy's sandbox and live inference are checked within an approved budget (see [the platform](platform.md#open-provider-checks)).
-- [ ] **Plates.** Browser Rendering screenshots a real renderer scene.
 - [ ] **Owner review** of the decisions, the new flow and the picked frames, before Stage 1 starts.
+
+The provider checks (the agent's browser, Privy's sandbox, live inference and plates) moved to the stages that first need them; see the [decision log](decisions.md#stack-and-platform).
 
 ## Local renderer verification
 

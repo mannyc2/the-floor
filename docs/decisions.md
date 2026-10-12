@@ -43,6 +43,7 @@ The decisions that stand, and why. Where this log and a doc disagree, the log wi
 | 12 Oct 2026 | **API boundary.** `contract` holds Schemas only and imports only Effect. HTTP and RPC are defined in `packages/api` from those Schemas: the one internal exception to the unstable-API rule | It keeps every surface on one contract without a broad allowlist |
 | 12 Oct 2026 | **Storage.** Durable Object SQL through `Cloudflare.SqlMigrations` for journals, and D1 through Alchemy's SQL integration for history. Their transactions differ (interactive in a Durable Object, atomic batches in D1), and nothing wraps them as if they were the same | Both passed initialisation, rollback, conditional-update and restart checks, locally and on a hosted stage |
 | 12 Oct 2026 | **Inference.** Anthropic and OpenAI through Effect's AI module, a Layer each, with a predicate-only Decisions adapter. Scripted models exist only behind `./testing` | Checked against the installed source. Live calls are an open item |
+| 12 Oct 2026 | **Provider choices wait for the stage that needs them.** The agent's browser containment, Privy's sandbox, live inference and plates are not Stage 0 gates. Each provider stays behind one service with a default Layer (the browser as a provider Layer with Browserbase as the alternative, Privy in `packages/wallets`, a Layer per model provider), so choosing or changing one later is a Layer swap. The browser, wallets and inference are settled in Stage 3, before an agent first browses or trades, and plates in Stage 5 | The owner: not worth deciding now. Keeping each provider behind its own Layer keeps the choice cheap later |
 
 ## Repository, CI and spending
 
@@ -64,9 +65,9 @@ The decisions that stand, and why. Where this log and a doc disagree, the log wi
 | Sustained snapshot updates | One interpolation interval and transactional reconciliation are checked separately | A sustained four-per-second incoming stream, exact GPU upload accounting, per-frame budget assertions and the full snapshot-to-instance diff path | World integration |
 | Camera comparison | Only local in-progress drag is implemented | Measure drag through the Model against local drag before claiming a latency advantage | Camera tuning |
 | The look | Technique picked | The owner's pick of the floor's tradition, then its reference frames, tones, proportions and kit unit (see [the look](look.md)) | Stage 0 |
-| The agent's browser | Cloudflare's adapter can't enforce `PublicWeb` | A containment choice: a host allowlist, `Unrestricted` behind the Floor's own enforcement, or open-web sessions on another provider. Then live view and owner takeover, proved (see [the platform](platform.md#the-agents-browser)) | Stage 0 |
-| Providers | No paid provider used yet | Owner-approved access: Privy's sandbox (wallets, two-of-two quorum, policies) and inference keys within a budget for Stage 0; a Codex market-data account for Stage 3 | Stage 0 and Stage 3 |
-| Plates | Needs the renderer | Browser Rendering screenshots a real renderer scene | Stage 0 |
+| The agent's browser | Cloudflare's adapter can't enforce `PublicWeb` | A containment choice: a host allowlist, `Unrestricted` behind the Floor's own enforcement, or open-web sessions on another provider. Then live view and owner takeover, proved (see [the platform](platform.md#the-agents-browser)) | Stage 3 |
+| Providers | No paid provider used yet | Owner-approved access: Privy's sandbox (wallets, two-of-two quorum, policies) and inference keys within a budget, and a Codex market-data account | Stage 3 |
+| Plates | Needs a hosted renderer | Browser Rendering screenshots a real renderer scene | Stage 5 |
 | How agents launch coins | Construction for Meteora and Doppler exists; nothing signs or broadcasts | Which launchpads, who launches, how a launch is paid for, and what the Floor earns | Stage 4 |
 | People's pieces and the lobby | Likely early; the Floor curates the lobby | When people can submit, once the one-piece pipeline holds | Stage 4 |
 | Chains after Solana | An EVM chain next, as a second floor | Pick it when a second floor is needed | After the first milestone |

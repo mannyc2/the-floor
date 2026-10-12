@@ -70,6 +70,8 @@ Not yet proved: live model calls, hosted agent eviction, browsers, wallets and p
 
 ## Open provider checks
 
+None of these blocks Stage 0. Each runs in the stage that first needs it: the browser, wallets and inference in Stage 3, before an agent first browses or trades, and plates in Stage 5. Each provider stays behind its own service and Layer, so the choice stays cheap until then.
+
 Each check runs against the real provider, within the spending limits and with the owner's approval for any paid provider. Its result goes in the decision log with the run or command that shows it. A local, mocked or import-only result doesn't count.
 
 ### The agent's browser
@@ -93,7 +95,7 @@ Call the selected Anthropic and OpenAI models through their Layers, including th
 
 ### Plates
 
-Have Browser Rendering screenshot a bounded scene from the real renderer, recording the renderer revision, scene, camera, viewport and image digest. It needs the renderer from the Foldkit round, and it checks the platform, not the art.
+Have Browser Rendering screenshot a bounded scene from the real renderer, recording the renderer revision, scene, camera, viewport and image digest. It needs a hosted run of the renderer, and it checks the platform, not the art.
 
 ### Market data
 

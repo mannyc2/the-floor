@@ -12,7 +12,6 @@
   ],
   "exclude": [
     "work",
-    "node_modules",
-    "apps/**/spikes"
+    "node_modules"
   ]
 }
