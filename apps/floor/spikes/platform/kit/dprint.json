@@ -1,0 +1,20 @@
+{
+  "includes": [
+    "**/*.ts",
+    "package.json",
+    "tsconfig.json",
+    ".oxlintrc.json",
+    "dprint.json",
+    "codama.json",
+    "source.json"
+  ],
+  "excludes": [
+    "node_modules/**",
+    "client/**",
+    ".alchemy/**"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.11.wasm",
+    "https://plugins.dprint.dev/json-0.21.0.wasm"
+  ]
+}
