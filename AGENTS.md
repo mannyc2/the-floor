@@ -2,6 +2,8 @@
 
 Use Bun, never npm, yarn or pnpm. No explicit or implicit `any`, type casts or non-null assertions. No assistant attribution in commits.
 
+Use Effect's own modules first. Add a third-party dependency only where Effect can't do the job, and record why in `docs/decisions.md`.
+
 ## Read first
 
 - `README.md` and `docs/decisions.md` for the current scope and unresolved choices.
@@ -11,6 +13,7 @@ Use Bun, never npm, yarn or pnpm. No explicit or implicit `any`, type casts or n
 - `effect-4-cookbook.md`, then the complete installed `node_modules/effect/AGENTS.md` and its relevant documentation before Effect changes. Verify every API in installed source; the cookbook is version-specific.
 - The relevant revised product, technical design and Atlas documents under `docs/floor-docs-2026-10-12/`. Where they conflict with `docs/decisions.md`, the decision log wins.
 - `reference/README.md` before reading the first build or the cafe reference.
+- Before Cloudflare work, the relevant page from [Alchemy's docs index](https://alchemy.run/llms.txt). Cloudflare resources are Alchemy resources: no hand-written Wrangler config.
 
 ## Structure and honesty
 

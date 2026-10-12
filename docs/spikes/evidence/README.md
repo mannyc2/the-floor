@@ -13,6 +13,8 @@ docs/spikes/evidence/
 
 `check_id` is a stable kebab-case name, such as `agent-do-browser` or `technique-matrix`. `attempt` counts from `001`, and a new attempt never overwrites an old one: a failed attempt is evidence too.
 
+A record is for something that ran. When the environment stops a spike before anything runs (a full disk, a missing account or key), say so in a sentence in the report and stop: no attempt records, matrices of `not_run` cells or reviews of blocked evidence.
+
 ## What a record holds
 
 Copy `record.template.json`. The fields are the ones defined under "Evidence record" in the platform handoff. Look records also fill the `look` block, which covers technique, tone set, theme, rung, pixel ratio, camera, backend, renderer string, metrics, picks and approvals. A field that doesn't apply is `"n/a"` with a reason, never left out. An unknown value, such as cost, is `"unknown"`, never zero.
