@@ -1,0 +1,468 @@
+{
+  "check_id": "privy-native",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T17:34:23Z",
+  "operator": "chains_promotion",
+  "reviewer": "Pending independent root review; no owner approval implied",
+  "source_revision": "c414bc0410e5d390d103455f2d20a52171f9eef0 plus working-tree changes; source.tar.gz and each source SHA-256 pin the as-run implementation.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80 with existing Yielded patch",
+    "workerd": "1.20260918.1",
+    "typescript": "7.0.2",
+    "@effect/tsgo": "0.51.1",
+    "oxlint": "1.87.0",
+    "privy_sdk": "none",
+    "new_dependencies": "none"
+  },
+  "api_evidence": [
+    "https://docs.privy.io/controls/authorization-keys/using-owners/sign/direct-implementation",
+    "https://docs.privy.io/controls/key-quorum/sign",
+    "https://docs.privy.io/recipes/wallets/two-of-two-server-in-the-loop",
+    "https://docs.privy.io/api-reference/wallets/create",
+    "https://docs.privy.io/api-reference/policies/create",
+    "https://docs.privy.io/api-reference/key-quorums/create",
+    "https://docs.privy.io/api-reference/wallets/ethereum/personal-sign",
+    "https://docs.privy.io/basics/rest-api/setup",
+    "https://www.rfc-editor.org/rfc/rfc8785"
+  ],
+  "execution_target": "Local Bun adapter tests and Alchemy local workerd; no hosted or Privy execution",
+  "runtime_configuration": {
+    "compatibility_date": "2026-08-18",
+    "explicit_flags": [],
+    "local_port": 19735,
+    "alchemy_test": {
+      "dev": true,
+      "sidecar": false,
+      "state": "localState"
+    },
+    "node_limit": "Default Alchemy runtime; process is present, so this is not a bare no-Node claim."
+  },
+  "stage_and_resources": "Local floor-kit-local-001 / FloorKitProbe, created then destroyed. No hosted resources or sandbox wallets.",
+  "inputs": [
+    "Ephemeral native P-256 key pairs, never logged or saved",
+    "Fixed offline-only Ethereum personal_sign body and synthetic hexadecimal response",
+    "RFC8785 formatting, UTF-16 ordering, lone-surrogate and non-finite controls; DER integer vector"
+  ],
+  "procedure": [
+    "Run all platform-root required checks in commands.txt, including native admission/storage/restart and the added Privy tests.",
+    "The local Worker executes the production client with its real FetchHttpClient, redirecting only the fixed offline wallet RPC to /privy-fixture. Validate the native assertions and observe exactly one counted fixture request.",
+    "Destroy local resources, verify TCP 19735 has no listener, and freeze the reachable emitted import graph under ignored work/."
+  ],
+  "expected_result": "Native authorization primitives and bounded HTTP adapter work in local workerd while all Privy account-dependent behavior stays untested.",
+  "observed_result": {
+    "root_format_typecheck_lint_build_test": "pass",
+    "kit_unit_tests": {
+      "pass": 10,
+      "assertions": 40
+    },
+    "local_worker_suite": {
+      "pass": 1,
+      "assertions": 22,
+      "scope": "Includes existing chain/math probes and the new Privy route"
+    },
+    "existing_native_regression_suites": {
+      "admission_and_storage_assertions": 26,
+      "restart_assertions": 7,
+      "build_assertions": 1
+    },
+    "worker": {
+      "bunPresent": false,
+      "processPresent": true,
+      "nativeP256Verified": true,
+      "importedPkcs8Verified": true,
+      "tamperedPayloadRejected": true,
+      "independentKeyRejected": true,
+      "derSignatureBytes": 72,
+      "canonicalizationVerified": true,
+      "invalidUnicodeRejected": true,
+      "providerAccess": "absent-from-probe",
+      "sandboxSigning": "not-run",
+      "http": {
+        "decodedFixtureResponse": true,
+        "providerAccess": "loopback-fixture-only"
+      },
+      "fixtureRequests": 1
+    },
+    "emitted_modules": 13,
+    "privy_client_present_in_worker_map": true,
+    "privy_sdk_sources": [],
+    "creation_authentication": "Regression asserts creation omits owner-signature headers, quorum creation omits idempotency, wallet and policy creation include their caller-supplied idempotency key.",
+    "prior_attempt": "001 retained with exact source archive and review.json explaining its unnecessary creation-signature requirement."
+  },
+  "artifacts": [
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/authorization.ts",
+      "committed": true,
+      "bytes": 4375,
+      "sha256": "f688e8fabde4443cd66f7c6668ee2833dd54cdf2b70a8ed8d1dfe02b55ff72b7",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/canonical.ts",
+      "committed": true,
+      "bytes": 2063,
+      "sha256": "b49c928b2d8bf4f66a4f4feeeb761689a23b0a39201c0ac90e567b7c539bf1dc",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/client.ts",
+      "committed": true,
+      "bytes": 7863,
+      "sha256": "219fd15969ad293986639198f6666b3908dab795cf45469a7c65f6de7c4276b7",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/error.ts",
+      "committed": true,
+      "bytes": 223,
+      "sha256": "6308dcedd0157c4b92de0c3fbf9753e98973215678fb271136053f139af90b4a",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/testing/http-probe.ts",
+      "committed": true,
+      "bytes": 3290,
+      "sha256": "c5d0abc20e5e94b3be5f1cf3c913b0cef75b5741c3aa4cd81b000eec839b7558",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/src/privy/testing/probe.ts",
+      "committed": true,
+      "bytes": 3413,
+      "sha256": "05062231e06f7de867da4bfa8ac5436be34ac3f2b1faf114634325b2fd06cd89",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/test/privy/authorization.test.ts",
+      "committed": true,
+      "bytes": 2860,
+      "sha256": "68f0560725cd5b5a70b3d1bc8ab31abd6fc39c47bc644697c9ff50a9ecaad70c",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/test/privy/client.test.ts",
+      "committed": true,
+      "bytes": 8661,
+      "sha256": "35eb9aea946243c5d93c4eaac8a1d9a5a4c15416efc9aab5f04250247527363b",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/entry.ts",
+      "committed": true,
+      "bytes": 3870,
+      "sha256": "ceb57a86ea9b0810111164a3e444490e8c4edfcf76b6c805f1dab621689094ce",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/local.test.ts",
+      "committed": true,
+      "bytes": 5638,
+      "sha256": "7d6c3fdae996981abb6ebb19021d30e5e3c9f7f4a57e5aa91cb7c9cee132796b",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/package.json",
+      "committed": true,
+      "bytes": 1608,
+      "sha256": "1dd117d57b1880b90630ef9fa8b2bd412cc1709de33021e24e2b376d1fb86ce4",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/tsconfig.json",
+      "committed": true,
+      "bytes": 5986,
+      "sha256": "2820d317e1a88832294b524dad499a152976918ecb98deeb19921ce20871c449",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/README.md",
+      "committed": true,
+      "bytes": 7879,
+      "sha256": "e07be31c8f987191ca9181b16bdde9032acc9a4f47a98ed92fad6d6b07b98aed",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "scripts/platform-spike.sh",
+      "committed": true,
+      "bytes": 1083,
+      "sha256": "b5ce902daab31c93a22c045ff1ecc380deb1cd697a2ed19e71adcb936e3cb9b6",
+      "regenerate": "Exact as-run source also retained in source.tar.gz"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/bundle-manifest.json",
+      "committed": true,
+      "bytes": 5435,
+      "sha256": "6a3da4a4f8d43532b0898f949cdfdd3385d767363c368ba279e6d3e442a624f0",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/commands.txt",
+      "committed": true,
+      "bytes": 634,
+      "sha256": "b8910d902e3267606793f8514ce160c1bb6f8a331781ffae110b97d675162f4e",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/root-build.log",
+      "committed": true,
+      "bytes": 4136,
+      "sha256": "2862e49fd51fa8fc2d5d69b63f090b65bf04e84237edbc908721f420fb753216",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/root-lint.log",
+      "committed": true,
+      "bytes": 489,
+      "sha256": "f54652be4949f61fbf2d584db61117b8dc4fa2b22c5b7f7733dd24bd7deb53fc",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/root-test.log",
+      "committed": true,
+      "bytes": 11529,
+      "sha256": "2510772d9e2af81341fec817a2912071b652da9d7ce77c55b7d9b4e9e965b059",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/root-typecheck.log",
+      "committed": true,
+      "bytes": 250,
+      "sha256": "8015e9007c8ecaf83983da051b266654186a45fc363737b438769b9a2db2cdda",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/source.tar.gz",
+      "committed": true,
+      "bytes": 17058,
+      "sha256": "9982474eed5395b3c520706af550bc0c3c17cc9bd1502abcad1dc7bdb84bae2d",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/unit-tests.log",
+      "committed": true,
+      "bytes": 1118,
+      "sha256": "5df82cae84f24ddd2837c1607753ee8fe5af3519b6a358b4fd5770ba6075b467",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "docs/spikes/evidence/platform/privy-native/002/worker-result.json",
+      "committed": true,
+      "bytes": 407,
+      "sha256": "669d3b27a9bc68daa6428280af4fe19df6c5582569d563706416923181a2392f",
+      "regenerate": "See commands.txt; source archive and bundle manifest pin the as-run content"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/entry.js",
+      "bytes": 820742,
+      "sha256": "159eb28ea726212c3e5b437d795b85b76aad392f0e959faac17bfcc423d2c051",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/entry.js.map",
+      "bytes": 3402504,
+      "sha256": "76e4c41598581aea6b4073bfb12c97ed0e6239b4ec0d86c2fec92512f4884e80",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/secp256k1-DTMAzF9m.js",
+      "bytes": 36163,
+      "sha256": "c89c3e55286e56259f94076e0a507baa923988785a0fd51aaa6998101bea0f2d",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/secp256k1-DTMAzF9m.js.map",
+      "bytes": 198031,
+      "sha256": "b6031cd44172950173503c50c3866fb1857765489c151dcc26f60652601f1387",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Schema-DzghmISh.js",
+      "bytes": 197234,
+      "sha256": "a0b7de66925b3284f8747896aad0c92a35eed0b4ecf1e59c73fec90a97e0c331",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Schema-DzghmISh.js.map",
+      "bytes": 2732414,
+      "sha256": "c6585a420df616c48e1f911efe557169e9462b5508474c28b6ddb62b75b31fa5",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeTerminal-Czd0NF-J.js",
+      "bytes": 44548,
+      "sha256": "519e05394691c98482bd2bb354d8e9bb583c47fced48dc1f5e7bb118f73103dc",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeTerminal-Czd0NF-J.js.map",
+      "bytes": 557751,
+      "sha256": "eb32b1aedfea043bd62d93f477684f69332a7b7df673d952e044c6fb5619d03d",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Redacted-BYTrxWqa.js",
+      "bytes": 1019,
+      "sha256": "8eb7d1caf9c196a1c92a8b9b8f5bd72897126a4747f5bebe7b8c58c8628240a1",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Redacted-BYTrxWqa.js.map",
+      "bytes": 7334,
+      "sha256": "56acea0b73dfcde1f5231661f1ac0b2967332a831de0c31a6b5f0208f260fd7a",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeServices-Dzl6K40O.js",
+      "bytes": 883,
+      "sha256": "7372b9be0803b56d6a0a4620554db8bf6af7700dd90bf6db8d94237889e61089",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeServices-Dzl6K40O.js.map",
+      "bytes": 6332,
+      "sha256": "9cc744587c7c6b67dc06f49ab5c0acf06e2f0332ff6eaa0812cc05565264e2bf",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/localBatchGatewayRequest-DHa9GLpp.js",
+      "bytes": 131589,
+      "sha256": "52dc6620072f8dee25cc05c1dce762898dbbe08078986f3795e8b5a6a7ce2357",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/localBatchGatewayRequest-DHa9GLpp.js.map",
+      "bytes": 426023,
+      "sha256": "a62bc1daf5568833f2f5fa06935b8938fd2358e33ad14c0dc9aaa8e97ec950af",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/rolldown-runtime-BJS_XihH.js",
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunServices-BohN1zze.js",
+      "bytes": 839,
+      "sha256": "aab5cc317a1efcc14cc64f7ece8cf23d7057de340d448cc99fb56787c6f56346",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunServices-BohN1zze.js.map",
+      "bytes": 6215,
+      "sha256": "b365425bee8c94cb6a5353fbf9d2d51cc8038b6244c47aa6327ff3f277b89337",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunSocket-DIpq9QeF.js",
+      "bytes": 817,
+      "sha256": "edb4a3bd24d8d83480a6208c611a95bcdff3a82690cf4e3272b4fcdae1b0081c",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunSocket-DIpq9QeF.js.map",
+      "bytes": 2246,
+      "sha256": "f973f26317ad12d72c56b56d1b92d9e727e2d11a3868441fa7d78b04292097a5",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-C-i5iwGg.js",
+      "bytes": 968,
+      "sha256": "ddab3fdd18c22d3f116d1fd0211dd6bd24fac97ff996bdf66c5f8c33d8efafab",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-C-i5iwGg.js.map",
+      "bytes": 3338,
+      "sha256": "02a8bf76c0406dc5485e07b7a26a8686358bebaa0a9948af008215ac2b8247c0",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/ccip-CriepmBF.js",
+      "bytes": 3202,
+      "sha256": "4588080c2c5cb5f9e96ed31419f02050b671c3006aa5289a2238c28d1bd861e2",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/ccip-CriepmBF.js.map",
+      "bytes": 9043,
+      "sha256": "731f560475546217aabaf1780d9fbb38bc031ca3e99acb1cb7c8682005d74917",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-CVG9i22t.js",
+      "bytes": 12719,
+      "sha256": "1a68264e748f14d185d7a25dccaa445b9e866a67576bd8b6ef19ea423eb4e873",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-CVG9i22t.js.map",
+      "bytes": 59132,
+      "sha256": "81c534311f205a46238b1b6db657231c5f5d1a75889b0bdfb26167a63ecc8d5b",
+      "committed": false,
+      "regenerate": "bun run build in platform kit; freeze only dependencies reachable from .alchemy/bundles/FloorKitProbe/entry.js"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Host fetch guard permits loopback only. Worker adapter accepts one fixed Privy-shaped URL and redirects it to the validated loopback fixture. No live Privy API call.",
+    "budget": "Existing Cloudflare subscription only; no separately billed provider operation authorized or executed.",
+    "observed_cost": "n/a: local workerd and local test HTTP only; no provider billing measurement."
+  },
+  "cleanup_result": "Alchemy build log records deletion. Independent lsof inspection after the final run found no listener on TCP 19735. No private keys or authorization headers retained.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Pass applies only to the bounded local primitives and adapter. Ethereum message signing only; no SDK oracle, live sandbox app, Privy signature acceptance, quorum membership or enforcement, actual policy refusal, Solana signing, user-key retrieval, nested quorums, hosted runtime, transaction signing or broadcast was tested. Identify the sandbox and intended co-signers and obtain a separately authorized provider budget before a live call. Creation-response decoding retains only the documented fields consumed by this spike; it is not a full Privy SDK. Request-expiry headers and authenticated user-key retrieval are not implemented. The loopback response is deliberately synthetic and is not a wallet signature.",
+  "look": {
+    "technique": "n/a: platform cryptography/HTTP check",
+    "tone_set": "n/a: platform cryptography/HTTP check",
+    "theme": "n/a: platform cryptography/HTTP check",
+    "rung": "n/a: platform cryptography/HTTP check",
+    "dpr": "n/a: platform cryptography/HTTP check",
+    "camera": "n/a: platform cryptography/HTTP check",
+    "canvas": "n/a: platform cryptography/HTTP check",
+    "backend": "n/a: platform cryptography/HTTP check",
+    "renderer_string": "n/a: platform cryptography/HTTP check",
+    "device_profile": "n/a: platform cryptography/HTTP check",
+    "clock_and_seed": "n/a: platform cryptography/HTTP check",
+    "metrics": {},
+    "made_by": "n/a: platform cryptography/HTTP check",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "No visual output."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No visual approval requested by this check.",
+      "date": "n/a"
+    }
+  }
+}

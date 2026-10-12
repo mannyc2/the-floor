@@ -17,6 +17,8 @@ The two deployments used one temporary stage sequentially and made 13 driver req
 
 ## Current local target
 
+The [native Privy probe](privy-native/002/record.json) adds P-256 request authorization, canonical JSON and the small Effect HTTP client. Root verified all 48 recorded artifact hashes. Its local Worker uses one explicit loopback fixture request, so it does not establish Privy acceptance or sandbox signing. Subsequent error review found that Effect's standard sensitive-header set omitted Privy authorization signatures; the client now preserves foreign causes behind `Redacted`, with a regression proving inspection and serialization hide credentials while explicit unwrapping retains the original error. The current suite passes 10 tests and 49 assertions; the historical attempt remains unchanged. Live sandbox, actual signatures, quorum and policy enforcement remain open.
+
 | Check | Evidence | Result and limit |
 | --- | --- | --- |
 | Alchemy native agent, callback wake and restart | [Native agent 001](alchemy-native-agent/001/record.json) | Yielded PR 557's actual Alchemy `ThreadObject` runs a synthetic model after admission by an Alchemy durable callback. Completion occurs during a request-free interval. Canonical records and callback state survive a complete local process restart. Repeated admission adds no new canonical records during the measured interval. No hosted eviction, provider call or browser lifecycle claim. |

@@ -29,11 +29,12 @@
   "scripts": {
     "prepare": "effect-tsgo patch --typescript --oxlint",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint": "oxlint --type-aware --type-check --deny-warnings -c .oxlintrc.json crypto.ts entry.ts construction.ts config.ts evm.ts math.ts math-probe.ts bounded-instructions.ts bounded-generated local.test.ts local-only.ts",
+    "lint": "oxlint --type-aware --type-check --deny-warnings -c .oxlintrc.json crypto.ts entry.ts construction.ts config.ts evm.ts math.ts math-probe.ts bounded-instructions.ts bounded-generated local.test.ts local-only.ts src/privy test/privy",
     "format": "dprint fmt",
     "format:check": "dprint check",
     "build": "CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./local.test.ts",
-    "generate": "bun x --no-install codama run js && python3 bounded-client.py"
+    "generate": "bun x --no-install codama run js && python3 bounded-client.py",
+    "test": "CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./test/privy"
   },
   "patchedDependencies": {
     "alchemy@2.0.0-beta.80": "patches/alchemy@2.0.0-beta.80.patch"

@@ -22,6 +22,9 @@ case "$command" in
     (cd "$agent" && bun run "$command")
     (cd "$kit" && bun run "$command")
     ;;
-  test) (cd "$agent" && bun run test) ;;
+  test)
+    (cd "$agent" && bun run test)
+    (cd "$kit" && bun run test)
+    ;;
   *) echo "Expected prepare, typecheck, lint, build or test." >&2; exit 2 ;;
 esac

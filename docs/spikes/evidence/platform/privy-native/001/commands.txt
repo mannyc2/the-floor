@@ -1,0 +1,10 @@
+From apps/floor/spikes/platform/kit:
+bun run format:check
+bun run typecheck
+bun run lint
+bun run test
+bun run build
+
+The latter two scripts disable telemetry and preload the loopback-only host guard.
+The Worker HTTP test redirects the fixed Privy request to its own loopback fixture.
+No account or provider request is part of these commands.

@@ -5,6 +5,7 @@ import { expect } from "bun:test";
 import { Effect, FileSystem, Schema } from "effect";
 import { FetchHttpClient, HttpClient, HttpClientRequest } from "effect/http";
 import worker from "./entry.ts";
+import { PrivyProbeResult } from "./src/privy/testing/probe";
 const stack = Stack("floor-kit-probe", { providers: providers(), state: localState() }, worker);
 const { test, deploy, destroy, beforeAll, afterAll } = Test.make({
   providers: providers(),
@@ -88,6 +89,22 @@ test(
     const crypto = yield* client.get(`${url}/crypto`);
     yield* fs.writeFileString("crypto-result.json", yield* crypto.text);
     expect(crypto.status).toBe(200);
+    const privy = yield* client.get(`${url}/privy`);
+    const privyText = yield* privy.text;
+    yield* fs.makeDirectory("work", { recursive: true });
+    yield* fs.writeFileString("work/privy-result.json", privyText);
+    const privyResult = yield* Schema.decodeEffect(Schema.fromJsonString(Schema.Struct({
+      ...PrivyProbeResult.fields,
+      http: Schema.Struct({
+        decodedFixtureResponse: Schema.Literal(true),
+        providerAccess: Schema.Literal("loopback-fixture-only"),
+      }),
+      fixtureRequests: Schema.Literal(1),
+    })))(privyText);
+    expect(privy.status).toBe(200);
+    expect(privyResult.nativeP256Verified).toBe(true);
+    expect(privyResult.bunPresent).toBe(false);
+    expect(privyResult.providerAccess).toBe("absent-from-probe");
     const math = yield* client.get(`${url}/math`);
     yield* fs.writeFileString("math-worker-result.json", yield* math.text);
     expect(math.status).toBe(200);
