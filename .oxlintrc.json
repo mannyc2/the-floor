@@ -1,0 +1,101 @@
+{
+  "$schema": "./node_modules/@effect/tsgo/oxlint-schema.json",
+  "extends": [
+    "./node_modules/oxlint-plugin-effect/presets/recommended.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/strict.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/maintainers.json",
+    "./node_modules/@effect/tsgo/oxlint-presets/effect-native.json"
+  ],
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "promise",
+    "effecttsgo"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "error",
+    "typescript/no-floating-promises": [
+      "error",
+      {
+        "ignoreVoid": false
+      }
+    ],
+    "typescript/no-misused-promises": "error",
+    "typescript/await-thenable": "error",
+    "typescript/return-await": [
+      "error",
+      "always"
+    ],
+    "typescript/no-non-null-assertion": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/strict-boolean-expressions": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
+    "eslint/no-eval": "error",
+    "eslint/no-implied-eval": "error",
+    "eslint/eqeqeq": [
+      "error",
+      "always"
+    ],
+    "import/no-cycle": "error",
+    "effect/noTernary": "off",
+    "effect/noShapeInSymbolNames": "off",
+    "effecttsgo/api-stability-leak": "error",
+    "effecttsgo/abort-controller-in-effect": "error",
+    "effecttsgo/async-function": "error",
+    "effecttsgo/crypto-random-uuid": "error",
+    "effecttsgo/crypto-random-uuid-in-effect": "error",
+    "effecttsgo/extends-native-error": "error",
+    "effecttsgo/global-console": "error",
+    "effecttsgo/global-console-in-effect": "error",
+    "effecttsgo/global-date": "error",
+    "effecttsgo/global-date-in-effect": "error",
+    "effecttsgo/global-fetch": "error",
+    "effecttsgo/global-fetch-in-effect": "error",
+    "effecttsgo/global-random": "error",
+    "effecttsgo/global-random-in-effect": "error",
+    "effecttsgo/global-timers": "error",
+    "effecttsgo/global-timers-in-effect": "error",
+    "effecttsgo/instance-of-schema": "error",
+    "effecttsgo/new-promise": "error",
+    "effecttsgo/node-builtin-import": "error",
+    "effecttsgo/prefer-schema-over-json": "error",
+    "effecttsgo/process-env": "error",
+    "effecttsgo/process-env-in-effect": "error",
+    "effecttsgo/schema-sync": "error",
+    "eslint/no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_tag",
+          "_id"
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "reference/**",
+    "work/**",
+    "node_modules/**",
+    "dist/**"
+  ],
+  "jsPlugins": [],
+  "overrides": []
+}

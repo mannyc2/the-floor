@@ -1,0 +1,46 @@
+{
+  "$schema": "../../../../node_modules/wrangler/config-schema.json",
+  "name": "floor-platform-local-probe",
+  "main": "worker.ts",
+  "compatibility_date": "2026-10-06",
+  "compatibility_flags": [
+    "nodejs_compat",
+  ],
+  "workers_dev": false,
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "JOURNAL",
+        "class_name": "JournalProbe",
+      },
+      {
+        "name": "ALARMS",
+        "class_name": "AlarmProbe",
+      },
+      {
+        "name": "AGENT",
+        "class_name": "AgentProbe",
+      },
+    ],
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "JournalProbe",
+        "AlarmProbe",
+      ],
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": ["AgentProbe"],
+    },
+  ],
+  "d1_databases": [
+    {
+      "binding": "HISTORY",
+      "database_name": "floor-platform-local-history",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+    },
+  ],
+}

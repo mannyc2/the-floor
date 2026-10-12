@@ -1,0 +1,47 @@
+{
+  "name": "floor-platform-spike",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "scripts": {
+    "prepare": "effect-tsgo patch --typescript --oxlint",
+    "typecheck": "tsc -p apps/floor/spikes/platform/tsconfig.json",
+    "lint": "oxlint --type-aware --type-check -c .oxlintrc.json apps/floor/spikes/platform",
+    "build": "wrangler deploy --dry-run --config apps/floor/spikes/platform/wrangler.jsonc --outdir work/spikes/platform/build",
+    "dev": "wrangler dev --local --config apps/floor/spikes/platform/wrangler.jsonc --port 8791 --persist-to work/spikes/platform/local-state",
+    "dev:bare": "wrangler dev --local --config apps/floor/spikes/platform/wrangler.bare.jsonc --port 8791 --persist-to work/spikes/platform/local-state",
+    "build:bare": "wrangler deploy --dry-run --config apps/floor/spikes/platform/wrangler.bare.jsonc --outdir work/spikes/platform/build-bare",
+    "format": "dprint fmt",
+    "format:check": "dprint check"
+  },
+  "dependencies": {
+    "@effect/ai-anthropic": "4.0.3",
+    "@effect/ai-openai": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/platform-bun": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@meteora-ag/dynamic-bonding-curve-sdk": "1.5.13",
+    "@privy-io/node": "0.35.0",
+    "@solana/web3.js": "1.98.4",
+    "@whetstone-research/doppler-sdk": "1.0.43",
+    "@yielded/agent": "0.1.0-beta.170",
+    "@yielded/agent-platform-cloudflare": "0.1.0-beta.170",
+    "effect": "4.0.3",
+    "effect-cf": "0.56.0",
+    "viem": "2.44.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261012.1",
+    "@effect/tsgo": "0.51.1",
+    "@types/bn.js": "5.2.0",
+    "@types/bun": "1.4.2",
+    "dprint": "0.63.0",
+    "effect-oxlint": "0.4.0",
+    "oxlint": "1.87.0",
+    "oxlint-plugin-effect": "0.28.1",
+    "oxlint-tsgolint": "7.0.2003",
+    "typescript": "7.0.2",
+    "wrangler": "4.149.0"
+  }
+}
