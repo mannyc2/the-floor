@@ -1,0 +1,1 @@
+Final runtime log records local Worker destruction after the suite. Independent lsof check found no listener on port 19735. No hosted resources were created. Local Alchemy caches remain ignored; exact reachable bundle files are frozen under work/spikes/platform/kit-construction/002/bundle.

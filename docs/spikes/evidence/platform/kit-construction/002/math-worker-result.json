@@ -1,0 +1,1 @@
+{"status":"pass","checks":11,"excludedFee":{"amount":"99","fee":"2"},"includedFee":{"amount":"100","fee":"1"},"baseDelta":{"down":"1","up":"2"},"quoteDelta":{"down":"1","up":"2"},"negativeControls":{"underflow":"MathUnderflow","divisionByZero":"MathDivisionByZero","invalidInput":"MathInvalidInput"}}

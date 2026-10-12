@@ -1,0 +1,9 @@
+Working directory: unmodified official alchemy@2.0.0-beta.80 package
+Command: patch --dry-run -p1 -i alchemy@2.0.0-beta.80.patch
+Exit code: 0
+
+patching file 'src/Cloudflare/Workers/DurableObjectBridge.ts'
+patching file 'lib/Cloudflare/Workers/DurableObjectBridge.js'
+patching file 'src/Cloudflare/Workers/DurableObjectStorage.ts'
+patching file 'lib/Cloudflare/Workers/DurableObjectStorage.js'
+patching file package.json

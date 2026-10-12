@@ -1,0 +1,69 @@
+$ sh scripts/platform-spike.sh test
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/admission.test.ts:
+[15:02:17.083] INFO (#5): Plan: 2 to create, 4 binding changes
+[15:02:17.086] INFO (#5): [FloorLocalAgent] create (local)
+[15:02:17.086] INFO (#5): [FloorLocalAgent/CALLBACKS] create
+[15:02:17.086] INFO (#5): [FloorLocalAgent/FloorStorage] create
+[15:02:17.086] INFO (#5): [FloorLocalAgent/STORAGE] create
+[15:02:17.086] INFO (#5): [FloorLocalAgent/THREADS] create
+[15:02:17.086] INFO (#5): [FloorStorage] create (local)
+[15:02:17.086] INFO (#5): 
+[15:02:17.092] INFO (#467): [FloorStorage] creating (local)
+[15:02:17.095] INFO (#468): [FloorLocalAgent] pre-creating (local)
+[15:02:17.280] INFO (#468): [FloorLocalAgent] creating (local)
+[15:02:17.283] INFO (#467): [FloorStorage] created (local) (191ms)
+[15:02:17.287] INFO (#468): [FloorLocalAgent] ready at http://localhost:19732
+[15:02:17.287] INFO (#468): [FloorLocalAgent] created (local) (192ms)
+[15:02:17.291] INFO (#534): [FloorStorage] created (local) (199ms)
+[15:02:17.291] INFO (#535): [FloorLocalAgent] created (local) (196ms)
+[15:02:17.323] INFO (#5): 
+[15:02:17.323] INFO (#5): Done: 2 succeeded (237ms)
+[15:02:19.260] INFO (#527): [FloorLocalAgent] Started in 1974ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[15:02:22.359] INFO (#594): {"callback":{"acceptedAt":1791817339281,"completedAt":1791817339611},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791817339605,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791817339642,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791817339648,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791817339932,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791817339932,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791817339943,"settlement":"completed","output":{"absent":true}}],"quietStartedAt":1791817339287,"observedAt":1791817342308,"localUrl":"http://localhost:19732","threadName":"native-1791817337329","storage":{"durable":{"rollbackFailed":true,"rollbackError":"RollbackProbe: \n    at file:///bundle/entry.js:1162:18842\n    at next (<anonymous>)\n    at Effect.fn (file:///bundle/entry.js:1162:7650)\n    at Effect.fn (definition) (file:///bundle/entry.js:1162:7052)\n    at Effect.fn (file:///bundle/Schema-B5SAQJ19.js:13:9775)\n    at Effect.fn (definition) (file:///bundle/entry.js:1136:16291)","beforeRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}},"d1":{"rollbackFailed":true,"rollbackError":"effect/sql/SqlError: Failed to execute batch\n    at catch (file:///bundle/entry.js:1162:10220)\n    at file:///bundle/Schema-B5SAQJ19.js:13:5991 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///bundle/entry.js:1162:9608)\n      at catch (file:///bundle/entry.js:1162:10241)\n      at file:///bundle/Schema-B5SAQJ19.js:13:5991 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}","beforeRollback":{"rows":[{"id":"native-1791817337329","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"native-1791817337329","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"native-1791817337329","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}}
+(pass) Alchemy callback admits a native Yielded agent and its alarm settles without polling [5035.61ms]
+
+ 1 pass
+ 0 fail
+ 26 expect() calls
+Ran 1 test across 1 file. [6.43s]
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/restart.test.ts:
+[15:02:23.490] INFO (#6): Plan: 1 to update
+[15:02:23.493] INFO (#6): [FloorLocalAgent] update (local)
+[15:02:23.493] INFO (#6): [FloorLocalAgent/CALLBACKS] noop
+[15:02:23.493] INFO (#6): [FloorLocalAgent/FloorStorage] noop
+[15:02:23.493] INFO (#6): [FloorLocalAgent/STORAGE] noop
+[15:02:23.493] INFO (#6): [FloorLocalAgent/THREADS] noop
+[15:02:23.493] INFO (#6): [FloorStorage] noop (local)
+[15:02:23.493] INFO (#6): 
+[15:02:23.500] INFO (#495): [FloorLocalAgent] updating (local)
+[15:02:23.521] INFO (#495): [FloorLocalAgent] ready at http://localhost:19732
+[15:02:23.521] INFO (#495): [FloorLocalAgent] updated (local) (21ms)
+[15:02:23.534] INFO (#509): [FloorLocalAgent] updated (local) (34ms)
+[15:02:23.536] INFO (#6): 
+[15:02:23.536] INFO (#6): Done: 1 succeeded (43ms)
+[15:02:25.361] INFO (#502): [FloorLocalAgent] Started in 1843ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[15:02:26.946] INFO (#566): {"threadName":"native-1791817337329","afterRestart":{"callback":{"acceptedAt":1791817339281,"completedAt":1791817339611},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791817339605,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791817339642,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791817339648,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791817339932,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791817339932,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791817339943,"settlement":"completed","output":{"absent":true}}]},"afterDuplicate":{"callback":{"acceptedAt":1791817345425,"completedAt":1791817345698},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791817339605,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791817339642,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791817339648,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791817339932,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791817339932,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791817339943,"settlement":"completed","output":{"absent":true}}]},"quietStartedAt":1791817345427,"observedAt":1791817346932,"storage":{"durable":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"d1":{"rows":[{"id":"native-1791817337329","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}
+(pass) saved records survive a new Alchemy workerd process and duplicate admission [3409.43ms]
+[15:02:26.973] INFO (#662): Plan: 2 to delete, 4 binding changes
+[15:02:26.973] INFO (#662): [FloorLocalAgent] delete (local)
+[15:02:26.974] INFO (#662): [FloorLocalAgent/CALLBACKS] unbind
+[15:02:26.974] INFO (#662): [FloorLocalAgent/FloorStorage] unbind
+[15:02:26.974] INFO (#662): [FloorLocalAgent/STORAGE] unbind
+[15:02:26.974] INFO (#662): [FloorLocalAgent/THREADS] unbind
+[15:02:26.974] INFO (#662): [FloorStorage] delete (local)
+[15:02:26.974] INFO (#662): 
+[15:02:26.976] INFO (#1033): [FloorLocalAgent] deleting (local)
+[15:02:26.979] INFO (#1033): [FloorLocalAgent] deleted (local) (3ms)
+[15:02:26.979] INFO (#1034): [FloorStorage] deleting (local)
+[15:02:26.980] INFO (#1034): [FloorStorage] deleted (local) (1ms)
+[15:02:26.981] INFO (#662): 
+[15:02:26.981] INFO (#662): Done: 2 succeeded (7ms)
+
+ 1 pass
+ 0 fail
+ 7 expect() calls
+Ran 1 test across 1 file. [4.59s]

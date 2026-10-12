@@ -1,0 +1,30 @@
+{
+  "package": "@cloudflare/workerd-darwin-arm64",
+  "version": "1.20260918.1",
+  "registry_tarball_url": "https://registry.npmjs.org/@cloudflare/workerd-darwin-arm64/-/workerd-darwin-arm64-1.20260918.1.tgz",
+  "registry_sha512_integrity": "sha512-CR9JRZEQo93fNgBVF4Df2H2/VYO4n7rxSseSwCVv3bJQEb0huADUSCj2FK4ipxar8ToOEB4wawyw0vJo5U/rQQ==",
+  "observed_tarball_sha512_integrity": "sha512-CR9JRZEQo93fNgBVF4Df2H2/VYO4n7rxSseSwCVv3bJQEb0huADUSCj2FK4ipxar8ToOEB4wawyw0vJo5U/rQQ==",
+  "tarball_integrity_match": true,
+  "tarball": {
+    "path": "work/alchemy-audit/workerd.tgz",
+    "bytes": 35427328,
+    "sha256": "8be9f3aa1d46a0618987f36f9db831cc6593f4c392c679b5c4dffac6e3cf5121"
+  },
+  "verified_executable": {
+    "path": "work/alchemy-audit/workerd-verified/package/bin/workerd",
+    "bytes": 128711560,
+    "sha256": "5e8b50b74431e8ff1341583f647fc9ecbca5486b5ca9c8b1ecdbcb10b10336a5"
+  },
+  "installed_executable": {
+    "path": "apps/floor/spikes/platform/kit/node_modules/@cloudflare/workerd-darwin-arm64/bin/workerd",
+    "bytes": 128711560,
+    "sha256": "5e8b50b74431e8ff1341583f647fc9ecbca5486b5ca9c8b1ecdbcb10b10336a5"
+  },
+  "installed_matches_verified": true,
+  "retained_corrupt_binary": {
+    "path": "work/alchemy-audit/corrupt-cached-workerd",
+    "bytes": 101232917,
+    "sha256": "10414e1eda160b6457baad75bbed741b08ddfb95dd18d46cd9c1290b9b321d54"
+  },
+  "limitation": "This verifies the exact installed replacement against the official same-version registry archive; it does not prove why the preexisting local cached executable was corrupt."
+}

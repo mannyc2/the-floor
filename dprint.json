@@ -11,7 +11,10 @@
   "excludes": [
     "reference/**",
     "work/**",
-    "node_modules/**"
+    "node_modules/**",
+    "**/node_modules/**",
+    "**/.alchemy/**",
+    "**/client/**"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.95.11.wasm",

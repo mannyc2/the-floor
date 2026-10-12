@@ -29,4 +29,4 @@ Review the [platform result](docs/spikes/evidence/platform/report.md) and the se
 
 ## Status
 
-The [local platform probe](apps/floor/spikes/platform/README.md) has a locked Bun toolchain, native Worker entrypoints and two local bundle configurations. Format, typecheck, lint, both build dry runs and frozen installation pass. This does not establish Stage 0's product packages, architecture fences or CI. To check the immutable snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.
+The [local platform probes](apps/floor/spikes/platform/README.md) use Alchemy’s local test harness, a pinned native Yielded Alchemy adapter, and Kit-generated launch instructions. Raw Wrangler examples are retired from active source and retained in history. The result report distinguishes the current target from those historical measurements. This does not establish Stage 0's product packages, architecture fences or CI. To check the immutable snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.

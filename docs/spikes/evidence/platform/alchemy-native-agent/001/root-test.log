@@ -1,0 +1,55 @@
+$ sh scripts/platform-spike.sh test
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/admission.test.ts:
+[14:51:17.809] INFO (#5): Plan: 1 to create, 2 binding changes
+[14:51:17.812] INFO (#5): [FloorLocalAgent] create (local)
+[14:51:17.812] INFO (#5): [FloorLocalAgent/CALLBACKS] create
+[14:51:17.812] INFO (#5): [FloorLocalAgent/THREADS] create
+[14:51:17.812] INFO (#5): 
+[14:51:17.818] INFO (#392): [FloorLocalAgent] pre-creating (local)
+[14:51:17.835] INFO (#392): [FloorLocalAgent] creating (local)
+[14:51:17.843] INFO (#392): [FloorLocalAgent] ready at http://localhost:19732
+[14:51:17.843] INFO (#392): [FloorLocalAgent] created (local) (25ms)
+[14:51:17.856] INFO (#416): [FloorLocalAgent] created (local) (38ms)
+[14:51:17.859] INFO (#5): 
+[14:51:17.859] INFO (#5): Done: 1 succeeded (47ms)
+[14:51:19.831] INFO (#409): [FloorLocalAgent] Started in 1991ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[14:51:22.882] INFO (#473): {"callback":{"acceptedAt":1791816679858,"completedAt":1791816680179},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791816680174,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791816680214,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791816680219,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791816680521,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791816680521,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791816680535,"settlement":"completed","output":{"absent":true}}],"quietStartedAt":1791816679864,"observedAt":1791816682868,"localUrl":"http://localhost:19732","threadName":"native-1791816677864"}
+(pass) Alchemy callback admits a native Yielded agent and its alarm settles without polling [5022.18ms]
+
+ 1 pass
+ 0 fail
+ 6 expect() calls
+Ran 1 test across 1 file. [6.16s]
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/restart.test.ts:
+[14:51:23.986] INFO (#6): Plan: 1 to update
+[14:51:23.989] INFO (#6): [FloorLocalAgent] update (local)
+[14:51:23.989] INFO (#6): [FloorLocalAgent/CALLBACKS] noop
+[14:51:23.989] INFO (#6): [FloorLocalAgent/THREADS] noop
+[14:51:23.989] INFO (#6): 
+[14:51:23.996] INFO (#406): [FloorLocalAgent] updating (local)
+[14:51:24.015] INFO (#406): [FloorLocalAgent] ready at http://localhost:19732
+[14:51:24.015] INFO (#406): [FloorLocalAgent] updated (local) (19ms)
+[14:51:24.030] INFO (#420): [FloorLocalAgent] updated (local) (34ms)
+[14:51:24.033] INFO (#6): 
+[14:51:24.033] INFO (#6): Done: 1 succeeded (44ms)
+[14:51:25.976] INFO (#413): [FloorLocalAgent] Started in 1963ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[14:51:27.596] INFO (#478): {"threadName":"native-1791816677864","afterRestart":{"callback":{"acceptedAt":1791816679858,"completedAt":1791816680179},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791816680174,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791816680214,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791816680219,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791816680521,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791816680521,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791816680535,"settlement":"completed","output":{"absent":true}}]},"afterDuplicate":{"callback":{"acceptedAt":1791816686033,"completedAt":1791816686296},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791816680174,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791816680214,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791816680219,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791816680521,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791816680521,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791816680535,"settlement":"completed","output":{"absent":true}}]},"quietStartedAt":1791816686036,"observedAt":1791816687545}
+(pass) saved records survive a new Alchemy workerd process and duplicate admission [3558.21ms]
+[14:51:27.625] INFO (#570): Plan: 1 to delete, 2 binding changes
+[14:51:27.625] INFO (#570): [FloorLocalAgent] delete (local)
+[14:51:27.625] INFO (#570): [FloorLocalAgent/CALLBACKS] unbind
+[14:51:27.625] INFO (#570): [FloorLocalAgent/THREADS] unbind
+[14:51:27.625] INFO (#570): 
+[14:51:27.627] INFO (#919): [FloorLocalAgent] deleting (local)
+[14:51:27.629] INFO (#919): [FloorLocalAgent] deleted (local) (2ms)
+[14:51:27.636] INFO (#570): 
+[14:51:27.636] INFO (#570): Done: 1 succeeded (11ms)
+
+ 1 pass
+ 0 fail
+ 5 expect() calls
+Ran 1 test across 1 file. [4.70s]

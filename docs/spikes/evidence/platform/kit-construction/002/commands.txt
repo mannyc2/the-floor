@@ -1,0 +1,29 @@
+Runtime from repository root, using source commit d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382:
+cd apps/floor/spikes/platform/kit
+bun install --frozen-lockfile
+bun run format:check
+bun run typecheck
+bun run lint
+bun run build
+
+The build command executes the local Alchemy test lifecycle and writes the runtime JSON responses beside the source. It uses the rejecting local-only preload. Generation is bun run generate, followed by formatting and all checks. Full generated-client output stays ignored; the selected codecs use direct imports.
+
+Bundle audit from repository root, while that build's installed dependencies and source maps are present:
+bun docs/spikes/evidence/platform/kit-construction/002/bundle-graph.mjs apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe
+
+Oracle reproduction from repository root, in a new disposable directory:
+task_evidence="$PWD/docs/spikes/evidence/platform/kit-construction/002"
+mkdir -p work
+task_oracle="$(mktemp -d "$PWD/work/kit-oracle-XXXXXX")"
+tar -xzf "$task_evidence/source.tar.gz" -C "$task_oracle" --strip-components=5
+cp "$task_evidence/math-oracle.mjs" "$task_evidence/config-oracle.mjs" "$task_evidence/construction-review.mjs" "$task_evidence/result.json" "$task_evidence/rpc-counts.json" "$task_oracle/"
+cd "$task_oracle"
+bun install --frozen-lockfile
+bun add --dev --exact @meteora-ag/dynamic-bonding-curve-sdk@1.5.13 bn.js@5.2.5 @solana/web3.js@1.98.4
+bun config-oracle.mjs
+bun math-oracle.mjs
+bun construction-review.mjs
+
+The config driver produces config-oracle.json and instruction-oracle.json; the other drivers produce math-oracle.json, math-probe-result.json and construction-review.json. The official SDK and old Solana stack are development oracle dependencies only, installed in this disposable copy. Never add them to the runtime package. The math-source checksum must equal the retained oracle checksum. Construction review above checks the retained actual Worker result.json and rpc-counts.json; substitute newly captured runtime outputs when validating a new runtime run.
+
+Use new output/attempt directories on reruns. Do not overwrite this record. Runtime results use synthetic public identities; no secrets or live chain/provider calls are required. Reinstalling the official same-version workerd archive may be needed if the local package cache is corrupt; workerd-provenance.json records the verified registry integrity and executable checksum. The original corrupt binary and incomplete-source exploratory failure cannot be deterministically regenerated.

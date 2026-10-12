@@ -1,0 +1,98 @@
+{
+  "scope": "Snapshot of the successful root-build/root-test replay files plus the captured repository toolchain configuration. Final current-source reconciliation belongs to root/toolchain review.",
+  "floor_head_at_capture": "e60ac6fb7c33c00e5f627499ba0d6b8a2105ea3d",
+  "upstream_revision": "0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968",
+  "files": [
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/admission.test.ts",
+      "bytes": 3226,
+      "sha256": "e8b12890e8e25bead96e336e1297708c8f84224a5f0f66068322ac53d04ad8d2",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/admission.test.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/build.test.ts",
+      "bytes": 1400,
+      "sha256": "6689a3a0f96ff89abf660fcc4819b9ca6118c0507de19c25b9a48c3c095e38e2",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/build.test.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/contract.ts",
+      "bytes": 796,
+      "sha256": "f0d960ef012815737bd347e4f929c227395463b5ab689e674f6549cf1fff1da1",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/contract.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/fixtures/entry.ts",
+      "bytes": 7252,
+      "sha256": "a7ba20c0ce0bc6d057648ce1695927ff326efa6d5feb4bf51bf9546dfef3c771",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/fixtures/entry.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/local-only.ts",
+      "bytes": 1024,
+      "sha256": "be532b1dbbd02f8383335c58f2f8a7322a0fd3c9af1266aa582a67a1ff715f7e",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/local-only.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/restart.test.ts",
+      "bytes": 3175,
+      "sha256": "c5c7620e43d97fcf36a5ee080edee6077cb186479d1eb09309bbf45153162f58",
+      "snapshot_from": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/work-floor-replay/test/restart.test.ts",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/tsconfig.json",
+      "bytes": 159,
+      "sha256": "e68a8be1ac5d5f6d5063182e2831d0d90d262bc2f4fdb71c8a20c891de4cd275",
+      "snapshot_from": "apps/floor/spikes/platform/alchemy-agent/tsconfig.json",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "scripts/platform-spike.sh",
+      "bytes": 5134,
+      "sha256": "793ecfd41262651debf914266be03eb92b18bb202521ef492c0130c1bbcad2e0",
+      "snapshot_from": "scripts/platform-spike.sh",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "package.json",
+      "bytes": 781,
+      "sha256": "592e98b952fb7e7ffdbebdfdf3261f3b4e427afb7d011da51b9b4317ef101421",
+      "snapshot_from": "package.json",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 5624,
+      "sha256": "087009608f8fce460d4f4347e00413fb279e60683732961157ff2e92282ce96e",
+      "snapshot_from": "tsconfig.json",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": ".oxlintrc.json",
+      "bytes": 3105,
+      "sha256": "7dac45b1206a0618ac086cd032e2378ba87595a2dbe70b4ba838dd9b60137e8f",
+      "snapshot_from": ".oxlintrc.json",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "dprint.json",
+      "bytes": 436,
+      "sha256": "8bdc6551621789201fdff3a28bb1bc04c4cc358f5acd452055e07b964fee395a",
+      "snapshot_from": "dprint.json",
+      "matches_current_authored_source": true
+    },
+    {
+      "path": "bun.lock",
+      "bytes": 21561,
+      "sha256": "a8686c97d71d7bf8e1b588e0a55cb93f26f611c9343762f8df63d9a9920de4ae",
+      "snapshot_from": "bun.lock",
+      "matches_current_authored_source": true
+    }
+  ]
+}

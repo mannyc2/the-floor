@@ -1,0 +1,354 @@
+{
+  "check_id": "alchemy-native-storage",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T15:02:17.083Z",
+  "operator": "Native storage implementation/execution by toolchain_readiness; evidence packaged independently",
+  "reviewer": "Root independent technical review: read the native DO and D1 implementation and tests; verified all 15 archived source hashes, typed rollback causes, both 16-attempt/one-winner results, migration hashes, exact restart snapshots and unchanged agent records. Current runtime fixture bytes equal the as-run archive. The only later archived-file difference is dprint exclusion paths. Final root frozen install, format, typecheck, lint and both local build hooks passed. Accepted within the stated local/fresh-storage limits.",
+  "source_revision": "Floor HEAD at capture d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382 plus uncommitted as-run source snapshot SHA-256 809fe6b6342fc41f9a29870d9a9aa0eb84a23a02ea210844bf6c8270d5eaa2b5; manifest SHA-256 4c8d495010166e840d742e7e2b7520b39ae61b38d75a7f1da207b733ebe37a0f; Yielded upstream 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968.",
+  "dependency_versions": {
+    "alchemy": "2.0.0-beta.80",
+    "effect": "4.0.0",
+    "miniflare": "5.20260811.1-alpha",
+    "typescript": "7.0.2",
+    "@effect/platform-node": "4.0.0",
+    "@yielded/agent": "0.1.0-beta.166",
+    "@yielded/agent-platform-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-storage-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-platform-alchemy-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-testing": "0.1.0-beta.166",
+    "bun": "1.4.0 (34cbb9a40)",
+    "workerd": "1.20260918.1 (operator-observed runtime 2026-09-18)",
+    "@effect/tsgo": "0.51.1",
+    "oxlint": "1.87.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "effect-oxlint": "0.4.0",
+    "oxlint-plugin-effect": "0.28.1",
+    "dprint": "0.63.0",
+    "upstream_bun_lock_sha256": "c8d6068e6a5d50a5c12cb0e800ef20e7e4570d89059f27cdaf942349c62c7ea9",
+    "alchemy_beta80_patch_sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+    "root_bun_lock_sha256": "a8686c97d71d7bf8e1b588e0a55cb93f26f611c9343762f8df63d9a9920de4ae",
+    "patch": "Exact upstream Bun patchedDependencies patch, unchanged at revision 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968. Root compiler/Oxlint use effect-tsgo patch --typescript --oxlint.",
+    "@effect/sql-d1": "4.0.0"
+  },
+  "api_evidence": [
+    "See api-findings.txt for exact source-only local-provider, SQL wrapper, batch transaction, migration and cleanup paths inspected on 2026-10-12.",
+    "Alchemy Cloudflare/Workers/SqlMigrations.ts captures SQL files outside the runtime effect, then apply() runs inside the native Durable Object.",
+    "The installed native D1 provider uses local workerd storage in dev mode without cloud credentials; this run independently exercised that path.",
+    "bundle-audit.json records the current final native agent/storage bundle reachable import graph, source-map package versions and hashes. It covers this final fixture only, not the earlier agent-only attempt."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "harness": "alchemy/Test/Bun Test.make",
+    "dev": true,
+    "sidecar": false,
+    "workerd": "1.20260918.1 (runtime date 2026-09-18 observed by operator)",
+    "compatibility_date": "2026-08-18",
+    "declared_compatibility_flags": [],
+    "node_compatibility": "Alchemy/workerd defaults; not explicitly disabled. Empty declared flags do not prove an effective bare runtime.",
+    "bound_host": "127.0.0.1",
+    "port": 19732,
+    "synthetic_model_delay_ms": 250,
+    "callback_delay_ms": 250,
+    "agent_policy": {
+      "maxTurns": 1,
+      "maxToolCalls": 1,
+      "maxDuration": "20 seconds"
+    },
+    "toolkit": "empty",
+    "initial_request_free_interval_ms": 3021,
+    "duplicate_request_free_interval_ms": 1505,
+    "bindings": "Native Alchemy CALLBACKS, THREADS and STORAGE Durable Objects; native local FloorStorage D1 binding.",
+    "conditional_update_concurrency": 16
+  },
+  "stage_and_resources": {
+    "execution": "local only; no hosted stage",
+    "stack": "floor-local-agent",
+    "stages": [
+      "floor-local-agent-001",
+      "floor-local-agent-build"
+    ],
+    "worker": "FloorLocalAgent",
+    "bindings": [
+      "CALLBACKS: native Alchemy callback Durable Object",
+      "THREADS: native Yielded Alchemy ThreadObject",
+      "STORAGE: native Alchemy SQLite Durable Object",
+      "FloorStorage: native local D1 Database"
+    ],
+    "thread_name": "native-1791817337329",
+    "state": "The admission process retains local identities; the new process updates them, reads rows/history, then destroys logical resources. Simulator data can remain under ignored .alchemy."
+  },
+  "inputs": [
+    "Migration 001_create.sql creates storage_probe(id TEXT PRIMARY KEY, version INTEGER NOT NULL, value TEXT NOT NULL).",
+    "Migration 002_marker.sql adds marker TEXT NOT NULL DEFAULT migration-2. Both files applied to fresh storage, not a populated version upgrade.",
+    "One row per store, an intentional update failure, and 16 conditional UPDATE WHERE version = 0 RETURNING version attempts.",
+    "Same synthetic agent fixture as alchemy-native-agent/001; new runtime execution and recorded timestamps."
+  ],
+  "procedure": [
+    "Use the exact as-run archive and unchanged upstream pinned/ patched dependency graph. Follow commands.txt; root combined scripts also invoke the separate Kit probe.",
+    "Deploy local native D1 Database with two migration files and native STORAGE Durable Object using SqlMigrations. Insert and read a controlled row in each.",
+    "In the Durable Object, update inside a transaction and yield a tagged RollbackProbe failure. In D1, batch an update with an intentional duplicate-primary-key insert. Assert each row and history match the snapshot before failure.",
+    "Issue 16 concurrent conditional updates per store. Assert exactly one winner, one final row at version 1 and unchanged two-entry migration history. Reapply the same Durable Object migrations.",
+    "Close the first runtime scope while retaining local identities. In a new Bun/workerd process, read both stores and assert exact row/history equality, then destroy local resources.",
+    "The same test processes rerun native agent callback completion and duplicate-admission checks. Later native bundle/readiness/destroy passes separately."
+  ],
+  "expected_result": "Both native local storage bindings initialize two migrations, preserve pre-failure data/history under their supported rollback operation, admit one of 16 conditional writes, and return exactly the same final row/history in a new runtime process. Local cleanup succeeds.",
+  "observed_result": {
+    "status": "pass",
+    "scope": "Local native Alchemy Durable Object SQLite and native D1 migration initialization, forced rollback, finite conditional-update contention and clean process restart.",
+    "agent_and_storage_tests_passed": 2,
+    "agent_and_storage_assertions": 33,
+    "native_build_readiness_tests_passed": 1,
+    "native_build_assertions": 1,
+    "stores": {
+      "durable": {
+        "migration_count": 2,
+        "migrations": [
+          {
+            "name": "001_create.sql",
+            "hash": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+          },
+          {
+            "name": "002_marker.sql",
+            "hash": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+          }
+        ],
+        "initial_row": {
+          "id": "item",
+          "version": 0,
+          "value": "before",
+          "marker": "migration-2"
+        },
+        "forced_failure_observed": true,
+        "rollback_preserved_row_and_history": true,
+        "cas_attempts": 16,
+        "cas_winners": 1,
+        "final_row": {
+          "id": "item",
+          "version": 1,
+          "value": "winner-0",
+          "marker": "migration-2"
+        },
+        "migration_history_unchanged": true,
+        "row_and_history_identical_after_process_restart": true
+      },
+      "d1": {
+        "migration_count": 2,
+        "migrations": [
+          {
+            "name": "001_create.sql",
+            "hash": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+          },
+          {
+            "name": "002_marker.sql",
+            "hash": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+          }
+        ],
+        "initial_row": {
+          "id": "native-1791817337329",
+          "version": 0,
+          "value": "before",
+          "marker": "migration-2"
+        },
+        "forced_failure_observed": true,
+        "rollback_preserved_row_and_history": true,
+        "cas_attempts": 16,
+        "cas_winners": 1,
+        "final_row": {
+          "id": "native-1791817337329",
+          "version": 1,
+          "value": "winner-0",
+          "marker": "migration-2"
+        },
+        "migration_history_unchanged": true,
+        "row_and_history_identical_after_process_restart": true
+      }
+    },
+    "migration_scope": "Two ordered migrations applied to fresh storage; no populated v1-to-v2 live upgrade tested. Durable Object reapplies the same captured migrations; D1 is a no-op resource on restart.",
+    "rollback_semantics": {
+      "durable": "state.storage.transaction updates the row then fails with Schema-tagged RollbackProbe; row/history match the pre-transaction snapshot.",
+      "d1": "SQL.D1 batch updates the row then inserts an existing primary key; typed SqlError retains UNIQUE constraint cause, and the full batch rolls back.",
+      "d1_interactive_transactions": "Not tested by this run; installed @effect/sql-d14.0.0 rejects interactive transaction acquisition. Only atomic batches are claimed."
+    },
+    "concurrency_scope": "16 Effect fibers issued conditional UPDATE ... WHERE version = 0 RETURNING version in one local run per store; exactly one winner each. This is not distributed or adversarial contention coverage.",
+    "agent_regression": {
+      "records": 6,
+      "settlement": "completed",
+      "initial_request_free_interval_ms": 3021,
+      "duplicate_request_free_interval_ms": 1505,
+      "records_identical_after_restart": true,
+      "records_identical_after_duplicate": true
+    },
+    "source_snapshot_files": 15,
+    "source_snapshot_matches_authored_and_replay_at_capture": true,
+    "source_unchanged_at_final_lint_build_capture": false,
+    "typecheck": "Final root aggregate typecheck passed on 2026-10-12 after the concurrency/comment adjustment. Frozen install, formatting, lint and both local Worker build hooks also passed.",
+    "lint": "Final successful native and separate Kit command logs retained; no diagnostics.",
+    "build": "Native Alchemy bundle/start/readiness/destroy passed. Separate Kit build section intentionally excluded from this storage artifact.",
+    "cleanup": "Native Worker, all four bindings and local D1 resource destroyed successfully in test and build logs; local simulator files can remain in ignored .alchemy storage.",
+    "cross_review": "Root independent technical review: read the native DO and D1 implementation and tests; verified all 15 archived source hashes, typed rollback causes, both 16-attempt/one-winner results, migration hashes, exact restart snapshots and unchanged agent records. Current runtime fixture bytes equal the as-run archive. The only later archived-file difference is dprint exclusion paths. Final root frozen install, format, typecheck, lint and both local build hooks passed. Accepted within the stated local/fresh-storage limits.",
+    "runtime_fixture_unchanged_from_as_run": true,
+    "subsequent_non_runtime_change": "Only dprint.json adds nested node_modules/.alchemy/client exclusions; runtime fixture and test source bytes match the archived run.",
+    "bundle_audit": {
+      "artifact": "bundle-audit.json",
+      "captured_at_utc": "2026-10-12T15:16:06.126Z",
+      "scope": "Current final native agent plus DO/D1 storage build only. This is not a retroactive bundle claim for alchemy-native-agent/001 and does not constitute another runtime execution.",
+      "entry_sha256": "de3bc3000cd700b4ea05e44f423354b62c61b5b08088c4090fdaa253a828e5d9",
+      "reachable_js_files": 10,
+      "source_map_files": 9,
+      "mapped_source_entries": 453,
+      "missing_relative_imports": 0,
+      "unresolved_mapped_sources": 0,
+      "effect_cf_package_source_external_or_js_marker_matches": 0,
+      "mapped_fixture_sources_match_authored_replay_and_archive": true,
+      "dependency_versions": "Reachable sources resolve to Alchemy 2.0.0-beta.80, Effect/SQL 4.0.0 and Yielded 0.1.0-beta.166; exact package manifest hashes retained in the audit.",
+      "review": "Setup-requirements independently verified entry/map hashes and embedded fixture source identity. Root read the graph-audit implementation, verified all 19 reachable JS/map hashes, empty effect-cf matches and unresolved paths, and fixture identity against authored, replay and archived sources. Accepted within the stated static/literal-import scope.",
+      "limitations": "Computed nonliteral imports are not resolved. Source maps describe bundled source provenance, not executed branches. The small rolldown helper has no map; emitted JS marker scanning also covers that helper. External Node imports remain present, so this is not bare-runtime evidence. No old agent-only bundle is audited."
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/admission-result.json",
+      "committed": true,
+      "bytes": 4249,
+      "sha256": "b603d8cb40a91c8162c0cb2504834f6f95754e6cd99876d76696d81ac9b3cc87",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/api-findings.txt",
+      "committed": true,
+      "bytes": 1457,
+      "sha256": "51091fd843d80fa67c2eb0b2c45510f4ff6757988e8ba98fd90c8b4d5e05f6a4",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/commands.txt",
+      "committed": true,
+      "bytes": 1797,
+      "sha256": "6f58f4284eff1f7a48ce6918144f6ec965df3001cf6b44033a79fd1b81814089",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/dependency-inspection.json",
+      "committed": true,
+      "bytes": 3933,
+      "sha256": "6a5c7fdfb97f62fe08f02de7e47e59eaef22d413bf0e29b966b7f1d3b4b907e0",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/executed-source-manifest.json",
+      "committed": true,
+      "bytes": 5175,
+      "sha256": "4c8d495010166e840d742e7e2b7520b39ae61b38d75a7f1da207b733ebe37a0f",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 18995,
+      "sha256": "809fe6b6342fc41f9a29870d9a9aa0eb84a23a02ea210844bf6c8270d5eaa2b5",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/findings.md",
+      "committed": true,
+      "bytes": 4288,
+      "sha256": "cd82947aa67c9583d6fdf189d3cf7e7796aa059e7983e614109ac0713d3a28b1",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/native-storage-build.log",
+      "committed": true,
+      "bytes": 2356,
+      "sha256": "93d9c26e22a292b23835e10211358ea7e5effd4c87a95237213fc80b5b35cc9a",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/restart-result.json",
+      "committed": true,
+      "bytes": 2294,
+      "sha256": "97f4a8409efdcf6a7a2e765ef3ebed130395e9ab72197f84a6b8ec1206374cf5",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/result-summary.json",
+      "committed": true,
+      "bytes": 4888,
+      "sha256": "090c73f832b9c8aae755b83900648718fa6a7713a13ecb6eb7c93474fcdc238f",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/root-storage-lint.log",
+      "committed": true,
+      "bytes": 249,
+      "sha256": "8fb9de75c672bcb20d21c9189c268225c85c87e55afc0fa6aa7e51eab392db4b",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/root-storage-test.log",
+      "committed": true,
+      "bytes": 10233,
+      "sha256": "d01b683c4f4f89188ffcf1f096a004ee01471fdec9efbc4088d3751874b6b2ff",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/root-storage-typecheck.log",
+      "committed": true,
+      "bytes": 73,
+      "sha256": "8237aa8e6481e191eb66a3379f9f810dc8bd7cb0e57f47f2cadde2fa4f19d49b",
+      "regenerate": "Follow commands.txt with the frozen as-run source and pinned upstream graph; keep replay outputs under a new attempt. Snapshot manifests/summaries derive from retained bytes, and timestamp/thread-name bytes differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/bundle-audit.mjs",
+      "committed": true,
+      "bytes": 6727,
+      "sha256": "297c7fd7f47675db4bb0193f4ce661bb07b98d01d26d1d58cc406eb5d7a9eb61",
+      "regenerate": "From the repository root, after the native local build: bun docs/spikes/evidence/platform/alchemy-native-storage/001/bundle-audit.mjs work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent. The raw_snapshot metadata is added after freezing the listed files in an ignored tar archive."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/bundle-audit.json",
+      "committed": true,
+      "bytes": 15787,
+      "sha256": "87fedff6874be44dd5671d974853d82ccc49540b102172a1ea59ec9aaadbeb61",
+      "regenerate": "From the repository root, after the native local build: bun docs/spikes/evidence/platform/alchemy-native-storage/001/bundle-audit.mjs work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent. The raw_snapshot metadata is added after freezing the listed files in an ignored tar archive."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local Alchemy dev resources only. The Bun preload rejects fetch outside loopback; the fixture uses a scripted model and no provider clients. This does not assert general Worker/browser egress containment. Public source/package retrieval is setup only.",
+    "budget": "Local-only scope; no hosted workload or model-provider budget used by this fixture.",
+    "observed_cost": "unknown: no billing query; no hosted resource/provider workload was invoked."
+  },
+  "cleanup_result": "Test log 15:02:26.973Z-26.981Z records two resources deleted and four bindings unbound; build log 15:04:03.734Z-03.749Z records the same cleanup. Port 19732 had no listener at evidence inspection. Native D1 delete does not erase simulator files; local ignored .alchemy files may remain. No hosted resources were created.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Fresh-storage migration initialization only, not populated v1-to-v2 upgrade. Clean process restart only, not midflight SIGKILL, eviction or power loss. Finite 16-fiber local conditional writes only, not distributed contention or performance testing. DO transaction and D1 atomic batch semantics remain distinct; D1 interactive transactions are unsupported in the installed driver. No hosted provider/browser/wallet behavior is established. Root completed final aggregate compiler/lint/build checks and independent technical review of this frozen source; Stage 0/hosted gates remain pending. The final native bundle audit follows static and literal dynamic imports only; computed nonliteral imports are outside scope. It is source/bundle evidence, not another runtime run or retroactive proof for the old agent-only bundle.",
+  "look": {
+    "technique": "n/a: local platform runtime evidence; no visual artifact",
+    "tone_set": "n/a: local platform runtime evidence; no visual artifact",
+    "theme": "n/a: local platform runtime evidence; no visual artifact",
+    "rung": "n/a: local platform runtime evidence; no visual artifact",
+    "dpr": "n/a: local platform runtime evidence; no visual artifact",
+    "camera": "n/a: local platform runtime evidence; no visual artifact",
+    "canvas": "n/a: local platform runtime evidence; no visual artifact",
+    "backend": "n/a: local platform runtime evidence; no visual artifact",
+    "renderer_string": "n/a: local platform runtime evidence; no visual artifact",
+    "device_profile": "n/a: local platform runtime evidence; no visual artifact",
+    "clock_and_seed": "n/a: local platform runtime evidence; no visual artifact",
+    "metrics": {
+      "not_applicable": "No render or art metric"
+    },
+    "made_by": "n/a: local platform runtime evidence; no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: platform technical review is in reviewer",
+      "verdict": "n/a: no visual choice",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a: no visual choice",
+      "owner_note": "n/a: no visual choice",
+      "date": "n/a: no visual choice"
+    }
+  }
+}

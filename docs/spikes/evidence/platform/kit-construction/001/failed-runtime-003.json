@@ -1,0 +1,8 @@
+{
+  "ok": false,
+  "error": {
+    "_tag": "ProxyError",
+    "message": "No upstream configured for the worker proxy after 2m",
+    "status": 502
+  }
+}

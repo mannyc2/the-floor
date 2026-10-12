@@ -1,0 +1,186 @@
+{
+  "git_revision": "d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382",
+  "files": [
+    {
+      "path": "apps/floor/spikes/platform/kit/.gitignore",
+      "bytes": 143,
+      "sha256": "fef23b672785b4278b2cd14ffd464bf7614ea2b953205a1009f69201759d9fc7"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.oxlintrc.json",
+      "bytes": 3105,
+      "sha256": "7dac45b1206a0618ac086cd032e2378ba87595a2dbe70b4ba838dd9b60137e8f"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/METEORA-LICENSE",
+      "bytes": 1064,
+      "sha256": "c74e2ec3078823228742dba9f9e9b79ec0fffdb4bcdd79295130cf42b4ed1020"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/README.md",
+      "bytes": 4594,
+      "sha256": "8dad79ab902563e0517c0617b4ab021b851b614cc7e520fdce10985ba6dc3bea"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-client.py",
+      "bytes": 4327,
+      "sha256": "0ad59eded9adaed5adfb20f719ddeb10f6aac33e43e2953ad64d2bc1e0adb123"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/baseFeeParameters.ts",
+      "bytes": 1682,
+      "sha256": "05d0a81b22cf06b479998d3d984722d3a7114037f0f125c553471b7b07391b1b"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/configParameters.ts",
+      "bytes": 8138,
+      "sha256": "9d425657905c6174ced18e12c25bff79335340a3a537f2cc78a155766dfce13a"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/dynamicFeeParameters.ts",
+      "bytes": 2005,
+      "sha256": "cb4526c5c07573c3f7e758a9249071444fd4b3c3f7779117624e147b2cde537b"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/index.ts",
+      "bytes": 493,
+      "sha256": "b816f1256f0dc96c902d143aa42e7b23e091a77bbb70f19b5862391a4860b1df"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/initializePoolParameters.ts",
+      "bytes": 1558,
+      "sha256": "fb8d09c606a8633cd9115c763f0727e08929ae3d91b50a56b274667c5d03a294"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/liquidityDistributionParameters.ts",
+      "bytes": 1359,
+      "sha256": "39913756290f62b1351541e5f7d486d944b63ed33930db1f80bbf30a66329c6e"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/liquidityVestingInfoParams.ts",
+      "bytes": 1718,
+      "sha256": "6ba470f84767e8c435eb547c3cbff747de5fc0ed70dac53bdc5937368dbba259"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/lockedVestingParams.ts",
+      "bytes": 1750,
+      "sha256": "5ca343d2db2d786a3c518af80fd75c77a695334ffa660ee4e6157a38268b4402"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/migratedPoolFee.ts",
+      "bytes": 1258,
+      "sha256": "72e7cf91d7fe97047455383df8bc55631c7891d0c37d55aa45fabbaa749208a1"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/migratedPoolMarketCapFeeSchedulerParams.ts",
+      "bytes": 1880,
+      "sha256": "fa5c0e7f60062572e723775a911744adb1144807746c5e234f3190094db667be"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/migrationFee.ts",
+      "bytes": 1119,
+      "sha256": "133ba8263943721730625b983f235e2480cc0d6b325335c336df32e2219e326f"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/poolFeeParameters.ts",
+      "bytes": 1799,
+      "sha256": "38f12423328af00040c7eb95f49b2f996bc2479ab55f9d0e6236ccf5c4f4e08a"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-generated/tokenSupplyParams.ts",
+      "bytes": 2043,
+      "sha256": "16cde3e2e2c32de2275cae62d93ac50b40abe21fbdf8be3481566fe96d5af5ba"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bounded-instructions.ts",
+      "bytes": 4279,
+      "sha256": "60bc371b66130251e4394751d13be6504e7f4e2a0b326e591c6397c37224ea32"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/bun.lock",
+      "bytes": 212824,
+      "sha256": "1bfbe9036630890df704b8d610866385f227baa81e76c80003aa22e7cbd8b0cb"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/codama.json",
+      "bytes": 260,
+      "sha256": "a637af5f833b5c05203564a5733c78a92121c1950de90edf5e7784345f0be8c7"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/config.ts",
+      "bytes": 2201,
+      "sha256": "d5c61bbe818b80e532a3f4325753fb37db44db30770f959f007bf20fa45c5888"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/construction.ts",
+      "bytes": 5810,
+      "sha256": "065bcde665de86e959a3345538a3d6a7a63b5d9df965a8540a650255d16e27eb"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/crypto.ts",
+      "bytes": 2461,
+      "sha256": "a40ada1a42787cd2a98e750199c6ebc77e68bd74c6754160af5b11e59a7230b8"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/dprint.json",
+      "bytes": 365,
+      "sha256": "1dea74bb5990d222f37f72ef750d042bbab4bc62e7a584b55107dac8068c84ff"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/entry.ts",
+      "bytes": 2924,
+      "sha256": "1c3b516dc898f6fd9526182e055d7b287c8eb542278fac87d0d32cd55936e36c"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/evm.ts",
+      "bytes": 7131,
+      "sha256": "8749661ba4bffbdb65704d840a158069de365f472e35ea2d0a3ba32ef97142c3"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/idl.json",
+      "bytes": 145011,
+      "sha256": "beedc8c869bc04865c26349a72a3ba9c773e61f48be2d33093c591a015fe82fd"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/local-only.ts",
+      "bytes": 1024,
+      "sha256": "be532b1dbbd02f8383335c58f2f8a7322a0fd3c9af1266aa582a67a1ff715f7e"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/local.test.ts",
+      "bytes": 4808,
+      "sha256": "ee53ca62db11a0df35cd220608a8e2c519cc45411cd55b3fdef6a81e989cb6f6"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/math-probe.ts",
+      "bytes": 3018,
+      "sha256": "e4f4b3124d8ed56fdb27fcfa4a2e8a87971ca221ce852938d3b747b740f01520"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/math.ts",
+      "bytes": 4348,
+      "sha256": "1635f0e1f497e85e1999e9643637595fe531150a5accc358bdc92c377d6b1b36"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/package.json",
+      "bytes": 1487,
+      "sha256": "5fd494f4834345fecbd7dcfa7c2eb72fec660704d46748f28bfc8c379b473066"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/patches/alchemy@2.0.0-beta.80.patch",
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/source.json",
+      "bytes": 332,
+      "sha256": "02dbc48e14d2e631d0f4ee3ecc7acc4e7e5f77681f0652c7931193158f27934f"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/tsconfig.json",
+      "bytes": 5935,
+      "sha256": "a99519a009e9d5f686bf0c4f853d98bb2f19361001c1bc717dd2f4953d13f9eb"
+    }
+  ],
+  "archive_exclusions": "Only tracked Kit source; no node_modules, cache, full generic Codama output or runtime result artifacts"
+}

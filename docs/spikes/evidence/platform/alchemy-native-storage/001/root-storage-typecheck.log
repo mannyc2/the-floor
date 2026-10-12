@@ -1,0 +1,2 @@
+$ sh scripts/platform-spike.sh typecheck
+$ tsc --noEmit -p tsconfig.json

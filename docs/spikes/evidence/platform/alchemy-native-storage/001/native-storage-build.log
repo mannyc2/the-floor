@@ -1,0 +1,43 @@
+$ sh scripts/platform-spike.sh build
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/build.test.ts:
+[15:04:01.473] INFO (#6): Plan: 2 to create, 4 binding changes
+[15:04:01.476] INFO (#6): [FloorLocalAgent] create (local)
+[15:04:01.476] INFO (#6): [FloorLocalAgent/CALLBACKS] create
+[15:04:01.476] INFO (#6): [FloorLocalAgent/FloorStorage] create
+[15:04:01.476] INFO (#6): [FloorLocalAgent/STORAGE] create
+[15:04:01.476] INFO (#6): [FloorLocalAgent/THREADS] create
+[15:04:01.476] INFO (#6): [FloorStorage] create (local)
+[15:04:01.476] INFO (#6): 
+[15:04:01.482] INFO (#468): [FloorStorage] creating (local)
+[15:04:01.484] INFO (#469): [FloorLocalAgent] pre-creating (local)
+[15:04:01.726] INFO (#469): [FloorLocalAgent] creating (local)
+[15:04:01.728] INFO (#468): [FloorStorage] created (local) (246ms)
+[15:04:01.734] INFO (#469): [FloorLocalAgent] ready at http://localhost:19732
+[15:04:01.734] INFO (#469): [FloorLocalAgent] created (local) (250ms)
+[15:04:01.738] INFO (#539): [FloorStorage] created (local) (256ms)
+[15:04:01.738] INFO (#540): [FloorLocalAgent] created (local) (254ms)
+[15:04:01.762] INFO (#6): 
+[15:04:01.762] INFO (#6): Done: 2 succeeded (286ms)
+[15:04:03.698] INFO (#532): [FloorLocalAgent] Started in 1968ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-build/FloorLocalAgent)
+(pass) Alchemy bundles and starts the bounded native Worker [1951.30ms]
+[15:04:03.734] INFO (#692): Plan: 2 to delete, 4 binding changes
+[15:04:03.734] INFO (#692): [FloorLocalAgent] delete (local)
+[15:04:03.734] INFO (#692): [FloorLocalAgent/CALLBACKS] unbind
+[15:04:03.734] INFO (#692): [FloorLocalAgent/FloorStorage] unbind
+[15:04:03.734] INFO (#692): [FloorLocalAgent/STORAGE] unbind
+[15:04:03.734] INFO (#692): [FloorLocalAgent/THREADS] unbind
+[15:04:03.734] INFO (#692): [FloorStorage] delete (local)
+[15:04:03.734] INFO (#692): 
+[15:04:03.737] INFO (#1063): [FloorLocalAgent] deleting (local)
+[15:04:03.739] INFO (#1063): [FloorLocalAgent] deleted (local) (1ms)
+[15:04:03.739] INFO (#1064): [FloorStorage] deleting (local)
+[15:04:03.747] INFO (#1064): [FloorStorage] deleted (local) (8ms)
+[15:04:03.749] INFO (#692): 
+[15:04:03.749] INFO (#692): Done: 2 succeeded (15ms)
+
+ 1 pass
+ 0 fail
+ 1 expect() calls
+Ran 1 test across 1 file. [3.85s]

@@ -1,0 +1,366 @@
+{
+  "captured_at_utc": "2026-10-12T15:16:06.126Z",
+  "scope": "Current final native agent plus DO/D1 storage build only. This is not a retroactive bundle claim for alchemy-native-agent/001 and does not constitute another runtime execution.",
+  "source_identity": {
+    "floor_revision_at_audit": "d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382",
+    "upstream_revision": "0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968",
+    "source_archive": {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/executed-source.tar.gz",
+      "bytes": 18995,
+      "sha256": "809fe6b6342fc41f9a29870d9a9aa0eb84a23a02ea210844bf6c8270d5eaa2b5"
+    },
+    "source_manifest": {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/executed-source-manifest.json",
+      "bytes": 5175,
+      "sha256": "4c8d495010166e840d742e7e2b7520b39ae61b38d75a7f1da207b733ebe37a0f"
+    },
+    "upstream_bun_lock": {
+      "path": "work/alchemy-audit/yielded-agent/bun.lock",
+      "bytes": 417408,
+      "sha256": "c8d6068e6a5d50a5c12cb0e800ef20e7e4570d89059f27cdaf942349c62c7ea9"
+    },
+    "upstream_patch": {
+      "path": "work/alchemy-audit/yielded-agent/patches/alchemy@2.0.0-beta.80.patch",
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+    },
+    "mapped_fixture_sources": [
+      {
+        "source": "apps/floor/spikes/platform/alchemy-agent/test/contract.ts",
+        "mapped_source": "../../../work-floor-replay/test/contract.ts",
+        "bytes": 1587,
+        "sha256": "104111f89e9afb888e799a829273909adb2b5c155684efb4ca05ea0134f234f9",
+        "sources_content_sha256": "104111f89e9afb888e799a829273909adb2b5c155684efb4ca05ea0134f234f9",
+        "matches_authored": true,
+        "matches_replay": true,
+        "matches_archived_manifest": true
+      },
+      {
+        "source": "apps/floor/spikes/platform/alchemy-agent/test/fixtures/entry.ts",
+        "mapped_source": "../../../work-floor-replay/test/fixtures/entry.ts",
+        "bytes": 12868,
+        "sha256": "aa5e34d8330599d21f826941737f93a6f373bbf505a88f78312c8d220111f011",
+        "sources_content_sha256": "aa5e34d8330599d21f826941737f93a6f373bbf505a88f78312c8d220111f011",
+        "matches_authored": true,
+        "matches_replay": true,
+        "matches_archived_manifest": true
+      }
+    ]
+  },
+  "auditor": {
+    "bun_version": "1.4.0",
+    "script": {
+      "path": "docs/spikes/evidence/platform/alchemy-native-storage/001/bundle-audit.mjs",
+      "bytes": 6727,
+      "sha256": "297c7fd7f47675db4bb0193f4ce661bb07b98d01d26d1d58cc406eb5d7a9eb61"
+    }
+  },
+  "entry": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/entry.js",
+  "method": "Bun.Transpiler parses static imports/exports and literal dynamic imports. Traverse only reachable local chunks, inspect only their maps, and resolve package versions from each mapped source's nearest package manifest, including upstream workspace packages. Hash all visited JS/maps. Compare embedded fixture sources with authored/replay bytes and the immutable as-run manifest.",
+  "limitations": "Computed nonliteral imports are not resolved. Source maps describe bundled source provenance, not executed branches. The small rolldown helper has no map; emitted JS marker scanning also covers that helper. External Node imports remain present, so this is not bare-runtime evidence. No old agent-only bundle is audited.",
+  "reachable_js_files": 10,
+  "source_map_files": 9,
+  "source_entries": 453,
+  "mapped_source_paths_sha256": "4e2bc68434ac522e0ba5ce95a2ab086da5eaefa1370870daed05e1f07d27d9da",
+  "packages": [
+    {
+      "name": "@effect/platform-browser",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+platform-browser@4.0.0+a594d97e083afb95/node_modules/@effect/platform-browser/package.json",
+        "bytes": 1507,
+        "sha256": "8bb19b32ecc73923246ea1c3456ded0721952af534c79b01fc5762fb5d787a24"
+      },
+      "source_entries": 1
+    },
+    {
+      "name": "@effect/platform-bun",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+platform-bun@4.0.0+a594d97e083afb95/node_modules/@effect/platform-bun/package.json",
+        "bytes": 1524,
+        "sha256": "ef5fe47613acd18ccf6ceff0912b14d7331c3a5f1e35fb38265c4ca0b639c60a"
+      },
+      "source_entries": 7
+    },
+    {
+      "name": "@effect/platform-node",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+platform-node@4.0.0+286dae1cd0893e5f/node_modules/@effect/platform-node/package.json",
+        "bytes": 1781,
+        "sha256": "641d37b03bf04897850e1e7e8295a8808337306a5e336a98f173a076e3fb91f3"
+      },
+      "source_entries": 7
+    },
+    {
+      "name": "@effect/platform-node-shared",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+platform-node-shared@4.0.0+a594d97e083afb95/node_modules/@effect/platform-node-shared/package.json",
+        "bytes": 1670,
+        "sha256": "d923a62dff0e719421fa654b7c48ecb54886ac0421649ceb91cdc81a634d6808"
+      },
+      "source_entries": 11
+    },
+    {
+      "name": "@effect/sql-d1",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+sql-d1@4.0.0+a594d97e083afb95/node_modules/@effect/sql-d1/package.json",
+        "bytes": 1484,
+        "sha256": "557bdd5993b0eb77a5f711966dbe792a6d4a556974b533ad29e828b5092b6dd4"
+      },
+      "source_entries": 1
+    },
+    {
+      "name": "@effect/sql-sqlite-do",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+sql-sqlite-do@4.0.0+a594d97e083afb95/node_modules/@effect/sql-sqlite-do/package.json",
+        "bytes": 1433,
+        "sha256": "bb79fd850e5e8a141ab1a0f368c9f468f534768ca04b2a5a641adbcccd19937c"
+      },
+      "source_entries": 2
+    },
+    {
+      "name": "@yielded/agent",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/effect-agent/package.json",
+        "bytes": 7356,
+        "sha256": "5805ae29922c0b9ab513e4d5da1e6d44451c56b7855a41157c67cfef9e7bee5b"
+      },
+      "source_entries": 78
+    },
+    {
+      "name": "@yielded/agent-platform-alchemy-cloudflare",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/package.json",
+        "bytes": 1822,
+        "sha256": "6cf24c269ff57ed5c461ecf147c1180efdb938dca4735b4579b26b00318ff05c"
+      },
+      "source_entries": 5
+    },
+    {
+      "name": "@yielded/agent-platform-cloudflare",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/platform-cloudflare/package.json",
+        "bytes": 3020,
+        "sha256": "23bffb3c50f032259d43969d3839658e5c9d369b47000f973bcceddd2e42af1c"
+      },
+      "source_entries": 14
+    },
+    {
+      "name": "@yielded/agent-storage-cloudflare",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/storage-cloudflare/package.json",
+        "bytes": 2001,
+        "sha256": "b287011981f53b816bfac5131d8d55e461f0b0ca94eb2cd6e53365f94b9bb1f7"
+      },
+      "source_entries": 14
+    },
+    {
+      "name": "@yielded/agent-storage-sql",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/storage-sql/package.json",
+        "bytes": 1731,
+        "sha256": "19ea56de2886312cce094b0a8f6620dd19b4b153210c42cd69b960569cf0c993"
+      },
+      "source_entries": 9
+    },
+    {
+      "name": "@yielded/agent-testing",
+      "version": "0.1.0-beta.166",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/packages/testing/package.json",
+        "bytes": 1630,
+        "sha256": "e7d99ab5ef8488af6ac5b7ef829820275aa0bd2bb285d29206d307e2fe193cdd"
+      },
+      "source_entries": 1
+    },
+    {
+      "name": "alchemy",
+      "version": "2.0.0-beta.80",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/alchemy@2.0.0-beta.80+4246e9b94eb0446d/node_modules/alchemy/package.json",
+        "bytes": 15361,
+        "sha256": "b2865e5ae77a377d91fc2acf728c89771053c843069d8fb004e130a3cd6a0f86"
+      },
+      "source_entries": 126
+    },
+    {
+      "name": "effect",
+      "version": "4.0.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/effect@4.0.0/node_modules/effect/package.json",
+        "bytes": 2588,
+        "sha256": "e30881994b541533b0da3e06d53e2530ac2f0e5cf66232c9c037a658c5b8330c"
+      },
+      "source_entries": 174
+    },
+    {
+      "name": "pathe",
+      "version": "2.0.3",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/pathe@2.0.3/node_modules/pathe/package.json",
+        "bytes": 1534,
+        "sha256": "6cccffe6bb2a39e2e4f257aefc3f5d553d98199a0c79558bdb5ea2880fa030a3"
+      },
+      "source_entries": 2
+    },
+    {
+      "name": "ws",
+      "version": "8.22.0",
+      "manifest": {
+        "path": "work/alchemy-audit/yielded-agent/node_modules/.bun/ws@8.22.0/node_modules/ws/package.json",
+        "bytes": 1829,
+        "sha256": "c1ef91ca04eb4754c011c5f0e7638b5078ff71104fada400c44ac761cf93e0b1"
+      },
+      "source_entries": 1
+    }
+  ],
+  "effect_cf": {
+    "packages": [],
+    "mapped_source_paths": [],
+    "external_imports": [],
+    "emitted_js_marker_matches": []
+  },
+  "missing_relative_imports": [],
+  "js_without_maps": [
+    "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/rolldown-runtime-BJS_XihH.js"
+  ],
+  "unresolved_mapped_sources": [],
+  "external_imports": [
+    "cloudflare:workers",
+    "node:buffer",
+    "node:child_process",
+    "node:crypto",
+    "node:fs",
+    "node:net",
+    "node:os",
+    "node:path",
+    "node:readline",
+    "node:stream",
+    "node:tls",
+    "node:url"
+  ],
+  "excluded_cached_js_files": [
+    "BunServices-DNYSbtXU.js",
+    "BunSocket-DQwiH2aS.js",
+    "NodeServices-C66_RLt8.js",
+    "NodeSocket-DBj8zjkn.js",
+    "NodeSocket-GOhDgM-J.js",
+    "NodeTerminal-D6SlTa-A.js",
+    "Schema-BzCF_hfK.js",
+    "Socket-C1a1TaF4.js"
+  ],
+  "files": [
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/entry.js",
+      "bytes": 1255889,
+      "sha256": "de3bc3000cd700b4ea05e44f423354b62c61b5b08088c4090fdaa253a828e5d9"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/entry.js.map",
+      "bytes": 6098936,
+      "sha256": "7f41d2203ab9408c51e83442d22f3e073e8e37f173a66cf80d7ac06df1e6a8de"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeSocket-BjHlmwkk.js",
+      "bytes": 902,
+      "sha256": "2b9bbf05478b2aa52d3ff40b7264137a58d68d7222ef9db5b580a3004abafd28"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeSocket-BjHlmwkk.js.map",
+      "bytes": 2789,
+      "sha256": "ad584dc71ce2f2c71ae736109d66b205389b3232fe16b2738d26cc9253c7d475"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeSocket-C5_gBNMl.js",
+      "bytes": 5793,
+      "sha256": "8cc3ed2333dede19a71aaf92ca7791d69d5f8c403487d6d26590c6f12d1542d9"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeSocket-C5_gBNMl.js.map",
+      "bytes": 23761,
+      "sha256": "cccd89589cfff174e7eaf823753f532000d8118887831bcb5873ad8e58ec2f49"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/Socket-BhM8Dtpj.js",
+      "bytes": 8189,
+      "sha256": "3da12076de9a6bf548331bef0b0ad157622f6d388828a70dba803db0c176ce6c"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/Socket-BhM8Dtpj.js.map",
+      "bytes": 35455,
+      "sha256": "5c8707414980ab56665071d116fcfcbf87a3599e4bec9edb3cc21ed9d10616fa"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/Schema-B5SAQJ19.js",
+      "bytes": 270003,
+      "sha256": "bb708fa1298df76d93cfeec5bd3a0073bcf0ae91c392cb35b6c310287f0f9083"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/Schema-B5SAQJ19.js.map",
+      "bytes": 2877336,
+      "sha256": "34f9de0dca58c18dcbfa4539514c774d5ae5f59c4e45d77c3fdffccae7a68cb8"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/rolldown-runtime-BJS_XihH.js",
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeServices-kqlpUM9O.js",
+      "bytes": 873,
+      "sha256": "dede402b25bedfff20806b92c00995002adf0510d4f8af27fd1bbbef3947f5d4"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeServices-kqlpUM9O.js.map",
+      "bytes": 6383,
+      "sha256": "42d7987d4ae0e43ff9c5400a17cc2afebfe26b77af6ec5d197cff071b0900616"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeTerminal-TJLT5g4A.js",
+      "bytes": 46651,
+      "sha256": "b270931a84d3c4588d79f5d2d67aff887ff8b6f3a78dc02967ddfd652f63085b"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/NodeTerminal-TJLT5g4A.js.map",
+      "bytes": 545456,
+      "sha256": "820c79b1f0e6438b3e48512405db51033ff3fb0ed983b7879e289dbde67a63f4"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/BunSocket-BKqeiDmc.js",
+      "bytes": 657,
+      "sha256": "1f3a89f87670ce026a1ce9b19ed01a5be952ad4e79854c6bf4dac8cacfddaf26"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/BunSocket-BKqeiDmc.js.map",
+      "bytes": 1563,
+      "sha256": "cdbdfb4417ffe00293c18adacf66edc850904da76d147dff6a4b710f51a82a97"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/BunServices-veVJwaYG.js",
+      "bytes": 839,
+      "sha256": "9e6e2875d2192ffe53e97fb2213b334b6ff1ae1b51c09c2c44540917e6bcf58b"
+    },
+    {
+      "path": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/bundles/FloorLocalAgent/BunServices-veVJwaYG.js.map",
+      "bytes": 6260,
+      "sha256": "3b391f4f94bf987ed220df446c8c8c1aa6a35aab325da7354707bbfd91ad022d"
+    }
+  ],
+  "raw_snapshot": {
+    "path": "work/alchemy-audit/native-bundle-final.tar.gz",
+    "committed": false,
+    "bytes": 2469780,
+    "sha256": "2fb7290a8c3ea0480d800b114429ec9b72ff292c1dbaf7b5f238b53fc622fa50",
+    "note": "Exact reachable JS/map bytes frozen in ignored work/; committed audit lists every hash. No stale chunks included."
+  }
+}

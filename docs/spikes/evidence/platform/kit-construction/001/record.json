@@ -1,0 +1,99 @@
+{
+  "check_id": "kit-construction",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T14:34:27.760Z",
+  "operator": "Root platform integration; independent evidence review by setup_requirements",
+  "reviewer": "setup_requirements checked retained failure response/log; no runtime compatibility acceptance inferred",
+  "source_revision": "Exploratory uncommitted source at execution was not fully preserved. Entry flags, formatting and error handling changed later; exact prior source is unavailable and is not reconstructed.",
+  "dependency_versions": {
+    "candidate_stack": "Alchemy 2.0.0-beta.80, Kit 8.4.0 and Effect 4.0.3 were the integration targets; the exact exploratory installed graph was not frozen. Final measured graph is separately recorded in attempt 002."
+  },
+  "api_evidence": [
+    "Retained local Alchemy test log and proxy NoUpstream response; exact exploratory source and installed dependency graph were not frozen."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "operator_reported_control": "Explicit no_nodejs_compat and no_nodejs_compat_v2 flags in the exploratory Worker entry",
+    "test_timeout_ms": 120000,
+    "local_port": 19735,
+    "provenance_limit": "The precise source/configuration snapshot was not retained, so this is not a controlled isolation result.",
+    "execution_detail": "Executed local Alchemy test/proxy startup; no usable Worker response"
+  },
+  "stage_and_resources": "Local ephemeral Worker, local state; no hosted resource, wallet, provider or chain call",
+  "inputs": [
+    "Attempted synthetic unsigned launch endpoint; no keys, signatures or external chain workload"
+  ],
+  "procedure": [
+    "The local Alchemy test created a local resource and attempted /launch.",
+    "The driver waited for its 120000 ms timeout and retained the proxy failure response.",
+    "Alchemy local cleanup ran after the failed test.",
+    "Retain these diagnostics; reproduce any new control with a fresh attempt and exact source snapshot."
+  ],
+  "expected_result": "Local Worker endpoint becomes usable under the exploratory bare compatibility control",
+  "observed_result": {
+    "driver": "0 pass, 1 fail, 1 unhandled error; 120000 ms timeout",
+    "response": {
+      "ok": false,
+      "error": {
+        "_tag": "ProxyError",
+        "message": "No upstream configured for the worker proxy after 2m",
+        "status": 502
+      }
+    },
+    "diagnostic_interpretation": "Proxy reported no upstream after 2 minutes. The log includes unresolved Node-module warnings, but source changes were not controlled; no isolated module-incompatibility cause or universal unsupported-runtime conclusion is claimed."
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/001/runtime-003.log",
+      "committed": true,
+      "bytes": 20992,
+      "sha256": "666f74a61210144afa0e2dd14266aec34101b53ab0a5993e04220ab4f5cbc560",
+      "regenerate": "Exact prior uncommitted source was not retained; original diagnostics are preserved. A fresh current-source bare control must use a new attempt and source snapshot."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/001/failed-runtime-003.json",
+      "committed": true,
+      "bytes": 151,
+      "sha256": "6e70f900d6f2bcf21b05166f8389582408975f805e4ccf628e6c945ec90bd48a",
+      "regenerate": "Exact prior uncommitted source was not retained; original diagnostics are preserved. A fresh current-source bare control must use a new attempt and source snapshot."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local-only host fetch guard, fixture RPC on same Worker; EVM construction uses rejecting transport. No external workload authorized.",
+    "budget": "Local checks only; no hosted spend",
+    "observed_cost": "No hosted/provider calls; local compute cost unknown"
+  },
+  "cleanup_result": "Retained log reports one dangling process killed and local resource deletion completed; final successful attempt separately confirms port 19735 closed.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Exploratory failure only. Exact failed source is unavailable, so this record cannot establish causal attribution to bare flags or dependencies and is excluded from acceptance. Attempt 002 uses retained final source, default flags [], actual Worker responses, strict checks and bundle audit. An earlier missing host package stopped startup before a usable Worker could run; it was corrected before the later attempts.",
+  "look": {
+    "technique": "n/a: platform construction evidence, no render or art choice",
+    "tone_set": "n/a: platform construction evidence, no render or art choice",
+    "theme": "n/a: platform construction evidence, no render or art choice",
+    "rung": "n/a: platform construction evidence, no render or art choice",
+    "dpr": "n/a: platform construction evidence, no render or art choice",
+    "camera": "n/a: platform construction evidence, no render or art choice",
+    "canvas": "n/a: platform construction evidence, no render or art choice",
+    "backend": "n/a: platform construction evidence, no render or art choice",
+    "renderer_string": "n/a: platform construction evidence, no render or art choice",
+    "device_profile": "n/a: platform construction evidence, no render or art choice",
+    "clock_and_seed": "n/a: platform construction evidence, no render or art choice",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform construction evidence, no render or art choice",
+    "cross_review": {
+      "reviewer_agent": "setup_requirements",
+      "verdict": "n/a: diagnostic platform review only",
+      "notes": "Actual failed driver response/log retained; source-provenance limits prohibit compatibility acceptance."
+    },
+    "owner_pick": {
+      "state": "n/a: no look choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No approval inferred",
+      "date": "n/a"
+    }
+  }
+}

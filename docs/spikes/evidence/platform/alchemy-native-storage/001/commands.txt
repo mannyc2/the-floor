@@ -1,0 +1,19 @@
+Executed repository entry points:
+  bun run typecheck
+  bun run lint
+  bun run test
+  bun run build
+
+The captured scripts/platform-spike.sh pins the upstream revision, checks tracked package/patch/lockfile integrity, installs the filtered frozen graph when required, and byte-compares copied test files. It also invokes the separately packaged Kit spike for some commands; Kit source/results are outside this bounded source archive.
+
+Native test commands, from work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare:
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_RETAIN_LOCAL_STATE=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/admission.test.ts
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/restart.test.ts
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/build.test.ts
+
+Upstream revision:
+  0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968
+
+Reproduction: restore executed-source.tar.gz into an isolated Floor checkout with the corresponding separately recorded Kit package when using the combined root commands. Use the captured script's setup/copy/declaration steps and the native commands above for the bounded agent/storage route. Preserve new results under a new attempt; never replace 001. Fresh timestamps/thread identities differ. Public source/package retrieval is setup only; local execution uses the loopback host-fetch guard and needs no provider credentials.
+
+The committed native-storage-build.log trims the separate Kit section from root-storage-build.log. Absolute repository prefixes in committed logs are replaced by [repository]; result JSON and archived source bytes are unchanged.

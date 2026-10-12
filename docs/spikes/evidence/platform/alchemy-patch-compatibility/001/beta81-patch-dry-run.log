@@ -1,0 +1,12 @@
+Working directory: unmodified official alchemy@2.0.0-beta.81 package
+Command: patch --dry-run -p1 -i alchemy@2.0.0-beta.80.patch
+Exit code: 1
+
+patching file 'src/Cloudflare/Workers/DurableObjectBridge.ts'
+2 out of 3 hunks failed while patching 'src/Cloudflare/Workers/DurableObjectBridge.ts'
+patching file 'lib/Cloudflare/Workers/DurableObjectBridge.js'
+1 out of 4 hunks failed while patching 'lib/Cloudflare/Workers/DurableObjectBridge.js'
+patching file 'src/Cloudflare/Workers/DurableObjectStorage.ts'
+1 out of 3 hunks failed while patching 'src/Cloudflare/Workers/DurableObjectStorage.ts'
+patching file 'lib/Cloudflare/Workers/DurableObjectStorage.js'
+patching file package.json

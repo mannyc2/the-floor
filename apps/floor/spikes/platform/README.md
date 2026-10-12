@@ -1,39 +1,12 @@
 # Local platform probes
 
-These bounded examples support the platform spike. They are not product applications or Stage 0. The [result report](../../../../docs/spikes/evidence/platform/report.md) distinguishes local results from deferred hosted checks. No route signs or broadcasts a transaction, calls an inference provider, or starts a hosted browser.
+These are bounded experiments for the [platform spike](../../../../docs/spikes/platform.md), not Stage 0 or product features. The owner limited execution to local checks. See the [result report](../../../../docs/spikes/evidence/platform/report.md) for measured results, retained failures and outstanding hosted/provider gates.
 
-From the repository root:
+- [Alchemy agent and storage](alchemy-agent/README.md): the native Yielded adapter from PR 557 at a pinned upstream commit, durable callback admission, restart/idempotency, and Alchemy DO/D1 migrations and transactions. The upstream workspace stays in ignored `work/`; the runner checks its revision and tracked source before copying the authored fixtures into it.
+- [Launch construction and crypto](kit/README.md): Kit 8 with two generated Meteora instructions, native bigint arithmetic, Doppler `/evm` calldata, Effect HTTP and browser Web Crypto. This is an isolated package with its own pinned lockfile and synthetic inputs.
 
-```sh
-bun install --frozen-lockfile
-bun run format:check
-bun run typecheck
-bun run lint
-bun run build
-bun run build:bare
-bun run dev
-```
+At the repository root, run `bun install --frozen-lockfile`, `bun run spike:prepare`, `bun run format:check`, `bun run typecheck`, `bun run lint`, `bun run build` and `bun run test`. The build gate uses Alchemy's supported local harness to bundle and check the real Worker, then destroy local resources. It is not a hosted deployment. The restart test intentionally retains local resource identity between two processes and destroys it afterward. Read each fixture's README before replaying; use a new evidence attempt for new results.
 
-Both builds use Wrangler `deploy --dry-run`; they create local bundles only. Both development commands explicitly use local bindings. `dev:bare` isolates SQL and Web Crypto without Node compatibility. `dev` additionally includes the launch SDKs and native Yielded agent, with `nodejs_compat`. The compatibility date matches the installed workerd release, 2026-10-06. The D1 identifier is a dummy local identifier, not a hosted database.
+Alchemy's local test state is a scoped testing choice. Production/deployed state, the Alchemy profile, browser containment, Privy, live inference, plates and verified hosted teardown remain outstanding. There is no active Wrangler configuration and no production architecture or CI claim.
 
-Use `bun run dev --persist-to work/spikes/platform/<new-attempt>-state` for a fresh experiment, or `dev:bare` with the same override. Keep the same state directory across a stop/restart check. Use a new state directory and new evidence attempt for another run; initialization and reservation deliberately mutate the fixture.
-
-| Route | Bounded behavior |
-| --- | --- |
-| `/crypto` | Web Crypto SHA-256 vectors, UUIDv4 sample invariants, negative random-byte size failure |
-| `/journal/rollback`, `/journal/nested` | Intentional outer and nested SQLite rollback through the Effect adapter |
-| `/journal/reserve`, `/journal/read` | Atomic conditional update and readback; race twenty requests against a fresh fixture |
-| `/journal/dispose` | Explicitly release the local managed runtime; do not reuse that instance afterward |
-| `/d1/initialize`, `/d1/batch`, `/d1/read`, `/d1/migrate` | Initialization, failing atomic batch, explicit unsupported interactive transaction, readback and versioned schema upgrade |
-| `/alarm/schedule`, `/alarm/read` | Separate native alarm prerequisite; reading does not schedule work |
-| `/launch` | Two deterministic Meteora and Doppler constructions each, with synthetic data and rejecting network transports |
-| `POST /agent/submit?thread=<new-id>&key=<new-key>` | Accept a synthetic Yielded agent turn inside a native Durable Object |
-| `/agent/snapshot?thread=<id>`, `/agent/read?thread=<id>` | Read persisted alarm timestamps and canonical records |
-
-The synthetic model waits 1.5 seconds before yielding fixed text. The probe sets `dispatchAfterEvent: false` so a native alarm must advance the accepted work. Wait at least five seconds without requests, then compare the persisted alarm/settlement timestamps to the first subsequent request. This proves local scheduler integration; it is not an inference-provider or hosted durability test. Restart and interrupted-turn procedures are retained in their evidence records.
-
-`Journal` and `History` expose different semantics intentionally: the DO driver supports transactions and nested rollback; D1 supports atomic batches and explicitly rejects interactive transactions. The D1 schema migration is a single-runner probe, not a production migration coordinator. The launch fixture supplies only the quote-mint account information needed for construction; it establishes no chain checkpoint or launch correctness.
-
-The strict native compiler options, 91 Effect diagnostics and Effect lint presets remain enabled. Runtime types live at this app boundary. The obsolete custom Floor fence plugin is not activated; Stage 0 must adapt and test those fences. The spike has **11 single-line suppressions**: eight standalone request/entrypoint Layer provisions and three native SDK/Worker Promise boundaries, each with a reason beside it. No broad file or rule suppression, application unstable-API allowlist, `any`, type cast or non-null assertion is introduced.
-
-Secrets never enter evidence. Generated bundles, bulky raw traces and local SQLite files belong in ignored scratch. Small reviewed response JSON is retained under the evidence protocol. The immutable `reference/` snapshot is excluded from all checks and bundles.
+The earlier raw-runtime experiments are recoverable at commit `181bd364ecd64b3e73e64a508d035eac958d668a`, including their README, driver and dependencies. Their immutable evidence remains labelled historical; the current scripts do not run them.

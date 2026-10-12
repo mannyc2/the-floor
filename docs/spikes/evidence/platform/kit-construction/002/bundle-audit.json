@@ -1,0 +1,471 @@
+{
+  "entry": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/entry.js",
+  "method": "Bun parser scans static imports/exports and literal dynamic imports in emitted JavaScript. Only maps of reachable chunks identify packages; old cache chunks are excluded. Computed nonliteral imports are outside this static audit.",
+  "reachable_js_files": 13,
+  "source_map_files": 12,
+  "source_entries": 542,
+  "packages": [
+    {
+      "name": "@effect/platform-browser",
+      "version": "4.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@effect/platform-browser/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@effect/platform-bun",
+      "version": "4.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@effect/platform-bun/package.json",
+      "source_count": 7
+    },
+    {
+      "name": "@effect/platform-node",
+      "version": "4.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@effect/platform-node/package.json",
+      "source_count": 7
+    },
+    {
+      "name": "@effect/platform-node-shared",
+      "version": "4.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@effect/platform-node-shared/package.json",
+      "source_count": 11
+    },
+    {
+      "name": "@noble/curves",
+      "version": "1.9.1",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@noble/curves/package.json",
+      "source_count": 6
+    },
+    {
+      "name": "@noble/hashes",
+      "version": "1.8.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/viem/node_modules/@noble/hashes/package.json",
+      "source_count": 14
+    },
+    {
+      "name": "@solana/addresses",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/addresses/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/assertions",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/assertions/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/codecs-core",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/codecs-core/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/codecs-data-structures",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/codecs-data-structures/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/codecs-numbers",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/codecs-numbers/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/codecs-strings",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/codecs-strings/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/errors",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/errors/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/instructions",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/instructions/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/options",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/options/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/rpc-types",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/rpc-types/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/transaction-messages",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/transaction-messages/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@solana/transactions",
+      "version": "8.4.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@solana/transactions/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "@whetstone-research/doppler-sdk",
+      "version": "1.0.43",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/@whetstone-research/doppler-sdk/package.json",
+      "source_count": 1
+    },
+    {
+      "name": "abitype",
+      "version": "1.2.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/abitype/package.json",
+      "source_count": 18
+    },
+    {
+      "name": "alchemy",
+      "version": "2.0.0-beta.80",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/alchemy/package.json",
+      "source_count": 56
+    },
+    {
+      "name": "effect",
+      "version": "4.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/effect/package.json",
+      "source_count": 148
+    },
+    {
+      "name": "ox",
+      "version": "0.11.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/ox/package.json",
+      "source_count": 26
+    },
+    {
+      "name": "pathe",
+      "version": "2.0.3",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/pathe/package.json",
+      "source_count": 2
+    },
+    {
+      "name": "viem",
+      "version": "2.44.2",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/viem/package.json",
+      "source_count": 212
+    },
+    {
+      "name": "ws",
+      "version": "8.22.0",
+      "manifest": "apps/floor/spikes/platform/kit/node_modules/ws/package.json",
+      "source_count": 1
+    }
+  ],
+  "forbidden_packages": [],
+  "missing_imports": [],
+  "external_imports": [
+    "cloudflare:workers",
+    "node:buffer",
+    "node:child_process",
+    "node:crypto",
+    "node:fs",
+    "node:net",
+    "node:os",
+    "node:path",
+    "node:readline",
+    "node:stream",
+    "node:tls",
+    "node:url"
+  ],
+  "computed_imports": "Nonliteral imports are not resolved by this static audit",
+  "excluded_cached_js_files": [
+    "BunServices-CMVoLxBY.js",
+    "BunSocket-BUPB-2pS.js",
+    "NodeServices-A9RNCikJ.js",
+    "NodeSocket-BsIoHaxr.js",
+    "NodeSocket-C9FBLEfw.js",
+    "NodeTerminal-BJLX8R_9.js",
+    "Redacted-Yx2hv0cT.js",
+    "Schema-Bwp1Kgws.js"
+  ],
+  "files": [
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/entry.js",
+      "bytes": 810694,
+      "sha256": "39c72c6fa4b64549501de8297e636086f5ada0e9f00160f4543ec8e469d7f6be"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/entry.js.map",
+      "bytes": 3367353,
+      "sha256": "0bbba83284814e73549abb0829305ecdfa699661c66621c0933ab1e8760d67b0"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/secp256k1-DTMAzF9m.js",
+      "bytes": 36163,
+      "sha256": "c89c3e55286e56259f94076e0a507baa923988785a0fd51aaa6998101bea0f2d"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/secp256k1-DTMAzF9m.js.map",
+      "bytes": 198031,
+      "sha256": "b6031cd44172950173503c50c3866fb1857765489c151dcc26f60652601f1387"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/rolldown-runtime-BJS_XihH.js",
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-Cc39NHOB.js",
+      "bytes": 968,
+      "sha256": "371496a2d1e3fe3ffa32006500e42305c0b1f9ff5619c077397490ff15d19e5d"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-Cc39NHOB.js.map",
+      "bytes": 3338,
+      "sha256": "4bd43f185f77474fd579ed70a4572e0df6f93afb97de03f5561a4596367baa41"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-CfmwvQj-.js",
+      "bytes": 12720,
+      "sha256": "1d099dc4f132eb7337db6844c827ce093e06ee562a59eb2f3397c7c12480c9f9"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-CfmwvQj-.js.map",
+      "bytes": 59132,
+      "sha256": "af7056b1067f5bcd24ff4f83e57ea8d14c52e7f43a08fb25cfa9d5afdc5b486d"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Redacted-BB81rFVm.js",
+      "bytes": 915,
+      "sha256": "8fa28d9e6a55cf5a48431f5a180e2c0ed50aabd61fa5d5f10cd41a402638b9a5"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Redacted-BB81rFVm.js.map",
+      "bytes": 7285,
+      "sha256": "3377a564f41b9b91fc27c0b9614bd21f2948ad15d9ea655aa52e46e84b3d8323"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Schema-Dr6BTJ90.js",
+      "bytes": 191611,
+      "sha256": "b112c14d8f04735b94a551d73382afc9504f1eabadde64d4b1875ba4a0e61805"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Schema-Dr6BTJ90.js.map",
+      "bytes": 2725978,
+      "sha256": "6c7b6debbef9e1748e6c97f7c5623d104b11208d7aeade05b27440bbfa493b81"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeServices-CXNWWu81.js",
+      "bytes": 883,
+      "sha256": "5a61d90e87a172feefbf66b8d2ecf532e869e05b791ba8eb5fa6dea2877e97d8"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeServices-CXNWWu81.js.map",
+      "bytes": 6332,
+      "sha256": "4d1178688ed598efcc713d7598664b29348559887eb3165dc9a0c996eb78a857"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeTerminal-Bo5b0a7N.js",
+      "bytes": 44576,
+      "sha256": "d697059bf3ac3b4d30d82a4ad19f894139c340906e8fe0d7326031ef9fd3b883"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeTerminal-Bo5b0a7N.js.map",
+      "bytes": 557751,
+      "sha256": "ac1bf6e5386827be169e9213d0c6fea1afb1bb6e9fc2d2ce6e7d9c87dcda0239"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunSocket-Y0eS8fTG.js",
+      "bytes": 817,
+      "sha256": "3fefcc6ad9254ade91beb3cc1c97c32b42b38b92d53033adf001765cc6925051"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunSocket-Y0eS8fTG.js.map",
+      "bytes": 2246,
+      "sha256": "68f620bc93798e7d34de9baa9a478b2ccedbb01d4d02270dbc1f2a9b34b6a8c2"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunServices-DwHY3ZuV.js",
+      "bytes": 839,
+      "sha256": "b464db2889e25f8ef4e0bdfff4110d54212c682331ea07c0e84c5bc0f07e37b4"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunServices-DwHY3ZuV.js.map",
+      "bytes": 6215,
+      "sha256": "0c106e6c3d296c90d560dda8b17049854f28330acf3031b3e6f994948de1af50"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/localBatchGatewayRequest-DHa9GLpp.js",
+      "bytes": 131589,
+      "sha256": "52dc6620072f8dee25cc05c1dce762898dbbe08078986f3795e8b5a6a7ce2357"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/localBatchGatewayRequest-DHa9GLpp.js.map",
+      "bytes": 426023,
+      "sha256": "a62bc1daf5568833f2f5fa06935b8938fd2358e33ad14c0dc9aaa8e97ec950af"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/ccip-CriepmBF.js",
+      "bytes": 3202,
+      "sha256": "4588080c2c5cb5f9e96ed31419f02050b671c3006aa5289a2238c28d1bd861e2"
+    },
+    {
+      "path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/ccip-CriepmBF.js.map",
+      "bytes": 9043,
+      "sha256": "731f560475546217aabaf1780d9fbb38bc031ca3e99acb1cb7c8682005d74917"
+    }
+  ],
+  "frozen_artifacts": [
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/entry.js",
+      "bytes": 810694,
+      "sha256": "39c72c6fa4b64549501de8297e636086f5ada0e9f00160f4543ec8e469d7f6be",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/entry.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/entry.js.map",
+      "bytes": 3367353,
+      "sha256": "0bbba83284814e73549abb0829305ecdfa699661c66621c0933ab1e8760d67b0",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/entry.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/secp256k1-DTMAzF9m.js",
+      "bytes": 36163,
+      "sha256": "c89c3e55286e56259f94076e0a507baa923988785a0fd51aaa6998101bea0f2d",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/secp256k1-DTMAzF9m.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/secp256k1-DTMAzF9m.js.map",
+      "bytes": 198031,
+      "sha256": "b6031cd44172950173503c50c3866fb1857765489c151dcc26f60652601f1387",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/secp256k1-DTMAzF9m.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/rolldown-runtime-BJS_XihH.js",
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/rolldown-runtime-BJS_XihH.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-Cc39NHOB.js",
+      "bytes": 968,
+      "sha256": "371496a2d1e3fe3ffa32006500e42305c0b1f9ff5619c077397490ff15d19e5d",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-Cc39NHOB.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-Cc39NHOB.js.map",
+      "bytes": 3338,
+      "sha256": "4bd43f185f77474fd579ed70a4572e0df6f93afb97de03f5561a4596367baa41",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-Cc39NHOB.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-CfmwvQj-.js",
+      "bytes": 12720,
+      "sha256": "1d099dc4f132eb7337db6844c827ce093e06ee562a59eb2f3397c7c12480c9f9",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-CfmwvQj-.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-CfmwvQj-.js.map",
+      "bytes": 59132,
+      "sha256": "af7056b1067f5bcd24ff4f83e57ea8d14c52e7f43a08fb25cfa9d5afdc5b486d",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeSocket-CfmwvQj-.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Redacted-BB81rFVm.js",
+      "bytes": 915,
+      "sha256": "8fa28d9e6a55cf5a48431f5a180e2c0ed50aabd61fa5d5f10cd41a402638b9a5",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Redacted-BB81rFVm.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Redacted-BB81rFVm.js.map",
+      "bytes": 7285,
+      "sha256": "3377a564f41b9b91fc27c0b9614bd21f2948ad15d9ea655aa52e46e84b3d8323",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Redacted-BB81rFVm.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Schema-Dr6BTJ90.js",
+      "bytes": 191611,
+      "sha256": "b112c14d8f04735b94a551d73382afc9504f1eabadde64d4b1875ba4a0e61805",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Schema-Dr6BTJ90.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Schema-Dr6BTJ90.js.map",
+      "bytes": 2725978,
+      "sha256": "6c7b6debbef9e1748e6c97f7c5623d104b11208d7aeade05b27440bbfa493b81",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/Schema-Dr6BTJ90.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeServices-CXNWWu81.js",
+      "bytes": 883,
+      "sha256": "5a61d90e87a172feefbf66b8d2ecf532e869e05b791ba8eb5fa6dea2877e97d8",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeServices-CXNWWu81.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeServices-CXNWWu81.js.map",
+      "bytes": 6332,
+      "sha256": "4d1178688ed598efcc713d7598664b29348559887eb3165dc9a0c996eb78a857",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeServices-CXNWWu81.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeTerminal-Bo5b0a7N.js",
+      "bytes": 44576,
+      "sha256": "d697059bf3ac3b4d30d82a4ad19f894139c340906e8fe0d7326031ef9fd3b883",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeTerminal-Bo5b0a7N.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeTerminal-Bo5b0a7N.js.map",
+      "bytes": 557751,
+      "sha256": "ac1bf6e5386827be169e9213d0c6fea1afb1bb6e9fc2d2ce6e7d9c87dcda0239",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/NodeTerminal-Bo5b0a7N.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunSocket-Y0eS8fTG.js",
+      "bytes": 817,
+      "sha256": "3fefcc6ad9254ade91beb3cc1c97c32b42b38b92d53033adf001765cc6925051",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunSocket-Y0eS8fTG.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunSocket-Y0eS8fTG.js.map",
+      "bytes": 2246,
+      "sha256": "68f620bc93798e7d34de9baa9a478b2ccedbb01d4d02270dbc1f2a9b34b6a8c2",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunSocket-Y0eS8fTG.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunServices-DwHY3ZuV.js",
+      "bytes": 839,
+      "sha256": "b464db2889e25f8ef4e0bdfff4110d54212c682331ea07c0e84c5bc0f07e37b4",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunServices-DwHY3ZuV.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunServices-DwHY3ZuV.js.map",
+      "bytes": 6215,
+      "sha256": "0c106e6c3d296c90d560dda8b17049854f28330acf3031b3e6f994948de1af50",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/BunServices-DwHY3ZuV.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/localBatchGatewayRequest-DHa9GLpp.js",
+      "bytes": 131589,
+      "sha256": "52dc6620072f8dee25cc05c1dce762898dbbe08078986f3795e8b5a6a7ce2357",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/localBatchGatewayRequest-DHa9GLpp.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/localBatchGatewayRequest-DHa9GLpp.js.map",
+      "bytes": 426023,
+      "sha256": "a62bc1daf5568833f2f5fa06935b8938fd2358e33ad14c0dc9aaa8e97ec950af",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/localBatchGatewayRequest-DHa9GLpp.js.map"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/ccip-CriepmBF.js",
+      "bytes": 3202,
+      "sha256": "4588080c2c5cb5f9e96ed31419f02050b671c3006aa5289a2238c28d1bd861e2",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/ccip-CriepmBF.js"
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/ccip-CriepmBF.js.map",
+      "bytes": 9043,
+      "sha256": "731f560475546217aabaf1780d9fbb38bc031ca3e99acb1cb7c8682005d74917",
+      "original_path": "apps/floor/spikes/platform/kit/.alchemy/bundles/FloorKitProbe/ccip-CriepmBF.js.map"
+    }
+  ]
+}
