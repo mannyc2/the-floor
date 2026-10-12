@@ -7,6 +7,8 @@ import { construct } from "./construction";
 import { probeCrypto } from "./crypto";
 import { probeEvm } from "./evm";
 import { probeMath } from "./math-probe";
+import { FixtureMessage, fixtureReply, probePrivyHttp } from "./src/privy/testing/http-probe";
+import { probePrivy } from "./src/privy/testing/probe";
 const RpcRequest = Schema.fromJsonString(Schema.Struct({
   jsonrpc: Schema.Literal("2.0"),
   id: Schema.Literal(1),
@@ -27,6 +29,7 @@ const worker: Effect.Effect<Worker<{}>, never, Providers> = Worker(
   Effect.gen(function*() {
     // Each Worker instance owns its test instrumentation; no state is shared at module scope.
     const acceptedFixtureRequests = yield* Ref.make(0);
+    const acceptedPrivyFixtureRequests = yield* Ref.make(0);
     return {
       fetch: Effect.gen(function*() {
         const request = yield* Request;
@@ -46,6 +49,19 @@ const worker: Effect.Effect<Worker<{}>, never, Providers> = Worker(
           return HttpServerResponse.jsonUnsafe({ acceptedFixtureRequests: yield* Ref.get(acceptedFixtureRequests) });
         }
         if (url.pathname === "/crypto") return HttpServerResponse.jsonUnsafe(yield* probeCrypto);
+        if (url.pathname === "/privy-fixture") {
+          yield* Effect.tryPromise(() => request.text()).pipe(
+            Effect.flatMap(Schema.decodeUnknownEffect(Schema.fromJsonString(FixtureMessage))),
+          );
+          yield* Ref.update(acceptedPrivyFixtureRequests, count => count + 1);
+          return HttpServerResponse.jsonUnsafe(fixtureReply);
+        }
+        if (url.pathname === "/privy") {
+          const before = yield* Ref.get(acceptedPrivyFixtureRequests);
+          const http = yield* probePrivyHttp(url.origin);
+          const after = yield* Ref.get(acceptedPrivyFixtureRequests);
+          return HttpServerResponse.jsonUnsafe({ ...yield* probePrivy, http, fixtureRequests: after - before });
+        }
         if (url.pathname === "/math") return HttpServerResponse.jsonUnsafe(yield* probeMath());
         if (url.pathname === "/evm") return HttpServerResponse.jsonUnsafe(yield* probeEvm);
         if (url.pathname === "/launch") {

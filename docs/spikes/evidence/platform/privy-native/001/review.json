@@ -1,0 +1,11 @@
+{
+  "state": "superseded-by-attempt-002",
+  "finding": "The first local-only client signed all creation requests. A final check against the current Privy OpenAPI showed creation uses application Basic Auth, with idempotency documented for wallet/policy creation but not quorum creation. Attempt 002 removes those unnecessary headers. No first-attempt request went to Privy.",
+  "scope": "The first attempt records passing local primitive and mock tests only; it is not accepted as the final client implementation or evidence of provider compatibility.",
+  "source_archive": {
+    "path": "docs/spikes/evidence/platform/privy-native/001/source.tar.gz",
+    "bytes": 16856,
+    "sha256": "6ceee729717b7cba2a7ce7984a1d9d37af0a270906419144292d8a8df7cd4d6a",
+    "contents": "Exact source and integration files listed in record.json, captured before the correction."
+  }
+}

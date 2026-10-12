@@ -1,0 +1,139 @@
+{
+  "emittedModules": 13,
+  "files": [
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/entry.js",
+      "bytes": 820742,
+      "sha256": "159eb28ea726212c3e5b437d795b85b76aad392f0e959faac17bfcc423d2c051"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/entry.js.map",
+      "bytes": 3402504,
+      "sha256": "76e4c41598581aea6b4073bfb12c97ed0e6239b4ec0d86c2fec92512f4884e80"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/secp256k1-DTMAzF9m.js",
+      "bytes": 36163,
+      "sha256": "c89c3e55286e56259f94076e0a507baa923988785a0fd51aaa6998101bea0f2d"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/secp256k1-DTMAzF9m.js.map",
+      "bytes": 198031,
+      "sha256": "b6031cd44172950173503c50c3866fb1857765489c151dcc26f60652601f1387"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Schema-DzghmISh.js",
+      "bytes": 197234,
+      "sha256": "a0b7de66925b3284f8747896aad0c92a35eed0b4ecf1e59c73fec90a97e0c331"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Schema-DzghmISh.js.map",
+      "bytes": 2732414,
+      "sha256": "c6585a420df616c48e1f911efe557169e9462b5508474c28b6ddb62b75b31fa5"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeTerminal-Czd0NF-J.js",
+      "bytes": 44548,
+      "sha256": "519e05394691c98482bd2bb354d8e9bb583c47fced48dc1f5e7bb118f73103dc"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeTerminal-Czd0NF-J.js.map",
+      "bytes": 557751,
+      "sha256": "eb32b1aedfea043bd62d93f477684f69332a7b7df673d952e044c6fb5619d03d"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Redacted-BYTrxWqa.js",
+      "bytes": 1019,
+      "sha256": "8eb7d1caf9c196a1c92a8b9b8f5bd72897126a4747f5bebe7b8c58c8628240a1"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/Redacted-BYTrxWqa.js.map",
+      "bytes": 7334,
+      "sha256": "56acea0b73dfcde1f5231661f1ac0b2967332a831de0c31a6b5f0208f260fd7a"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeServices-Dzl6K40O.js",
+      "bytes": 883,
+      "sha256": "7372b9be0803b56d6a0a4620554db8bf6af7700dd90bf6db8d94237889e61089"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeServices-Dzl6K40O.js.map",
+      "bytes": 6332,
+      "sha256": "9cc744587c7c6b67dc06f49ab5c0acf06e2f0332ff6eaa0812cc05565264e2bf"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/localBatchGatewayRequest-DHa9GLpp.js",
+      "bytes": 131589,
+      "sha256": "52dc6620072f8dee25cc05c1dce762898dbbe08078986f3795e8b5a6a7ce2357"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/localBatchGatewayRequest-DHa9GLpp.js.map",
+      "bytes": 426023,
+      "sha256": "a62bc1daf5568833f2f5fa06935b8938fd2358e33ad14c0dc9aaa8e97ec950af"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/rolldown-runtime-BJS_XihH.js",
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunServices-BohN1zze.js",
+      "bytes": 839,
+      "sha256": "aab5cc317a1efcc14cc64f7ece8cf23d7057de340d448cc99fb56787c6f56346"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunServices-BohN1zze.js.map",
+      "bytes": 6215,
+      "sha256": "b365425bee8c94cb6a5353fbf9d2d51cc8038b6244c47aa6327ff3f277b89337"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunSocket-DIpq9QeF.js",
+      "bytes": 817,
+      "sha256": "edb4a3bd24d8d83480a6208c611a95bcdff3a82690cf4e3272b4fcdae1b0081c"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/BunSocket-DIpq9QeF.js.map",
+      "bytes": 2246,
+      "sha256": "f973f26317ad12d72c56b56d1b92d9e727e2d11a3868441fa7d78b04292097a5"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-C-i5iwGg.js",
+      "bytes": 968,
+      "sha256": "ddab3fdd18c22d3f116d1fd0211dd6bd24fac97ff996bdf66c5f8c33d8efafab"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-C-i5iwGg.js.map",
+      "bytes": 3338,
+      "sha256": "02a8bf76c0406dc5485e07b7a26a8686358bebaa0a9948af008215ac2b8247c0"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/ccip-CriepmBF.js",
+      "bytes": 3202,
+      "sha256": "4588080c2c5cb5f9e96ed31419f02050b671c3006aa5289a2238c28d1bd861e2"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/ccip-CriepmBF.js.map",
+      "bytes": 9043,
+      "sha256": "731f560475546217aabaf1780d9fbb38bc031ca3e99acb1cb7c8682005d74917"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-CVG9i22t.js",
+      "bytes": 12719,
+      "sha256": "1a68264e748f14d185d7a25dccaa445b9e866a67576bd8b6ef19ea423eb4e873"
+    },
+    {
+      "path": "work/spikes/platform/privy-native/002/bundle/NodeSocket-CVG9i22t.js.map",
+      "bytes": 59132,
+      "sha256": "81c534311f205a46238b1b6db657231c5f5d1a75889b0bdfb26167a63ecc8d5b"
+    }
+  ],
+  "privySources": [
+    "../../../src/privy/authorization.ts",
+    "../../../src/privy/canonical.ts",
+    "../../../src/privy/client.ts",
+    "../../../src/privy/error.ts",
+    "../../../src/privy/testing/http-probe.ts",
+    "../../../src/privy/testing/probe.ts"
+  ],
+  "sdkSources": []
+}

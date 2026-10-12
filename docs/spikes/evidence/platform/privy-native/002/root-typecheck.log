@@ -1,0 +1,4 @@
+$ sh scripts/platform-spike.sh typecheck
+[13:34:10.203] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+$ ../../../../../node_modules/.bin/tsc --noEmit -p tsconfig.json
+$ tsc --noEmit -p tsconfig.json

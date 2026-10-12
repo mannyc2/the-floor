@@ -1,0 +1,31 @@
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./local.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+local.test.ts:
+[17:27:44.913] INFO (#6): Plan: 1 to create
+[17:27:44.927] INFO (#6): [FloorKitProbe] create (local)
+[17:27:44.927] INFO (#6): 
+[17:27:44.942] INFO (#367): [FloorKitProbe] pre-creating (local)
+[17:27:45.008] INFO (#367): [FloorKitProbe] creating (local)
+[17:27:45.083] INFO (#367): [FloorKitProbe] ready at http://localhost:19735
+[17:27:45.083] INFO (#367): [FloorKitProbe] created (local) (141ms)
+[17:27:45.305] INFO (#391): [FloorKitProbe] created (local) (363ms)
+[17:27:45.319] INFO (#6): 
+[17:27:45.319] INFO (#6): Done: 1 succeeded (392ms)
+[17:27:48.653] INFO (#384): [FloorKitProbe] Started in 3616ms → http://localhost:19735/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/.alchemy/log/floor-kit-local-001/FloorKitProbe)
+[FloorKitProbe] HTTP handler failed
+[FloorKitProbe] SchemaError: Missing key
+[FloorKitProbe]   at ["jsonrpc"]
+(pass) constructs both unsigned launches and validates math in local workerd [3484.22ms]
+[17:27:48.845] INFO (#555): Plan: 1 to delete
+[17:27:48.845] INFO (#555): [FloorKitProbe] delete (local)
+[17:27:48.845] INFO (#555): 
+[17:27:48.854] INFO (#907): [FloorKitProbe] deleting (local)
+[17:27:48.866] INFO (#907): [FloorKitProbe] deleted (local) (12ms)
+[17:27:48.871] INFO (#555): 
+[17:27:48.871] INFO (#555): Done: 1 succeeded (26ms)
+
+ 1 pass
+ 0 fail
+ 22 expect() calls
+Ran 1 test across 1 file. [6.31s]

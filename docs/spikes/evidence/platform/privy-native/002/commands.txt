@@ -1,0 +1,19 @@
+From the platform worktree root:
+bun run format:check
+bun run typecheck
+bun run lint
+bun run build
+bun run test
+
+Direct bounded kit checks:
+cd apps/floor/spikes/platform/kit
+bun run format:check
+bun run typecheck
+bun run lint
+bun run test
+bun run build
+
+All test commands use telemetry-off local Alchemy harnesses and loopback-only host guards.
+The Privy Worker HTTP probe redirects one fixed Privy-shaped URL to its own loopback fixture.
+No account or live Privy request is part of these commands.
+The intentionally malformed pre-existing /rpc negative probe logs a handler SchemaError, while its expected HTTP 500 assertion passes.

@@ -1,0 +1,21 @@
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./test/privy
+bun test v1.4.0 (34cbb9a40)
+
+test/privy/authorization.test.ts:
+(pass) JCS orders UTF-16 keys and retains numeric-key order, number formatting and arrays [18.33ms]
+(pass) JCS rejects invalid Unicode and non-finite values instead of silently changing signed data [3.17ms]
+(pass) DER encoding uses positive minimal integers and rejects malformed raw lengths [1.82ms]
+(pass) invalid PKCS8 retains a structured native failure [2.49ms]
+(pass) malformed encoded private keys keep input-bearing errors redacted [1.63ms]
+
+test/privy/client.test.ts:
+(pass) co-signatures cover the exact body, URL, app and idempotency header [17.28ms]
+(pass) closed create-wallet, policy and quorum shapes use the documented endpoints [5.95ms]
+(pass) HTTP refusal fails with its original cause and no retry [2.34ms]
+(pass) malformed success fails with its original cause and no retry [3.56ms]
+(pass) missing authorization and invalid wallet identity fail before transport [1.94ms]
+
+ 10 pass
+ 0 fail
+ 40 expect() calls
+Ran 10 tests across 2 files. [263.00ms]

@@ -168,6 +168,8 @@
     "math-probe.ts",
     "local.test.ts",
     "local-only.ts",
-    "crypto.ts"
+    "crypto.ts",
+    "src/privy/**/*.ts",
+    "test/privy/**/*.ts"
   ]
 }

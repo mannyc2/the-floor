@@ -1,0 +1,76 @@
+$ sh scripts/platform-spike.sh build
+[13:34:17.160] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./test/local-only.ts ./test/build.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+test/build.test.ts:
+[17:34:18.244] INFO (#6): Plan: 2 to create, 4 binding changes
+[17:34:18.247] INFO (#6): [FloorLocalAgent] create (local)
+[17:34:18.247] INFO (#6): [FloorLocalAgent/CALLBACKS] create
+[17:34:18.247] INFO (#6): [FloorLocalAgent/FloorStorage] create
+[17:34:18.247] INFO (#6): [FloorLocalAgent/STORAGE] create
+[17:34:18.247] INFO (#6): [FloorLocalAgent/THREADS] create
+[17:34:18.247] INFO (#6): [FloorStorage] create (local)
+[17:34:18.247] INFO (#6): 
+[17:34:18.254] INFO (#472): [FloorLocalAgent] pre-creating (local)
+[17:34:18.257] INFO (#471): [FloorStorage] creating (local)
+[17:34:18.456] INFO (#472): [FloorLocalAgent] creating (local)
+[17:34:18.459] INFO (#471): [FloorStorage] created (local) (202ms)
+[17:34:18.462] INFO (#472): [FloorLocalAgent] ready at http://localhost:19732
+[17:34:18.462] INFO (#472): [FloorLocalAgent] created (local) (208ms)
+[17:34:18.466] INFO (#542): [FloorStorage] created (local) (209ms)
+[17:34:18.466] INFO (#543): [FloorLocalAgent] created (local) (212ms)
+[17:34:18.508] INFO (#6): 
+[17:34:18.508] INFO (#6): Done: 2 succeeded (261ms)
+[17:34:20.468] INFO (#535): [FloorLocalAgent] Started in 2007ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/.alchemy/log/floor-local-agent-build/FloorLocalAgent)
+(pass) Alchemy bundles and starts the bounded native Worker [1975.81ms]
+[17:34:20.508] INFO (#696): Plan: 2 to delete, 4 binding changes
+[17:34:20.508] INFO (#696): [FloorLocalAgent] delete (local)
+[17:34:20.508] INFO (#696): [FloorLocalAgent/CALLBACKS] unbind
+[17:34:20.508] INFO (#696): [FloorLocalAgent/FloorStorage] unbind
+[17:34:20.508] INFO (#696): [FloorLocalAgent/STORAGE] unbind
+[17:34:20.508] INFO (#696): [FloorLocalAgent/THREADS] unbind
+[17:34:20.508] INFO (#696): [FloorStorage] delete (local)
+[17:34:20.508] INFO (#696): 
+[17:34:20.511] INFO (#1071): [FloorLocalAgent] deleting (local)
+[17:34:20.513] INFO (#1071): [FloorLocalAgent] deleted (local) (2ms)
+[17:34:20.513] INFO (#1073): [FloorStorage] deleting (local)
+[17:34:20.515] INFO (#1073): [FloorStorage] deleted (local) (2ms)
+[17:34:20.516] INFO (#696): 
+[17:34:20.516] INFO (#696): Done: 2 succeeded (8ms)
+
+ 1 pass
+ 0 fail
+ 1 expect() calls
+Ran 1 test across 1 file. [3.35s]
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./local.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+local.test.ts:
+[17:34:21.578] INFO (#6): Plan: 1 to create
+[17:34:21.581] INFO (#6): [FloorKitProbe] create (local)
+[17:34:21.581] INFO (#6): 
+[17:34:21.590] INFO (#367): [FloorKitProbe] pre-creating (local)
+[17:34:21.607] INFO (#367): [FloorKitProbe] creating (local)
+[17:34:21.613] INFO (#367): [FloorKitProbe] ready at http://localhost:19735
+[17:34:21.613] INFO (#367): [FloorKitProbe] created (local) (23ms)
+[17:34:21.616] INFO (#391): [FloorKitProbe] created (local) (26ms)
+[17:34:21.642] INFO (#6): 
+[17:34:21.642] INFO (#6): Done: 1 succeeded (61ms)
+[17:34:23.367] INFO (#384): [FloorKitProbe] Started in 1755ms → http://localhost:19735/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/.alchemy/log/floor-kit-local-001/FloorKitProbe)
+[FloorKitProbe] HTTP handler failed
+[FloorKitProbe] SchemaError: Missing key
+[FloorKitProbe]   at ["jsonrpc"]
+(pass) constructs both unsigned launches and validates math in local workerd [1832.08ms]
+[17:34:23.499] INFO (#555): Plan: 1 to delete
+[17:34:23.500] INFO (#555): [FloorKitProbe] delete (local)
+[17:34:23.500] INFO (#555): 
+[17:34:23.502] INFO (#907): [FloorKitProbe] deleting (local)
+[17:34:23.504] INFO (#907): [FloorKitProbe] deleted (local) (2ms)
+[17:34:23.505] INFO (#555): 
+[17:34:23.505] INFO (#555): Done: 1 succeeded (5ms)
+
+ 1 pass
+ 0 fail
+ 22 expect() calls
+Ran 1 test across 1 file. [2.94s]
