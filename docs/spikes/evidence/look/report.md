@@ -2,6 +2,8 @@
 
 **Recommend B, the surface-ID-and-depth pass, on WebGL.** A, the normal-and-depth pass, is an eligible alternative. Both repeat exactly in the required SwiftShader matrix, meet the sampled one-CSS-pixel stroke requirement at all three rungs and DPRs, and remain within the local phone-profile CPU budget. B retains more of the CPU reference's edges at similar cost. C loses parts of thin silhouettes to depth testing and fails eight of eighteen stroke samples per backend, so it is not offered as an option.
 
+**Recommendation: proceed to the owner’s technique pick with B/WebGL as the preferred Part A candidate; hold Stage 0 pending the remaining gates.**
+
 This is a technical recommendation for **Part A only**. The owner has not picked a technique. Tones, proportions, kit unit, references and assets are not approved; Part B and Stage 0 have not started. No hosted run, deployment, provider spend, merge or push occurred.
 
 ## What to review
