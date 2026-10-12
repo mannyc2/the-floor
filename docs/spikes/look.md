@@ -16,7 +16,7 @@ There is no human artist or art director. The roles the revised docs gave to peo
 | Role | Who | Notes |
 | --- | --- | --- |
 | Reference images | Codex's image generation | Generated from the product doc's key frames, with its style and avoid blocks |
-| Assets | Claude and Codex, as code | three.js generators, Blender driven headlessly by Python scripts (`blender --background --python`), and SVG profiles lathed or extruded into geometry. Image-to-3D tools only for organic props, and only if access already exists |
+| Assets | Claude and Codex, as code | three.js generators, and SVG profiles lathed or extruded into geometry. No Blender for the MVP (see the decision log) |
 | Review | The agent that didn't make the thing | It checks against the Atlas laws and common failures, then shortlists. It filters; it doesn't approve |
 | Approval | The owner, by picking | The owner sees a short set of options and picks one, or says "none, because…". Nobody asks the owner to draw, model or tune values |
 | Newcomer test | Someone the owner asks who hasn't seen the Floor | If nobody is available, it is recorded as not run, not as passed |
@@ -40,13 +40,13 @@ Part A settles which line technique survives on accuracy, repeatability and cost
 **The stand-in scene, all built by code:**
 - **Stalls.** Twelve stalls in a hall, from one parametric stall generator with three variants.
 - **The rack.** The depth-rack housing with its trays, float and tide gauge.
-- **Figures.** Two figures, lathed or extruded from SVG profiles, or built by a Blender Python script.
+- **Figures.** Two figures, lathed or extruded from SVG profiles.
 - **Ground.** Paving and a quay, plus atlas labels.
 - **Attributes.** Every mesh carries the Atlas conventions: `_SURFACE` edge ids, `_MAT` palette slots and the kit unit.
 
-Build at least the stall both as a three.js generator and as a Blender Python script, so both routes face the same measurements.
+Build the stall both as a three.js generator and from SVG profiles, so both code routes face the same measurements.
 
-**The line target.** Use a Blender Line Art render of the same scene from the same orthographic camera, driven headlessly. A three-edge-projection render is the cross-check.
+**The line target.** Use [three-edge-projection](https://github.com/gkjohnson/three-edge-projection), which extracts the visible edges of the same scene from the same orthographic camera on the CPU, as the ground truth. For the primitive parts (boxes, cylinders, trays), check it against silhouettes computed directly from their geometry.
 
 **The matrix.** 3 techniques × 2 themes × 3 rungs × 3 pixel ratios = 54 cells per backend, with every cell recorded, including failures and unsupported combinations:
 
@@ -59,10 +59,10 @@ Build at least the stall both as a three.js generator and as a Blender Python sc
 
 Use the current Atlas tokens for tones. Tone choice belongs to Part B.
 
-Start on WebGL, then record WebGPU support and cost for each technique: conditional lines are WebGL-only, and `Line2` needs a separate WebGPU material.
+Start on WebGL, then record WebGPU support and cost for each technique. three.js now ships a WebGPU conditional-line material (`LDrawConditionalLineNodeMaterial`), and `Line2` needs a separate WebGPU material, so whether each technique holds a fixed CSS-pixel width on WebGPU is something to measure.
 
 **What to measure:**
-- **Line accuracy.** Edge F-score against Line Art, and lines per 100 pixels on cylinders.
+- **Line accuracy.** Edge F-score against the three-edge-projection target, and lines per 100 pixels on cylinders.
 - **Stroke width** across pixel ratio and zoom; the target is 1 CSS pixel ± 0.25.
 - **Repeatability.** Twenty SwiftShader runs per cell, using the Atlas plan's flags, with the renderer string asserted. Record the largest pixel difference.
 - **Cost:**
@@ -71,7 +71,7 @@ Start on WebGL, then record WebGPU support and cost for each technique: conditio
   - draw calls with 1,000 instanced stalls;
   - render-target memory;
   - whether lines survive in impostors.
-- **Effort by route.** Agent time per asset for the three.js generator against the Blender script.
+- **Effort by route.** Agent time per asset for the three.js generator against the SVG-profile route.
 
 **Exit.** A technique recommendation with its measurements, and one page of side-by-sides (the three techniques on the same frames) for the owner. The owner's pick, or "any of these", is recorded. A technique that fails repeatability or the phone budget isn't shown as an option.
 
@@ -86,7 +86,7 @@ Part B makes the reference frames, then fixes tones, proportions and the kit uni
 - **Review.** Claude, which didn't generate them, shortlists 4–6 per frame against the common-failures list, with a one-line note on each candidate's weaknesses.
 - **Owner picks.** The owner gets one contact sheet per frame, picks one, or answers "none, because…", which feeds the next round. Picks are recorded with the date and the options shown. Picked frames become the provisional reference frames, which Stage 0 commits to `testing/reference/`.
 
-Image models drift on exactly what the Floor cares about: true orthographic projection, a single orange part, readable brass scales, and no text. So a reference sets the composition, density, silhouettes and tonal mood. It does not set exact geometry or readings. The laws are checked on the Floor's own renders, not on the references. Line accuracy comes from Part A's Line Art target, because generated references have no clean line layer.
+Image models drift on exactly what the Floor cares about: true orthographic projection, a single orange part, readable brass scales, and no text. So a reference sets the composition, density, silhouettes and tonal mood. It does not set exact geometry or readings. The laws are checked on the Floor's own renders, not on the references. Line accuracy comes from Part A's edge-projection target, because generated references have no clean line layer.
 
 ### 2. Tones
 
@@ -102,7 +102,7 @@ Image models drift on exactly what the Floor cares about: true orthographic proj
 
 ### 4. Assets by route
 
-Make the stall, the rack housing and one figure by each route available: a three.js generator, a Blender Python script, SVG profiles turned into geometry, and image-to-3D for one organic prop if access exists. Compare each against the picked references using:
+Make the stall, the rack housing and one figure by both routes: a three.js generator, and SVG profiles turned into geometry. Compare each against the picked references using:
 - the tone histogram;
 - edge density per tile;
 - silhouette overlap with the reference's main forms;
