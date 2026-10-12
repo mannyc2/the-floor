@@ -23,7 +23,7 @@ The cookbook at the repository root links to the copied source, so there is one 
 
 ## Next work
 
-Review the [platform result](docs/spikes/evidence/platform/report.md) and the separate `spike/look-a` branch's Part A report before selecting further work. Platform hosted checks await renewed scope and spend authorization. Look Part B (references, tones, proportions, assets) follows Part A, with Codex generating the reference images and the owner picking. Part B has not started. Both spikes report before Stage 0 begins.
+Review the [platform result](docs/spikes/evidence/platform/report.md): local checks are complete, while hosted checks await renewed scope and a spend limit. [Look Part A](docs/spikes/look.md) is complete with the owner’s technique B/WebGL pick recorded; the decision log now starts Part B. This platform task did not execute Part B. Stage 0 remains gated on both complete spike results and promotes their tested code into the product.
 
 `reference/` is temporary. It is deleted at the end of Stage 0, once the skeleton has ported what it needs, and stays recoverable from the initial commit.
 
