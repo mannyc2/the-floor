@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-10-12T18:47:00.460153+00:00",
+  "repository": "mannyc2/the-floor",
+  "maximum_results": 100,
+  "runs": [
+    {
+      "conclusion": "skipped",
+      "createdAt": "2026-10-12T18:44:29Z",
+      "databaseId": 38292952094,
+      "event": "workflow_dispatch",
+      "headSha": "b606b0224b50ebbf86846ca78968e97057551604",
+      "status": "completed",
+      "updatedAt": "2026-10-12T18:44:34Z",
+      "url": "https://github.com/mannyc2/the-floor/actions/runs/38292952094",
+      "workflowName": "Cleanup preview"
+    }
+  ]
+}

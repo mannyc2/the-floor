@@ -1,0 +1,22 @@
+# Original admin configuration command, as executed by root. This mutates remote state.
+CI=false ALCHEMY_TELEMETRY_DISABLED=1 ALCHEMY_PROFILE=floor-admin FLOOR_GITHUB_OWNER=mannyc2 FLOOR_GITHUB_REPOSITORY=the-floor bun run ci:configure
+
+# Local checks recorded in checks/, against 6efcd61 plus stacks/github.ts from 3f62e6d.
+bun run format:check
+bun run typecheck
+bun run lint
+bun run test:leaf
+bun run build
+bun run test:native
+bun run test:flow
+
+# Offline reproduction used the original work path so its relative import resolves.
+# Restore resource-collision/reproduce.ts.txt to this path before reproducing.
+bun work/ci-proof/resource-collision/reproduce.ts
+
+# Read-only observations captured for this record; secret values are never returned.
+gh secret list --repo mannyc2/the-floor --json name,updatedAt
+gh run view 38292952094 --repo mannyc2/the-floor --json status,conclusion,workflowName,event,createdAt,updatedAt,headSha,url,jobs
+gh run list --repo mannyc2/the-floor --limit 100 --json databaseId,status,conclusion,workflowName,event,createdAt,updatedAt,headSha,url
+# The captured variable result keeps only preview gating flags, not unrelated variables.
+gh variable list --repo mannyc2/the-floor --json name,value,updatedAt

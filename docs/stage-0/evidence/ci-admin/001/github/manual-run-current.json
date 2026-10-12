@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-10-12T18:46:59.731888+00:00",
+  "run": {
+    "conclusion": "skipped",
+    "createdAt": "2026-10-12T18:44:29Z",
+    "event": "workflow_dispatch",
+    "headSha": "b606b0224b50ebbf86846ca78968e97057551604",
+    "jobs": [
+      {
+        "completedAt": "2026-10-12T18:44:34Z",
+        "conclusion": "skipped",
+        "databaseId": 114957209613,
+        "name": "cleanup",
+        "startedAt": "2026-10-12T18:44:40Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/mannyc2/the-floor/actions/runs/38292952094/job/114957209613"
+      }
+    ],
+    "status": "completed",
+    "updatedAt": "2026-10-12T18:44:34Z",
+    "url": "https://github.com/mannyc2/the-floor/actions/runs/38292952094",
+    "workflowName": "Cleanup preview"
+  }
+}

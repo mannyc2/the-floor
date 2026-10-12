@@ -1,0 +1,60 @@
+import { Effect, Redacted } from "effect";
+import { Stack } from "alchemy/Stack";
+import { Secret } from "alchemy/GitHub/Secret";
+import { AccountApiToken } from "../../../node_modules/alchemy/src/Cloudflare/ApiToken/AccountApiToken.ts";
+
+let fetchAttempts = 0;
+globalThis.fetch = () => {
+  fetchAttempts += 1;
+  throw new Error("This resource-registration proof must not access the network.");
+};
+
+const run = (secretId: string) => {
+  const registry = Stack.of({
+    name: "IdentityProof",
+    stage: "offline",
+    resources: {},
+    bindings: {},
+    actions: {},
+  });
+  const proof = Effect.gen(function* () {
+    // Constructor acquisition intentionally omits provider installation: this
+    // isolates registration identity from remote state and all cloud operations.
+    const Token = yield* AccountApiToken;
+    const GitHubSecret = yield* Secret;
+    const token = yield* Token("PreviewToken", {
+      name: "synthetic",
+      accountId: "synthetic",
+      policies: [],
+    });
+    const secret = yield* GitHubSecret(secretId, {
+      owner: "synthetic",
+      repository: "synthetic",
+      name: "CLOUDFLARE_API_TOKEN",
+      value: Redacted.make("synthetic-only"),
+    });
+    return {
+      tokenFqn: token.FQN,
+      secretFqn: secret.FQN,
+      secretActualType: secret.Type,
+      sameObject: Object.is(token, secret),
+      registered: Object.entries(registry.resources).map(([fqn, resource]) => ({
+        fqn,
+        type: resource.Type,
+      })),
+    };
+  });
+  return Effect.runSync(proof.pipe(Effect.provideService(Stack, registry)));
+};
+
+const collision = run("PreviewToken");
+const repair = run("PreviewTokenSecret");
+console.log(JSON.stringify({
+  observedAt: new Date().toISOString(),
+  alchemyVersion: "2.0.0-beta.80",
+  syntheticInputsOnly: true,
+  remoteStateAccess: false,
+  fetchAttempts,
+  collision,
+  repair,
+}, null, 2));

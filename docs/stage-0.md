@@ -13,8 +13,8 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 | Web | Foldkit shell with production typed-health flow and a reserved map mount point | External map host, renderer, camera and picking |
 | Look harness | TypeScript metrics and deterministic drivers | External adapter, approved references, captures and phone measurements |
 | Art | Part A technique B/WebGL selected; all 84 Part B originals retained, Claude's 34-option shortlist and seven provisional owner picks recorded | Tone and proportion picks; the generation track stops before deriving them |
-| CI | Preview/admin/cleanup implementation and offline workflow syntax review | [Draft PR #1](https://github.com/mannyc2/the-floor/pull/1) is open; GitHub had scheduled no checks as of 18:21 UTC. Remote CI, scoped admin setup, successful preview flow and teardown remain |
-| Budget/access | Cloudflare Alchemy profile connected; one bounded native hosted stage authorized | Browser full-period allowance; separately billed providers remain outside authorization |
+| CI | Preview/admin/cleanup implementation and offline workflow syntax review; narrowed preview token minted and both GitHub secrets verified at 18:39 UTC | [Draft PR #1](https://github.com/mannyc2/the-floor/pull/1) is open; Automatic events had produced no CI run as of 18:42 UTC; a manual diagnostic at 18:44 UTC was accepted with every step intentionally skipped. `FLOOR_PREVIEW_CONFIGURED=true`; deployment admission and enablement remain unset. Remote CI, successful preview flow and teardown remain unverified |
+| Budget/access | Cloudflare Alchemy profile connected; separate `floor-admin` profile configured; one bounded native hosted stage authorized | Browser full-period allowance; separately billed providers remain outside authorization |
 
 ## Inputs from the spikes
 
@@ -27,6 +27,8 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 ## Promote the spike code
 
 Stage 0 starts by merging both spike branches and moving their code into its homes, not by starting fresh. Each piece keeps its tests and its evidence link.
+
+Market-specific promotion, including the SVG stall and Part B's stall/rack generators below, remains on hold under the [current direction](decisions.md). Align their role with the world and piece design before resuming that work; retain the existing spike code as evidence.
 
 | Spike code | Home | Before it moves |
 | --- | --- | --- |
@@ -60,4 +62,4 @@ What stays behind as evidence only: the retired Wrangler and `effect-cf` probe (
 - [ ] Delete `reference/` and its tool exclusions once everything Stage 0 ports from it is in place.
 - [ ] Obtain owner review of the decisions, new flow and picked frames before starting Stage 1.
 
-Use the file-by-file [carry-over list](floor-docs-2026-10-12/next-steps.md) and [source inventory](reference-sources.json). The old runtime, renderer, dashboard, custom launch/wallet protocols and bench reports stay behind. The old lint plugin and CI require adaptation; their presence in the reference build is not evidence that the new boundaries are enforced.
+Use the file-by-file [carry-over list](archive/floor-docs-2026-10-12/next-steps.md) and [source inventory](reference-sources.json). The old runtime, renderer, dashboard, custom launch/wallet protocols and bench reports stay behind. The old lint plugin and CI require adaptation; their presence in the reference build is not evidence that the new boundaries are enforced.

@@ -101,7 +101,7 @@ test("signer excludes agent authority and Three stays in web", () => {
       ),
     ).toHaveLength(1);
   }
-  for (const filename of ["apps/floor/src/worker.ts", "packages/map/src/index.ts", "testing/look/runner.ts"]) {
+  for (const filename of ["apps/floor/src/worker.ts", "packages/world/src/index.ts", "testing/look/runner.ts"]) {
     for (const source of ["three", "three/webgpu", "three-edge-projection", "three-mesh-bvh"]) {
       expect(Testing.runRule(threeIsolation, "ImportDeclaration", Testing.importDecl(source), context(filename)))
         .toHaveLength(1);

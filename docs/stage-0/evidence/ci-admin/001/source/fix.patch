@@ -1,0 +1,15 @@
+diff --git a/stacks/github.ts b/stacks/github.ts
+index 62c05de..39fb983 100644
+--- a/stacks/github.ts
++++ b/stacks/github.ts
+@@ -32,7 +32,9 @@ export default Alchemy.Stack(
+         resources: { [`com.cloudflare.api.account.${accountId}`]: "*" },
+       }],
+     });
+-    const tokenSecret = yield* GitHub.Secret("PreviewToken", {
++    // Alchemy keys resources by logical ID across provider types. Reusing the
++    // token's ID would return that resource and silently skip the GitHub secret.
++    const tokenSecret = yield* GitHub.Secret("PreviewTokenSecret", {
+       owner,
+       repository,
+       name: "CLOUDFLARE_API_TOKEN",

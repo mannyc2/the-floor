@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-10-12T18:48:13.856244+00:00",
+  "executed_base_revision": "6efcd6148f169d18d4b4a0b242404b2780cb2c1d",
+  "fix_commit": "3f62e6dd2b25db11da9c94d45b677558a971024b",
+  "source_identification": "The executed admin repair and seven local fix checks used the base plus this sole source overlay. Later world-doc alignment is outside these check logs.",
+  "overlay_paths": [
+    "stacks/github.ts"
+  ],
+  "source_bytes_match_fix_commit": true,
+  "source_artifact": "source/stacks-github.ts.txt",
+  "source_sha256": "9ce40105b882aa4f11f72cea9fd7113d4adf1cf4d97080c3c52e47ff76117183",
+  "repository_runtime": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "typescript": "7.0.2",
+    "operator_platform": "macOS arm64"
+  },
+  "collision_reproduction": {
+    "source_original_path": "work/ci-proof/resource-collision/reproduce.ts",
+    "source_artifact": "resource-collision/reproduce.ts.txt",
+    "requires_original_path": "Its relative installed-source import must resolve against the original project layout. The archived .txt is evidence, not an executable package input."
+  }
+}

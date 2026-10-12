@@ -1,1 +1,1 @@
-docs/floor-docs-2026-10-12/effect-4-cookbook.md
+docs/effect-4-cookbook.md

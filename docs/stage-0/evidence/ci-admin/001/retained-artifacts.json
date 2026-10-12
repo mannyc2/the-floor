@@ -1,0 +1,152 @@
+{
+  "created_at_utc": "2026-10-12T18:49:40.495408+00:00",
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/resource-collision/reproduce.ts.txt",
+      "origin": "work/ci-proof/resource-collision/reproduce.ts",
+      "retention": "byte-identical copy",
+      "bytes": 1863,
+      "sha256": "b3c25c6ee14a256e0cff6b7c1b078794c012b3e376b98e36a5c4f7d5b52a0810"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/resource-collision/result.json",
+      "origin": "work/ci-proof/resource-collision/result.json",
+      "retention": "byte-identical copy",
+      "bytes": 837,
+      "sha256": "66b3258b5caa25f346a6719ba0d86e4e55cf4d28f4d53ffead734268a050ea65"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/stacks-github.ts.txt",
+      "origin": "stacks/github.ts",
+      "retention": "byte-identical copy",
+      "bytes": 2495,
+      "sha256": "9ce40105b882aa4f11f72cea9fd7113d4adf1cf4d97080c3c52e47ff76117183"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/fix.patch",
+      "origin": "git diff 6efcd6148f169d18d4b4a0b242404b2780cb2c1d 3f62e6dd2b25db11da9c94d45b677558a971024b -- stacks/github.ts",
+      "retention": "exact Git patch",
+      "bytes": 634,
+      "sha256": "588da32759eb137b5f62d0c8017f9b6027d76fa2b75a2e6402bc18abc63a0364"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/build.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/build.log",
+      "retention": "byte-identical copy",
+      "bytes": 3598,
+      "sha256": "9535255222c047b8d35bf1948170c440a73490c9199b83b2e7517942647ea633"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/format-check.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/format-check.log",
+      "retention": "byte-identical copy",
+      "bytes": 15,
+      "sha256": "f1af9b66ef0d45ef0c81a05fdd397a23fee9877255bc692249880c1197eb842c"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/lint.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/lint.log",
+      "retention": "byte-identical copy",
+      "bytes": 508,
+      "sha256": "695ec418c0a6662f89db7b97c784fd60f02221c925a445815aee0e47768b7343"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-flow.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/test-flow.log",
+      "retention": "byte-identical copy",
+      "bytes": 2146,
+      "sha256": "fcc69b371a65ee7e02aca688415112243090f32dc3aac702a48ecff7f3111039"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-leaf.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/test-leaf.log",
+      "retention": "byte-identical copy",
+      "bytes": 5181,
+      "sha256": "c5e3a999c1149641aaf62405761acba15967aec32f230aea351facc62f2becbe"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-native.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/test-native.log",
+      "retention": "byte-identical copy",
+      "bytes": 12714,
+      "sha256": "40ba9f7a22d3a0290b2bc2751bd1ab74db67582bed65e042719ba0ddb4102970"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/typecheck.log",
+      "origin": "work/stage-0-checks/admin-secret-fix/typecheck.log",
+      "retention": "byte-identical copy",
+      "bytes": 363,
+      "sha256": "48762a35b26bc0e3f263aad448fcc54e545f7ba19a558d99d15b8dad46af4231"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/github-secrets.json",
+      "origin": "work/ci-admin-evidence/github-secrets.json",
+      "retention": "byte-identical copy",
+      "bytes": 408,
+      "sha256": "77afccb101b936e573877ec344510e48bf4365541e9a463b0003eabdaaf0b8dd"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/manual-run-current.json",
+      "origin": "work/ci-admin-evidence/manual-run-current.json",
+      "retention": "byte-identical copy",
+      "bytes": 794,
+      "sha256": "7ecf2fc24579f9169ebb944ca8925d7987f1b737e52f5daa2554c84cef074013"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/runs-current.json",
+      "origin": "work/ci-admin-evidence/runs-current.json",
+      "retention": "byte-identical copy",
+      "bytes": 546,
+      "sha256": "a421befe67ecf900adbcd72038960e966a8666fcc4be46110ddefccded6993cf"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/preview-gates-current.json",
+      "origin": "work/ci-admin-evidence/preview-gates-current.json",
+      "retention": "byte-identical copy",
+      "bytes": 339,
+      "sha256": "d1baf4a07fe7a3cb6145a773df5b65bfe315c2c489b49d95600843763413215c"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/dispatch-response.json",
+      "origin": "work/ci-proof/dispatch/response.json",
+      "retention": "byte-identical copy",
+      "bytes": 190,
+      "sha256": "35d840ad9cb91346435aa19034f74b8f5ef8e8bb47d8ac6bce351fd7e9d03cc8"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/runs-after-dispatch.json",
+      "origin": "work/ci-proof/dispatch/runs.json",
+      "retention": "byte-identical copy",
+      "bytes": 274,
+      "sha256": "df154375a673a7bdacaa9092e6ff865344ff06c44e79995f9568256b8abad7c7"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/token-metadata/result.json",
+      "origin": "work/ci-proof/token-metadata/result.json",
+      "retention": "allowlisted metadata; account and account-wide counts omitted",
+      "bytes": 735,
+      "sha256": "ac8ffbb1e81032bb35f35119bad0d123ba892ef642d6374d9cbde4e239067e0c"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/manifest.json",
+      "origin": "Git comparison and retained source",
+      "retention": "generated source manifest",
+      "bytes": 1133,
+      "sha256": "d775721ad270910a3ca061a183669fd1589ed924415bd4719ede42fca2ac659c"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/commands.txt",
+      "origin": "Operator command and read-only observation commands",
+      "retention": "recorded commands; not rerun by packaging",
+      "bytes": 1234,
+      "sha256": "b21eb4805d9b58b3da679bdd29e4a11208f43a8360c7ecfeefba13410857585a"
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/report.md",
+      "origin": "Synthesized from retained observations and root/chains_promotion reports",
+      "retention": "bounded report",
+      "bytes": 4754,
+      "sha256": "7319218c7d99330a927172b80fca92eb0a66a3071f08fbc39dbd12653b624590"
+    }
+  ]
+}

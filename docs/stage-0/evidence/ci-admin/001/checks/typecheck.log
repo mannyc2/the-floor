@@ -1,0 +1,1 @@
+$ tsc --noEmit -p tsconfig.tools.json && tsc --noEmit -p packages/contract/tsconfig.json && tsc --noEmit -p packages/api/tsconfig.json && tsc --noEmit -p packages/chains/tsconfig.json && tsc --noEmit -p apps/floor/tsconfig.json && tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p testing/look/tsconfig.json && tsc --noEmit -p testing/flows/tsconfig.json

@@ -1,0 +1,344 @@
+{
+  "check_id": "stage-0-ci-admin",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T18:35:50Z to 2026-10-12T18:47:00Z; individual observations retain exact timestamps",
+  "operator": "root executed configuration, retry, local checks and manual dispatch; setup_requirements packaged evidence and independently read names-only GitHub metadata.",
+  "reviewer": "chains_promotion independently reproduced constructor identity with synthetic inputs and inspected allowlisted Cloudflare token metadata. setup_requirements verified byte retention, source overlay and terminal GitHub state. No whole-stage approval. cleanup_discriminator independently checked retained input hashes, source-commit identity, credential redaction and the limits of token-retention/authority claims; three wording corrections were applied.",
+  "source_revision": "6efcd6148f169d18d4b4a0b242404b2780cb2c1d plus the sole stacks/github.ts overlay in 3f62e6dd2b25db11da9c94d45b677558a971024b",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "typescript": "7.0.2"
+  },
+  "api_evidence": [
+    {
+      "source": "resource-collision/reproduce.ts.txt",
+      "result": "resource-collision/result.json",
+      "scope": "Actual Alchemy constructors; synthetic registry and inputs; fetch blocked."
+    },
+    {
+      "source": "token-metadata/result.json",
+      "scope": "Allowlisted intended-token metadata from authenticated GET; credentials and unrelated tokens withheld."
+    },
+    {
+      "source": "github/github-secrets.json",
+      "scope": "GitHub secret names and update times; no value access."
+    },
+    {
+      "source": "github/manual-run-current.json",
+      "scope": "Run and job metadata, including an empty steps array."
+    }
+  ],
+  "execution_target": "Local macOS arm64 checks; Cloudflare FloorGitHub/admin configuration and GitHub repository metadata. Skipped workflow ran no steps.",
+  "runtime_configuration": {
+    "profile": "floor-admin",
+    "CI": "false",
+    "ALCHEMY_TELEMETRY_DISABLED": "1",
+    "repository": "mannyc2/the-floor",
+    "command": "CI=false ALCHEMY_TELEMETRY_DISABLED=1 ALCHEMY_PROFILE=floor-admin FLOOR_GITHUB_OWNER=mannyc2 FLOOR_GITHUB_REPOSITORY=the-floor bun run ci:configure",
+    "preview_token_permission_groups": [
+      "Workers Scripts Write",
+      "Secrets Store Write"
+    ],
+    "token_creation_permission": false,
+    "account_scope": "Only the owner-selected account; identifier omitted here.",
+    "current_preview_gates": {
+      "observed_at_utc": "2026-10-12T18:47:00.769614+00:00",
+      "repository": "mannyc2/the-floor",
+      "variables": [
+        {
+          "name": "FLOOR_PREVIEW_CONFIGURED",
+          "updatedAt": "2026-10-12T18:45:36Z",
+          "value": "true"
+        }
+      ],
+      "absent": [
+        "FLOOR_PREVIEW_ENABLED",
+        "FLOOR_PREVIEW_PR",
+        "FLOOR_UPLOAD_ARTIFACTS"
+      ]
+    }
+  },
+  "stage_and_resources": {
+    "admin_stack": "FloorGitHub/admin",
+    "intended_token_name": "floor-preview-ci",
+    "intended_token_id": "e4e62995d418903bd4c7d7f2ef93f997",
+    "github_secret_names": [
+      "CLOUDFLARE_ACCOUNT_ID",
+      "CLOUDFLARE_API_TOKEN"
+    ],
+    "manual_diagnostic_stage_input": "pr-1",
+    "preview_resources_created_by_diagnostic": false,
+    "other_account_resources": "Not retained or audited in this record."
+  },
+  "inputs": [
+    {
+      "path": "source/manifest.json",
+      "purpose": "Exact base, overlay source, patch and runtime identification."
+    },
+    {
+      "path": "commands.txt",
+      "purpose": "Operator invocation and local/read-only metadata commands."
+    }
+  ],
+  "procedure": [
+    "Run admin configuration; observe intended token and account secret but missing API-token secret.",
+    "Diagnose shared logical resource ID and change only the GitHub token-secret ID.",
+    "Retry admin configuration, preserving the Cloudflare logical ID.",
+    "Run seven local checks against the base plus that sole source change.",
+    "Independently reproduce both constructor-registration outcomes with no network or remote-state access.",
+    "Inspect allowlisted intended-token metadata and GitHub names-only secret metadata.",
+    "With configured=false, dispatch cleanup pr-1 and confirm the entire job is terminal/skipped with no steps.",
+    "Restore configured=true after terminal observation; leave deployment admission and enablement absent."
+  ],
+  "expected_result": "Two distinct registered resources; both repository secrets installed using the existing intended token; local checks pass; gated diagnostic performs no cleanup steps.",
+  "observed_result": {
+    "collision": {
+      "same_object": true,
+      "actual_second_resource_type": "Cloudflare.ApiToken.AccountApiToken",
+      "registered_resources": 1
+    },
+    "repair": {
+      "same_object": false,
+      "actual_second_resource_type": "GitHub.Secret",
+      "registered_resources": 2
+    },
+    "offline_fetch_attempts": 0,
+    "secret_updates": [
+      {
+        "name": "CLOUDFLARE_ACCOUNT_ID",
+        "updatedAt": "2026-10-12T18:35:50Z"
+      },
+      {
+        "name": "CLOUDFLARE_API_TOKEN",
+        "updatedAt": "2026-10-12T18:39:15Z"
+      }
+    ],
+    "token_retention": "Metadata issued/modified before retry supports original-token retention; no pre-repair ID was captured.",
+    "local_checks": {
+      "format": "pass",
+      "typecheck": "pass",
+      "lint": "pass",
+      "leaf_tests": 56,
+      "leaf_assertions": 1333,
+      "build": "pass",
+      "native_assertions": 36,
+      "browser_flow_tests": 1,
+      "browser_flow_scope": "Local production-entry typed health only."
+    },
+    "manual_workflow": {
+      "id": 38292952094,
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "skipped",
+      "job_steps": 0,
+      "proves": "Manual-event registration and job-condition evaluation only."
+    },
+    "remote_ci": "unverified",
+    "preview_flow": "unverified",
+    "preview_teardown": "unverified"
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/build.log",
+      "committed": true,
+      "bytes": 3598,
+      "sha256": "9535255222c047b8d35bf1948170c440a73490c9199b83b2e7517942647ea633",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/format-check.log",
+      "committed": true,
+      "bytes": 15,
+      "sha256": "f1af9b66ef0d45ef0c81a05fdd397a23fee9877255bc692249880c1197eb842c",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/lint.log",
+      "committed": true,
+      "bytes": 508,
+      "sha256": "695ec418c0a6662f89db7b97c784fd60f02221c925a445815aee0e47768b7343",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-flow.log",
+      "committed": true,
+      "bytes": 2146,
+      "sha256": "fcc69b371a65ee7e02aca688415112243090f32dc3aac702a48ecff7f3111039",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-leaf.log",
+      "committed": true,
+      "bytes": 5181,
+      "sha256": "c5e3a999c1149641aaf62405761acba15967aec32f230aea351facc62f2becbe",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/test-native.log",
+      "committed": true,
+      "bytes": 12714,
+      "sha256": "40ba9f7a22d3a0290b2bc2751bd1ab74db67582bed65e042719ba0ddb4102970",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/checks/typecheck.log",
+      "committed": true,
+      "bytes": 363,
+      "sha256": "48762a35b26bc0e3f263aad448fcc54e545f7ba19a558d99d15b8dad46af4231",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/commands.txt",
+      "committed": true,
+      "bytes": 1234,
+      "sha256": "b21eb4805d9b58b3da679bdd29e4a11208f43a8360c7ecfeefba13410857585a",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/dispatch-response.json",
+      "committed": true,
+      "bytes": 190,
+      "sha256": "35d840ad9cb91346435aa19034f74b8f5ef8e8bb47d8ac6bce351fd7e9d03cc8",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/github-secrets.json",
+      "committed": true,
+      "bytes": 408,
+      "sha256": "77afccb101b936e573877ec344510e48bf4365541e9a463b0003eabdaaf0b8dd",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/manual-run-current.json",
+      "committed": true,
+      "bytes": 794,
+      "sha256": "7ecf2fc24579f9169ebb944ca8925d7987f1b737e52f5daa2554c84cef074013",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/preview-gates-current.json",
+      "committed": true,
+      "bytes": 339,
+      "sha256": "d1baf4a07fe7a3cb6145a773df5b65bfe315c2c489b49d95600843763413215c",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/runs-after-dispatch.json",
+      "committed": true,
+      "bytes": 274,
+      "sha256": "df154375a673a7bdacaa9092e6ff865344ff06c44e79995f9568256b8abad7c7",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/github/runs-current.json",
+      "committed": true,
+      "bytes": 546,
+      "sha256": "a421befe67ecf900adbcd72038960e966a8666fcc4be46110ddefccded6993cf",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/report.md",
+      "committed": true,
+      "bytes": 4754,
+      "sha256": "7319218c7d99330a927172b80fca92eb0a66a3071f08fbc39dbd12653b624590",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/resource-collision/reproduce.ts.txt",
+      "committed": true,
+      "bytes": 1863,
+      "sha256": "b3c25c6ee14a256e0cff6b7c1b078794c012b3e376b98e36a5c4f7d5b52a0810",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/resource-collision/result.json",
+      "committed": true,
+      "bytes": 837,
+      "sha256": "66b3258b5caa25f346a6719ba0d86e4e55cf4d28f4d53ffead734268a050ea65",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/retained-artifacts.json",
+      "committed": true,
+      "bytes": 6488,
+      "sha256": "7cfc08cfd323ec6415341e6fcfcab9e1b9f19d964349bc32d5f39af4f5785e9d",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/fix.patch",
+      "committed": true,
+      "bytes": 634,
+      "sha256": "588da32759eb137b5f62d0c8017f9b6027d76fa2b75a2e6402bc18abc63a0364",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/manifest.json",
+      "committed": true,
+      "bytes": 1133,
+      "sha256": "d775721ad270910a3ca061a183669fd1589ed924415bd4719ede42fca2ac659c",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/source/stacks-github.ts.txt",
+      "committed": true,
+      "bytes": 2495,
+      "sha256": "9ce40105b882aa4f11f72cea9fd7113d4adf1cf4d97080c3c52e47ff76117183",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/ci-admin/001/token-metadata/result.json",
+      "committed": true,
+      "bytes": 735,
+      "sha256": "ac8ffbb1e81032bb35f35119bad0d123ba892ef642d6374d9cbde4e239067e0c",
+      "regenerate": "Preserve this observation. Reproduction commands and original source locations are in commands.txt and source/manifest.json; a new execution requires a new attempt."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Collision reproduction blocks fetch; local checks use their existing loopback guards. Admin configuration mutates only the selected setup resources. Metadata reads request names/status/timestamps; credentials are not retained. The manual workflow skipped every step.",
+    "budget": "Existing owner-authorized Cloudflare allowance; no separately billed provider or overage authorization added.",
+    "observed_cost": "unknown"
+  },
+  "cleanup_result": "No preview cleanup ran. The diagnostic job had zero steps; the intended preview token and GitHub secrets remain installed. Configured restored true; deployment admission and enablement absent.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": [
+    "Remote automatic CI has no demonstrated run; the sole manual run is skipped and is not CI passing.",
+    "Runner execution, deployed production flow and teardown still require evidence.",
+    "First/retry admin console logs were not retained; operator reports are corroborated by constructor reproduction and independent metadata.",
+    "Token retention is supported by creation/modification timestamps, not a before/after ID capture.",
+    "Seven retained check logs cover the admin-secret fix, not the later world-document merge.",
+    "No new wallet, model, browser or live-money behavior is authorized."
+  ],
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": ""
+    },
+    "owner_pick": {
+      "state": "n/a: infrastructure evidence, no art decision",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  },
+  "status_scope": "Admin resource identity and credential installation only; remote CI and preview acceptance remain unverified.",
+  "recorded_at_utc": "2026-10-12T18:49:40.495408+00:00",
+  "retention_state": "Retained in this evidence directory with source hashes; original work copies remain scratch."
+}

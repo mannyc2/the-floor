@@ -1,0 +1,25 @@
+{
+  "observedAt": "2026-10-12T18:43:06.732Z",
+  "profile": "floor-admin",
+  "method": "GET",
+  "status": 200,
+  "success": true,
+  "tokens": [
+    {
+      "id": "e4e62995d418903bd4c7d7f2ef93f997",
+      "name": "floor-preview-ci",
+      "status": "active",
+      "issued_on": "2026-10-12T18:35:50Z",
+      "modified_on": "2026-10-12T18:35:50Z",
+      "last_used_on": null
+    }
+  ],
+  "sanitization": {
+    "retained": "Only the intended preview-token metadata; token IDs are identifiers, not token values.",
+    "omitted": [
+      "selected account identifier",
+      "pagination and account-wide token counts"
+    ],
+    "credentials": "No token values, authorization headers or stored profile credentials are in this result."
+  }
+}

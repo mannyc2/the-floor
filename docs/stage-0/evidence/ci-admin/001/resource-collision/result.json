@@ -1,0 +1,35 @@
+{
+  "observedAt": "2026-10-12T18:39:37.702Z",
+  "alchemyVersion": "2.0.0-beta.80",
+  "syntheticInputsOnly": true,
+  "remoteStateAccess": false,
+  "fetchAttempts": 0,
+  "collision": {
+    "tokenFqn": "PreviewToken",
+    "secretFqn": "PreviewToken",
+    "secretActualType": "Cloudflare.ApiToken.AccountApiToken",
+    "sameObject": true,
+    "registered": [
+      {
+        "fqn": "PreviewToken",
+        "type": "Cloudflare.ApiToken.AccountApiToken"
+      }
+    ]
+  },
+  "repair": {
+    "tokenFqn": "PreviewToken",
+    "secretFqn": "PreviewTokenSecret",
+    "secretActualType": "GitHub.Secret",
+    "sameObject": false,
+    "registered": [
+      {
+        "fqn": "PreviewToken",
+        "type": "Cloudflare.ApiToken.AccountApiToken"
+      },
+      {
+        "fqn": "PreviewTokenSecret",
+        "type": "GitHub.Secret"
+      }
+    ]
+  }
+}

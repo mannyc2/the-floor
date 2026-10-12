@@ -1,0 +1,7 @@
+$ bun run lint:plugin && oxlint --deny-warnings apps/web/src apps/web/vite.config.ts apps/floor/src apps/floor/test packages scripts stacks testing/flows testing/look alchemy.run.ts && bun scripts/lint/styles.ts && bun scripts/lint/suppressions.ts
+$ bun build ./scripts/lint/plugin.ts --target=node --external effect --external effect-oxlint --outfile work/lint/plugin.mjs
+Bundled 3 modules in 14ms
+
+  plugin.mjs  13.61 KB  (entry point)
+
+[14:38:55.592] INFO (#2): Suppression budget: 49 reasoned directives

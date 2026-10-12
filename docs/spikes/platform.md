@@ -10,7 +10,7 @@ A bounded spike may establish the smallest real examples needed to answer the qu
 
 ## Build it the Alchemy way
 
-Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It is how the Floor's Workers, Durable Objects, bindings, local runs, tests and deploys are written, not only how they are deployed. The spike doesn't use `wrangler.jsonc` or `wrangler dev`. `effect-cf` appears only underneath Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare` requires it), inside the agent's Durable Object. The Floor's own Workers and Durable Objects are Alchemy resources. If Alchemy can't do something the spike needs, that is a finding for the decision log, not a reason to drop down to Wrangler.
+Alchemy v2 is Effect-native. The Floor pins `alchemy@2.0.0-beta.80` with agent#557's patch until the fixes ship upstream (decision log); beta.81 is the newer release the patch doesn't apply to. It is how the Floor's Workers, Durable Objects, bindings, local runs, tests and deploys are written, not only how they are deployed. The spike doesn't use `wrangler.jsonc` or `wrangler dev`. `effect-cf` appears only underneath Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare` requires it), inside the agent's Durable Object. The Floor's own Workers and Durable Objects are Alchemy resources. If Alchemy can't do something the spike needs, that is a finding for the decision log, not a reason to drop down to Wrangler.
 
 **Where to look:**
 - **Docs.** Look up the page you need in [llms.txt](https://alchemy.run/llms.txt), and use the [Cloudflare tutorial](https://alchemy.run/cloudflare/tutorial/part-1) parts 1–5 for the basics. The cafe snapshot is an example, not the source.
@@ -38,9 +38,9 @@ Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It i
 
 ## Read first
 
-1. [Next steps](../floor-docs-2026-10-12/next-steps.md), especially the platform spike and the items to settle before Stage 0.
-2. [Technical design](../floor-docs-2026-10-12/technical-design.md): the agent runtime, CAFE, app boundaries, verification and Stage 0.
-3. [Effect 4 cookbook](../floor-docs-2026-10-12/effect-4-cookbook.md), particularly SQL, AI, Yielded Agent, browsers and scoped resources.
+1. [Next steps](../archive/floor-docs-2026-10-12/next-steps.md), archived, especially the platform spike and the items to settle before Stage 0.
+2. [Technical design](../technical-design.md): the agent runtime, CAFE, app boundaries, verification and Stage 0.
+3. [Effect 4 cookbook](../effect-4-cookbook.md), particularly SQL, AI, Yielded Agent, browsers and scoped resources.
 4. [Active decision log](../decisions.md) and [source inventory](../reference-sources.json).
 5. The repository's `AGENTS.md` and `docs/Codex/comments.md` before non-trivial code, and `docs/Codex/file-structure.md` before adding files. Before any Effect change, read the installed `node_modules/effect/AGENTS.md` in full.
 
@@ -73,7 +73,7 @@ These are observations from the first build on 12 October 2026. They are referen
 | Browser alternatives | effect-browser and effect-browserbase 0.3.0-beta.14 | Inspect the selected versions. Local `Chromium.open` requires Bun or Node and is for development and flows; it is not a Worker implementation. |
 | SQL | `@effect/sql-sqlite-do` and `@effect/sql-d1` 4.0.3 exist in old `node_modules` | Neither is in the old lockfile. Add exact dependencies and a reproducible lockfile if selected; installed leftovers are not reproducible dependencies. |
 | AI providers | `@effect/ai-openai` 4.0.0 | It has no Decisions provider. Inspect the old adapter as a reference; do not invent a native export. No Anthropic provider was installed in the first build. Resolve and verify it before relying on Claude defaults. |
-| Alchemy | `alchemy` 2.0.0-beta.81, the current release (5 October 2026), with `effect` ^4.0.0 as a peer | Pin it with `@alchemy.run/frontend-frameworks` at the same version. The cafe snapshot carries a patch for duplicated Workers AI streaming text; keep it only if the Floor uses that path. |
+| Alchemy | `alchemy` 2.0.0-beta.80 with agent#557's patch (beta.81, released 5 October 2026, waits for the upstream fixes), with `effect` ^4.0.0 as a peer | Pin `@alchemy.run/frontend-frameworks` at the same version. The cafe snapshot carries a patch for duplicated Workers AI streaming text; keep it only if the Floor uses that path. |
 | Cafe patch | `patches/alchemy@2.0.0-beta.81.patch` | It deduplicates mirrored Workers AI streaming text. Assess whether the selected Alchemy version still needs it; do not silently discard or carry an unrelated patch. |
 | Launch SDKs | Meteora's DBC SDK 1.5.13 depends on `@solana/web3.js` v1, Anchor, `bn.js` and `spl-token`, and its maths uses `bn.js`. Doppler 1.0.43 depends on `viem` and `@solana/kit` 6. Privy lists Kit ^5 and `viem` as optional peers. Kit's latest is 8.4 | Follow the dependency rule in check 2: a Codama-generated Kit client and ported `bigint` maths for Meteora, no web3.js stack. The source docs anticipate a breaking Meteora SDK release; a planned release date is not an installed API. |
 
