@@ -1,0 +1,20 @@
+worktree /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor
+HEAD fb9082651bf02a7f71b6a66e4fe024c2845b2828
+branch refs/heads/main
+
+worktree /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/look-a
+HEAD 70ec773dc2ef3d4eeec143d99d89c3896713741c
+branch refs/heads/spike/look-a
+
+worktree /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/look-b
+HEAD 6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b
+branch refs/heads/spike/look-b
+
+worktree /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform
+HEAD af4285b13d495c92bc6be6470f35ffae6d3d879d
+branch refs/heads/spike/platform
+
+worktree /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0
+HEAD 3dc2327ca56aac9ac949d33cfc797b90748206ac
+branch refs/heads/stage-0
+

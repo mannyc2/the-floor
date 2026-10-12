@@ -1,0 +1,127 @@
+{
+  "check_id": "public-release-incremental-audit",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T18:06:50.560581+00:00",
+  "operator": "Codex; read-only incremental publication audit",
+  "reviewer": "Root; reviewed before authorizing the initial public push on 2026-10-12 at18:08 UTC",
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "dependency_versions": {
+    "Python": "3.12.14",
+    "pypdf": "6.10.0",
+    "Git": "git version 2.40.1",
+    "GitHub CLI": "gh version 2.79.0 (2025-09-08)"
+  },
+  "api_evidence": [],
+  "execution_target": "Newly reachable local Git objects and commit/path associations since attempt001 frozen five heads",
+  "runtime_configuration": {
+    "prior_snapshot": "docs/stage-0/evidence/publication/001/snapshot.json",
+    "prior_snapshot_sha256": "b2d10a4bf1d2012e4751ea2298a533268ead4a9371575bbcec1f7b9da8093ac6",
+    "new_commits": [
+      "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+      "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "b579b47423e72d4045245483faafc0faf65563f2"
+    ],
+    "credential_pattern_source": "docs/stage-0/evidence/publication/001/scan.py",
+    "working_tree_excluded": true,
+    "reference_hash_lookup": "Previously audited cafe files are read only to build exact-copy comparison hashes; large reference/PDF/archive blobs are not reread.",
+    "already_audited_large_image_pdf_archive_blobs_reread": false
+  },
+  "stage_and_resources": "No deployment, external write or metered provider resource used",
+  "inputs": [
+    {
+      "path": "docs/stage-0/evidence/publication/001/snapshot.json",
+      "sha256": "b2d10a4bf1d2012e4751ea2298a533268ead4a9371575bbcec1f7b9da8093ac6"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/001/scan.py",
+      "sha256": "e6ba18fa9b558df864f4bd420963e88e393306431a9c81f313cf05fb5d7d6efd"
+    }
+  ],
+  "procedure": [
+    "Enumerate source3dc2327 reachable objects excluding all five attempt001 heads.",
+    "Scan all18 new blobs, including intermediate decisions.md versions, with prior credential patterns and a quoted-long-literal source/workflow review.",
+    "Check cafe blob aliases across every newly reachable commit and exact cafe file copies in the new blob set.",
+    "Inspect Privy redaction/test-fixture changes, CI secret references/storage gates and the published prior-audit metadata.",
+    "Record conditional publication clearance while keeping all-history export verification separate."
+  ],
+  "expected_result": "No additional credential exposure or unlicensed cafe copy outside the already identified omission path.",
+  "observed_result": {
+    "status_scope": "Pass applies to the incremental source contents only; actual sanitized export clearance remains conditional on its verification.",
+    "new_commits": 5,
+    "new_objects": 57,
+    "new_blobs": 18,
+    "new_blob_bytes": 219654,
+    "credential_matches": 0,
+    "new_archives": 0,
+    "new_pdfs": 0,
+    "new_pngs": 0,
+    "new_cafe_aliases": 0,
+    "new_cafe_exact_copies": 0,
+    "additional_omission_paths": [],
+    "required_existing_omission": "reference/cafe-reference/ in all public history",
+    "final_export_verified_here": false
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/publication/002/report.md",
+      "committed": true,
+      "bytes": 3024,
+      "sha256": "ae6548f4b6363799576e7fb8ce3fb5917749466a3a00e784b6610a3e07065e5c",
+      "regenerate": "Use the immutable source revision minus attempt001 frozen heads. Preserve this observation; any later export/source changes require a new bounded record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/002/scope.json",
+      "committed": true,
+      "bytes": 10441,
+      "sha256": "d23b22fc2f6129aa1955930193885f7a653b575bff8c7027d02ccf9dadfeab71",
+      "regenerate": "Use the immutable source revision minus attempt001 frozen heads. Preserve this observation; any later export/source changes require a new bounded record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/002/findings.json",
+      "committed": true,
+      "bytes": 4050,
+      "sha256": "b31f0543a2af3f217848194524f9aa876fc209f8ee3f85a0a37d6061b14913c7",
+      "regenerate": "Use the immutable source revision minus attempt001 frozen heads. Preserve this observation; any later export/source changes require a new bounded record."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local Git/text reads only; no network request, message, push or deployment in this incremental check.",
+    "budget": "No metered provider resources used.",
+    "observed_cost": "none observed"
+  },
+  "cleanup_result": "Existing source/evidence unchanged. Audit scratch retained under ignored work/publication-audit-002; deliverables confined to attempt002. No staging, commits, history mutations or pushes.",
+  "decision_link": "docs/decisions.md: public GitHub authorization; attempt001 caf\u00e9 provenance finding; owner retention of all84 reference candidates.",
+  "limitations_and_next_action": "Parent reviews this record; publication agent verifies the filtered export, notices and source correspondence before push. No blanket secret-detection claim; commits after3dc2327 are outside this record.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "Publication-content audit only."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  },
+  "review_recorded_at_utc": "2026-10-12T18:13:43.403596+00:00",
+  "artifact_commit_intent": "Included prospectively in the next root evidence commit; this audit has not staged or committed these files."
+}

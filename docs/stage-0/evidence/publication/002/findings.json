@@ -1,0 +1,75 @@
+{
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "new_commit_count": 5,
+  "counts": {
+    "git_objects": 57,
+    "git_blobs": 18,
+    "blob_bytes": 219654,
+    "text_blobs": 18,
+    "text_blobs_with_local_paths": 1
+  },
+  "credential_pattern_matches": [],
+  "new_zip_members": 0,
+  "new_tar_members": 0,
+  "new_pdfs": [],
+  "new_pngs": [],
+  "exact_cafe_copies": [],
+  "long_literal_review_candidates": [],
+  "new_commit_cafe_aliases": [],
+  "result": "pass: no additional publication blocker identified in the incremental scope",
+  "publication_clearance": {
+    "state": "conditional_on_verified_export",
+    "required_omission": "reference/cafe-reference/ throughout all exported history",
+    "additional_omission_paths": [],
+    "preserve": [
+      "Original local history/worktrees",
+      "Existing Yielded/Meteora MIT notices",
+      "All84 generated originals and seven contact sheets"
+    ],
+    "export_verification": "Not performed in this record. The publication export must prove cafe omission and expected source correspondence."
+  },
+  "manual_checks": [
+    {
+      "area": "Privy failure-cause redaction",
+      "commit": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+      "paths": [
+        "apps/floor/spikes/platform/kit/src/privy/client.ts",
+        "apps/floor/spikes/platform/kit/test/privy/client.test.ts"
+      ],
+      "finding": "The original cause is wrapped in Redacted. Tests generate a key/signature locally, use synthetic offline fixtures, and check JSON/Bun inspection/string output for leaks. No captured real credential/header/signature value is added; the sensitive signature remains a runtime variable."
+    },
+    {
+      "area": "CI runtime/action/storage changes",
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "paths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/cleanup.yml",
+        "docs/Codex/verification.md"
+      ],
+      "finding": "Actions remain pinned by commit; Bun cache is disabled and artifacts upload only when explicitly enabled. Cloudflare credentials remain GitHub secret expressions, with no literal values added. Cleanup uses the trusted base branch; fork preview/cleanup restrictions remain present."
+    },
+    {
+      "area": "Prior audit publication",
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "finding": "Attempt001 files contain paths, hashes, redacted fixture classifications and audit metadata. Its record now marks the included artifacts committed=true. No secret values are embedded."
+    },
+    {
+      "area": "Merge and intermediate history",
+      "commits": [
+        "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+        "de45700eb0e9ed7411ad492544278236bdbf99df",
+        "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+        "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+        "b579b47423e72d4045245483faafc0faf65563f2"
+      ],
+      "finding": "Every newly reachable blob across all five commits was scanned, including intermediate decisions.md versions. Known cafe blob aliases were checked across every new commit, not only the final tree."
+    }
+  ],
+  "limits": [
+    "This record admits only newly reachable objects/paths relative to attempt001; already-audited PDFs/images/archives were not reread.",
+    "No new archives, PDFs or PNGs occur in this increment. One new text blob contains the literal local-path detector string from the published scanner; it is not a captured local path or credential.",
+    "The automatic scan covers the same common credential patterns as attempt001 and adds long-literal review for source/workflow files; it does not claim detection of every possible secret encoding.",
+    "No application test, action-release verification or hosted execution was repeated for this publication-only check. Root owns implementation/test evidence and final export verification.",
+    "This record does not override the cafe rights finding or extend to commits beyond source3dc2327. No history mutation, push, staging or commit was performed by this audit."
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-12T18:04:59.318Z",
+  "blobCount": 1204,
+  "allBelow100MiB": true,
+  "largest": [
+    {
+      "oid": "8ff6bf2fbe085c95032b3650b9ecdd771180785e",
+      "type": "blob",
+      "bytes": 8636445,
+      "path": "docs/spikes/evidence/look/references/district-day/001/contact-sheet.png"
+    },
+    {
+      "oid": "bb34d59b7055c5a38389c2e1d32892b91990d8f5",
+      "type": "blob",
+      "bytes": 8014579,
+      "path": "docs/spikes/evidence/look/references/rack-day/001/contact-sheet.png"
+    },
+    {
+      "oid": "218b531b69cd6145e1ad742e62ed17abef80df1f",
+      "type": "blob",
+      "bytes": 7705977,
+      "path": "docs/spikes/evidence/look/references/district-night/001/contact-sheet.png"
+    },
+    {
+      "oid": "29b30f0409d7abeb4de4e433a8855274447dd81e",
+      "type": "blob",
+      "bytes": 7156875,
+      "path": "docs/spikes/evidence/look/references/rack-night/001/contact-sheet.png"
+    },
+    {
+      "oid": "c4040008f6f0e4d663dbe01db47edb9689e3f255",
+      "type": "blob",
+      "bytes": 7107201,
+      "path": "docs/spikes/evidence/look/references/stall-day/001/contact-sheet.png"
+    }
+  ]
+}

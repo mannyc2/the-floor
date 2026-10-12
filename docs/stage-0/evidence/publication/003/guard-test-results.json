@@ -1,0 +1,55 @@
+{
+  "testedAt": "2026-10-12T17:57:23.793Z",
+  "cases": [
+    {
+      "name": "default policy rejects all pushes",
+      "passed": true,
+      "diagnostic": "Publication blocked: Unreviewed publication update for refs/heads/main"
+    },
+    {
+      "name": "exact reviewed clean branch passes",
+      "passed": true,
+      "diagnostic": "Publication guard passed: 1 reviewed refs; 1 clean commits."
+    },
+    {
+      "name": "different target branch rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Unreviewed publication update for refs/heads/unreviewed"
+    },
+    {
+      "name": "different destination rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Publication destination is not allowlisted"
+    },
+    {
+      "name": "branch deletion rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Branch deletions are outside the publication approval"
+    },
+    {
+      "name": "tag publication rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Invalid approved ref"
+    },
+    {
+      "name": "excluded path rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Excluded path remains at 3f1bfba889305fcc6cc673406d60a39639970bb9: reference/cafe-reference/index.txt"
+    },
+    {
+      "name": "excluded blob alias rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Excluded blob remains at f4da561c8a6e981e9af2525774e27eabf2405369: rename.txt"
+    },
+    {
+      "name": "contamination in another local ref rejected",
+      "passed": true,
+      "diagnostic": "Publication blocked: Excluded path remains at 3f1bfba889305fcc6cc673406d60a39639970bb9: reference/cafe-reference/index.txt"
+    },
+    {
+      "name": "clean state restored passes",
+      "passed": true,
+      "diagnostic": "Publication guard passed: 1 reviewed refs; 1 clean commits."
+    }
+  ]
+}

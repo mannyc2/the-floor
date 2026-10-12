@@ -1,0 +1,41 @@
+{
+  "started_at_utc": "2026-10-12T18:11:42.510035+00:00",
+  "ended_at_utc": "2026-10-12T18:11:45.392106+00:00",
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "public_revision": "b606b0224b50ebbf86846ca78968e97057551604",
+  "commit_map_entries": 54,
+  "tree_entries_compared": 22900,
+  "unique_kept_blobs": 1204,
+  "forbidden_cafe_blobs_absent": 71,
+  "unchanged_commit_metadata": 54,
+  "mapped_parent_topology_matches": 54,
+  "all_84_original_images_identical": true,
+  "source_refs_unchanged": true,
+  "source_worktree_heads_unchanged": true,
+  "source_config_unchanged_during_export": "Confirmed by captured exporter result; not independently reconstructed after the push.",
+  "only_content_omission": "reference/cafe-reference/",
+  "tool_hashes_match_export_result": true,
+  "remote_observation": {
+    "observed_at_utc": "2026-10-12T18:11:44.927460+00:00",
+    "url": "https://github.com/mannyc2/the-floor.git",
+    "refs": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "b606b0224b50ebbf86846ca78968e97057551604"
+    },
+    "matches_reviewed_targets": true
+  },
+  "mirror_default_guard_observation": {
+    "exit_code": 1,
+    "diagnostic": "Publication blocked: Unreviewed publication update for refs/heads/main",
+    "meaning": "The separate mirror retains its default no-approved-refs policy. The pushed checkout has the reviewed five-ref policy."
+  },
+  "guard_read_only_check": {
+    "invocation": "bun tooling/guard.ts publication https://github.com/mannyc2/the-floor.git with five explicit reviewed ref updates on stdin; no git push invoked",
+    "exit_code": 0,
+    "diagnostic": "Publication guard passed: 5 reviewed refs; 54 clean commits."
+  },
+  "ci": "Not checked or passed by this export/push audit."
+}

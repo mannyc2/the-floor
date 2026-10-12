@@ -1,0 +1,72 @@
+{
+  "export-result.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/result.json",
+    "sha256": "0b0cf6d60f0747185b314c755eb2d8d93de900cd69bbd3c5da017351d252020f",
+    "unchanged_copy": true
+  },
+  "commit-map.txt": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/commit-map.txt",
+    "sha256": "9b6d0921d73d135b955e454afd1fe682c32e3e5ec1a21eba2c3a8c0eea5b4622",
+    "unchanged_copy": true
+  },
+  "source-refs.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/source-refs.json",
+    "sha256": "b6985d7a24926be33a334136cb0c0c4a2ee3cf01df1e8e237fd21c7c65ee7307",
+    "unchanged_copy": true
+  },
+  "source-worktrees.txt": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/source-worktrees.txt",
+    "sha256": "dbfe755e5dc57f786d69e475b50527acfc9ff3d8324a22bf631824558c84cd54",
+    "unchanged_copy": true
+  },
+  "forbidden-blobs.txt": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/forbidden-blobs.txt",
+    "sha256": "4723f4358411d3420ba775048d2a5e056f7e5b3a35bbcfd5ba66546e6379cf55",
+    "unchanged_copy": true
+  },
+  "look-b-originals.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/look-b-originals.json",
+    "sha256": "2ba5b4f5fa00767472165ba482bec46a133542dcc957b527546efc6780547336",
+    "unchanged_copy": true
+  },
+  "blob-size-check.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/blob-size-check.json",
+    "sha256": "d995a7882da8156a89688f15b5e439024267d0f451bedad3f08a9e8d94f020d3",
+    "unchanged_copy": true
+  },
+  "guard-test-results.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/guard-test-results.json",
+    "sha256": "025b05e387252d959ea709fd7829f3a1bfd8590cd4e3026b9875ae20a181216f",
+    "unchanged_copy": true
+  },
+  "tooling/test-guard.ts": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/test-guard.ts",
+    "sha256": "4add4706bab2b64b0782996610ef514f307c57e45676a9d9bd98bab8f1cabd0d",
+    "unchanged_copy": true
+  },
+  "independent-verification.json": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/work/publication-audit-003/independent-verification.json",
+    "sha256": "55ed95e4831f4a039e61ed5c850e03137581d140a062711235ff3d6b94b76d0d",
+    "unchanged_copy": true
+  },
+  "remote-refs.txt": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/work/publication-audit-003/remote-refs.txt",
+    "sha256": "b0318b32f53a6344e993467b32fdabaec1cbee42dca3002c8212e94da0f9c5fd",
+    "unchanged_copy": true
+  },
+  "tooling/audit.ts": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/tooling/audit.ts",
+    "sha256": "0d010d11dbb55a0d9a97baa99da54e962da1606211ef12bad290b955572fc79b",
+    "unchanged_copy": true
+  },
+  "tooling/guard.ts": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/tooling/guard.ts",
+    "sha256": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+    "unchanged_copy": true
+  },
+  "tooling/export.ts": {
+    "source": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/tooling/export.ts",
+    "sha256": "110d981d52b61323fb6933b8602617cbfe16f318d2d3d42c6df7b025530ef724",
+    "unchanged_copy": true
+  }
+}

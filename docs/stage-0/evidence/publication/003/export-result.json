@@ -1,0 +1,58 @@
+{
+  "status": "verified-unpublished",
+  "sourceStage": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "filteredStage": "b606b0224b50ebbf86846ca78968e97057551604",
+  "generatedAt": "2026-10-12T18:04:00.306Z",
+  "toolHashes": {
+    "audit.ts": "0d010d11dbb55a0d9a97baa99da54e962da1606211ef12bad290b955572fc79b",
+    "guard.ts": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+    "export.ts": "110d981d52b61323fb6933b8602617cbfe16f318d2d3d42c6df7b025530ef724"
+  },
+  "omission": "reference/cafe-reference",
+  "filterVersion": "a40bce548d2c",
+  "filterArgs": [
+    "filter-repo",
+    "--invert-paths",
+    "--path",
+    "reference/cafe-reference/",
+    "--prune-empty",
+    "never",
+    "--prune-degenerate",
+    "never",
+    "--preserve-commit-hashes",
+    "--preserve-commit-encoding",
+    "--replace-refs",
+    "delete-no-add"
+  ],
+  "sourceRefs": {
+    "refs/heads/main": "fb9082651bf02a7f71b6a66e4fe024c2845b2828",
+    "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "refs/heads/spike/platform": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+    "refs/heads/stage-0": "3dc2327ca56aac9ac949d33cfc797b90748206ac"
+  },
+  "filteredRefs": {
+    "refs/heads/main": "915a3e7a9207ecca94286a62451366d14ef635c8",
+    "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+    "refs/heads/stage-0": "b606b0224b50ebbf86846ca78968e97057551604"
+  },
+  "originalCommits": 54,
+  "mappedCommits": 54,
+  "comparedEntries": 22900,
+  "closure": {
+    "commits": 54,
+    "inspectedEntries": 22900,
+    "uniqueBlobs": 1204
+  },
+  "forbiddenBlobCount": 71,
+  "lookBOriginalCount": 84,
+  "originalRefsWorktreesAndConfigUnchanged": true,
+  "guard": "Installed in mirror and checkout; all pushes blocked until exact target refs are reviewed and listed in their local policy.",
+  "files": {
+    "mirror": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/filtered.git",
+    "checkout": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/publish",
+    "commitMap": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/final-3dc2327/commit-map.txt"
+  }
+}

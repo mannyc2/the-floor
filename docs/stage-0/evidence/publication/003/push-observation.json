@@ -1,0 +1,43 @@
+{
+  "operator": "Root task",
+  "reported_success_time_utc": "2026-10-12T18:08:00Z",
+  "reported_time_precision": "minute",
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "public_revision": "b606b0224b50ebbf86846ca78968e97057551604",
+  "attempts": [
+    {
+      "attempt": 1,
+      "transport": "Initial HTTPS upload",
+      "outcome": "HTTP400; failed",
+      "remote_refs_after_failure": "zero",
+      "basis": "Root operator report in the current task; raw transport log not retained in this evidence bundle."
+    },
+    {
+      "attempt": 2,
+      "transport": "HTTPS with HTTP/1.1 and increased http.postBuffer",
+      "outcome": "succeeded",
+      "force_push": false,
+      "exact_post_buffer_value": "not captured in this evidence bundle",
+      "basis": "Root operator report; resulting five branch tips independently verified by read-only ls-remote."
+    }
+  ],
+  "remote_verification": {
+    "observed_at_utc": "2026-10-12T18:11:44.927460+00:00",
+    "url": "https://github.com/mannyc2/the-floor.git",
+    "refs": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "b606b0224b50ebbf86846ca78968e97057551604"
+    },
+    "matches_reviewed_targets": true
+  },
+  "initial_ci_observation": {
+    "state": "No CI run/check suite started at initial publication observation; only branch creation was observed.",
+    "basis": "Root operator report",
+    "ci_pass_claimed": false,
+    "later_ci": "Owned by root proof PR/CI evidence; not evaluated in attempt003."
+  },
+  "publication_main_choice": "Public main and stage-0 both point to the reviewed filtered Stage0 head. The saved export-result filteredRefs.main is the historical mapping of the docs-only local main and remains unchanged."
+}

@@ -1,0 +1,312 @@
+{
+  "started_at_utc": "2026-10-12T18:03:40.511038+00:00",
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "prior_audit_snapshot_path": "docs/stage-0/evidence/publication/001/snapshot.json",
+  "excluded_audited_heads": [
+    "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "8afbfa77aec975a3d5256d7dd07c0ca431584b76",
+    "986ad53a100e5cd4e208fe38d3dc8526f580e01a",
+    "fb9082651bf02a7f71b6a66e4fe024c2845b2828"
+  ],
+  "new_commits": [
+    "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+    "de45700eb0e9ed7411ad492544278236bdbf99df",
+    "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+    "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+    "b579b47423e72d4045245483faafc0faf65563f2"
+  ],
+  "working_tree": "Excluded; immutable source revision only",
+  "ended_at_utc": "2026-10-12T18:06:50.560581+00:00",
+  "new_commit_count": 5,
+  "new_object_count": 57,
+  "base_snapshot_sha256": "b2d10a4bf1d2012e4751ea2298a533268ead4a9371575bbcec1f7b9da8093ac6",
+  "selection": "git rev-list --objects 3dc2327ca56aac9ac949d33cfc797b90748206ac --not <the five revision IDs in attempt001 snapshot.json>",
+  "new_blob_inventory": [
+    {
+      "oid": "7f0e442fc9d9c849bee34de26740d2a3f71e337b",
+      "kind": "blob",
+      "bytes": 5700,
+      "path": ".github/workflows/ci.yml"
+    },
+    {
+      "oid": "1618821f02d027b4ac6bc152951bf09dc1beaa82",
+      "kind": "blob",
+      "bytes": 1756,
+      "path": ".github/workflows/cleanup.yml"
+    },
+    {
+      "oid": "b359e29a27da0ab3d3164950cb07d549bd238a95",
+      "kind": "blob",
+      "bytes": 5746,
+      "path": "README.md"
+    },
+    {
+      "oid": "14b498575a0d0b258edef7674eed9cee2c93b595",
+      "kind": "blob",
+      "bytes": 8229,
+      "path": "apps/floor/spikes/platform/kit/README.md"
+    },
+    {
+      "oid": "4fcb52ebac3a0fbcaf9ae6f50b3cd276c547df71",
+      "kind": "blob",
+      "bytes": 8117,
+      "path": "apps/floor/spikes/platform/kit/src/privy/client.ts"
+    },
+    {
+      "oid": "4402d133318cdceba3b1b640e7608a5c08208fd7",
+      "kind": "blob",
+      "bytes": 9720,
+      "path": "apps/floor/spikes/platform/kit/test/privy/client.test.ts"
+    },
+    {
+      "oid": "b4cd46aa509618516b959789dd64186ccb54c7d4",
+      "kind": "blob",
+      "bytes": 3789,
+      "path": "docs/Codex/verification.md"
+    },
+    {
+      "oid": "ed4485311745eb8697005daa759008129313fc7c",
+      "kind": "blob",
+      "bytes": 31220,
+      "path": "docs/decisions.md"
+    },
+    {
+      "oid": "8971ad5aa7e2757a5ecb35b8a7c7cc54f2bc61f8",
+      "kind": "blob",
+      "bytes": 15433,
+      "path": "docs/spikes/evidence/platform/report.md"
+    },
+    {
+      "oid": "2b9bd2c19712865cd123114186ef1c096cc3ace8",
+      "kind": "blob",
+      "bytes": 7128,
+      "path": "docs/stage-0.md"
+    },
+    {
+      "oid": "67707896eb8c7112e7e6fb1370c4ab690c8d1235",
+      "kind": "blob",
+      "bytes": 10164,
+      "path": "docs/stage-0/evidence/publication/001/findings.json"
+    },
+    {
+      "oid": "502f33a279f54aac8cf4e80bcc6e11bd0858ae46",
+      "kind": "blob",
+      "bytes": 7115,
+      "path": "docs/stage-0/evidence/publication/001/record.json"
+    },
+    {
+      "oid": "6094cc611ad773f37b53eefea32966b0857a72dd",
+      "kind": "blob",
+      "bytes": 6464,
+      "path": "docs/stage-0/evidence/publication/001/report.md"
+    },
+    {
+      "oid": "6942fc04118ebc044ea60a1c89c8e3c373250637",
+      "kind": "blob",
+      "bytes": 6218,
+      "path": "docs/stage-0/evidence/publication/001/scan.py"
+    },
+    {
+      "oid": "faba88ec64a8e63fb92ef581ef5bb16738704482",
+      "kind": "blob",
+      "bytes": 4178,
+      "path": "docs/stage-0/evidence/publication/001/snapshot.json"
+    },
+    {
+      "oid": "e5cdd6e86c58a881f79014aea1fa2f5c950654f4",
+      "kind": "blob",
+      "bytes": 30377,
+      "path": "docs/decisions.md"
+    },
+    {
+      "oid": "5e2fa718b71b6097bde3e5154452c3f0aeae707a",
+      "kind": "blob",
+      "bytes": 29717,
+      "path": "docs/decisions.md"
+    },
+    {
+      "oid": "b7eba3969c4f1f741019f91cbfd35d351cb02fdc",
+      "kind": "blob",
+      "bytes": 28583,
+      "path": "docs/decisions.md"
+    }
+  ],
+  "new_blob_path_occurrences": [
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": ".github/workflows/ci.yml",
+      "oid": "7f0e442fc9d9c849bee34de26740d2a3f71e337b"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": ".github/workflows/cleanup.yml",
+      "oid": "1618821f02d027b4ac6bc152951bf09dc1beaa82"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "README.md",
+      "oid": "b359e29a27da0ab3d3164950cb07d549bd238a95"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "apps/floor/spikes/platform/kit/README.md",
+      "oid": "14b498575a0d0b258edef7674eed9cee2c93b595"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "apps/floor/spikes/platform/kit/src/privy/client.ts",
+      "oid": "4fcb52ebac3a0fbcaf9ae6f50b3cd276c547df71"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "apps/floor/spikes/platform/kit/test/privy/client.test.ts",
+      "oid": "4402d133318cdceba3b1b640e7608a5c08208fd7"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/Codex/verification.md",
+      "oid": "b4cd46aa509618516b959789dd64186ccb54c7d4"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/decisions.md",
+      "oid": "ed4485311745eb8697005daa759008129313fc7c"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/spikes/evidence/platform/report.md",
+      "oid": "8971ad5aa7e2757a5ecb35b8a7c7cc54f2bc61f8"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0.md",
+      "oid": "2b9bd2c19712865cd123114186ef1c096cc3ace8"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0/evidence/publication/001/findings.json",
+      "oid": "67707896eb8c7112e7e6fb1370c4ab690c8d1235"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0/evidence/publication/001/record.json",
+      "oid": "502f33a279f54aac8cf4e80bcc6e11bd0858ae46"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0/evidence/publication/001/report.md",
+      "oid": "6094cc611ad773f37b53eefea32966b0857a72dd"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0/evidence/publication/001/scan.py",
+      "oid": "6942fc04118ebc044ea60a1c89c8e3c373250637"
+    },
+    {
+      "commit": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+      "path": "docs/stage-0/evidence/publication/001/snapshot.json",
+      "oid": "faba88ec64a8e63fb92ef581ef5bb16738704482"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": ".github/workflows/ci.yml",
+      "oid": "7f0e442fc9d9c849bee34de26740d2a3f71e337b"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": ".github/workflows/cleanup.yml",
+      "oid": "1618821f02d027b4ac6bc152951bf09dc1beaa82"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "README.md",
+      "oid": "b359e29a27da0ab3d3164950cb07d549bd238a95"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "apps/floor/spikes/platform/kit/README.md",
+      "oid": "14b498575a0d0b258edef7674eed9cee2c93b595"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "apps/floor/spikes/platform/kit/src/privy/client.ts",
+      "oid": "4fcb52ebac3a0fbcaf9ae6f50b3cd276c547df71"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "apps/floor/spikes/platform/kit/test/privy/client.test.ts",
+      "oid": "4402d133318cdceba3b1b640e7608a5c08208fd7"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "docs/Codex/verification.md",
+      "oid": "b4cd46aa509618516b959789dd64186ccb54c7d4"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "docs/decisions.md",
+      "oid": "e5cdd6e86c58a881f79014aea1fa2f5c950654f4"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "docs/spikes/evidence/platform/report.md",
+      "oid": "8971ad5aa7e2757a5ecb35b8a7c7cc54f2bc61f8"
+    },
+    {
+      "commit": "de45700eb0e9ed7411ad492544278236bdbf99df",
+      "path": "docs/stage-0.md",
+      "oid": "2b9bd2c19712865cd123114186ef1c096cc3ace8"
+    },
+    {
+      "commit": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+      "path": "apps/floor/spikes/platform/kit/README.md",
+      "oid": "14b498575a0d0b258edef7674eed9cee2c93b595"
+    },
+    {
+      "commit": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+      "path": "apps/floor/spikes/platform/kit/src/privy/client.ts",
+      "oid": "4fcb52ebac3a0fbcaf9ae6f50b3cd276c547df71"
+    },
+    {
+      "commit": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+      "path": "apps/floor/spikes/platform/kit/test/privy/client.test.ts",
+      "oid": "4402d133318cdceba3b1b640e7608a5c08208fd7"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": ".github/workflows/ci.yml",
+      "oid": "7f0e442fc9d9c849bee34de26740d2a3f71e337b"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": ".github/workflows/cleanup.yml",
+      "oid": "1618821f02d027b4ac6bc152951bf09dc1beaa82"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": "README.md",
+      "oid": "b359e29a27da0ab3d3164950cb07d549bd238a95"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": "docs/Codex/verification.md",
+      "oid": "b4cd46aa509618516b959789dd64186ccb54c7d4"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": "docs/decisions.md",
+      "oid": "5e2fa718b71b6097bde3e5154452c3f0aeae707a"
+    },
+    {
+      "commit": "b1ea74bd22ffa80587f9bc77c714f14ebd5ed285",
+      "path": "docs/stage-0.md",
+      "oid": "2b9bd2c19712865cd123114186ef1c096cc3ace8"
+    },
+    {
+      "commit": "b579b47423e72d4045245483faafc0faf65563f2",
+      "path": "docs/decisions.md",
+      "oid": "b7eba3969c4f1f741019f91cbfd35d351cb02fdc"
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "check_id": "public-export-and-first-push",
+  "attempt": "003",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T18:11:45.392106+00:00",
+  "operator": "Root performed the export/push; Codex independently verified mapping and remote refs",
+  "reviewer": "Root reviewed source-to-public mapping, independent verification, remote tips and all retained artifact hashes before this evidence commit.",
+  "source_revision": "3dc2327ca56aac9ac949d33cfc797b90748206ac",
+  "dependency_versions": {
+    "Bun": "1.4.0",
+    "Git": "2.40.1",
+    "git-filter-repo": "a40bce548d2c",
+    "Python": "3.12.14"
+  },
+  "api_evidence": [
+    {
+      "operation": "git ls-remote --heads",
+      "url": "https://github.com/mannyc2/the-floor.git",
+      "observed_at_utc": "2026-10-12T18:11:44.927460+00:00",
+      "refs": {
+        "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+        "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+        "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+        "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+        "refs/heads/stage-0": "b606b0224b50ebbf86846ca78968e97057551604"
+      }
+    }
+  ],
+  "execution_target": "Separate filtered mirror/publication checkout, immutable original commits and read-only remote branch refs",
+  "runtime_configuration": {
+    "public_revision": "b606b0224b50ebbf86846ca78968e97057551604",
+    "filter_args": [
+      "filter-repo",
+      "--invert-paths",
+      "--path",
+      "reference/cafe-reference/",
+      "--prune-empty",
+      "never",
+      "--prune-degenerate",
+      "never",
+      "--preserve-commit-hashes",
+      "--preserve-commit-encoding",
+      "--replace-refs",
+      "delete-no-add"
+    ],
+    "only_omission": "reference/cafe-reference/",
+    "source_original_history_preserved": true,
+    "artifact_commit_intent": "Artifacts are marked committed for the next root evidence commit; this audit has not staged or committed them.",
+    "result_status_preserved": "export-result.json remains verified-unpublished as captured before the push."
+  },
+  "stage_and_resources": "GitHub repository mannyc2/the-floor; no application deployment or hosted test resources created by this audit",
+  "inputs": [
+    {
+      "path": "docs/stage-0/evidence/publication/002/record.json",
+      "scope": "Root reviewed the incremental source content before publication; its review bookkeeping is updated alongside this record."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/export-result.json",
+      "sha256": "0b0cf6d60f0747185b314c755eb2d8d93de900cd69bbd3c5da017351d252020f"
+    }
+  ],
+  "procedure": [
+    "Inspect captured export result, complete commit map, source refs/worktrees, excluded-blob inventory, image inventory and exact tool sources.",
+    "Independently compare all54 source/mapped commit trees, metadata and parent topology; assert only caf\u00e9 paths omitted and all71 forbidden blob IDs absent.",
+    "Verify unchanged source refs/worktree heads and84 original image blob identities.",
+    "Inspect ten guard-test results and invoke the guard read-only against the approved publication checkout; retain the mirror default-deny observation.",
+    "Independently read all five public branch refs and compare them with reviewed targets.",
+    "Record root-reported failed/successful transports separately; make no CI pass claim."
+  ],
+  "expected_result": "Exact reviewed content published with only the authorized caf\u00e9 omission, all84 originals retained and original local history preserved.",
+  "observed_result": {
+    "source_to_public": {
+      "3dc2327ca56aac9ac949d33cfc797b90748206ac": "b606b0224b50ebbf86846ca78968e97057551604"
+    },
+    "mapped_commits": 54,
+    "tree_entries_compared": 22900,
+    "unique_kept_blobs": 1204,
+    "excluded_cafe_blobs_absent": 71,
+    "retained_original_images": 84,
+    "commit_metadata_preserved": 54,
+    "parent_topology_preserved": 54,
+    "original_refs_and_worktree_heads_unchanged": true,
+    "remote_refs_match": true,
+    "first_push_succeeded": true,
+    "force_push": false,
+    "guard_fixture_cases_passed": 10,
+    "fresh_read_only_guard": "pass: five approved refs,54 clean commits",
+    "ci": "not established by this record"
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/publication/003/blob-size-check.json",
+      "committed": true,
+      "bytes": 1125,
+      "sha256": "d995a7882da8156a89688f15b5e439024267d0f451bedad3f08a9e8d94f020d3",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/commit-map.txt",
+      "committed": true,
+      "bytes": 4473,
+      "sha256": "9b6d0921d73d135b955e454afd1fe682c32e3e5ec1a21eba2c3a8c0eea5b4622",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/export-result.json",
+      "committed": true,
+      "bytes": 2396,
+      "sha256": "0b0cf6d60f0747185b314c755eb2d8d93de900cd69bbd3c5da017351d252020f",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/forbidden-blobs.txt",
+      "committed": true,
+      "bytes": 2911,
+      "sha256": "4723f4358411d3420ba775048d2a5e056f7e5b3a35bbcfd5ba66546e6379cf55",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/guard-test-results.json",
+      "committed": true,
+      "bytes": 1903,
+      "sha256": "025b05e387252d959ea709fd7829f3a1bfd8590cd4e3026b9875ae20a181216f",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/independent-verification.json",
+      "committed": true,
+      "bytes": 2027,
+      "sha256": "55ed95e4831f4a039e61ed5c850e03137581d140a062711235ff3d6b94b76d0d",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/look-b-originals.json",
+      "committed": true,
+      "bytes": 15927,
+      "sha256": "2ba5b4f5fa00767472165ba482bec46a133542dcc957b527546efc6780547336",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/push-observation.json",
+      "committed": true,
+      "bytes": 1995,
+      "sha256": "32eeb3f8545f268b3b47e91c717ac2fe50b213a1542d29b363f04680db692dcc",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/remote-refs.txt",
+      "committed": true,
+      "bytes": 314,
+      "sha256": "b0318b32f53a6344e993467b32fdabaec1cbee42dca3002c8212e94da0f9c5fd",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/report.md",
+      "committed": true,
+      "bytes": 3288,
+      "sha256": "9e5b6f5f7a877a224b2f2754d1abd2e06a1cc5b6d4e4c0a3e76ed1c8708dd11e",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/retained-artifacts.json",
+      "committed": true,
+      "bytes": 3652,
+      "sha256": "d5a342ca8fafcbd613880b98cb69ae095875814c21f2ca6890e52535b8025911",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/source-refs.json",
+      "committed": true,
+      "bytes": 357,
+      "sha256": "b6985d7a24926be33a334136cb0c0c4a2ee3cf01df1e8e237fd21c7c65ee7307",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/source-worktrees.txt",
+      "committed": true,
+      "bytes": 820,
+      "sha256": "dbfe755e5dc57f786d69e475b50527acfc9ff3d8324a22bf631824558c84cd54",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/tooling/audit.ts",
+      "committed": true,
+      "bytes": 3173,
+      "sha256": "0d010d11dbb55a0d9a97baa99da54e962da1606211ef12bad290b955572fc79b",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/tooling/export.ts",
+      "committed": true,
+      "bytes": 8460,
+      "sha256": "110d981d52b61323fb6933b8602617cbfe16f318d2d3d42c6df7b025530ef724",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/tooling/guard.ts",
+      "committed": true,
+      "bytes": 2853,
+      "sha256": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/003/tooling/test-guard.ts",
+      "committed": true,
+      "bytes": 3900,
+      "sha256": "4add4706bab2b64b0782996610ef514f307c57e45676a9d9bd98bab8f1cabd0d",
+      "regenerate": "Retained historical evidence for the reviewed first publication. Preserve original bytes; use a new record for later exports or remote observations."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "This audit used read-only remote refs. Root performed the explicitly authorized public push. No credential values were copied into the record.",
+    "budget": "No metered application/provider resource used by this audit.",
+    "observed_cost": "not measured; no application spend observed"
+  },
+  "cleanup_result": "Original local history left intact. Export tools/results retained without changes. New003 evidence and requested002 review bookkeeping are uncommitted for root; ignored audit scratch retained.",
+  "decision_link": "docs/decisions.md: public GitHub authorization; publication001 caf\u00e9 omission finding; publication002 scoped incremental clearance; explicit all84 image-retention instruction.",
+  "limitations_and_next_action": "Proof-PR/CI results remain separate. Transport retries are root-reported; remote tips and full mapping were independently verified. Later source/remote changes need their own observation.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "Publication verification, not a new art review."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}
