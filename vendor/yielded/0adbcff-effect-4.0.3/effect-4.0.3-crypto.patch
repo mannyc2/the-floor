@@ -1,0 +1,52 @@
+diff --git a/packages/effect-agent/src/durable/SubscriptionTools.ts b/packages/effect-agent/src/durable/SubscriptionTools.ts
+index fde413e..b6be4c3 100644
+--- a/packages/effect-agent/src/durable/SubscriptionTools.ts
++++ b/packages/effect-agent/src/durable/SubscriptionTools.ts
+@@ -241,7 +241,7 @@ export const subscriptionToolsLayer = (
+         .do(
+           "subscription-identity",
+           SubscriptionName,
+-          crypto.randomUUIDv7.pipe(
++          crypto.randomUUIDv7().pipe(
+             Effect.map((id) => `tool:${id}`),
+             Effect.mapError(() => toolFailure("storage", "creation-identity")),
+           ),
+diff --git a/packages/platform-cloudflare/src/CloudflareThreadClientHost.ts b/packages/platform-cloudflare/src/CloudflareThreadClientHost.ts
+index 1726773..bcb24fe 100644
+--- a/packages/platform-cloudflare/src/CloudflareThreadClientHost.ts
++++ b/packages/platform-cloudflare/src/CloudflareThreadClientHost.ts
+@@ -681,7 +681,7 @@ export class CloudflareThreadClient extends Context.Service<
+ 
+         awaitProgress: (threadId, afterSequence) =>
+           Effect.gen(function* () {
+-            const waiterId = yield* crypto.randomUUIDv4.pipe(
++            const waiterId = yield* crypto.randomUUIDv4().pipe(
+               Effect.mapError((error) =>
+                 HostProtocolError.make({
+                   message: boundHostDiagnostic(
+diff --git a/packages/storage-cloudflare/src/DoSubmissionLedger.ts b/packages/storage-cloudflare/src/DoSubmissionLedger.ts
+index bd38508..2400a57 100644
+--- a/packages/storage-cloudflare/src/DoSubmissionLedger.ts
++++ b/packages/storage-cloudflare/src/DoSubmissionLedger.ts
+@@ -624,7 +624,7 @@ const makeServices = Effect.fn("DoSubmissionLedger.makeServices")(function* () {
+       );
+ 
+   const mintUuid = (operation: string): Effect.Effect<string, LedgerError> =>
+-    crypto.randomUUIDv7.pipe(Effect.mapError((error) => internalFailure(operation)(error)));
++    crypto.randomUUIDv7().pipe(Effect.mapError((error) => internalFailure(operation)(error)));
+ 
+   const currentInstant = Effect.map(Clock.currentTimeMillis, (millis) => ({
+     millis,
+diff --git a/packages/storage-sql/src/SqlSubmissionLedger.ts b/packages/storage-sql/src/SqlSubmissionLedger.ts
+index c8547ac..452b195 100644
+--- a/packages/storage-sql/src/SqlSubmissionLedger.ts
++++ b/packages/storage-sql/src/SqlSubmissionLedger.ts
+@@ -441,7 +441,7 @@ export const makeSqlSubmissionLedger = Effect.fn("SqlSubmissionLedger.make")(fun
+       );
+ 
+   const mintIdentifier = (prefix: string, operation: string): Effect.Effect<string, LedgerError> =>
+-    crypto.randomUUIDv7.pipe(
++    crypto.randomUUIDv7().pipe(
+       Effect.map((uuid) => `${prefix}-${uuid}`),
+       Effect.mapError((error) => internalFailure(operation)(error)),
+     );

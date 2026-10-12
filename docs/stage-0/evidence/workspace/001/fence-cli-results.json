@@ -1,0 +1,60 @@
+[
+  {
+    "name": "allowed",
+    "command": [
+      "bun",
+      "scripts/bundle-budget/modules.ts",
+      "--target",
+      "signer",
+      "--directory",
+      "work/stage-0-checks/fence-proof-001/allowed",
+      "--entry",
+      "entry.js"
+    ],
+    "exitCode": 0,
+    "expectedSuccess": true
+  },
+  {
+    "name": "computed",
+    "command": [
+      "bun",
+      "scripts/bundle-budget/modules.ts",
+      "--target",
+      "signer",
+      "--directory",
+      "work/stage-0-checks/fence-proof-001/computed",
+      "--entry",
+      "entry.js"
+    ],
+    "exitCode": 1,
+    "expectedSuccess": false
+  },
+  {
+    "name": "prefixed",
+    "command": [
+      "bun",
+      "scripts/bundle-budget/modules.ts",
+      "--target",
+      "signer",
+      "--directory",
+      "work/stage-0-checks/fence-proof-001/prefixed",
+      "--entry",
+      "entry.js"
+    ],
+    "exitCode": 1,
+    "expectedSuccess": false
+  },
+  {
+    "name": "missing-manifest-edge",
+    "command": [
+      "bun",
+      "scripts/bundle-budget/cli.ts",
+      "--directory",
+      "work/stage-0-checks/fence-proof-001/missing-manifest-edge",
+      "--profile",
+      "shell"
+    ],
+    "exitCode": 1,
+    "expectedSuccess": false
+  }
+]

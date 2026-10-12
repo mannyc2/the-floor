@@ -1,0 +1,78 @@
+{
+  "policy": "Use only included allowances in the owner's existing $5 Cloudflare Workers subscription. No new subscription, task-caused overage, R2 usage, separately billed inference, or outside wallet-provider charge is authorized.",
+  "authorizedAccountId": "7aa7065a7e971d97435b3f22098d78b0",
+  "dashboardObservation": {
+    "observedOn": "2026-10-12",
+    "observer": "Root agent, read-only Cloudflare dashboard inspection after the owner selected this account",
+    "billingPeriod": "2026-09-22 through 2026-10-21",
+    "plan": "Workers Paid, $5/month",
+    "usageDisplays": {
+      "workerRequests": "40.47k / 10M; newer overview 41.87k",
+      "workerCpuMs": "252.1k / 30M; newer overview 261.79k",
+      "d1StorageGbMonth": "0.06 / 5",
+      "d1RowsRead": "753.35M / 25B",
+      "d1RowsWritten": "1.87k / 50M",
+      "doRequests": "42 / 1M",
+      "doDurationGbSeconds": "0.1 / 400000",
+      "doRowsRead": "2 / 25B",
+      "doRowsWritten": "28 / 50M",
+      "doStorageGbMonth": "0 / 5"
+    },
+    "observedBillableForListedProducts": "$0; dashboard values are rounded and can lag",
+    "preExistingR2": "$0.06 observed before this task; R2 is outside the authorized run",
+    "preExistingResources": "alchemy-state-store Worker existed approximately 17 hours before inspection. Ownership and version must be inspected before using remote state. Do not upgrade, replace or destroy this shared bootstrap automatically."
+  },
+  "browserAllowance": {
+    "officialSource": "https://developers.cloudflare.com/browser-run/pricing/",
+    "workersPaidIncluded": "10 browser-hours/month; 10 concurrent browsers averaged monthly",
+    "dashboardObservation": "0 sessions, 0 average concurrency, 0 browser-hours and 0 Quick Actions from Sep 30 through Today",
+    "currentPeriodRemaining": "unknown: the observed UI range omits Sep 22 through Sep 29",
+    "reservation": "none until the applicable monthly interval is verified",
+    "proposedMaximum": "One simultaneous browser; total browser execution at most 120 seconds"
+  },
+  "proposedRuntimeReservation": {
+    "state": "Reserved for floor-hosted-20261012-001, authorized native agent/storage/Web Crypto run; Browser Run remains excluded.",
+    "temporaryStages": 1,
+    "maximumLifetimeMinutes": 30,
+    "driverWorkerRequests": 80,
+    "workerCpuBudgetMs": 800000,
+    "doRequests": 250,
+    "doDurationGbSecondsConservativeUpperBound": 750,
+    "sqlRowsRead": 10000,
+    "sqlRowsWritten": 1000,
+    "additionalStorageBytes": 1048576,
+    "cleanup": "Destroy only stage-owned resources in the test finalizer even after failure; verify their absence. Preserve every pre-existing resource. Record usage before and after; billing lag prevents inferring exact incremental cost from an immediate dashboard read."
+  },
+  "executionLedger": [
+    {
+      "stage": "floor-hosted-20261012-001",
+      "reservedAt": "2026-10-12T17:09:15.033Z",
+      "state": "first deployment destroyed; cleanup independently verified",
+      "maximumLifetimeMinutes": 30,
+      "maximumDriverRequests": 80,
+      "requestCpuLimitMs": 10000,
+      "browserSessions": 0,
+      "paidProviderCalls": 0,
+      "expectedResources": {
+        "workers": 2,
+        "d1Databases": 1,
+        "durableObjectNamespaces": 3
+      },
+      "preExistingBootstrap": "version 7 matches beta.80; preserve Worker, namespace and Secrets Store",
+      "result": "Initial unauthenticated gate failed; response status/body absent from first instrumentation",
+      "driverRequests": 1,
+      "maximumObservedLifetimeSeconds": 24,
+      "cleanupVerifiedAt": "2026-10-12T17:11:10.460Z"
+    },
+    {
+      "stage": "floor-hosted-20261012-001",
+      "attempt": "002",
+      "reservedAt": "2026-10-12T17:13:23.808Z",
+      "state": "retry-reserved-after-verified-destruction",
+      "browserSessions": 0,
+      "paidProviderCalls": 0,
+      "originalReservationRetained": true
+    }
+  ],
+  "outsideProviderCalls": "No Anthropic, OpenAI, Privy or other separately billed provider operation is currently included in this budget."
+}

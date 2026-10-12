@@ -1,0 +1,156 @@
+{
+  "check_id": "stage-0-workspace",
+  "attempt": "001",
+  "status": "pass-local-skeleton",
+  "executed_at_utc": "2026-10-12T17:17:37Z",
+  "operator": "root",
+  "reviewer": "chains_promotion independently reviewed the shell flow assertions/stubs, sourceRoot and computed-dependency fixes, and workflow syntax; root independently reviewed packed Yielded source changes and all43 archived Floor001 source files/all14 artifact hashes. No art or whole-stage approval.",
+  "source_revision": "4907895fb253786631b85abcec5fb5937c7c4611 plus executed-source.tar.gz; source-manifest.json covers active code/config inputs. Six vendor package tarballs are independently hashed in vendor/yielded/0adbcff-effect-4.0.3/provenance.json.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "foldkit": "0.168.0",
+    "typescript": "7.0.2",
+    "rolldown": "1.2.13",
+    "yielded": "0.1.0-beta.166-floor.0adbcff.403.2"
+  },
+  "procedure": [
+    "bun install --frozen-lockfile",
+    "bun run format:check",
+    "bun run typecheck",
+    "bun run lint",
+    "bun run test:leaf",
+    "bun run build",
+    "bun run test:native",
+    "bun run test:flow"
+  ],
+  "observed_result": {
+    "frozen_install": "pass, no changes",
+    "format": "pass",
+    "typecheck": "pass, eight explicit configurations and91 error diagnostics",
+    "lint": "pass;49 reasoned directives",
+    "leaf": {
+      "tests": 56,
+      "assertions": 1333,
+      "failures": 0
+    },
+    "build": {
+      "vendorPackagesVerified": 6,
+      "webInitialGzipBytes": 114019,
+      "webInitialBudgetBytes": 204800,
+      "webEmittedModules": 1,
+      "webMappedSources": 218,
+      "floorEmittedModules": 10,
+      "floorMappedSources": 425,
+      "chainEmittedEntries": 2,
+      "chainMappedSources": 551,
+      "workerProductionTests": 2,
+      "workerProductionAssertions": 9
+    },
+    "native": {
+      "assertions": 36,
+      "scope": "26 admission/storage,7 separate-process restart,3 secret-gate checks"
+    },
+    "flow": {
+      "tests": 1,
+      "durationSeconds": 6.1,
+      "entry": "actual Alchemy Worker with built web assets",
+      "promise": "typed health connectivity only",
+      "stubs": "none in this flow"
+    },
+    "negativeCliControls": "allowed mapped source passes; computed dependency, nonempty sourceRoot, missing manifest edge fail"
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/workspace/001/build.log",
+      "committed": true,
+      "bytes": 3596,
+      "sha256": "b3c3f5f6c9384b2455bff255ed8eb6bc6a1522be3ee9080a26db1f30db855c15"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/commands.txt",
+      "committed": true,
+      "bytes": 152,
+      "sha256": "0c9dcc82facc051e026f8ef1a5c7ab69627c3a18fff8ec566190b0eb2694091e"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 187206,
+      "sha256": "f1f2e05ea3b4aee08674241f927e2a4cfc01ddc2ae952c6ccba2035d955135ba"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/fence-cli-results.json",
+      "committed": true,
+      "bytes": 1199,
+      "sha256": "08b64fcdd4f2f11ba5ad843bb1999e51c01ff90350efa7a60d9ecf54a1327b9c"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/flow.log",
+      "committed": true,
+      "bytes": 2146,
+      "sha256": "8a4f763ae963773292df302c1b1a0a7fa7b899168c83326dc91391da1276820f"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/format.log",
+      "committed": true,
+      "bytes": 15,
+      "sha256": "f1af9b66ef0d45ef0c81a05fdd397a23fee9877255bc692249880c1197eb842c"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/leaf.log",
+      "committed": true,
+      "bytes": 5180,
+      "sha256": "558d0d9c267451f6cd5b934925c5e2b28067cbe67c557c7e3be0c16ac5fe87f5"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/lint.log",
+      "committed": true,
+      "bytes": 508,
+      "sha256": "87cd8438e516b675396d4a0ead0b9797a48151124d121b38da8b76a4d6944484"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/native.log",
+      "committed": true,
+      "bytes": 12715,
+      "sha256": "af9ba273ea8585e130eed3c79c8e4f3c83a3aae9ed1a5a35d14c540e55996ffc"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/shell-connected.png",
+      "committed": true,
+      "bytes": 14464,
+      "sha256": "f4cac3124097c34c5f890f5e13d6a0bc7f32e4aeec203f433c5c69c63c506579"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/source-manifest.json",
+      "committed": true,
+      "bytes": 18961,
+      "sha256": "4b7e90f3234a056a962ea13fb8dfc15d95d07589a9c28b503bfe2eff15a1cae4"
+    },
+    {
+      "path": "docs/stage-0/evidence/workspace/001/typecheck.log",
+      "committed": true,
+      "bytes": 363,
+      "sha256": "48762a35b26bc0e3f263aad448fcc54e545f7ba19a558d99d15b8dad46af4231"
+    },
+    {
+      "path": "work/stage-0-checks/integrated-001/shell-flow.webm",
+      "committed": false,
+      "bytes": 11366,
+      "sha256": "50101355d3ec838d11ed2c834596f548278c36a57d397815514b4ea392b8a15c",
+      "regenerate": "bun run test:flow on archived inputs; preserve each new attempt separately"
+    }
+  ],
+  "network_and_cost": "Local acceptance uses loopback-only host network guards; Decisions tests use labelled fake Fetch. No live inference, wallet or browser-provider call is part of these commands. Cloudflare hosted attempts are separate. Incremental billed cost is unmeasured.",
+  "cleanup": "Build, native final process and browser-server SIGTERM finalizers destroyed their local resources; separate admission intentionally retains local state only until restart.",
+  "limitations": [
+    "Not Stage0 completion.",
+    "Shell profile omits deferred renderer measurement explicitly; default complete profile requires that entry.",
+    "No approved Atlas values, reference frames, external renderer/camera/picking, fresh look captures or phone acceptance.",
+    "Local agent tests inject ScriptedModel only through ./testing; provider Layers and Decisions wire mapping are not proof of live provider access.",
+    "DO/D1 storage fixtures establish infrastructure semantics, not a production application history repository.",
+    "Hosted creation/deletion, full-period Browser allowance, Privy sandbox, live providers and remote GitHub execution require their own evidence.",
+    "Reference snapshot remains until all Stage0 ports finish."
+  ]
+}

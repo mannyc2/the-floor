@@ -1,0 +1,32 @@
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/build.test.ts:
+[16:44:46.957] INFO (#6): Plan: 1 to create, 2 binding changes
+[16:44:46.960] INFO (#6): [FloorWorker] create (local)
+[16:44:46.960] INFO (#6): [FloorWorker/FLOOR_MAILBOXES] create
+[16:44:46.960] INFO (#6): [FloorWorker/FLOOR_THREADS] create
+[16:44:46.960] INFO (#6): 
+[16:44:46.967] INFO (#410): [FloorWorker] pre-creating (local)
+[16:44:46.986] INFO (#410): [FloorWorker] creating (local)
+[16:44:47.005] INFO (#410): [FloorWorker] ready at http://localhost:19740
+[16:44:47.005] INFO (#410): [FloorWorker] created (local) (39ms)
+[16:44:47.037] INFO (#434): [FloorWorker] created (local) (71ms)
+[16:44:47.040] INFO (#6): 
+[16:44:47.040] INFO (#6): Done: 1 succeeded (80ms)
+[16:44:49.759] INFO (#427): [FloorWorker] Started in 2767ms → http://localhost:19740/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-local-agent-build/FloorWorker)
+(pass) Alchemy bundles and starts the bounded native Worker [2753.96ms]
+(pass) private browser build metadata is not served as public assets [11.83ms]
+[16:44:49.832] INFO (#659): Plan: 1 to delete, 2 binding changes
+[16:44:49.832] INFO (#659): [FloorWorker] delete (local)
+[16:44:49.832] INFO (#659): [FloorWorker/FLOOR_MAILBOXES] unbind
+[16:44:49.832] INFO (#659): [FloorWorker/FLOOR_THREADS] unbind
+[16:44:49.832] INFO (#659): 
+[16:44:49.834] INFO (#1021): [FloorWorker] deleting (local)
+[16:44:49.836] INFO (#1021): [FloorWorker] deleted (local) (2ms)
+[16:44:49.837] INFO (#659): 
+[16:44:49.837] INFO (#659): Done: 1 succeeded (5ms)
+
+ 2 pass
+ 0 fail
+ 9 expect() calls
+Ran 2 tests across 1 file. [4.12s]

@@ -2,6 +2,20 @@
 
 Status: **in progress** on everything the open items in the [decision log](decisions.md) don't block. Nothing here is complete until it is evidenced.
 
+
+The promoted local skeleton and its [verification procedure](Codex/verification.md) are implemented. The table below distinguishes implementation from remaining acceptance; no unchecked full-stage requirement is replaced by a narrower local result.
+
+| Area | Current result | Remaining gate |
+| --- | --- | --- |
+| Toolchain and ownership fences | Active strict compiler/lint, source and emitted-graph checks, reasoned suppression budget, pinned packages | Fresh complete verification on the final integrated source |
+| Chains | Parameterized Kit/Codama and EVM construction; 940 dev-only math oracle cases | Product signing/broadcast belongs to later work |
+| Floor | Native agent/DOs, real provider Layers, predicate Decisions adapter, local admission/restart/storage checks | Hosted probe evidence and authorized live provider access |
+| Web | Foldkit shell with production typed-health flow and a reserved map mount point | External map host, renderer, camera and picking |
+| Look harness | TypeScript metrics and deterministic drivers | External adapter, approved references, captures and phone measurements |
+| Art | Part A technique B/WebGL selected; 84 Part B candidates generated on their own branch | Cross-review and owner's recorded reference, tone and proportion picks |
+| CI | Preview/admin/cleanup implementation and offline workflow syntax review | Public repository created at `mannyc2/the-floor`; source publication review, scoped admin setup, successful preview flow and teardown remain |
+| Budget/access | Cloudflare Alchemy profile connected; one bounded native hosted stage authorized | Browser full-period allowance; separately billed providers remain outside authorization |
+
 ## Inputs from the spikes
 
 - [ ] Platform report records exact dependency versions and workerd results for browser/agent alarms, wallets, launch construction, renderer plates, DO/D1 storage, Web Crypto and deploy/destroy.

@@ -1,0 +1,17 @@
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/decisions.test.ts:
+(pass) predicate adapter uses the dedicated endpoint and inline image wire format [31.23ms]
+(pass) predicate adapter rejects refusal answers [4.90ms]
+(pass) predicate adapter rejects missing answers [2.66ms]
+(pass) predicate adapter rejects unexpected answers [2.23ms]
+(pass) predicate adapter rejects out of range answers [2.51ms]
+(pass) predicate adapter rejects duplicate answers [2.04ms]
+(pass) duplicate question names are rejected before transport [1.51ms]
+(pass) provider status 429 and configuration true fail without fallback [2.27ms]
+(pass) provider status 200 and configuration false fail without fallback [1.51ms]
+
+ 9 pass
+ 0 fail
+ 18 expect() calls
+Ran 9 tests across 1 file. [738.00ms]

@@ -1,6 +1,6 @@
 # Workspace decisions
 
-This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. Owner decisions are recorded with their dates below; no deployment results have been recorded here.
+This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. Owner decisions and bounded implementation findings are recorded below. Hosted attempt results are retained separately and do not imply stage acceptance.
 
 ## Current scope
 
@@ -25,21 +25,23 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 | 12 October 2026 | Look Part B starts. Part A's stand-in scene is test geometry, not a candidate look | The owner found the stand-in world "quite ugly". Its faults are listed in [the look handoff](spikes/look.md) as what Part B has to fix. |
 | 12 October 2026 | One Effect version: 4.0.3 everywhere, overriding Foldkit's exact 4.0.0 peer | Accepted by the owner ("whatever's optimal"). Yielded's published agent needs ^4.0.3. On 4.0.3, Foldkit 0.168.0's own suite passes (2,954 passed, 1 skipped, on macOS and Linux x64), its source typechecks, and a Foldkit and three.js smoke app passes. |
 | 12 October 2026 | Run Yielded's Alchemy platform from yielded-dev/agent#557 at `0adbcff`, with the PR's patch on Alchemy beta.80, until the package is published and the fixes ship upstream. Re-check at each Yielded or Alchemy release | Accepted by the owner. It passes the local agent turn, wake and restart checks; the fallback would bring back `effect-cf`. The patch doesn't apply unchanged to beta.81, so Alchemy stays on beta.80 until then. |
-| 12 October 2026 | Hosted platform checks are authorized: one temporary Alchemy stage, sandbox wallets only, no real funds or mainnet, at most $25 of provider spend across the spike, destroyed at the end | Authorized by the owner ("whatever's necessary"). The cap is a default the owner can change. The owner adds each account when Codex asks for it. |
+| 12 October 2026 | Hosted platform checks are authorized: one temporary Alchemy stage, sandbox wallets only, no real funds or mainnet, destroyed at the end | The initial $25 provider cap is superseded by the owner’s later included-allowance limit below. The owner adds each account when asked. |
 | 12 October 2026 | Stage 0 starts now on everything the open items don't block. Atlas values and reference frames wait for Part B's picks; hosted wiring waits for the hosted checks. The map host, renderer, camera and picking in `apps/web` come from the external Foldkit round; Codex builds the rest | Accepted by the owner, to keep making progress. No Stage 0 completion claim until the open items close. |
+| 12 October 2026 | Hosted checks stay within the existing Cloudflare $5 subscription’s included allowance | Accepted direct owner instruction: “under the limits of the $5 sub”. Use the selected personal Cloudflare account. Check remaining allowances before use; no paid overage, new subscription or separately billed provider use is authorized. This replaces the earlier $25 cap. |
+| 12 October 2026 | Codex creates a public GitHub repository for free standard-runner CI | Direct owner authorization supersedes the earlier owner-created/private plan. Created `mannyc2/the-floor`; content and history receive a publication review before pushing. No paid runner, storage overage or broader account change is authorized. |
 
 ## Decisions and inputs still needed
 
 | Item | Current starting point | Evidence or owner needed | Required by |
 | --- | --- | --- | --- |
 | Owner's picks | Roles settled above; technique picked | The owner's picks of reference frames, tones and proportions from shortlisted options | Look spike Part B exit |
-| Cloudflare access | Hosted checks authorized; the owner adds the Alchemy Cloudflare profile when Codex asks | Workers, Durable Objects and Browser Rendering access; scoped test stage and cleanup | Hosted platform checks |
+| Cloudflare access | Connected through the owner-delegated Alchemy OAuth flow for the selected personal account | Native hosted probe and teardown evidence; Browser Run still needs full-period remaining allowance | Hosted platform checks |
 | Wallet, inference and market-data accounts | Hosted checks authorized; the owner supplies each sandbox account or key when Codex asks | Privy sandbox; selected inference providers; Codex market-data account (codex.io) | Respective platform checks and Stage 0 needs |
 | Browser package and containment | Cloudflare default, Browserbase fallback | Package/version exporting the adapters; tested network containment, live view and takeover | Platform spike exit |
 | Runtime compatibility | Workers and Durable Objects target | workerd evidence for SDKs, storage, Web Crypto and renderer; logged deviations where necessary | Platform spike exit |
 | Atlas values | Technique B on WebGL picked; values unselected | The owner's picks of tones, kit unit, line spec and proportions | Look spike exit |
 | Islands | Revised default: Solana plus Robinhood Chain; Base through the EVM adapter | Validate with `fomo-analytics` before Stage 3; current dataset availability not established | Stage 3 |
-| Source control hosting | Local repository | A private GitHub repository, which the owner creates when Codex reaches CI | Parallel worktrees in the cloud and preview CI |
+| Source control hosting | Public `mannyc2/the-floor` created by Codex at the owner’s request | Publication review, first push and CI configuration/execution | Parallel worktrees in the cloud and preview CI |
 
 Do not store credentials in this log or the repository. Record only readiness, scope and evidence locations. Browserbase is needed only if selected by the platform spike. Historical provider claims and versions are inputs to verify during that spike, not fresh compatibility findings.
 
@@ -74,6 +76,25 @@ These are independently reviewed spike findings. They do not authorize Stage 0, 
 | Strict spike verification | **Consumer checks stay strict.** Root and launch fixtures retain all 91 Effect diagnostics and the native compiler/lint requirements. The unpublished upstream packages emit declarations under their own configuration, then Floor checks consume that real boundary. Narrow boundary suppressions are counted in the fixture READMEs. The external `effect/FileSystem` family is additionally reviewed for the host test driver; no internal application unstable-API exception is added. |
 | Effect dependency graphs | **Isolated spike versions only.** The native adapter preserves upstream Effect 4.0.0; the launch/crypto package uses 4.0.3. A single product dependency graph, updated API fences and CI are still Stage 0 work. |
 | Wallet and provider edges | **Unrun.** The small Privy HttpClient/P-256 client and live co-signing are not implemented or verified; sandbox configuration is missing. Anthropic/Decisions calls, the hosted browser policy and plate, and the temporary deploy/destroy remain gated by scope/accounts. |
+
+## Stage 0 implementation decisions — 12 October 2026
+
+These implement the owner's accepted continuation. Local checks establish only the stated behavior; renderer, look, hosted-provider and GitHub gates remain separate.
+
+| Choice | Status, reason and evidence |
+| --- | --- |
+| One workspace with Effect 4.0.3, Alchemy 2.0.0-beta.80 and Foldkit 0.168.0 | Adopted. Root overrides enforce one Effect family. Bun 1.4.0, TypeScript 7.0.2, all 91 Effect diagnostics, patched Oxlint and exact prior lint pins remain. App-specific configurations own their runtime globals. |
+| Six packed Yielded packages from `0adbcff`, private build `.403.2` | Adopted after independent source/hash review. All 259 included source files match the pinned upstream tree except four recorded Crypto value-to-method calls required by Effect 4.0.3. The unpatched failure and corrected native admission/restart attempt are retained under `spikes/evidence/platform/yielded-effect403-package/`; tarballs and patches are under `vendor/yielded/`. Active consumers do not clone or replay upstream source. |
+| `packages/chains` promotion | Adopted for the required chain boundary before the signer exists. Addresses, amounts, lifetime and RPC inputs are parameters. Bounded Meteora codecs are regenerated by Bun/Codama, with 940 dev-only SDK oracle vectors. EVM supports only the tested Base Multicurve construction subset. Neither side signs or broadcasts; construction and math tests are not launch approval. |
+| Native agent in `apps/floor` | Promoted using actual Anthropic/OpenAI Layers and a dedicated predicate-only Decisions adapter. Model/provider names and credentials are explicit; root hosted model bindings remain deferred. Scripted responses exist only behind `./testing`. Local admission/restart and DO/D1 semantics are evidenced in `stage-0/evidence/floor/001/`; the source archive and all 14 artifact hashes were independently verified. Subsequent cause-preservation and hosted-test edits require fresh root verification. |
+| Foldkit shell and typed health | Implemented through contract Schemas, the narrow `@floor/api` exception, and the actual Worker. The shell is intentionally without selected Atlas values. Map host, renderer, camera and picking await the external Foldkit contribution. The new browser flow proves connectivity only and has received an independent assertion/stub review. |
+| TypeScript look harness | Promoted pixel metrics, deterministic matrix capture, phone profile and impostor checks into `testing/look`. Three.js projection remains web-owned. No active renderer capture, approved reference or phone acceptance is claimed before the external adapter and owner picks exist. |
+| Rolldown 1.2.13 as a direct build-only parser dependency | Adopted because Effect does not supply a JavaScript parser and Bun's import scanner omits computed dependencies. Reuse the parser already brought by Vite, with typed AST visitation. Literal imports, re-exports, CommonJS and expression-free templates remain traversable; computed targets fail closed. There is no application runtime dependency on this parser. |
+| Source-map and suppression safeguards | Nonempty source-map `sourceRoot` is rejected rather than silently changing authority. Web emitted edges must be present in the manifest. Oxlint ignores ESLint disable aliases and the suppression scanner rejects them; native reasons and exact per-file counts remain mandatory. Negative parser, map and manifest cases are retained under root verification. |
+| CI and preview architecture | Implemented with remote Alchemy state, a separate `floor-admin` profile, scoped CI token, PR-only stage validation, current-head/open-PR recheck, preview comment and trusted-base cleanup. Both workflows retain all pending operations in their shared per-PR queue. Automatic production deploy is absent; preview enabling and creation/teardown proof await repository publication/configuration and hosted gates. Local YAML/shell/script syntax review passed; GitHub execution has not occurred. |
+| Cloudflare OAuth and shared bootstrap | Owner delegated authentication on 12 October. The selected personal account's Alchemy profile is connected. The existing state-store version matches beta.80; it is shared pre-existing infrastructure and must not be upgraded or destroyed automatically. Test code uses noninteractive prompts and `updateStateStore: false`. No credential is retained in the repository. |
+| Included-allowance budget | The authoritative policy is `spikes/hosted-budget.json`. Native hosted checks reserve one bounded temporary stage. Browser Run remains excluded because its visible Sep 30–Today graph omits the start of the account's billing cycle. No new subscription, overage, R2 use or separately billed provider call is authorized. |
+
 
 ## Recording the next decision
 

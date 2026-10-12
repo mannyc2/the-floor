@@ -1,0 +1,33 @@
+$ tsc --noEmit -p tsconfig.json
+test/do-ledger-reads.test.ts(40,50): error TS2322: Type 'Effect<void, unknown, unknown>' is not assignable to type 'Effect<void, unknown, Crypto | SqlClient | SubmissionLedger>'.
+  Type 'unknown' is not assignable to type 'Crypto | SqlClient | SubmissionLedger'.
+test/do-storage-upgrade.test.ts(334,9): error TS2322: Type 'Effect<void, AdmissionConflict | AdmissionPolicyError | DoStorageFailpointError | LedgerError | ... 5 more ... | SubscriptionStoreFailure, SqlClient | ... 1 more ... | SubscriptionStore>' is not assignable to type 'Effect<void, AdmissionConflict | AdmissionPolicyError | DoStorageFailpointError | LedgerError | ... 5 more ... | SubscriptionStoreFailure, SqlClient>'.
+  Type 'SqlClient | SubmissionLedger | SubscriptionStore' is not assignable to type 'SqlClient'.
+    Type 'SubmissionLedger' is not assignable to type 'SqlClient'.
+      Type 'Shape<"@effect-agent/thread/SubmissionLedger", { readonly capabilities: Effect<LedgerCapabilities, never, never>; readonly admit: (request: AdmissionRequest) => Effect<...>; ... 24 more ...; readonly loadRecoverySnapshot: (request: RecoverySnapshotRequest) => Effect<...>; }>' is missing the following properties from type 'SqlClient': [TypeId], safe, withoutTransforms, reserve, and 16 more.
+test/do-storage.test.ts(469,9): error TS2322: Type 'Effect<void, void | AdmissionConflict | AdmissionPolicyError | AppendConflict | CheckpointRejected | ... 8 more ... | DoStorageInitializationError, SubmissionLedger | ThreadStore>' is not assignable to type 'Effect<void, void | AdmissionConflict | AdmissionPolicyError | AppendConflict | CheckpointRejected | ... 8 more ... | DoStorageInitializationError, never>'.
+  Type 'SubmissionLedger | ThreadStore' is not assignable to type 'never'.
+    Type 'SubmissionLedger' is not assignable to type 'never'.
+../../test/fixtures/checkpoints.ts(1,22): error TS2305: Module '"@yielded/agent/digest"' has no exported member 'EMPTY_TAIL_DIGEST'.
+../../test/fixtures/checkpoints.ts(3,45): error TS2305: Module '"@yielded/agent/records"' has no exported member 'ProducerEpoch'.
+../../test/fixtures/checkpoints.ts(16,3): error TS2724: '"@yielded/agent/thread-store"' has no exported member named 'FencedAppendRequest'. Did you mean 'AppendRequest'?
+../../test/fixtures/checkpoints.ts(22,24): error TS2307: Cannot find module 'vite-plus/test' or its corresponding type declarations.
+../../test/fixtures/checkpoints.ts(40,67): error TS2353: Object literal may only specify known properties, and 'producerEpoch' does not exist in type '{ readonly threadId: string & Brand<"@effect-agent/core/ThreadId">; }'.
+../../test/fixtures/checkpoints.ts(78,5): error TS2322: Type 'AppendResult' is not assignable to type '{ lastSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; tailDigest: any; }'.
+  Property 'tailDigest' is missing in type '{ readonly firstSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; readonly lastSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; readonly replayed: boolean; }' but required in type '{ lastSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; tailDigest: any; }'.
+../../test/fixtures/checkpoints.ts(96,9): error TS2353: Object literal may only specify known properties, and 'tailDigest' does not exist in type '{ readonly schemaVersion: 1; readonly threadId: string & Brand<"@effect-agent/core/ThreadId">; readonly throughSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; readonly state: Json; readonly createdAt: Utc; }'.
+../../test/fixtures/checkpoints.ts(98,43): error TS2554: Expected 2 arguments, but got 3.
+../../test/fixtures/checkpoints.ts(146,7): error TS2353: Object literal may only specify known properties, and 'tailDigest' does not exist in type '{ readonly schemaVersion: 1; readonly threadId: string & Brand<"@effect-agent/core/ThreadId">; readonly throughSequence: number & Brand<"@effect-agent/thread/CanonicalSequence">; readonly state: Json; readonly createdAt: Utc; }'.
+../../test/fixtures/checkpoints.ts(146,30): error TS2339: Property 'tailDigest' does not exist on type 'ThreadCheckpoint'.
+../../test/fixtures/checkpoints.ts(200,59): error TS2554: Expected 2 arguments, but got 3.
+../../test/fixtures/checkpoints.ts(200,64): error TS2339: Property 'tailDigest' does not exist on type 'ThreadExport'.
+../../test/fixtures/checkpoints.ts(201,44): error TS2554: Expected 2 arguments, but got 3.
+../../test/fixtures/checkpoints.ts(201,49): error TS2339: Property 'tailDigest' does not exist on type 'ThreadExport'.
+../../test/fixtures/ledger-read-contracts.ts(16,3): error TS2305: Module '"@yielded/agent/submission-ledger"' has no exported member 'OwnershipToken'.
+../../test/fixtures/ledger-read-contracts.ts(19,3): error TS2305: Module '"@yielded/agent/submission-ledger"' has no exported member 'SettlementReservation'.
+../../test/fixtures/ledger-read-contracts.ts(29,24): error TS2307: Cannot find module 'vite-plus/test' or its corresponding type declarations.
+../../test/fixtures/ledger-read-contracts.ts(86,17): error TS2339: Property 'reserveSettlement' does not exist on type '{ readonly capabilities: Effect<LedgerCapabilities, never, never>; readonly admit: (request: AdmissionRequest) => Effect<AdmissionResult, AdmissionConflict | ... 1 more ... | LedgerError, never>; ... 24 more ...; readonly loadRecoverySnapshot: (request: RecoverySnapshotRequest) => Effect<...>; }'.
+../../test/fixtures/ledger-read-contracts.ts(110,31): error TS2339: Property 'claim' does not exist on type '{ readonly capabilities: Effect<LedgerCapabilities, never, never>; readonly admit: (request: AdmissionRequest) => Effect<AdmissionResult, AdmissionConflict | ... 1 more ... | LedgerError, never>; ... 24 more ...; readonly loadRecoverySnapshot: (request: RecoverySnapshotRequest) => Effect<...>; }'.
+../../test/fixtures/ledger-read-contracts.ts(111,79): error TS2353: Object literal may only specify known properties, and 'producerId' does not exist in type '{ readonly threadId: string & Brand<"@effect-agent/core/ThreadId">; readonly handoff?: ClaimHandoff | undefined; }'.
+../../test/fixtures/storage-upgrade.ts(10,24): error TS2307: Cannot find module 'vite-plus/test' or its corresponding type declarations.
+error: script "check" exited with code 1

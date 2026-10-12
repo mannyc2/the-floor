@@ -1,24 +1,23 @@
 # Lint and compiler requirements
 
-These are Stage 0 porting requirements. The new workspace has no active linter or compiler configuration yet. The exact prior pins and source paths are in [reference-sources.json](../reference-sources.json).
+The active workspace retains strict native TypeScript options and all 91 explicit Effect error diagnostics. `prepare` applies `effect-tsgo patch --typescript --oxlint`. Exact dependency pins are in the root manifest and lockfile. Runtime globals are confined to the relevant app or tooling configuration; the root has no ambient Workers types or historical path aliases.
 
-Preserve the strict native compiler options, 91 explicit Effect error diagnostics, the Effect presets, and the supported patch command `effect-tsgo patch --typescript --oxlint`. Remove old path aliases and root Workers globals; place runtime-specific types at the appropriate app boundary. Effect 4 uses modules such as `effect/ai`, `effect/http-api` and `effect/sql`, with stability tags rather than `effect/unstable/` paths.
+`@floor/api` is the sole internal unstable-API export exception. Its HTTP definition derives from contract Schemas. Reviewed external module families remain explicitly listed; application code receives no broad exception. Effect 4 uses stability tags and paths such as `effect/ai`, `effect/http-api` and `effect/sql`.
 
-Remove the old Floor paths from `allowedUnstableApis`. Limit the single internal exception to `packages/api` when implemented, as recorded in [the decision log](../decisions.md). Preserve reviewed dependency module families without broadly exempting application code.
+`bun run lint` compiles the custom plugin, runs type-aware Oxlint with the Effect presets and web-only Foldkit rules, scans HTML/CSS visual values, and checks the per-file suppression budget. Every native suppression must have a concrete reason. ESLint disable aliases are ignored by Oxlint and rejected by the budget scanner. Changes to counts in `scripts/lint/suppression-budget.json` require review; updating the count alone is not justification.
 
-Port Oxlint's type-aware rules, Effect presets and rule block. Point the Foldkit override at `apps/web`, and remove the old null-rule overrides. Any suppression needs an explicit reason and a counted budget. The Effect lint plugin is community maintained; Foldkit's plugin is maintained with Foldkit.
+The custom rules cover imports, re-exports, literal and computed dynamic imports, type imports and CommonJS boundaries in app/package production source. Positive and negative fixtures exercise:
 
-Until `reference/` is deleted at the end of Stage 0, exclude it from dprint, oxlint, TypeScript, Vitest, Playwright and every bundle.
+- Contract's Effect-only boundary and app/feature ownership.
+- Signer exclusion of model, agent and Floor dependencies.
+- Three.js confined to web.
+- Production exclusion of testing exports, fixture/workbench code and file reads or copies that bypass imports.
+- Reference source exclusion, including filesystem access.
+- Atlas ownership of colour and pixel literals in strings, templates, HTML and CSS. Approved generated exceptions remain unavailable until their manifest exists.
+- Exclusion of retired effect-cf, web3.js/Anchor/BN and the full Meteora SDK from production.
 
-Adapt the AST-based custom plugin and its positive/negative tests. It must cover imports, re-exports, dynamic imports, type imports and CommonJS boundaries in both `apps/` and `packages/`. Required fences include:
+Build checks independently inspect the reachable emitted module graph and every source map. A full AST parser rejects computed module dependencies; literal dynamic imports and re-exports are traversed. Missing or empty maps fail, except the individually hashed reviewed bundler helper. Nonempty `sourceRoot` fails closed rather than changing source authority invisibly. Web modules must also appear in the Vite manifest. Production bundle checks cover actual web, Floor and chain artifacts; the signer target is tested with negative fixtures until a signer app exists.
 
-- Contract imports only Effect and its own modules.
-- No app imports another app, and no feature imports a sibling feature.
-- Signer excludes inference, agent and Floor dependencies, including transitive bundle contents.
-- Three.js appears only in web, including transitive bundle contents.
-- Production excludes testing exports, fixture imports and file reads or copies that bypass import checks.
-- Nothing outside `reference/` imports or reads from `reference/`.
-- Colours and pixel literals follow the Atlas source and generated-output rules.
-- Production bundles exclude workbench code.
+Bundle budgets remain data: 200 KiB initial and 180 KiB deferred gzip. The temporary shell profile measures the initial app and explicitly leaves the external renderer gate pending. The default complete profile requires a deferred entry.
 
-Reuse the manifest walker as a bundle fence, with budgets represented as data and failures as structured errors. Do not activate the old plugin unchanged: it knows the discarded `packages/frontend` and `packages/signing` layout and does not enforce the new fences.
+`reference/`, `work/`, historical spikes and generated dependency output are outside active source checks. Explicit root test paths prevent Bun's substring discovery from executing the reference snapshot. Do not weaken these boundaries to make a check pass.

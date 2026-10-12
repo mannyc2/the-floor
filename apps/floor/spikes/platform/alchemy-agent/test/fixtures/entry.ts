@@ -133,7 +133,7 @@ interface StorageRpc {
 }
 class Storage extends DurableObject<Storage, StorageRpc>()("STORAGE") {}
 const StorageLive = Storage.make(Effect.map(
-  SqlMigrations("./work-floor-replay/test/fixtures/migrations"),
+  SqlMigrations("./test/fixtures/migrations"),
   (migrations) =>
     Effect.gen(function*() {
       const state = yield* DurableObjectState;
@@ -183,7 +183,7 @@ const StorageLive = Storage.make(Effect.map(
 ));
 
 const worker: Effect.Effect<Worker<{}>, never, Providers> = Effect.gen(function*() {
-  const database = yield* Database("FloorStorage", { migrations: "./work-floor-replay/test/fixtures/migrations" });
+  const database = yield* Database("FloorStorage", { migrations: "./test/fixtures/migrations" });
   return yield* Worker(
     "FloorLocalAgent",
     {

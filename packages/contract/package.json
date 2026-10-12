@@ -1,0 +1,7 @@
+{
+  "name": "@floor/contract",
+  "private": true,
+  "type": "module",
+  "exports": { "./health": "./src/health.ts" },
+  "dependencies": { "effect": "4.0.3" }
+}

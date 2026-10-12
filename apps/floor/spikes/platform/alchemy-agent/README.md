@@ -1,9 +1,10 @@
 # Native Alchemy agent and storage probe
 
-This local spike uses the proposed Yielded Alchemy adapter at commit
+This local spike consumes the private Yielded build derived from commit
 `0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968`, Alchemy
-`2.0.0-beta.80`, and Effect `4.0.0`. The upstream Bun lock and its exact
-Alchemy patch are retained. It is not a production package.
+`2.0.0-beta.80`, and Effect `4.0.3`. Its four-line Crypto API compatibility
+patch, exact upstream Alchemy patch, package archives, build lock and hashes
+are retained under `vendor/yielded/0adbcff-effect-4.0.3`. It is not a production package.
 
 From the repository root:
 
@@ -17,22 +18,20 @@ bun run test
 bun run format:check
 ```
 
-`spike:prepare` clones the pinned public source into ignored `work/`, installs
-its filtered, frozen dependency graph, and prepares the separate Kit package.
+`spike:prepare` verifies the six private archive hashes and compiled exports,
+installs this package's frozen graph, and prepares the separate Kit package.
 It does not deploy cloud resources. The root checks cover this fixture and the
 Kit package; the root test runs this fixture's admission and restart processes.
 The root build bundles and boots both Alchemy fixtures locally, checks readiness,
 then destroys their local resources.
 
-The replay runner checks the upstream revision and rejects modifications to
-its packages, patches, or lock. It copies authored TypeScript and SQL fixtures
-byte for byte and checks each copy. To keep the unpublished workspace's runtime
-graph intact, the fixture executes inside that checkout. For consumer checks,
-the runner emits real declarations from the six upstream packages under their
-own strict configuration, then applies every unchanged Floor compiler and lint
-rule to the authored fixture. This is a dependency declaration boundary, not a
-suppression of errors in Floor code. Runtime imports continue to use the
-upstream TypeScript source. A fresh clone may require downloading dependencies.
+The current runner imports the private archives directly; it does not clone an
+upstream checkout or install source-path aliases. Runtime exports resolve
+compiled JavaScript and consumer checks resolve compiled declarations. Every
+Floor compiler and lint rule still applies to authored code. Effect 4.0.3's
+FileSystem and Path module families are explicitly reviewed for the test driver's
+artifact writes. Historical Effect 4.0.0 results retain their exact original
+source archives; they are not relabelled as 4.0.3 results.
 
 The harness is Alchemy's `Test.make({ dev: true, sidecar: false })` with local
 state and CI's local account fallback. A preload rejects non-loopback calls
@@ -73,7 +72,7 @@ digests, results, logs, limitations, and review:
 - [Exact Alchemy patch compatibility](../../../../../docs/spikes/evidence/platform/alchemy-patch-compatibility/001/findings.md)
 
 The original machine's cached `workerd` executable was corrupt. It was replaced
-only inside the scratch installation with the same official
+only inside the affected local installation with the same official
 `@cloudflare/workerd-darwin-arm64@1.20260918.1` artifact after checking its
 registry SHA-512 integrity. This is recorded as an environment repair, not an
 Alchemy source change. The runner does not silently repair a corrupt cache.
@@ -84,7 +83,7 @@ interception/delegation; Alchemy-owned setup/teardown hooks; two measured
 request-free waits; and the native Worker dependency boundary. There are no
 new global rule disablements, type assertions, or `any` types in this fixture.
 
-Hosted deployment, remote state/R2, real model/provider calls, sidecar mode,
+Hosted deployment, remote state, real model/provider calls, sidecar mode,
 mid-flight termination, migration upgrades of pre-existing schemas, failed
 migration recovery, and distributed contention remain untested. Local
 synthetic success is not Stage 0 acceptance.

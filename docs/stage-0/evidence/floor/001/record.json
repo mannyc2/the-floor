@@ -1,0 +1,188 @@
+{
+  "check_id": "stage-0-floor-native",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T16:48:24.569251+00:00",
+  "operator": "toolchain_readiness",
+  "reviewer": "Root independently audited the production emitted dependency graph: 10 reachable modules and 425 mapped sources; the full record and source snapshot remain pending root review.",
+  "source_revision": "4907895fb253786631b85abcec5fb5937c7c4611 plus the immutable executed-source.tar.gz overlay; source-manifest.json identifies every archived input.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "anthropic": "@effect/ai-anthropic@4.0.3",
+    "openai": "@effect/ai-openai@4.0.3",
+    "yielded": "0.1.0-beta.166-floor.0adbcff.403.2",
+    "workerd": "1.20260918.1",
+    "typescript": "7.0.2",
+    "effectTsgo": "0.51.1"
+  },
+  "api_evidence": [
+    "https://developers.openai.com/api/docs/guides/decisions",
+    "Installed Effect4.0.3 DecisionModel provider interface; no Decisions adapter is exported by installed @effect/ai-openai4.0.3.",
+    "Installed AnthropicClient/AnthropicLanguageModel and OpenAiClient/OpenAiLanguageModel Layer signatures."
+  ],
+  "execution_target": "Local native Alchemy workerd plus in-memory fake Fetch for Decisions transport tests",
+  "runtime_configuration": {
+    "compatibilityDate": "2026-08-18",
+    "flags": [],
+    "alchemyDefaultNodeCompatibility": true,
+    "dev": true,
+    "sidecar": false,
+    "telemetry": false,
+    "modelFixtureOnlyInTesting": true,
+    "workerdExecutableSha256": "5e8b50b74431e8ff1341583f647fc9ecbca5486b5ca9c8b1ecdbcb10b10336a5"
+  },
+  "stage_and_resources": "Local floor-local-agent-build: actual FloorWorker/FLOOR_THREADS/FLOOR_MAILBOXES and web assets on19740; local floor-local-agent-001: test composition using production agent services, test STORAGE DO and FloorStorage D1 on19732.",
+  "inputs": [
+    "Synthetic question/answer injected only through ./testing",
+    "Two SQL migration fixtures",
+    "Fake Decisions transport replies including refusal, missing/extra/duplicate/out-of-range answers and HTTP429",
+    "Production shell built by root; no model credentials or provider requests"
+  ],
+  "procedure": [
+    "bun node_modules/typescript/bin/tsc --noEmit -p apps/floor/tsconfig.json",
+    "bun node_modules/oxlint/bin/oxlint --deny-warnings --config .oxlintrc.json apps/floor/src apps/floor/test",
+    "CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/decisions.test.ts",
+    "CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/build.test.ts",
+    "sh apps/floor/test/run.sh",
+    "bun scripts/bundle-budget/modules.ts --target floor --directory .alchemy/bundles/FloorWorker --entry worker.js"
+  ],
+  "expected_result": "Production health and private-asset boundaries pass; native callback and agent alarms complete during a request-free interval, storage survives a separate process, duplicate admission adds no records; predicate wire mapping is exact and invalid answers fail.",
+  "observed_result": "Strict Floor typecheck and lint passed. Production build:2tests/9assertions. Native admission/storage:26assertions. Separate-process restart/duplicate:7assertions. Decisions adapter:9tests/18assertions with fake Fetch. Independent production graph audit:10reachable modules,425mapped sources, no forbidden sources. The only mapless generated helper is pinned by exact independently reviewed SHA in scripts/bundle-budget/generated.ts.",
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/floor/001/bundle-directory-manifest.json",
+      "committed": true,
+      "bytes": 5199,
+      "sha256": "a29a4df27957c91b9eaacda89dc251f9c5a8988f2255ff443a129c79910fefd5",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/commands.txt",
+      "committed": true,
+      "bytes": 560,
+      "sha256": "42a4ed734f1dae400c45b51078a1d8e37ba56af5d5c34d62014e3df001a5fe98",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 115126,
+      "sha256": "ba3e58b1cafff72a430dda30dd58461c6c82a0029428eacb96ed73784350cc60",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-admission-result.json",
+      "committed": true,
+      "bytes": 4242,
+      "sha256": "c13dc1aac8366a7e2798b5520f46bbbcfca6d5732556b24fa87fcdbb190aceb7",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-build.log",
+      "committed": true,
+      "bytes": 1666,
+      "sha256": "eee490e5908a47e5787c026abc7f73e4ea5c0319a87bcf6812a5f7918909ed2e",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-bundle-audit-operator.log",
+      "committed": true,
+      "bytes": 82,
+      "sha256": "2ac2f479387f14200ebf78d2686dcd5707a196ac5ec3c663b0cfe36769edbd31",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-bundle-audit.log",
+      "committed": true,
+      "bytes": 82,
+      "sha256": "3aeea7bd0941dc8006b27867afbc004a149a81057839ec737915c83fc2d9a875",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-decisions.log",
+      "committed": true,
+      "bytes": 764,
+      "sha256": "dc91bc513d07b702de996242c4f406a3368a5a4c7b6685329cdbaab6bf30d8b4",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-lifecycle.log",
+      "committed": true,
+      "bytes": 10210,
+      "sha256": "1174766d7befded8e47943c2fbcb3b52af1830d692b5106e24c575ba20d99932",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-lint.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-restart-result.json",
+      "committed": true,
+      "bytes": 2294,
+      "sha256": "c0d88f2105a84f6565942cbf0723865bfc970541bd4a8ba0a91aee96f8856252",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/floor-typecheck.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "docs/stage-0/evidence/floor/001/source-manifest.json",
+      "committed": true,
+      "bytes": 6601,
+      "sha256": "aa0ccb984039e360d7aeb79ce417ce27708280b99195d02303bca80fbaa3dbbe",
+      "regenerate": "Run the archived commands against the archived source and pinned packages; do not overwrite this attempt."
+    },
+    {
+      "path": "work/stage-0-checks/floor-production-bundle-001.tar.gz",
+      "committed": false,
+      "bytes": 3449758,
+      "sha256": "b8bb3d0a2e17365d3ee2bb9bdb21ce37dc13475e1587e269cc4488a1d74bb34f",
+      "regenerate": "Run the production build command, then archive .alchemy/bundles/FloorWorker. The recorded auditor walks only reachable modules; the complete directory also preserves stale build chunks."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Native tests preload a loopback-only Fetch guard. Decisions requests use a fake Fetch injected through Effect; no provider network call. No hosted resource was created by this attempt.",
+    "budget": "No separately billed service call permitted. Local execution only.",
+    "observed_cost": "unknown: no billing API measurement; there were no external provider or hosted Cloudflare calls in these checks."
+  },
+  "cleanup_result": "Production build and final restart logs show successful local Worker/DO/D1 teardown. Admission intentionally retained state only until the separate restart process. Ports19740/19732 released on completion.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "This does not prove hosted workerd, live provider availability, inference, Decisions calibration, browser use, wallet access, or Cloudflare billing. The Decisions adapter implements predicates only; choice/rating/custom-criteria remain unsupported. DO/D1 storage probes are test fixtures, not a production D1 application repository. The full bundle archive includes stale directory chunks; only the rooted graph count from the audited worker.js is asserted. Root owns final workspace-wide gates and independent source snapshot review.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": ""
+    },
+    "owner_pick": {
+      "state": "n/a: no visual approval in this native runtime check",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

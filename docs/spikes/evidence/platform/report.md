@@ -1,6 +1,6 @@
 # Platform spike report
 
-Recommendation: **hold before Stage 0**. The updated local target now has working Alchemy/Yielded agent turns, durable callback wakes, restart persistence, and unsigned launch construction using Kit 8 and Doppler. Hosted browser, wallet, provider and deployment gates remain open. The owner selected **“Local checks only for now”** on 12 October 2026; this run created no hosted workloads or deployments.
+Current result: local primitives support the owner-authorized Stage 0 work; hosted browser, wallet, provider and deployment gates remain open. The owner subsequently accepted Effect 4.0.3, the private pinned Yielded build, and bounded hosted checks within the existing $5 Cloudflare subscription's included allowances. No hosted spike workload has run yet.
 
 Branch: `spike/platform`. This is bounded spike code, not the product skeleton. This task did not execute Look Part B or Stage 0. The [decision log](../../../decisions.md) records the current scope and the choices still required.
 
@@ -21,7 +21,7 @@ Alchemy's test harness uses `dev: true`, `sidecar: false` and local state for th
 
 ## Dependencies and reproduction
 
-The agent adapter is built from **yielded-dev/agent PR 557 at `0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968`**, using its frozen dependency graph, Effect **4.0.0** and Alchemy **2.0.0-beta.80** with the PR's Bun patch. The [patch compatibility check](alchemy-patch-compatibility/001/record.json) shows that the patch does **not** apply unchanged to beta.81. The adapter remains unpublished, and the owner must decide whether to carry this pinned source and patch or wait for upstream releases before Stage 0. The final native agent/storage [bundle audit](alchemy-native-storage/001/bundle-audit.json) finds no `effect-cf` among reachable static or literal imports, mapped sources or emitted markers; computed imports are outside its scope.
+Every active runtime now uses **Effect 4.0.3**. The agent adapter is a private compiled build from **yielded-dev/agent PR 557 at `0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968`**, with an explicit four-call Crypto API patch and Alchemy **2.0.0-beta.80** carrying the PR's exact Bun patch. The [unpatched attempt](yielded-effect403-package/001/record.json) failed in an actual alarm; the [patched packed consumer](yielded-effect403-package/002/record.json) passes all 33 native assertions. The [current bundle audit](yielded-effect403-package/002/bundle-audit.json) finds no `effect-cf` in the reachable literal-import/source-map graph. Compiled declarations keep upstream source outside Floor's consumer checks without disabling any Floor rule. The older agent/storage records retain their original Effect 4.0.0 identities. The [Alchemy patch check](alchemy-patch-compatibility/001/record.json) still shows that beta.81 cannot take the patch unchanged.
 
 The separate launch probe pins Effect/browser crypto **4.0.3**, Kit **8.4.0**, Codama **1.11.0**, Anchor importer **1.5.6**, JS renderer **2.5.0**, Doppler **1.0.43** and viem **2.44.2**, with the same Alchemy beta.80 patch. Its pinned Meteora IDL comes from commit `a28b7239e71899eb52ff7aacac4dec90441885c4`. The official Meteora SDK is a development oracle only; no web3.js, Anchor, BN or spl-token runtime stack is selected. The reachable bundle audit checks that Doppler's unused Solana Kit 6 dependency does not enter this Worker. These isolated spike graphs do not establish a unified product dependency graph.
 
@@ -58,4 +58,4 @@ The first [storage/crypto](local-workerd/001/record.json), [launch](launch-const
 
 Initial disk exhaustion was resolved. Pre-execution environment/account blocker records were removed under the current evidence rules; the [published-source audit](local-runtime-prerequisites/001/api-findings.md) remains API discovery only. A corrupted locally cached workerd executable was replaced with the same version from a verified official distribution before the successful Alchemy runs; the records retain the executed binary digest.
 
-The current local evidence supports the bounded primitives above. The platform decision remains **hold** until the outstanding provider, browser, hosted-runtime and deployment gates are resolved and the pinned PR/patch adoption decision is recorded.
+The current local evidence supports the bounded primitives above. Stage 0 is authorized by the owner; hosted compatibility remains unproven until the outstanding gates have their own execution and cleanup evidence.

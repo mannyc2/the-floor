@@ -1,0 +1,6 @@
+{
+  "exitCode": 1,
+  "control": "Modified only an isolated copied license by adding tamper-control; active vendor unchanged",
+  "observed": "PackageVerificationError: Artifact hash mismatch",
+  "path": "LICENSE"
+}

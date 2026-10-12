@@ -1,0 +1,38 @@
+[
+  {
+    "name": "@yielded/agent",
+    "filename": "yielded-agent-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 2233358,
+    "sha256": "07b9841964bcd86e0c7b0ec9fc26e246ef6e4758e307e0fa45dbd64e9a2bf6c9"
+  },
+  {
+    "name": "@yielded/agent-storage-sql",
+    "filename": "yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 259628,
+    "sha256": "7aa3ca4b1d5eda8a069c30dd34c46a9d09392b6875702ff36d4e0bdf535bf91e"
+  },
+  {
+    "name": "@yielded/agent-storage-cloudflare",
+    "filename": "yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 337015,
+    "sha256": "8ff7154fa76c36d2c3c4fe19953724f47a1cf25114bfc665616ed774dd11133b"
+  },
+  {
+    "name": "@yielded/agent-platform-cloudflare",
+    "filename": "yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 508700,
+    "sha256": "98a5ce881690987aa7209aa57c362f547700fe8cfd31e2eb2cb7e36127d854c2"
+  },
+  {
+    "name": "@yielded/agent-platform-alchemy-cloudflare",
+    "filename": "yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 29724,
+    "sha256": "74621d5f32ccf505fdc3d2c00ed3ab3eae5af2d3118465020535cf2381d6da67"
+  },
+  {
+    "name": "@yielded/agent-testing",
+    "filename": "yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+    "bytes": 249624,
+    "sha256": "386cce7bc22b941ca448373eb475532046c1a6a62f8317197aff72740203ca58"
+  }
+]

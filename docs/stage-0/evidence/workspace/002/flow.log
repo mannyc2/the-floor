@@ -1,0 +1,32 @@
+$ playwright test --config testing/flows/playwright.config.ts
+[WebServer] (node:88484) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `bun --trace-warnings ...` to show where the warning was created)
+[WebServer] [13:21:03.291] INFO (#5): Plan: 1 to create, 2 binding changes
+[WebServer] [13:21:03.294] INFO (#5): [FloorWorker] create (local)
+[WebServer] [13:21:03.294] INFO (#5): [FloorWorker/FLOOR_MAILBOXES] create
+[WebServer] [13:21:03.294] INFO (#5): [FloorWorker/FLOOR_THREADS] create
+[WebServer] [13:21:03.294] INFO (#5): 
+[WebServer] [13:21:03.300] INFO (#404): [FloorWorker] pre-creating (local)
+[WebServer] [13:21:03.317] INFO (#404): [FloorWorker] creating (local)
+[WebServer] [13:21:03.325] INFO (#404): [FloorWorker] ready at http://localhost:19740
+[WebServer] [13:21:03.325] INFO (#404): [FloorWorker] created (local) (25ms)
+[WebServer] [13:21:03.336] INFO (#428): [FloorWorker] created (local) (36ms)
+[WebServer] [13:21:03.340] INFO (#5): 
+[WebServer] [13:21:03.340] INFO (#5): Done: 1 succeeded (46ms)
+[WebServer] [13:21:03.342] INFO (#5): Floor local production entry ready at http://127.0.0.1:19740
+[WebServer] [13:21:05.576] INFO (#421): [FloorWorker] Started in 2253ms → http://localhost:19740/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-shell-local/FloorWorker)
+
+Running 1 test using 1 worker
+
+  ✓  1 testing/flows/shell.spec.ts:7:1 › the shell verifies its connection through the running Floor Worker (839ms)
+[WebServer] [13:21:07.812] INFO (#5): Plan: 1 to delete, 2 binding changes
+[WebServer] [13:21:07.812] INFO (#5): [FloorWorker] delete (local)
+[WebServer] [13:21:07.812] INFO (#5): [FloorWorker/FLOOR_MAILBOXES] unbind
+[WebServer] [13:21:07.812] INFO (#5): [FloorWorker/FLOOR_THREADS] unbind
+[WebServer] [13:21:07.812] INFO (#5): 
+[WebServer] [13:21:07.815] INFO (#882): [FloorWorker] deleting (local)
+[WebServer] [13:21:07.817] INFO (#882): [FloorWorker] deleted (local) (2ms)
+[WebServer] [13:21:07.818] INFO (#5): 
+[WebServer] [13:21:07.818] INFO (#5): Done: 1 succeeded (6ms)
+
+  1 passed (5.8s)

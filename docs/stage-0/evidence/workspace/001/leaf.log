@@ -1,0 +1,85 @@
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test ./scripts/lint/test ./scripts/bundle-budget/test ./scripts/ci/test ./packages/chains/test ./testing/look/test ./apps/floor/test/decisions.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+scripts/lint/test/suppressions.test.ts:
+(pass) ESLint suppression aliases cannot bypass the explicit budget [0.97ms]
+(pass) native lint and Effect exceptions remain reasoned and counted [0.81ms]
+
+scripts/lint/test/plugin.test.ts:
+(pass) contract closes every import and re-export form [5.10ms]
+(pass) apps and features cannot cross their ownership boundaries [0.75ms]
+(pass) signer excludes agent authority and Three stays in web [1.18ms]
+(pass) fixtures are test-owned and the historical snapshot never becomes code [0.67ms]
+(pass) nonliteral dependencies and opaque file reads fail closed [0.63ms]
+(pass) visual literals require Atlas ownership [0.29ms]
+(pass) legacy SDKs stay confined to development oracles [0.49ms]
+(pass) Atlas checks inspect CSS embedded in template strings [0.06ms]
+(pass) recursive copy is covered by the historical-read fence [0.08ms]
+
+scripts/lint/test/visual-values.test.ts:
+(pass) Atlas owns CSS and inline style values, including generated-looking files [0.21ms]
+
+scripts/bundle-budget/test/model.test.ts:
+(pass) static graph handles shared CSS, cycles and per-entry deferred cost [2.90ms]
+(pass) missing imports, escaping emitted files and missing renderer fail closed [0.91ms]
+(pass) transitive dynamic modules are included in authority inspection [0.62ms]
+
+scripts/bundle-budget/test/imports.test.ts:
+(pass) emitted static, literal dynamic and CommonJS edges remain visible [4.68ms]
+(pass) computed dependencies and invalid emitted JavaScript fail closed [1.67ms]
+(pass) source map authority cannot hide behind a prefix or an empty source list [0.42ms]
+(pass) expression-free template imports are literal dependency edges [0.10ms]
+
+scripts/ci/test/policy.test.ts:
+(pass) preview cleanup can address only a positive PR number [0.19ms]
+(pass) the root stack accepts explicit development or temporary stages only [0.30ms]
+
+packages/chains/test/construction.test.ts:
+(pass) Meteora account order, data and full unsigned bytes match the recorded SDK oracle [20.71ms]
+(pass) Meteora serializes caller amounts, metadata, recipients, creator and fee payer [4.08ms]
+(pass) mint byte ordering survives either caller order and preserves the actual RPC slot [4.72ms]
+(pass) unsupported quote mint owner fails closed [1.45ms]
+(pass) unsuccessful HTTP status fails closed [0.63ms]
+(pass) negative RPC slot fails closed [0.47ms]
+(pass) invalid identities, unsupported base tokens and overflowing config fields fail without construction [2.82ms]
+(pass) Doppler construction retains exact oracle calldata and accepts caller inputs [8.57ms]
+(pass) Doppler rejects invalid addresses, nonpositive amounts and malformed salts [0.86ms]
+
+packages/chains/test/instructions.test.ts:
+(pass) every generated account position, role, constant and discriminator matches the pinned IDL [1.76ms]
+
+packages/chains/test/math.test.ts:
+(pass) all 940 recorded SDK 1.5.13 arithmetic cases retain their exact outcomes [10.74ms]
+(pass) negative unsigned inputs fail before bigint arithmetic [0.46ms]
+
+testing/look/test/metrics.test.ts:
+(pass) alpha compositing precedes the half-dark mask threshold [0.44ms]
+(pass) tolerance is an integer Euclidean disk and scales by DPR [1.33ms]
+(pass) empty masks never produce a vacuous perfect score [0.17ms]
+(pass) mismatched and malformed rasters fail before index arithmetic [0.27ms]
+(pass) cylinder density counts contiguous false runs, excludes nearby target lines, and preserves missing ROI [0.44ms]
+(pass) ROI erosion removes the two-CSS-pixel boundary before measurement [0.23ms]
+(pass) stroke width is measured in CSS pixels and preserves Python ties-to-even sampling [0.38ms]
+(pass) repeatability examines every RGBA channel and pixel [0.18ms]
+(pass) area averaging exposes thin-line loss and never invents survival for empty masks [0.30ms]
+(pass) phone summaries preserve missing samples and floor-index percentile convention [0.20ms]
+(pass) independent convex silhouette checks detect missing and outside edges [1.79ms]
+(pass) the capture contract rejects unsupported renderer choices and malformed measurements [1.01ms]
+(pass) PNG encoding retains every grayscale byte used by metrics [5.15ms]
+
+apps/floor/test/decisions.test.ts:
+(pass) predicate adapter uses the dedicated endpoint and inline image wire format [18.54ms]
+(pass) predicate adapter rejects refusal answers [3.20ms]
+(pass) predicate adapter rejects missing answers [1.64ms]
+(pass) predicate adapter rejects unexpected answers [1.62ms]
+(pass) predicate adapter rejects out of range answers [2.16ms]
+(pass) predicate adapter rejects duplicate answers [1.84ms]
+(pass) duplicate question names are rejected before transport [1.33ms]
+(pass) provider status 429 and configuration true fail without fallback [1.60ms]
+(pass) provider status 200 and configuration false fail without fallback [1.71ms]
+(pass) provider failures preserve the original HTTP status cause [2.18ms]
+
+ 56 pass
+ 0 fail
+ 1333 expect() calls
+Ran 56 tests across 11 files. [1111.00ms]

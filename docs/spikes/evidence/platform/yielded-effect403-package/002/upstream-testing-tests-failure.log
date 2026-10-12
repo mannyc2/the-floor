@@ -1,0 +1,14 @@
+$ tsc --noEmit -p tsconfig.json
+../storage-sqlite/src/SqliteSubmissionLedger.ts(78,3): error TS2322: Type 'Layer<SubmissionLedger, SqlError | SqliteStorageInitializationError, never>' is not assignable to type 'Layer<SubmissionLedger, SqliteStorageInitializationError, never>'.
+  Type 'SqlError | SqliteStorageInitializationError' is not assignable to type 'SqliteStorageInitializationError'.
+    Type 'SqlError' is not assignable to type 'SqliteStorageInitializationError'.
+      Property 'operation' is missing in type 'SqlError' but required in type 'SqliteStorageError'.
+../storage-sqlite/src/SqliteThreadStore.ts(254,3): error TS2322: Type 'Layer<ThreadStore, SqlError | SqliteStorageInitializationError, never>' is not assignable to type 'Layer<ThreadStore, SqliteStorageInitializationError, never>'.
+  Type 'SqlError | SqliteStorageInitializationError' is not assignable to type 'SqliteStorageInitializationError'.
+    Type 'SqlError' is not assignable to type 'SqliteStorageInitializationError'.
+      Property 'operation' is missing in type 'SqlError' but required in type 'SqliteStorageError'.
+../../scripts/check-release-packages.ts(1,43): error TS2307: Cannot find module '@effect/platform-node' or its corresponding type declarations.
+../../scripts/release-build.ts(3,43): error TS2307: Cannot find module '@effect/platform-node' or its corresponding type declarations.
+../../scripts/release-ci.ts(3,43): error TS2307: Cannot find module '@effect/platform-node' or its corresponding type declarations.
+../../scripts/release-publish.ts(1,43): error TS2307: Cannot find module '@effect/platform-node' or its corresponding type declarations.
+error: script "check" exited with code 1

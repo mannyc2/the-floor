@@ -4,7 +4,7 @@ This isolated spike package builds an Alchemy Worker using Kit 8.4.0, a narrow C
 
 From this directory, run `bun install --frozen-lockfile`, `bun run format:check`, `bun run typecheck`, `bun run lint`, then `bun run build`. Build uses Alchemy's supported `Test.make({ dev: true, sidecar: false })` harness: it bundles the Worker, executes the local assertions and destroys the local resource. It creates no hosted stage. The host transport preload rejects non-loopback fetches and telemetry is disabled. The test-owned Worker listens on port 19735 while the test runs.
 
-The pinned Alchemy beta.80 package carries Yielded PR 557's patch. The Worker uses compatibility date 2026-08-18 with the default flags. The evidence records the resolved workerd version and actual Node compatibility behavior. Runtime consumers use Effect 4.0.3. The Alchemy-agent probe has its own upstream-pinned dependency graph; this does not select a common product dependency graph.
+The pinned Alchemy beta.80 package carries Yielded PR 557's patch. The Worker uses compatibility date 2026-08-18 with the default flags. The evidence records the resolved workerd version and actual Node compatibility behavior. Every active consumer uses Effect 4.0.3, including the separately packaged native Alchemy-agent probe.
 
 ## What runs
 

@@ -1,0 +1,4 @@
+$ sh scripts/platform-spike.sh lint
+[12:19:50.603] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+$ ../../../../../node_modules/.bin/oxlint --type-aware --type-check --deny-warnings -c .oxlintrc.json test
+$ oxlint --type-aware --type-check --deny-warnings -c .oxlintrc.json crypto.ts entry.ts construction.ts config.ts evm.ts math.ts math-probe.ts bounded-instructions.ts bounded-generated local.test.ts local-only.ts

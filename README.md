@@ -1,32 +1,44 @@
-# The Floor workspace
+# The Floor
 
-Prepared on 12 October 2026 for the look and platform spikes. This branch now contains the bounded local platform probes and their [result report](docs/spikes/evidence/platform/report.md). The owner limited the resumed run to local checks; hosted gates remain open. Read-only snapshots are in [reference/](reference/README.md). Stage 0 has not started.
+Stage 0 is in progress on `stage-0`. The public repository is [mannyc2/the-floor](https://github.com/mannyc2/the-floor). The local skeleton has a Foldkit web shell, an Alchemy Worker with native Yielded agent Durable Objects, explicit contract/API boundaries, and the promoted Solana/EVM construction package. The map host and renderer come from the external Foldkit round. Look values and reference frames await the owner's Part B picks. No Stage 0 completion or feature approval is implied.
 
 ## Start here
 
-1. Read [AGENTS.md](AGENTS.md), [comments](docs/Codex/comments.md), and [file structure](docs/Codex/file-structure.md).
-2. Read the [retrospective](docs/floor-docs-2026-10-12/retrospective.md), [next steps](docs/floor-docs-2026-10-12/next-steps.md), and [technical design](docs/floor-docs-2026-10-12/technical-design.md). The [product document](docs/floor-docs-2026-10-12/the-floor.md) defines the intended experience.
-3. Check the [active decision log](docs/decisions.md), then use the [platform handoff](docs/spikes/platform.md) and [look handoff](docs/spikes/look.md) as independent work briefs.
-4. Read the [Effect 4 cookbook](effect-4-cookbook.md) before implementation, followed by the installed Effect instructions and source when dependencies are installed.
+1. Read [AGENTS.md](AGENTS.md), the [decision log](docs/decisions.md), and [Stage 0 status](docs/stage-0.md).
+2. Read the [product document](docs/floor-docs-2026-10-12/the-floor.md), [technical design](docs/floor-docs-2026-10-12/technical-design.md), and [carry-over plan](docs/floor-docs-2026-10-12/next-steps.md).
+3. Follow the [comment](docs/Codex/comments.md), [file structure](docs/Codex/file-structure.md), [lint](docs/Codex/lint.md), and [verification](docs/Codex/verification.md) conventions.
+4. Before Effect changes, read the [cookbook](effect-4-cookbook.md), the complete installed Effect instructions, and the relevant installed source. Effect 4 uses modules such as `effect/http`, not `effect/unstable/*`.
 
-## Prepared
+## Local checks
 
-- Eight revised source documents copied unchanged, with their original paths and checksums in [reference-sources.json](docs/reference-sources.json).
-- Working conventions updated for `apps/web`, `apps/floor`, `apps/signer` and shared packages.
-- Reserved directories for the intended layout, assets and testing evidence. These are empty locations, not implemented workspace packages.
-- Separate spike handoffs, pending decisions and a [Stage 0 readiness checklist](docs/stage-0.md).
-- Read-only snapshots of the first build and the cafe reference in [reference/](reference/README.md), with provenance, exclusions and a SHA-256 manifest, so every source reference resolves inside the repository.
-- A committed [evidence location](docs/spikes/evidence/README.md) and record template for both spikes.
-- Exact prior toolchain pins and the compiler patch command retained as reference data.
+Use Bun 1.4.0. Installation applies the pinned compiler/Oxlint patch.
 
-The cookbook at the repository root links to the copied source, so there is one local copy. Paths inside that cookbook refer to the **first build**, snapshotted at `reference/first-build/`. Frozen documents can contain historical wording; current working guidance and the explicit corrections in `next-steps.md` take precedence over superseded implementation details. In particular, Effect 4 has no `effect/unstable/*` paths.
+```sh
+bun install --frozen-lockfile
+bun run format:check
+bun run typecheck
+bun run lint
+bun run test:leaf
+bun run build
+bun run test:native
+bunx --no-install playwright install chromium
+bun run test:flow
+```
 
-## Next work
+The browser flow serves the actual production Worker and its built web assets locally, then checks the typed health endpoint. Native tests use the production agent/mailbox services with a labelled scripted model behind `./testing`; Decisions transport tests make no provider calls. Local test drivers reject non-loopback network access and destroy their local resources. See the [Floor runtime](apps/floor/README.md) and [chains package](packages/chains/README.md) for scope and limits.
 
-Review the [platform result](docs/spikes/evidence/platform/report.md): local checks are complete, while hosted checks await renewed scope and a spend limit. [Look Part A](docs/spikes/look.md) is complete with the owner’s technique B/WebGL pick recorded; the decision log now starts Part B. This platform task did not execute Part B. Stage 0 remains gated on both complete spike results and promotes their tested code into the product.
+`bun run dev:web` starts the web shell. `bun run dev` uses the remote Alchemy state backend and requires a configured account; it can create hosted resources. Do not run hosted commands until the relevant allowance and account checks in the decision log are satisfied.
 
-`reference/` is temporary. It is deleted at the end of Stage 0, once the skeleton has ported what it needs, and stays recoverable from the initial commit.
+## Active boundaries and open gates
 
-## Status
+The compiler retains all 91 Effect diagnostics as errors. The custom AST and emitted-bundle checks enforce app, feature, contract, signer, Three.js, testing-data, reference, legacy dependency and workbench boundaries. The shell's initial gzip budget is 200 KiB; the complete renderer profile additionally requires and measures a deferred bundle within 180 KiB. A passing shell build does not pass the renderer gate.
 
-The [local platform probes](apps/floor/spikes/platform/README.md) use Alchemy’s local test harness, a pinned native Yielded Alchemy adapter, and Kit-generated launch instructions. Raw Wrangler examples are retired from active source and retained in history. The result report distinguishes the current target from those historical measurements. This does not establish Stage 0's product packages, architecture fences or CI. To check the immutable snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.
+The [look harness](testing/look/README.md) is promoted to TypeScript. Its real capture, camera and phone checks await the external web adapter and approved look inputs. No reference image or Atlas value has been selected by an agent.
+
+The preview and cleanup workflows are implemented, with a `pr-<number>` guard, separate admin configuration, and a production-entry browser flow. Preview deployment remains disabled pending the remaining hosted gates and configuration of the new public GitHub repository. The account budget permits only the existing Cloudflare $5 subscription's included allowance; separately billed inference, wallet services and overage are not authorized.
+
+The six private Yielded packages are pinned, hashed builds of PR 557 at `0adbcff`, with the recorded Effect 4.0.3 Crypto adaptation and Alchemy beta.80 patch. [Provenance](vendor/yielded/0adbcff-effect-4.0.3/provenance.json) and immutable runtime attempts remain reviewable. Active builds consume the tarballs directly.
+
+## Historical inputs
+
+The eight copied documents and their [checksums](docs/reference-sources.json), [platform spike report](docs/spikes/evidence/platform/report.md), and [Look Part A report](docs/spikes/evidence/look/report.md) retain their original scope. `reference/` is a read-only source snapshot, excluded from every active tool and never executed or imported. It remains until Stage 0 has completed its remaining ports, then is removed with its history retained.

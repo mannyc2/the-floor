@@ -1,0 +1,60 @@
+$ bun run vendor:verify && bun run build:web && bun run build:floor && bun run build:chains
+$ bun scripts/vendor/verify.ts
+[13:20:39.110] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+$ vite build --config apps/web/vite.config.ts && bun scripts/bundle-budget/cli.ts --profile shell
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 475 modules transformed.
+rendering chunks...
+computing gzip size...
+apps/web/dist/.vite/manifest.json         0.13 kB │ gzip:   0.11 kB
+apps/web/dist/index.html                  0.31 kB │ gzip:   0.22 kB
+apps/web/dist/assets/index-BD9PcRxO.js  350.38 kB │ gzip: 115.42 kB │ map: 4,670.30 kB
+
+✓ built in 292ms
+[13:20:40.086] INFO (#2): index.html: initial: 114019 / 204800 bytes gzip
+[13:20:40.168] INFO (#2): web: 1 emitted modules, 218 mapped sources inspected
+[13:20:40.168] INFO (#2): Shell budget measured. Deferred renderer acceptance remains pending the external Foldkit renderer.
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/build.test.ts && bun scripts/bundle-budget/modules.ts --target floor --directory .alchemy/bundles/FloorWorker --entry worker.js
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/build.test.ts:
+[17:20:41.409] INFO (#6): Plan: 1 to create, 2 binding changes
+[17:20:41.412] INFO (#6): [FloorWorker] create (local)
+[17:20:41.413] INFO (#6): [FloorWorker/FLOOR_MAILBOXES] create
+[17:20:41.413] INFO (#6): [FloorWorker/FLOOR_THREADS] create
+[17:20:41.413] INFO (#6): 
+[17:20:41.420] INFO (#404): [FloorWorker] pre-creating (local)
+[17:20:41.443] INFO (#404): [FloorWorker] creating (local)
+[17:20:41.452] INFO (#404): [FloorWorker] ready at http://localhost:19740
+[17:20:41.452] INFO (#404): [FloorWorker] created (local) (32ms)
+[17:20:41.457] INFO (#428): [FloorWorker] created (local) (36ms)
+[17:20:41.512] INFO (#6): 
+[17:20:41.512] INFO (#6): Done: 1 succeeded (99ms)
+[17:20:44.415] INFO (#421): [FloorWorker] Started in 2966ms → http://localhost:19740/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-local-agent-build/FloorWorker)
+(pass) Alchemy bundles and starts the bounded native Worker [2941.79ms]
+(pass) private browser build metadata is not served as public assets [18.78ms]
+[17:20:44.506] INFO (#647): Plan: 1 to delete, 2 binding changes
+[17:20:44.507] INFO (#647): [FloorWorker] delete (local)
+[17:20:44.507] INFO (#647): [FloorWorker/FLOOR_MAILBOXES] unbind
+[17:20:44.507] INFO (#647): [FloorWorker/FLOOR_THREADS] unbind
+[17:20:44.507] INFO (#647): 
+[17:20:44.509] INFO (#1003): [FloorWorker] deleting (local)
+[17:20:44.512] INFO (#1003): [FloorWorker] deleted (local) (3ms)
+[17:20:44.513] INFO (#647): 
+[17:20:44.513] INFO (#647): Done: 1 succeeded (6ms)
+
+ 2 pass
+ 0 fail
+ 9 expect() calls
+Ran 2 tests across 1 file. [4.34s]
+[13:20:45.045] INFO (#2): floor: 10 emitted modules, 425 mapped sources inspected
+$ bun build ./packages/chains/src/solana/index.ts ./packages/chains/src/evm/index.ts --root ./packages/chains/src --target browser --sourcemap=external --outdir ./work/chains-bundle && bun scripts/bundle-budget/modules.ts --target floor --directory work/chains-bundle --entry solana/index.js --entry evm/index.js
+Bundled 493 modules in 96ms
+
+  solana/index.js     0.92 MB  (entry point)
+  evm/index.js        1.89 MB  (entry point)
+  solana/index.js.map  4.34 MB  (source map)
+  evm/index.js.map    5.75 MB  (source map)
+
+[13:20:45.579] INFO (#2): floor: 2 emitted modules, 551 mapped sources inspected

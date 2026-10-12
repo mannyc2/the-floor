@@ -1,0 +1,6 @@
+bun node_modules/typescript/bin/tsc --noEmit -p apps/floor/tsconfig.json
+bun node_modules/oxlint/bin/oxlint --deny-warnings --config .oxlintrc.json apps/floor/src apps/floor/test
+CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/decisions.test.ts
+CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/build.test.ts
+sh apps/floor/test/run.sh
+bun scripts/bundle-budget/modules.ts --target floor --directory .alchemy/bundles/FloorWorker --entry worker.js

@@ -1,0 +1,324 @@
+{
+  "check_id": "yielded-effect403-package",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T16:20:12.671Z",
+  "operator": "toolchain_readiness",
+  "reviewer": "Root independently verified all six archive hashes/bytes, all 259 packaged source files against the pinned upstream commit, exactly the four declared UUID edits and their compatibility with installed Effect 4.0.3, and the unchanged Alchemy patch. Final evidence-record hashes are operator-checked; complete record/bundle review remains for root integration.",
+  "source_revision": "Floor fad5aad; Yielded 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968 plus the explicitly recorded four-call Crypto patch and immutable consumer-source archive.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "yieldedPrivateBuild": "0.1.0-beta.166-floor.0adbcff.403.2",
+    "workerd": "1.20260918.1",
+    "typescript": "7.0.2",
+    "effectTsgo": "0.51.1",
+    "alchemyPatchSha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+  },
+  "api_evidence": [
+    "Effect 4.0.3 Crypto.ts defines randomUUIDv4/v7 as methods returning Effects.",
+    "Upstream scripts/release-publish.ts converts source exports to compiled .mjs/.d.mts entries; the private packer mirrors that conversion."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "compatibilityDate": "2026-08-18",
+    "declaredFlags": [],
+    "alchemyDefaultNodeCompatibility": true,
+    "dev": true,
+    "sidecar": false,
+    "telemetry": false,
+    "sourceExports": false
+  },
+  "stage_and_resources": "Local floor-local-agent-build and floor-local-agent-001: FloorLocalAgent Worker with native THREADS/CALLBACKS/STORAGE Durable Objects and FloorStorage D1. No hosted resources.",
+  "inputs": [
+    "Fixed synthetic model result synthetic-done-v1",
+    "Unique local thread identity",
+    "Two versioned SQL migration files",
+    "No wallets, keys, browser sessions or model-provider calls"
+  ],
+  "procedure": [
+    "Verify six exact tarballs and both patch hashes.",
+    "Install the frozen packed consumer graph.",
+    "Run root format/typecheck/lint/build.",
+    "Run native admission/storage checks, close the process, restart a separate process, verify persisted state and duplicate admission, then destroy.",
+    "Audit the exact current reachable Worker bundle and freeze source/results."
+  ],
+  "expected_result": "Native callback admission triggers the Yielded alarm and produces a completed settlement during a request-free interval; storage and records survive restart.",
+  "observed_result": "All 33 native admission, storage and restart assertions pass; root format/typecheck/lint/build pass including 18 Kit assertions. Six published source trees typecheck. Two broader upstream package checks retain disclosed failures outside the packaged runtime source.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/admission-result.json",
+      "committed": true,
+      "bytes": 4250,
+      "sha256": "4affc59cb8fbf986ca851944908f44ca77a705bc6f388823263b7cbe1aa57e74",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/build.log",
+      "committed": true,
+      "bytes": 4137,
+      "sha256": "5ea6c76145781f51a4eed80ab9d2b00233902755385ce41aab80f6e365809009",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/bundle-audit.json",
+      "committed": true,
+      "bytes": 14801,
+      "sha256": "bff341ec0a0a0ed49e92e66e0864a37105708f96500b15028c5d067bae061ba1",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/bundle-audit.mjs",
+      "committed": true,
+      "bytes": 7004,
+      "sha256": "32d4e8237baa1b78b55e920b2c07f1b27e7096a89c148e79bd6b27130ca69482",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/executed-source-manifest.json",
+      "committed": true,
+      "bytes": 4214,
+      "sha256": "4b2b812ccde4a42588dc02a45e11b3c716c365b90e385fcb9b1caa420859374e",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 54985,
+      "sha256": "f50e5ed6e93f0f0e8993863554253165aa1b9554140069bedfb041474e64292c",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/findings.md",
+      "committed": true,
+      "bytes": 3528,
+      "sha256": "2f752baca71f240c71b3afffda5c1b0eddf8c26c42a86c511a721324f67df64f",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/format.log",
+      "committed": true,
+      "bytes": 15,
+      "sha256": "f1af9b66ef0d45ef0c81a05fdd397a23fee9877255bc692249880c1197eb842c",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/lint.log",
+      "committed": true,
+      "bytes": 468,
+      "sha256": "9367a7db80f699666b0af09b2d09ef84c06a6549d83eb58ba10c13e7c3a1ec4f",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/restart-result.json",
+      "committed": true,
+      "bytes": 2294,
+      "sha256": "35250748852e99e6ce7b32c9b6a141d7b1b096e8785b6cef75b7465186054044",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/test.log",
+      "committed": true,
+      "bytes": 10409,
+      "sha256": "91eff910c50da97144781505280f1d14e4d355e4e86c5d7623a6297a8b6d9b16",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/typecheck.log",
+      "committed": true,
+      "bytes": 250,
+      "sha256": "17483fa29c32071c7a454cbe65aa25a17a4dd4f2bb397a90c61663818e963273",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/upstream-source-check.json",
+      "committed": true,
+      "bytes": 682,
+      "sha256": "107629f6a7d1d0ee655f3b1cffac706faec8b201f128b3181901c40e91fa0e0c",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/upstream-source-tsconfig.json",
+      "committed": true,
+      "bytes": 304,
+      "sha256": "7dbf46549045fe9e9c2c945bb2ce1b95d112d527b03446ac707bd28c5264d0dd",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/upstream-storage-tests-failure.log",
+      "committed": true,
+      "bytes": 6311,
+      "sha256": "13e560a0854a1481bd3a990265c0b38e3b7fbea253c15eef91b65b6c24d7c0ea",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/upstream-testing-tests-failure.log",
+      "committed": true,
+      "bytes": 1693,
+      "sha256": "df14f60005d1e630199a9c69da14ec378f4840007e2831de5cfebaa62296105d",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/verifier-negative.json",
+      "committed": true,
+      "bytes": 214,
+      "sha256": "5c65aa4cfa4d804d5e23a39e7e952ce04b803ae8332541df75ba5f430ee24d36",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/verify.archive.mjs",
+      "committed": true,
+      "bytes": 2020,
+      "sha256": "402ed98e4d9957aefa046f2c995032d6ed2acc393b12007747bdc52890e4298c",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/002/workerd-repair.json",
+      "committed": true,
+      "bytes": 345,
+      "sha256": "453e23276551fd8954dbad1fbd2a1f077152ce5499145b7c97f4d6da69bd3602",
+      "regenerate": "See vendor/yielded/0adbcff-effect-4.0.3/README.md and the recorded root commands; recapture this attempt under a new number."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/LICENSE",
+      "committed": true,
+      "bytes": 1077,
+      "sha256": "7638799d026fcd2ccc7859039782484a5eae2b28f5ba76449a8f3ee6a21f9af7",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/README.md",
+      "committed": true,
+      "bytes": 3973,
+      "sha256": "5ecbcf9079fc66500155140b8a871cb63f6c98ee943a2ed72c88a7a493329ded",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/alchemy@2.0.0-beta.80.patch",
+      "committed": true,
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/build.bun.lock",
+      "committed": true,
+      "bytes": 417932,
+      "sha256": "349dbb3d3225bc77fe79314196443d5e6096d7d3f6880eab238ad1f599d15df0",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/build.package.json",
+      "committed": true,
+      "bytes": 5869,
+      "sha256": "08604834211d5a42f4d36cdf57e01ca83b7756c1b806b6a9bd58a8a4fb6834b7",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/effect-4.0.3-crypto.patch",
+      "committed": true,
+      "bytes": 2779,
+      "sha256": "da6f14648b2137fc0b6e5b88209c1e8c8d2e06b0991e586450b3ffb7dd9f5e43",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/pack.archive.mjs",
+      "committed": true,
+      "bytes": 7300,
+      "sha256": "54de8b5eecb3ef9784d52cd212d34fe648bf0c6d5fe2ffe1eecccc003fcd34f9",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/provenance.json",
+      "committed": true,
+      "bytes": 47074,
+      "sha256": "e4e146531cfee53aee4c3e4bcc63bde09c7588324f82967dec882384c7db2b6a",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 2233362,
+      "sha256": "8037ae8efa51fa699c12b1e81f743817024d8a665fb473b922d798e72c2eac56",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 29726,
+      "sha256": "18af1672f9a54fa31f9b0e2ac61716e2cd29d4d69883f339b9e6033204be7be7",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 508691,
+      "sha256": "53c48f1dc27d33df5d4b380b3e434447f2bcbe3c8f6c3ead3d0c1bcc38a458fa",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 337637,
+      "sha256": "33f557a541664a6275aaeb214210065c0c9bc7d54fa2a699381972d80b5f9ffa",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 259634,
+      "sha256": "8bd2d132371d9e7c9193c7eec5033d1927d13c870ba0fb6bd419c66212bb609a",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+      "committed": true,
+      "bytes": 249624,
+      "sha256": "7dbb4b16a9df9b089788122fd379118f03551560aa1c49156245119084eb4f1f",
+      "regenerate": "See this directory README; rebuild under the pinned graph and verify hashes."
+    },
+    {
+      "path": "work/yielded-pack/packed-bundle-final.tar.gz",
+      "committed": false,
+      "bytes": 2350274,
+      "sha256": "3e6f71429a2858eda98566746aa5477caa54f2d2146641f424a0c0ec13991dfc",
+      "regenerate": "Run bun run build and bun run test; audit the active Worker entry, then tar only bundle-audit.json files."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Package registry during installation; runtime host transport rejects non-loopback requests, no outgoing Worker calls in this fixture; telemetry disabled.",
+    "budget": "Existing Cloudflare $5 subscription included allowances only; no hosted execution in these attempts.",
+    "observed_cost": "unknown; no paid-provider operation or hosted resource was executed by these local attempts"
+  },
+  "cleanup_result": "Both local stage resources destroyed. Alchemy may retain simulator files after local resource-state removal. No hosted resources.",
+  "decision_link": "docs/decisions.md: owner accepted Effect 4.0.3 and private pinned Yielded build; hosted scope remains separate.",
+  "limitations_and_next_action": "This is local compatibility of the recorded package set, not full upstream-suite success or hosted equivalence. Independent review precedes promotion. Hosted tests need the selected Alchemy profile and verified current-cycle allowance.",
+  "look": {
+    "technique": "n/a: package/runtime compatibility check, no visual artifact",
+    "tone_set": "n/a: package/runtime compatibility check, no visual artifact",
+    "theme": "n/a: package/runtime compatibility check, no visual artifact",
+    "rung": "n/a: package/runtime compatibility check, no visual artifact",
+    "dpr": "n/a: package/runtime compatibility check, no visual artifact",
+    "camera": "n/a: package/runtime compatibility check, no visual artifact",
+    "canvas": "n/a: package/runtime compatibility check, no visual artifact",
+    "backend": "n/a: package/runtime compatibility check, no visual artifact",
+    "renderer_string": "n/a: package/runtime compatibility check, no visual artifact",
+    "device_profile": "n/a: package/runtime compatibility check, no visual artifact",
+    "clock_and_seed": "n/a: package/runtime compatibility check, no visual artifact",
+    "metrics": {},
+    "made_by": "n/a: package/runtime compatibility check, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: no look artifact",
+      "verdict": "n/a",
+      "notes": "Technical evidence review is recorded in reviewer."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "Package/runtime check has no art approval.",
+      "date": "n/a"
+    }
+  }
+}

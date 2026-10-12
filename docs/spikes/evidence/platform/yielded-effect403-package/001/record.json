@@ -1,0 +1,154 @@
+{
+  "check_id": "yielded-effect403-package",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T16:01:19.674Z",
+  "operator": "toolchain_readiness",
+  "reviewer": "Root independently verified all six archive hashes/bytes, all 259 packaged source files against the pinned upstream commit, exactly the four declared UUID edits and their compatibility with installed Effect 4.0.3, and the unchanged Alchemy patch. Final evidence-record hashes are operator-checked; complete record/bundle review remains for root integration.",
+  "source_revision": "Floor fad5aad; Yielded 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968 unchanged implementation in the retained build-1 archives.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "effect": "4.0.3",
+    "alchemy": "2.0.0-beta.80",
+    "yieldedPrivateBuild": "0.1.0-beta.166-floor.0adbcff.403.1",
+    "workerd": "1.20260918.1",
+    "typescript": "7.0.2",
+    "effectTsgo": "0.51.1",
+    "alchemyPatchSha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+  },
+  "api_evidence": [
+    "Effect 4.0.3 Crypto.ts defines randomUUIDv4/v7 as methods returning Effects.",
+    "Upstream scripts/release-publish.ts converts source exports to compiled .mjs/.d.mts entries; the private packer mirrors that conversion."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "compatibilityDate": "2026-08-18",
+    "declaredFlags": [],
+    "alchemyDefaultNodeCompatibility": true,
+    "dev": true,
+    "sidecar": false,
+    "telemetry": false,
+    "sourceExports": false
+  },
+  "stage_and_resources": "Local floor-local-agent-build and floor-local-agent-001: FloorLocalAgent Worker with native THREADS/CALLBACKS/STORAGE Durable Objects and FloorStorage D1. No hosted resources.",
+  "inputs": [
+    "Fixed synthetic model result synthetic-done-v1",
+    "Unique local thread identity",
+    "Two versioned SQL migration files",
+    "No wallets, keys, browser sessions or model-provider calls"
+  ],
+  "procedure": [
+    "Build six exact upstream packages with the adapted Effect 4.0.3 catalog.",
+    "Pack compiled exports and install all six private tarballs.",
+    "Run strict Floor checks, start real local Worker, enqueue native callback, wait three seconds without polling, then snapshot."
+  ],
+  "expected_result": "Native callback admission triggers the Yielded alarm and produces a completed settlement during a request-free interval; storage and records survive restart.",
+  "observed_result": "Native callback alarm failed with randomUUIDv7.pipe is not a function; snapshot then failed with ThreadNotMaterialized.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/001/findings.md",
+      "committed": true,
+      "bytes": 1461,
+      "sha256": "4e1b11bb32e4c2569c717858287033b46774ae9180d2ee8d8dd025d683ea3ae7",
+      "regenerate": "Rebuild unpatched PR 557 sources using Effect 4.0.3 and private build 1; run the recorded native callback procedure."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/001/runtime-failure.log",
+      "committed": true,
+      "bytes": 6462,
+      "sha256": "6627fbdc732e58525f1af5d79b8f94fc726f1454fee43e1c59782615dfd29900",
+      "regenerate": "Rebuild unpatched PR 557 sources using Effect 4.0.3 and private build 1; run the recorded native callback procedure."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/001/unpatched-archives.json",
+      "committed": true,
+      "bytes": 1455,
+      "sha256": "f7cab66f667af8eb3a3d4f8e9fe9c91bbbc8d2ab6462b0765d36575201b97f48",
+      "regenerate": "Rebuild unpatched PR 557 sources using Effect 4.0.3 and private build 1; run the recorded native callback procedure."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/yielded-effect403-package/001/worker-failure.log",
+      "committed": true,
+      "bytes": 795,
+      "sha256": "819373f4112fc9a42cabdcc321295493f25d0f1c8f1fb41e8434b4c1a7285ab9",
+      "regenerate": "Rebuild unpatched PR 557 sources using Effect 4.0.3 and private build 1; run the recorded native callback procedure."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 2233358,
+      "sha256": "07b9841964bcd86e0c7b0ec9fc26e246ef6e4758e307e0fa45dbd64e9a2bf6c9",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 259628,
+      "sha256": "7aa3ca4b1d5eda8a069c30dd34c46a9d09392b6875702ff36d4e0bdf535bf91e",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 337015,
+      "sha256": "8ff7154fa76c36d2c3c4fe19953724f47a1cf25114bfc665616ed774dd11133b",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 508700,
+      "sha256": "98a5ce881690987aa7209aa57c362f547700fe8cfd31e2eb2cb7e36127d854c2",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 29724,
+      "sha256": "74621d5f32ccf505fdc3d2c00ed3ab3eae5af2d3118465020535cf2381d6da67",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    },
+    {
+      "path": "work/yielded-pack/failed-artifacts/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.1.tgz",
+      "committed": false,
+      "bytes": 249624,
+      "sha256": "386cce7bc22b941ca448373eb475532046c1a6a62f8317197aff72740203ca58",
+      "regenerate": "Build the recorded unmodified upstream implementation under the recorded Effect 4.0.3 catalog and pack it as private build 1."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Package registry during installation; runtime host transport rejects non-loopback requests, no outgoing Worker calls in this fixture; telemetry disabled.",
+    "budget": "Existing Cloudflare $5 subscription included allowances only; no hosted execution in these attempts.",
+    "observed_cost": "unknown; no paid-provider operation or hosted resource was executed by these local attempts"
+  },
+  "cleanup_result": "Local build resource teardown succeeded; the failed admission retained local stage identity. Attempt 002 subsequently reused and destroyed that local stage. No hosted resources.",
+  "decision_link": "docs/decisions.md: owner accepted Effect 4.0.3 and private pinned Yielded build; hosted scope remains separate.",
+  "limitations_and_next_action": "Retained archives and error logs establish the API incompatibility; the original full consumer lock was not frozen. Apply the separately reviewed four-call API patch, increment the private version and rerun.",
+  "look": {
+    "technique": "n/a: package/runtime compatibility check, no visual artifact",
+    "tone_set": "n/a: package/runtime compatibility check, no visual artifact",
+    "theme": "n/a: package/runtime compatibility check, no visual artifact",
+    "rung": "n/a: package/runtime compatibility check, no visual artifact",
+    "dpr": "n/a: package/runtime compatibility check, no visual artifact",
+    "camera": "n/a: package/runtime compatibility check, no visual artifact",
+    "canvas": "n/a: package/runtime compatibility check, no visual artifact",
+    "backend": "n/a: package/runtime compatibility check, no visual artifact",
+    "renderer_string": "n/a: package/runtime compatibility check, no visual artifact",
+    "device_profile": "n/a: package/runtime compatibility check, no visual artifact",
+    "clock_and_seed": "n/a: package/runtime compatibility check, no visual artifact",
+    "metrics": {},
+    "made_by": "n/a: package/runtime compatibility check, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: no look artifact",
+      "verdict": "n/a",
+      "notes": "Technical evidence review is recorded in reviewer."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "Package/runtime check has no art approval.",
+      "date": "n/a"
+    }
+  }
+}

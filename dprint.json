@@ -1,10 +1,19 @@
 {
   "includes": [
-    "apps/floor/spikes/platform/**/*.ts",
-    "apps/floor/spikes/platform/*.json",
-    "apps/floor/spikes/platform/*.jsonc",
+    "apps/*/src/**/*.ts",
+    "apps/*/test/**/*.ts",
+    "apps/*/package.json",
+    "apps/*/tsconfig.json",
+    "apps/web/*.ts",
+    "packages/**/*.ts",
+    "packages/**/*.json",
+    "scripts/**/*.ts",
+    "stacks/**/*.ts",
+    "testing/**/*.ts",
+    "testing/**/*.json",
+    "alchemy.run.ts",
     "package.json",
-    "tsconfig.json",
+    "tsconfig*.json",
     "dprint.json",
     ".oxlintrc.json"
   ],
@@ -14,7 +23,10 @@
     "node_modules/**",
     "**/node_modules/**",
     "**/.alchemy/**",
-    "**/client/**"
+    "**/client/**",
+    "**/spikes/**",
+    "packages/chains/idl/**",
+    "packages/chains/test/fixtures/**"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.95.11.wasm",

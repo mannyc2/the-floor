@@ -1,0 +1,113 @@
+$ sh apps/floor/test/run.sh
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/admission.test.ts:
+[17:17:14.281] INFO (#5): Plan: 2 to create, 4 binding changes
+[17:17:14.285] INFO (#5): [FloorLocalAgent] create (local)
+[17:17:14.285] INFO (#5): [FloorLocalAgent/FLOOR_MAILBOXES] create
+[17:17:14.285] INFO (#5): [FloorLocalAgent/FLOOR_THREADS] create
+[17:17:14.285] INFO (#5): [FloorLocalAgent/FloorStorage] create
+[17:17:14.285] INFO (#5): [FloorLocalAgent/STORAGE] create
+[17:17:14.285] INFO (#5): [FloorStorage] create (local)
+[17:17:14.285] INFO (#5): 
+[17:17:14.291] INFO (#472): [FloorStorage] creating (local)
+[17:17:14.293] INFO (#473): [FloorLocalAgent] pre-creating (local)
+[17:17:14.403] INFO (#473): [FloorLocalAgent] creating (local)
+[17:17:14.406] INFO (#472): [FloorStorage] created (local) (114ms)
+[17:17:14.409] INFO (#473): [FloorLocalAgent] ready at http://localhost:19732
+[17:17:14.409] INFO (#473): [FloorLocalAgent] created (local) (116ms)
+[17:17:14.412] INFO (#543): [FloorStorage] created (local) (121ms)
+[17:17:14.413] INFO (#544): [FloorLocalAgent] created (local) (119ms)
+[17:17:14.425] INFO (#5): 
+[17:17:14.425] INFO (#5): Done: 2 succeeded (140ms)
+[17:17:17.621] INFO (#536): [FloorLocalAgent] Started in 3213ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[17:17:20.716] INFO (#601): {"callback":{"acceptedAt":1791825437656,"completedAt":1791825438154},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791825438138,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791825438314,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791825438350,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791825438669,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791825438669,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791825438677,"settlement":"completed","output":{"absent":true}}],"quietStartedAt":1791825437665,"observedAt":1791825440666,"localUrl":"http://localhost:19732","threadName":"native-1791825434430","storage":{"durable":{"rollbackFailed":true,"rollbackError":"RollbackProbe: \n    at file:///bundle/index.js:1427:72586\n    at next (<anonymous>)\n    at Effect.fn (file:///bundle/index.js:80:7661)\n    at Effect.fn (definition) (file:///bundle/index.js:80:7063)\n    at makeTestWorker (file:///bundle/index.js:1427:75283)\n    at makeTestWorker (definition) (file:///bundle/index.js:1427:73147)","beforeRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}},"d1":{"rollbackFailed":true,"rollbackError":"effect/sql/SqlError: Failed to execute batch\n    at catch (file:///bundle/index.js:80:10470)\n    at file:///bundle/Schema-D1dz5UzW.js:13:6380 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///bundle/index.js:80:9649)\n      at catch (file:///bundle/index.js:80:10491)\n      at file:///bundle/Schema-D1dz5UzW.js:13:6380 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}","beforeRollback":{"rows":[{"id":"native-1791825434430","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"native-1791825434430","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"native-1791825434430","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}}
+(pass) Alchemy callback admits a native Yielded agent and its alarm settles without polling [6290.58ms]
+
+ 1 pass
+ 0 fail
+ 26 expect() calls
+Ran 1 test across 1 file. [7.53s]
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/restart.test.ts:
+[17:17:21.916] INFO (#6): Plan: 1 to update
+[17:17:21.919] INFO (#6): [FloorLocalAgent] update (local)
+[17:17:21.919] INFO (#6): [FloorLocalAgent/FLOOR_MAILBOXES] noop
+[17:17:21.919] INFO (#6): [FloorLocalAgent/FLOOR_THREADS] noop
+[17:17:21.919] INFO (#6): [FloorLocalAgent/FloorStorage] noop
+[17:17:21.919] INFO (#6): [FloorLocalAgent/STORAGE] noop
+[17:17:21.919] INFO (#6): [FloorStorage] noop (local)
+[17:17:21.919] INFO (#6): 
+[17:17:21.928] INFO (#500): [FloorLocalAgent] updating (local)
+[17:17:21.955] INFO (#500): [FloorLocalAgent] ready at http://localhost:19732
+[17:17:21.955] INFO (#500): [FloorLocalAgent] updated (local) (27ms)
+[17:17:21.959] INFO (#514): [FloorLocalAgent] updated (local) (31ms)
+[17:17:21.973] INFO (#6): 
+[17:17:21.973] INFO (#6): Done: 1 succeeded (54ms)
+[17:17:24.278] INFO (#507): [FloorLocalAgent] Started in 2326ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[17:17:25.864] INFO (#571): {"threadName":"native-1791825434430","afterRestart":{"callback":{"acceptedAt":1791825437656,"completedAt":1791825438154},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791825438138,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791825438314,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791825438350,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791825438669,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791825438669,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791825438677,"settlement":"completed","output":{"absent":true}}]},"afterDuplicate":{"callback":{"acceptedAt":1791825444349,"completedAt":1791825444614},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791825438138,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791825438314,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791825438350,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791825438669,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791825438669,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791825438677,"settlement":"completed","output":{"absent":true}}]},"quietStartedAt":1791825444351,"observedAt":1791825445855,"storage":{"durable":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"d1":{"rows":[{"id":"native-1791825434430","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}
+(pass) saved records survive a new Alchemy workerd process and duplicate admission [3889.67ms]
+[17:17:25.894] INFO (#670): Plan: 2 to delete, 4 binding changes
+[17:17:25.894] INFO (#670): [FloorLocalAgent] delete (local)
+[17:17:25.894] INFO (#670): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+[17:17:25.894] INFO (#670): [FloorLocalAgent/FLOOR_THREADS] unbind
+[17:17:25.894] INFO (#670): [FloorLocalAgent/FloorStorage] unbind
+[17:17:25.894] INFO (#670): [FloorLocalAgent/STORAGE] unbind
+[17:17:25.894] INFO (#670): [FloorStorage] delete (local)
+[17:17:25.894] INFO (#670): 
+[17:17:25.902] INFO (#1045): [FloorLocalAgent] deleting (local)
+[17:17:25.907] INFO (#1045): [FloorLocalAgent] deleted (local) (5ms)
+[17:17:25.907] INFO (#1047): [FloorStorage] deleting (local)
+[17:17:25.920] INFO (#1047): [FloorStorage] deleted (local) (13ms)
+[17:17:25.921] INFO (#670): 
+[17:17:25.921] INFO (#670): Done: 2 succeeded (27ms)
+
+ 1 pass
+ 0 fail
+ 7 expect() calls
+Ran 1 test across 1 file. [5.15s]
+bun test v1.4.0 (34cbb9a40)
+
+apps/floor/test/gate.test.ts:
+[17:17:27.092] INFO (#6): Plan: 2 to create, 5 binding changes
+[17:17:27.095] INFO (#6): [FloorLocalAgent] create (local)
+[17:17:27.096] INFO (#6): [FloorLocalAgent/FLOOR_MAILBOXES] create
+[17:17:27.096] INFO (#6): [FloorLocalAgent/FLOOR_PROBE_TOKEN] create
+[17:17:27.096] INFO (#6): [FloorLocalAgent/FLOOR_THREADS] create
+[17:17:27.096] INFO (#6): [FloorLocalAgent/FloorStorage] create
+[17:17:27.096] INFO (#6): [FloorLocalAgent/STORAGE] create
+[17:17:27.096] INFO (#6): [FloorStorage] create (local)
+[17:17:27.096] INFO (#6): 
+[17:17:27.112] INFO (#485): [FloorLocalAgent] pre-creating (local)
+[17:17:27.114] INFO (#484): [FloorStorage] creating (local)
+[17:17:27.208] INFO (#485): [FloorLocalAgent] creating (local)
+[17:17:27.211] INFO (#484): [FloorStorage] created (local) (96ms)
+[17:17:27.214] INFO (#485): [FloorLocalAgent] ready at http://localhost:19732
+[17:17:27.214] INFO (#485): [FloorLocalAgent] created (local) (102ms)
+[17:17:27.229] INFO (#555): [FloorStorage] created (local) (115ms)
+[17:17:27.229] INFO (#556): [FloorLocalAgent] created (local) (117ms)
+[17:17:27.232] INFO (#6): 
+[17:17:27.232] INFO (#6): Done: 2 succeeded (136ms)
+[17:17:29.401] INFO (#548): [FloorLocalAgent] Started in 2188ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/stage-0/.alchemy/log/floor-probe-gate-local/FloorLocalAgent)
+(pass) native probe honors the deployed secret before mutation [2194.04ms]
+[17:17:29.484] INFO (#709): Plan: 2 to delete, 5 binding changes
+[17:17:29.484] INFO (#709): [FloorLocalAgent] delete (local)
+[17:17:29.484] INFO (#709): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+[17:17:29.484] INFO (#709): [FloorLocalAgent/FLOOR_PROBE_TOKEN] unbind
+[17:17:29.484] INFO (#709): [FloorLocalAgent/FLOOR_THREADS] unbind
+[17:17:29.484] INFO (#709): [FloorLocalAgent/FloorStorage] unbind
+[17:17:29.484] INFO (#709): [FloorLocalAgent/STORAGE] unbind
+[17:17:29.484] INFO (#709): [FloorStorage] delete (local)
+[17:17:29.484] INFO (#709): 
+[17:17:29.488] INFO (#1084): [FloorLocalAgent] deleting (local)
+[17:17:29.494] INFO (#1084): [FloorLocalAgent] deleted (local) (5ms)
+[17:17:29.494] INFO (#1086): [FloorStorage] deleting (local)
+[17:17:29.497] INFO (#1086): [FloorStorage] deleted (local) (3ms)
+[17:17:29.503] INFO (#709): 
+[17:17:29.503] INFO (#709): Done: 2 succeeded (19ms)
+
+ 1 pass
+ 0 fail
+ 3 expect() calls
+Ran 1 test across 1 file. [3.56s]

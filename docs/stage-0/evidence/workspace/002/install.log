@@ -1,0 +1,11 @@
+bun install v1.4.0 (34cbb9a40)
+Resolving dependencies
+Resolved, downloaded and extracted [1]
+
+$ effect-tsgo patch --typescript --oxlint
+typescript skipped because its hash matches the replacement.
+oxlint skipped because its hash matches the replacement.
+oxlint-dts skipped because its hash matches the replacement.
+oxlint-tsgolint skipped because its hash matches the replacement.
+
+Checked 441 installs across 579 packages (no changes) [625.00ms]

@@ -1,0 +1,1 @@
+{"source":"work/alchemy-audit/workerd-verified/package/bin/workerd","destination":"apps/floor/spikes/platform/alchemy-agent/node_modules/@cloudflare/workerd-darwin-arm64/bin/workerd","sha256":"5e8b50b74431e8ff1341583f647fc9ecbca5486b5ca9c8b1ecdbcb10b10336a5","reason":"Replace corrupt installed binary without modifying shared cache hardlinks"}

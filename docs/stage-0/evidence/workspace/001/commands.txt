@@ -1,0 +1,8 @@
+bun install --frozen-lockfile
+bun run format:check
+bun run typecheck
+bun run lint
+bun run test:leaf
+bun run build
+bun run test:native
+bun run test:flow
