@@ -1,0 +1,81 @@
+$ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./local-only.ts ./local.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+local.test.ts:
+[14:53:45.013] INFO (#6): Plan: 1 to create
+[14:53:45.016] INFO (#6): [FloorKitProbe] create (local)
+[14:53:45.016] INFO (#6):
+[14:53:45.022] INFO (#367): [FloorKitProbe] pre-creating (local)
+[14:53:45.041] INFO (#367): [FloorKitProbe] creating (local)
+[14:53:45.048] INFO (#367): [FloorKitProbe] ready at http://localhost:19735
+[14:53:45.048] INFO (#367): [FloorKitProbe] created (local) (26ms)
+[14:53:45.051] INFO (#391): [FloorKitProbe] created (local) (29ms)
+[14:53:45.438] INFO (#6):
+[14:53:45.438] INFO (#6): Done: 1 succeeded (422ms)
+[14:53:46.936] ERROR (#384): [FloorKitProbe] Error 693 | export const fail = exitFail;
+694 | /** @internal */
+695 | export const sync = /*#__PURE__*/makePrimitive({
+696 |   op: "Sync",
+697 |   [evaluate](fiber) {
+698 |     const value = this[args]();
+      ^
+ENOEXEC: unknown error, posix_spawn '/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/@cloudflare/workerd-darwin-arm64/bin/workerd'
+    path: "/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/@cloudflare/workerd-darwin-arm64/bin/workerd",
+ syscall: "posix_spawn",
+   errno: -8,
+    code: "ENOEXEC"
+
+      at spawn (unknown:1:1)
+      at ~effect/Effect/evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:698:24)
+      at runLoop (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:451:88)
+      at evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:400:23)
+      at runInAsyncScope (node:async_hooks:193:23)
+      at /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:806:17
+      at /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:2292:17
+      at evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:421:19)
+      at runInAsyncScope (node:async_hooks:193:23)
+      at /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:806:17
+
+418 | }
+419 | function fromIssueEffect(self) {
+420 |   if (effectIsExit(self)) {
+421 |     return fromIssueExit(self);
+422 |   }
+423 |   return Effect.catchCause(self, cause => Effect.failCauseSync(() => Cause_.map(cause, issue => new SchemaError(issue))));
+                                                                                                      ^
+error: Missing key
+  at ["first"]
+      issue: Composite {
+  "~effect/SchemaIssue/Issue": "~effect/SchemaIssue/Issue",
+  _tag: "Composite",
+  ast: [Object ...],
+  issues: [
+    [Object ...]
+  ],
+},
+       _tag: "SchemaError",
+ ~effect/Schema/SchemaError: "~effect/Schema/SchemaError",
+
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/Schema.js:423:97)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:135:23)
+      at map (1:11)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:132:33)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:742:66)
+      at runLoop (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:451:88)
+      at evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:400:23)
+      at runInAsyncScope (node:async_hooks:193:23)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/effect/dist/internal/effect.js:806:17)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/kit/node_modules/@effect/platform-node-shared/dist/NodeFileSystem.js:490:9)
+(fail) constructs both unsigned launches and validates math in local workerd [1499.31ms]
+[14:53:46.972] INFO (#525): Plan: 1 to delete
+[14:53:46.972] INFO (#525): [FloorKitProbe] delete (local)
+[14:53:46.972] INFO (#525):
+[14:53:46.976] INFO (#871): [FloorKitProbe] deleting (local)
+[14:53:47.000] INFO (#871): [FloorKitProbe] deleted (local) (23ms)
+[14:53:47.022] INFO (#525):
+[14:53:47.022] INFO (#525): Done: 1 succeeded (50ms)
+
+ 0 pass
+ 1 fail
+Ran 1 test across 1 file. [3.10s]
+error: script "build" exited with code 1

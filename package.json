@@ -1,0 +1,26 @@
+{
+  "name": "floor-platform-spike",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "scripts": {
+    "prepare": "effect-tsgo patch --typescript --oxlint",
+    "typecheck": "sh scripts/platform-spike.sh typecheck",
+    "lint": "sh scripts/platform-spike.sh lint",
+    "build": "sh scripts/platform-spike.sh build",
+    "test": "sh scripts/platform-spike.sh test",
+    "format": "dprint fmt",
+    "format:check": "dprint check",
+    "spike:prepare": "sh scripts/platform-spike.sh prepare"
+  },
+  "devDependencies": {
+    "@effect/tsgo": "0.51.1",
+    "@types/bun": "1.4.2",
+    "dprint": "0.63.0",
+    "effect-oxlint": "0.4.0",
+    "oxlint": "1.87.0",
+    "oxlint-plugin-effect": "0.28.1",
+    "oxlint-tsgolint": "7.0.2003",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "executed_at_utc": "2026-10-12T13:58:07.208113+00:00",
+  "responses": [
+    {
+      "path": "/agent/snapshot?thread=local-agent-alarm-002",
+      "method": "GET",
+      "started_at_ms": 1791813487208,
+      "finished_at_ms": 1791813487307,
+      "status": 200,
+      "body": {
+        "invocations": 1,
+        "startedAtMillis": [
+          1791813479557
+        ],
+        "completedAtMillis": [
+          1791813481236
+        ],
+        "observedAtMillis": 1791813487304,
+        "nativeAlarmPending": false,
+        "model": "synthetic fixture; no inference provider",
+        "dispatchAfterEvent": false
+      }
+    },
+    {
+      "path": "/agent/read?thread=local-agent-alarm-002",
+      "method": "GET",
+      "started_at_ms": 1791813487307,
+      "finished_at_ms": 1791813487343,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": [
+          {
+            "sequence": 1,
+            "recordId": "thread-created:local-agent-alarm-002",
+            "createdAt": "2026-10-12T13:57:59.522Z",
+            "kind": "ThreadCreated",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 2,
+            "recordId": "input:01a13067-ec59-7f17-a83b-72dcb06cccf6:local-agent-alarm-002",
+            "createdAt": "2026-10-12T13:57:59.603Z",
+            "kind": "UserInputRecorded",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 3,
+            "recordId": "model-response:run:01a13067-ec59-7f17-a83b-72dcb06cccf6:local-agent-alarm-002:1",
+            "createdAt": "2026-10-12T13:58:01.144Z",
+            "kind": "ModelResponseRecorded",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "Some",
+              "value": {
+                "content": [
+                  {
+                    "content": "This is a local deterministic adapter fixture with no external provider.",
+                    "options": {},
+                    "role": "system"
+                  },
+                  {
+                    "content": "{\"message\":\"run synthetic alarm probe\"}",
+                    "options": {},
+                    "role": "user"
+                  },
+                  {
+                    "content": "synthetic-alarm-completion-v1",
+                    "options": {},
+                    "role": "assistant"
+                  }
+                ]
+              }
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 4,
+            "recordId": "settlement:01a13067-ec59-7f17-a83b-72dcb06cccf6:local-agent-alarm-002",
+            "createdAt": "2026-10-12T13:58:01.163Z",
+            "kind": "SubmissionSettled",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "Some",
+              "value": "completed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "/agent/submit?thread=local-agent-alarm-002&key=local-submit-002",
+      "method": "POST",
+      "started_at_ms": 1791813487343,
+      "finished_at_ms": 1791813487362,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "receiptId": "receipt-01a13067-ec59-7a5e-89ad-6578341ebdd5",
+          "submissionId": "01a13067-ec59-7f17-a83b-72dcb06cccf6:local-agent-alarm-002",
+          "threadId": "local-agent-alarm-002",
+          "queueSequence": 1
+        }
+      }
+    },
+    {
+      "path": "/d1/migrate",
+      "method": "GET",
+      "started_at_ms": 1791813487362,
+      "finished_at_ms": 1791813487377,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "fromVersion": 2,
+          "toVersion": 2,
+          "repeatedWithoutChanges": true,
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13,
+              "marker": "v2"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

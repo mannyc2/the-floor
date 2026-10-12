@@ -1,0 +1,117 @@
+{
+  "poolFees": {
+    "baseFee": {
+      "cliffFeeNumerator": {
+        "bigint": "10000000"
+      },
+      "firstFactor": 0,
+      "secondFactor": {
+        "bigint": "0"
+      },
+      "thirdFactor": {
+        "bigint": "0"
+      },
+      "baseFeeMode": 0
+    },
+    "dynamicFee": null
+  },
+  "collectFeeMode": 0,
+  "migrationOption": 1,
+  "activationType": 1,
+  "tokenType": 0,
+  "tokenDecimal": 6,
+  "partnerLiquidityPercentage": 50,
+  "partnerPermanentLockedLiquidityPercentage": 5,
+  "creatorLiquidityPercentage": 40,
+  "creatorPermanentLockedLiquidityPercentage": 5,
+  "migrationQuoteThreshold": {
+    "bigint": "10000000000"
+  },
+  "sqrtStartPrice": {
+    "bigint": "32609545905467449"
+  },
+  "lockedVesting": {
+    "amountPerPeriod": {
+      "bigint": "0"
+    },
+    "cliffDurationFromMigrationTime": {
+      "bigint": "0"
+    },
+    "frequency": {
+      "bigint": "0"
+    },
+    "numberOfPeriod": {
+      "bigint": "0"
+    },
+    "cliffUnlockAmount": {
+      "bigint": "0"
+    }
+  },
+  "migrationFeeOption": 3,
+  "tokenSupply": {
+    "preMigrationTokenSupply": {
+      "bigint": "1000000000000000"
+    },
+    "postMigrationTokenSupply": {
+      "bigint": "1000000000000000"
+    }
+  },
+  "creatorTradingFeePercentage": 50,
+  "tokenUpdateAuthority": 1,
+  "migrationFee": {
+    "feePercentage": 0,
+    "creatorFeePercentage": 0
+  },
+  "migratedPoolFee": {
+    "collectFeeMode": 0,
+    "dynamicFee": 0,
+    "poolFeeBps": 0
+  },
+  "poolCreationFee": {
+    "bigint": "0"
+  },
+  "partnerLiquidityVestingInfo": {
+    "vestingPercentage": 0,
+    "bpsPerPeriod": 0,
+    "numberOfPeriods": 0,
+    "cliffDurationFromMigrationTime": 0,
+    "frequency": 0
+  },
+  "creatorLiquidityVestingInfo": {
+    "vestingPercentage": 0,
+    "bpsPerPeriod": 0,
+    "numberOfPeriods": 0,
+    "cliffDurationFromMigrationTime": 0,
+    "frequency": 0
+  },
+  "migratedPoolBaseFeeMode": 0,
+  "migratedPoolMarketCapFeeSchedulerParams": {
+    "numberOfPeriod": 0,
+    "sqrtPriceStepBps": 0,
+    "schedulerExpirationDuration": 0,
+    "reductionFactor": {
+      "bigint": "0"
+    }
+  },
+  "enableFirstSwapWithMinFee": false,
+  "compoundingFeeBps": 0,
+  "padding": [],
+  "curve": [
+    {
+      "sqrtPrice": {
+        "bigint": "130438178253327822"
+      },
+      "liquidity": {
+        "bigint": "34783514678091156834964035168207"
+      }
+    },
+    {
+      "sqrtPrice": {
+        "bigint": "79226673521066979257578248091"
+      },
+      "liquidity": {
+        "bigint": "3435866574973078303503357"
+      }
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "check_id": "alchemy-patch-compatibility",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T15:07:06.267305+00:00",
+  "operator": "Platform toolchain executor",
+  "reviewer": "Root independent technical review: verified the artifact hashes and repeated the exact patch dry-run against both preserved original package inputs. Beta.80 returned 0 and beta.81 returned 1 with the recorded hunk failures. This establishes applicability only, not product adoption or runtime compatibility.",
+  "source_revision": "Floor d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382; exact Yielded upstream 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968; immutable registry package inputs and patch digests in source-provenance.json.",
+  "dependency_versions": {
+    "alchemy_candidates": [
+      "2.0.0-beta.80",
+      "2.0.0-beta.81"
+    ],
+    "patch": "alchemy@2.0.0-beta.80.patch",
+    "patch_sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+  },
+  "api_evidence": [
+    "https://github.com/yielded-dev/agent/pull/557",
+    "https://github.com/yielded-dev/agent/blob/0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968/patches/alchemy@2.0.0-beta.80.patch",
+    "Original source and compiled module files touched by the patch are retained byte for byte in original-patch-inputs.tar.gz."
+  ],
+  "execution_target": "source_only",
+  "runtime_configuration": {
+    "patch_program": "/usr/bin/patch",
+    "mode": "--dry-run -p1",
+    "package_input": "official registry tarballs with SHA-512 integrity verified; each extracted input also matched its tar member"
+  },
+  "stage_and_resources": "No application runtime or cloud resources.",
+  "inputs": [
+    "Exact upstream Alchemy beta.80 Bun patch",
+    "Unmodified alchemy beta.80 and beta.81 registry distributions"
+  ],
+  "procedure": [
+    "Verify registry tarball SHA-512 integrity and extracted touched-file bytes.",
+    "Run the exact same patch with patch --dry-run -p1 from each package root.",
+    "Retain each exit status, complete patch output, original touched files, registry provenance and SHA-256 digests."
+  ],
+  "expected_result": "Determine whether the upstream patch applies unchanged to beta.80 and beta.81; do not infer semantic compatibility from a different version number.",
+  "observed_result": {
+    "beta80": "PASS: exit 0, every hunk applies unchanged.",
+    "beta81": "DOES NOT APPLY UNCHANGED: exit 1; 2 of 3 source DurableObjectBridge hunks fail, 1 of 4 compiled DurableObjectBridge hunks fails, and 1 of 3 source DurableObjectStorage hunks fails. Compiled storage and package export hunks apply."
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/alchemy@2.0.0-beta.80.patch",
+      "committed": true,
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/beta80-patch-dry-run.log",
+      "committed": true,
+      "bytes": 420,
+      "sha256": "adce33926750ce09f0f671bcfe057e460adca53d57490343d69ea9de49bb9c00",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/beta81-patch-dry-run.log",
+      "committed": true,
+      "bytes": 682,
+      "sha256": "2ba2cb194670354e7e61bd0073d1270bcd0f5ce94ec553e0844515136887e4e3",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/findings.md",
+      "committed": true,
+      "bytes": 2667,
+      "sha256": "2de01380fbfa46db12be3aebe644935f4dd75869619c9dd510c6f00dd771e114",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/original-patch-inputs.tar.gz",
+      "committed": true,
+      "bytes": 21004,
+      "sha256": "0ad9f99fc34bfa2c50b56adba0a513d7ad7992f323287a9380f631ff75491107",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-patch-compatibility/001/source-provenance.json",
+      "committed": true,
+      "bytes": 4995,
+      "sha256": "430b7766c090585ccea3f3ac63bad76ceac9aeafc318f8a683998fd48df54a02",
+      "regenerate": "Follow findings.md with the recorded official package inputs and exact upstream patch."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Official public registry downloads only during input acquisition; dry-run inspection makes no network requests.",
+    "budget": "No paid provider or cloud operations.",
+    "observed_cost": "No billable operation performed; external billing telemetry not queried."
+  },
+  "cleanup_result": "Dry-run leaves both extracted package inputs unchanged. Public package downloads remain in ignored work/. Committed evidence contains only the original files touched by the patch.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Source-only patch applicability does not test beta.81 runtime behavior. Some failed hunks are contextual/formatting drift; no port or semantic incompatibility is claimed. Use the already-tested exact beta.80 PR graph until an explicit decision authorizes carrying it or the adapter and fixes publish. Hosted behavior is unrun.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": ""
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

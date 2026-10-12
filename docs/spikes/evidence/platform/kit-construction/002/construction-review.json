@@ -1,0 +1,1198 @@
+{
+  "status": "technical_pass",
+  "checkCount": 44,
+  "failures": [],
+  "sdkTransaction": {
+    "byteLength": 1025,
+    "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59"
+  },
+  "sourceReview": {
+    "accountOrderRolesConstants": "IDL parity verified independently with unique sentinel addresses per input.",
+    "codecs": "Codama-generated binary parameter codecs; IDL-derived instruction wrappers; no hand-authored encoding offsets.",
+    "pdaDerivation": "Kit derivation uses the event-authority, pool, vault and metadata seeds; fixed quote/base byte ordering is documented and matches SDK oracle addresses.",
+    "unsignedBoundary": "Construction returns serialized unsigned bytes with three required signers and zero attached signatures.",
+    "networkBoundary": "Construction uses Effect HTTP; the actual server counter increased from 0 to 2 across two constructions. The oracle review itself performs no networking."
+  },
+  "limitations": [
+    "This is the fixed legacy SPL-token fixture, not arbitrary token ordering, Token-2022, full quote logic or every program instruction.",
+    "The quote-owner response schema deliberately pins fixture slot zero and the SPL Token owner; it is not a live-provider response schema.",
+    "Worker result provenance and complete bundle/import fences are verified by the parent integration task, not inferred from this review.",
+    "No transaction was signed, submitted, simulated or executed on chain."
+  ],
+  "sources": {
+    "idl.json": {
+      "bytes": 145011,
+      "sha256": "beedc8c869bc04865c26349a72a3ba9c773e61f48be2d33093c591a015fe82fd"
+    },
+    "instruction-oracle.json": {
+      "bytes": 3626,
+      "sha256": "7d800c21d3a01731e6bb0e0c72ac96480165541e18aea8aa3c4bb4d25f6195db"
+    },
+    "result.json": {
+      "bytes": 6227,
+      "sha256": "cced77d04252deac9f96f052c237f210a5cae423a97e81c3dbcce75c6e0def79"
+    },
+    "construction.ts": {
+      "bytes": 5810,
+      "sha256": "065bcde665de86e959a3345538a3d6a7a63b5d9df965a8540a650255d16e27eb"
+    },
+    "bounded-instructions.ts": {
+      "bytes": 4279,
+      "sha256": "60bc371b66130251e4394751d13be6504e7f4e2a0b326e591c6397c37224ea32"
+    },
+    "bounded-client.py": {
+      "bytes": 4327,
+      "sha256": "0ad59eded9adaed5adfb20f719ddeb10f6aac33e43e2953ad64d2bc1e0adb123"
+    },
+    "config.ts": {
+      "bytes": 2201,
+      "sha256": "d5c61bbe818b80e532a3f4325753fb37db44db30770f959f007bf20fa45c5888"
+    },
+    "config-oracle.mjs": {
+      "bytes": 4320,
+      "sha256": "767dfc405fcc1d58b62ee54cdd7ad50d347b534ec6bc24459416c3ac8b9f8501"
+    },
+    "rpc-counts.json": {
+      "bytes": 22,
+      "sha256": "0278494ca62891befef465966d4245a11b687a193e5b102fa8ed2047de6eb7a6"
+    }
+  },
+  "checks": [
+    {
+      "name": "create_config program",
+      "pass": true,
+      "actual": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+      "expected": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"
+    },
+    {
+      "name": "create_config account count",
+      "pass": true,
+      "actual": 8,
+      "expected": 8
+    },
+    {
+      "name": "create_config discriminator",
+      "pass": true,
+      "actual": [
+        201,
+        207,
+        243,
+        114,
+        75,
+        111,
+        47,
+        189
+      ],
+      "expected": [
+        201,
+        207,
+        243,
+        114,
+        75,
+        111,
+        47,
+        189
+      ]
+    },
+    {
+      "name": "create_config account 0 config",
+      "pass": true,
+      "actual": {
+        "address": "29d2S7vB453rNYFdR5Ycwt7y9haRT5fwVwL9zTmBhfV2",
+        "role": 3
+      },
+      "expected": {
+        "address": "29d2S7vB453rNYFdR5Ycwt7y9haRT5fwVwL9zTmBhfV2",
+        "role": 3
+      }
+    },
+    {
+      "name": "create_config account 1 fee_claimer",
+      "pass": true,
+      "actual": {
+        "address": "2DYKaRPBeNM5WdW8rNsYEktjPrnd89Mm4Lzp3qonSzoj",
+        "role": 0
+      },
+      "expected": {
+        "address": "2DYKaRPBeNM5WdW8rNsYEktjPrnd89Mm4Lzp3qonSzoj",
+        "role": 0
+      }
+    },
+    {
+      "name": "create_config account 2 leftover_receiver",
+      "pass": true,
+      "actual": {
+        "address": "2HTciirCEfeJeikeHgCTXdfVe1zpoD3ackfU7DrPCL8S",
+        "role": 0
+      },
+      "expected": {
+        "address": "2HTciirCEfeJeikeHgCTXdfVe1zpoD3ackfU7DrPCL8S",
+        "role": 0
+      }
+    },
+    {
+      "name": "create_config account 3 quote_mint",
+      "pass": true,
+      "actual": {
+        "address": "2MNus2KCpxwXnp19iyXNpWSFtBD2UGjQBAL8AbtywfT9",
+        "role": 0
+      },
+      "expected": {
+        "address": "2MNus2KCpxwXnp19iyXNpWSFtBD2UGjQBAL8AbtywfT9",
+        "role": 0
+      }
+    },
+    {
+      "name": "create_config account 4 payer",
+      "pass": true,
+      "actual": {
+        "address": "2RJD1KnDRGEkvuFfAGrJ7PD28LRE9LRDjZznDywagzmr",
+        "role": 3
+      },
+      "expected": {
+        "address": "2RJD1KnDRGEkvuFfAGrJ7PD28LRE9LRDjZznDywagzmr",
+        "role": 3
+      }
+    },
+    {
+      "name": "create_config account 5 system_program",
+      "pass": true,
+      "actual": {
+        "address": "11111111111111111111111111111111",
+        "role": 0
+      },
+      "expected": {
+        "address": "11111111111111111111111111111111",
+        "role": 0
+      }
+    },
+    {
+      "name": "create_config account 6 event_authority",
+      "pass": true,
+      "actual": {
+        "address": "2VDW9dFE1ZXz4zWAbaBDQFynNVdRpQ73HyfSHMzBSL6Z",
+        "role": 0
+      },
+      "expected": {
+        "address": "2VDW9dFE1ZXz4zWAbaBDQFynNVdRpQ73HyfSHMzBSL6Z",
+        "role": 0
+      }
+    },
+    {
+      "name": "create_config account 7 program",
+      "pass": true,
+      "actual": {
+        "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+        "role": 0
+      },
+      "expected": {
+        "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token program",
+      "pass": true,
+      "actual": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+      "expected": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN"
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account count",
+      "pass": true,
+      "actual": 16,
+      "expected": 16
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token discriminator",
+      "pass": true,
+      "actual": [
+        140,
+        85,
+        215,
+        176,
+        102,
+        54,
+        104,
+        79
+      ],
+      "expected": [
+        140,
+        85,
+        215,
+        176,
+        102,
+        54,
+        104,
+        79
+      ]
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 0 config",
+      "pass": true,
+      "actual": {
+        "address": "29d2S7vB453rNYFdR5Ycwt7y9haRT5fwVwL9zTmBhfV2",
+        "role": 0
+      },
+      "expected": {
+        "address": "29d2S7vB453rNYFdR5Ycwt7y9haRT5fwVwL9zTmBhfV2",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 1 pool_authority",
+      "pass": true,
+      "actual": {
+        "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+        "role": 0
+      },
+      "expected": {
+        "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 2 creator",
+      "pass": true,
+      "actual": {
+        "address": "2DYKaRPBeNM5WdW8rNsYEktjPrnd89Mm4Lzp3qonSzoj",
+        "role": 2
+      },
+      "expected": {
+        "address": "2DYKaRPBeNM5WdW8rNsYEktjPrnd89Mm4Lzp3qonSzoj",
+        "role": 2
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 3 base_mint",
+      "pass": true,
+      "actual": {
+        "address": "2HTciirCEfeJeikeHgCTXdfVe1zpoD3ackfU7DrPCL8S",
+        "role": 3
+      },
+      "expected": {
+        "address": "2HTciirCEfeJeikeHgCTXdfVe1zpoD3ackfU7DrPCL8S",
+        "role": 3
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 4 quote_mint",
+      "pass": true,
+      "actual": {
+        "address": "2MNus2KCpxwXnp19iyXNpWSFtBD2UGjQBAL8AbtywfT9",
+        "role": 0
+      },
+      "expected": {
+        "address": "2MNus2KCpxwXnp19iyXNpWSFtBD2UGjQBAL8AbtywfT9",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 5 pool",
+      "pass": true,
+      "actual": {
+        "address": "2RJD1KnDRGEkvuFfAGrJ7PD28LRE9LRDjZznDywagzmr",
+        "role": 1
+      },
+      "expected": {
+        "address": "2RJD1KnDRGEkvuFfAGrJ7PD28LRE9LRDjZznDywagzmr",
+        "role": 1
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 6 base_vault",
+      "pass": true,
+      "actual": {
+        "address": "2VDW9dFE1ZXz4zWAbaBDQFynNVdRpQ73HyfSHMzBSL6Z",
+        "role": 1
+      },
+      "expected": {
+        "address": "2VDW9dFE1ZXz4zWAbaBDQFynNVdRpQ73HyfSHMzBSL6Z",
+        "role": 1
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 7 quote_vault",
+      "pass": true,
+      "actual": {
+        "address": "2Z8oHviEbrqDD5kg2sW8h8kYceqdVTnrrPL6Lk2nBfRG",
+        "role": 1
+      },
+      "expected": {
+        "address": "2Z8oHviEbrqDD5kg2sW8h8kYceqdVTnrrPL6Lk2nBfRG",
+        "role": 1
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 8 mint_metadata",
+      "pass": true,
+      "actual": {
+        "address": "2d46SEBFCA8SMB1BUAq3z1XJrp3qAXUgQnzkQ85Nvzjy",
+        "role": 1
+      },
+      "expected": {
+        "address": "2d46SEBFCA8SMB1BUAq3z1XJrp3qAXUgQnzkQ85Nvzjy",
+        "role": 1
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 9 metadata_program",
+      "pass": true,
+      "actual": {
+        "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+        "role": 0
+      },
+      "expected": {
+        "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 10 payer",
+      "pass": true,
+      "actual": {
+        "address": "2gyPaXeFnTRfVGFguU9yGtJ56yG2qbAVyCfQTW7ygL4g",
+        "role": 3
+      },
+      "expected": {
+        "address": "2gyPaXeFnTRfVGFguU9yGtJ56yG2qbAVyCfQTW7ygL4g",
+        "role": 3
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 11 token_quote_program",
+      "pass": true,
+      "actual": {
+        "address": "2ktgiq7GNkitdMWCLmUtZm4qM8UEWerKXcL4WtAaRfPP",
+        "role": 0
+      },
+      "expected": {
+        "address": "2ktgiq7GNkitdMWCLmUtZm4qM8UEWerKXcL4WtAaRfPP",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 12 token_program",
+      "pass": true,
+      "actual": {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "role": 0
+      },
+      "expected": {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 13 system_program",
+      "pass": true,
+      "actual": {
+        "address": "11111111111111111111111111111111",
+        "role": 0
+      },
+      "expected": {
+        "address": "11111111111111111111111111111111",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 14 event_authority",
+      "pass": true,
+      "actual": {
+        "address": "2poys8aGy427mSkhn4oordqbbHgSBiY961ziaGDBAzi6",
+        "role": 0
+      },
+      "expected": {
+        "address": "2poys8aGy427mSkhn4oordqbbHgSBiY961ziaGDBAzi6",
+        "role": 0
+      }
+    },
+    {
+      "name": "initialize_virtual_pool_with_spl_token account 15 program",
+      "pass": true,
+      "actual": {
+        "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+        "role": 0
+      },
+      "expected": {
+        "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+        "role": 0
+      }
+    },
+    {
+      "name": "first SDK instruction bytes/accounts",
+      "pass": true,
+      "actual": [
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 3
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+        },
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 0
+            },
+            {
+              "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 2
+            },
+            {
+              "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+              "role": 3
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+              "role": 1
+            },
+            {
+              "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+              "role": 1
+            },
+            {
+              "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+              "role": 1
+            },
+            {
+              "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+              "role": 1
+            },
+            {
+              "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+        }
+      ],
+      "expected": [
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 3
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+        },
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 0
+            },
+            {
+              "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 2
+            },
+            {
+              "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+              "role": 3
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+              "role": 1
+            },
+            {
+              "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+              "role": 1
+            },
+            {
+              "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+              "role": 1
+            },
+            {
+              "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+              "role": 1
+            },
+            {
+              "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+        }
+      ]
+    },
+    {
+      "name": "first SDK transaction byte length",
+      "pass": true,
+      "actual": 1025,
+      "expected": 1025
+    },
+    {
+      "name": "first SDK transaction SHA-256",
+      "pass": true,
+      "actual": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+      "expected": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59"
+    },
+    {
+      "name": "first unsigned",
+      "pass": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "first required signer count",
+      "pass": true,
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "name": "second SDK instruction bytes/accounts",
+      "pass": true,
+      "actual": [
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 3
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+        },
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 0
+            },
+            {
+              "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 2
+            },
+            {
+              "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+              "role": 3
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+              "role": 1
+            },
+            {
+              "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+              "role": 1
+            },
+            {
+              "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+              "role": 1
+            },
+            {
+              "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+              "role": 1
+            },
+            {
+              "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+        }
+      ],
+      "expected": [
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 3
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 0
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+        },
+        {
+          "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+          "accounts": [
+            {
+              "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+              "role": 0
+            },
+            {
+              "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 2
+            },
+            {
+              "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+              "role": 3
+            },
+            {
+              "address": "So11111111111111111111111111111111111111112",
+              "role": 0
+            },
+            {
+              "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+              "role": 1
+            },
+            {
+              "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+              "role": 1
+            },
+            {
+              "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+              "role": 1
+            },
+            {
+              "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+              "role": 1
+            },
+            {
+              "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+              "role": 0
+            },
+            {
+              "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+              "role": 3
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "role": 0
+            },
+            {
+              "address": "11111111111111111111111111111111",
+              "role": 0
+            },
+            {
+              "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+              "role": 0
+            },
+            {
+              "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+              "role": 0
+            }
+          ],
+          "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+        }
+      ]
+    },
+    {
+      "name": "second SDK transaction byte length",
+      "pass": true,
+      "actual": 1025,
+      "expected": 1025
+    },
+    {
+      "name": "second SDK transaction SHA-256",
+      "pass": true,
+      "actual": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+      "expected": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59"
+    },
+    {
+      "name": "second unsigned",
+      "pass": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "second required signer count",
+      "pass": true,
+      "actual": 3,
+      "expected": 3
+    },
+    {
+      "name": "fixture requests before construction",
+      "pass": true,
+      "actual": 0,
+      "expected": 0
+    },
+    {
+      "name": "actual fixture request delta for two constructions",
+      "pass": true,
+      "actual": 2,
+      "expected": 2
+    },
+    {
+      "name": "deterministic repeated construction",
+      "pass": true,
+      "actual": {
+        "instructions": [
+          {
+            "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+            "accounts": [
+              {
+                "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+                "role": 3
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 0
+              },
+              {
+                "address": "So11111111111111111111111111111111111111112",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 3
+              },
+              {
+                "address": "11111111111111111111111111111111",
+                "role": 0
+              },
+              {
+                "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+                "role": 0
+              },
+              {
+                "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+                "role": 0
+              }
+            ],
+            "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+          },
+          {
+            "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+            "accounts": [
+              {
+                "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+                "role": 0
+              },
+              {
+                "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 2
+              },
+              {
+                "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+                "role": 3
+              },
+              {
+                "address": "So11111111111111111111111111111111111111112",
+                "role": 0
+              },
+              {
+                "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+                "role": 1
+              },
+              {
+                "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+                "role": 1
+              },
+              {
+                "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+                "role": 1
+              },
+              {
+                "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+                "role": 1
+              },
+              {
+                "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 3
+              },
+              {
+                "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                "role": 0
+              },
+              {
+                "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                "role": 0
+              },
+              {
+                "address": "11111111111111111111111111111111",
+                "role": 0
+              },
+              {
+                "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+                "role": 0
+              },
+              {
+                "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+                "role": 0
+              }
+            ],
+            "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+          }
+        ],
+        "byteLength": 1025,
+        "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+        "requiredSigners": [
+          "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+          "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+          "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8"
+        ],
+        "attachedSignatures": 0,
+        "pdas": {
+          "eventAuthority": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+          "pool": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+          "baseVault": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+          "quoteVault": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+          "mintMetadata": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S"
+        },
+        "quoteOwner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "fixtureSlot": 0
+      },
+      "expected": {
+        "instructions": [
+          {
+            "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+            "accounts": [
+              {
+                "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+                "role": 3
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 0
+              },
+              {
+                "address": "So11111111111111111111111111111111111111112",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 3
+              },
+              {
+                "address": "11111111111111111111111111111111",
+                "role": 0
+              },
+              {
+                "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+                "role": 0
+              },
+              {
+                "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+                "role": 0
+              }
+            ],
+            "dataHex": "c9cff3724b6f2fbd8096980000000000000000000000000000000000000000000000000000010100063205280500e40b54020000003970fb8f35da730000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003010080c6a47e8d03000080c6a47e8d03003201000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000ce4df0ffd468cf010000000000000000cf67f915fda4a76469fa9807b70100009b57694ea91a5c84b1c4feff00000000fd73d954b67043b392d7020000000000"
+          },
+          {
+            "programAddress": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+            "accounts": [
+              {
+                "address": "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+                "role": 0
+              },
+              {
+                "address": "FhVo3mqL8PW5pH5U2CN4XE33DokiyZnUwuGpH2hmHLuM",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 2
+              },
+              {
+                "address": "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8",
+                "role": 3
+              },
+              {
+                "address": "So11111111111111111111111111111111111111112",
+                "role": 0
+              },
+              {
+                "address": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+                "role": 1
+              },
+              {
+                "address": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+                "role": 1
+              },
+              {
+                "address": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+                "role": 1
+              },
+              {
+                "address": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S",
+                "role": 1
+              },
+              {
+                "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
+                "role": 0
+              },
+              {
+                "address": "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+                "role": 3
+              },
+              {
+                "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                "role": 0
+              },
+              {
+                "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                "role": 0
+              },
+              {
+                "address": "11111111111111111111111111111111",
+                "role": 0
+              },
+              {
+                "address": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+                "role": 0
+              },
+              {
+                "address": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+                "role": 0
+              }
+            ],
+            "dataHex": "8c55d7b06636684f050000005370696b650300000053504b1d00000068747470733a2f2f6578616d706c652e696e76616c69642f7370696b65"
+          }
+        ],
+        "byteLength": 1025,
+        "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+        "requiredSigners": [
+          "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+          "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+          "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8"
+        ],
+        "attachedSignatures": 0,
+        "pdas": {
+          "eventAuthority": "8Ks12pbrD6PXxfty1hVQiE9sc289zgU1zHkvXhrSdriF",
+          "pool": "GfbwPN6Tbf2Kg3MZmeD3DYa3Kj84L2YNAdDSUFUVKxLQ",
+          "baseVault": "HaiV121CrsdNqXQK4wo2Y88bsdSNZUkYffvdFdz1V7Yx",
+          "quoteVault": "4nmBPq6X59nZH8foGqvjGBgkDTK9w9UG1xr3FzB3pdeD",
+          "mintMetadata": "7AD2z3WLVQpLdUcyvwSsdXLeptJsQPyxrWDJNmi3cC7S"
+        },
+        "quoteOwner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "fixtureSlot": 0
+      }
+    },
+    {
+      "name": "Bun absent in recorded Worker",
+      "pass": true,
+      "actual": false,
+      "expected": false
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "check_id": "local-workerd",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T13:57:53.701609+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Independent toolchain agent: all75 source byte/hash comparisons matched frozen commit181bd364; independently checked53 responses, asserted criteria and timing; technical review passed. No hosted or stage approval.",
+  "source_revision": "181bd364ecd64b3e73e64a508d035eac958d668a",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "compiler_reported_version": "7.0.2+effect-tsgo.0.51.1",
+    "patch": "prepare: effect-tsgo patch --typescript --oxlint; frozen installation succeeded; exact lockfile retained in source commit."
+  },
+  "api_evidence": [
+    "@effect/sql-sqlite-do4.0.3 src/SqliteClient.ts: storage-backed transaction implementation and unsupported concurrent sibling transaction contract; src/SqliteMigrator.ts: versioned migrations.",
+    "@effect/sql-d1 4.0.3 src/D1Client.ts: batch forwards to binding; interactive transaction acquirer dies explicitly.",
+    "@effect/platform-browser4.0.3 src/BrowserCrypto.ts and effect4.0.3 src/Crypto.ts: Web Crypto digest and randomUUIDv4() (a function in this version).",
+    "Consumer operations verified in read-only first-build server/agent-runner.ts and signing/scoped-accounts/accounts.ts: UUID IDs and SHA-256 policy hashes."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "no_nodejs_compat",
+      "no_nodejs_compat_v2"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1"
+    ],
+    "state": "work/spikes/platform/final-002-state (mutable local scratch, not an evidence snapshot)"
+  },
+  "inputs": [
+    "SHA-256 UTF-8 abc vector; 32 sampled UUIDv4 values per crypto request.",
+    "Journal migration v1 writes persisted=7; conditional reservation changes7 to8.",
+    "D1 initial persisted row=13; duplicate-key batch deliberately fails.",
+    "Native alarm delay750ms; request-free observation interval at least2000ms."
+  ],
+  "procedure": [
+    "Check out source commit 181bd364ecd64b3e73e64a508d035eac958d668a in an isolated worktree; bun install --frozen-lockfile.",
+    "Run bun run format:check, bun run typecheck, bun run lint, bun run build and bun run build:bare. Both builds are local --dry-run bundles.",
+    "Copy local-workerd/002/run.py to ignored work/spikes/platform/<new-driver>.py. Choose fresh attempt/output/state names before a new run.",
+    "Run python3 work/spikes/platform/<new-driver>.py. It starts only --local Wrangler bindings, drives all five bounded checks, stops/restarts complete process groups and asserts the observed results.",
+    "The retained driver was changed after execution only to normalize the first agent-interruption output directory from 002 to 001. Runtime operations and assertions are unchanged."
+  ],
+  "expected_result": {
+    "crypto": "Known SHA-256 digest,32 valid distinct UUIDv4 samples, no Bun or process global.",
+    "journal": "Outer rollback leaves no row; caught child rollback preserves parent; one of20 reservations wins; migration count1 and resulting rows survive restart.",
+    "d1": "Failed batch leaves no partial write; interactive transactions unsupported; persisted row survives restart.",
+    "alarm": "Counter observed as 1 after a quiet interval and remains 1 after full process restart; read does not schedule the alarm."
+  },
+  "observed_result": {
+    "outcome": "All final local assertions passed against the frozen source. Outer rollback reached DeliberateRollback marker outer; D1 batch retained the expected UNIQUE constraint failure for probe_history.id.",
+    "reservations": {
+      "requests": 20,
+      "winners": 1
+    },
+    "journal_after_restart": {
+      "parent": 11,
+      "persisted": 8,
+      "migrations": 1
+    },
+    "d1_after_restart": {
+      "persisted": 13
+    },
+    "d1_interactive_transactions": "unsupported, explicit error: transactions are not supported in D1",
+    "alarm": {
+      "request_free_ms": 2005,
+      "wake_count_before_and_after_restart": 1
+    },
+    "crypto": {
+      "abc_sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "bun_global": false,
+      "process_global": false
+    },
+    "outer_rollback": {
+      "failureObserved": true,
+      "failureMarker": "outer",
+      "rolledBackRows": 0
+    },
+    "d1_batch": {
+      "batchFailureObserved": true,
+      "batchError": "effect/sql/SqlError: Failed to execute batch\n    at catch (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25049:48)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:3842:41 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25002:75)\n      at catch (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25050:17)\n      at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:3842:41 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: probe_history.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: probe_history.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}",
+      "rolledBackRows": 0,
+      "interactiveTransactionSupported": false,
+      "interactiveTransactionError": "Error: transactions are not supported in D1"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/002/after-restart.json",
+      "committed": true,
+      "bytes": 2730,
+      "sha256": "b4e4ebb010997a1f578adf44ac64f374e4bddafe8f767bd90704210daab68198",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/002/before-restart.json",
+      "committed": true,
+      "bytes": 12116,
+      "sha256": "d25684d95c2f0a758b4ae823c6c13bd1db534efc8959161a4fb79e9acab7e00b",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/002/source-manifest.json",
+      "committed": true,
+      "bytes": 2364,
+      "sha256": "675b316a594e33b92e92256b66e81e687a4b8d918c0fff8e05020d2c99e7791f",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/local-workerd/002/run.py",
+      "committed": true,
+      "bytes": 10047,
+      "sha256": "153cb34b81f89c8857d3545cb3d986cc481b837b1a131b94c915c61d1185626f",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "work/spikes/platform/final-run-002/bare-before.log",
+      "committed": false,
+      "bytes": 3759,
+      "sha256": "40587e48fd61f56e06ac7058abb12bf97f0c0394c428a1efc29f99ced5767886",
+      "regenerate": "Run the retained local-only driver from frozen runtime source with new attempt/state/output paths. These are full local Wrangler logs; no provider secrets are present."
+    },
+    {
+      "path": "work/spikes/platform/final-run-002/bare-after.log",
+      "committed": false,
+      "bytes": 2407,
+      "sha256": "2ef439d643407e1bf43d0ea84bcf9bb47b4737dc79715c727343a2ad1ab10ec1",
+      "regenerate": "Run the retained local-only driver from frozen runtime source with new attempt/state/output paths. These are full local Wrangler logs; no provider secrets are present."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Each complete Wrangler/workerd process group was stopped after its check. Port 8791 was verified closed. Local SQLite scratch remains for inspection. No hosted resources were created, so no hosted teardown is pending.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Local workerd emulation only. Native alarm evidence is not a Yielded agent loop. Restart is a controlled process stop/start, not a Cloudflare eviction or power-loss test. One20-request CAS race does not prove the complete journal protocol; concurrent sibling transactions remain unsupported by the driver. Hosted checks remain pending under the local-only instruction. This native counter check does not timestamp firing; agent-alarm/002 separately proves actual completion before a follow-up request.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "Independent toolchain agent",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

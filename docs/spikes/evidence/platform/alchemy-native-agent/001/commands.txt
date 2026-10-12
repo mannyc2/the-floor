@@ -1,0 +1,16 @@
+As-run repository entry points (Bun 1.4.0):
+  bun run typecheck
+  bun run lint
+  bun run build
+  bun run test
+
+scripts/platform-spike.sh pins yielded-dev/agent to:
+  0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968
+It verifies the upstream packages, patches and bun.lock are unchanged, installs the filtered graph with --frozen-lockfile when needed, and byte-compares the copied probe files.
+
+Actual local runtime commands invoked by the script, from the upstream packages/platform-alchemy-cloudflare directory:
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/build.test.ts
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_RETAIN_LOCAL_STATE=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/admission.test.ts
+  CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./work-floor-replay/test/local-only.ts ./work-floor-replay/test/restart.test.ts
+
+Reproduction: restore executed-source.tar.gz in an isolated Floor checkout, install its frozen root lockfile, then use the pinned upstream graph and entry points above. Retain new logs/results under a new attempt; never replace 001. Setup may download public packages/source, while the runtime preload rejects non-loopback host fetch. No provider credentials are needed. Timestamp/thread-name bytes will differ on a new run.

@@ -1,0 +1,37 @@
+{
+  "status": "pass",
+  "scope": "Local Alchemy native Yielded admission, alarm completion, clean process restart and duplicate admission only.",
+  "build_tests_passed": 1,
+  "agent_tests_passed": 2,
+  "test_assertions": 12,
+  "request_free_interval_ms": 3004,
+  "callback_completed_after_quiet_start_ms": 315,
+  "run_completed_after_quiet_start_ms": 657,
+  "submission_settled_after_quiet_start_ms": 671,
+  "synthetic_model_delay_ms": 250,
+  "canonical_record_count": 6,
+  "canonical_record_kinds": [
+    "ThreadCreated",
+    "UserInputRecorded",
+    "RunStarted",
+    "ModelResponseRecorded",
+    "RunCompleted",
+    "SubmissionSettled"
+  ],
+  "output": {
+    "answer": "synthetic-done-v1"
+  },
+  "settlement": "completed",
+  "records_identical_after_process_restart": true,
+  "callback_identical_after_process_restart": true,
+  "duplicate_request_free_interval_ms": 1509,
+  "duplicate_callback_completed_after_quiet_start_ms": 260,
+  "records_identical_after_duplicate": true,
+  "new_records_after_duplicate": 0,
+  "source_snapshot_files": 13,
+  "source_snapshot_matched_authored_source_at_capture": true,
+  "upstream_tracked_sources_lock_patch_unchanged": true,
+  "strict_typecheck_and_lint": "Operator-reported pass; retained successful command logs are terse and contain no diagnostics. Final source and independent technical review are recorded separately.",
+  "cleanup": "Successful Alchemy destroy logged after build and after restart; no listener on local port 19732 at packaging check.",
+  "cross_review": "Root independent technical review: read archived Worker/ThreadObject/handler source; verified all 13 archived source hashes, all 12 artifact hashes, request-free timestamp relationships, six identical canonical records through restart and duplicate admission, and the retained local cleanup logs. Accepted within stated local/synthetic limits; no owner or Stage 0 approval."
+}

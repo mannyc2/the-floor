@@ -1,0 +1,32 @@
+$ sh scripts/platform-spike.sh build
+bun test v1.4.0 (34cbb9a40)
+
+work-floor-replay/test/build.test.ts:
+[14:51:13.511] INFO (#6): Plan: 1 to create, 2 binding changes
+[14:51:13.514] INFO (#6): [FloorLocalAgent] create (local)
+[14:51:13.514] INFO (#6): [FloorLocalAgent/CALLBACKS] create
+[14:51:13.514] INFO (#6): [FloorLocalAgent/THREADS] create
+[14:51:13.514] INFO (#6): 
+[14:51:13.521] INFO (#393): [FloorLocalAgent] pre-creating (local)
+[14:51:13.539] INFO (#393): [FloorLocalAgent] creating (local)
+[14:51:13.554] INFO (#393): [FloorLocalAgent] ready at http://localhost:19732
+[14:51:13.555] INFO (#393): [FloorLocalAgent] created (local) (34ms)
+[14:51:13.558] INFO (#417): [FloorLocalAgent] created (local) (37ms)
+[14:51:13.595] INFO (#6): 
+[14:51:13.595] INFO (#6): Done: 1 succeeded (81ms)
+[14:51:16.444] INFO (#410): [FloorLocalAgent] Started in 2899ms → http://localhost:19732/ (logs: [repository]/work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/.alchemy/log/floor-local-agent-build/FloorLocalAgent)
+(pass) Alchemy bundles and starts the bounded native Worker [2873.93ms]
+[14:51:16.507] INFO (#566): Plan: 1 to delete, 2 binding changes
+[14:51:16.507] INFO (#566): [FloorLocalAgent] delete (local)
+[14:51:16.507] INFO (#566): [FloorLocalAgent/CALLBACKS] unbind
+[14:51:16.508] INFO (#566): [FloorLocalAgent/THREADS] unbind
+[14:51:16.508] INFO (#566): 
+[14:51:16.509] INFO (#919): [FloorLocalAgent] deleting (local)
+[14:51:16.512] INFO (#919): [FloorLocalAgent] deleted (local) (2ms)
+[14:51:16.513] INFO (#566): 
+[14:51:16.513] INFO (#566): Done: 1 succeeded (5ms)
+
+ 1 pass
+ 0 fail
+ 1 expect() calls
+Ran 1 test across 1 file. [4.11s]

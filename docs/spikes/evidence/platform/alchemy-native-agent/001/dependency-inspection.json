@@ -1,0 +1,87 @@
+{
+  "upstream_revision": "0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968",
+  "upstream_tracked_sources_lock_patch_unchanged": true,
+  "packages_and_inputs": [
+    {
+      "name": "alchemy",
+      "version": "2.0.0-beta.80",
+      "source": "work/alchemy-audit/yielded-agent/node_modules/.bun/alchemy@2.0.0-beta.80+4246e9b94eb0446d/node_modules/alchemy/package.json",
+      "sha256": "b2865e5ae77a377d91fc2acf728c89771053c843069d8fb004e130a3cd6a0f86"
+    },
+    {
+      "name": "effect",
+      "version": "4.0.0",
+      "source": "work/alchemy-audit/yielded-agent/node_modules/.bun/effect@4.0.0/node_modules/effect/package.json",
+      "sha256": "e30881994b541533b0da3e06d53e2530ac2f0e5cf66232c9c037a658c5b8330c"
+    },
+    {
+      "name": "miniflare",
+      "version": "5.20260811.1-alpha",
+      "source": "work/alchemy-audit/yielded-agent/node_modules/.bun/miniflare@5.20260811.1-alpha/node_modules/miniflare/package.json",
+      "sha256": "af6b24b9269dc7e78c50297d9bdb0117828a254bef9399bd1f5e37cb3f39a318"
+    },
+    {
+      "name": "typescript",
+      "version": "7.0.2",
+      "source": "work/alchemy-audit/yielded-agent/node_modules/.bun/typescript@7.0.2/node_modules/typescript/package.json",
+      "sha256": "3722b30210616a13a3213ded11575ba6b2dbab10c32a5ef67afca8513e27017e"
+    },
+    {
+      "name": "@effect/platform-node",
+      "version": "4.0.0",
+      "source": "work/alchemy-audit/yielded-agent/node_modules/.bun/@effect+platform-node@4.0.0+286dae1cd0893e5f/node_modules/@effect/platform-node/package.json",
+      "sha256": "641d37b03bf04897850e1e7e8295a8808337306a5e336a98f173a076e3fb91f3"
+    },
+    {
+      "name": "@yielded/agent",
+      "version": "0.1.0-beta.166",
+      "source": "work/alchemy-audit/yielded-agent/packages/effect-agent/package.json",
+      "sha256": "5805ae29922c0b9ab513e4d5da1e6d44451c56b7855a41157c67cfef9e7bee5b"
+    },
+    {
+      "name": "@yielded/agent-platform-cloudflare",
+      "version": "0.1.0-beta.166",
+      "source": "work/alchemy-audit/yielded-agent/packages/platform-cloudflare/package.json",
+      "sha256": "23bffb3c50f032259d43969d3839658e5c9d369b47000f973bcceddd2e42af1c"
+    },
+    {
+      "name": "@yielded/agent-storage-cloudflare",
+      "version": "0.1.0-beta.166",
+      "source": "work/alchemy-audit/yielded-agent/packages/storage-cloudflare/package.json",
+      "sha256": "b287011981f53b816bfac5131d8d55e461f0b0ca94eb2cd6e53365f94b9bb1f7"
+    },
+    {
+      "name": "@yielded/agent-platform-alchemy-cloudflare",
+      "version": "0.1.0-beta.166",
+      "source": "work/alchemy-audit/yielded-agent/packages/platform-alchemy-cloudflare/package.json",
+      "sha256": "6cf24c269ff57ed5c461ecf147c1180efdb938dca4735b4579b26b00318ff05c"
+    },
+    {
+      "name": "@yielded/agent-testing",
+      "version": "0.1.0-beta.166",
+      "source": "work/alchemy-audit/yielded-agent/packages/testing/package.json",
+      "sha256": "e7d99ab5ef8488af6ac5b7ef829820275aa0bd2bb285d29206d307e2fe193cdd"
+    },
+    {
+      "name": "upstream package.json",
+      "source": "work/alchemy-audit/yielded-agent/package.json",
+      "bytes": 5554,
+      "sha256": "17541dfac42b8ec53690bd0c6190450df06266073c6309c201d1cdb398079823"
+    },
+    {
+      "name": "upstream bun.lock",
+      "source": "work/alchemy-audit/yielded-agent/bun.lock",
+      "bytes": 417408,
+      "sha256": "c8d6068e6a5d50a5c12cb0e800ef20e7e4570d89059f27cdaf942349c62c7ea9"
+    },
+    {
+      "name": "upstream patches/alchemy@2.0.0-beta.80.patch",
+      "source": "work/alchemy-audit/yielded-agent/patches/alchemy@2.0.0-beta.80.patch",
+      "bytes": 13456,
+      "sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2"
+    }
+  ],
+  "runtime_operator_observed": "workerd 1.20260918.1 / runtime date 2026-09-18",
+  "runtime_operator_source": "root/toolchain native-run inspection; installed older workerd copies are not taken as execution evidence",
+  "inspection_only_no_runtime_reexecution": true
+}

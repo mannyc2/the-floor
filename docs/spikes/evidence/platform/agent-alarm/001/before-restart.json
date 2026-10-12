@@ -1,0 +1,111 @@
+{
+  "executed_at_utc": "2026-10-12T13:52:53.182355+00:00",
+  "responses": [
+    {
+      "path": "/agent/submit?thread=local-agent-alarm-001&key=local-submit-001",
+      "method": "POST",
+      "started_at_ms": 1791813173182,
+      "finished_at_ms": 1791813173347,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "receiptId": "receipt-01a13063-4035-7ba0-ae14-09259899bd25",
+          "submissionId": "01a13063-4035-7941-ac2b-15dde24b4b1a:local-agent-alarm-001",
+          "threadId": "local-agent-alarm-001",
+          "queueSequence": 1
+        }
+      }
+    },
+    {
+      "path": "/agent/snapshot?thread=local-agent-alarm-001",
+      "method": "GET",
+      "started_at_ms": 1791813178349,
+      "finished_at_ms": 1791813178353,
+      "status": 200,
+      "body": {
+        "invocations": 1,
+        "startedAtMillis": [
+          1791813173352
+        ],
+        "completedAtMillis": [
+          1791813174984
+        ],
+        "observedAtMillis": 1791813178352,
+        "nativeAlarmPending": false,
+        "model": "synthetic fixture; no inference provider",
+        "dispatchAfterEvent": false
+      }
+    },
+    {
+      "path": "/agent/read?thread=local-agent-alarm-001",
+      "method": "GET",
+      "started_at_ms": 1791813178353,
+      "finished_at_ms": 1791813178359,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": [
+          {
+            "sequence": 1,
+            "recordId": "thread-created:local-agent-alarm-001",
+            "createdAt": "2026-10-12T13:52:53.309Z",
+            "kind": "ThreadCreated",
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 2,
+            "recordId": "input:01a13063-4035-7941-ac2b-15dde24b4b1a:local-agent-alarm-001",
+            "createdAt": "2026-10-12T13:52:53.395Z",
+            "kind": "UserInputRecorded",
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 3,
+            "recordId": "model-response:run:01a13063-4035-7941-ac2b-15dde24b4b1a:local-agent-alarm-001:1",
+            "createdAt": "2026-10-12T13:52:54.945Z",
+            "kind": "ModelResponseRecorded",
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 4,
+            "recordId": "settlement:01a13063-4035-7941-ac2b-15dde24b4b1a:local-agent-alarm-001",
+            "createdAt": "2026-10-12T13:52:54.959Z",
+            "kind": "SubmissionSettled",
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "Some",
+              "value": "completed"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "request_free_interval_ms": 5001
+}

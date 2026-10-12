@@ -1,0 +1,97 @@
+{
+  "status": "pass",
+  "scope": "Local native Alchemy Durable Object SQLite and native D1 migration initialization, forced rollback, finite conditional-update contention and clean process restart.",
+  "agent_and_storage_tests_passed": 2,
+  "agent_and_storage_assertions": 33,
+  "native_build_readiness_tests_passed": 1,
+  "native_build_assertions": 1,
+  "stores": {
+    "durable": {
+      "migration_count": 2,
+      "migrations": [
+        {
+          "name": "001_create.sql",
+          "hash": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+        },
+        {
+          "name": "002_marker.sql",
+          "hash": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+        }
+      ],
+      "initial_row": {
+        "id": "item",
+        "version": 0,
+        "value": "before",
+        "marker": "migration-2"
+      },
+      "forced_failure_observed": true,
+      "rollback_preserved_row_and_history": true,
+      "cas_attempts": 16,
+      "cas_winners": 1,
+      "final_row": {
+        "id": "item",
+        "version": 1,
+        "value": "winner-0",
+        "marker": "migration-2"
+      },
+      "migration_history_unchanged": true,
+      "row_and_history_identical_after_process_restart": true
+    },
+    "d1": {
+      "migration_count": 2,
+      "migrations": [
+        {
+          "name": "001_create.sql",
+          "hash": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+        },
+        {
+          "name": "002_marker.sql",
+          "hash": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+        }
+      ],
+      "initial_row": {
+        "id": "native-1791817337329",
+        "version": 0,
+        "value": "before",
+        "marker": "migration-2"
+      },
+      "forced_failure_observed": true,
+      "rollback_preserved_row_and_history": true,
+      "cas_attempts": 16,
+      "cas_winners": 1,
+      "final_row": {
+        "id": "native-1791817337329",
+        "version": 1,
+        "value": "winner-0",
+        "marker": "migration-2"
+      },
+      "migration_history_unchanged": true,
+      "row_and_history_identical_after_process_restart": true
+    }
+  },
+  "migration_scope": "Two ordered migrations applied to fresh storage; no populated v1-to-v2 live upgrade tested. Durable Object reapplies the same captured migrations; D1 is a no-op resource on restart.",
+  "rollback_semantics": {
+    "durable": "state.storage.transaction updates the row then fails with Schema-tagged RollbackProbe; row/history match the pre-transaction snapshot.",
+    "d1": "SQL.D1 batch updates the row then inserts an existing primary key; typed SqlError retains UNIQUE constraint cause, and the full batch rolls back.",
+    "d1_interactive_transactions": "Not tested by this run; installed @effect/sql-d14.0.0 rejects interactive transaction acquisition. Only atomic batches are claimed."
+  },
+  "concurrency_scope": "16 Effect fibers issued conditional UPDATE ... WHERE version = 0 RETURNING version in one local run per store; exactly one winner each. This is not distributed or adversarial contention coverage.",
+  "agent_regression": {
+    "records": 6,
+    "settlement": "completed",
+    "initial_request_free_interval_ms": 3021,
+    "duplicate_request_free_interval_ms": 1505,
+    "records_identical_after_restart": true,
+    "records_identical_after_duplicate": true
+  },
+  "source_snapshot_files": 15,
+  "source_snapshot_matches_authored_and_replay_at_capture": true,
+  "source_unchanged_at_final_lint_build_capture": false,
+  "typecheck": "Final root aggregate typecheck passed on 2026-10-12 after the concurrency/comment adjustment. Frozen install, formatting, lint and both local Worker build hooks also passed.",
+  "lint": "Final successful native and separate Kit command logs retained; no diagnostics.",
+  "build": "Native Alchemy bundle/start/readiness/destroy passed. Separate Kit build section intentionally excluded from this storage artifact.",
+  "cleanup": "Native Worker, all four bindings and local D1 resource destroyed successfully in test and build logs; local simulator files can remain in ignored .alchemy storage.",
+  "cross_review": "Root independent technical review: read the native DO and D1 implementation and tests; verified all 15 archived source hashes, typed rollback causes, both 16-attempt/one-winner results, migration hashes, exact restart snapshots and unchanged agent records. Current runtime fixture bytes equal the as-run archive. The only later archived-file difference is dprint exclusion paths. Final root frozen install, format, typecheck, lint and both local build hooks passed. Accepted within the stated local/fresh-storage limits.",
+  "runtime_fixture_unchanged_from_as_run": true,
+  "subsequent_non_runtime_change": "Only dprint.json adds nested node_modules/.alchemy/client exclusions; runtime fixture and test source bytes match the archived run."
+}

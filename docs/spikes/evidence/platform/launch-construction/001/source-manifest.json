@@ -1,0 +1,10 @@
+{
+  "bun.lock": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+  "apps/floor/spikes/platform/errors.ts": "a3ebbe23cda905fd76c55ffcf47b21d75dd145f7daaa0daf6e40d2b26ebe1520",
+  "apps/floor/spikes/platform/storage.ts": "f40003253d3033d385d6a58032808099d39e38370016176b08091851ed6273a4",
+  "apps/floor/spikes/platform/launch.ts": "6a6857ae01b2bcab34f1a064bcb96024d93f043456183d198fc3ed63b6d9e61d",
+  "apps/floor/spikes/platform/crypto.ts": "4119daf52962ae11b6dce13dd910c96f980a2b12298cd615aef94b39cfb3778e",
+  "apps/floor/spikes/platform/bare-worker.ts": "d1bcaa8042535021a5f839ca6b930e2441c1a8fc49838a6762e7b4d6a5ff43d8",
+  "apps/floor/spikes/platform/worker.ts": "fee367ef125d33e1a1f590ac05546d4315be831c366cd241df6c0edb0e28b467",
+  "apps/floor/spikes/platform/wrangler.jsonc": "6fa7fa6df96a35d0518d72af07f321097e41f2ba9f6db429fd5c251125ab5445"
+}

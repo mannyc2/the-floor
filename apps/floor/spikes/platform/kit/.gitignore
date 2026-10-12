@@ -1,0 +1,9 @@
+node_modules/
+.alchemy/
+client/
+result.json
+evm-result.json
+math-worker-result.json
+rpc-negative-status.txt
+rpc-counts.json
+crypto-result.json

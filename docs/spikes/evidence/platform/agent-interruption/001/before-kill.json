@@ -1,0 +1,40 @@
+{
+  "executed_at_utc": "2026-10-12T13:58:07.379209+00:00",
+  "responses": [
+    {
+      "path": "/agent/submit?thread=local-agent-interruption-002&key=interruption-002",
+      "method": "POST",
+      "started_at_ms": 1791813487379,
+      "finished_at_ms": 1791813487450,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "receiptId": "receipt-01a13068-0b3c-7e7a-b03a-dfc804e045b3",
+          "submissionId": "01a13068-0b3c-7508-abe1-3b9f9b3f60d6:local-agent-interruption-002",
+          "threadId": "local-agent-interruption-002",
+          "queueSequence": 1
+        }
+      }
+    },
+    {
+      "path": "/agent/snapshot?thread=local-agent-interruption-002",
+      "method": "GET",
+      "started_at_ms": 1791813487705,
+      "finished_at_ms": 1791813487708,
+      "status": 200,
+      "body": {
+        "invocations": 1,
+        "startedAtMillis": [
+          1791813487514
+        ],
+        "completedAtMillis": [],
+        "observedAtMillis": 1791813487708,
+        "nativeAlarmPending": true,
+        "model": "synthetic fixture; no inference provider",
+        "dispatchAfterEvent": false
+      }
+    }
+  ],
+  "kill_at_ms": 1791813487708
+}

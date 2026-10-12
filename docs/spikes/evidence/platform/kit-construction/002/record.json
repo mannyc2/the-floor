@@ -1,0 +1,592 @@
+{
+  "check_id": "kit-construction",
+  "attempt": "002",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T15:00:20.093Z",
+  "operator": "Root platform integration; independent native-bigint math implementation/review; setup_requirements evidence packaging",
+  "reviewer": "setup_requirements independently checked source commit/archive, final responses, 44 construction checks, 940-vector math provenance, emitted bundle graph, verified executable and cleanup",
+  "source_revision": "d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "@solana/kit": "8.4.0",
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "alchemy": "2.0.0-beta.80 with recorded Yielded patch",
+    "workerd": "1.20260918.1",
+    "@whetstone-research/doppler-sdk": "1.0.43",
+    "viem": "2.44.2",
+    "codama": "1.11.0",
+    "@codama/nodes-from-anchor": "1.5.6",
+    "@codama/renderers-js": "2.5.0",
+    "typescript": "7.0.2",
+    "@effect/tsgo": "0.51.1",
+    "oxlint": "1.87.0",
+    "official_SDK_development_oracle": "1.5.13; excluded from runtime package/graph",
+    "bun_lock_sha256": "1bfbe9036630890df704b8d610866385f227baa81e76c80003aa22e7cbd8b0cb"
+  },
+  "api_evidence": [
+    "Pinned Meteora IDL and source.json; Codama-generated binary parameter codecs and IDL-derived bounded instruction wrappers",
+    "Native bigint fee and delta helpers compared with official SDK 1.5.13 only in development oracle",
+    "Alchemy local Worker test, local state and rejecting host HTTP preload; no hand-written Wrangler config"
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "compatibility_date": "2026-08-18",
+    "explicit_flags": [],
+    "local_port": 19735,
+    "alchemy_test": {
+      "dev": true,
+      "sidecar": false,
+      "state": "localState"
+    },
+    "bun_present": false,
+    "process_present": true,
+    "node_limit": "Alchemy default runtime success; not a bare no-Node claim",
+    "execution_detail": "Local Alchemy Worker/workerd on macOS arm64"
+  },
+  "stage_and_resources": "Local ephemeral Worker, local state; no hosted resource, wallet, provider or chain call",
+  "inputs": [
+    {
+      "path": "apps/floor/spikes/platform/kit/source.json",
+      "IDL_revision": {
+        "url": "https://raw.githubusercontent.com/MeteoraAg/dynamic-bonding-curve-sdk/a28b7239e71899eb52ff7aacac4dec90441885c4/packages/dynamic-bonding-curve/src/idl/dynamic-bonding-curve/idl.json",
+        "commit": "a28b7239e71899eb52ff7aacac4dec90441885c4",
+        "sha256": "beedc8c869bc04865c26349a72a3ba9c773e61f48be2d33093c591a015fe82fd"
+      }
+    },
+    "Fixed synthetic public identities, zero blockhash, zero signatures, quote-owner fixture at slot 0",
+    "Official Meteora SDK 1.5.13 only as development construction/math oracle"
+  ],
+  "procedure": [
+    "Follow commands.txt against the exact frozen source commit; use fresh output directories.",
+    "Run local Alchemy lifecycle and 18 assertions over launch, EVM, math, crypto and RPC negative routes.",
+    "Verify actual fixture RPC counter before 0/after 2; no hardcoded request count is accepted as measurement.",
+    "Run independent 44-check instruction/account/result review, verify 940-vector math source checksum and 10 negative-input controls.",
+    "Traverse final emitted literal-import graph and source maps, freeze only reachable chunks, validate workerd executable and check port closure."
+  ],
+  "expected_result": "Bounded unsigned launch construction and native arithmetic/crypto work in actual local Alchemy runtime with Kit 8 and Effect HTTP, without importing the old Solana stack",
+  "observed_result": {
+    "assertions": 18,
+    "local_test": "pass",
+    "meteora": {
+      "byteLength": 1025,
+      "sha256": "e23d001d76f7e51eff63b09c1b59dc75c09a075cd87d32d74baca474bec30a59",
+      "required_signers": [
+        "4vJ9JU1bJJE96FWSJKvHsmmFADCg4gpZQff4P3bkLKi",
+        "8qbHbw2BbbTHBW1sbeqakYXVKRQM8Ne7pLK7m6CVfeR",
+        "CktRuQ2mttgRGkXJtyksdKHjUdc2C4TgDzyB98oEzy8"
+      ],
+      "attached_signatures": 0,
+      "actual_fixture_RPC_count_before": 0,
+      "actual_fixture_RPC_count_after": 2,
+      "independent_construction_checks": 44
+    },
+    "doppler": {
+      "byteLength": 2020,
+      "sha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+      "repeatSha256": "ffcc13ac755ebd8c0bc3d44ea58ab97022662d49f804cf76e4c1c8132aa9815c",
+      "instructionCount": 1,
+      "destinations": [
+        "0x660eAaEdEBc968f8f3694354FA8EC0b4c5Ba8D12"
+      ],
+      "requiredSigners": {
+        "_id": "Option",
+        "_tag": "None"
+      },
+      "intendedSender": "0x1111111111111111111111111111111111111111",
+      "attachedSignatures": 0,
+      "constructionTransportRequests": 0,
+      "syntheticReads": 0,
+      "rejectedConstructionRequests": 0,
+      "negativeControlRejected": true,
+      "negativeControlRequests": 1
+    },
+    "math": {
+      "parityVectors": 940,
+      "parityFailures": 0,
+      "unsignedContractVectors": 10,
+      "unsignedContractFailures": 0,
+      "successVectors": 798,
+      "underflowVectors": 102,
+      "divisionByZeroVectors": 40
+    },
+    "worker_math": {
+      "status": "pass",
+      "checks": 11,
+      "excludedFee": {
+        "amount": "99",
+        "fee": "2"
+      },
+      "includedFee": {
+        "amount": "100",
+        "fee": "1"
+      },
+      "baseDelta": {
+        "down": "1",
+        "up": "2"
+      },
+      "quoteDelta": {
+        "down": "1",
+        "up": "2"
+      },
+      "negativeControls": {
+        "underflow": "MathUnderflow",
+        "divisionByZero": "MathDivisionByZero",
+        "invalidInput": "MathInvalidInput"
+      }
+    },
+    "crypto": {
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "invalidSizeError": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer\n    at badArgument (file:///bundle/NodeTerminal-Bo5b0a7N.js:1:6044)\n    at validateSize (file:///bundle/NodeTerminal-Bo5b0a7N.js:3:13368)\n    at Object.randomBytes (file:///bundle/NodeTerminal-Bo5b0a7N.js:3:12177)\n    at file:///bundle/entry.js:8:66609",
+      "uuidCount": 32,
+      "uuidVersion": 4,
+      "uuidDistinct": true,
+      "platformLayer": "@effect/platform-browser/BrowserCrypto",
+      "bunGlobalPresent": false,
+      "processGlobalPresent": true
+    },
+    "bundle": {
+      "reachable_js_files": 13,
+      "source_maps": 12,
+      "forbidden_packages": [],
+      "missing_imports": []
+    },
+    "checks": {
+      "format": "pass",
+      "typecheck": "pass",
+      "lint": "pass"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/bundle-audit.json",
+      "committed": true,
+      "bytes": 19728,
+      "sha256": "7d029e18a15515e79f9be3c4b83cde9519ae33cdd662a79ecd5461c3f75aacf4",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/bundle-graph.mjs",
+      "committed": true,
+      "bytes": 3581,
+      "sha256": "4f6eae1a7aef9828213fd3321b1273754ad702538cc5b5ab272e8c278c9783dc",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/cleanup.txt",
+      "committed": true,
+      "bytes": 291,
+      "sha256": "7d36e2765b0274afa3688df390cbf72ca56a94ba20db916819b30165aeb29753",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/commands.txt",
+      "committed": true,
+      "bytes": 2535,
+      "sha256": "21aafe02d57e7c88813d018eb98b71d2bfb531cbf9ca7781861a5cd31246cc52",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/config-oracle.json",
+      "committed": true,
+      "bytes": 2490,
+      "sha256": "08530410552de4899fefde61c7186727c0b1fb2987f24ebe89c367ca1cb6b4ae",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/config-oracle.mjs",
+      "committed": true,
+      "bytes": 4320,
+      "sha256": "767dfc405fcc1d58b62ee54cdd7ad50d347b534ec6bc24459416c3ac8b9f8501",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/construction-review.json",
+      "committed": true,
+      "bytes": 39701,
+      "sha256": "e62b0184d599d5c72abe7bf0aaff39156727bda2725b7cf1f68b002408d47248",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/construction-review.mjs",
+      "committed": true,
+      "bytes": 5205,
+      "sha256": "6f0cf3c41fcf169ee542311924591d667dfcbf76df327ae38a5e3bf9442e7f81",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/crypto-result.json",
+      "committed": true,
+      "bytes": 673,
+      "sha256": "67ce2f0c06ca1987f1f696c1e27155e0dab4ad9ea1ff5c1ef6e26c8507b7a075",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/evm-result.json",
+      "committed": true,
+      "bytes": 539,
+      "sha256": "98a76fcc6d4d35c6c4e15fb70b0b806c8be3bcbf92fb38a5489fc62dd0b1d025",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/failed-installed-binary.json",
+      "committed": true,
+      "bytes": 2449,
+      "sha256": "98d6fcb169e77ae80b788e0d472dd38134cc06934a18ec9632b65bba4e3e8a37",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/failed-installed-binary.log",
+      "committed": true,
+      "bytes": 5548,
+      "sha256": "a91fa8f58a494d33c6b520775da2f0aa84e277be5070e50b7086d9d1dfe6b4c2",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/final-format.log",
+      "committed": true,
+      "bytes": 15,
+      "sha256": "f1af9b66ef0d45ef0c81a05fdd397a23fee9877255bc692249880c1197eb842c",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/final-lint.log",
+      "committed": true,
+      "bytes": 213,
+      "sha256": "a6f78bb5eaa61b0dbbbd865c46bcfe6fb9e28e8325c35cee5389bfbe4e8f12a0",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/final-typecheck.log",
+      "committed": true,
+      "bytes": 32,
+      "sha256": "70685b4df7789c854b9e1ceab7d78a6d0f9a0831c11eb0010b7b5fdbe0e50c39",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/instruction-oracle.json",
+      "committed": true,
+      "bytes": 3626,
+      "sha256": "7d800c21d3a01731e6bb0e0c72ac96480165541e18aea8aa3c4bb4d25f6195db",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/math-oracle.json",
+      "committed": true,
+      "bytes": 388431,
+      "sha256": "ddd3844197da39a45d1a2eaf0357ae60fff9785da3cd4c6f3ab38e4608730d10",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/math-oracle.mjs",
+      "committed": true,
+      "bytes": 6992,
+      "sha256": "caa4a6e5b1a5ea310094b7547ec55324a0ecc32dfe84471498d2927e1dd7be43",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/math-worker-result.json",
+      "committed": true,
+      "bytes": 300,
+      "sha256": "9c7dfa58748de2136743caa6e20d50a6493a9f3677ba757bccb9a21b987fee9c",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/result.json",
+      "committed": true,
+      "bytes": 6227,
+      "sha256": "cced77d04252deac9f96f052c237f210a5cae423a97e81c3dbcce75c6e0def79",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/rpc-counts.json",
+      "committed": true,
+      "bytes": 22,
+      "sha256": "0278494ca62891befef465966d4245a11b687a193e5b102fa8ed2047de6eb7a6",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/rpc-negative-status.txt",
+      "committed": true,
+      "bytes": 3,
+      "sha256": "0604cd3138feed202ef293e062da2f4720f77a05d25ee036a7a01c9cfcdd1f0a",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/runtime.log",
+      "committed": true,
+      "bytes": 1542,
+      "sha256": "d024af49689cc65f2bc3fa7de1650e2dfe21489231df4d791fc2c59490713c2f",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/source-manifest.json",
+      "committed": true,
+      "bytes": 7010,
+      "sha256": "9b70260a243e0c68baa1c2237128f008d69ee52bd778be716898906944259224",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/source.json",
+      "committed": true,
+      "bytes": 332,
+      "sha256": "02dbc48e14d2e631d0f4ee3ecc7acc4e7e5f77681f0652c7931193158f27934f",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/source.tar.gz",
+      "committed": true,
+      "bytes": 83292,
+      "sha256": "a443333965593146a51e5fcc6aeb7f5df658b17e1b7ae631d258022c1c3352b1",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/summary.md",
+      "committed": true,
+      "bytes": 2693,
+      "sha256": "7b97341d6f4b7b866c176091761592a50ad3f836e66a9f89b18109cadc8c70e4",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/kit-construction/002/workerd-provenance.json",
+      "committed": true,
+      "bytes": 1561,
+      "sha256": "8e00f46103fcda321a35340a2ac23a117c8bdd97e7be8467b79409301ee3827c",
+      "regenerate": "Follow kit-construction/002/commands.txt; source archive is exact files from source_revision."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/entry.js",
+      "committed": false,
+      "bytes": 810694,
+      "sha256": "39c72c6fa4b64549501de8297e636086f5ada0e9f00160f4543ec8e469d7f6be",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/entry.js.map",
+      "committed": false,
+      "bytes": 3367353,
+      "sha256": "0bbba83284814e73549abb0829305ecdfa699661c66621c0933ab1e8760d67b0",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/secp256k1-DTMAzF9m.js",
+      "committed": false,
+      "bytes": 36163,
+      "sha256": "c89c3e55286e56259f94076e0a507baa923988785a0fd51aaa6998101bea0f2d",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/secp256k1-DTMAzF9m.js.map",
+      "committed": false,
+      "bytes": 198031,
+      "sha256": "b6031cd44172950173503c50c3866fb1857765489c151dcc26f60652601f1387",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/rolldown-runtime-BJS_XihH.js",
+      "committed": false,
+      "bytes": 961,
+      "sha256": "e9735b8afa12ee4bcc5c71a9265abc65bdda8e85f986ceb0a8ac263205ac8c89",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-Cc39NHOB.js",
+      "committed": false,
+      "bytes": 968,
+      "sha256": "371496a2d1e3fe3ffa32006500e42305c0b1f9ff5619c077397490ff15d19e5d",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-Cc39NHOB.js.map",
+      "committed": false,
+      "bytes": 3338,
+      "sha256": "4bd43f185f77474fd579ed70a4572e0df6f93afb97de03f5561a4596367baa41",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-CfmwvQj-.js",
+      "committed": false,
+      "bytes": 12720,
+      "sha256": "1d099dc4f132eb7337db6844c827ce093e06ee562a59eb2f3397c7c12480c9f9",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeSocket-CfmwvQj-.js.map",
+      "committed": false,
+      "bytes": 59132,
+      "sha256": "af7056b1067f5bcd24ff4f83e57ea8d14c52e7f43a08fb25cfa9d5afdc5b486d",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Redacted-BB81rFVm.js",
+      "committed": false,
+      "bytes": 915,
+      "sha256": "8fa28d9e6a55cf5a48431f5a180e2c0ed50aabd61fa5d5f10cd41a402638b9a5",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Redacted-BB81rFVm.js.map",
+      "committed": false,
+      "bytes": 7285,
+      "sha256": "3377a564f41b9b91fc27c0b9614bd21f2948ad15d9ea655aa52e46e84b3d8323",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Schema-Dr6BTJ90.js",
+      "committed": false,
+      "bytes": 191611,
+      "sha256": "b112c14d8f04735b94a551d73382afc9504f1eabadde64d4b1875ba4a0e61805",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/Schema-Dr6BTJ90.js.map",
+      "committed": false,
+      "bytes": 2725978,
+      "sha256": "6c7b6debbef9e1748e6c97f7c5623d104b11208d7aeade05b27440bbfa493b81",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeServices-CXNWWu81.js",
+      "committed": false,
+      "bytes": 883,
+      "sha256": "5a61d90e87a172feefbf66b8d2ecf532e869e05b791ba8eb5fa6dea2877e97d8",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeServices-CXNWWu81.js.map",
+      "committed": false,
+      "bytes": 6332,
+      "sha256": "4d1178688ed598efcc713d7598664b29348559887eb3165dc9a0c996eb78a857",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeTerminal-Bo5b0a7N.js",
+      "committed": false,
+      "bytes": 44576,
+      "sha256": "d697059bf3ac3b4d30d82a4ad19f894139c340906e8fe0d7326031ef9fd3b883",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/NodeTerminal-Bo5b0a7N.js.map",
+      "committed": false,
+      "bytes": 557751,
+      "sha256": "ac1bf6e5386827be169e9213d0c6fea1afb1bb6e9fc2d2ce6e7d9c87dcda0239",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunSocket-Y0eS8fTG.js",
+      "committed": false,
+      "bytes": 817,
+      "sha256": "3fefcc6ad9254ade91beb3cc1c97c32b42b38b92d53033adf001765cc6925051",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunSocket-Y0eS8fTG.js.map",
+      "committed": false,
+      "bytes": 2246,
+      "sha256": "68f620bc93798e7d34de9baa9a478b2ccedbb01d4d02270dbc1f2a9b34b6a8c2",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunServices-DwHY3ZuV.js",
+      "committed": false,
+      "bytes": 839,
+      "sha256": "b464db2889e25f8ef4e0bdfff4110d54212c682331ea07c0e84c5bc0f07e37b4",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/BunServices-DwHY3ZuV.js.map",
+      "committed": false,
+      "bytes": 6215,
+      "sha256": "0c106e6c3d296c90d560dda8b17049854f28330acf3031b3e6f994948de1af50",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/localBatchGatewayRequest-DHa9GLpp.js",
+      "committed": false,
+      "bytes": 131589,
+      "sha256": "52dc6620072f8dee25cc05c1dce762898dbbe08078986f3795e8b5a6a7ce2357",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/localBatchGatewayRequest-DHa9GLpp.js.map",
+      "committed": false,
+      "bytes": 426023,
+      "sha256": "a62bc1daf5568833f2f5fa06935b8938fd2358e33ad14c0dc9aaa8e97ec950af",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/ccip-CriepmBF.js",
+      "committed": false,
+      "bytes": 3202,
+      "sha256": "4588080c2c5cb5f9e96ed31419f02050b671c3006aa5289a2238c28d1bd861e2",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/spikes/platform/kit-construction/002/bundle/ccip-CriepmBF.js.map",
+      "committed": false,
+      "bytes": 9043,
+      "sha256": "731f560475546217aabaf1780d9fbb38bc031ca3e99acb1cb7c8682005d74917",
+      "regenerate": "Run final isolated Kit build under a fresh output directory; regenerate bundle audit and retain reachable emitted chunks/maps."
+    },
+    {
+      "path": "work/alchemy-audit/workerd.tgz",
+      "committed": false,
+      "bytes": 35427328,
+      "sha256": "8be9f3aa1d46a0618987f36f9db831cc6593f4c392c679b5c4dffac6e3cf5121",
+      "regenerate": "Official same-version registry archive and integrity are in workerd-provenance.json. Corrupt historical executable is retained and is not intentionally regenerable."
+    },
+    {
+      "path": "work/alchemy-audit/workerd-verified/package/bin/workerd",
+      "committed": false,
+      "bytes": 128711560,
+      "sha256": "5e8b50b74431e8ff1341583f647fc9ecbca5486b5ca9c8b1ecdbcb10b10336a5",
+      "regenerate": "Official same-version registry archive and integrity are in workerd-provenance.json. Corrupt historical executable is retained and is not intentionally regenerable."
+    },
+    {
+      "path": "work/alchemy-audit/corrupt-cached-workerd",
+      "committed": false,
+      "bytes": 101232917,
+      "sha256": "10414e1eda160b6457baad75bbed741b08ddfb95dd18d46cd9c1290b9b321d54",
+      "regenerate": "Official same-version registry archive and integrity are in workerd-provenance.json. Corrupt historical executable is retained and is not intentionally regenerable."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local-only host fetch guard, fixture RPC on same Worker; EVM construction uses rejecting transport. No external workload authorized.",
+    "budget": "Local checks only; no hosted spend",
+    "observed_cost": "No hosted/provider calls; local compute cost unknown"
+  },
+  "cleanup_result": "Final runtime log records local Worker destruction after the suite. Independent lsof check found no listener on port 19735. No hosted resources were created. Local Alchemy caches remain ignored; exact reachable bundle files are frozen under work/spikes/platform/kit-construction/002/bundle.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Synthetic legacy SPL-token fixture only; no arbitrary mint ordering, Token-2022, live-provider compatibility, full pricing, signing, simulation, broadcast or economics guarantee. Math covers four selected helpers. Generalized Kit RpcTransport is not implemented: Schema decoding occurs at the bounded Effect HTTP edge. Default Alchemy runtime includes Node behavior. The exploratory bare failure has incomplete source provenance. Initial final-run ENOEXEC was repaired using the same-version verified official executable; cause of cache corruption is not established. Hosted gates and Stage 0 remain open.",
+  "look": {
+    "technique": "n/a: platform construction evidence, no render or art choice",
+    "tone_set": "n/a: platform construction evidence, no render or art choice",
+    "theme": "n/a: platform construction evidence, no render or art choice",
+    "rung": "n/a: platform construction evidence, no render or art choice",
+    "dpr": "n/a: platform construction evidence, no render or art choice",
+    "camera": "n/a: platform construction evidence, no render or art choice",
+    "canvas": "n/a: platform construction evidence, no render or art choice",
+    "backend": "n/a: platform construction evidence, no render or art choice",
+    "renderer_string": "n/a: platform construction evidence, no render or art choice",
+    "device_profile": "n/a: platform construction evidence, no render or art choice",
+    "clock_and_seed": "n/a: platform construction evidence, no render or art choice",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform construction evidence, no render or art choice",
+    "cross_review": {
+      "reviewer_agent": "setup_requirements",
+      "verdict": "n/a: platform technical review passed",
+      "notes": "Independent source/hash/result/bundle/cleanup review; no art or owner approval."
+    },
+    "owner_pick": {
+      "state": "n/a: no look choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "No approval inferred",
+      "date": "n/a"
+    }
+  }
+}

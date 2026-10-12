@@ -1,0 +1,252 @@
+{
+  "check_id": "alchemy-native-agent",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T14:51:13.511Z",
+  "operator": "Root platform executor; evidence packaged by independent bounded math/source-review agent",
+  "reviewer": "Root independent technical review: read archived Worker/ThreadObject/handler source; verified all 13 archived source hashes, all 12 artifact hashes, request-free timestamp relationships, six identical canonical records through restart and duplicate admission, and the retained local cleanup logs. Accepted within stated local/synthetic limits; no owner or Stage 0 approval.",
+  "source_revision": "Floor HEAD at capture e60ac6fb7c33c00e5f627499ba0d6b8a2105ea3d plus uncommitted as-run source snapshot SHA-256 cf9a81f764a88efb9c2dceeb91b881bf9da6de8e204e44971b0e4925f4133fb5; executed-source-manifest.json SHA-256 52a2acd797fc0f77e04b947ed6abadc8f4a2e87b0131ecbef31a6962389b2028; Yielded upstream 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968.",
+  "dependency_versions": {
+    "alchemy": "2.0.0-beta.80",
+    "effect": "4.0.0",
+    "miniflare": "5.20260811.1-alpha",
+    "typescript": "7.0.2",
+    "@effect/platform-node": "4.0.0",
+    "@yielded/agent": "0.1.0-beta.166",
+    "@yielded/agent-platform-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-storage-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-platform-alchemy-cloudflare": "0.1.0-beta.166",
+    "@yielded/agent-testing": "0.1.0-beta.166",
+    "bun": "1.4.0 (34cbb9a40)",
+    "workerd": "1.20260918.1 (operator-observed runtime 2026-09-18)",
+    "@effect/tsgo": "0.51.1",
+    "oxlint": "1.87.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "effect-oxlint": "0.4.0",
+    "oxlint-plugin-effect": "0.28.1",
+    "dprint": "0.63.0",
+    "upstream_bun_lock_sha256": "c8d6068e6a5d50a5c12cb0e800ef20e7e4570d89059f27cdaf942349c62c7ea9",
+    "alchemy_beta80_patch_sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+    "root_bun_lock_sha256": "a8686c97d71d7bf8e1b588e0a55cb93f26f611c9343762f8df63d9a9920de4ae",
+    "patch": "Exact upstream Bun patchedDependencies patch, unchanged at revision 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968. Root compiler/Oxlint use effect-tsgo patch --typescript --oxlint."
+  },
+  "api_evidence": [
+    "Installed upstream packages/platform-alchemy-cloudflare/src/ThreadObject.ts and ./thread-object package export, pinned commit 0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968: native Alchemy DurableObject host; the fixture uses ThreadObject.make, ThreadObject.layer and ThreadObject.submit.",
+    "Installed patched alchemy/src/Callback.ts and alchemy/Test/Bun.ts: makeCallback scheduling and Test.make/deploy/destroy; exact imported APIs are retained in executed-source.tar.gz.",
+    "Installed patched alchemy/src/Cloudflare/Workers/Worker.ts:714-737 documents how declared compatibility flags extend Alchemy defaults. The fixture declares date 2026-08-18 and flags [].",
+    "Exact upstream patches/alchemy@2.0.0-beta.80.patch and Bun patchedDependencies entry verified unchanged; digest in dependency-inspection.json. The patch covers Durable Object RPC dispatch, interrupted-transaction rollback and runtime module exports.",
+    "Local source inspections performed 2026-10-12; source inspection is distinct from hosted compatibility evidence."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "harness": "alchemy/Test/Bun Test.make",
+    "dev": true,
+    "sidecar": false,
+    "workerd": "1.20260918.1 (runtime date 2026-09-18 observed by operator)",
+    "compatibility_date": "2026-08-18",
+    "declared_compatibility_flags": [],
+    "node_compatibility": "Alchemy/workerd defaults; not explicitly disabled. Empty declared flags do not prove an effective bare runtime.",
+    "bound_host": "127.0.0.1",
+    "port": 19732,
+    "synthetic_model_delay_ms": 250,
+    "callback_delay_ms": 250,
+    "agent_policy": {
+      "maxTurns": 1,
+      "maxToolCalls": 1,
+      "maxDuration": "20 seconds"
+    },
+    "toolkit": "empty",
+    "initial_request_free_interval_ms": 3004,
+    "duplicate_request_free_interval_ms": 1509
+  },
+  "stage_and_resources": {
+    "execution": "local only; no hosted stage",
+    "stack": "floor-local-agent",
+    "stages": [
+      "floor-local-agent-build",
+      "floor-local-agent-001"
+    ],
+    "worker": "FloorLocalAgent",
+    "bindings": [
+      "CALLBACKS: native Alchemy SQLite Durable Object using makeCallback",
+      "THREADS: native Yielded Alchemy ThreadObject Durable Object"
+    ],
+    "thread_name": "native-1791816677864",
+    "state": "Local Alchemy state/resource identity retained between the admission and restart processes; destroyed after restart."
+  },
+  "inputs": [
+    "Scripted model floor-local-model-v1; fixed synthetic probe input and synthetic-done-v1 output; no provider inference.",
+    "Principal local-probe; idempotency key first; same key and thread replayed after clean process restart.",
+    "Exact six fixture TS files, repository script and toolchain inputs archived and hashed in executed-source-manifest.json."
+  ],
+  "procedure": [
+    "Run the captured repository entry points bun run typecheck, bun run lint, bun run build and bun run test. See commands.txt and scripts/platform-spike.sh in executed-source.tar.gz.",
+    "Use the unchanged pinned upstream workspace and frozen lockfile. Copy the authored test files byte-for-byte into work-floor-replay; consume upstream declarations while retaining the strict Floor consumer compiler/linter settings.",
+    "Build: deploy/start the native Alchemy Worker, assert its ready response, then destroy the local resources.",
+    "Admission: deploy local Worker and two DO bindings; enqueue a durable callback transactionally, make no polling request for 3000 ms, then read and assert the callback and completed canonical records.",
+    "Close the first harness scope without destroying its retained local resource identity. Start a separate Bun/workerd test process, update that identity and assert saved records/timestamps.",
+    "Enqueue the same admission key; make no polling request for 1500 ms; assert unchanged records and callback completion before the read; destroy local resources."
+  ],
+  "expected_result": "The native Alchemy callback admits a Yielded agent whose alarm settles its scripted turn before the first request following the quiet interval. Completed canonical records survive a fresh local runtime process; duplicate admission adds no records. Build and restart cleanup succeed.",
+  "observed_result": {
+    "status": "pass",
+    "scope": "Local Alchemy native Yielded admission, alarm completion, clean process restart and duplicate admission only.",
+    "build_tests_passed": 1,
+    "agent_tests_passed": 2,
+    "test_assertions": 12,
+    "request_free_interval_ms": 3004,
+    "callback_completed_after_quiet_start_ms": 315,
+    "run_completed_after_quiet_start_ms": 657,
+    "submission_settled_after_quiet_start_ms": 671,
+    "synthetic_model_delay_ms": 250,
+    "canonical_record_count": 6,
+    "canonical_record_kinds": [
+      "ThreadCreated",
+      "UserInputRecorded",
+      "RunStarted",
+      "ModelResponseRecorded",
+      "RunCompleted",
+      "SubmissionSettled"
+    ],
+    "output": {
+      "answer": "synthetic-done-v1"
+    },
+    "settlement": "completed",
+    "records_identical_after_process_restart": true,
+    "callback_identical_after_process_restart": true,
+    "duplicate_request_free_interval_ms": 1509,
+    "duplicate_callback_completed_after_quiet_start_ms": 260,
+    "records_identical_after_duplicate": true,
+    "new_records_after_duplicate": 0,
+    "source_snapshot_files": 13,
+    "source_snapshot_matched_authored_source_at_capture": true,
+    "upstream_tracked_sources_lock_patch_unchanged": true,
+    "strict_typecheck_and_lint": "Operator-reported pass; retained successful command logs are terse and contain no diagnostics. Final source and independent technical review are recorded separately.",
+    "cleanup": "Successful Alchemy destroy logged after build and after restart; no listener on local port 19732 at packaging check.",
+    "cross_review": "Root independent technical review: read archived Worker/ThreadObject/handler source; verified all 13 archived source hashes, all 12 artifact hashes, request-free timestamp relationships, six identical canonical records through restart and duplicate admission, and the retained local cleanup logs. Accepted within stated local/synthetic limits; no owner or Stage 0 approval."
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/admission-result.json",
+      "committed": true,
+      "bytes": 897,
+      "sha256": "d0e3d4d77dfe0e9e6a1e8b427c84d81b8dd9826ed2b86ca1a78a321296fdcb35",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/commands.txt",
+      "committed": true,
+      "bytes": 1371,
+      "sha256": "88b08562d8e497c699d15718ef9c002f12ed40ebde9f0b7d88d090ff367ee2e7",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/dependency-inspection.json",
+      "committed": true,
+      "bytes": 3933,
+      "sha256": "6a5c7fdfb97f62fe08f02de7e47e59eaef22d413bf0e29b966b7f1d3b4b907e0",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/executed-source-manifest.json",
+      "committed": true,
+      "bytes": 4351,
+      "sha256": "52a2acd797fc0f77e04b947ed6abadc8f4a2e87b0131ecbef31a6962389b2028",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/executed-source.tar.gz",
+      "committed": true,
+      "bytes": 17264,
+      "sha256": "cf9a81f764a88efb9c2dceeb91b881bf9da6de8e204e44971b0e4925f4133fb5",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/findings.md",
+      "committed": true,
+      "bytes": 3382,
+      "sha256": "7c957acedea7fbf98bcd92501b0c84db635e9af0794d1b3077a417aef9a32177",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/restart-result.json",
+      "committed": true,
+      "bytes": 1663,
+      "sha256": "7fe841b1f137505fcf35edebeb1c541f033024ab71c6ef8ec094ec23865d4060",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/result-summary.json",
+      "committed": true,
+      "bytes": 1895,
+      "sha256": "9aff5ac1a6a4e7605f2e0541b39dab63628bd899d99fccd699da0b1668d99222",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/root-build.log",
+      "committed": true,
+      "bytes": 1665,
+      "sha256": "1c3c1711151827c4ff96db9452331cc58b305473090ce383436bbf55d2c3778c",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/root-lint.log",
+      "committed": true,
+      "bytes": 36,
+      "sha256": "3c224b8d693bfc5a7991e9db9e7142236197d2824ac296557e585df965eb2161",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/root-test.log",
+      "committed": true,
+      "bytes": 5387,
+      "sha256": "f35b9bddcd18941cad51c6c7f196a1d6ee9def16b103b0fd48b42befcd3f08cc",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/alchemy-native-agent/001/root-typecheck.log",
+      "committed": true,
+      "bytes": 41,
+      "sha256": "6bcd3cb277cd487f3d8e217d03b83a4ea050ee4bfbea094994d41639d814cbff",
+      "regenerate": "Follow commands.txt using the archived as-run source and pinned upstream dependency graph; preserve outputs in a new attempt. Snapshot manifests and summaries are derived from those retained files; timestamps differ on replay."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local Alchemy dev resources only. The Bun preload rejects fetch outside loopback; the fixture uses a scripted model and no provider clients. This does not assert general Worker/browser egress containment. Public source/package retrieval is setup only.",
+    "budget": "Local-only scope; no hosted workload or model-provider budget used by this fixture.",
+    "observed_cost": "unknown: no billing query; no hosted resource/provider workload was invoked."
+  },
+  "cleanup_result": "The build log records successful local destroy, followed by a fresh admission deployment. The first admission process closes its runtime scope while retaining resource identity for restart. The second process log records Worker deletion and CALLBACKS/THREADS unbinding. Port 19732 had no listener at packaging inspection. Ignored local source/cache/state scratch may remain; no hosted resources were created.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Bounded local native-adapter evidence only. The PR is unpublished and requires the recorded Alchemy beta.80 patch. Clean process restart is not interrupted inference, eviction or power-loss recovery; identical duplicate records do not prove exactly-once provider/tool side effects. No browser, live model, D1, wallet or hosted check ran. Node compatibility was not explicitly disabled. Root independent technical review passed; later storage additions require a separate attempt. Stage 0 and hosted gates remain pending.",
+  "look": {
+    "technique": "n/a: local platform runtime evidence; no visual artifact",
+    "tone_set": "n/a: local platform runtime evidence; no visual artifact",
+    "theme": "n/a: local platform runtime evidence; no visual artifact",
+    "rung": "n/a: local platform runtime evidence; no visual artifact",
+    "dpr": "n/a: local platform runtime evidence; no visual artifact",
+    "camera": "n/a: local platform runtime evidence; no visual artifact",
+    "canvas": "n/a: local platform runtime evidence; no visual artifact",
+    "backend": "n/a: local platform runtime evidence; no visual artifact",
+    "renderer_string": "n/a: local platform runtime evidence; no visual artifact",
+    "device_profile": "n/a: local platform runtime evidence; no visual artifact",
+    "clock_and_seed": "n/a: local platform runtime evidence; no visual artifact",
+    "metrics": {
+      "not_applicable": "No render or art metric"
+    },
+    "made_by": "n/a: local platform runtime evidence; no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: platform technical review is in reviewer",
+      "verdict": "n/a: no visual choice",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a: no visual choice",
+      "owner_note": "n/a: no visual choice",
+      "date": "n/a: no visual choice"
+    }
+  }
+}

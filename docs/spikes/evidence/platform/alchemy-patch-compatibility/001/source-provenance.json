@@ -1,0 +1,122 @@
+{
+  "captured_at_utc": "2026-10-12T15:07:06.267305+00:00",
+  "floor_revision": "d9a7c93dc7b3a4132d8ea14bcc638f4da4f54382",
+  "upstream_revision": "0adbcff4c7d4b1a32a3edb1fe1bc92e245a01968",
+  "patch_sha256": "11fd30507c7cd4466f65565771e493d9da1c4bc1d2fe4a546f93f95d14d433d2",
+  "versions": {
+    "2.0.0-beta.80": {
+      "registry_url": "https://registry.npmjs.org/alchemy/2.0.0-beta.80",
+      "dist": {
+        "shasum": "c14c146fcb3cdf856cecdb4b1d3b6b06badcea46",
+        "tarball": "https://registry.npmjs.org/alchemy/-/alchemy-2.0.0-beta.80.tgz",
+        "fileCount": 52345,
+        "integrity": "sha512-2y7mswypPiApxuEdp8NGMfzCGB5+9W6OmQAuePyZ2xBkgoCpEqtKAnASuvKGUZPSYNESENbamXDuI5428ewu9w==",
+        "signatures": [
+          {
+            "sig": "MEUCICNId7utcOgzQE606ZgHhj/c27m6qhjsi7rXgMDHuj+MAiEA3FTGDvMrGkA5O78EnQDPX4it18QWjrRwPsM9Y8/Vy0A=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "sig": "MEQCIHt8FQJa9R8SfYXgc0ZABhjugtqcGTM1KWRquH8Va5zHAiAeJZniqlFwU8KY+AhJyG4snkoR1+o7krAIjZK72KZujA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/alchemy@2.0.0-beta.80",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 142105573
+      },
+      "tarball_sha256": "243e23d89fa66014f65fd6cd59e0c1a46bf1b0e03370e26b366ce385f7a795e6",
+      "tarball_bytes": 25586432,
+      "integrity_verified": true,
+      "patch_exit_code": 0,
+      "patch_log": "beta80-patch-dry-run.log"
+    },
+    "2.0.0-beta.81": {
+      "registry_url": "https://registry.npmjs.org/alchemy/2.0.0-beta.81",
+      "dist": {
+        "shasum": "83fbd5c5e30a0dca7af7114eabd52a7a8f2f127c",
+        "tarball": "https://registry.npmjs.org/alchemy/-/alchemy-2.0.0-beta.81.tgz",
+        "fileCount": 52345,
+        "integrity": "sha512-AxEUQSYSln9NgZMuYnSz9Q7ERR8BrKrGpx9vOwJtWity7Ze8/7vI4k62u2EAoJRpBbaOTnI2Bp67Au1y9J7FTA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCgqRz+j5vrAojYBKkylm7upFy/S3CQmkrQ+fvB3FawjQIhAKGRWYKYGlnw+fJYn3kBH7SgsWTogBNubc9hVjinsdqP",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIGaw3HkKkdKPd+60VBTdgvg0Ap9ozb/SSXNtxsEwXrZyAiAYh+9466/WshGhhtKHRfIhEzOPAjHFM4DMApOgS2ZHwA=="
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/alchemy@2.0.0-beta.81",
+          "provenance": {
+            "predicateType": "https://slsa.dev/provenance/v1"
+          }
+        },
+        "unpackedSize": 140879054
+      },
+      "tarball_sha256": "8c24b08e1546b7fec27746aaf79b1aca7d10a719b567c0cb74cadae521357099",
+      "tarball_bytes": 25478939,
+      "integrity_verified": true,
+      "patch_exit_code": 1,
+      "patch_log": "beta81-patch-dry-run.log"
+    }
+  },
+  "original_files": [
+    {
+      "path": "beta80/package/src/Cloudflare/Workers/DurableObjectBridge.ts",
+      "bytes": 9313,
+      "sha256": "ab8829397d31283ecd74572aa670000826dfc54c1af0b6a34cdde0add631e8ee"
+    },
+    {
+      "path": "beta80/package/lib/Cloudflare/Workers/DurableObjectBridge.js",
+      "bytes": 7685,
+      "sha256": "5149cee637248ea7b0beb244683b013bd9317d26db40af6ce4b6c36a2df8e9be"
+    },
+    {
+      "path": "beta80/package/src/Cloudflare/Workers/DurableObjectStorage.ts",
+      "bytes": 19836,
+      "sha256": "b9cfac72015d4a38530a0df1621aed8381230511ce78b66d23598325e2d6e297"
+    },
+    {
+      "path": "beta80/package/lib/Cloudflare/Workers/DurableObjectStorage.js",
+      "bytes": 10941,
+      "sha256": "98329f5f9349fcf1ce7c629e83e2f195d85ee66d7fe6e3265da88c20cdcc2fb0"
+    },
+    {
+      "path": "beta80/package/package.json",
+      "bytes": 14919,
+      "sha256": "7f19b6cc55329a631a053dae7494fe5cd174c88e822925b1e46e10133a339e11"
+    },
+    {
+      "path": "beta81/package/src/Cloudflare/Workers/DurableObjectBridge.ts",
+      "bytes": 8912,
+      "sha256": "d4c64e88416629602130c5ec1a95632a2b5f7337ead674999a1c89b186257e64"
+    },
+    {
+      "path": "beta81/package/lib/Cloudflare/Workers/DurableObjectBridge.js",
+      "bytes": 7670,
+      "sha256": "787a81202e1408265d57c63bb0cc9910af1c8b5b7f9db588b1a43b11e7a4588d"
+    },
+    {
+      "path": "beta81/package/src/Cloudflare/Workers/DurableObjectStorage.ts",
+      "bytes": 19273,
+      "sha256": "c6d80d9354b8f9ab43306094828c2a5905bce9e94e55db861eb50f0c5c3da69c"
+    },
+    {
+      "path": "beta81/package/lib/Cloudflare/Workers/DurableObjectStorage.js",
+      "bytes": 10943,
+      "sha256": "37b962488f3a2fcc58b52de3039f5ba6210a00bbb1b6db1ac126fa447c719255"
+    },
+    {
+      "path": "beta81/package/package.json",
+      "bytes": 14876,
+      "sha256": "31625a6b47bcdb6141ea9343a302b7c856ce38cbe7aaf335a0b8004f6cfcd017"
+    }
+  ]
+}

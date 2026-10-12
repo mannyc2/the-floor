@@ -1,6 +1,6 @@
 # The Floor workspace
 
-Prepared on 12 October 2026 for the look and platform spikes. This is a fresh local preparation workspace. Read-only snapshots of the first build and the cafe reference are in [reference/](reference/README.md). Neither spike nor Stage 0 has run.
+Prepared on 12 October 2026 for the look and platform spikes. This branch now contains the bounded local platform probes and their [result report](docs/spikes/evidence/platform/report.md). The owner limited the resumed run to local checks; hosted gates remain open. Read-only snapshots are in [reference/](reference/README.md). Stage 0 has not started.
 
 ## Start here
 
@@ -23,10 +23,10 @@ The cookbook at the repository root links to the copied source, so there is one 
 
 ## Next work
 
-The [platform spike](docs/spikes/platform.md) is running, local checks only for now. [Look spike](docs/spikes/look.md) Part A is done (technique B on WebGL, picked by the owner); Part B (references, tones, proportions, assets) is next, with Codex generating the reference images and the owner picking. Evidence goes in [docs/spikes/evidence/](docs/spikes/evidence/README.md). Both spikes report before Stage 0 begins.
+Review the [platform result](docs/spikes/evidence/platform/report.md): local checks are complete, while hosted checks await renewed scope and a spend limit. [Look Part A](docs/spikes/look.md) is complete with the owner’s technique B/WebGL pick recorded; the decision log now starts Part B. This platform task did not execute Part B. Stage 0 remains gated on both complete spike results and promotes their tested code into the product.
 
 `reference/` is temporary. It is deleted at the end of Stage 0, once the skeleton has ported what it needs, and stays recoverable from the initial commit.
 
 ## Status
 
-Documentation and reserved directories only: no dependencies, entry points or build configuration yet. `bun run typecheck`, `bun run lint` and `bun run build` become required when Stage 0 sets up the toolchain. To check the snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.
+The [local platform probes](apps/floor/spikes/platform/README.md) use Alchemy’s local test harness, a pinned native Yielded Alchemy adapter, and Kit-generated launch instructions. Raw Wrangler examples are retired from active source and retained in history. The result report distinguishes the current target from those historical measurements. This does not establish Stage 0's product packages, architecture fences or CI. To check the immutable snapshot, run `shasum -a 256 -c MANIFEST.sha256` in `reference/`.

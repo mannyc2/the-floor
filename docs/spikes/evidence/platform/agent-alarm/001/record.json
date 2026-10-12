@@ -1,0 +1,141 @@
+{
+  "check_id": "agent-alarm",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T13:52:53.182355+00:00",
+  "operator": "Platform spike execution",
+  "reviewer": "Platform executor reviewed actual alarm start/completion timestamps and completed settlement; final frozen-source repeat002 independently reviewed.",
+  "source_revision": "4d452cd plus exact uncommitted source snapshot source.tar.gz and original source-manifest.json; no restart run in this attempt.",
+  "dependency_versions": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@effect/tsgo": "0.51.1",
+    "typescript": "7.0.2",
+    "oxlint": "1.87.0",
+    "wrangler": "4.149.0",
+    "workerd": "1.20261006.1",
+    "@cloudflare/workers-types": "5.20261012.1",
+    "bun": "1.4.0",
+    "bun_lock_sha256": "fa61e4736498fd825d1c960ffd1b85dc27ab591eb9ce9c1e96456db9f6f2d268",
+    "compiler_reported_version": "7.0.2+effect-tsgo.0.51.1",
+    "patch": "prepare: effect-tsgo patch --typescript --oxlint; frozen installation succeeded; exact lockfile retained in source commit.",
+    "@yielded/agent": "0.1.0-beta.170",
+    "@yielded/agent-platform-cloudflare": "0.1.0-beta.170",
+    "effect-cf": "0.56.0"
+  },
+  "api_evidence": [
+    "@yielded/agent-platform-cloudflare 0.1.0-beta.170 src/ThreadObject.ts:465-528 pre-armed ThreadMutationGate and conditional post-response hint; :1131-1145 maintenance alarm registration and constructor ensureAlarm; :1264-1315 native Durable Object/layer construction.",
+    "effect-cf 0.56.0 src/DurableObjectAlarm.ts:49 default inflight recovery=1000ms; :56-75 ScheduleConfiguration; :223-242 configuration resolution; :393-403 retained recovery alarm; :1810-1815 dispatchAfterEvent gate. src/DurableObject.ts:401-424 native alarm handler dispatch.",
+    "@yielded/agent 0.1.0-beta.170 src/durable/Records.ts:363-380 ModelResponseRecorded.messages; :659-677 SubmissionSettled outcome authority. src/durable/DurableAgentRuntime.ts:4726-4758 interrupted response journal; :7796-7808 recovery of input without response.",
+    "@yielded/agent-platform-cloudflare 0.1.0-beta.170 src/Alarm.ts:1624-1721 recovery cursor/wake handling; :1897 recoverThread before resumed work. src/CloudflareThreadClient.ts:597-607 layerFromBinding; :1003-1016 readAll reads pages without a work-execution call.",
+    "All installed source citations inspected 2026-10-12; source guarantees are not hosted runtime evidence."
+  ],
+  "execution_target": "local_workerd",
+  "runtime_configuration": {
+    "host": "macOS arm64",
+    "compatibility_date": "2026-10-06",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "remote_bindings": false,
+    "server": "127.0.0.1:8791"
+  },
+  "stage_and_resources": {
+    "stage": "local only; no hosted stage",
+    "worker": "floor-platform-local-probe",
+    "bindings": [
+      "JOURNAL: SQLite Durable Object",
+      "ALARMS: SQLite Durable Object",
+      "HISTORY: local D1",
+      "AGENT: SQLite Durable Object"
+    ],
+    "state": "work/spikes/platform/local-state"
+  },
+  "inputs": [
+    "Same fixed delayed synthetic model as attempt002; exact original source snapshot retained."
+  ],
+  "procedure": [
+    "Start bun run dev using the retained source snapshot; POST /agent/submit?thread=local-agent-alarm-001&key=local-submit-001; issue no requests for5000ms; GET /agent/snapshot and /agent/read for that thread; stop complete local runtime."
+  ],
+  "expected_result": "An actual native alarm completes a bounded synthetic turn before the first subsequent GET.",
+  "observed_result": {
+    "request_free_interval_ms": 5001,
+    "snapshot": {
+      "invocations": 1,
+      "startedAtMillis": [
+        1791813173352
+      ],
+      "completedAtMillis": [
+        1791813174984
+      ],
+      "observedAtMillis": 1791813178352,
+      "nativeAlarmPending": false,
+      "model": "synthetic fixture; no inference provider",
+      "dispatchAfterEvent": false
+    },
+    "settlement": "completed",
+    "canonical_record_count": 4
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/001/before-restart.json",
+      "committed": true,
+      "bytes": 3312,
+      "sha256": "14ac2a9210aafa7cc690e63b7d2ec9a7e2cbd170ce613bda00417021622d2396",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/001/source-manifest.json",
+      "committed": true,
+      "bytes": 1762,
+      "sha256": "7a656ee9fa26742aa90947348d266d843ff82c44b202e2145b655b15364df045",
+      "regenerate": "Follow the procedure in this record using a new attempt and fresh local state; never overwrite an existing attempt."
+    },
+    {
+      "path": "docs/spikes/evidence/platform/agent-alarm/001/source.tar.gz",
+      "committed": true,
+      "bytes": 54591,
+      "sha256": "fc37c4904afc7c4b222a974b1693a38713e24895ce5fb14cc238729e88ec5f3c",
+      "regenerate": "Restore the exact uncommitted files from this archive; original manifest verifies each file. Run a new attempt with fresh local state."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local workerd with remote bindings disabled. No provider workload. SDK construction uses rejecting transports and an explicitly synthetic quote-mint response.",
+    "budget": "User selected local checks only; no hosted spend authorized in this resumed run.",
+    "observed_cost": "unknown: no billing query; no hosted workload issued"
+  },
+  "cleanup_result": "Each complete Wrangler/workerd process group was stopped after its check. Port 8791 was verified closed. Local SQLite scratch remains for inspection. No hosted resources were created, so no hosted teardown is pending.",
+  "decision_link": "docs/decisions.md",
+  "limitations_and_next_action": "Only a single local synthetic alarm turn. No restart or interrupted-turn test in001; see002 and agent-interruption/001. No hosted or inference-provider result.",
+  "look": {
+    "technique": "n/a: platform execution, no visual artifact",
+    "tone_set": "n/a: platform execution, no visual artifact",
+    "theme": "n/a: platform execution, no visual artifact",
+    "rung": "n/a: platform execution, no visual artifact",
+    "dpr": "n/a: platform execution, no visual artifact",
+    "camera": "n/a: platform execution, no visual artifact",
+    "canvas": "n/a: platform execution, no visual artifact",
+    "backend": "n/a: platform execution, no visual artifact",
+    "renderer_string": "n/a: platform execution, no visual artifact",
+    "device_profile": "n/a: platform execution, no visual artifact",
+    "clock_and_seed": "n/a: platform execution, no visual artifact",
+    "metrics": {
+      "not_applicable": "No render"
+    },
+    "made_by": "n/a: platform execution, no visual artifact",
+    "cross_review": {
+      "reviewer_agent": "n/a: original execution; independently reviewed repeat in002",
+      "verdict": "n/a: platform technical evidence only",
+      "notes": "No art approval requested or implied."
+    },
+    "owner_pick": {
+      "state": "n/a: no visual choice",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "n/a",
+      "date": "n/a"
+    }
+  }
+}

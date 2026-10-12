@@ -1,0 +1,1 @@
+CREATE TABLE storage_probe (id TEXT PRIMARY KEY, version INTEGER NOT NULL, value TEXT NOT NULL);

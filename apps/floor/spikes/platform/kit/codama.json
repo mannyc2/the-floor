@@ -1,0 +1,12 @@
+{
+  "idl": "idl.json",
+  "scripts": {
+    "js": {
+      "from": "@codama/renderers-js",
+      "args": [
+        "client",
+        { "kitImportStrategy": "rootOnly", "dependencyVersions": { "@solana/kit": "8.4.0" }, "erasableSyntax": true }
+      ]
+    }
+  }
+}

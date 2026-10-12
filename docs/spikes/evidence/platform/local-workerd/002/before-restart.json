@@ -1,0 +1,455 @@
+{
+  "executed_at_utc": "2026-10-12T13:57:53.701609+00:00",
+  "responses": [
+    {
+      "path": "/crypto",
+      "method": "GET",
+      "started_at_ms": 1791813473701,
+      "finished_at_ms": 1791813473710,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+          "emptySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "invalidSizeError": "PlatformError: Crypto.randomBytes: size must be a non-negative safe integer\n    at badArgument (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:22711:55)\n    at validateSize (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:23487:130)\n    at Object.randomBytes (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:23433:63)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:24968:39",
+          "uuidCount": 32,
+          "uuidVersion": 4,
+          "uuidDistinct": true,
+          "platformLayer": "@effect/platform-browser/BrowserCrypto",
+          "bunGlobalPresent": false,
+          "processGlobalPresent": false
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "method": "GET",
+      "started_at_ms": 1791813473710,
+      "finished_at_ms": 1791813473722,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 7
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/journal/rollback",
+      "method": "GET",
+      "started_at_ms": 1791813473722,
+      "finished_at_ms": 1791813473726,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "failureObserved": true,
+          "failureMarker": "outer",
+          "rolledBackRows": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/nested",
+      "method": "GET",
+      "started_at_ms": 1791813473726,
+      "finished_at_ms": 1791813473729,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/initialize",
+      "method": "GET",
+      "started_at_ms": 1791813473729,
+      "finished_at_ms": 1791813473741,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "initialized": true
+        }
+      }
+    },
+    {
+      "path": "/d1/read",
+      "method": "GET",
+      "started_at_ms": 1791813473741,
+      "finished_at_ms": 1791813473744,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "persisted",
+              "value": 13
+            }
+          ]
+        }
+      }
+    },
+    {
+      "path": "/d1/batch",
+      "method": "GET",
+      "started_at_ms": 1791813473744,
+      "finished_at_ms": 1791813473753,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "batchFailureObserved": true,
+          "batchError": "effect/sql/SqlError: Failed to execute batch\n    at catch (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25049:48)\n    at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:3842:41 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25002:75)\n      at catch (file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:25050:17)\n      at file:///Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/.wrangler/tmp/dev-uxvRDu/bare-worker.js:3842:41 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: probe_history.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: probe_history.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}",
+          "rolledBackRows": 0,
+          "interactiveTransactionSupported": false,
+          "interactiveTransactionError": "Error: transactions are not supported in D1"
+        }
+      }
+    },
+    {
+      "path": "/journal/read",
+      "method": "GET",
+      "started_at_ms": 1791813473798,
+      "finished_at_ms": 1791813473800,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "rows": [
+            {
+              "id": "parent",
+              "value": 11
+            },
+            {
+              "id": "persisted",
+              "value": 8
+            }
+          ],
+          "migrations": 1
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "method": "GET",
+      "started_at_ms": 1791813473800,
+      "finished_at_ms": 1791813473804,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": false,
+          "wakeCount": 0,
+          "alarmPending": false
+        }
+      }
+    },
+    {
+      "path": "/alarm/schedule",
+      "method": "GET",
+      "started_at_ms": 1791813473804,
+      "finished_at_ms": 1791813473808,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true
+        }
+      }
+    },
+    {
+      "path": "/alarm/read",
+      "method": "GET",
+      "started_at_ms": 1791813475814,
+      "finished_at_ms": 1791813475820,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "scheduled": true,
+          "wakeCount": 1,
+          "alarmPending": false
+        }
+      }
+    }
+  ],
+  "concurrent_reservations": [
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473766,
+      "finished_at_ms": 1791813473776,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 1
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473766,
+      "finished_at_ms": 1791813473780,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473766,
+      "finished_at_ms": 1791813473776,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473766,
+      "finished_at_ms": 1791813473781,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473769,
+      "finished_at_ms": 1791813473781,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473769,
+      "finished_at_ms": 1791813473782,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473769,
+      "finished_at_ms": 1791813473782,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473769,
+      "finished_at_ms": 1791813473782,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473788,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473788,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473788,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473788,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473795,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473770,
+      "finished_at_ms": 1791813473796,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473796,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473796,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473796,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473796,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473797,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    },
+    {
+      "path": "/journal/reserve",
+      "method": "GET",
+      "started_at_ms": 1791813473771,
+      "finished_at_ms": 1791813473797,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": {
+          "changed": 0
+        }
+      }
+    }
+  ],
+  "request_free_interval_ms": 2005
+}

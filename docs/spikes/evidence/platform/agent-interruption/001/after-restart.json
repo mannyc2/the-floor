@@ -1,0 +1,149 @@
+{
+  "executed_at_utc": "2026-10-12T13:58:14.923519+00:00",
+  "request_free_interval_ms": 5001,
+  "responses": [
+    {
+      "path": "/agent/snapshot?thread=local-agent-interruption-002",
+      "method": "GET",
+      "started_at_ms": 1791813494923,
+      "finished_at_ms": 1791813494930,
+      "status": 200,
+      "body": {
+        "invocations": 2,
+        "startedAtMillis": [
+          1791813487514,
+          1791813489882
+        ],
+        "completedAtMillis": [
+          1791813491557
+        ],
+        "observedAtMillis": 1791813494928,
+        "nativeAlarmPending": false,
+        "model": "synthetic fixture; no inference provider",
+        "dispatchAfterEvent": false
+      }
+    },
+    {
+      "path": "/agent/read?thread=local-agent-interruption-002",
+      "method": "GET",
+      "started_at_ms": 1791813494930,
+      "finished_at_ms": 1791813494939,
+      "status": 200,
+      "body": {
+        "ok": true,
+        "result": [
+          {
+            "sequence": 1,
+            "recordId": "thread-created:local-agent-interruption-002",
+            "createdAt": "2026-10-12T13:58:07.428Z",
+            "kind": "ThreadCreated",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 2,
+            "recordId": "input:01a13068-0b3c-7508-abe1-3b9f9b3f60d6:local-agent-interruption-002",
+            "createdAt": "2026-10-12T13:58:07.561Z",
+            "kind": "UserInputRecorded",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 3,
+            "recordId": "interrupted:run:01a13068-0b3c-7508-abe1-3b9f9b3f60d6:local-agent-interruption-002",
+            "createdAt": "2026-10-12T13:58:09.981Z",
+            "kind": "ModelResponseInterrupted",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 4,
+            "recordId": "model-response:run:01a13068-0b3c-7508-abe1-3b9f9b3f60d6:local-agent-interruption-002:1",
+            "createdAt": "2026-10-12T13:58:11.520Z",
+            "kind": "ModelResponseRecorded",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "Some",
+              "value": {
+                "content": [
+                  {
+                    "content": "This is a local deterministic adapter fixture with no external provider.",
+                    "options": {},
+                    "role": "system"
+                  },
+                  {
+                    "content": "{\"message\":\"run synthetic alarm probe\"}",
+                    "options": {},
+                    "role": "user"
+                  },
+                  {
+                    "content": "synthetic-alarm-completion-v1",
+                    "options": {},
+                    "role": "assistant"
+                  }
+                ]
+              }
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "None"
+            }
+          },
+          {
+            "sequence": 5,
+            "recordId": "settlement:01a13068-0b3c-7508-abe1-3b9f9b3f60d6:local-agent-interruption-002",
+            "createdAt": "2026-10-12T13:58:11.540Z",
+            "kind": "SubmissionSettled",
+            "modelMessages": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "completionOutput": {
+              "_id": "Option",
+              "_tag": "None"
+            },
+            "settlementOutcome": {
+              "_id": "Option",
+              "_tag": "Some",
+              "value": "completed"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

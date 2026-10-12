@@ -1,0 +1,23 @@
+{
+  "includes": [
+    "apps/floor/spikes/platform/**/*.ts",
+    "apps/floor/spikes/platform/*.json",
+    "apps/floor/spikes/platform/*.jsonc",
+    "package.json",
+    "tsconfig.json",
+    "dprint.json",
+    ".oxlintrc.json"
+  ],
+  "excludes": [
+    "reference/**",
+    "work/**",
+    "node_modules/**",
+    "**/node_modules/**",
+    "**/.alchemy/**",
+    "**/client/**"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.11.wasm",
+    "https://plugins.dprint.dev/json-0.21.0.wasm"
+  ]
+}

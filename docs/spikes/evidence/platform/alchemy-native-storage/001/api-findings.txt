@@ -1,0 +1,11 @@
+Source-only audit of Alchemy 2.0.0-beta.80 (12 October 2026), distinct from the runtime evidence:
+- Cloudflare/D1/Database.ts:594-714: native local provider, dev: database identity, runMigrations through local workerd gateway, explicit sidecar:false support.
+- Cloudflare/LocalAccount.ts:11-29: local account fallback under CI; no token authentication/refresh required.
+- Cloudflare/D1/QueryDatabase.ts:127-151: prepared queries, exec and atomic batch. QueryDatabaseBinding.ts:38-46 delegates to native binding.
+- Cloudflare/D1/QueryDatabaseLocal.ts:50-69,92-109: local IDs use ephemeral workerd gateway; only cloud-ID branch resolves credentials.
+- Cloudflare/D1/LocalD1Gateway.ts:83-105: same local D1 storage, array-shaped batch request sent as one transaction.
+- SQL/D1.ts:53-95: native Alchemy wrapper around @effect/sql-d1, memoized per execution, plus D1Layer for Effect SQL service injection.
+- @effect/sql-d14.0.0 src/D1Client.ts:174-185: batch uses native binding and maps failures to SqlError; :330 rejects interactive transactions.
+- @alchemy.run/cloudflare-runtime beta.80 src/core/bindings/d1/D1.worker.ts:193-209: simulator batch uses state.storage.transactionSync.
+- Cloudflare/D1/ApplyMigrations.ts:29-35,60-78: migration executor joins SQL statements into one call, distinct from interactive transaction support.
+- Cloudflare/D1/Database.ts:696-699: delete removes logical resource state; simulator files remain until .alchemy is removed.
