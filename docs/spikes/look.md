@@ -23,11 +23,11 @@ An agent never approves its own output, and a review by the other agent is not a
 
 ## Read first
 
-1. The [retrospective](../floor-docs-2026-10-12/retrospective.md), findings 1–3 and "Changes the Floor Atlas needs", on why the first build's screenshots are anti-references.
-2. The [product doc](../floor-docs-2026-10-12/the-floor.md): the map-first screen, the Atlas foundations, key frames 4, 6 and 8, the camera, and the brass and orange laws.
-3. The [technical design](../floor-docs-2026-10-12/technical-design.md): the look as acceptance, the Floor Atlas in the repo, assets, the renderer, the camera and the targets.
-4. The [Floor Atlas plan](../floor-docs-2026-10-12/floor-atlas-plan.md) for asset conventions, the workbench and deterministic tests. Where it says an artist paints or models, read this handoff instead (see the [decision log](../decisions.md)).
-5. The [Effect cookbook](../floor-docs-2026-10-12/effect-4-cookbook.md) and the workspace conventions, before writing code. Inspect installed APIs rather than guessing them.
+1. The [retrospective](../archive/floor-docs-2026-10-12/retrospective.md), findings 1–3 and "Changes the Floor Atlas needs", on why the first build's screenshots are anti-references.
+2. The [product doc](../the-floor.md): the world, the look, watching and adding to the world. The key frames' prompts are in the [archived product doc](../archive/floor-docs-2026-10-12/the-floor.md); the orange rule in them is deleted.
+3. The [technical design](../technical-design.md): rendering and the look, pieces of the world, the camera and the targets.
+4. The [Floor Atlas plan](../archive/floor-docs-2026-10-12/floor-atlas-plan.md), archived, for asset conventions, the workbench and deterministic tests. Where it says an artist paints or models, read this handoff instead (see the [decision log](../decisions.md)).
+5. The [Effect cookbook](../effect-4-cookbook.md) and the workspace conventions, before writing code. Inspect installed APIs rather than guessing them.
 
 Don't copy the first build's renderer, kit, gate geometry or dashboard into the experiment. Scratch output goes in `work/spikes/look/`. Evidence goes in [`docs/spikes/evidence/look/`](evidence/README.md), one record per attempt from the [template](evidence/record.template.json).
 
@@ -94,11 +94,11 @@ The owner's next look at the Floor is the reference contact sheets, not more ren
 ### 1. References
 
 - **Generate.** Start with key frame 4 (the depth rack), one stall and key frame 6 (a district in tiers), each in day and night, then key frame 8 (the screen). Use the product doc's style and avoid blocks unchanged, and make 12–20 candidates per frame.
-- **Screen automatically.** Reject candidates showing perspective, text or letters, or more than one orange region. Count orange regions in a palette-distance mask, and find text with OCR.
+- **Screen automatically.** Flag candidates showing perspective, text or letters. The flags are advisory: the review judges at full size, because attempt 001's screen rejected 83 of 84 images on false alarms.
 - **Review.** Claude, which didn't generate them, shortlists 4–6 per frame against the common-failures list, with a one-line note on each candidate's weaknesses.
 - **Owner picks.** The owner gets one contact sheet per frame, picks one, or answers "none, because…", which feeds the next round. Picks are recorded with the date and the options shown. Picked frames become the provisional reference frames, which Stage 0 commits to `testing/reference/`.
 
-Image models drift on exactly what the Floor cares about: true orthographic projection, a single orange part, readable brass scales, and no text. So a reference sets the composition, density, silhouettes and tonal mood. It does not set exact geometry or readings. The laws are checked on the Floor's own renders, not on the references. Line accuracy comes from Part A's edge-projection target, because generated references have no clean line layer.
+Image models drift on exactly what the Floor cares about: true orthographic projection, readable brass scales, and no text. So a reference sets the composition, density, silhouettes and tonal mood. It does not set exact geometry or readings. The laws are checked on the Floor's own renders, not on the references. Line accuracy comes from Part A's edge-projection target, because generated references have no clean line layer.
 
 ### 2. Tones
 
@@ -126,7 +126,7 @@ The other agent reviews; the owner picks only where routes differ visibly.
 
 ### 5. The newcomer test
 
-Show someone who hasn't seen the Floor the district render in the picked technique and tones, and ask which market is busiest and which part is the orange one. Record their answers as observations, separate from the metrics.
+Show someone who hasn't seen the Floor the district render in the picked technique and tones, and ask what is going on and which agent is doing what. Record their answers as observations, separate from the metrics.
 
 ## What every look record holds
 

@@ -19,7 +19,7 @@ The lean is my suggestion to the owner, not an approval. The images are listed i
 Weaknesses across the batch, for the tones and asset work:
 - **Shading.** Every candidate has textured shading (stone grain, water ripples) instead of flat tones. The renderer decides this, so it doesn't rule a reference out.
 - **Pale districts.** The districts use pale stone on pale paper, the bleaching problem the handoff warns about, so the derived tones will need darker tops than these images show.
-- **Orange on the building.** Most districts paint the whole busiest compound orange. The Floor's render puts orange on the pouring machine only.
+- **Orange on the building.** Most districts paint the whole busiest compound orange. The orange accent has since been deleted (decision log), so read these as the place's own colour, not a highlight.
 - **The drawer.** Every screen draws the drawer as a wooden cabinet door instead of a slim paper drawer. The interface sets the drawer, not the reference.
 
 ## Excluded, and why
@@ -45,5 +45,4 @@ Don't tune it further: the laws are checked on the Floor's renders, where geomet
 - **Wait for the picks** in the decision log. Then go on to tones and proportions (look handoff, steps 2 and 3).
 - **If the owner answers "none" for a frame,** add these to the next round's prompts while keeping the style and avoid blocks unchanged:
   - brick and canal-town material for districts;
-  - orange on the pouring machine only;
   - top faces darker than the paper ground.

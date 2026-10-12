@@ -46,4 +46,4 @@ What stays behind as evidence only: the retired Wrangler and `effect-cf` probe (
 - [ ] Delete `reference/` and its tool exclusions once everything Stage 0 ports from it is in place.
 - [ ] Obtain owner review of the decisions, new flow and picked frames before starting Stage 1.
 
-Use the file-by-file [carry-over list](floor-docs-2026-10-12/next-steps.md) and [source inventory](reference-sources.json). The old runtime, renderer, dashboard, custom launch/wallet protocols and bench reports stay behind. The old lint plugin and CI require adaptation; their presence in the reference build is not evidence that the new boundaries are enforced.
+Use the file-by-file [carry-over list](archive/floor-docs-2026-10-12/next-steps.md) and [source inventory](reference-sources.json). The old runtime, renderer, dashboard, custom launch/wallet protocols and bench reports stay behind. The old lint plugin and CI require adaptation; their presence in the reference build is not evidence that the new boundaries are enforced.

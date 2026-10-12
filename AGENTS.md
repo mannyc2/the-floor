@@ -10,8 +10,8 @@ Use Effect's own modules first. Add a third-party dependency only where Effect c
 - `docs/Codex/comments.md` before non-trivial code.
 - `docs/Codex/file-structure.md` before creating files or components.
 - `docs/Codex/lint.md` and `docs/Codex/verification.md` before configuring checks or adding tests.
-- `effect-4-cookbook.md`, then the complete installed `node_modules/effect/AGENTS.md` and its relevant documentation before Effect changes. Verify every API in installed source; the cookbook is version-specific.
-- The relevant revised product, technical design and Atlas documents under `docs/floor-docs-2026-10-12/`. Where they conflict with `docs/decisions.md`, the decision log wins.
+- `docs/effect-4-cookbook.md`, then the complete installed `node_modules/effect/AGENTS.md` and its relevant documentation before Effect changes. Verify every API in installed source; the cookbook is version-specific.
+- `docs/the-floor.md` and `docs/technical-design.md`, the current product doc and technical design. Where they conflict with `docs/decisions.md`, the decision log wins and the doc gets fixed. `docs/archive/` is history: never build from it.
 - `reference/README.md` before reading the first build or the cafe reference.
 - Before Cloudflare work, the relevant page from [Alchemy's docs index](https://alchemy.run/llms.txt). Cloudflare resources are Alchemy resources: no hand-written Wrangler config.
 
@@ -19,7 +19,7 @@ Use Effect's own modules first. Add a third-party dependency only where Effect c
 
 Deployable applications live in `apps/`. Shared code belongs in real workspace packages with explicit exports; create a package only when two apps use it or a fence needs its boundary. A reserved directory is not an implemented package. Use feature-local `_components/` and `_lib/` folders, relative imports inside a feature and package imports for global code. Never import across features or between apps.
 
-`contract` contains Schemas and imports only Effect and its own modules. `api` defines HTTP/RPC from those Schemas and is the sole planned exception for internal unstable API exports. `map` is the pure map model; `atlas` is the design system. Three.js belongs only in `apps/web`. Signer code and its bundle must contain no models, inference providers or Floor application code.
+`contract` contains Schemas and imports only Effect and its own modules. `api` defines HTTP/RPC from those Schemas and is the sole planned exception for internal unstable API exports. `world` (still named `map` until it is renamed) is the world model without three.js; `atlas` is the design system. Contributed pieces import only the world kit and run only in the piece sandbox. Three.js belongs only in `apps/web`. Signer code and its bundle must contain no models, inference providers or Floor application code.
 
 `reference/` holds read-only snapshots of the first build and the cafe reference. Never edit, import, build, run, lint or format it, never read it from code, and never treat it as evidence for this workspace. Port by copying into the new home and adapting.
 

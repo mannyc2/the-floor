@@ -15,42 +15,42 @@
   },
   "copiedDocs": [
     {
-      "copy": "docs/floor-docs-2026-10-12/README.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/README.md",
       "sha256": "5e6d90bdc5135024687f0028d2c3b77811ae12524c26e15c8af421ff81bbc2a6",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/README.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/archive.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/archive.md",
       "sha256": "d7a122686b701fd9c74fa3d601f35aca103a9d6712641109bc9986b17064b5bf",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/archive.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/effect-4-cookbook.md",
+      "copy": "docs/effect-4-cookbook.md",
       "sha256": "51325cdcee32e7c2104270a2be4c1e973d4d32d1c6b39942a5732dc53d8b38e7",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/effect-4-cookbook.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/floor-atlas-plan.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/floor-atlas-plan.md",
       "sha256": "69f8a8f6dede77f2cfb02772a174fe58a38c65bd30895fd198a977f4f57908d1",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/floor-atlas-plan.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/next-steps.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/next-steps.md",
       "sha256": "b7aea2f913189b5eaabf47731baee2f49560b7250b6c058cffab919ebd5d123f",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/next-steps.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/retrospective.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/retrospective.md",
       "sha256": "a8a491537d860fb570af738784562eb7d29859a81585edd10f7e58717bc7e362",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/retrospective.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/technical-design.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/technical-design.md",
       "sha256": "629c8255b2b0e3754d4baa8abe54b0f8877a41041a578b44d6aaaa345324aeb5",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/technical-design.md"
     },
     {
-      "copy": "docs/floor-docs-2026-10-12/the-floor.md",
+      "copy": "docs/archive/floor-docs-2026-10-12/the-floor.md",
       "sha256": "a95909be89ab604af5782992be6bae6849909876d1143dcfb40913b3dbd603bb",
       "origin": "/Users/chriscarroll/Documents/Codex/2026-10-11/imp-2/outputs/the-floor/docs/floor-docs-2026-10-12/the-floor.md"
     }
