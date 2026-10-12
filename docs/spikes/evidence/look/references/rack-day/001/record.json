@@ -4,7 +4,7 @@
   "status": "fail",
   "executed_at_utc": "2026-10-12T15:52:34.227Z",
   "operator": "Codex using built-in image_gen.imagegen, one independent call per original",
-  "reviewer": "Claude pending; no cross-review performed in this generation track",
+  "reviewer": "Claude; independent review recorded in claude-review-001.md",
   "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
   "dependency_versions": {
     "Bun": "1.4.0",
@@ -74,8 +74,14 @@
       "perspective_flags": 12,
       "orange_count_flags": 11,
       "ocr_flags": 6,
-      "claude_shortlist": "pending",
-      "owner_pick": "pending"
+      "claude_shortlist": [
+        "06",
+        "03",
+        "01",
+        "09",
+        "12"
+      ],
+      "owner_pick": "06"
     },
     "status_scope": "This record status is the aggregate automatic screen across the batch; generation completion and art approval are separate."
   },
@@ -612,11 +618,11 @@
     "observed_cost": "unknown: built-in tool does not expose billing"
   },
   "cleanup_result": "Original tool outputs and copied evidence retained as requested. Scratch masks/OCR TSVs retained outside git. No hosted resources were created.",
-  "decision_link": "docs/decisions.md: owner chose technique B on WebGL; Part B references authorized, with no reference/tone/proportion picks yet",
-  "limitations_and_next_action": "Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude must review raw flags and common failures before shortlisting; the owner then picks or rejects. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.",
+  "decision_link": "docs/decisions.md: technique B on WebGL and seven provisional reference frames picked; review-status.json records exact review and pick commits; tones/proportions remain unpicked",
+  "limitations_and_next_action": "Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude reviewed the originals and challenged heuristic false positives; the owner picked provisional references. See review-status.json for exact options and decisions. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.",
   "look": {
     "technique": "n/a: AI-generated references, not a run of technique B",
-    "tone_set": "n/a: tone selection awaits owner-picked references",
+    "tone_set": "n/a: no tone selection in this generation track",
     "theme": "day",
     "rung": "machine",
     "dpr": "n/a: generated raster source; contact sheet uses deviceScaleFactor 1",
@@ -643,23 +649,41 @@
       "perspective_flags": 12,
       "orange_count_flags": 11,
       "ocr_flags": 6,
-      "claude_shortlist": "pending",
-      "owner_pick": "pending"
+      "claude_shortlist": [
+        "06",
+        "03",
+        "01",
+        "09",
+        "12"
+      ],
+      "owner_pick": "06"
     },
     "made_by": "Codex via built-in image generation, independent original calls; contact sheet composed locally from unchanged originals",
     "cross_review": {
       "reviewer_agent": "Claude",
-      "verdict": "pending",
-      "notes": "Automatic screening is not Claude review; no GPT substitute shortlist."
+      "verdict": "shortlisted",
+      "notes": "Independent review and challenges to automatic flags are in ../../claude-review-001.md; exact shortlist and decision commits are in ../../review-status.json.",
+      "shortlist": [
+        "06",
+        "03",
+        "01",
+        "09",
+        "12"
+      ]
     },
     "owner_pick": {
-      "state": "pending",
+      "state": "provisional_reference_picked",
       "options_shown": [
-        "rack-day/001/contact-sheet.png (all 12, unshortlisted)"
+        "rack-day/001/candidate-06.png",
+        "rack-day/001/candidate-03.png",
+        "rack-day/001/candidate-01.png",
+        "rack-day/001/candidate-09.png",
+        "rack-day/001/candidate-12.png"
       ],
-      "picked": "n/a: not picked",
-      "owner_note": "n/a: no pick supplied",
-      "date": "n/a: pending"
+      "picked": "rack-day/001/candidate-06.png",
+      "owner_note": "I agree with all your leanings",
+      "date": "2026-10-12",
+      "scope": "Provisional composition, density, silhouette and mood references; geometric and colour laws are checked on Floor renders. No tones, proportions or assets selected by this generation track."
     }
   }
 }

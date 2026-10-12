@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12",
+  "reviewer": "Claude",
+  "review_document": "claude-review-001.md",
+  "review_commit": "525dcd8836d85ee77da81adbb451b62924d60e7f",
+  "owner_pick_commit": "c4ed4860c2a6f1bed97c138ff7ac4ed06717546d",
+  "latest_decision_commit": "9e8c59a92362aea3fb09138d2bc0975ef549f89f",
+  "owner_note": "I agree with all your leanings",
+  "pick_scope": "Provisional composition, density, silhouette and mood references; geometric and colour laws are checked on Floor renders. No tones, proportions or assets selected by this generation track.",
+  "retention": "All 84 originals and seven PNG contact sheets remain committed under the user instruction. The review document recommendation to retain only 34 originals does not override that instruction.",
+  "automatic_screen": "Historical raw screening remains unchanged. Claude challenged false-positive perspective/OCR/orange flags; see the review document. No thresholds were retuned.",
+  "next_track": "Tones and proportions follow the recorded provisional picks and quieter-orange direction only in a separately authorized track. This generation track stops at evidence and review-metadata reconciliation.",
+  "frames": {
+    "rack-day": {
+      "shortlist": [
+        "06",
+        "03",
+        "01",
+        "09",
+        "12"
+      ],
+      "provisional_pick": "06"
+    },
+    "rack-night": {
+      "shortlist": [
+        "01",
+        "06",
+        "03",
+        "12",
+        "09"
+      ],
+      "provisional_pick": "01"
+    },
+    "stall-day": {
+      "shortlist": [
+        "10",
+        "09",
+        "05",
+        "02",
+        "12"
+      ],
+      "provisional_pick": "10"
+    },
+    "stall-night": {
+      "shortlist": [
+        "03",
+        "02",
+        "04",
+        "09",
+        "01"
+      ],
+      "provisional_pick": "03"
+    },
+    "district-day": {
+      "shortlist": [
+        "09",
+        "02",
+        "05",
+        "10",
+        "11"
+      ],
+      "provisional_pick": "09"
+    },
+    "district-night": {
+      "shortlist": [
+        "03",
+        "10",
+        "02",
+        "11",
+        "04"
+      ],
+      "provisional_pick": "03"
+    },
+    "screen-day": {
+      "shortlist": [
+        "10",
+        "01",
+        "08",
+        "06"
+      ],
+      "provisional_pick": "10"
+    }
+  }
+}

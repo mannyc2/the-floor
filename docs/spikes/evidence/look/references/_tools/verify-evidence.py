@@ -11,6 +11,7 @@ import subprocess
 root = Path.cwd()
 base = root / 'docs/spikes/evidence/look/references'
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+review = json.loads((base / 'review-status.json').read_text())
 template = json.loads((root / 'docs/spikes/evidence/record.template.json').read_text())
 records = sorted(base.glob('*/001/record.json'))
 assert len(records) == 7
@@ -20,9 +21,14 @@ for path in records:
     assert set(template) <= set(record)
     assert set(template['look']) <= set(record['look'])
     assert record['status'] in ['pass', 'fail', 'blocked', 'not_run']
-    assert record['look']['cross_review']['verdict'] == 'pending'
-    assert record['look']['owner_pick']['state'] == 'pending'
-    assert record['look']['owner_pick']['picked'].startswith('n/a:')
+    group = path.parent.parent.name
+    chosen = review['frames'][group]
+    assert record['look']['cross_review']['verdict'] == 'shortlisted'
+    assert record['look']['cross_review']['shortlist'] == chosen['shortlist']
+    assert record['look']['owner_pick']['state'] == 'provisional_reference_picked'
+    assert record['look']['owner_pick']['picked'] == f"{group}/001/candidate-{chosen['provisional_pick']}.png"
+    assert chosen['provisional_pick'] in chosen['shortlist']
+    assert f"{group} {chosen['provisional_pick']}" in (root / 'docs/decisions.md').read_text()
     for artifact in record['artifacts']:
         item = root / artifact['path']
         assert item.is_file(), item
@@ -34,6 +40,8 @@ for path in records:
 with (base / 'candidates.csv').open() as source:
     candidates = list(csv.DictReader(source))
 assert len(candidates) == 84
+assert sum(candidate['claude_review'] == 'shortlisted' for candidate in candidates) == 34
+assert sum(candidate['owner_pick'] == 'provisional_pick' for candidate in candidates) == 7
 assert len({candidate['sha256'] for candidate in candidates}) == 84
 original_paths = {
     json.loads(path.read_text())['source_path']
@@ -57,7 +65,7 @@ assert not (root / 'package.json').exists()
 report = {
     'executed_at_utc': datetime.now(timezone.utc).isoformat(),
     'source_revision': '4e0c2ca1a72166a6517cb7ca30f911e726189ece',
-    'scope': 'Static generated-reference evidence and local analysis utilities; no application implementation or art approval.',
+    'scope': 'Static generated-reference evidence and local analysis utilities; metadata records the independent Claude review and owner provisional picks, without selecting tones/proportions or implementing assets.',
     'integrity': {
         'status': 'pass', 'readable_originals': 84, 'unique_original_hashes': 84,
         'distinct_tool_output_paths': 84, 'matching_exact_prompt_hashes': 84,
@@ -83,8 +91,9 @@ report = {
         {'command': f'bun run {name}', 'status': 'not_run', 'reason': 'No root package.json or application scripts exist on this docs-only source revision. Recheck after integrating with Stage 0; no passing result is claimed.'}
         for name in ['typecheck', 'lint', 'build']
     ],
-    'review': 'Claude pending', 'owner_pick': 'pending',
-    'next_action': 'Claude reviews exclusions and common failures before a supported shortlist; owner then picks or rejects. Stop before tones/assets.'
+    'review': 'Claude reviewed and shortlisted', 'owner_pick': 'seven provisional references picked',
+    'review_status': 'review-status.json',
+    'next_action': 'Stop this generation track after candidate and review-metadata commits. Tones/proportions and assets are separate work; use the owner picks and quieter-orange direction from the decision log.'
 }
 (base / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
-print(json.dumps({'integrity': 'pass', 'records': len(records), 'record_artifacts_verified': artifact_count, 'originals': len(candidates), 'automatic_flags': 83, 'art_review': 'pending'}))
+print(json.dumps({'integrity': 'pass', 'records': len(records), 'record_artifacts_verified': artifact_count, 'originals': len(candidates), 'automatic_flags': 83, 'art_review': 'Claude shortlist and owner provisional picks recorded'}))

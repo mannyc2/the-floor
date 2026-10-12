@@ -20,6 +20,7 @@ source = SOURCE.read_text()
 style = re.search(r'\*\*Style block\*\*.*?```text\n(.*?)\n```', source, re.S).group(1)
 avoid = re.search(r'\*\*Avoid block\*\*.*?```text\n(.*?)\n```', source, re.S).group(1)
 provenance = json.loads((BASE / 'prompt-provenance.json').read_text())
+review = json.loads((BASE / 'review-status.json').read_text())
 assert SHA(SOURCE) == provenance['source']['sha256']
 assert style == provenance['style_block'] and avoid == provenance['avoid_block']
 template = json.loads((ROOT / 'docs/spikes/evidence/record.template.json').read_text())
@@ -30,6 +31,9 @@ all_image_bytes = 0
 
 for group in GROUPS:
     folder = BASE / group / '001'
+    reviewed = review['frames'][group]
+    shortlist = reviewed['shortlist']
+    picked = reviewed['provisional_pick']
     promptset = json.loads((folder / 'prompts.json').read_text())
     images = sorted(folder.glob('candidate-*.png'))
     assert len(images) == len(promptset) == 12, (group, len(images), len(promptset))
@@ -57,7 +61,7 @@ for group in GROUPS:
         assert prompt['prompt'].endswith(tail)
         assert generated['input_reference_images'] == 0
         assert (screened['width'], screened['height']) == (width, height)
-        row = {'frame': group, 'candidate': prompt['candidate'], 'path': str(path.relative_to(ROOT)), 'width': width, 'height': height, 'bytes': path.stat().st_size, 'sha256': digest, 'prompt_sha256': prompt_sha, 'screening_status': screened['screening_status'], 'perspective_status': screened['perspective']['status'], 'orange_components': screened['orange']['count'], 'ocr_flags': len(screened['ocr']['flagged_tokens']), 'nonopaque_pixels': screened['nonopaque_pixels'], 'reasons': ';'.join(screened['reasons']), 'claude_review': 'pending', 'owner_pick': 'pending'}
+        row = {'frame': group, 'candidate': prompt['candidate'], 'path': str(path.relative_to(ROOT)), 'width': width, 'height': height, 'bytes': path.stat().st_size, 'sha256': digest, 'prompt_sha256': prompt_sha, 'screening_status': screened['screening_status'], 'perspective_status': screened['perspective']['status'], 'orange_components': screened['orange']['count'], 'ocr_flags': len(screened['ocr']['flagged_tokens']), 'nonopaque_pixels': screened['nonopaque_pixels'], 'reasons': ';'.join(screened['reasons']), 'claude_review': 'shortlisted' if prompt['candidate'] in shortlist else 'reviewed_not_shortlisted', 'owner_pick': 'provisional_pick' if prompt['candidate'] == picked else 'not_picked'}
         rows.append(row)
         records.append((prompt, generated, screened))
     with Image.open(folder / 'contact-sheet.png') as sheet:
@@ -72,7 +76,7 @@ for group in GROUPS:
     orange = sum(item[2]['orange']['count'] != 1 for item in records)
     text = sum(bool(item[2]['ocr']['flagged_tokens']) for item in records)
     alpha = sum(item[2]['nonopaque_pixels'] > 0 for item in records)
-    metrics = {'threshold_source': 'No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.', 'transparency_flags': alpha, 'candidates': 12, 'automatic_rejections': rejected, 'not_flagged_automatically': 12 - rejected, 'perspective_flags': perspective, 'orange_count_flags': orange, 'ocr_flags': text, 'claude_shortlist': 'pending', 'owner_pick': 'pending'}
+    metrics = {'threshold_source': 'No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.', 'transparency_flags': alpha, 'candidates': 12, 'automatic_rejections': rejected, 'not_flagged_automatically': 12 - rejected, 'perspective_flags': perspective, 'orange_count_flags': orange, 'ocr_flags': text, 'claude_shortlist': shortlist, 'owner_pick': picked}
     summaries.append({'frame': group, **metrics})
     screening_command = f'python3 {TOOLS}/screen.py docs/spikes/evidence/look/references/{group}/001/candidate-*.png'
     contact_command = f'bun {TOOLS}/contact-sheet.mjs {group}'
@@ -102,7 +106,7 @@ for group in GROUPS:
         'status': 'fail' if rejected else 'pass',
         'executed_at_utc': min(item[1].get('copied_at_utc', item[1].get('requested_at_utc')) for item in records),
         'operator': 'Codex using built-in image_gen.imagegen, one independent call per original',
-        'reviewer': 'Claude pending; no cross-review performed in this generation track',
+        'reviewer': 'Claude; independent review recorded in claude-review-001.md',
         'source_revision': SOURCE_REVISION,
         'dependency_versions': {'Bun': '1.4.0', 'Python': '3.12.14', 'opencv-python-headless': '5.0.0.93', 'cv2': '5.0.0', 'NumPy': '2.5.4', 'Pillow': '12.3.0', 'Tesseract': '5.5.1', 'Playwright': '1.62.1', 'Chrome': '155.0.8059.39', 'image_generation_model': 'unknown: built-in tool exposes no exact model revision'},
         'api_evidence': [{'tool': 'built-in image_gen.imagegen', 'independent_calls': 12, 'input_reference_images_per_call': 0, 'prompt_set': str((folder / 'prompts.json').relative_to(ROOT)), 'result_provenance': 'candidate-NN.provenance.json', 'result_images': 'candidate-NN.png', 'montage_substitution': False}],
@@ -116,11 +120,11 @@ for group in GROUPS:
         'artifacts': artifacts,
         'policy_and_cost': {'network_policy': 'Generation uses only the built-in image tool; no provider API fallback. Local contact-sheet composition permits file/data resources only.', 'budget': 'User authorized 12–20 independent candidates per frame; 12 selected for each of 7 groups (84 total).', 'observed_cost': 'unknown: built-in tool does not expose billing'},
         'cleanup_result': 'Original tool outputs and copied evidence retained as requested. Scratch masks/OCR TSVs retained outside git. No hosted resources were created.',
-        'decision_link': 'docs/decisions.md: owner chose technique B on WebGL; Part B references authorized, with no reference/tone/proportion picks yet',
-        'limitations_and_next_action': 'Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude must review raw flags and common failures before shortlisting; the owner then picks or rejects. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.',
+        'decision_link': 'docs/decisions.md: technique B on WebGL and seven provisional reference frames picked; review-status.json records exact review and pick commits; tones/proportions remain unpicked',
+        'limitations_and_next_action': 'Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude reviewed the originals and challenged heuristic false positives; the owner picked provisional references. See review-status.json for exact options and decisions. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.',
         'look': {
             'technique': 'n/a: AI-generated references, not a run of technique B',
-            'tone_set': 'n/a: tone selection awaits owner-picked references',
+            'tone_set': 'n/a: no tone selection in this generation track',
             'theme': group.rsplit('-', 1)[1], 'rung': 'machine' if group.startswith('rack') else 'stall' if group.startswith('stall') else 'district' if group.startswith('district') else 'full screen',
             'dpr': 'n/a: generated raster source; contact sheet uses deviceScaleFactor 1',
             'camera': 'Requested orthographic from one corner, looking down 30 degrees; actual projection is generated and not calibrated; see per-image convergence metrics',
@@ -130,8 +134,8 @@ for group in GROUPS:
             'clock_and_seed': 'Generation request/completion timestamps recorded per image except first-call timing unavailable; tool exposes no seed; not deterministic',
             'metrics': metrics,
             'made_by': 'Codex via built-in image generation, independent original calls; contact sheet composed locally from unchanged originals',
-            'cross_review': {'reviewer_agent': 'Claude', 'verdict': 'pending', 'notes': 'Automatic screening is not Claude review; no GPT substitute shortlist.'},
-            'owner_pick': {'state': 'pending', 'options_shown': [f'{group}/001/contact-sheet.png (all 12, unshortlisted)'], 'picked': 'n/a: not picked', 'owner_note': 'n/a: no pick supplied', 'date': 'n/a: pending'}
+            'cross_review': {'reviewer_agent': 'Claude', 'verdict': 'shortlisted', 'notes': 'Independent review and challenges to automatic flags are in ../../claude-review-001.md; exact shortlist and decision commits are in ../../review-status.json.', 'shortlist': shortlist},
+            'owner_pick': {'state': 'provisional_reference_picked', 'options_shown': [f'{group}/001/candidate-{candidate}.png' for candidate in shortlist], 'picked': f'{group}/001/candidate-{picked}.png', 'owner_note': review['owner_note'], 'date': review['date'], 'scope': review['pick_scope']}
         }
     })
     assert set(template) <= set(record) and set(template['look']) <= set(record['look'])
@@ -142,5 +146,5 @@ with (BASE / 'candidates.csv').open('w', newline='') as output:
     writer = csv.DictWriter(output, fieldnames=rows[0].keys(), lineterminator='\n')
     writer.writeheader()
     writer.writerows(rows)
-DUMP(BASE / 'summary.json', {'packaged_at_utc': now, 'source_revision': SOURCE_REVISION, 'independent_calls': 84, 'original_images': 84, 'unique_original_hashes': len(image_hashes), 'original_image_bytes': all_image_bytes, 'contact_sheets': 7, 'groups': summaries, 'claude_review': 'pending', 'owner_pick': 'pending', 'status': 'generation complete; automatic exclusions retained; art review pending'})
+DUMP(BASE / 'summary.json', {'packaged_at_utc': now, 'source_revision': SOURCE_REVISION, 'independent_calls': 84, 'original_images': 84, 'unique_original_hashes': len(image_hashes), 'original_image_bytes': all_image_bytes, 'contact_sheets': 7, 'groups': summaries, 'claude_review': 'reviewed_and_shortlisted', 'owner_pick': 'seven_provisional_references_picked', 'review_status': 'review-status.json', 'status': 'generation complete; historical automatic flags retained; Claude review and owner provisional picks recorded; stop before tones/assets'})
 print(json.dumps({'images': len(rows), 'unique_hashes': len(image_hashes), 'image_bytes': all_image_bytes, 'contact_sheets': 7, 'groups': summaries}, indent=2))

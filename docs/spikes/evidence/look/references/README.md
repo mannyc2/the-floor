@@ -1,6 +1,6 @@
 # Part B reference generation · attempt 001
 
-This attempt contains 84 independent generated originals: 12 candidates in each of seven groups. Every original, including rejected candidates, is retained unchanged with its exact prompt, output hash and tool provenance. Automatic screening flagged 83 of the 84 candidates; only screen-day candidate 08 had no automatic flags. That is not an approval or a selection. These are unshortlisted reference contact sheets. Claude review and owner picks are pending; this batch chooses no tones, proportions, kit unit or assets.
+This attempt contains 84 independent generated originals: 12 candidates in each of seven groups. Every original, including rejected candidates, is retained unchanged with its exact prompt, output hash and tool provenance. Automatic screening flagged 83 of the 84 candidates; only screen-day candidate 08 had no automatic flags. That is not an approval or a selection. The contact sheets retain all candidates. [Claude's independent review](claude-review-001.md) shortlisted 34; the [owner's recorded decisions](../../../../decisions.md) provisionally picked rack-day **06**, rack-night **01**, stall-day **10**, stall-night **03**, district-day **09**, district-night **03** and screen-day **10**. [Review status](review-status.json) records exact options and source commits. This generation track stops here, with no tones, proportions, kit unit or assets selected.
 
 | Frame | Contact sheet | Evidence |
 | --- | --- | --- |
@@ -14,7 +14,7 @@ This attempt contains 84 independent generated originals: 12 candidates in each 
 
 The screen source explicitly describes daylight, so there is no invented night-screen group. It also explicitly removes “text, letters” from its avoid block while requesting blank type strokes; that exception is preserved. The other six groups preserve the complete style and avoid blocks. The source revision is `4e0c2ca1a72166a6517cb7ca30f911e726189ece`; the source hash and verbatim shared blocks are in [prompt provenance](prompt-provenance.json). Per-group `prompts.json` files contain the full actual tool inputs and their SHA-256 hashes. Each candidate is a separate built-in image-generation call with no input image. No generated montage stands in for independent candidates.
 
-[Summary](summary.json) gives counts by frame; [candidate inventory](candidates.csv) lists every original and its flags. All seven records use the normal evidence template. Their `status` describes the aggregate automatic screen: any flagged candidate makes that batch status `fail`. Generation completion, an automatic screen result, Claude's review and the owner's approval are distinct states. None of them is silently substituted for another.
+[Summary](summary.json) gives counts by frame; [candidate inventory](candidates.csv) lists every original and its flags. All seven records use the normal evidence template. Their `status` describes the aggregate automatic screen: any flagged candidate makes that batch status `fail`. The raw screen and per-image pending-review notes are historical generation-time observations. The current Claude shortlist and provisional owner picks are recorded separately in the inventory and review status; they do not turn heuristic flags into renderer-law passes.
 
 ## What the automatic screen establishes
 
@@ -33,9 +33,9 @@ The generation shows the drift warned about in the handoff: perspective, smooth/
 
 After the first 24 rack images exposed projection and paint drift, the remaining 60 prompts gained a separate paragraph reinforcing parallel axonometric edges, equal size at depth and clean flat regions. The source style and avoid blocks remained unchanged, and the exact addition is stored with each affected prompt. Existing images were not regenerated, replaced or hidden.
 
-The source district prompt identifies the busiest compound, with its machine mid-pour, as the orange part. The screen and stall prompts instead identify a pour; the rack identifies one drained tray. Review should use each actual source scene rather than invent a common accent object across all seven groups.
+The frozen source district prompt identifies the busiest compound as orange, while other frames name a pour or tray. The later owner decision asks the tones track to quieten the accent and show moving-liquid-only variants; it does not rewrite these historical prompts or select a tone here.
 
-Claude's next step is to inspect the originals and automatic exclusions against the handoff's common failures, record any challenge to a false-positive flag, and shortlist four to six per frame where the evidence supports that many. If a frame lacks enough suitable candidates, record that shortage instead of promoting rejected material to fill a quota. Then the owner picks one or answers “none, because…”. Picks must record date and exact options. No provisional reference goes into `testing/reference/` before that pick.
+Claude challenged the broad perspective bands, OCR texture hits and fragmented orange masks as poor rejection filters for this batch. His review remains authoritative for the shortlist; the recorded owner picks govern the provisional references. The original screen is retained without further tuning, and the geometric and colour laws must be checked on Floor renders. The review's suggestion to retain only 34 originals conflicts with the user's explicit retention instruction, so all 84 originals and seven PNG contact sheets remain committed.
 
 ## Reproduction and verification
 

@@ -1,7 +1,7 @@
 {
-  "executed_at_utc": "2026-10-12T17:27:18.723558+00:00",
+  "executed_at_utc": "2026-10-12T17:49:54.652525+00:00",
   "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
-  "scope": "Static generated-reference evidence and local analysis utilities; no application implementation or art approval.",
+  "scope": "Static generated-reference evidence and local analysis utilities; metadata records the independent Claude review and owner provisional picks, without selecting tones/proportions or implementing assets.",
   "integrity": {
     "status": "pass",
     "readable_originals": 84,
@@ -64,7 +64,8 @@
       "reason": "No root package.json or application scripts exist on this docs-only source revision. Recheck after integrating with Stage 0; no passing result is claimed."
     }
   ],
-  "review": "Claude pending",
-  "owner_pick": "pending",
-  "next_action": "Claude reviews exclusions and common failures before a supported shortlist; owner then picks or rejects. Stop before tones/assets."
+  "review": "Claude reviewed and shortlisted",
+  "owner_pick": "seven provisional references picked",
+  "review_status": "review-status.json",
+  "next_action": "Stop this generation track after candidate and review-metadata commits. Tones/proportions and assets are separate work; use the owner picks and quieter-orange direction from the decision log."
 }

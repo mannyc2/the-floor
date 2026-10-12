@@ -11,5 +11,6 @@
   "style_block": "Isometric technical illustration, orthographic camera from one corner looking down 30 degrees, no perspective. Hairline even-weight linework on every edge. Flat four-tone shading by face direction, top faces lightest. Warm paper background for day scenes, dark navy-charcoal for night. Only parts that show live data are brass, and each carries fine engraved scale marks; every other material follows the scene's architectural tradition. Exactly one part highlighted in vivid orange: the place where value is moving right now. Engineering-drawing precision with dense, purposeful detail. Calm, legible and serious, like a plate in an engineering atlas.",
   "avoid_block": "Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on robots, identical islands, generic steampunk clutter, decorative gears, brass on decorative parts, more than one orange highlight.",
   "screen_exception": "Key frame 8 is daylight and removes text/letters from the avoid block; blank type-line placeholders remain required.",
-  "art_review": "Pending Claude; automatic screening only. No owner picks, tones or asset work in this track."
+  "art_review": "Claude reviewed and shortlisted; owner provisionally picked seven references on 2026-10-12. See review-status.json. Historical image-level screening observations are unchanged.",
+  "review_status": "review-status.json"
 }
