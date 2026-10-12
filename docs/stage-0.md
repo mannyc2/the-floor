@@ -13,7 +13,7 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 | Web | Foldkit shell with production typed-health flow and a reserved map mount point | External map host, renderer, camera and picking |
 | Look harness | TypeScript metrics and deterministic drivers | External adapter, approved references, captures and phone measurements |
 | Art | Part A technique B/WebGL selected; all 84 Part B originals retained, Claude's 34-option shortlist and seven provisional owner picks recorded | Tone and proportion picks; the generation track stops before deriving them |
-| CI | Preview/admin/cleanup implementation and offline workflow syntax review | Reviewed history published at `mannyc2/the-floor`; remote CI, scoped admin setup, successful preview flow and teardown remain |
+| CI | Preview/admin/cleanup implementation and offline workflow syntax review | [Draft PR #1](https://github.com/mannyc2/the-floor/pull/1) is open; GitHub had scheduled no checks as of 18:21 UTC. Remote CI, scoped admin setup, successful preview flow and teardown remain |
 | Budget/access | Cloudflare Alchemy profile connected; one bounded native hosted stage authorized | Browser full-period allowance; separately billed providers remain outside authorization |
 
 ## Inputs from the spikes
