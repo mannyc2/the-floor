@@ -60,7 +60,10 @@ const Signed = Schema.Struct({
 const SignInput = Schema.Struct({ walletId: Id, message: Message });
 
 const wrap = (operation: string) => (cause: unknown) =>
-  new PrivyFailure({ operation, detail: "Privy request or response failed", cause });
+  // HTTP failures retain requests, including Privy's custom signature header,
+  // which Effect's default header redaction does not cover. Keep the original
+  // cause available for explicit inspection without exposing it in logs.
+  new PrivyFailure({ operation, detail: "Privy request or response failed", cause: Redacted.make(cause) });
 
 export interface Authorization {
   readonly keys: readonly CryptoKey[];

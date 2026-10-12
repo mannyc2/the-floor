@@ -1,6 +1,7 @@
 import * as Test from "alchemy/Test/Bun";
+import { inspect } from "bun";
 import { expect } from "bun:test";
-import { Effect, Exit, Layer, Redacted, Schema } from "effect";
+import { Effect, Exit, Layer, Option, Redacted, Schema } from "effect";
 import { Base64 } from "effect/encoding";
 import { FetchHttpClient, HttpClientError } from "effect/http";
 import { P256 } from "../../src/privy/authorization";
@@ -180,7 +181,7 @@ for (
   ]] as const
 ) {
   withHarness(
-    `${name} fails with its original cause and no retry`,
+    `${name} retains a redacted original cause and never retries`,
     fixture,
     Effect.gen(function*() {
       const key = yield* (yield* P256).generate;
@@ -188,12 +189,25 @@ for (
         walletId: "offline-wallet",
         message: "Floor offline probe",
       }, { keys: [key.privateKey], coSignatures: [], idempotencyKey }).pipe(Effect.flip);
-      expect(error.cause).toBeDefined();
+      expect(Redacted.isRedacted(error.cause)).toBe(true);
       expect(fixture.calls).toHaveLength(1);
+      if (!Redacted.isRedacted(error.cause)) return;
+      const cause = Redacted.value(error.cause);
+      const header = Option.fromNullishOr(fixture.calls[0]?.request.headers.get("privy-authorization-signature"));
+      expect(Option.isSome(header)).toBe(true);
+      if (Option.isNone(header)) return;
+      const signature = header.value;
+      // oxlint-disable-next-line effecttsgo/prefer-schema-over-json, effect/noGlobals -- Check the actual generic JSON logging boundary, independently of PrivyFailure's schema encoder.
+      const json = JSON.stringify(error); // @effect-diagnostics preferSchemaOverJson:off -- Native JSON logging is the behavior under test.
+      const serialized = [json, inspect(error), String(error)];
+      for (const secret of ["offline-secret", Base64.encode("offline-app:offline-secret"), signature]) {
+        expect(serialized.every(value => !value.includes(secret))).toBe(true);
+      }
       if (name === "HTTP refusal") {
-        expect(HttpClientError.isHttpClientError(error.cause)).toBe(true);
-        if (HttpClientError.isHttpClientError(error.cause) && error.cause.reason._tag === "StatusCodeError") {
-          expect(error.cause.reason.response.status).toBe(403);
+        expect(HttpClientError.isHttpClientError(cause)).toBe(true);
+        if (HttpClientError.isHttpClientError(cause) && cause.reason._tag === "StatusCodeError") {
+          expect(cause.reason.response.status).toBe(403);
+          expect(cause.request.headers["privy-authorization-signature"]).toBe(signature);
         }
       }
     }),
