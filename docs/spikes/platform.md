@@ -1,6 +1,6 @@
 # Platform spike handoff
 
-Status: **local portion run 12 October 2026; hosted portion deferred by the owner.** See the [result report](evidence/platform/report.md). The original requirements below remain exit gates; local success does not pass hosted gates.
+Status: **local checks done** ([result report](evidence/platform/report.md)); **hosted checks authorized** on 12 October 2026 within the decision log’s limits. Hosted execution and cleanup evidence are the active work.
 
 ## Purpose and scope
 

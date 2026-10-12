@@ -1,6 +1,6 @@
 # Stage 0 readiness
 
-Status: **not started**. This checklist carries the revised design into the next work session without treating workspace preparation as a completed skeleton.
+Status: **in progress** on everything the open items in the [decision log](decisions.md) don't block. Nothing here is complete until it is evidenced.
 
 ## Inputs from the spikes
 
@@ -16,7 +16,7 @@ Stage 0 starts by merging both spike branches and moving their code into its hom
 
 | Spike code | Home | Before it moves |
 | --- | --- | --- |
-| Technique B's edge pass and the colour pass (`look-a/renderer.ts`) | `apps/web` renderer | B only: drop A, C and the WebGPU paths. Rewrite the minified GLSL and 500-character lines as formatted, commented code |
+| Technique B's edge pass and the colour pass (`look-a/renderer.ts`) | `apps/web` renderer | The external Foldkit round ports it into the map host, readable and B only; it isn't ported twice |
 | Mesh attribution: `_SURFACE`, `_MAT`, kit unit (`look-a/scene.ts`) | Conventions and tokens in `packages/atlas`; the three.js helpers in `apps/web` | Same readability pass. Tokens come from Part B's picks, not the first build's |
 | SVG profile route (`svg-profiles.ts`, `svg-stall.ts`) | `apps/web` asset kit | Formatting only |
 | Part B's stall, rack and figure generators | `apps/web` asset kit | None, if Part B writes them to standard |
@@ -26,6 +26,8 @@ Stage 0 starts by merging both spike branches and moving their code into its hom
 | Doppler and `viem` construction (`kit/evm.ts`) | `packages/chains`, EVM side | None |
 | Yielded agent Durable Object on Alchemy (`alchemy-agent/test/fixtures/entry.ts`) and its admission and restart tests | `apps/floor` | Swap the scripted model for the real Layers. Consume Yielded as a package (published, or the pinned build), which retires the clone-and-replay script |
 | Alchemy beta.80 patch | Root `patches/`, through Bun's `patchedDependencies` | Drop it once upstream ships the fixes |
+
+`apps/web`'s map host, renderer, camera and picking come from the external Foldkit round (its brief is `floor-foldkit-three-r3.zip`). Stage 0 builds the Foldkit app shell around them.
 
 What stays behind as evidence only: the retired Wrangler and `effect-cf` probe (its storage findings stand), techniques A and C, the WebGPU paths, the Blender scripts and the Python drivers.
 
