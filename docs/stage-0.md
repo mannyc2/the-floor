@@ -17,7 +17,7 @@ Status: **not started**. This checklist carries the revised design into the next
 - [ ] Port and test import, app, signer, three.js, testing-data, Atlas and workbench fences; validate bundle contents as well as imports.
 - [ ] Configure the narrow API-package exception and a reasoned suppression budget.
 - [ ] Adapt the bundle-budget model and manifest walker, preserving structured failures.
-- [ ] Implement `alchemy.run.ts` and CI deployment/cleanup using the cafe reference; prove both creation and teardown of an isolated stage.
+- [ ] Implement `alchemy.run.ts` and CI as in [Alchemy's CI tutorial](https://alchemy.run/cloudflare/tutorial/part-5): a `pr-<number>` stage per pull request, cleanup on close with a guard against `prod`, a PR comment with the preview URL, and a scoped token minted by `stacks/github.ts` under a separate admin profile. Prove both creation and teardown of an isolated stage.
 - [ ] Run one production-entry flow against that stage, with an independent review of its assertions and stubs.
 - [ ] Seed `packages/atlas` from the approved look result; generate stylesheet and palette from it.
 - [ ] Add the real-renderer workbench and deterministic look harness; ensure the workbench cannot enter production bundles.

@@ -8,6 +8,26 @@ Prove the runtime-sensitive parts of the revised Floor on Cloudflare Workers and
 
 A bounded spike may establish the smallest real examples needed to answer the questions below. It does not start Stage 0, port the old app, build the product, approve the art, or authorize real funds. A successful import, typecheck, local Bun run or mocked response never counts as a hosted compatibility result.
 
+## Build it the Alchemy way
+
+Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It is how the Floor's Workers, Durable Objects, bindings, local runs, tests and deploys are written, not only how they are deployed. The spike doesn't use `wrangler.jsonc`, `wrangler dev` or `effect-cf`. If Alchemy can't do something the spike needs, that is a finding for the decision log, not a reason to drop down to Wrangler.
+
+**Where to look:**
+- **Docs.** Look up the page you need in [llms.txt](https://alchemy.run/llms.txt), and use the [Cloudflare tutorial](https://alchemy.run/cloudflare/tutorial/part-1) parts 1–5 for the basics. The cafe snapshot is an example, not the source.
+- **Credentials.** The owner signs in once with `bun alchemy profile edit --add Cloudflare`, and the profile is saved to `~/.alchemy/profiles.json`. There are no `CLOUDFLARE_*` variables locally. State is remote, through `Cloudflare.state()`.
+
+**How the Floor is built on it:**
+- **Stacks.** One root `alchemy.run.ts` holds the Floor and the web app. The signer is its own Stack, deployed separately, and the Floor reaches it through a typed cross-stack reference.
+- **Workers and Durable Objects.** Write them as `Cloudflare.Worker` and `Cloudflare.DurableObject`. Their outer Effect runs at plan time as well as at runtime, so it stays free of side effects. Bindings (D1, R2, Durable Object namespaces, the browser) come in as Layers.
+- **Scheduled work.** Agent wakes and approval expiry use durable callbacks (`Alchemy.makeCallback`), scheduled inside a storage transaction so the write and the job commit together. Delivery is at least once, so side effects carry idempotency keys.
+- **Browsers.** The `Cloudflare.Browser` binding provides quick actions, including `screenshot`, for plates. Its `raw` binding feeds Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare`) for agents' sessions.
+- **Web and API.** The web app is `Cloudflare.Website.Foldkit`. The Effect HttpApi and RPC are served from the Worker as in the Effect HTTP API guide.
+
+**Running it:**
+- **Locally.** `bun alchemy dev` runs Workers in local workerd and other resources in a cloud stage.
+- **Tests.** Use Alchemy's test harness (`Test.make`), with `dev: true` for local runs and `deploy(Stack)` and `destroy(Stack)` for hosted ones.
+- **Deploys.** `bun alchemy deploy --stage <name>` shows the plan before it applies, and `bun alchemy destroy --stage <name>` tears the stage down.
+
 ## Read first
 
 1. [Next steps](../floor-docs-2026-10-12/next-steps.md), especially the platform spike and the items to settle before Stage 0.
@@ -22,7 +42,7 @@ Read the installed package exports, types and implementation before choosing an 
 
 | Item | Current state | Needed before dependent work |
 | --- | --- | --- |
-| Cloudflare | Access and credentials not inspected | Identify the configured non-production account and access to Workers, Durable Objects, D1 and Browser Rendering; resolve missing resource or spending constraints |
+| Cloudflare | Owner signs in once with `bun alchemy profile edit --add Cloudflare` | Then confirm access to Workers, Durable Objects, D1 and Browser Rendering through that profile |
 | Privy | Access and credentials not inspected | Identify the configured sandbox application and intended co-signing arrangement; ask only if missing or ambiguous |
 | Inference providers | Access and credentials not inspected | Use the configured test providers within a small model budget; ask only if a choice or limit is missing |
 | Codex market-data provider | Access and credentials not inspected | Identify the configured data-provider account referenced by the product docs; this is distinct from the coding app |
@@ -45,7 +65,7 @@ These are observations from the first build on 12 October 2026. They are referen
 | Browser alternatives | effect-browser and effect-browserbase 0.3.0-beta.14 | Inspect the selected versions. Local `Chromium.open` requires Bun or Node and is for development and flows; it is not a Worker implementation. |
 | SQL | `@effect/sql-sqlite-do` and `@effect/sql-d1` 4.0.3 exist in old `node_modules` | Neither is in the old lockfile. Add exact dependencies and a reproducible lockfile if selected; installed leftovers are not reproducible dependencies. |
 | AI providers | `@effect/ai-openai` 4.0.0 | It has no Decisions provider. Inspect the old adapter as a reference; do not invent a native export. No Anthropic provider was installed in the first build. Resolve and verify it before relying on Claude defaults. |
-| Alchemy | Not installed in old Floor; Cafe has no `node_modules` | Cafe's catalog pins `alchemy` and `@alchemy.run/frontend-frameworks` to 2.0.0-beta.81. Verify these together in the spike; Cafe source is not proof of local execution. |
+| Alchemy | `alchemy` 2.0.0-beta.81, the current release (5 October 2026), with `effect` ^4.0.0 as a peer | Pin it with `@alchemy.run/frontend-frameworks` at the same version. The cafe snapshot carries a patch for duplicated Workers AI streaming text; keep it only if the Floor uses that path. |
 | Cafe patch | `patches/alchemy@2.0.0-beta.81.patch` | It deduplicates mirrored Workers AI streaming text. Assess whether the selected Alchemy version still needs it; do not silently discard or carry an unrelated patch. |
 | Launch SDKs | Exact installed versions not verified by this preparation | Resolve Meteora and Doppler releases and inspect their exports. The source docs anticipate a breaking Meteora SDK release; a planned release date is not an installed API. |
 
@@ -57,7 +77,7 @@ Every check below starts **not run**. Keep local and hosted results separate.
 
 ### 1. Agent Durable Object and browser
 
-Resolve the Yielded Cloudflare adapter package and version, then inspect `DurableAgentRuntime`, `WakeScheduler`, capture, interactive-browser, browser-use and code-executor capabilities before wiring them. Prove a bounded agent loop inside an actual Durable Object, with an alarm causing a wakeup independently of market polling. Record what survives object restart and how sessions and resources are released.
+Resolve the Yielded Cloudflare adapter package and version, then inspect `DurableAgentRuntime`, `WakeScheduler`, capture, interactive-browser, browser-use and code-executor capabilities before wiring them. Prove a bounded agent loop inside an actual `Cloudflare.DurableObject`, woken by a durable callback (`Alchemy.makeCallback`) independently of market polling. Record what survives object restart and how sessions and resources are released.
 
 Demonstrate page capture and an interactive navigation/action sequence through the selected hosted browser. Prove that the desk's live view can display the active session and that owner takeover works; describe the supported ownership and resume behavior from the installed API. Observe idle expiry and reconnection. The source docs report a maximum ten-minute gap between commands; verify the selected provider/version's limit rather than assuming it still holds.
 
@@ -81,13 +101,13 @@ Keep wallet and launch SDKs behind their respective service boundaries. The sign
 
 ### 3. Headless rendering
 
-Have Cloudflare Browser Rendering produce a plate from a bounded scene using the real browser renderer, in coordination with the look spike. Record renderer revision, asset digests, scene specification, camera, clock, viewport, device pixel ratio and the resulting image digest. Prove the scene actually rendered and distinguish browser startup, asset loading and rendering failures.
+Have Cloudflare Browser Rendering produce a plate, through the `Cloudflare.Browser` binding's `screenshot` action, from a bounded scene using the real browser renderer, in coordination with the look spike. Record renderer revision, asset digests, scene specification, camera, clock, viewport, device pixel ratio and the resulting image digest. Prove the scene actually rendered and distinguish browser startup, asset loading and rendering failures.
 
 Keep three.js in the web renderer. The Worker orchestrates Browser Rendering; importing three.js into a server rendering fallback does not satisfy this check. An image copied from disk, an old screenshot, a blank placeholder or an unrelated rendering sample does not count. If the real scene is not ready, retain a dependency status rather than marking the check passed. This checks platform execution, not artistic acceptance.
 
 ### 4. Storage
 
-Exercise both pinned Effect SQL adapters on workerd with the intended Cloudflare bindings. Prove schema initialization/migration, write/read and persistence across the relevant Durable Object lifecycle or fresh request. Test a minimal transaction with an intentional failure and verify its actual rollback semantics. Record any difference between local emulation and the hosted binding.
+Start with Alchemy's own storage paths: Durable Object storage with `Cloudflare.SqlMigrations`, and D1 through Alchemy's Effect SQL guide. Try `@effect/sql-sqlite-do` only if those fall short. Run the checks under `bun alchemy dev` and on a deployed stage. Prove schema initialization/migration, write/read and persistence across the relevant Durable Object lifecycle or fresh request. Test a minimal transaction with an intentional failure and verify its actual rollback semantics. Record any difference between local emulation and the hosted binding.
 
 Identify the proposed history and journal stores explicitly. For the Durable Object journal, prove the transaction primitives needed for atomic conditional updates and report concurrency limitations; the full receipt, restart and power-loss suite remains Stage 4 work. Do not assume D1 and Durable Object SQLite provide identical transactions. A successful in-memory or Bun SQLite test is not evidence for either binding.
 
@@ -101,7 +121,7 @@ Resolve an Anthropic provider and demonstrate the selected test model through th
 
 ### 7. Deploy and destroy
 
-Use the inspected Cafe `alchemy.run.ts` pattern to deploy a uniquely named, temporary non-production stage with the spike's actual Worker, bindings and bounded Foldkit site. Confirm required accounts, non-secret stage identity and spending bounds first. Record the resolved Alchemy version, any patch, resource identities, deployed revision and a successful request to the deployed entry point.
+Following Alchemy's tutorial and stages docs, deploy a uniquely named, temporary non-production stage with the spike's actual Worker, bindings and bounded Foldkit site. Confirm required accounts, non-secret stage identity and spending bounds first. Record the resolved Alchemy version, any patch, resource identities, deployed revision and a successful request to the deployed entry point.
 
 Design cleanup before deployment. Run destruction for the exact spike-owned stage when checks finish, including after failed checks; then verify which resources remain. A successful CLI exit without checking the resulting resource state is incomplete cleanup evidence. Record a failed cleanup as an unresolved exit gate and identify its owner.
 
