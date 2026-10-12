@@ -53,8 +53,8 @@
     {
       "path": "docs/spikes/evidence/look/runtime-prerequisite/001/matrix-status.csv",
       "committed": true,
-      "bytes": 9261,
-      "sha256": "e1ee4e6625e01f4cc8f92bbf35e04f3e57abb490a79ccbc057d599889f0ee894",
+      "bytes": 9152,
+      "sha256": "4d252316811794fe1de834f5c7cb39827782ed1a1d72da297d4c8f4b454e55e2",
       "regenerate": "Observation record; rerun named prerequisite checks after disk cleanup as a new attempt. Matrix rows enumerate the handoff dimensions, not measurements."
     },
     {
