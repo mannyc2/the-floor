@@ -2,7 +2,7 @@
 
 **The owner picked B, the surface-ID-and-depth pass, on WebGL on 12 October 2026.** A, the normal-and-depth pass, remains the fallback. Both repeat exactly in the required SwiftShader matrix, meet the sampled one-CSS-pixel stroke requirement at all three rungs and DPRs, and remain within the local phone-profile CPU budget. B retains more of the CPU reference's edges at similar cost. C loses parts of thin silhouettes to depth testing and fails eight of eighteen stroke samples per backend, so it is not offered as an option.
 
-**Part A is complete; hold Stage 0 pending the remaining gates.** The owner saw no visible difference between A and B and chose “whatever’s optimal”; the measured comparison determined B. The pick is recorded in the [decision log](../../../decisions.md) by commit `14501e7`.
+**Part A is complete. Technical recommendation: proceed with the owner-picked B/WebGL technique into Part B; hold Stage 0 pending the remaining gates.** The owner saw no visible difference between A and B and chose “whatever’s optimal”; the measured comparison determined B. The pick is recorded in the [decision log](../../../decisions.md) by commit `14501e7`.
 
 The owner has started Part B in the [current handoff](../../look.md). **This branch’s work executed Part A only; it did not execute Part B or Stage 0.** Tones, proportions, kit unit, reference frames and assets remain unpicked. Part A’s stand-in scene is test geometry, not an approved look. No hosted run, deployment, provider spend or push occurred.
 
