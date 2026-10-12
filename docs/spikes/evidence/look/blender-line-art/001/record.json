@@ -4,7 +4,7 @@
   "status": "blocked",
   "executed_at_utc": "2026-10-12T12:58:22.734375+00:00",
   "operator": "Codex blender_target subagent",
-  "reviewer": "Pending independent agent review",
+  "reviewer": "Root agent: technical evidence, links and artifact hashes reviewed; no art approval",
   "source_revision": "880f213389a11f1ec57903dcbfbd9334d0a1bce8",
   "dependency_versions": {
     "Blender": "not installed; planned 4.5.14 macOS arm64 LTS"
@@ -131,16 +131,16 @@
     },
     "made_by": "Codex Blender target subagent; shared scene authored by parent agent",
     "cross_review": {
-      "reviewer_agent": "Pending",
-      "verdict": "not_reviewed",
-      "notes": "No rendered target exists to review."
+      "reviewer_agent": "Root agent",
+      "verdict": "technical evidence review passed; no visual review possible",
+      "notes": "Reviewed blocked status, artifact hashes/paths and absence of runtime claims. No rendered option exists; this is not an art approval."
     },
     "owner_pick": {
       "state": "pending",
       "options_shown": [],
-      "picked": "n/a",
-      "owner_note": "",
-      "date": "n/a"
+      "picked": "n/a: no rendered options or owner pick",
+      "owner_note": "n/a: no rendered options or owner pick",
+      "date": "n/a: no rendered options or owner pick"
     }
   }
 }
