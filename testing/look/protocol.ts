@@ -9,11 +9,11 @@ export const CaptureConfiguration = Schema.Struct({
   technique: Schema.Literal("B"),
   backend: Schema.Literal("webgl"),
   theme: Schema.Literals(["day", "night"]),
-  rung: Schema.Literals(["district", "works", "machine"]),
+  rung: Schema.Literals(["building", "floor", "desk"]),
   dpr: Schema.Literals([1, 2, 3]),
   width: positiveInteger,
   height: positiveInteger,
-  stalls: positiveInteger,
+  desks: positiveInteger,
   asset: Schema.Literals(["scene", "rack"]),
   seed: Schema.Int,
   fixedTimeEpochMs: Schema.Finite,
@@ -66,7 +66,7 @@ declare global {
 
 export const matrixConfigurations = (): ReadonlyArray<CaptureConfiguration> => {
   const themes: ReadonlyArray<CaptureConfiguration["theme"]> = ["day", "night"];
-  const rungs: ReadonlyArray<CaptureConfiguration["rung"]> = ["district", "works", "machine"];
+  const rungs: ReadonlyArray<CaptureConfiguration["rung"]> = ["building", "floor", "desk"];
   const dprs: ReadonlyArray<CaptureConfiguration["dpr"]> = [1, 2, 3];
   return themes.flatMap((theme) =>
     rungs.flatMap((rung) =>
@@ -78,7 +78,7 @@ export const matrixConfigurations = (): ReadonlyArray<CaptureConfiguration> => {
         dpr,
         width: 480,
         height: 360,
-        stalls: 12,
+        desks: 12,
         asset: "scene",
         seed: fixedSeed,
         fixedTimeEpochMs,

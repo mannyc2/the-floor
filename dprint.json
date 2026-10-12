@@ -15,7 +15,8 @@
     "package.json",
     "tsconfig*.json",
     "dprint.json",
-    ".oxlintrc.json"
+    ".oxlintrc.json",
+    "apps/web/workbench/**/*.ts"
   ],
   "excludes": [
     "work/**",
@@ -23,7 +24,6 @@
     "**/node_modules/**",
     "**/.alchemy/**",
     "**/client/**",
-    "**/spikes/**",
     "packages/chains/idl/**",
     "packages/chains/test/fixtures/**"
   ],

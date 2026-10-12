@@ -1,5 +1,17 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": { "types": ["bun"], "lib": ["ES2024", "DOM"] },
-  "include": ["*.ts"]
+  "compilerOptions": {
+    "types": [
+      "bun",
+      "vite/client"
+    ],
+    "lib": [
+      "ES2024",
+      "DOM"
+    ]
+  },
+  "include": [
+    "**/*.ts",
+    "../../apps/web/workbench/three-edge-projection.d.ts"
+  ]
 }

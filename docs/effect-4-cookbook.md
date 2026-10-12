@@ -82,12 +82,12 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
 
 ## Don't
 
-These don't exist or don't work in Effect 4:
+Avoid these old APIs and unsupported boundary patterns:
 
 - `Data.struct`.
 - `Schema.keyof`.
 - `Option.fromNullable`; use `Option.fromNullishOr` or `Option.fromNullOr`.
 - `import { Encoding } from "effect"`; use `effect/encoding`.
 - `Schema.Number`; use `Schema.Finite`.
-- `encodeSync`; use the Effect-returning encoders.
+- Synchronous Schema encoders exist in installed 4.0.3, but use the Effect-returning encoders by default. A synchronous Foldkit view that stores a typed presentation in a DOM attribute uses `Schema.encodeSync` at that exact boundary, with a reasoned diagnostic exception.
 - `decodeUnknown*` on values that are already typed.

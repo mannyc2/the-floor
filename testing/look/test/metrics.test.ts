@@ -90,12 +90,21 @@ test("stroke width is measured in CSS pixels and preserves Python ties-to-even s
     gray.data[5] = 0;
     const result = yield* cylinderWidth(gray, { x: 4.5, y: 0.5 }, 2);
     expect(result.rasterRow).toBe(0);
-    expect(result.thresholdWidthCssPx).toBe(1);
+    expect(Option.getOrNull(result.thresholdWidthCssPx)).toBe(1);
     expect(result.integratedDarknessCssPx).toBe(1);
-    expect(result.withinOnePlusMinusQuarter).toBe(true);
+    expect(Option.getOrNull(result.withinOnePlusMinusQuarter)).toBe(true);
     const missing = yield* cylinderWidth(raster(12, 1, repeated(12, 255)), { x: 5, y: 0 }, 1);
-    expect(missing.thresholdWidthCssPx).toBe(0);
+    expect(Option.isNone(missing.thresholdWidthCssPx)).toBe(true);
+    expect(Option.isNone(missing.withinOnePlusMinusQuarter)).toBe(true);
     expect(Option.isNone(missing.nearestRunDistanceCssPx)).toBe(true);
+    expect(missing.integratedDarknessCssPx).toBe(0);
+    const unrelated = raster(12, 1, repeated(12, 255));
+    unrelated.data[1] = 0;
+    const distant = yield* cylinderWidth(unrelated, { x: 5, y: 0 }, 1);
+    expect(Option.isNone(distant.thresholdWidthCssPx)).toBe(true);
+    expect(Option.isNone(distant.withinOnePlusMinusQuarter)).toBe(true);
+    expect(Option.getOrNull(distant.nearestRunDistanceCssPx)).toBe(4);
+    expect(distant.integratedDarknessCssPx).toBe(1);
   })));
 
 test("repeatability examines every RGBA channel and pixel", () =>

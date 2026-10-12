@@ -295,7 +295,7 @@ Once frames are picked, each scene, theme and pixel ratio also gets:
 - metrics against the picked frame: the tone histogram, line density per tile, silhouette overlap, brass only inside instrument masks, and the smallest tick spacing;
 - the side-by-side image for the owner's pick. Changing an approved frame needs a new pick.
 
-The harness's capture settings still use older rung names (`district`, `works`, `machine`) and a stall count. Switch them to the floor's rungs (`building`, `floor`, `desk`) and a desk count when the renderer's look route lands. The renderer source it was built against is in [`apps/web/spikes/look-a`](../apps/web/spikes/look-a/README.md).
+The harness and renderer use `building`, `floor` and `desk`, with a desk count. The development-only `/look/` adapter exposes the capture protocol; web-owned edge projection and primitive silhouettes supply independent synthetic targets. Owner approval of reference frames remains a separate gate.
 
 ## Common failures
 

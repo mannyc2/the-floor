@@ -17,6 +17,6 @@ The custom rules cover imports, re-exports, literal and computed dynamic imports
 
 Build checks independently inspect the reachable emitted module graph and every source map. A full AST parser rejects computed module dependencies; literal dynamic imports and re-exports are traversed. Missing or empty maps fail, except the individually hashed reviewed bundler helper. Nonempty `sourceRoot` fails closed rather than changing source authority invisibly. Web modules must also appear in the Vite manifest. Production bundle checks cover actual web, Floor and chain artifacts; the signer target is tested with negative fixtures until a signer app exists.
 
-Bundle budgets remain data: 200 KiB initial and 180 KiB deferred gzip. The temporary shell profile measures the initial app and explicitly leaves the external renderer gate pending. The default complete profile requires a deferred entry.
+Bundle budgets remain data: 200 KiB initial and 180 KiB deferred gzip. The complete profile is the web build default and requires a deferred renderer entry. The shell profile remains available only for bundle-check fixtures.
 
-`work/`, the unported renderer source in `apps/web/spikes/` and generated dependency output are outside active source checks. Explicit root test paths keep Bun's substring test discovery away from them. Do not weaken these boundaries to make a check pass.
+`work/` and generated dependency output are outside active source checks. Renderer source, the development workbench and their tests all receive the full checks. Explicit root test paths keep Bun's substring test discovery away from them. Do not weaken these boundaries to make a check pass.

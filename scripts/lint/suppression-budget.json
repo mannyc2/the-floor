@@ -55,7 +55,39 @@
     "oxlint": 1,
     "effect": 0
   },
+  "apps/web/src/map/_lib/renderer/engine.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "apps/web/src/map/_lib/renderer/service.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "apps/web/src/map/main.ts": {
+    "oxlint": 1,
+    "effect": 1
+  },
+  "apps/web/test/_runtime.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "apps/web/test/protocols.test.ts": {
+    "oxlint": 4,
+    "effect": 0
+  },
   "apps/web/vite.config.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "apps/web/workbench/api.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "apps/web/workbench/entry.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "apps/web/workbench/generate-targets.ts": {
     "oxlint": 1,
     "effect": 0
   },
@@ -150,6 +182,38 @@
   "testing/flows/playwright.config.ts": {
     "oxlint": 1,
     "effect": 0
+  },
+  "testing/flows/renderer/behavior.spec.ts": {
+    "oxlint": 5,
+    "effect": 19
+  },
+  "testing/flows/renderer/fixture.ts": {
+    "oxlint": 7,
+    "effect": 5
+  },
+  "testing/flows/renderer/host.spec.ts": {
+    "oxlint": 1,
+    "effect": 1
+  },
+  "testing/flows/renderer/look.spec.ts": {
+    "oxlint": 4,
+    "effect": 0
+  },
+  "testing/flows/renderer/measurements.spec.ts": {
+    "oxlint": 5,
+    "effect": 7
+  },
+  "testing/flows/renderer/phone.spec.ts": {
+    "oxlint": 2,
+    "effect": 4
+  },
+  "testing/flows/renderer/quarantine.spec.ts": {
+    "oxlint": 2,
+    "effect": 2
+  },
+  "testing/flows/renderer/reconciliation.spec.ts": {
+    "oxlint": 1,
+    "effect": 2
   },
   "testing/flows/shell.spec.ts": {
     "oxlint": 1,

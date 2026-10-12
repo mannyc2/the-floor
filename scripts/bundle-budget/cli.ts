@@ -59,7 +59,7 @@ const command = Command.make(
     yield* Effect.logInfo(`web: ${result.modules} emitted modules, ${result.mappedSources} mapped sources inspected`);
     if (profile === "shell") {
       yield* Effect.logInfo(
-        "Shell budget measured. Deferred renderer acceptance remains pending the external Foldkit renderer.",
+        "Shell-only budget measured; renderer acceptance requires the complete profile.",
       );
     }
     return void 0;

@@ -101,7 +101,7 @@ const navigate = Effect.fn("openLookConfiguration")(
       return yield* new HarnessBlocked({
         reason: state._tag === "Failed"
           ? state.reason
-          : "The external web renderer must provide protocol v1 on window.floorLook",
+          : "The web renderer must provide protocol v1 on window.floorLook",
       });
     }
     if (!Schema.toEquivalence(CaptureConfiguration)(state.config, config)) {
@@ -226,17 +226,17 @@ const timingJson = (value: Effect.Success<ReturnType<typeof summarizeTimes>>) =>
   over16_7ms: value.over16_7ms,
   cpuBudget16_7ms: Option.getOrNull(value.cpuBudget16_7ms),
 });
-const phoneCell = Effect.fn("capturePhoneProfile")(function*(browser: Browser, options: DriverOptions, stalls: number) {
+const phoneCell = Effect.fn("capturePhoneProfile")(function*(browser: Browser, options: DriverOptions, desks: number) {
   const config: CaptureConfiguration = {
     technique: "B",
     backend: "webgl",
     theme: "day",
-    rung: "district",
+    rung: "building",
     asset: "scene",
     width: 390,
     height: 844,
     dpr: 3,
-    stalls,
+    desks,
     seed: fixedSeed,
     fixedTimeEpochMs,
   };
@@ -247,7 +247,7 @@ const phoneCell = Effect.fn("capturePhoneProfile")(function*(browser: Browser, o
     "Emulation.setCPUThrottlingRate",
     () => cdp.send("Emulation.setCPUThrottlingRate", { rate: phoneProfile.cpuThrottlingRate }),
   );
-  const id = `webgl-B-${stalls}`;
+  const id = `webgl-B-${desks}`;
   yield* Effect.acquireRelease(
     browserCall(
       "tracing.start",
@@ -289,27 +289,22 @@ const phoneCell = Effect.fn("capturePhoneProfile")(function*(browser: Browser, o
     cpu: timingJson(cpu),
     completedFrame: timingJson(completed),
     gpu,
-    limitation:
-      "390×844 DPR 3 with 4× CPU throttling on desktop Apple GPU; this is not a real phone. Playwright trace is retained; GPU duration is only the adapter's actual timer query.",
+    limitation: options.renderer === "apple"
+      ? "390×844 DPR 3 with 4× CPU throttling on desktop Apple GPU; this is not a real phone. Playwright trace is retained; GPU duration is only the adapter's actual timer query."
+      : "390×844 DPR 3 with 4× CPU throttling and desktop SwiftShader software rendering; this is not an Apple hardware measurement or a real phone. Playwright trace is retained; GPU duration is only the adapter's actual timer query.",
   };
   yield* writeJson(`${options.output}/${id}.json`, row);
   return row;
 }, Effect.scoped);
 
 const runPhoneProfile = Effect.fn("runPhoneProfile")(function*(options: DriverOptions) {
-  if (options.renderer !== "apple") {
-    return yield* new HarnessBlocked({
-      reason:
-        "The inherited phone profile requires the measured Apple hardware path; software rendering is a separate experiment",
-    });
-  }
   yield* newOutput(options.output);
   const browser = yield* browserResource(options.renderer);
   const rows: Array<Schema.Json> = [];
-  for (const stalls of [12, 1000]) {
-    const exit = yield* Effect.exit(phoneCell(browser, options, stalls));
+  for (const desks of [12, 1000]) {
+    const exit = yield* Effect.exit(phoneCell(browser, options, desks));
     if (Exit.isFailure(exit)) {
-      rows.push({ status: "failed", stalls, reason: Cause.pretty(exit.cause) });
+      rows.push({ status: "failed", desks, reason: Cause.pretty(exit.cause) });
       yield* writeJson(`${options.output}/results.json`, rows);
       return yield* new HarnessBlocked({ reason: "Phone profile failed; the cell and browser trace are retained" });
     }
@@ -324,12 +319,12 @@ const rackMask = Effect.fn("captureRackMask")(function*(browser: Browser, option
     technique: "B",
     backend: "webgl",
     theme: "day",
-    rung: "works",
+    rung: "floor",
     asset: "rack",
     width,
     height: width,
     dpr: 1,
-    stalls: 12,
+    desks: 12,
     seed: fixedSeed,
     fixedTimeEpochMs,
   };

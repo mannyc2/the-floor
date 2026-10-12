@@ -23,6 +23,6 @@ Organize application source by the feature that uses it, not by technical mechan
 
 App and package leaf tests live in their own `test/`; test Layers live in `src/testing/`. Cross-package tests use public exports, never relative imports into another package's source. A package's tests do not depend on flow fixtures.
 
-The workbench will be `apps/web/workbench/`; reference scene specs are `testing/look/scenes/`; approved frames go in `testing/reference/`. The Atlas and the web renderer's files come from the look's recorded picks and the external renderer round (see `docs/look.md`). `apps/web/spikes/look-a` holds renderer source waiting for that port; delete it once the port lands.
+The workbench is `apps/web/workbench/`; reference scene specs are `testing/look/scenes/`; approved frames go in `testing/reference/`. The map host and renderer live under `apps/web/src/map`. Workbench diagnostics and edge-projection tools cannot enter the production import graph. The Atlas values come from the owner's recorded visual picks (see `docs/look.md`).
 
 Keep `docs/the-floor.md` and `docs/technical-design.md` current. Record decisions and their reasons in `docs/decisions.md`; where they disagree, the decision log wins and the current doc gets fixed. Record each result with the doc or decision it supports, and keep raw output in `work/`, which git ignores.

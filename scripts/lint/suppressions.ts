@@ -12,7 +12,7 @@ class SuppressionBudgetError extends Schema.TaggedError<SuppressionBudgetError>(
   }
 }
 const excluded = (file: string) =>
-  file.split("/").some(part => ["node_modules", "spikes", "dist", "work", ".alchemy"].includes(part));
+  file.split("/").some(part => ["node_modules", "dist", "work", ".alchemy"].includes(part));
 
 export const countSuppressions = (
   file: string,

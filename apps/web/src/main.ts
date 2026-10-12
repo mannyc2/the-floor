@@ -1,15 +1,22 @@
 import { FloorHttpApi } from "@floor/api/http";
 import { Health } from "@floor/contract/health";
-import { Effect, Schema } from "effect";
+import { Effect, Option, Schema } from "effect";
 import { HttpApiClient } from "effect/http-api";
 import { Command, Http, Runtime, Update } from "foldkit";
 import type { Document, HtmlBuilder } from "foldkit/html";
 import { defineMessageUnion } from "foldkit/message";
 import { modifyFields } from "foldkit/struct";
+import type { MapCommands } from "./map/_lib/renderer/service";
+import * as Map from "./map/main";
+import { Message as MapMessage } from "./map/message";
 
-export const Model = Schema.Struct({ connection: Schema.Literals(["idle", "checking", "connected", "unavailable"]) });
+export const Model = Schema.Struct({
+  connection: Schema.Literals(["idle", "checking", "connected", "unavailable"]),
+  map: Map.Model,
+});
 export type Model = typeof Model.Type;
 export const Message = defineMessageUnion({
+  GotMapMessage: { message: MapMessage },
   ClickedCheckConnection: {},
   SucceededCheckConnection: { health: Health },
   FailedCheckConnection: {},
@@ -33,9 +40,20 @@ const CheckConnection = Command.define("CheckConnection", {
   ),
 });
 
-export const init: Runtime.ApplicationInit<Model, Message> = () => ({ model: { connection: "idle" } });
-export const update = (model: Model, message: Message): Update.Return<Model, Message> =>
+export const makeInit = (map: Map.Model): Runtime.ApplicationInit<Model, Message, void, MapCommands> => () => ({
+  model: { connection: "idle", map },
+});
+
+const toGotMapMessage = (message: MapMessage): Message => Message.GotMapMessage({ message });
+const foldMap = Update.foldChild({
+  update: Map.update,
+  read: (model: Model) => Option.some(model.map),
+  write: (model: Model, map: Map.Model) => modifyFields(model, { map: () => map }),
+  toParentMessage: toGotMapMessage,
+});
+export const update = (model: Model, message: Message): Update.Return<Model, Message, MapCommands> =>
   Message.match(message, {
+    GotMapMessage: ({ message: child }) => foldMap(model, child),
     ClickedCheckConnection: () =>
       model.connection === "checking"
         ? { model }
@@ -51,18 +69,27 @@ const connectionText = {
   unavailable: "Connection unavailable. Try again.",
 };
 
-export const view = (model: Model, h: HtmlBuilder<Message>): Document => ({
-  title: "The Floor",
-  body: h.main([], [
-    h.header([], [h.h1([], ["The Floor"])]),
-    // The external Foldkit renderer owns this slot's eventual scoped mount and disposal.
-    // No stand-in geometry or unapproved Atlas values enter the product shell.
-    h.section([h.Id("floor-map"), h.AriaLabel("District map")], [h.p([], ["The district is being prepared."])]),
-    h.section([h.AriaLabel("Connection")], [
-      h.p([h.Role("status"), h.AriaLive("polite")], [connectionText[model.connection]]),
-      h.button([h.OnClick(Message.ClickedCheckConnection()), h.Disabled(model.connection === "checking")], [
-        "Check connection",
+export const makeView = (commands: MapCommands["Service"]) => {
+  const mapView = Map.makeView(commands);
+  return (model: Model, h: HtmlBuilder<Message>): Document => ({
+    title: "The Floor",
+    body: h.main([h.Class("floor-shell")], [
+      h.header([h.Class("floor-heading")], [
+        h.h1([], ["The Floor"]),
+        h.p([], ["Synthetic renderer test scene — reference art pending"]),
+      ]),
+      h.div([h.Id("floor-map")], [h.submodel({
+        slotId: "map",
+        view: mapView,
+        model: model.map,
+        toParentMessage: toGotMapMessage,
+      })]),
+      h.section([h.AriaLabel("Connection"), h.Class("floor-connection")], [
+        h.p([h.Role("status"), h.AriaLive("polite")], [connectionText[model.connection]]),
+        h.button([h.OnClick(Message.ClickedCheckConnection()), h.Disabled(model.connection === "checking")], [
+          "Check connection",
+        ]),
       ]),
     ]),
-  ]),
-});
+  });
+};

@@ -22,8 +22,6 @@ Deployable applications live in `apps/`. Shared code belongs in real workspace p
 
 `contract` contains Schemas and imports only Effect and its own modules. `api` defines HTTP/RPC from those Schemas and is the sole internal exception for unstable API exports. `world` is the world model without three.js; `atlas` is the design system. Contributed pieces import only the world kit and run only in the piece sandbox. Three.js belongs only in `apps/web`. Signer code and its bundle must contain no models, inference providers or Floor application code.
 
-`apps/web/spikes/look-a` holds renderer source waiting to be ported into `apps/web`. It is outside every check. Never import it, and delete it once the port lands.
-
 Keep test Layers behind `./testing` exports. Production cannot import or read testing data, including copied fixtures. Recordings remain labelled replay data. Never represent absent evidence as zero or a fake result as a measured one.
 
 Use tagged Schema errors with structured fields and preserved foreign causes. Use `Option` and `DateTime` past boundaries. Each external SDK has one service edge. Scheduled work owns its alarm. Mount imperative resources through scoped services.

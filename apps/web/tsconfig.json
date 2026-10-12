@@ -13,10 +13,11 @@
   },
   "include": [
     "src/**/*.ts",
-    "vite.config.ts"
+    "vite.config.ts",
+    "workbench/**/*.ts",
+    "test/**/*.ts"
   ],
   "exclude": [
-    "spikes",
     "node_modules"
   ]
 }

@@ -10,7 +10,7 @@ import { CaptureConfiguration, Sha256 } from "./protocol";
 const RasterPoint = Schema.Struct({ x: Schema.Finite, y: Schema.Finite });
 const localPng = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_-]+\.png$/));
 const Target = Schema.Struct({
-  rung: Schema.Literals(["district", "works", "machine"]),
+  rung: Schema.Literals(["building", "floor", "desk"]),
   dpr: Schema.Literals([1, 2, 3]),
   image: localPng,
   imageSha256: Sha256,
@@ -39,7 +39,7 @@ const PrimitiveReport = Schema.Struct({
 const Capture = Schema.Union([
   Schema.Struct({
     status: Schema.Literal("measured"),
-    id: Schema.String.check(Schema.isPattern(/^B-(day|night)-(district|works|machine)-[123]$/)),
+    id: Schema.String.check(Schema.isPattern(/^B-(day|night)-(building|floor|desk)-[123]$/)),
     config: CaptureConfiguration,
     sourceSceneSha256: Sha256,
     repeatable: Schema.Boolean,
@@ -137,7 +137,9 @@ const measureCell = Effect.fn("measureLookCell")(
 );
 const widthJson = (value: Effect.Success<ReturnType<typeof cylinderWidth>>) => ({
   ...value,
+  thresholdWidthCssPx: optionalNumber(value.thresholdWidthCssPx),
   nearestRunDistanceCssPx: optionalNumber(value.nearestRunDistanceCssPx),
+  withinOnePlusMinusQuarter: Option.getOrNull(value.withinOnePlusMinusQuarter),
 });
 const measuredJson = (value: Effect.Success<ReturnType<typeof measureCell>>): Schema.Json => {
   if (value.status === "not_measured") return { status: value.status, config: value.config, reason: value.reason };
@@ -238,7 +240,8 @@ const measure = Effect.fn("measureLookAttempt")(
         unmeasuredCells: rows.length - measured.length,
         exactF1: Option.getOrNull(stats(exact)),
         tolerantF1: Option.getOrNull(stats(tolerant)),
-        localStrokeWidthFailures: measured.filter((row) => !row.cylinderWidth.withinOnePlusMinusQuarter).length,
+        localStrokeWidthFailures:
+          measured.filter((row) => !Option.getOrElse(row.cylinderWidth.withinOnePlusMinusQuarter, () => false)).length,
       },
     };
     yield* fs.makeDirectory(paths.output, { recursive: true });
@@ -261,8 +264,8 @@ const measure = Effect.fn("measureLookAttempt")(
           row.config.dpr,
           Option.getOrElse(row.againstTarget.exactF1, () => ""),
           Option.getOrElse(row.againstTarget.tolerantF1, () => ""),
-          row.cylinderWidth.thresholdWidthCssPx,
-          row.cylinderWidth.withinOnePlusMinusQuarter,
+          Option.getOrElse(row.cylinderWidth.thresholdWidthCssPx, () => ""),
+          Option.getOrElse(row.cylinderWidth.withinOnePlusMinusQuarter, () => ""),
           Option.getOrElse(row.cylinderInterior.meanFalseCrossingsPer100CssPx, () => ""),
         ].join(","),
       );

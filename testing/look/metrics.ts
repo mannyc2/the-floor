@@ -131,7 +131,9 @@ export const cylinderWidth = Effect.fnUntraced(
         runStart = Option.none();
       }
     }
-    const width = Option.match(nearest, { onNone: () => 0, onSome: (run) => run.distance <= 2 * dpr ? run.width : 0 });
+    // An absent or unrelated run cannot establish a zero-width stroke. Keep
+    // that gap explicit while retaining the independently measured darkness.
+    const width = Option.flatMap(nearest, (run) => run.distance <= 2 * dpr ? Option.some(run.width) : Option.none());
     return {
       sampleCssXy: [sample.x / dpr, sample.y / dpr],
       rasterRow: row,
@@ -139,7 +141,7 @@ export const cylinderWidth = Effect.fnUntraced(
       thresholdWidthCssPx: width,
       nearestRunDistanceCssPx: Option.map(nearest, (run) => run.distance / dpr),
       integratedDarknessCssPx: darkness / dpr,
-      withinOnePlusMinusQuarter: width >= 0.75 && width <= 1.25,
+      withinOnePlusMinusQuarter: Option.map(width, (value) => value >= 0.75 && value <= 1.25),
     };
   },
 );
