@@ -114,7 +114,7 @@ Image models drift on exactly what the Floor cares about: true orthographic proj
 
 ### 4. Assets by route
 
-Make the stall, the rack housing and one figure by both routes: a three.js generator, and SVG profiles turned into geometry. Compare each against the picked references using:
+Make the stall, the rack housing and one figure by both routes: a three.js generator, and SVG profiles turned into geometry. These are the real assets, not stand-ins: write them formatted and commented, as Stage 0 will move them into `apps/web` unchanged. Compare each against the picked references using:
 - the tone histogram;
 - edge density per tile;
 - silhouette overlap with the reference's main forms;

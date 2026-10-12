@@ -29,6 +29,6 @@ Use tagged Schema errors with structured fields and preserved foreign causes. Us
 
 ## Acceptance
 
-No Stage 0 completion claim until both spike decisions are recorded and every item in `docs/stage-0.md` is evidenced. No feature work before the Stage 0 checks and stage review. Art approval is the owner's recorded pick between shortlisted options. An agent never approves its own output, and the other agent's review is a filter, not an approval. Spike evidence goes in `docs/spikes/evidence/`, scratch in `work/`. Record deviations before merging.
+No Stage 0 completion claim until both spike decisions are recorded and every item in `docs/stage-0.md` is evidenced. No feature work before the Stage 0 checks and stage review. Art approval is the owner's recorded pick between shortlisted options. An agent never approves its own output, and the other agent's review is a filter, not an approval. Spike evidence goes in `docs/spikes/evidence/`, scratch in `work/`. Spike code is the first draft of the real code: write it to this file's standards, and Stage 0 moves it into place rather than rewriting it. Record deviations before merging.
 
 Once implementation starts, `bun run typecheck`, `bun run lint` and `bun run build` must pass, alongside the relevant formatting, test, flow, look and deployment checks in `docs/Codex/verification.md`. Do not weaken checks or substitute placeholders to manufacture a pass.
