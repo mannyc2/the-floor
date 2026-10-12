@@ -21,11 +21,14 @@ Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It i
 - **Workers and Durable Objects.** Write them as `Cloudflare.Worker` and `Cloudflare.DurableObject`. Their outer Effect runs at plan time as well as at runtime, so it stays free of side effects. Bindings (D1, R2, Durable Object namespaces, the browser) come in as Layers.
 - **Scheduled work.** Agent wakes and approval expiry use durable callbacks (`Alchemy.makeCallback`), scheduled inside a storage transaction so the write and the job commit together. Delivery is at least once, so side effects carry idempotency keys.
 - **Browsers.** The `Cloudflare.Browser` binding provides quick actions, including `screenshot`, for plates. Its `raw` binding feeds Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare`) for agents' sessions.
-- **The agent's Durable Object.** Yielded's thread object, built on `effect-cf`, is the agent runtime. The spike proves Alchemy deploys it and binds it to the Floor's Worker.
-  - If Alchemy can't, there are two ways forward, and the choice and its reason go in the decision log:
-    - build the agent object as an Alchemy Durable Object on Yielded's core and SQL storage;
-    - or run the agent Worker on `effect-cf`, with Alchemy deploying it as a plain module.
-  - Two Cloudflare runtimes elsewhere in the app is not an option.
+- **The agent's Durable Object.** The first choice is Yielded's Alchemy platform, from [yielded-dev/agent#557](https://github.com/yielded-dev/agent/pull/557). It hosts Yielded's `ThreadObject` in an Alchemy `DurableObject` with no `effect-cf`, sharing storage and recovery with the `effect-cf` adapter. Its [example stack](https://github.com/yielded-dev/agent/blob/codex/platform-alchemy-cloudflare/examples/alchemy-cloudflare/alchemy.run.ts) is the pattern to follow.
+
+  As of 12 October the PR is open and conflicts with `main`, though its CI is green. The package isn't published, and it needs [a patch](https://github.com/yielded-dev/agent/blob/codex/platform-alchemy-cloudflare/patches/alchemy%402.0.0-beta.80.patch) on Alchemy beta.80: Durable Object RPC dispatch, an interrupted-transaction rollback fix, and runtime module exports. None of that is in beta.81. So the spike:
+  - builds the package from the PR branch at a pinned commit (`0adbcff` or later);
+  - pins Alchemy to beta.80 with the PR's patch through Bun's `patchedDependencies`, and records whether the patch also applies to beta.81;
+  - proves a Yielded agent turn, a wake and a restart inside it.
+
+  The fallback is Yielded's `effect-cf` adapter for the agent Worker only, deployed by Alchemy as a plain module. The PR can adopt the old six-column `effect-cf` alarm format, but formats from `effect-cf` 0.53 onward fail without mutation, so don't let the fallback hold data we'd need to migrate. Either way, the choice goes in the decision log. Two Cloudflare runtimes elsewhere in the app is not an option.
 - **Web and API.** The web app is `Cloudflare.Website.Foldkit`. The Effect HttpApi and RPC are served from the Worker as in the Effect HTTP API guide.
 
 **Running it:**

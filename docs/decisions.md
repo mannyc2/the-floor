@@ -28,6 +28,7 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 | Owner's picks | Roles settled above; no picks yet | The owner's picks of reference frames, technique, tones and proportions from shortlisted options | Look spike Part B exit |
 | Cloudflare access | Account readiness unchecked | Workers, Durable Objects and Browser Rendering access; scoped test stage and cleanup | Hosted platform checks |
 | Wallet, inference and market-data accounts | Readiness unchecked | Privy sandbox; selected inference providers; Codex market-data account (codex.io) | Respective platform checks and Stage 0 needs |
+| Yielded on Alchemy | yielded-dev/agent#557 (open, unpublished) needs a patch on Alchemy beta.80 | The PR merged and `@yielded/agent-platform-alchemy-cloudflare` published, with its Alchemy fixes released upstream, or a decision to carry a pinned build and patch until then | Stage 0 |
 | Browser package and containment | Cloudflare default, Browserbase fallback | Package/version exporting the adapters; tested network containment, live view and takeover | Platform spike exit |
 | Runtime compatibility | Workers and Durable Objects target | workerd evidence for SDKs, storage, Web Crypto and renderer; logged deviations where necessary | Platform spike exit |
 | Rendering technique and Atlas values | Unselected | Part A's measurements, then the owner's picks of technique, tones, kit unit, line spec and proportions | Look spike exit |
