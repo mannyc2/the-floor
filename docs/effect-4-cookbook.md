@@ -64,6 +64,22 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
     - Fake an HTTP edge with `HttpClient.make(…)` returning `HttpClientResponse.fromWeb(request, new Response(…))`.
     - Prove something is sent only once with `Deferred`, `Effect.forkScoped`, `Effect.all({ concurrency: 2 })` and `Ref` counters.
 
+## Fibers
+
+- **Choose a fiber's lifetime on purpose.**
+  - `Effect.forkChild` ends with its parent fiber. Use it for concurrent work inside one operation.
+  - `Effect.forkScoped` ends when the current scope closes, even after its parent has finished. Use it for background workers owned by a mount or a Layer, such as the renderer's animation loop and observers.
+  - `Effect.forkIn(effect, scope)` ends when a given scope closes, for work that must outlive an inner scope but not an outer one.
+  - `Effect.forkDetach` lives until it completes or the program ends. Don't use it in the Floor's code: a detached fiber outlives its owner and leaks work.
+- **Interrupt and wait.**
+  - `Fiber.interrupt(fiber)` returns only after the fiber has stopped and its finalizers have run. Use it wherever cleanup must finish before the next step, such as retiring a renderer before acquiring the next one.
+  - `fiber.interruptUnsafe()` only signals; it doesn't wait.
+  - Replacing a `FiberMap` entry interrupts the previous fiber without waiting for its cleanup, so a `FiberMap` can't enforce "release before reacquire".
+  - `FiberSet.size` reports 0 as soon as the set's scope starts closing, while interruption may still be running. To prove cleanup, await the scope's closure and check the resources themselves.
+- **Read outcomes.** `Fiber.join` re-raises the fiber's failure. `Fiber.await` returns its `Exit`, which tells an interruption from a failure. Pair it with `Effect.track(metric, mapExit)` to count outcomes by kind.
+- **Expect late starts.** A forked fiber starts only after the current fiber yields, and even a yield doesn't guarantee it has started. In tests, signal readiness with a `Deferred` before sending work, never `Effect.sleep` or `Effect.yieldNow`. A subscriber that starts late misses earlier changes, so where late joiners matter, prefer state that holds the latest value, like the renderer's display slot, over a stream of events.
+- **Count fibers in tests and the workbench.** `Metric.enableRuntimeMetricsLayer` records `child_fibers_active`, `child_fibers_started`, `child_fiber_successes` and `child_fiber_failures`. Every exit that isn't a success counts as a failure, including a normal interruption at unmount, so classify outcomes with `Fiber.await` and `Effect.track` instead. Fiber counts returning to baseline don't prove that other resources, such as WebGL contexts or listeners, were released. Effect 4 has no `Supervisor.track` or `Effect.supervised`.
+
 ## Don't
 
 These don't exist or don't work in Effect 4:
