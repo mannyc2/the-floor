@@ -24,13 +24,13 @@ These don't change with any pick; the picks fill in their values. The same rules
 | Reference | The desk, a figure, each fixed place and every zoom rung has a picked reference frame. A drawing is judged against its frame, not only against these rules |
 | Line | One hairline weight everywhere: one CSS pixel, drawn by technique B. Every line ends on a face, another line or a dot. A line's tone may vary by class; its weight never does |
 | Shading | Four tones by face direction, tops lightest. No gradients, no glow, no photographic light |
-| Brass | Means live data. Only parts bound to live data are brass, and every brass part carries an engraved scale. Nothing else is brass: not trim, not lamp bases, not a statue |
+| Brass | Means live data. Only parts bound to live data are brass, and every brass part carries an engraved scale. Nothing else is brass: not trim, not lamp bases, not a statue. On a screen, a live price line is drawn in brass |
 | No accent | Nothing is highlighted to mark activity |
 | Scales | One tick system on every engraved scale: a major mark every fifth tick, minor marks between, and no numbers |
 | Paper | One paper material, for the papers on desks, notes, receipts, ticker tape and plates, and nothing else |
 | Blueprint | Proposed or unbuilt. A piece is drawn in blueprint linework until its checks pass |
 | Materials | Chosen by the floor's tradition, which the owner picks first |
-| Logos | Printed onto a surface in the drawing (a plate, a banner, a mascot's base), foreshortened with it. Never floated flat over the drawing |
+| Logos | Printed onto a surface in the drawing (a screen, a name plate, a mascot's base), foreshortened with it. Never floated flat over the drawing |
 | Words | None in the drawing except logos and name plates. Tickers, numbers and labels live in the atlas layer |
 
 ## Voice and writing
@@ -54,7 +54,7 @@ A rulebook says what the drawing means. A renderer also needs numbers and shapes
 
 | Kind | What the Atlas must say |
 | --- | --- |
-| Scale | The kit unit and the figure ratio. Envelopes for the desk, the figures, the pit, the ticker wall, the bell, the board wall, the records room's cabinets and the lobby plinths. Row spacing and floor density |
+| Scale | The kit unit and the figure ratio. Envelopes for the trading post and its stations, the figures, the wall of screens, the bell, the podium, the whiteboards, the file room's cabinets, and the lobby's elevators and plinths. Station spacing, posts per floor and floor density |
 | Materials | Each material's four-tone ramp per theme, its line colour, how glass is drawn, and which materials a contributor may assign |
 | Shading | Which face takes which tone, how cylinders are banded, the floor's tone, and what lights up at night (desk lamps and screens; an asleep agent's lamp is off). With quarter turns it must also say whether the light turns with the camera or stays with the room |
 | Line | The line classes (silhouette, crease, material boundary) as surface ids, the tone of each class (floor joints lighter than furniture), and what replaces thin lines at distant rungs, since they don't survive 64-pixel impostors |
@@ -155,7 +155,7 @@ The look tests need every font loaded and content-hashed, so the fonts ship with
 - **Colour.** Text is `ink` on the ground, paper or any tone. Secondary text is `ink-muted`, on the ground or paper only. Text is never brass or blueprint. Notes, receipts and plates sit on paper with a hairline edge. Blueprint is used only for proposed or unbuilt things, and only as linework.
 - **Corners.** Every view keeps the four corners of an engraved plate, inset by `space-4`:
   - top left, the place: the floor, or a place on it;
-  - top right, the path back up the zoom ladder, in `ui-label`: Floor › Solana › the pit;
+  - top right, the path back up the zoom ladder, in `ui-label`: Floor › Solana › post 12;
   - bottom left, one hint;
   - bottom right, the live readout, which changes in place and is never animated like a counter.
 
@@ -171,14 +171,15 @@ The interface components, and what each is on the floor:
 
 | Component | On the floor |
 | --- | --- |
-| Note | One claim, with its sources and the author's position. The agent's words are in the notes face; everything the Floor adds is in the interface faces. In the drawing, notes are papers on the desks of the agents working from them, and are filed in the records room. Board posts are cards pinned to the board wall |
-| Receipt | An action, its cause, the policy result with the limits it was checked against, and its transaction. In the drawing, a receipt prints on its agent's ticker tape, and the trade lands on the ticker wall. A decision waiting for the owner shows the waiting flag, the reason and Approve and Decline: Approve is an `ink` button with paper text, and Decline is a hairline outline. Waiting decisions expire rather than proceed, with the time left in `ink-muted`. Nothing on it is highlighted |
+| Note | One claim, with its sources and the author's position. The agent's words are in the notes face; everything the Floor adds is in the interface faces. In the drawing, notes are papers on the desks of the agents working from them, and are filed in the file room. Board messages are cards pinned to the whiteboards |
+| Receipt | An action, its cause, the policy result with the limits it was checked against, and its transaction. In the drawing, a receipt prints on its agent's ticker tape, and the trade lands on its post's screens. A decision waiting for the owner shows the waiting flag, the reason and Approve and Decline: Approve is an `ink` button with paper text, and Decline is a hairline outline. Waiting decisions expire rather than proceed, with the time left in `ink-muted`. Nothing on it is highlighted |
 | Plate | The drawing on paper inside one hairline frame with a `space-8` margin, a permanent number in the top corner, the title below and its receipts linked. Plates also serve as link previews. The Floor's own plates need the renderer; plates anyone can make are cut from the first milestone |
 | AtlasLabel | Labels in the atlas layer, with the floor's levels: `atlas-floor`, `atlas-place` and `atlas-name` |
 | ViewCorners | The four corners above |
 | Emblem | Eight shapes (circle, triangle, square, diamond, hexagon, cross, crescent and star) with at most one modifier (a bar, a dot or a ring), drawn in `ink`. An emblem is a shape, never a colour. It appears on the agent's chest, on its desk's name plate, and stamped on its receipts. Only agents in the same place need different emblems |
 | EngravedScale | The tick system on every brass reading, cut in `engraving` and outlined in `line`. Numbers sit in a readout beside it, never on the scale. If alerts ship, an alert is a mark scribed across the scale |
-| BrassReading | The brass reading on a ticker-wall plate or a desk piece: a needle or float against an engraved day-range scale, so from across the floor you can see whether a token sits near its high or its low |
+| BrassReading | The brass reading on a desk piece or above an elevator: a needle or float against an engraved scale, so from across the floor you can see where a value sits in its range |
+| TokenScreen | A token on a screen: its emblem and its price line, drawn in brass with a faint scale, and nothing else. It appears on a post's monitors and on the wall of screens; the ticker and numbers sit in the label layer |
 | WaitingFlag | A small flag raised over the desk while a decision waits for its owner. It is a simple two-colour pattern in the palette, always with its name beside it in `ui-label`, at 3:2 (48×32 in legends, 18×12 inline). An asleep or paused agent's lamp goes off instead, and a page that tried to instruct the agent is marked on its desk's screen. Alert, Verified and Contradicted flags wait for alerts and claim checking. Don't invent flags for one-off states |
 | Cover | The cover of the generated Atlas page |
 
@@ -210,15 +211,14 @@ There is no Blender for the MVP. Every asset is made as code, following the same
 - **No textures** beyond logo decals.
 
 The floor needs at least:
-- the desk, with its screen, lamp, papers, name plate, flag and a socket for a desk piece;
-- figures: seated, standing, walking and asleep;
-- the pit;
-- the ticker wall and its plates;
-- the bell;
-- the board wall and its cards;
-- the records room's cabinets;
-- the lobby's plinths;
-- banners for the rafters;
+- the trading post: a round counter under a cluster of monitors, with 8 to 12 stations;
+- the station, an agent's desk: its screen, phone, lamp, papers, ticker tape, name plate, flag and a socket for a desk piece;
+- figures: seated, standing, on the phone, arm raised, walking and asleep, with clothing as a parameter;
+- the token screen, and the wall of screens;
+- the bell and the podium;
+- the whiteboards and their cards;
+- the file room's cabinets;
+- the lobby: reception, the elevators and the plinths;
 - paper planes;
 - drafting tables.
 
@@ -227,7 +227,7 @@ The floor needs at least:
 | Field | Holds |
 | --- | --- |
 | `id` | For example `desk/standard` |
-| `kind` | `desk`, `figure`, `fixture` (the pit, the ticker wall, the bell, the board wall, cabinets, plinths), `prop` or `instrument` |
+| `kind` | `desk`, `figure`, `fixture` (posts, the wall of screens, the bell, the podium, whiteboards, cabinets, elevators, plinths), `prop` or `instrument` |
 | `tradition` | The picked tradition's id, or `any` |
 | `source` | `Generated`, with its generator and parameters. `Modelled` (a `.blend` and its glTF) stays in the schema for Blender later |
 | `envelope` | Its size in kit units, checked against the model's bounds |
@@ -244,7 +244,7 @@ The floor needs at least:
 | Field | Holds |
 | --- | --- |
 | `id` | The scene's name |
-| `frame` | Which of the look round's frames it realises: the floor, one desk, agents at work, or the screen |
+| `frame` | Which of the look round's frames it realises: the floor, a post, agents at work, the lobby, the building, the screen or the character sheet |
 | `rung` | `building`, `floor` or `desk` |
 | `camera` | Centre, world units per CSS pixel, quarter turn, viewport, and pixel ratio 1, 2 or 3 |
 | `themes` | Day and night |
@@ -304,11 +304,12 @@ Renderers and image models drift in predictable ways. Check every render and ref
 - **Perspective creeping in:** far desks shrink and rows converge.
 - **A broken cutaway:** the nearest walls or ceiling drawn over the floor, or a cut that doesn't follow the quarter turn.
 - **Bloom and glow** smearing the linework, especially around desk lamps and screens at night.
-- **Text in the drawing:** readable screens, writing on papers, the ticker wall, signs or the floor.
+- **Text in the drawing:** readable screens, writing on papers, the wall of screens, signs or the floor.
 - **Highlighting activity:** any accent colour or glow marking where things are happening.
 - **Brass on decoration** (rails, lamp bases, trim), or brass readings without engraved scales.
 - **Sameness:** identical desks in identical rows, generic office cubicles, or generic steampunk clutter instead of the floor's tradition.
 - **A hall instead of a floor:** arches, banners, pews, banker's lamps, wood panelling or statues on plinths that make it read as a church, library or museum rather than a working trading floor.
+- **Flags:** pennants, banners, or emblem panels with dials that read as heraldry instead of tokens. A token is a screen with its emblem and price line.
 - **Wrong figures:** faces, or a crowd dressed identically.
 - **Floating things:** objects with no base, plates with no logo, desks with no name plate.
 - **Logos pasted flat** over the drawing instead of printed onto a surface.
