@@ -1,6 +1,6 @@
 # The Floor
 
-Stage 0 is in progress on `stage-0`. The public repository is [mannyc2/the-floor](https://github.com/mannyc2/the-floor). The local skeleton has a Foldkit web shell, an Alchemy Worker with native Yielded agent Durable Objects, explicit contract/API boundaries, and the promoted Solana/EVM construction package. The map host and renderer come from the external Foldkit round. Look values and reference frames await the owner's Part B picks. No Stage 0 completion or feature approval is implied.
+Stage 0 is in progress on `stage-0`. The public repository is [mannyc2/the-floor](https://github.com/mannyc2/the-floor). The local skeleton has a Foldkit web shell, an Alchemy Worker with native Yielded agent Durable Objects, explicit contract/API boundaries, and the promoted Solana/EVM construction package. The map host and renderer come from the external Foldkit round. The owner's seven provisional reference picks are recorded; tones and proportions remain open. No Stage 0 completion or feature approval is implied.
 
 ## Start here
 
@@ -39,8 +39,12 @@ The preview and cleanup workflows are implemented, with a `pr-<number>` guard, s
 
 For the single-stage proof, set the repository variable `FLOOR_PREVIEW_PR` to the admitted PR's positive number and `FLOOR_PREVIEW_ENABLED` to `true` only after checking the allowance. Both deployment checks require that exact admission. Disable `FLOOR_PREVIEW_ENABLED` before closing the proof PR, but retain `FLOOR_PREVIEW_CONFIGURED=true`, its credentials, and the admitted number until cleanup and resource absence are verified. Drain queued runs before clearing or changing the admission; changing a variable does not revoke an already-running job. Fork PRs receive no deployment secrets and their closure cannot start Cloudflare cleanup. The cleanup workflow can still be dispatched manually for a validated `pr-<number>` stage.
 
+Standard public GitHub runners are free. Artifact storage has a separate pooled allowance, so `FLOOR_UPLOAD_ARTIFACTS` remains unset until that allowance is verified; setup caching is disabled. Tests still create recordings on the runner, but disabled uploads do not retain them after the job. A separately recorded local flow against the deployed preview can provide review evidence, labelled with its actual execution host.
+
 The six private Yielded packages are pinned, hashed builds of PR 557 at `0adbcff`, with the recorded Effect 4.0.3 Crypto adaptation and Alchemy beta.80 patch. [Provenance](vendor/yielded/0adbcff-effect-4.0.3/provenance.json) and immutable runtime attempts remain reviewable. Active builds consume the tarballs directly.
 
 ## Historical inputs
 
 The eight copied documents and their [checksums](docs/reference-sources.json), [platform spike report](docs/spikes/evidence/platform/report.md), and [Look Part A report](docs/spikes/evidence/look/report.md) retain their original scope. `reference/` is a read-only source snapshot, excluded from every active tool and never executed or imported. It remains until Stage 0 has completed its remaining ports, then is removed with its history retained.
+
+The public export omits `reference/cafe-reference/` throughout its history because the pinned upstream supplies no redistribution license. The complete original history remains local. Exported commit IDs therefore differ; immutable evidence keeps its original source hashes, and the publication record maps the reviewed revisions.
