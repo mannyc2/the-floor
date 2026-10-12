@@ -10,7 +10,7 @@ A bounded spike may establish the smallest real examples needed to answer the qu
 
 ## Build it the Alchemy way
 
-Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It is how the Floor's Workers, Durable Objects, bindings, local runs, tests and deploys are written, not only how they are deployed. The spike doesn't use `wrangler.jsonc`, `wrangler dev` or `effect-cf`. If Alchemy can't do something the spike needs, that is a finding for the decision log, not a reason to drop down to Wrangler.
+Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It is how the Floor's Workers, Durable Objects, bindings, local runs, tests and deploys are written, not only how they are deployed. The spike doesn't use `wrangler.jsonc` or `wrangler dev`. `effect-cf` appears only underneath Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare` requires it), inside the agent's Durable Object. The Floor's own Workers and Durable Objects are Alchemy resources. If Alchemy can't do something the spike needs, that is a finding for the decision log, not a reason to drop down to Wrangler.
 
 **Where to look:**
 - **Docs.** Look up the page you need in [llms.txt](https://alchemy.run/llms.txt), and use the [Cloudflare tutorial](https://alchemy.run/cloudflare/tutorial/part-1) parts 1–5 for the basics. The cafe snapshot is an example, not the source.
@@ -21,6 +21,11 @@ Alchemy v2 (`alchemy@2.0.0-beta.81`, the current release) is Effect-native. It i
 - **Workers and Durable Objects.** Write them as `Cloudflare.Worker` and `Cloudflare.DurableObject`. Their outer Effect runs at plan time as well as at runtime, so it stays free of side effects. Bindings (D1, R2, Durable Object namespaces, the browser) come in as Layers.
 - **Scheduled work.** Agent wakes and approval expiry use durable callbacks (`Alchemy.makeCallback`), scheduled inside a storage transaction so the write and the job commit together. Delivery is at least once, so side effects carry idempotency keys.
 - **Browsers.** The `Cloudflare.Browser` binding provides quick actions, including `screenshot`, for plates. Its `raw` binding feeds Yielded's Cloudflare adapter (`@yielded/agent-platform-cloudflare`) for agents' sessions.
+- **The agent's Durable Object.** Yielded's thread object, built on `effect-cf`, is the agent runtime. The spike proves Alchemy deploys it and binds it to the Floor's Worker.
+  - If Alchemy can't, there are two ways forward, and the choice and its reason go in the decision log:
+    - build the agent object as an Alchemy Durable Object on Yielded's core and SQL storage;
+    - or run the agent Worker on `effect-cf`, with Alchemy deploying it as a plain module.
+  - Two Cloudflare runtimes elsewhere in the app is not an option.
 - **Web and API.** The web app is `Cloudflare.Website.Foldkit`. The Effect HttpApi and RPC are served from the Worker as in the Effect HTTP API guide.
 
 **Running it:**
@@ -102,7 +107,7 @@ Inside the Worker, construct the smallest representative launch transaction for 
 - **No web3.js stack.** No `@solana/web3.js`, Anchor, `bn.js` or `@solana/spl-token` in any Worker bundle.
 - **Meteora** gets a Kit client generated with Codama from the DBC program's Anchor IDL (`packages/dynamic-bonding-curve/src/idl/dynamic-bonding-curve/idl.json` in Meteora's SDK repo, program `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN`). Regenerate it when the program upgrades. The quote, fee and curve maths the Floor needs is ported from Meteora's `src/math` to native `bigint` as pure functions. The official SDK may be a dev-only test oracle, checking our instructions and quotes against its output, but never a production dependency.
 - **EVM** uses `viem`, which Doppler and Privy already require. Doppler builds the EVM launch. Its own `@solana/kit` 6 dependency must not reach a bundle that doesn't use it; record whether it does.
-- **Privy** lists `@solana/kit` ^5 as an optional peer. Check whether its Solana signing works with Kit 8, or sign our own Kit-built transactions through Privy's API without its Kit helpers. Capture the selected venue, network/checkpoint where applicable, construction inputs, serialized-output digest and incompatibilities. Construction does not prove broadcast, graduation, vesting, migration or allocation locks. If simulation is feasible within the approved sandbox/fork scope, record it separately; later launch flows remain Stage 4 work.
+- **Privy.** Try a small Effect client over `HttpClient` for the handful of endpoints the Floor uses: wallets, policies, key quorums and signing. Request authorization signatures are P-256 over canonical JSON, through Web Crypto. `@privy-io/node` (nine dependencies) may serve as a dev-only oracle for those signatures. If the native client proves fiddly, use the SDK behind the wallets edge and record it. Capture the selected venue, network/checkpoint where applicable, construction inputs, serialized-output digest and incompatibilities. Construction does not prove broadcast, graduation, vesting, migration or allocation locks. If simulation is feasible within the approved sandbox/fork scope, record it separately; later launch flows remain Stage 4 work.
 
 Keep wallet and launch SDKs behind their respective service boundaries. The signer example must not import inference or the agent runtime. Preserve foreign failures as causes of typed errors. A Node-only or unsupported dependency is a measured incompatibility to resolve and log, not a reason to quietly move signing back to Bun.
 
