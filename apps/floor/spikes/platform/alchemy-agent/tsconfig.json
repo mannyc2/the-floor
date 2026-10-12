@@ -1,8 +1,10 @@
 {
+  "extends": "../../../../../tsconfig.json",
   "compilerOptions": {
     "target": "ES2024",
     "lib": ["ES2024"],
     "types": ["@cloudflare/workers-types", "bun"]
   },
-  "include": ["test/**/*.ts"]
+  "include": ["test/**/*.ts"],
+  "exclude": ["node_modules"]
 }

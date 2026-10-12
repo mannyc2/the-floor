@@ -1,0 +1,15 @@
+{
+  "exitCode": 0,
+  "command": "bun packages/platform-alchemy-cloudflare/node_modules/typescript/bin/tsc --noEmit -p packages/platform-alchemy-cloudflare/work-floor-check/tsconfig.json",
+  "workingDirectory": "work/yielded-pack/source",
+  "typescript": "7.0.2",
+  "scope": "Six published source trees under the inherited upstream strict configuration; excludes tests and release tooling",
+  "packageChecks": {
+    "effect-agent": "pass",
+    "storage-sql": "pass",
+    "platform-cloudflare": "pass",
+    "platform-alchemy-cloudflare": "pass",
+    "storage-cloudflare": "fail; retained upstream test errors",
+    "testing": "fail; retained upstream test/other-adapter errors"
+  }
+}

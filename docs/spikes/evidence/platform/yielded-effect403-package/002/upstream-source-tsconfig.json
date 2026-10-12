@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "../../effect-agent/src/**/*.ts",
+    "../../storage-sql/src/**/*.ts",
+    "../../storage-cloudflare/src/**/*.ts",
+    "../../platform-cloudflare/src/**/*.ts",
+    "../../platform-alchemy-cloudflare/src/**/*.ts",
+    "../../testing/src/**/*.ts"
+  ]
+}

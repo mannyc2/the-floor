@@ -1,0 +1,113 @@
+$ sh ./test/run.sh
+bun test v1.4.0 (34cbb9a40)
+
+test/admission.test.ts:
+[16:01:17.231] INFO (#5): Plan: 2 to create, 4 binding changes
+[16:01:17.234] INFO (#5): [FloorLocalAgent] create (local)
+[16:01:17.234] INFO (#5): [FloorLocalAgent/CALLBACKS] create
+[16:01:17.234] INFO (#5): [FloorLocalAgent/FloorStorage] create
+[16:01:17.234] INFO (#5): [FloorLocalAgent/STORAGE] create
+[16:01:17.234] INFO (#5): [FloorLocalAgent/THREADS] create
+[16:01:17.234] INFO (#5): [FloorStorage] create (local)
+[16:01:17.234] INFO (#5): 
+[16:01:17.240] INFO (#471): [FloorLocalAgent] pre-creating (local)
+[16:01:17.243] INFO (#470): [FloorStorage] creating (local)
+[16:01:17.342] INFO (#471): [FloorLocalAgent] creating (local)
+[16:01:17.345] INFO (#470): [FloorStorage] created (local) (102ms)
+[16:01:17.349] INFO (#471): [FloorLocalAgent] ready at http://localhost:19732
+[16:01:17.349] INFO (#471): [FloorLocalAgent] created (local) (109ms)
+[16:01:17.353] INFO (#541): [FloorStorage] created (local) (110ms)
+[16:01:17.353] INFO (#542): [FloorLocalAgent] created (local) (113ms)
+[16:01:17.366] INFO (#5): 
+[16:01:17.366] INFO (#5): Done: 2 succeeded (132ms)
+[16:01:19.331] INFO (#534): [FloorLocalAgent] Started in 1984ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[FloorLocalAgent] Durable Object alarm callback failed
+[FloorLocalAgent] RpcCallError: RPC call to "submitProbe" failed: o.randomUUIDv7.pipe is not a function
+[FloorLocalAgent]     at catch (file:///bundle/entry.js:1137:14056)
+[FloorLocalAgent]     at file:///bundle/Schema-YmQmguxm.js:13:6380
+[FloorLocalAgent]     at Effect.fn (file:///bundle/entry.js:1163:7655)
+[FloorLocalAgent]     at Effect.fn (definition) (file:///bundle/entry.js:1163:7057)
+[FloorLocalAgent]     at Effect.fn (file:///bundle/Schema-YmQmguxm.js:13:10219)
+[FloorLocalAgent]     at Effect.fn (definition) (file:///bundle/entry.js:1137:16302) {
+[FloorLocalAgent]   [cause]: TypeError: o.randomUUIDv7.pipe is not a function
+[FloorLocalAgent] }
+[FloorLocalAgent] HTTP handler failed
+[FloorLocalAgent] RpcCallError: RPC call to "snapshot" failed: 
+[FloorLocalAgent]     at catch (file:///bundle/entry.js:1137:14056)
+[FloorLocalAgent]     at file:///bundle/Schema-YmQmguxm.js:13:6380 {
+[FloorLocalAgent]   [cause]: ThreadNotMaterialized: 
+[FloorLocalAgent] }
+146 |  *
+147 |  * @stability unstable
+148 |  * @category filtering
+149 |  * @since 4.0.0
+150 |  */
+151 | export const filterStatusOk = self => self.status >= 200 && self.status < 300 ? Effect.succeed(self) : Effect.fail(new Error.HttpClientError({
+                                                                                                                         ^
+error: StatusCode: non 2xx status code (500 GET http://localhost:19732/snapshot?thread=native-1791820877372)
+       _tag: "HttpClientError",
+ ~effect/http/HttpClientError: "~effect/http/HttpClientError",
+
+      at filterStatusOk (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/http/HttpClientResponse.js:151:116)
+      at runLoop (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:451:88)
+      at evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:400:23)
+      at runInAsyncScope (node:async_hooks:193:23)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:806:17)
+
+147 |  * @stability unstable
+148 |  * @category filtering
+149 |  * @since 4.0.0
+150 |  */
+151 | export const filterStatusOk = self => self.status >= 200 && self.status < 300 ? Effect.succeed(self) : Effect.fail(new Error.HttpClientError({
+152 |   reason: new Error.StatusCodeError({
+                ^
+error: StatusCode: non 2xx status code (500 GET http://localhost:19732/snapshot?thread=native-1791820877372)
+   response: InterruptibleResponse {
+  original: [Object ...],
+  controller: [AbortController ...],
+  "~effect/http/HttpClientResponse": "~effect/http/HttpClientResponse",
+  "~effect/http/HttpIncomingMessage": "~effect/http/HttpIncomingMessage",
+  applyInterrupt: [Function: applyInterrupt],
+  request: [Getter],
+  url: [Getter],
+  status: [Getter],
+  headers: [Getter],
+  cookies: [Getter],
+  remoteAddress: [Getter],
+  formData: [Getter],
+  text: [Getter],
+  json: [Getter],
+  urlParamsBody: [Getter],
+  arrayBuffer: [Getter],
+  stream: [Getter],
+  toJSON: [Function: toJSON],
+  pipe: [Function: pipe],
+  [Symbol(nodejs.util.inspect.custom)]: [Function],
+},
+    request: {
+  method: "GET",
+  url: "http://localhost:19732/snapshot?thread=native-1791820877372",
+  urlParams: [Object ...],
+  hash: [Object ...],
+  headers: [Object ...],
+  body: [Object ...],
+  "~effect/http/HttpClientRequest": "~effect/http/HttpClientRequest",
+  toJSON: [Function: toJSON],
+  [Symbol(nodejs.util.inspect.custom)]: [Function],
+  toString: [Function: toString],
+  pipe: [Function: pipe],
+},
+ description: "non 2xx status code",
+       _tag: "StatusCodeError",
+
+      at filterStatusOk (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/http/HttpClientResponse.js:152:11)
+      at runLoop (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:451:88)
+      at evaluate (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:400:23)
+      at runInAsyncScope (node:async_hooks:193:23)
+      at <anonymous> (/Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/node_modules/effect/dist/internal/effect.js:806:17)
+(fail) Alchemy callback admits a native Yielded agent and its alarm settles without polling [5026.36ms]
+
+ 0 pass
+ 1 fail
+Ran 1 test across 1 file. [6.19s]
+error: script "test" exited with code 1

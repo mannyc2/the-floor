@@ -1,0 +1,47 @@
+{
+  "name": "floor-alchemy-agent-spike",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@effect/platform-browser": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@yielded/agent": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-storage-sql": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-storage-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-platform-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-platform-alchemy-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-testing": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "alchemy": "2.0.0-beta.80",
+    "effect": "4.0.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261012.1",
+    "@effect/platform-bun": "4.0.3",
+    "@effect/platform-node": "4.0.3",
+    "@types/bun": "1.4.2"
+  },
+  "overrides": {
+    "effect": "4.0.3",
+    "@effect/platform-browser": "4.0.3",
+    "@effect/platform-bun": "4.0.3",
+    "@effect/platform-node": "4.0.3",
+    "@effect/sql-d1": "4.0.3",
+    "@effect/sql-sqlite-do": "4.0.3",
+    "@yielded/agent": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-storage-sql": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-storage-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-platform-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-platform-alchemy-cloudflare": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
+    "@yielded/agent-testing": "file:../../../../../vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.2.tgz"
+  },
+  "scripts": {
+    "typecheck": "../../../../../node_modules/.bin/tsc --noEmit -p tsconfig.json",
+    "lint": "../../../../../node_modules/.bin/oxlint --type-aware --type-check --deny-warnings -c .oxlintrc.json test",
+    "build": "CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./test/local-only.ts ./test/build.test.ts",
+    "test": "sh ./test/run.sh"
+  },
+  "patchedDependencies": {
+    "alchemy@2.0.0-beta.80": "../../../../../vendor/yielded/0adbcff-effect-4.0.3/alchemy@2.0.0-beta.80.patch"
+  }
+}

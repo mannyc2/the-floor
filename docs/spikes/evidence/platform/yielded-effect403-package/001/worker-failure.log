@@ -1,0 +1,16 @@
+[12:01:19.674] ERROR (#44): Durable Object alarm callback failed
+RpcCallError: RPC call to "submitProbe" failed: o.randomUUIDv7.pipe is not a function
+    at catch (file:///bundle/entry.js:1137:14056)
+    at file:///bundle/Schema-YmQmguxm.js:13:6380
+    at Effect.fn (file:///bundle/entry.js:1163:7655)
+    at Effect.fn (definition) (file:///bundle/entry.js:1163:7057)
+    at Effect.fn (file:///bundle/Schema-YmQmguxm.js:13:10219)
+    at Effect.fn (definition) (file:///bundle/entry.js:1137:16302) {
+  [cause]: TypeError: o.randomUUIDv7.pipe is not a function
+}
+[12:01:22.379] ERROR (#227): HTTP handler failed
+RpcCallError: RPC call to "snapshot" failed: 
+    at catch (file:///bundle/entry.js:1137:14056)
+    at file:///bundle/Schema-YmQmguxm.js:13:6380 {
+  [cause]: ThreadNotMaterialized: 
+}

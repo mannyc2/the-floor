@@ -1,0 +1,71 @@
+$ sh scripts/platform-spike.sh test
+[12:20:02.327] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+$ sh ./test/run.sh
+bun test v1.4.0 (34cbb9a40)
+
+test/admission.test.ts:
+[16:20:03.338] INFO (#5): Plan: 2 to create, 4 binding changes
+[16:20:03.341] INFO (#5): [FloorLocalAgent] create (local)
+[16:20:03.341] INFO (#5): [FloorLocalAgent/CALLBACKS] create
+[16:20:03.341] INFO (#5): [FloorLocalAgent/FloorStorage] create
+[16:20:03.341] INFO (#5): [FloorLocalAgent/STORAGE] create
+[16:20:03.341] INFO (#5): [FloorLocalAgent/THREADS] create
+[16:20:03.341] INFO (#5): [FloorStorage] create (local)
+[16:20:03.341] INFO (#5): 
+[16:20:03.348] INFO (#470): [FloorStorage] creating (local)
+[16:20:03.350] INFO (#471): [FloorLocalAgent] pre-creating (local)
+[16:20:03.443] INFO (#471): [FloorLocalAgent] creating (local)
+[16:20:03.446] INFO (#470): [FloorStorage] created (local) (98ms)
+[16:20:03.449] INFO (#471): [FloorLocalAgent] ready at http://localhost:19732
+[16:20:03.449] INFO (#471): [FloorLocalAgent] created (local) (99ms)
+[16:20:03.453] INFO (#541): [FloorStorage] created (local) (105ms)
+[16:20:03.453] INFO (#542): [FloorLocalAgent] created (local) (103ms)
+[16:20:03.466] INFO (#5): 
+[16:20:03.466] INFO (#5): Done: 2 succeeded (125ms)
+[16:20:05.139] INFO (#534): [FloorLocalAgent] Started in 1691ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[16:20:08.207] INFO (#599): {"callback":{"acceptedAt":1791822005161,"completedAt":1791822005490},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791822005483,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791822005523,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791822005528,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791822005815,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791822005815,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791822005824,"settlement":"completed","output":{"absent":true}}],"quietStartedAt":1791822005168,"observedAt":1791822008171,"localUrl":"http://localhost:19732","threadName":"native-1791822003471","storage":{"durable":{"rollbackFailed":true,"rollbackError":"RollbackProbe: \n    at file:///bundle/entry.js:1163:19082\n    at next (<anonymous>)\n    at Effect.fn (file:///bundle/entry.js:1163:7655)\n    at Effect.fn (definition) (file:///bundle/entry.js:1163:7057)\n    at Effect.fn (file:///bundle/Schema-YmQmguxm.js:13:10219)\n    at Effect.fn (definition) (file:///bundle/entry.js:1137:16302)","beforeRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}},"d1":{"rollbackFailed":true,"rollbackError":"effect/sql/SqlError: Failed to execute batch\n    at catch (file:///bundle/entry.js:1163:10464)\n    at file:///bundle/Schema-YmQmguxm.js:13:6380 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///bundle/entry.js:1163:9662)\n      at catch (file:///bundle/entry.js:1163:10485)\n      at file:///bundle/Schema-YmQmguxm.js:13:6380 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}","beforeRollback":{"rows":[{"id":"native-1791822003471","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"native-1791822003471","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"native-1791822003471","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}}
+(pass) Alchemy callback admits a native Yielded agent and its alarm settles without polling [4740.39ms]
+
+ 1 pass
+ 0 fail
+ 26 expect() calls
+Ran 1 test across 1 file. [5.87s]
+bun test v1.4.0 (34cbb9a40)
+
+test/restart.test.ts:
+[16:20:09.297] INFO (#6): Plan: 1 to update
+[16:20:09.300] INFO (#6): [FloorLocalAgent] update (local)
+[16:20:09.300] INFO (#6): [FloorLocalAgent/CALLBACKS] noop
+[16:20:09.300] INFO (#6): [FloorLocalAgent/FloorStorage] noop
+[16:20:09.300] INFO (#6): [FloorLocalAgent/STORAGE] noop
+[16:20:09.300] INFO (#6): [FloorLocalAgent/THREADS] noop
+[16:20:09.300] INFO (#6): [FloorStorage] noop (local)
+[16:20:09.300] INFO (#6): 
+[16:20:09.307] INFO (#498): [FloorLocalAgent] updating (local)
+[16:20:09.329] INFO (#498): [FloorLocalAgent] ready at http://localhost:19732
+[16:20:09.329] INFO (#498): [FloorLocalAgent] updated (local) (22ms)
+[16:20:09.341] INFO (#512): [FloorLocalAgent] updated (local) (34ms)
+[16:20:09.345] INFO (#6): 
+[16:20:09.345] INFO (#6): Done: 1 succeeded (44ms)
+[16:20:11.043] INFO (#505): [FloorLocalAgent] Started in 1718ms → http://localhost:19732/ (logs: /Users/chriscarroll/Documents/Codex/2026-10-12/set/outputs/the-floor/work/platform/apps/floor/spikes/platform/alchemy-agent/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+[16:20:12.643] INFO (#570): {"threadName":"native-1791822003471","afterRestart":{"callback":{"acceptedAt":1791822005161,"completedAt":1791822005490},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791822005483,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791822005523,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791822005528,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791822005815,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791822005815,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791822005824,"settlement":"completed","output":{"absent":true}}]},"afterDuplicate":{"callback":{"acceptedAt":1791822011108,"completedAt":1791822011383},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791822005483,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791822005523,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791822005528,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791822005815,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791822005815,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791822005824,"settlement":"completed","output":{"absent":true}}]},"quietStartedAt":1791822011113,"observedAt":1791822012629,"storage":{"durable":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"d1":{"rows":[{"id":"native-1791822003471","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}
+(pass) saved records survive a new Alchemy workerd process and duplicate admission [3282.99ms]
+[16:20:12.663] INFO (#668): Plan: 2 to delete, 4 binding changes
+[16:20:12.663] INFO (#668): [FloorLocalAgent] delete (local)
+[16:20:12.663] INFO (#668): [FloorLocalAgent/CALLBACKS] unbind
+[16:20:12.663] INFO (#668): [FloorLocalAgent/FloorStorage] unbind
+[16:20:12.663] INFO (#668): [FloorLocalAgent/STORAGE] unbind
+[16:20:12.663] INFO (#668): [FloorLocalAgent/THREADS] unbind
+[16:20:12.663] INFO (#668): [FloorStorage] delete (local)
+[16:20:12.663] INFO (#668): 
+[16:20:12.665] INFO (#1043): [FloorLocalAgent] deleting (local)
+[16:20:12.668] INFO (#1043): [FloorLocalAgent] deleted (local) (3ms)
+[16:20:12.668] INFO (#1045): [FloorStorage] deleting (local)
+[16:20:12.669] INFO (#1045): [FloorStorage] deleted (local) (1ms)
+[16:20:12.671] INFO (#668): 
+[16:20:12.671] INFO (#668): Done: 2 succeeded (8ms)
+
+ 1 pass
+ 0 fail
+ 7 expect() calls
+Ran 1 test across 1 file. [4.43s]

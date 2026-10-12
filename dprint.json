@@ -1,6 +1,8 @@
 {
   "includes": [
     "apps/floor/spikes/platform/**/*.ts",
+    "scripts/vendor/**/*.ts",
+    "scripts/vendor/**/*.json",
     "apps/floor/spikes/platform/*.json",
     "apps/floor/spikes/platform/*.jsonc",
     "package.json",

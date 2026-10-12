@@ -143,7 +143,10 @@
           "@effect/sql-d1",
           "@effect/sql-sqlite-do",
           "@effect/ai-anthropic",
-          "effect/Crypto"
+          "effect/Crypto",
+          "effect/FileSystem",
+          "effect/Path",
+          "@effect/platform-bun"
         ]
       }
     ]

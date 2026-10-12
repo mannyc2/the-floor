@@ -1,0 +1,120 @@
+{
+  "source_revision": "fad5aad plus the exact archived consumer changes",
+  "files": [
+    {
+      "path": ".oxlintrc.json",
+      "bytes": 3105,
+      "sha256": "7dac45b1206a0618ac086cd032e2378ba87595a2dbe70b4ba838dd9b60137e8f"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/.oxlintrc.json",
+      "bytes": 75,
+      "sha256": "97c7bf3da8a95392ddff37c03586e54969afb6908b12424cca2c2b301f23689e"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/README.md",
+      "bytes": 4838,
+      "sha256": "6edd3955a89dc31941ad98d30dfee3bc7abd006b7bba2fe5ffd0094ae8f337cc"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/bun.lock",
+      "bytes": 74529,
+      "sha256": "24f01895f639a0e4113a82b30779617fde021ce5707e5a32f902438d5bd27960"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/package.json",
+      "bytes": 3143,
+      "sha256": "34ce769668cfc731a13f9d0dcf6fdb8cdaff9f46946158b9d44af28897e1497e"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/.gitignore",
+      "bytes": 44,
+      "sha256": "6735c887ee9b81a034f6b73b916cfe3c683d44b7593b3a30edf8f30bc2ae4f39"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/admission.test.ts",
+      "bytes": 4190,
+      "sha256": "62643d6509413b2d343de06c00102223cda28fcafd902b48a3a4ded4ccb320a7"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/build.test.ts",
+      "bytes": 1400,
+      "sha256": "6689a3a0f96ff89abf660fcc4819b9ca6118c0507de19c25b9a48c3c095e38e2"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/contract.ts",
+      "bytes": 1587,
+      "sha256": "104111f89e9afb888e799a829273909adb2b5c155684efb4ca05ea0134f234f9"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/fixtures/entry.ts",
+      "bytes": 12832,
+      "sha256": "6937c10ab04c78ba5185509652ecb9b93eb53205efa08384fa5cd34b3b1311a7"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/fixtures/migrations/001_create.sql",
+      "bytes": 97,
+      "sha256": "519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/fixtures/migrations/002_marker.sql",
+      "bytes": 81,
+      "sha256": "d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/local-only.ts",
+      "bytes": 1024,
+      "sha256": "be532b1dbbd02f8383335c58f2f8a7322a0fd3c9af1266aa582a67a1ff715f7e"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/restart.test.ts",
+      "bytes": 3563,
+      "sha256": "09c5d2bf60368b2492cc0d6aa0326f93dc2c27effdae2c09cca9b3efc95202c6"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/test/run.sh",
+      "bytes": 247,
+      "sha256": "7f8949724ceef74b97f2d1e90d2d2724e9bda50da51690ab67c509b04dbfa568"
+    },
+    {
+      "path": "apps/floor/spikes/platform/alchemy-agent/tsconfig.json",
+      "bytes": 235,
+      "sha256": "e4b94bb4bb9bce67e3c2a9fdd0917ac1767e6c376b785d9de202d15c013a8063"
+    },
+    {
+      "path": "bun.lock",
+      "bytes": 22640,
+      "sha256": "80536938bcd4a035b553c6abda8db7484780b0b48bcaf4dffe8a433aa623d647"
+    },
+    {
+      "path": "dprint.json",
+      "bytes": 566,
+      "sha256": "f2509cada7621767cc09c10a2dfd035a5c53d16e5e7f3690a0db8e4d94a76064"
+    },
+    {
+      "path": "package.json",
+      "bytes": 841,
+      "sha256": "cf50fb82ff97a96f20e0c43c4a8621ae795e4db472096ac259f762b373f686a2"
+    },
+    {
+      "path": "scripts/platform-spike.sh",
+      "bytes": 1043,
+      "sha256": "3ab59dfc222786a4edfaa7cdf65c52572ae2b12f325b26c1dbf062981d17376f"
+    },
+    {
+      "path": "scripts/vendor/tsconfig.json",
+      "bytes": 111,
+      "sha256": "7373df86b1f65e50cc4ac5c1496288c0ca12a926ab8fd562b2302e05728b4f43"
+    },
+    {
+      "path": "scripts/vendor/verify.ts",
+      "bytes": 5141,
+      "sha256": "d77363345139588ff50b9c0ab28d6937954ef574ecb0e9543e30de93e7b82fe1"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 5714,
+      "sha256": "02fb806250181039dc6b0d8b34091dee9a5dd89886c65ec7ce6c7561b27e7be4"
+    }
+  ]
+}

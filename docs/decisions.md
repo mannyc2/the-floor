@@ -4,6 +4,15 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 
 ## Current scope
 
+The active private Yielded build for Effect 4.0.3 includes an explicit four-call
+UUID API compatibility patch in addition to the exact PR 557 Alchemy beta.80
+patch. The unchanged PR implementation failed a real local alarm on 4.0.3;
+private build `0.1.0-beta.166-floor.0adbcff.403.2` passes the packed consumer's
+native admission, storage and restart checks. See
+[package evidence](spikes/evidence/platform/yielded-effect403-package/002/record.json)
+and the retained failed attempt. This is an implementation compatibility fix,
+not a claim that upstream released these packages or that hosted gates passed.
+
 | Date | Item | Status and basis |
 | --- | --- | --- |
 | 12 October 2026 | Prepare a fresh local workspace and two spike handoffs | Confirmed by the user's scope selection. The first build remains a reference; preparation does not start Stage 0. |
@@ -26,6 +35,7 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 | 12 October 2026 | One Effect version: 4.0.3 everywhere, overriding Foldkit's exact 4.0.0 peer | Accepted by the owner ("whatever's optimal"). Yielded's published agent needs ^4.0.3. On 4.0.3, Foldkit 0.168.0's own suite passes (2,954 passed, 1 skipped, on macOS and Linux x64), its source typechecks, and a Foldkit and three.js smoke app passes. |
 | 12 October 2026 | Run Yielded's Alchemy platform from yielded-dev/agent#557 at `0adbcff`, with the PR's patch on Alchemy beta.80, until the package is published and the fixes ship upstream. Re-check at each Yielded or Alchemy release | Accepted by the owner. It passes the local agent turn, wake and restart checks; the fallback would bring back `effect-cf`. The patch doesn't apply unchanged to beta.81, so Alchemy stays on beta.80 until then. |
 | 12 October 2026 | Hosted platform checks are authorized: one temporary Alchemy stage, sandbox wallets only, no real funds or mainnet, at most $25 of provider spend across the spike, destroyed at the end | Authorized by the owner ("whatever's necessary"). The cap is a default the owner can change. The owner adds each account when Codex asks for it. |
+| 12 October 2026 | Hosted spending must stay within the included allowances of the existing Cloudflare $5 subscription | Latest owner instruction: “the budget is \"under the limits of the $5 sub\"”. This supersedes the preceding $25 cap. Verify the account's plan and remaining included allowances before hosted execution. No overage, new subscriptions, or separately billed inference/browser-provider calls are authorized. Unknown allowance or cost is not zero. |
 | 12 October 2026 | Stage 0 starts now on everything the open items don't block. Atlas values and reference frames wait for Part B's picks; hosted wiring waits for the hosted checks. The map host, renderer, camera and picking in `apps/web` come from the external Foldkit round; Codex builds the rest | Accepted by the owner, to keep making progress. No Stage 0 completion claim until the open items close. |
 
 ## Decisions and inputs still needed
