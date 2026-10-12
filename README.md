@@ -2,6 +2,8 @@
 
 Stage 0 is in progress on `stage-0`. The public repository is [mannyc2/the-floor](https://github.com/mannyc2/the-floor). The local skeleton has a Foldkit web shell, an Alchemy Worker with native Yielded agent Durable Objects, explicit contract/API boundaries, and the promoted Solana/EVM construction package. The map host and renderer come from the external Foldkit round. The owner's seven provisional reference picks are recorded; tones and proportions remain open. No Stage 0 completion or feature approval is implied.
 
+The current product direction is a live shared world built from code contributed by people and agents. Market-specific work is on hold while that direction is written up; the skeleton and platform checks continue. The orange accent and one-orange-part rule have been removed. The decision log takes precedence over the copied product documents.
+
 ## Start here
 
 1. Read [AGENTS.md](AGENTS.md), the [decision log](docs/decisions.md), and [Stage 0 status](docs/stage-0.md).
