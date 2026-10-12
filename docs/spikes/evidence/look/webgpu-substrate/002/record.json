@@ -1,0 +1,181 @@
+{
+  "check_id": "webgpu-substrate",
+  "attempt": "002",
+  "status": "failed_software_passed_native",
+  "executed_at_utc": "2026-10-12T14:09:24.092994+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "A minimal raw WebGPU canvas clear fails on bundledChromiumSwiftShader with invalidTexture/View/CommandBuffer and succeeds in systemChromeAppleMetal, before Three or candidate shaders are involved.",
+  "artifacts": [
+    {
+      "path": "work/spikes/look/webgpu-substrate/result.json",
+      "committed": false,
+      "bytes": 660,
+      "sha256": "52c2f02ce41497697475c73980736ee31ab14e1e54885dc4f97723d6952d4d86",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-substrate/screenshot.png",
+      "committed": false,
+      "bytes": 4254,
+      "sha256": "3878570f4a62a0d65f57cf1754e0269e56ec797f4e36e26b44c172eb6e800401",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-substrate-chrome/result.json",
+      "committed": false,
+      "bytes": 140,
+      "sha256": "f333c58992a5443a4aa0354870953807740d7678094697566651fd7a6b3aa27c",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-substrate-chrome/screenshot.png",
+      "committed": false,
+      "bytes": 4353,
+      "sha256": "be30824874b3a8f289440e9dd1b0bf4481d3230595be500feb34b3711484c1f4",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe.log",
+      "committed": false,
+      "bytes": 2812,
+      "sha256": "f71c9a508f50a7a201fbe67f3750c725aab4b1281b83ef06d11b9515bd8a2fb8",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-diagnostics.log",
+      "committed": false,
+      "bytes": 7655,
+      "sha256": "1ce794d7535fef51f54380dd8acdbce3c456af67993d2833f9b545de6d4b9cd0",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-native.log",
+      "committed": false,
+      "bytes": 8658,
+      "sha256": "c3c2d40397fe6bf3274eb31eadb65ecdef51e762efc05853e2807d691c0fe497",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/A.json",
+      "committed": false,
+      "bytes": 76,
+      "sha256": "c598063f0bce6697a60b6c2e1bd57bc8661663c341fc3d3ac399477894f4657f",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/A.png",
+      "committed": false,
+      "bytes": 17042,
+      "sha256": "73b9b58849da9c849947af0f1d80bb5e64aeb77f4bb9c6b8b32e16179490bb0d",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/B.json",
+      "committed": false,
+      "bytes": 76,
+      "sha256": "c598063f0bce6697a60b6c2e1bd57bc8661663c341fc3d3ac399477894f4657f",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/B.png",
+      "committed": false,
+      "bytes": 17205,
+      "sha256": "6072d546b3d752cf3d16d9f8664905ba8235de6225b2d0602dccd6303f9de241",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/C.json",
+      "committed": false,
+      "bytes": 76,
+      "sha256": "c598063f0bce6697a60b6c2e1bd57bc8661663c341fc3d3ac399477894f4657f",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-probe-chrome/C.png",
+      "committed": false,
+      "bytes": 14799,
+      "sha256": "19de7b29ec4a566fee44bdd7024fc3891250f73d56260487282fdd78d2dde242",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-chrome.log",
+      "committed": false,
+      "bytes": 5647,
+      "sha256": "0297df7774c7e70a7107a0f7862090f2d14c78845f924560562faa454daa6c4b",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    },
+    {
+      "path": "work/spikes/look/webgpu-chrome-fixed.log",
+      "committed": false,
+      "bytes": 1021,
+      "sha256": "4fb6b5d035a24d4deec9bbb5eca4a3e5c23a7fd03294c8024cf53febf879395a",
+      "regenerate": "bun apps/web/spikes/look-a/gpu-substrate.ts; LOOK_BROWSER=chrome bun apps/web/spikes/look-a/gpu-substrate.ts"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "This isolates local software-WebGPU substrate failure, not universalWebGPU incompatibility. Nativehardware results never satisfySwiftShader requirement.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {},
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

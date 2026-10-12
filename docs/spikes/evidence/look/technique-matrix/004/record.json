@@ -1,0 +1,488 @@
+{
+  "check_id": "technique-matrix",
+  "attempt": "004",
+  "status": "failed",
+  "executed_at_utc": "2026-10-12T13:50:21.216545+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "All54SwiftShaderWebGPU cells attempted; startup failed with invalid textures/command buffers or timed out before usable render.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/technique-matrix/004/results.json",
+      "committed": true,
+      "bytes": 119880,
+      "sha256": "f4cae27ac554e2515b2bcb37699722eab8d728471434af4546ca6faa75fbe965",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-district-1/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "acba86e8f1317e8b160686ee07846dde51c291ad6a0e75e9e7aaed5428486b85",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-district-2/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "160aac74cf2b135d0de5bb29ec38ce24cd8e1b4c3568f2871988b08020afb5cc",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-district-3/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "60451a4f2417f68268bde2c6c1102f0327a0ef2800edca722a39cdd289bc46fd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-machine-1/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "62efbb2145ca306da66cfc7a7556843ad091bd1e6dd40b02d6294872d50be055",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-machine-2/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "9619deee2e6df60ee2d8c86aee358ea36701ab16757301f073f411230d6e2f9c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-machine-3/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "7904341b23ea41bb5414571850aa74cc54292050ba1e87c57307a9eecda9deaa",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-works-1/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "b6c1c2681bb4b490c0239cf7ac12799d9370c50a3b853b700ded1a3f0355e152",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-works-2/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "1d64fed3bf3e8ac4b41597ee87e1e9b50d9d4eacc060f98d3d3200fad1c7437b",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-day-works-3/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "a5f37557e427d5c104803cd3dcc4b569595916686c0b0df5b05c8242bd778e32",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-district-1/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "3fb52199a2b83d93feca192eabc00b9632e5c8be2c17a62951acf0398695ddca",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-district-2/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "2109f02a72c43d6099e1c690293bb94d5f69bcafaa23ac410c3c4e5dbb57ed01",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-district-3/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "e8983278ebbc638046096996bfe291758000990887e85b3f173b2ad8bef155a9",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-machine-1/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "fda308d454dc59a3d0d6e6a6611edda4b7acb57702f9168c17de717d0295321b",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-machine-2/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "d53cf5cd9dcc5440af6b15d7ffac2aec5b14d408b070f718e2fe0db7e1170900",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-machine-3/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "d49fcf1ddade7b6e135a373fa505259331347356d3e44c08d629d95357ca4f68",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-works-1/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "c7d8562574bc1683eba926f61f3ed4fe89b77ec920060fd69f4f243a1f66e6e1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-works-2/result.json",
+      "committed": false,
+      "bytes": 2423,
+      "sha256": "910d7e0a86e288e88bfe94a54abcdc1f2e52f6acf4eefcf7c49329e6e9148b14",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/A-night-works-3/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "d9a9549856cce1057dbd4a38b67a7f503146222b71260c0878371b640d52bc3c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-district-1/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "d1db535596b7988ad16b001c0744771bb774ad16c4101cd2a572fbfb9fa3ac91",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-district-2/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "29a2fe259c5750f2e7a5ee695e1a1a99b037479de94757570b3b5d28891bd41f",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-district-3/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "d660617bdedd23c93eb4b44f96f97a86076451e741fd1a0fa5f1deed6b229e9e",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-machine-1/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "6c1ec59e679a4eec926848d3cdb042b4a09689e594a918c852acdc468b2ca445",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-machine-2/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "ddd6b1e4ec0cee6410bd1ef42effdddd947977b726bb52d1bf372cbb62330b9e",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-machine-3/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "b0176a207adeb81f6351ed600760f66cf530995682884c49f5f158185b49d9f8",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-works-1/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "297cb7bd534296126540b58dce38fb33780eacfb4412211836c40bd3cad182b0",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-works-2/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "c74ea1adbd9982035ca94cd56e6733f83944d912fc31480debde952bfd2a7785",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-day-works-3/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "bcdf890aad93122dae54eaf03d78a96f412d6437f8bb176a626c638095aaf027",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-district-1/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "d005e4ee193d575e9167b248a50eb117a421cd1f069e8338d91172f592f98d2e",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-district-2/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "ba13f659e9f07d2a1a9ecd76c37efc9b26b67848207f527dd901f7bd51046ad9",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-district-3/result.json",
+      "committed": false,
+      "bytes": 2297,
+      "sha256": "0dce910017f480cb173082261c051acf960ad799d52c20d8f784d846443115c5",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-machine-1/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "f05d1ce63ec6f277f2b3632a717a4d5e35f7bdd237e12d02d84af3cc009653cd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-machine-2/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "ccc76f034a5e69447f810805da4ecdcbbd1f18e8c00e61c7c26d7c9351fa0b25",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-machine-3/result.json",
+      "committed": false,
+      "bytes": 2295,
+      "sha256": "6d4c96fa1654a22f6b03a9fe2d9b6d8e952e3daa78c9c5c0ed39a5c64db0b522",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-works-1/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "7c6cbe8137f4936f4a459b6a8b2e722e5aaad064cbde0ecee1242bcd4e7262d4",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-works-2/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "16bbb7344cd8395a2014d69a49b7aa468a96f6db1310202fdad6eab9ba6e8305",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/B-night-works-3/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "147a2d129cd192ef598e9063f8de984c154f0ebde08e8dab36aef71ebc5b5387",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-district-1/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "8b19413fe08e92997f6067bd80f0dbe2dbbd1b67eff3a850b6f55f4a2ad77511",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-district-2/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "d2a21c2444b1c6296443c395af13c1a4228e33be9bbe90b23c86667d7f51f3bc",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-district-3/result.json",
+      "committed": false,
+      "bytes": 2293,
+      "sha256": "a0cb747cde84243e7bc9776047b0b72c9e4dd24d31d98435033fde4848569c3e",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-machine-1/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "c92dcfa794230fbc139805fd42c2bf6885a866326de508bf4647dd204b55ff20",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-machine-2/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "0347959edab3e2edecdeb139a99b4f9178657fd09bda7a5148972939b27441a0",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-machine-3/result.json",
+      "committed": false,
+      "bytes": 2291,
+      "sha256": "dd583cabb9aed283dc4b176a961e0cce6fd44d3b33843d4b42c332c17802e8da",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-works-1/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "e65db2a51515904881a114dddf78bcb59cd3d42159c6fe615348104c772ec040",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-works-2/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "7a4daee1d298e6752f85716e88a92e890e933df10c162ab3b61c8b90692d46b3",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-day-works-3/result.json",
+      "committed": false,
+      "bytes": 2287,
+      "sha256": "0dd8984ab8a430e0deeb2d94a63992aa5bed68045f11d3b3427775f92e912d30",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-district-1/result.json",
+      "committed": false,
+      "bytes": 1334,
+      "sha256": "380302e22e0e0c8b6ffdc840920b76da6918daaa1a8702e6096b60588c060d96",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-district-2/result.json",
+      "committed": false,
+      "bytes": 1395,
+      "sha256": "832bc12398448a717dba11e99703421ba4fe7ade234a6e6b14ed674ddc47cfd6",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-district-3/result.json",
+      "committed": false,
+      "bytes": 1395,
+      "sha256": "723eee11276d380665a74d49a0c6ae17ecd0fef287300667efd21bea6148ad22",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-machine-1/result.json",
+      "committed": false,
+      "bytes": 1393,
+      "sha256": "31e703a38f08c9d2fbfe4facfbc07ed9b8008e508bc51471be4ae22eae408825",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-machine-2/result.json",
+      "committed": false,
+      "bytes": 1393,
+      "sha256": "18d775f4f21eea4bb4341f72d7773f69a75d5963ce3c4e463b030aed5949309b",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-machine-3/result.json",
+      "committed": false,
+      "bytes": 1393,
+      "sha256": "40138910444c900d3d23e29ea11463f492621bde4c7fe80493133bf2374a06f0",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-works-1/result.json",
+      "committed": false,
+      "bytes": 1206,
+      "sha256": "e01e46854c03401a840fe1d50de2c0e10d24bacfa647ae90e62d569e07e2292f",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-works-2/result.json",
+      "committed": false,
+      "bytes": 1389,
+      "sha256": "9b8cb310933c405d438aab9a2f53b8a14bad3bda4b32946fe78791eea842057c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/C-night-works-3/result.json",
+      "committed": false,
+      "bytes": 1389,
+      "sha256": "d6658c777fdf096d2b76251e5654324e7e74947add46d5d417d64c293e90ef98",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/004/webgpu/results.json",
+      "committed": false,
+      "bytes": 119880,
+      "sha256": "f4cae27ac554e2515b2bcb37699722eab8d728471434af4546ca6faa75fbe965",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/build-final/assets/index-Dzdkw_DX.js",
+      "committed": false,
+      "bytes": 1130504,
+      "sha256": "993094e8d8a1c999eb533017f88006cbab03b9f144d1a4b8b0c8b4985ebc7771",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/build-final/index.html",
+      "committed": false,
+      "bytes": 1111,
+      "sha256": "fb1ea99aaa604a009f013ccd6e626ce8fce926278ed832f092b14017e0f511fe",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=004 LOOK_BACKEND=webgpu bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Raw clear reproduction isolates substrate failure; zero successful runs is not a repeatability pass. NativeAppleMetal results are separate.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "cells_recorded": 54,
+      "successful_cells": 0,
+      "successful_renderer_initializations": 0,
+      "largest_changed_pixel_fraction": null,
+      "threshold_source": "docs/spikes/look.md:20SwiftShaderruns percell, largestpixeldifference; noF1acceptance threshold"
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

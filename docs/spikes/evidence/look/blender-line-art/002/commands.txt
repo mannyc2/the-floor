@@ -1,0 +1,13 @@
+# All commands run from repository root. Attempt001 remains unchanged.
+# Official DMG download: 311,909,763 bytes.
+curl -fL https://download.blender.org/release/Blender4.5/blender-4.5.14-macos-arm64.dmg -o work/spikes/look/blender-line-art/002/runtime/blender-4.5.14-macos-arm64.dmg
+curl -fL https://download.blender.org/release/Blender4.5/blender-4.5.14.sha256 -o work/spikes/look/blender-line-art/002/runtime/blender-4.5.14.sha256
+# Assert official SHA256 = 65134d9b07b20e2fa8d3c9e44f6f44ffb5c9774dd521b95f50387310241ca170.
+# Mount DMG read-only, copy its Blender.app into runtime/, detach it, verify --version.
+# Task-owned DMG then deleted; retained app occupies 814 MiB. Nothing installed in /Applications.
+bun run apps/web/spikes/look-a/export-scene.ts
+work/spikes/look/blender-line-art/002/runtime/Blender.app/Contents/MacOS/Blender --background --factory-startup --python apps/web/spikes/look-a/blender.py -- --scene work/spikes/look/scene.json --out work/spikes/look/blender-line-art/002/exact-camera
+work/spikes/look/blender-line-art/002/runtime/Blender.app/Contents/MacOS/Blender --background --factory-startup --python apps/web/spikes/look-a/blender.py -- --scene work/spikes/look/scene.json --out work/spikes/look/blender-line-art/002 --classification-yaw-epsilon 0.000001
+work/spikes/look/blender-line-art/002/runtime/Blender.app/Contents/MacOS/Blender --background --factory-startup --python apps/web/spikes/look-a/blender_stall.py -- --scene work/spikes/look/scene.json --out work/spikes/look/blender-line-art/002/independent-stall
+# Evidence summaries and local width profiles:
+python3 work/spikes/look/blender-line-art/002/finalize-evidence.py

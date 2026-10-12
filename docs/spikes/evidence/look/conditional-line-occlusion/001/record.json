@@ -1,0 +1,626 @@
+{
+  "check_id": "conditional-line-occlusion",
+  "attempt": "001",
+  "status": "diagnosed",
+  "executed_at_utc": "2026-10-12T14:09:24.193368+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "Disabling C line depth testing restores the missing/partial clean cylinder silhouette but exposes hidden edges. WebGL surface bias factors2/4 trade width for hidden-edge leakage; broad bias is rejected.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/conditional-line-occlusion/001/metrics.json",
+      "committed": true,
+      "bytes": 91446,
+      "sha256": "f9431b67650a47f846762228d2248060ebbad589238f66738463c1be36742ef5",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "docs/spikes/evidence/look/conditional-line-occlusion/001/diagnostic-crop.png",
+      "committed": true,
+      "bytes": 3684,
+      "sha256": "6d91b2ae4da226f213dcde8b06f11f8f6126d050f342a76f22e61e7c8164ee00",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/diagnose.mjs",
+      "committed": false,
+      "bytes": 2786,
+      "sha256": "164a7179a218fef595c60b9987b018b8779d01ade630d0197914dfada5406bfa",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/diagnostic-crop.png",
+      "committed": false,
+      "bytes": 3684,
+      "sha256": "6d91b2ae4da226f213dcde8b06f11f8f6126d050f342a76f22e61e7c8164ee00",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/metrics.json",
+      "committed": false,
+      "bytes": 91446,
+      "sha256": "f9431b67650a47f846762228d2248060ebbad589238f66738463c1be36742ef5",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/report.json",
+      "committed": false,
+      "bytes": 21350,
+      "sha256": "cc65532da8b5f17764e2e574bfe5e50a22cbc9fa7391270b96634d85cb5d2ec2",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-base.png",
+      "committed": false,
+      "bytes": 9503,
+      "sha256": "f17baaea8769dd1afb26f90cf37ba8f110dd42be3a10e972b015b57627cd2116",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-factor2.png",
+      "committed": false,
+      "bytes": 9721,
+      "sha256": "77e580ddd09dfb2d34557e5bd1a80cb3babdebd360c0471c0f773722c91060ca",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-factor4.png",
+      "committed": false,
+      "bytes": 10118,
+      "sha256": "2d300fc7e8be9484a67cede27c20f3b1f19f851878dc9886841fc9519390782b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-factor8.png",
+      "committed": false,
+      "bytes": 10496,
+      "sha256": "2fac3a2fc5c0e4ec14c84d76bc59bcb29fc74df16c273d436d1c89115716ee9e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-no-depth.png",
+      "committed": false,
+      "bytes": 11610,
+      "sha256": "a63cf14efa375e963f655abafa5132e563f49a9cba5c2b9244d159266d409743",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-1-units8.png",
+      "committed": false,
+      "bytes": 9503,
+      "sha256": "f17baaea8769dd1afb26f90cf37ba8f110dd42be3a10e972b015b57627cd2116",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-base.png",
+      "committed": false,
+      "bytes": 38541,
+      "sha256": "dc5e666e2cc61a53a939cb8b4afe646adbf5ad79b99c93ab5d3ae6aa3390b4ba",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-factor2.png",
+      "committed": false,
+      "bytes": 38285,
+      "sha256": "9580c7ba49fa73c450c0938cd6f92da74952c3d1e5df222acbf69c18f40f26ee",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-factor4.png",
+      "committed": false,
+      "bytes": 38150,
+      "sha256": "970d6bafc64baf756328f14e23745b6f65aa32adb10f16dac95ba27ec7a4cdd4",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-factor8.png",
+      "committed": false,
+      "bytes": 41777,
+      "sha256": "cc7eb101308141cd2bdeda9d280ad3b6480a969439d9e71617fec47b704f4190",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-no-depth.png",
+      "committed": false,
+      "bytes": 51800,
+      "sha256": "7ebaf0e72f05e275b2bdac1e6311318e8c21a2443fa4a8f6a571eb6da6f265ba",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-district-3-units8.png",
+      "committed": false,
+      "bytes": 38511,
+      "sha256": "bcf950ed07c0d5416a4d3b129fb6125b0f5d00fdf209242257836a723c3b6c21",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-base.png",
+      "committed": false,
+      "bytes": 10624,
+      "sha256": "0f4136d95916d62d003c4a733da4984c4740b4d125e57a1a37ec82c38df8320e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-factor2.png",
+      "committed": false,
+      "bytes": 10652,
+      "sha256": "1a791137c5ec05431d8c4048b9840b1a0624c3834ca2d337d2972c9088323f27",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-factor4.png",
+      "committed": false,
+      "bytes": 11123,
+      "sha256": "24aea1dea8878fb53ebbe6617ca7d6465b0a5cb925b3a3836ef7f470b02a1aa2",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-factor8.png",
+      "committed": false,
+      "bytes": 11951,
+      "sha256": "14577ee9762098f9bf0bb305aac4e00ff476d0a5957a7698bec62a06adb8c14d",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-no-depth.png",
+      "committed": false,
+      "bytes": 18435,
+      "sha256": "0f1be4763188dbe2752f277de2df8a7be84f61d6bb8bf1084981ab4321ab33d2",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-1-units8.png",
+      "committed": false,
+      "bytes": 10624,
+      "sha256": "0f4136d95916d62d003c4a733da4984c4740b4d125e57a1a37ec82c38df8320e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-base.png",
+      "committed": false,
+      "bytes": 46683,
+      "sha256": "6e8e77d59d971c1c619fd22478f61594c249d776d5df026bba1201fef696763d",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-factor2.png",
+      "committed": false,
+      "bytes": 45583,
+      "sha256": "67bfee22efcbf09d28ee9d305a479563a8f2b1dba35ad84d68b994fe37fb8243",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-factor4.png",
+      "committed": false,
+      "bytes": 45137,
+      "sha256": "f0eba2e5588da3f84a9bd8ad55cc5c33cab860d81627d0e42f5003092cff9192",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-factor8.png",
+      "committed": false,
+      "bytes": 46226,
+      "sha256": "88d5c86edf2e48c9b8e68b379a0edffae5912995aafd3a2c5d203709006dd2e7",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-no-depth.png",
+      "committed": false,
+      "bytes": 77258,
+      "sha256": "3c79c4a134b2cbf1c55884487e4456ca590cebc67056d894e7e23e3de166e5b5",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-machine-3-units8.png",
+      "committed": false,
+      "bytes": 46716,
+      "sha256": "11eb22c8481257fc871d938299f3d288ba028cc9a0becf4c72282cf3339039f5",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-base.png",
+      "committed": false,
+      "bytes": 11227,
+      "sha256": "efdd66f90cc6f32421b0811030ccf0a4e15e994571719421bca86761c7296280",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-factor2.png",
+      "committed": false,
+      "bytes": 11410,
+      "sha256": "038b02ae0d8facff6263b4cceaf411f380e7a4d423346d03aea931e2f6568dc8",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-factor4.png",
+      "committed": false,
+      "bytes": 12143,
+      "sha256": "e3c733197b7aea5382a5a04b1bfc35944ff19d49d38c88a658704d4c1e7304ab",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-factor8.png",
+      "committed": false,
+      "bytes": 12983,
+      "sha256": "0a351ac25c181413cfc23915646e7ad7ca22aae9181468c5927454169d37326d",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-no-depth.png",
+      "committed": false,
+      "bytes": 18415,
+      "sha256": "c4069d147e5119215dbeb79fecf0251b756dee1c8c443dd4a8f5b54a2d6f8c76",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-1-units8.png",
+      "committed": false,
+      "bytes": 11227,
+      "sha256": "efdd66f90cc6f32421b0811030ccf0a4e15e994571719421bca86761c7296280",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-base.png",
+      "committed": false,
+      "bytes": 45000,
+      "sha256": "5b9e5654897533d958f9b07d8f67c8b5526e78544057c30a8e7cc5cbeed41f07",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-factor2.png",
+      "committed": false,
+      "bytes": 44141,
+      "sha256": "95ed88a01f94a16a0807c63f8a641a4fb080a4695452bfcd8700ffa483eded2b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-factor4.png",
+      "committed": false,
+      "bytes": 43955,
+      "sha256": "85c623ae959b1786f4b043f41361a021da0808dfed8017b836cb509ce4d421c3",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-factor8.png",
+      "committed": false,
+      "bytes": 44672,
+      "sha256": "d4803ba7188c099ca2973f6f69a29699278e24caac0ebfc1a24e98a68100969e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-no-depth.png",
+      "committed": false,
+      "bytes": 72275,
+      "sha256": "03b71901ed57e9f094b8f569ff8ad5d8f28c5a5852a64a5461e6878d319116f6",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgl-works-3-units8.png",
+      "committed": false,
+      "bytes": 45006,
+      "sha256": "c19e20c7aa1186e8a047192ca11b465738319d1230ec38073aa7b16d33e0abfe",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-base.png",
+      "committed": false,
+      "bytes": 9396,
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-factor2.png",
+      "committed": false,
+      "bytes": 9396,
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-factor4.png",
+      "committed": false,
+      "bytes": 9396,
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-factor8.png",
+      "committed": false,
+      "bytes": 9396,
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-no-depth.png",
+      "committed": false,
+      "bytes": 11530,
+      "sha256": "9ac652fa0df6b4cdbf13db4693de108819439282f5f11587388b40b8cdc13fe1",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-1-units8.png",
+      "committed": false,
+      "bytes": 9396,
+      "sha256": "2470f7a97b27fd533c9e272a15b973215386f1ad60a5451a6bc0941c224c455b",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-base.png",
+      "committed": false,
+      "bytes": 38635,
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-factor2.png",
+      "committed": false,
+      "bytes": 38635,
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-factor4.png",
+      "committed": false,
+      "bytes": 38635,
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-factor8.png",
+      "committed": false,
+      "bytes": 38635,
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-no-depth.png",
+      "committed": false,
+      "bytes": 52019,
+      "sha256": "c16e49a19f004621ef2be55bfb065c7e719e54f399cef26bb7f26954697561c6",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-district-3-units8.png",
+      "committed": false,
+      "bytes": 38635,
+      "sha256": "0673566b267b97d06b40b014c1737e0344c663c838cf7342a556c55487b0b23e",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-base.png",
+      "committed": false,
+      "bytes": 10590,
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-factor2.png",
+      "committed": false,
+      "bytes": 10590,
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-factor4.png",
+      "committed": false,
+      "bytes": 10590,
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-factor8.png",
+      "committed": false,
+      "bytes": 10590,
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-no-depth.png",
+      "committed": false,
+      "bytes": 18394,
+      "sha256": "6ee7716375c0e684f7af5caede5b379f37d07a07badd675d77a6b45e1ca3bedc",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-1-units8.png",
+      "committed": false,
+      "bytes": 10590,
+      "sha256": "9b3e72484ce734d540c46523642aad25236836f53b7c11092210161c42c13a6a",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-base.png",
+      "committed": false,
+      "bytes": 46829,
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-factor2.png",
+      "committed": false,
+      "bytes": 46829,
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-factor4.png",
+      "committed": false,
+      "bytes": 46829,
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-factor8.png",
+      "committed": false,
+      "bytes": 46829,
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-no-depth.png",
+      "committed": false,
+      "bytes": 77303,
+      "sha256": "b565808f8137e6ffcff5dc9bea100f557aa528dec289b667a70d2dcd1cc6b8f9",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-machine-3-units8.png",
+      "committed": false,
+      "bytes": 46829,
+      "sha256": "454b8bdbe8e705ad54cbac57f4a6418daf7e0ee8c62f29bc27f6513e81e4c820",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-base.png",
+      "committed": false,
+      "bytes": 11259,
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-factor2.png",
+      "committed": false,
+      "bytes": 11259,
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-factor4.png",
+      "committed": false,
+      "bytes": 11259,
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-factor8.png",
+      "committed": false,
+      "bytes": 11259,
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-no-depth.png",
+      "committed": false,
+      "bytes": 18400,
+      "sha256": "ae6725e50c2f9c5259e12c331e6bbf887fca7bc121a1ddc73819e11eb8179ce6",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-1-units8.png",
+      "committed": false,
+      "bytes": 11259,
+      "sha256": "0ed9d9849966c92aa3ce45545bc2e7172da4a0a5610ebaa55eb15732626fcabf",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-base.png",
+      "committed": false,
+      "bytes": 45214,
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-factor2.png",
+      "committed": false,
+      "bytes": 45214,
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-factor4.png",
+      "committed": false,
+      "bytes": 45214,
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-factor8.png",
+      "committed": false,
+      "bytes": 45214,
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-no-depth.png",
+      "committed": false,
+      "bytes": 72320,
+      "sha256": "b44253df494100a19f8a7709dbb4437985fafeee48bed3cce200a35227ed8038",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    },
+    {
+      "path": "work/spikes/look/c-occlusion/001/webgpu-works-3-units8.png",
+      "committed": false,
+      "bytes": 45214,
+      "sha256": "9de1dd4011c474e6f9a4f087bde959a2992f4d75db047866f698c791f348e350",
+      "regenerate": "Run retained work/spikes/look/c-occlusion/001/diagnose.mjs against the local dev server"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Native GPU factor sweeps did not invalidate the cached pipeline, so those bias sweeps are inconclusive and excluded. The no-depth comparison is decisive. Interrupted follow-up002 is retained separately. C remains width-failing; no forced pass.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "accepted_observation": "A camera-facing expanded line ribbon is partially rejected by surface depth",
+      "rejected_fix": "Disable depth testing or broad surface bias, because hidden lines become visible",
+      "source_review": "Three r180 WebGL line addon uses logical viewport; node line material uses physical viewport. Correct parameters are1CSS andDPRphysical respectively."
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "blender": "4.5.14 LTS",
+  "input_sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+  "technique": "Grease Pencil LINEART modifier, EEVEE Next",
+  "input_geometry": [
+    {
+      "name": "paving-and-quay-0",
+      "source_triangles": 780,
+      "triangles": 780,
+      "welded_vertices": 520,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-0-0",
+      "source_triangles": 192,
+      "triangles": 192,
+      "welded_vertices": 114,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-0-1",
+      "source_triangles": 192,
+      "triangles": 192,
+      "welded_vertices": 114,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-0-2",
+      "source_triangles": 192,
+      "triangles": 192,
+      "welded_vertices": 114,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-0-3",
+      "source_triangles": 192,
+      "triangles": 192,
+      "welded_vertices": 114,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-1-0",
+      "source_triangles": 132,
+      "triangles": 132,
+      "welded_vertices": 88,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-1-1",
+      "source_triangles": 132,
+      "triangles": 132,
+      "welded_vertices": 88,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-1-2",
+      "source_triangles": 132,
+      "triangles": 132,
+      "welded_vertices": 88,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-1-3",
+      "source_triangles": 132,
+      "triangles": 132,
+      "welded_vertices": 88,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-2-0",
+      "source_triangles": 204,
+      "triangles": 204,
+      "welded_vertices": 122,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-2-1",
+      "source_triangles": 204,
+      "triangles": 204,
+      "welded_vertices": 122,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-2-2",
+      "source_triangles": 204,
+      "triangles": 204,
+      "welded_vertices": 122,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "stall-variant-2-3",
+      "source_triangles": 204,
+      "triangles": 204,
+      "welded_vertices": 122,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "depth-rack-0",
+      "source_triangles": 672,
+      "triangles": 672,
+      "welded_vertices": 434,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "tide-gauge-0",
+      "source_triangles": 384,
+      "triangles": 384,
+      "welded_vertices": 228,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "figure-one-0",
+      "source_triangles": 344,
+      "triangles": 344,
+      "welded_vertices": 194,
+      "max_weld_delta_world": 0.0
+    },
+    {
+      "name": "figure-two-0",
+      "source_triangles": 344,
+      "triangles": 344,
+      "welded_vertices": 194,
+      "max_weld_delta_world": 0.0
+    }
+  ],
+  "stall_export": {
+    "mesh_names": [
+      "stall-variant-0-0"
+    ],
+    "glb_primitives_with_attributes": 2,
+    "attribute_values": [
+      {
+        "vertex_count": 122,
+        "palette_slot": 3,
+        "distinct_surface_ids": [
+          506.0,
+          507.0,
+          508.0,
+          509.0,
+          510.0,
+          511.0,
+          513.0,
+          514.0,
+          515.0
+        ]
+      },
+      {
+        "vertex_count": 168,
+        "palette_slot": 14,
+        "distinct_surface_ids": [
+          457.0,
+          458.0,
+          459.0,
+          460.0,
+          461.0,
+          462.0,
+          464.0,
+          465.0,
+          466.0,
+          467.0,
+          468.0,
+          469.0,
+          471.0,
+          472.0,
+          473.0,
+          474.0,
+          475.0,
+          476.0,
+          478.0,
+          479.0,
+          480.0,
+          481.0,
+          482.0,
+          483.0,
+          485.0,
+          486.0,
+          487.0,
+          488.0,
+          489.0,
+          490.0,
+          492.0,
+          493.0,
+          494.0,
+          495.0,
+          496.0,
+          497.0,
+          499.0,
+          500.0,
+          501.0,
+          502.0,
+          503.0,
+          504.0
+        ]
+      }
+    ],
+    "coordinate_system": "Shared Y-up coordinates retained; export_yup=False prevents a second axis conversion",
+    "authoring_limit": "The Blender script materializes shared triangle data; the independent parametric route is measured separately by blender_stall.py"
+  },
+  "targets": [
+    {
+      "rung": "district",
+      "dpr": 1,
+      "width": 480,
+      "height": 360,
+      "line_art_radius_parameter_world": 0.058333333333333334,
+      "point_radius_world_min": 0.02916666679084301,
+      "point_radius_world_max": 0.02916666679084301,
+      "generated_strokes": 1027,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0010710954666137695,
+      "seconds": 0.31977504200767726,
+      "file": "work/spikes/look/blender-line-art/002/line-art-district-dpr-1.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 9.86418783721632e-05
+    },
+    {
+      "rung": "district",
+      "dpr": 2,
+      "width": 960,
+      "height": 720,
+      "line_art_radius_parameter_world": 0.058333333333333334,
+      "point_radius_world_min": 0.02916666679084301,
+      "point_radius_world_max": 0.02916666679084301,
+      "generated_strokes": 1027,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0010710954666137695,
+      "seconds": 0.13145283400081098,
+      "file": "work/spikes/look/blender-line-art/002/line-art-district-dpr-2.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 9.86418783721632e-05
+    },
+    {
+      "rung": "district",
+      "dpr": 3,
+      "width": 1440,
+      "height": 1080,
+      "line_art_radius_parameter_world": 0.058333333333333334,
+      "point_radius_world_min": 0.02916666679084301,
+      "point_radius_world_max": 0.02916666679084301,
+      "generated_strokes": 1027,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0010710954666137695,
+      "seconds": 0.1907986670266837,
+      "file": "work/spikes/look/blender-line-art/002/line-art-district-dpr-3.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 9.86418783721632e-05
+    },
+    {
+      "rung": "works",
+      "dpr": 1,
+      "width": 480,
+      "height": 360,
+      "line_art_radius_parameter_world": 0.03333333333333333,
+      "point_radius_world_min": 0.01666666753590107,
+      "point_radius_world_max": 0.01666666753590107,
+      "generated_strokes": 986,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0018167495727539062,
+      "seconds": 0.06851741700666025,
+      "file": "work/spikes/look/blender-line-art/002/line-art-works-dpr-1.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00016622364652718602
+    },
+    {
+      "rung": "works",
+      "dpr": 2,
+      "width": 960,
+      "height": 720,
+      "line_art_radius_parameter_world": 0.03333333333333333,
+      "point_radius_world_min": 0.01666666753590107,
+      "point_radius_world_max": 0.01666666753590107,
+      "generated_strokes": 986,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0018167495727539062,
+      "seconds": 0.08696812496054918,
+      "file": "work/spikes/look/blender-line-art/002/line-art-works-dpr-2.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00016622364652718602
+    },
+    {
+      "rung": "works",
+      "dpr": 3,
+      "width": 1440,
+      "height": 1080,
+      "line_art_radius_parameter_world": 0.03333333333333333,
+      "point_radius_world_min": 0.01666666753590107,
+      "point_radius_world_max": 0.01666666753590107,
+      "generated_strokes": 986,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0018167495727539062,
+      "seconds": 0.16887708398280665,
+      "file": "work/spikes/look/blender-line-art/002/line-art-works-dpr-3.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00016622364652718602
+    },
+    {
+      "rung": "machine",
+      "dpr": 1,
+      "width": 480,
+      "height": 360,
+      "line_art_radius_parameter_world": 0.019444443782170615,
+      "point_radius_world_min": 0.00972222164273262,
+      "point_radius_world_max": 0.00972222164273262,
+      "generated_strokes": 673,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0030755996704101562,
+      "seconds": 0.05701862496789545,
+      "file": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-1.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00028954281106052804
+    },
+    {
+      "rung": "machine",
+      "dpr": 2,
+      "width": 960,
+      "height": 720,
+      "line_art_radius_parameter_world": 0.019444443782170615,
+      "point_radius_world_min": 0.00972222164273262,
+      "point_radius_world_max": 0.00972222164273262,
+      "generated_strokes": 673,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0030755996704101562,
+      "seconds": 0.08421654195990413,
+      "file": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-2.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00028954281106052804
+    },
+    {
+      "rung": "machine",
+      "dpr": 3,
+      "width": 1440,
+      "height": 1080,
+      "line_art_radius_parameter_world": 0.019444443782170615,
+      "point_radius_world_min": 0.00972222164273262,
+      "point_radius_world_max": 0.00972222164273262,
+      "generated_strokes": 673,
+      "classification_yaw_epsilon_radians": 1e-06,
+      "classification_projection_max_delta_css_px": 0.0030755996704101562,
+      "seconds": 0.16424279200145975,
+      "file": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-3.png",
+      "projection_matrix_max_delta": 2.3317074715478725e-08,
+      "sample_count": 13908,
+      "sample_strategy": "Every supplied triangle vertex; float64 source matrices",
+      "sample_projection_max_error_css_px": 0.00028954281106052804
+    }
+  ],
+  "approval": "pending; technical targets only",
+  "elapsed_seconds": 1.6424841249827296
+}

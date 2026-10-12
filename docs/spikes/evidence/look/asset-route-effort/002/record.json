@@ -1,0 +1,104 @@
+{
+  "check_id": "asset-route-effort",
+  "attempt": "002",
+  "status": "partially_measured",
+  "executed_at_utc": "2026-10-12T14:09:24.202190+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "bun apps/web/spikes/look-a/export-scene.ts; Blender commands in blender-line-art/002/commands.txt",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "bun apps/web/spikes/look-a/export-scene.ts; Blender commands in blender-line-art/002/commands.txt"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "Both required routes actually built the stall: the new Three generator and independently authored Blender script. Blender variants have192/132/204triangles and bidirectional vertex error<0.00000049units. Both carry semantic surface/material attributes.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/asset-route-effort/002/independent-stall-report.json",
+      "committed": true,
+      "bytes": 8676,
+      "sha256": "2adc1ddd4f01844426958f0656fd835707e17d67f00543695da76e6fe5bbc2ab",
+      "regenerate": "bun apps/web/spikes/look-a/export-scene.ts; Blender commands in blender-line-art/002/commands.txt"
+    },
+    {
+      "path": "apps/web/spikes/look-a/scene.ts",
+      "committed": true,
+      "bytes": 9892,
+      "sha256": "1c5e9d24e42c48cc36df2a23f77569da1ae0a587a26bbb43be0f653b6c0b7c17",
+      "regenerate": "bun apps/web/spikes/look-a/export-scene.ts; Blender commands in blender-line-art/002/commands.txt"
+    },
+    {
+      "path": "apps/web/spikes/look-a/blender_stall.py",
+      "committed": true,
+      "bytes": 7997,
+      "sha256": "e9dbf10328211ce7518ecdafea4e5e184cdb813a6fef770aacd7eb2d82a8cf0c",
+      "regenerate": "bun apps/web/spikes/look-a/export-scene.ts; Blender commands in blender-line-art/002/commands.txt"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Precise active agent-time perasset was not instrumented and cannot be reconstructed honestly from elapsed setup/rendering time; no speed winner is claimed. Blender timeline began13:23UTC and first independentstall success wasabout13:27UTC, but includes pipeline work. Three authoring overlapped initial disk failures; wall time is not comparable.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "route_parity": "See independently verified blender-line-art/002/independent-stall-report.json",
+      "agent_minutes_per_asset": {
+        "three_generator": "unknown; no active-time instrumentation",
+        "blender_script": "unknown; no active-time instrumentation"
+      },
+      "threshold_source": "Effort requested in docs/spikes/look.md; no fabricated timing"
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

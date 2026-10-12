@@ -1,0 +1,606 @@
+{
+  "check_id": "blender-line-art",
+  "attempt": "002",
+  "status": "measured_with_deviation",
+  "executed_at_utc": "2026-10-12T13:45:09.102437+00:00",
+  "operator": "Codex blender_target subagent",
+  "reviewer": "Independent review pending",
+  "source_revision": "Uncommitted spike/look-a changes based on f454507c006185dd74b2d136b5b75e7560ed7dcd",
+  "dependency_versions": {
+    "Blender": "4.5.14 LTS",
+    "Blender_build": "62c1db4208e8",
+    "Blender_Python": "3.11.15",
+    "Blender_NumPy": "1.26.4",
+    "measurement_NumPy": "2.3.5",
+    "measurement_Pillow": "12.3.0"
+  },
+  "api_evidence": [
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.14/source/blender/modifiers/intern/lineart/lineart_cpu.cc",
+      "finding": "Verified both the opposite-face-dot sum degeneracy and radius-to-point-radius division by two against executed isolated targets."
+    },
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.14/source/blender/makesrna/intern/rna_modifier.cc",
+      "finding": "Actual runtime creates GreasePencilLineartModifier using LINEART with the recorded properties."
+    },
+    {
+      "url": "https://github.com/blender/blender/blob/v4.5.14/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "finding": "Underscore corner attributes become glTF vertex attributes; actual exported GLB scalar values asserted."
+    },
+    {
+      "url": "https://download.blender.org/release/Blender4.5/",
+      "finding": "Official binary and checksum list, verified before extraction."
+    }
+  ],
+  "execution_target": "Local arm64 macOS; headless Blender EEVEE Next",
+  "runtime_configuration": {
+    "raster_camera": "Shared original matrixWorld and projectionMatrix; float32 Blender representation checked against float64 source for every triangle vertex",
+    "classification_camera_yaw_epsilon_radians": 1e-06,
+    "classification_camera_max_projection_delta_css_px": 0.0030755996704101562,
+    "nominal_line_css_px": 1,
+    "line_art_radius_note": "API field is diameter in generated world units; point radius is half",
+    "visible_line_types": [
+      "contour",
+      "crease at 140 degrees",
+      "intersection",
+      "material boundary"
+    ],
+    "source_faces": "White emission; hidden only after genuine Line Art modifier is baked",
+    "viewport_css": [
+      480,
+      360
+    ],
+    "dprs": [
+      1,
+      2,
+      3
+    ],
+    "rungs": [
+      "district",
+      "works",
+      "machine"
+    ],
+    "download_bytes": 311909763,
+    "official_download_sha256": "65134d9b07b20e2fa8d3c9e44f6f44ffb5c9774dd521b95f50387310241ca170",
+    "retained_app_disk_usage": "814 MiB",
+    "peak_runtime_disk_usage": "Approximately 1.1 GiB"
+  },
+  "stage_and_resources": "Local scratch only; no hosted resources or paid APIs",
+  "inputs": [
+    {
+      "path": "work/spikes/look/scene.json",
+      "sha256": "205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+      "source": "Fresh three.js stand-in geometry export; no reference snapshot read or executed"
+    }
+  ],
+  "procedure": [
+    "Verified and extracted official Blender binary into local scratch; no system install.",
+    "Executed exact-camera nine-cell Line Art baseline and independently reproduced missing cylinder contour.",
+    "Recorded and applied classifier-only epsilon; rendered nine corrected targets using unchanged raster camera.",
+    "Verified all source triangle projections against float64 shared camera matrices.",
+    "Sampled local stroke width in each rung/DPR.",
+    "Independently authored three parametric stall variants in Python; compared shape and triangle counts; exported and parsed GLB custom attributes."
+  ],
+  "expected_result": "Genuine Line Art ground-truth layer with identical geometry and orthographic camera; independent Blender parametric stall route with preserved Atlas attributes.",
+  "observed_result": "Nine usable corrected Line Art targets produced, with explicit classification-camera deviation. Exact-camera baseline omits symmetric cylinder silhouettes and is preserved as failed target evidence. All 13,908 raster vertex projections agree within 0.000290 CSS pixels; local width is 1.0 CSS pixel in nine cells. Three independent stall variants exported with verified custom scalar attribute values.",
+  "artifacts": [
+    {
+      "path": "apps/web/spikes/look-a/blender.py",
+      "committed": true,
+      "bytes": 18354,
+      "sha256": "09742ef7e423c3fab666289bc6723448eac34bb0c438a1fb61b8cfb41a8adf3c",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "apps/web/spikes/look-a/blender_stall.py",
+      "committed": true,
+      "bytes": 7997,
+      "sha256": "e9dbf10328211ce7518ecdafea4e5e184cdb813a6fef770aacd7eb2d82a8cf0c",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/calibration-depth-offset-positive.png",
+      "committed": true,
+      "bytes": 86719,
+      "sha256": "fb1b779deaced5d9191156068ff3398ef9b64d941f6503dc9a5b58ddf224b62d",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/calibration-depth-offset-zero.png",
+      "committed": true,
+      "bytes": 86719,
+      "sha256": "afa081e2df61d58bee8d5186130dd0bff5fe1a8b72db81a97f9a86cdd1bb8054",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/calibration-half-width.png",
+      "committed": true,
+      "bytes": 86784,
+      "sha256": "35aa5e90d087812cdcd61c6e9aba017281b5b292f6acbb5402f4dd713d525416",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/commands.txt",
+      "committed": true,
+      "bytes": 1662,
+      "sha256": "c5f75ba6875465263064a1cd457aa08598a4659bd3903174303ce1d7cc00adea",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/debug-cylinder-perturbed.png",
+      "committed": true,
+      "bytes": 61574,
+      "sha256": "a593a1354e6e91876aab7d7be916128bba7c57488ae9090675ddbf065ef1ae49",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/debug-cylinder.png",
+      "committed": true,
+      "bytes": 60064,
+      "sha256": "f1f9401f9f245285a9ae0dba2a27c6a967bb13a73e5f567220aaeff7b8443f9d",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/findings.md",
+      "committed": true,
+      "bytes": 4011,
+      "sha256": "e1bdff898f026d17d161c5cca8de5b74f19531a48aa1332011175396374407c6",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/independent-stall-report.json",
+      "committed": true,
+      "bytes": 8676,
+      "sha256": "2adc1ddd4f01844426958f0656fd835707e17d67f00543695da76e6fe5bbc2ab",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/line-art-district-dpr-1.png",
+      "committed": true,
+      "bytes": 76334,
+      "sha256": "a95221ab859cdb6ca8661aa002a620d530f8a1c1cabe0e0d8013c0daba718c59",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/line-art-machine-dpr-1.png",
+      "committed": true,
+      "bytes": 80864,
+      "sha256": "eb31d59a08808dc394576f6606ebad2d54cf40d61caa5f7921af91374cda5174",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/line-art-works-dpr-1.png",
+      "committed": true,
+      "bytes": 82555,
+      "sha256": "f9ad62c3d3bc85c1cf84c7134f2978347d793683a8f34d68f4e196b4c8c53362",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/official-release.sha256",
+      "committed": true,
+      "bytes": 880,
+      "sha256": "f1aed1e7db457995d7b0348dc2639fddb6595b06ee911d409a33a13c6e160c1f",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/render-report.json",
+      "committed": true,
+      "bytes": 11686,
+      "sha256": "47e590348202452214af3e73f17a523c67dc65e3ad92abe8e779900f437dafa6",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "docs/spikes/evidence/look/blender-line-art/002/stroke-width.json",
+      "committed": true,
+      "bytes": 5094,
+      "sha256": "11c0f4bc867cd29bfcac433015bb6eaeca84b6d2129a9f064bc6ba7d982a520b",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug-cylinder-perturbed.log",
+      "committed": false,
+      "bytes": 1002,
+      "sha256": "4570a2af701009cf9cd5916d0f6c857b549bae947bfc11df9d2a3daf6b153a28",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug-cylinder-perturbed.png",
+      "committed": false,
+      "bytes": 61574,
+      "sha256": "a593a1354e6e91876aab7d7be916128bba7c57488ae9090675ddbf065ef1ae49",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug-cylinder.log",
+      "committed": false,
+      "bytes": 1189,
+      "sha256": "d11f099a5a86200791641eed76e60674401966db728a847292b739f96a17d127",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug-cylinder.png",
+      "committed": false,
+      "bytes": 60064,
+      "sha256": "f1f9401f9f245285a9ae0dba2a27c6a967bb13a73e5f567220aaeff7b8443f9d",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug_cylinder.py",
+      "committed": false,
+      "bytes": 1928,
+      "sha256": "2da2e6e464ca6d39ec730be877dbc3c96d238213ad7835ec92bf6d3ca4d67bd0",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/debug_cylinder_perturbed.py",
+      "committed": false,
+      "bytes": 2227,
+      "sha256": "21ee0848bec972de0f371388faa74b4c51cbea8939e5862510707892e53bfa87",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/full-render.log",
+      "committed": false,
+      "bytes": 16127,
+      "sha256": "70b0f79b4b48f256fdd7bd52d4951b7fcf76d95816bbcec26b804a43edd8a560",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-district-dpr-1.png",
+      "committed": false,
+      "bytes": 76281,
+      "sha256": "7d1cfdd519cf41d699a9cd4aec5e215dd86b072f5c452e272375c36e3b98800f",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-district-dpr-2.png",
+      "committed": false,
+      "bytes": 257017,
+      "sha256": "deac8cedfd62935fdedc58a1cdf673826f0bbcd7cecfc6eb85296c3f6b7fda96",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-district-dpr-3.png",
+      "committed": false,
+      "bytes": 547559,
+      "sha256": "70bbee2bfea728b27a04a6149cb760d86b2b62e9e9245f06da17633e284efb0c",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-machine-dpr-1.png",
+      "committed": false,
+      "bytes": 80055,
+      "sha256": "a7efb2cd3c3f5ec0cb19228f7bbb267ceed7d9065995ac04190ad1300707921f",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-machine-dpr-2.png",
+      "committed": false,
+      "bytes": 262111,
+      "sha256": "735e7fde94b72c48ddc8548db3c4cb7a34b80cc67955fbe7092bc882b6412d09",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-machine-dpr-3.png",
+      "committed": false,
+      "bytes": 546687,
+      "sha256": "3eb2c19933697bb078ddf3540b784a5f488ec95105939e3d3cb3884d2a84c4d6",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-scene.blend",
+      "committed": false,
+      "bytes": 1414191,
+      "sha256": "de07471f35cf515f69f0c4706b3189d05e632554e252377d75c4e7be9b3154c7",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-works-dpr-1.png",
+      "committed": false,
+      "bytes": 81999,
+      "sha256": "59f41d902be6c875fb98e6cd91ccd5a82e7163cfe303d23f3c9d73485111429a",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-works-dpr-2.png",
+      "committed": false,
+      "bytes": 270269,
+      "sha256": "5ea2bd4f2b4945ce3ce7efb4e2d90d367e0fb1d46e5432055dd61b113bf20322",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/line-art-works-dpr-3.png",
+      "committed": false,
+      "bytes": 560567,
+      "sha256": "afe3c6666121d831d006b65b4128bb94ad86087daf5de77075642fd89ac4abe7",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/render-report.json",
+      "committed": false,
+      "bytes": 11605,
+      "sha256": "9e1a03e803b2f65d1a0df424bba58fec386bcbeb722f9a9db9ed305df8a93bcc",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/stall.blend",
+      "committed": false,
+      "bytes": 292086,
+      "sha256": "0b84ed4dd43fbfa6df39d4d2bdd916ca9d9d2c7938a6a1001b72606dc1894c5f",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/exact-camera/stall.glb",
+      "committed": false,
+      "bytes": 13052,
+      "sha256": "cad9d25294280706246c44c9ed45aec267243be42d5349825d06d2a20d7e8cd7",
+      "regenerate": "Run blender.py without --classification-yaw-epsilon, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/finalize-evidence.py",
+      "committed": false,
+      "bytes": 15650,
+      "sha256": "c6eb421b3ea81bcded8db8aa2e1ff5358c47b6d5e0ee786748e9f398f511f4ad",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/first-render.log",
+      "committed": false,
+      "bytes": 5046,
+      "sha256": "f28142fb970c0ee25c11cb022b5fd1cfbb7c56fe15e9bb894d99462cc375ee65",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/full-render-corrected.log",
+      "committed": false,
+      "bytes": 16091,
+      "sha256": "66e3a3b6e6d9db41f3e62d1e2433b4272e15dd4ec5a54eca6942448462df1dc4",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/full-render.log",
+      "committed": false,
+      "bytes": 12917,
+      "sha256": "7a0d9f35a45b4cbdba980cea3796e36fddbad16dad2b9c1c4e47b48715715e87",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/independent-stall-report.json",
+      "committed": false,
+      "bytes": 8676,
+      "sha256": "2adc1ddd4f01844426958f0656fd835707e17d67f00543695da76e6fe5bbc2ab",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-0/stall.blend",
+      "committed": false,
+      "bytes": 292086,
+      "sha256": "8887e994c56bad01973ba5e6cd0c3bce1822d6d34810a14a36ce91d3cb73670a",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-0/stall.glb",
+      "committed": false,
+      "bytes": 13028,
+      "sha256": "d6da86ea7e3f813945431dd0a632ce996b14911427d5247eb6599bac1b5e2de8",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-1/stall.blend",
+      "committed": false,
+      "bytes": 286648,
+      "sha256": "df2f02fba416e90c024ebd1f675b2d50c7cd5ed880bb04c9aa7b11544dc7d597",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-1/stall.glb",
+      "committed": false,
+      "bytes": 11816,
+      "sha256": "07c5cdaf6b98ee10a67470798aac17ccd69f2e9959c98a03f84de219e8ae612f",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-2/stall.blend",
+      "committed": false,
+      "bytes": 293210,
+      "sha256": "ed350980a8dfbad9b88c6d3c098d061d4c31c5709217bdecc66c86bd16633ed8",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall/variant-2/stall.glb",
+      "committed": false,
+      "bytes": 13868,
+      "sha256": "78439559b144e8f625fd5df0f46b7cea8fd72108ed6a49e9c6edfa6b56ca4159",
+      "regenerate": "Run blender_stall.py command in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/independent-stall.log",
+      "committed": false,
+      "bytes": 8913,
+      "sha256": "7280ce8b7bf404571b6aeb50d73302def0e5563ee396f6c0429c44f95096b2cb",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-district-dpr-1.png",
+      "committed": false,
+      "bytes": 76334,
+      "sha256": "a95221ab859cdb6ca8661aa002a620d530f8a1c1cabe0e0d8013c0daba718c59",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-district-dpr-2.png",
+      "committed": false,
+      "bytes": 257272,
+      "sha256": "073b1455d396693f49ab3fc5e84072c95184c6f9284a8b31e7caca6dc3d19754",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-district-dpr-3.png",
+      "committed": false,
+      "bytes": 547911,
+      "sha256": "7f5cee31aab8d701929b2aea52bd607fd9555944594027eee29f5981d2fccf11",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-1.png",
+      "committed": false,
+      "bytes": 80864,
+      "sha256": "eb31d59a08808dc394576f6606ebad2d54cf40d61caa5f7921af91374cda5174",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-2.png",
+      "committed": false,
+      "bytes": 264522,
+      "sha256": "d453b85f1f5de2e09f9209d9cc7164f16d9d4bc7d7318d32677582047a19ea74",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-machine-dpr-3.png",
+      "committed": false,
+      "bytes": 550586,
+      "sha256": "ee8013c957ce95f8a6e8428085b6d843e9603dd21037b61afc0e355c0b590ed6",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-scene.blend",
+      "committed": false,
+      "bytes": 1404517,
+      "sha256": "58d49c6af7a0481ebf4a5704f45d9818b892233900c88620bc77074ce653b341",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-works-dpr-1.png",
+      "committed": false,
+      "bytes": 82555,
+      "sha256": "f9ad62c3d3bc85c1cf84c7134f2978347d793683a8f34d68f4e196b4c8c53362",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-works-dpr-2.png",
+      "committed": false,
+      "bytes": 271385,
+      "sha256": "bb48222bfabf495144cfcd5aa783b71233daf4e337512278d45d398e35a5596d",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/line-art-works-dpr-3.png",
+      "committed": false,
+      "bytes": 562317,
+      "sha256": "7f1a59d8c22c7d3b20e9ad9d9a778f3872d77b50fe9a76933aaa67b7cf27ada8",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/render-report.json",
+      "committed": false,
+      "bytes": 11686,
+      "sha256": "47e590348202452214af3e73f17a523c67dc65e3ad92abe8e779900f437dafa6",
+      "regenerate": "Run blender.py with --classification-yaw-epsilon 0.000001, as in commands.txt."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/second-render.log",
+      "committed": false,
+      "bytes": 5045,
+      "sha256": "503f2ee617e1781912bb48b54e9ebfb36d55c39ae564b2172b1b3ad15d1c4e92",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/stall.blend",
+      "committed": false,
+      "bytes": 292086,
+      "sha256": "9e3426a0217472378eaf714147764ad2deb9f359177b8545ca1ca416a2c903dc",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/stall.glb",
+      "committed": false,
+      "bytes": 13052,
+      "sha256": "cad9d25294280706246c44c9ed45aec267243be42d5349825d06d2a20d7e8cd7",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    },
+    {
+      "path": "work/spikes/look/blender-line-art/002/third-render.log",
+      "committed": false,
+      "bytes": 5045,
+      "sha256": "727f22dc7ffa7b4d1e54ee172e7b7c6e439ed3bfd62c6504b42d5ed5f3000333",
+      "regenerate": "Commands in docs/spikes/evidence/look/blender-line-art/002/commands.txt; calibration files reflect earlier documented parameter settings."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Official Blender binary/checksum and source only; no user data transmitted.",
+    "budget": "2 GiB disk for local Blender runtime; met",
+    "observed_cost": "No paid API usage; local CPU/GPU time reported, monetary cost unknown"
+  },
+  "cleanup_result": "Read-only DMG volume detached; verified task-owned DMG removed. Local Blender app and listed scratch outputs retained. Attempt001 untouched.",
+  "decision_link": "docs/decisions.md: Part A authorized; no technique/art approval",
+  "limitations_and_next_action": "Cross-review pending. Classifier epsilon is a real documented target deviation, not exact visibility-camera equivalence. Local width samples are not full-scene stroke-width proof. Geometry parity does not prove normals/topology. Agent active effort not instrumented. Parent integrates independent technique metrics and owner review.",
+  "look": {
+    "technique": "Genuine Grease Pencil LINEART, baked then rendered using EEVEE Next",
+    "tone_set": "n/a \u2014 black/white line target; asset exports retain current supplied palette",
+    "theme": "n/a \u2014 same geometry line target reused for day/night",
+    "rung": [
+      "district",
+      "works",
+      "machine"
+    ],
+    "dpr": [
+      1,
+      2,
+      3
+    ],
+    "camera": "Shared original matrixWorld and projectionMatrix; float32 Blender representation checked against float64 source for every triangle vertex",
+    "canvas": {
+      "css": [
+        480,
+        360
+      ],
+      "raster_dimensions": [
+        [
+          480,
+          360
+        ],
+        [
+          960,
+          720
+        ],
+        [
+          1440,
+          1080
+        ]
+      ]
+    },
+    "backend": "Blender EEVEE Next",
+    "renderer_string": "Unavailable in headless mode: gpu.platform.renderer_get raises SystemError; engine and Blender build verified",
+    "device_profile": "Local Apple Silicon macOS, not a phone-performance result",
+    "clock_and_seed": "Frame 1; deterministic supplied scene; no randomness",
+    "metrics": {
+      "target_count": 9,
+      "projection_max_error_css_px": 0.00028954281106052804,
+      "verified_triangle_vertices": 13908,
+      "local_stroke_width_css_px": [
+        1.0,
+        1.0
+      ],
+      "independent_stall_triangle_counts": [
+        192,
+        132,
+        204
+      ],
+      "independent_stall_vertex_set_max_distance_world": 4.805480102731963e-07,
+      "active_agent_effort": "not instrumented; approximate preparation/pipeline clock boundaries in findings.md"
+    },
+    "made_by": "Codex blender_target; common scene supplied by parent, independent stall authored by this subagent",
+    "cross_review": {
+      "reviewer_agent": "Pending",
+      "verdict": "not_reviewed",
+      "notes": "Owner approval remains pending regardless of independent technical review."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

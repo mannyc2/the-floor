@@ -1,0 +1,3242 @@
+[
+  {
+    "id": "webgl-district-1-base",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13157,
+      "target_pixels": 10100,
+      "exact_precision": 0.7608877403663449,
+      "exact_recall": 0.9911881188118812,
+      "exact_f1": 0.8609020939932064,
+      "tolerant_precision": 0.9993159534848369,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.998469140955777
+    },
+    "dark_pixels": 13157
+  },
+  {
+    "id": "webgl-district-1-factor2",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9142853873116508,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13783,
+      "target_pixels": 10100,
+      "exact_precision": 0.7289414496118407,
+      "exact_recall": 0.9947524752475247,
+      "exact_f1": 0.8413515889963572,
+      "tolerant_precision": 0.9889719219328158,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.9944553877580798
+    },
+    "dark_pixels": 13783
+  },
+  {
+    "id": "webgl-district-1-factor4",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9142853873116508,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15510,
+      "target_pixels": 10100,
+      "exact_precision": 0.6477756286266925,
+      "exact_recall": 0.9947524752475247,
+      "exact_f1": 0.7846153846153846,
+      "tolerant_precision": 0.913023855577047,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.954534730882006
+    },
+    "dark_pixels": 15510
+  },
+  {
+    "id": "webgl-district-1-factor8",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9142853873116508,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 17099,
+      "target_pixels": 10100,
+      "exact_precision": 0.5879876016141294,
+      "exact_recall": 0.9954455445544554,
+      "exact_f1": 0.7392918857310931,
+      "tolerant_precision": 0.8607520907655418,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.9251657918722694
+    },
+    "dark_pixels": 17099
+  },
+  {
+    "id": "webgl-district-1-units8",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13157,
+      "target_pixels": 10100,
+      "exact_precision": 0.7608877403663449,
+      "exact_recall": 0.9911881188118812,
+      "exact_f1": 0.8609020939932064,
+      "tolerant_precision": 0.9993159534848369,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.998469140955777
+    },
+    "dark_pixels": 13157
+  },
+  {
+    "id": "webgl-district-1-no-depth",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9142853873116508,
+      "integrated_darkness_css_px": 2.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 23540,
+      "target_pixels": 10100,
+      "exact_precision": 0.42748513169073915,
+      "exact_recall": 0.9963366336633663,
+      "exact_f1": 0.5982758620689655,
+      "tolerant_precision": 0.7114698385726423,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.8314138204924544
+    },
+    "dark_pixels": 23540
+  },
+  {
+    "id": "webgl-district-3-base",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106054,
+      "target_pixels": 95416,
+      "exact_precision": 0.8646255681068135,
+      "exact_recall": 0.9610233084597971,
+      "exact_f1": 0.9102794460713753,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106054
+  },
+  {
+    "id": "webgl-district-3-factor2",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 115676,
+      "target_pixels": 95416,
+      "exact_precision": 0.8199972336526159,
+      "exact_recall": 0.9941100025153015,
+      "exact_f1": 0.8986981979421295,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999266370420056,
+      "tolerant_f1": 0.9999633171754224
+    },
+    "dark_pixels": 115676
+  },
+  {
+    "id": "webgl-district-3-factor4",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.24761872064497462,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 121663,
+      "target_pixels": 95416,
+      "exact_precision": 0.7817413675480631,
+      "exact_recall": 0.9967825102708141,
+      "exact_f1": 0.876261637468387,
+      "tolerant_precision": 0.999901366890509,
+      "tolerant_recall": 0.9999685587322881,
+      "tolerant_f1": 0.9999349616826393
+    },
+    "dark_pixels": 121663
+  },
+  {
+    "id": "webgl-district-3-factor8",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.24761872064497462,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 133617,
+      "target_pixels": 95416,
+      "exact_precision": 0.7120575974614008,
+      "exact_recall": 0.9971388446382158,
+      "exact_f1": 0.8308235057830095,
+      "tolerant_precision": 0.9417514238457682,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.9700020427749363
+    },
+    "dark_pixels": 133617
+  },
+  {
+    "id": "webgl-district-3-units8",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106094,
+      "target_pixels": 95416,
+      "exact_precision": 0.8643938394254151,
+      "exact_recall": 0.9611281126855035,
+      "exact_f1": 0.9101980050617835,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106094
+  },
+  {
+    "id": "webgl-district-3-no-depth",
+    "backend": "webgl",
+    "rung": "district",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.24761872064497462,
+      "integrated_darkness_css_px": 2.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 211614,
+      "target_pixels": 95416,
+      "exact_precision": 0.45004111259179447,
+      "exact_recall": 0.9981030435147145,
+      "exact_f1": 0.6203628309937139,
+      "tolerant_precision": 0.7202878826542667,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.8374038902639017
+    },
+    "dark_pixels": 211614
+  },
+  {
+    "id": "webgl-works-1-base",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 16016,
+      "target_pixels": 12768,
+      "exact_precision": 0.7874000999000998,
+      "exact_recall": 0.987703634085213,
+      "exact_f1": 0.8762506948304614,
+      "tolerant_precision": 0.9943806193806194,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9969876546765628
+    },
+    "dark_pixels": 16016
+  },
+  {
+    "id": "webgl-works-1-factor2",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 17437,
+      "target_pixels": 12768,
+      "exact_precision": 0.7235189539485003,
+      "exact_recall": 0.9880952380952381,
+      "exact_f1": 0.8353583843734481,
+      "tolerant_precision": 0.9670814933761541,
+      "tolerant_recall": 0.9997650375939849,
+      "tolerant_f1": 0.9831517104740864
+    },
+    "dark_pixels": 17437
+  },
+  {
+    "id": "webgl-works-1-factor4",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 18328,
+      "target_pixels": 12768,
+      "exact_precision": 0.6885639458751637,
+      "exact_recall": 0.9884085213032582,
+      "exact_f1": 0.8116799588371495,
+      "tolerant_precision": 0.9337625491051942,
+      "tolerant_recall": 0.999921679197995,
+      "tolerant_f1": 0.9657103289225044
+    },
+    "dark_pixels": 18328
+  },
+  {
+    "id": "webgl-works-1-factor8",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 20561,
+      "target_pixels": 12768,
+      "exact_precision": 0.6139292835951559,
+      "exact_recall": 0.9886434837092731,
+      "exact_f1": 0.7574784722013862,
+      "tolerant_precision": 0.8471377851271825,
+      "tolerant_recall": 0.999921679197995,
+      "tolerant_f1": 0.9172107915062928
+    },
+    "dark_pixels": 20561
+  },
+  {
+    "id": "webgl-works-1-units8",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 16016,
+      "target_pixels": 12768,
+      "exact_precision": 0.7874000999000998,
+      "exact_recall": 0.987703634085213,
+      "exact_f1": 0.8762506948304614,
+      "tolerant_precision": 0.9943806193806194,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9969876546765628
+    },
+    "dark_pixels": 16016
+  },
+  {
+    "id": "webgl-works-1-no-depth",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 35119,
+      "target_pixels": 12768,
+      "exact_precision": 0.3603747259318318,
+      "exact_recall": 0.9912280701754386,
+      "exact_f1": 0.5285776933196901,
+      "tolerant_precision": 0.5985364047951252,
+      "tolerant_recall": 0.999921679197995,
+      "tolerant_f1": 0.7488335577105423
+    },
+    "dark_pixels": 35119
+  },
+  {
+    "id": "webgl-works-3-base",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128192,
+      "target_pixels": 116443,
+      "exact_precision": 0.8564262980529206,
+      "exact_recall": 0.9428389855981038,
+      "exact_f1": 0.8975575857910765,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128192
+  },
+  {
+    "id": "webgl-works-3-factor2",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.32315970586220527,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 142202,
+      "target_pixels": 116443,
+      "exact_precision": 0.809067383018523,
+      "exact_recall": 0.9880456532380649,
+      "exact_f1": 0.8896441067872953,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9997337753235489,
+      "tolerant_f1": 0.999866869940521
+    },
+    "dark_pixels": 142202
+  },
+  {
+    "id": "webgl-works-3-factor4",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.32315970586220527,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 147635,
+      "target_pixels": 116443,
+      "exact_precision": 0.781345886815457,
+      "exact_recall": 0.9906477847530551,
+      "exact_f1": 0.8736358197199312,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9997767147874926,
+      "tolerant_f1": 0.9998883449282832
+    },
+    "dark_pixels": 147635
+  },
+  {
+    "id": "webgl-works-3-factor8",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.32315970586220527,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 157118,
+      "target_pixels": 116443,
+      "exact_precision": 0.7348235084458814,
+      "exact_recall": 0.9915065740319298,
+      "exact_f1": 0.8440823070540026,
+      "tolerant_precision": 0.981797120635446,
+      "tolerant_recall": 0.9998625937153801,
+      "tolerant_f1": 0.990747511726485
+    },
+    "dark_pixels": 157118
+  },
+  {
+    "id": "webgl-works-3-units8",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128316,
+      "target_pixels": 116443,
+      "exact_precision": 0.8560039278032358,
+      "exact_recall": 0.9432855560231186,
+      "exact_f1": 0.897527772216752,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128316
+  },
+  {
+    "id": "webgl-works-3-no-depth",
+    "backend": "webgl",
+    "rung": "works",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.32315970586220527,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 316764,
+      "target_pixels": 116443,
+      "exact_precision": 0.36564129762220454,
+      "exact_recall": 0.9946669185781885,
+      "exact_f1": 0.534718968068383,
+      "tolerant_precision": 0.6121560530868406,
+      "tolerant_recall": 0.9999141210721125,
+      "tolerant_f1": 0.7594005417297016
+    },
+    "dark_pixels": 316764
+  },
+  {
+    "id": "webgl-machine-1-base",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14558,
+      "target_pixels": 11746,
+      "exact_precision": 0.7922791592251683,
+      "exact_recall": 0.981951302571088,
+      "exact_f1": 0.8769768856447688,
+      "tolerant_precision": 0.9793240829784311,
+      "tolerant_recall": 0.9983824280606164,
+      "tolerant_f1": 0.9887614267989213
+    },
+    "dark_pixels": 14558
+  },
+  {
+    "id": "webgl-machine-1-factor2",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14822,
+      "target_pixels": 11746,
+      "exact_precision": 0.7791795978950209,
+      "exact_recall": 0.9832283330495488,
+      "exact_f1": 0.8693917494730503,
+      "tolerant_precision": 0.9778032654162732,
+      "tolerant_recall": 0.9986378341563086,
+      "tolerant_f1": 0.9881107364317019
+    },
+    "dark_pixels": 14822
+  },
+  {
+    "id": "webgl-machine-1-factor4",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 16158,
+      "target_pixels": 11746,
+      "exact_precision": 0.7148161901225399,
+      "exact_recall": 0.9833134684147795,
+      "exact_f1": 0.8278383027522935,
+      "tolerant_precision": 0.9082807278128481,
+      "tolerant_recall": 0.9986378341563086,
+      "tolerant_f1": 0.9513185480687655
+    },
+    "dark_pixels": 16158
+  },
+  {
+    "id": "webgl-machine-1-factor8",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 17105,
+      "target_pixels": 11746,
+      "exact_precision": 0.6752411575562701,
+      "exact_recall": 0.9833134684147795,
+      "exact_f1": 0.8006654881979828,
+      "tolerant_precision": 0.8630809704764689,
+      "tolerant_recall": 0.99880810488677,
+      "tolerant_f1": 0.925997450537978
+    },
+    "dark_pixels": 17105
+  },
+  {
+    "id": "webgl-machine-1-units8",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14558,
+      "target_pixels": 11746,
+      "exact_precision": 0.7922791592251683,
+      "exact_recall": 0.981951302571088,
+      "exact_f1": 0.8769768856447688,
+      "tolerant_precision": 0.9793240829784311,
+      "tolerant_recall": 0.9983824280606164,
+      "tolerant_f1": 0.9887614267989213
+    },
+    "dark_pixels": 14558
+  },
+  {
+    "id": "webgl-machine-1-no-depth",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 30599,
+      "target_pixels": 11746,
+      "exact_precision": 0.37899931370306217,
+      "exact_recall": 0.9873148305806232,
+      "exact_f1": 0.547738812138387,
+      "tolerant_precision": 0.5695610967678683,
+      "tolerant_recall": 0.9994891878086157,
+      "tolerant_f1": 0.7256238549034874
+    },
+    "dark_pixels": 30599
+  },
+  {
+    "id": "webgl-machine-3-base",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 114042,
+      "target_pixels": 101205,
+      "exact_precision": 0.8180670279370759,
+      "exact_recall": 0.9218319253001334,
+      "exact_f1": 0.8668552871817029,
+      "tolerant_precision": 0.9998772382104839,
+      "tolerant_recall": 0.9984388123116447,
+      "tolerant_f1": 0.9991575075579047
+    },
+    "dark_pixels": 114042
+  },
+  {
+    "id": "webgl-machine-3-factor2",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.2206547338590402,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128741,
+      "target_pixels": 101205,
+      "exact_precision": 0.7680692242564529,
+      "exact_recall": 0.9770465886072822,
+      "exact_f1": 0.8600454019639393,
+      "tolerant_precision": 0.9997669740020662,
+      "tolerant_recall": 0.9985573835284818,
+      "tolerant_f1": 0.9991618126812825
+    },
+    "dark_pixels": 128741
+  },
+  {
+    "id": "webgl-machine-3-factor4",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.2206547338590402,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 130084,
+      "target_pixels": 101205,
+      "exact_precision": 0.76195381445835,
+      "exact_recall": 0.9793784892050788,
+      "exact_f1": 0.8570922093138886,
+      "tolerant_precision": 0.9997232557424434,
+      "tolerant_recall": 0.9986463119411096,
+      "tolerant_f1": 0.9991844936532224
+    },
+    "dark_pixels": 130084
+  },
+  {
+    "id": "webgl-machine-3-factor8",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.2206547338590402,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 139165,
+      "target_pixels": 101205,
+      "exact_precision": 0.7127151223367945,
+      "exact_recall": 0.9800405118324194,
+      "exact_f1": 0.8252693763780838,
+      "tolerant_precision": 0.9533431538102253,
+      "tolerant_recall": 0.9986957166147917,
+      "tolerant_f1": 0.9754925873653408
+    },
+    "dark_pixels": 139165
+  },
+  {
+    "id": "webgl-machine-3-units8",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 114223,
+      "target_pixels": 101205,
+      "exact_precision": 0.8177337313850975,
+      "exact_recall": 0.9229188281211402,
+      "exact_f1": 0.867148188721986,
+      "tolerant_precision": 0.9998774327412168,
+      "tolerant_recall": 0.9984388123116447,
+      "tolerant_f1": 0.9991576046832851
+    },
+    "dark_pixels": 114223
+  },
+  {
+    "id": "webgl-machine-3-no-depth",
+    "backend": "webgl",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.2206547338590402,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 270969,
+      "target_pixels": 101205,
+      "exact_precision": 0.36803471983880076,
+      "exact_recall": 0.9853860975248259,
+      "exact_f1": 0.5359106224507891,
+      "tolerant_precision": 0.5848307370953872,
+      "tolerant_recall": 0.999466429524233,
+      "tolerant_f1": 0.7378902152907673
+    },
+    "dark_pixels": 270969
+  },
+  {
+    "id": "webgpu-district-1-base",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13164,
+      "target_pixels": 10100,
+      "exact_precision": 0.7629140079003343,
+      "exact_recall": 0.9943564356435644,
+      "exact_f1": 0.8633940852819807,
+      "tolerant_precision": 0.9992403524764509,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.9984314030594464
+    },
+    "dark_pixels": 13164
+  },
+  {
+    "id": "webgpu-district-1-factor2",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13164,
+      "target_pixels": 10100,
+      "exact_precision": 0.7629140079003343,
+      "exact_recall": 0.9943564356435644,
+      "exact_f1": 0.8633940852819807,
+      "tolerant_precision": 0.9992403524764509,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.9984314030594464
+    },
+    "dark_pixels": 13164
+  },
+  {
+    "id": "webgpu-district-1-factor4",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13164,
+      "target_pixels": 10100,
+      "exact_precision": 0.7629140079003343,
+      "exact_recall": 0.9943564356435644,
+      "exact_f1": 0.8633940852819807,
+      "tolerant_precision": 0.9992403524764509,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.9984314030594464
+    },
+    "dark_pixels": 13164
+  },
+  {
+    "id": "webgpu-district-1-factor8",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13164,
+      "target_pixels": 10100,
+      "exact_precision": 0.7629140079003343,
+      "exact_recall": 0.9943564356435644,
+      "exact_f1": 0.8633940852819807,
+      "tolerant_precision": 0.9992403524764509,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.9984314030594464
+    },
+    "dark_pixels": 13164
+  },
+  {
+    "id": "webgpu-district-1-units8",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 0.0,
+      "nearest_run_distance_css_px": null,
+      "integrated_darkness_css_px": 0.0,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 13164,
+      "target_pixels": 10100,
+      "exact_precision": 0.7629140079003343,
+      "exact_recall": 0.9943564356435644,
+      "exact_f1": 0.8633940852819807,
+      "tolerant_precision": 0.9992403524764509,
+      "tolerant_recall": 0.9976237623762376,
+      "tolerant_f1": 0.9984314030594464
+    },
+    "dark_pixels": 13164
+  },
+  {
+    "id": "webgpu-district-1-no-depth",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 135,
+      "raster_window_x": [
+        244,
+        254
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9142853873116508,
+      "integrated_darkness_css_px": 2.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 23566,
+      "target_pixels": 10100,
+      "exact_precision": 0.4280319103793601,
+      "exact_recall": 0.9987128712871287,
+      "exact_f1": 0.5992395889027505,
+      "tolerant_precision": 0.7105575829584996,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.8307906030611992
+    },
+    "dark_pixels": 23566
+  },
+  {
+    "id": "webgpu-district-3-base",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106105,
+      "target_pixels": 95416,
+      "exact_precision": 0.8632015456387541,
+      "exact_recall": 0.9599019032447388,
+      "exact_f1": 0.9089871527036885,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106105
+  },
+  {
+    "id": "webgpu-district-3-factor2",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106105,
+      "target_pixels": 95416,
+      "exact_precision": 0.8632015456387541,
+      "exact_recall": 0.9599019032447388,
+      "exact_f1": 0.9089871527036885,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106105
+  },
+  {
+    "id": "webgpu-district-3-factor4",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106105,
+      "target_pixels": 95416,
+      "exact_precision": 0.8632015456387541,
+      "exact_recall": 0.9599019032447388,
+      "exact_f1": 0.9089871527036885,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106105
+  },
+  {
+    "id": "webgpu-district-3-factor8",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106105,
+      "target_pixels": 95416,
+      "exact_precision": 0.8632015456387541,
+      "exact_recall": 0.9599019032447388,
+      "exact_f1": 0.9089871527036885,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106105
+  },
+  {
+    "id": "webgpu-district-3-units8",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.08095205397830796,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 106105,
+      "target_pixels": 95416,
+      "exact_precision": 0.8632015456387541,
+      "exact_recall": 0.9599019032447388,
+      "exact_f1": 0.9089871527036885,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9999161566194349,
+      "tolerant_f1": 0.9999580765522156
+    },
+    "dark_pixels": 106105
+  },
+  {
+    "id": "webgpu-district-3-no-depth",
+    "backend": "webgpu",
+    "rung": "district",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        248.91428538731165,
+        135.3466712398185
+      ],
+      "raster_row": 406,
+      "raster_window_x": [
+        732,
+        762
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.24761872064497462,
+      "integrated_darkness_css_px": 2.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 211699,
+      "target_pixels": 95416,
+      "exact_precision": 0.4500162967231777,
+      "exact_recall": 0.9984488974595456,
+      "exact_f1": 0.6204060368265959,
+      "tolerant_precision": 0.7209197965035262,
+      "tolerant_recall": 1.0,
+      "tolerant_f1": 0.8378307902184088
+    },
+    "dark_pixels": 211699
+  },
+  {
+    "id": "webgpu-works-1-base",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15914,
+      "target_pixels": 12768,
+      "exact_precision": 0.7948975744627372,
+      "exact_recall": 0.9907581453634086,
+      "exact_f1": 0.8820863259186946,
+      "tolerant_precision": 0.9945331154957898,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9970642972062272
+    },
+    "dark_pixels": 15914
+  },
+  {
+    "id": "webgpu-works-1-factor2",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15914,
+      "target_pixels": 12768,
+      "exact_precision": 0.7948975744627372,
+      "exact_recall": 0.9907581453634086,
+      "exact_f1": 0.8820863259186946,
+      "tolerant_precision": 0.9945331154957898,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9970642972062272
+    },
+    "dark_pixels": 15914
+  },
+  {
+    "id": "webgpu-works-1-factor4",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15914,
+      "target_pixels": 12768,
+      "exact_precision": 0.7948975744627372,
+      "exact_recall": 0.9907581453634086,
+      "exact_f1": 0.8820863259186946,
+      "tolerant_precision": 0.9945331154957898,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9970642972062272
+    },
+    "dark_pixels": 15914
+  },
+  {
+    "id": "webgpu-works-1-factor8",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15914,
+      "target_pixels": 12768,
+      "exact_precision": 0.7948975744627372,
+      "exact_recall": 0.9907581453634086,
+      "exact_f1": 0.8820863259186946,
+      "tolerant_precision": 0.9945331154957898,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9970642972062272
+    },
+    "dark_pixels": 15914
+  },
+  {
+    "id": "webgpu-works-1-units8",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 15914,
+      "target_pixels": 12768,
+      "exact_precision": 0.7948975744627372,
+      "exact_recall": 0.9907581453634086,
+      "exact_f1": 0.8820863259186946,
+      "tolerant_precision": 0.9945331154957898,
+      "tolerant_recall": 0.999608395989975,
+      "tolerant_f1": 0.9970642972062272
+    },
+    "dark_pixels": 15914
+  },
+  {
+    "id": "webgpu-works-1-no-depth",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 181,
+      "raster_window_x": [
+        170,
+        180
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.9898263725288814,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 35042,
+      "target_pixels": 12768,
+      "exact_precision": 0.36202271559842475,
+      "exact_recall": 0.993577694235589,
+      "exact_f1": 0.5306839573311023,
+      "tolerant_precision": 0.5973974088236973,
+      "tolerant_recall": 0.999921679197995,
+      "tolerant_f1": 0.7479415035593818
+    },
+    "dark_pixels": 35042
+  },
+  {
+    "id": "webgpu-works-3-base",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128189,
+      "target_pixels": 116443,
+      "exact_precision": 0.8588958490978165,
+      "exact_recall": 0.9455355839337701,
+      "exact_f1": 0.9001357140521272,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128189
+  },
+  {
+    "id": "webgpu-works-3-factor2",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128189,
+      "target_pixels": 116443,
+      "exact_precision": 0.8588958490978165,
+      "exact_recall": 0.9455355839337701,
+      "exact_f1": 0.9001357140521272,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128189
+  },
+  {
+    "id": "webgpu-works-3-factor4",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128189,
+      "target_pixels": 116443,
+      "exact_precision": 0.8588958490978165,
+      "exact_recall": 0.9455355839337701,
+      "exact_f1": 0.9001357140521272,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128189
+  },
+  {
+    "id": "webgpu-works-3-factor8",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128189,
+      "target_pixels": 116443,
+      "exact_precision": 0.8588958490978165,
+      "exact_recall": 0.9455355839337701,
+      "exact_f1": 0.9001357140521272,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128189
+  },
+  {
+    "id": "webgpu-works-3-units8",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.15649303919553859,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 128189,
+      "target_pixels": 116443,
+      "exact_precision": 0.8588958490978165,
+      "exact_recall": 0.9455355839337701,
+      "exact_f1": 0.9001357140521272,
+      "tolerant_precision": 1.0,
+      "tolerant_recall": 0.9996908358596052,
+      "tolerant_f1": 0.9998453940304917
+    },
+    "dark_pixels": 128189
+  },
+  {
+    "id": "webgpu-works-3-no-depth",
+    "backend": "webgpu",
+    "rung": "works",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        174.98982637252888,
+        181.1329040759176
+      ],
+      "raster_row": 543,
+      "raster_window_x": [
+        510,
+        540
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.32315970586220527,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 316561,
+      "target_pixels": 116443,
+      "exact_precision": 0.3668739990080901,
+      "exact_recall": 0.9973806926994323,
+      "exact_f1": 0.5364292246722894,
+      "tolerant_precision": 0.6125833567622038,
+      "tolerant_recall": 0.9999141210721125,
+      "tolerant_f1": 0.7597292487960352
+    },
+    "dark_pixels": 316561
+  },
+  {
+    "id": "webgpu-machine-1-base",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14218,
+      "target_pixels": 11746,
+      "exact_precision": 0.8138978759319173,
+      "exact_recall": 0.9851864464498553,
+      "exact_f1": 0.8913880757972578,
+      "tolerant_precision": 0.9790406526937685,
+      "tolerant_recall": 0.9980418865996935,
+      "tolerant_f1": 0.9884499616505366
+    },
+    "dark_pixels": 14218
+  },
+  {
+    "id": "webgpu-machine-1-factor2",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14218,
+      "target_pixels": 11746,
+      "exact_precision": 0.8138978759319173,
+      "exact_recall": 0.9851864464498553,
+      "exact_f1": 0.8913880757972578,
+      "tolerant_precision": 0.9790406526937685,
+      "tolerant_recall": 0.9980418865996935,
+      "tolerant_f1": 0.9884499616505366
+    },
+    "dark_pixels": 14218
+  },
+  {
+    "id": "webgpu-machine-1-factor4",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14218,
+      "target_pixels": 11746,
+      "exact_precision": 0.8138978759319173,
+      "exact_recall": 0.9851864464498553,
+      "exact_f1": 0.8913880757972578,
+      "tolerant_precision": 0.9790406526937685,
+      "tolerant_recall": 0.9980418865996935,
+      "tolerant_f1": 0.9884499616505366
+    },
+    "dark_pixels": 14218
+  },
+  {
+    "id": "webgpu-machine-1-factor8",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14218,
+      "target_pixels": 11746,
+      "exact_precision": 0.8138978759319173,
+      "exact_recall": 0.9851864464498553,
+      "exact_f1": 0.8913880757972578,
+      "tolerant_precision": 0.9790406526937685,
+      "tolerant_recall": 0.9980418865996935,
+      "tolerant_f1": 0.9884499616505366
+    },
+    "dark_pixels": 14218
+  },
+  {
+    "id": "webgpu-machine-1-units8",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 14218,
+      "target_pixels": 11746,
+      "exact_precision": 0.8138978759319173,
+      "exact_recall": 0.9851864464498553,
+      "exact_f1": 0.8913880757972578,
+      "tolerant_precision": 0.9790406526937685,
+      "tolerant_recall": 0.9980418865996935,
+      "tolerant_f1": 0.9884499616505366
+    },
+    "dark_pixels": 14218
+  },
+  {
+    "id": "webgpu-machine-1-no-depth",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 1,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300153
+      ],
+      "raster_row": 182,
+      "raster_window_x": [
+        124,
+        134
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.553988067192364,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 30072,
+      "target_pixels": 11746,
+      "exact_precision": 0.3861399308326683,
+      "exact_recall": 0.9885918610590839,
+      "exact_f1": 0.5553589363432014,
+      "tolerant_precision": 0.5678371907422187,
+      "tolerant_recall": 0.9992337817129235,
+      "tolerant_f1": 0.7241562296487907
+    },
+    "dark_pixels": 30072
+  },
+  {
+    "id": "webgpu-machine-3-base",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "base",
+    "factor": 1,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 113843,
+      "target_pixels": 101205,
+      "exact_precision": 0.8261641031947506,
+      "exact_recall": 0.9293315547650808,
+      "exact_f1": 0.8747163423979762,
+      "tolerant_precision": 0.999885807647374,
+      "tolerant_recall": 0.9983004792253347,
+      "tolerant_f1": 0.9990925145494928
+    },
+    "dark_pixels": 113843
+  },
+  {
+    "id": "webgpu-machine-3-factor2",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor2",
+    "factor": 2,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 113843,
+      "target_pixels": 101205,
+      "exact_precision": 0.8261641031947506,
+      "exact_recall": 0.9293315547650808,
+      "exact_f1": 0.8747163423979762,
+      "tolerant_precision": 0.999885807647374,
+      "tolerant_recall": 0.9983004792253347,
+      "tolerant_f1": 0.9990925145494928
+    },
+    "dark_pixels": 113843
+  },
+  {
+    "id": "webgpu-machine-3-factor4",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor4",
+    "factor": 4,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 113843,
+      "target_pixels": 101205,
+      "exact_precision": 0.8261641031947506,
+      "exact_recall": 0.9293315547650808,
+      "exact_f1": 0.8747163423979762,
+      "tolerant_precision": 0.999885807647374,
+      "tolerant_recall": 0.9983004792253347,
+      "tolerant_f1": 0.9990925145494928
+    },
+    "dark_pixels": 113843
+  },
+  {
+    "id": "webgpu-machine-3-factor8",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "factor8",
+    "factor": 8,
+    "units": 1,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 113843,
+      "target_pixels": 101205,
+      "exact_precision": 0.8261641031947506,
+      "exact_recall": 0.9293315547650808,
+      "exact_f1": 0.8747163423979762,
+      "tolerant_precision": 0.999885807647374,
+      "tolerant_recall": 0.9983004792253347,
+      "tolerant_f1": 0.9990925145494928
+    },
+    "dark_pixels": 113843
+  },
+  {
+    "id": "webgpu-machine-3-units8",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "units8",
+    "factor": 1,
+    "units": 8,
+    "depthTest": true,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 0.6666666666666666,
+      "nearest_run_distance_css_px": 0.053988067192373514,
+      "integrated_darkness_css_px": 0.6666666666666666,
+      "within_1_plus_minus_0_25": false,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 113843,
+      "target_pixels": 101205,
+      "exact_precision": 0.8261641031947506,
+      "exact_recall": 0.9293315547650808,
+      "exact_f1": 0.8747163423979762,
+      "tolerant_precision": 0.999885807647374,
+      "tolerant_recall": 0.9983004792253347,
+      "tolerant_f1": 0.9990925145494928
+    },
+    "dark_pixels": 113843
+  },
+  {
+    "id": "webgpu-machine-3-no-depth",
+    "backend": "webgpu",
+    "rung": "machine",
+    "dpr": 3,
+    "name": "no-depth",
+    "factor": 1,
+    "units": 1,
+    "depthTest": false,
+    "renderer": "WebGPU apple metal-3  ",
+    "meshes": 8,
+    "lines": 1,
+    "width": {
+      "world_point": [
+        -3.1323044872699866,
+        1.1499999910593033,
+        -3.867695512730013
+      ],
+      "sample_css_xy": [
+        128.55398806719236,
+        181.94212127300156
+      ],
+      "raster_row": 546,
+      "raster_window_x": [
+        371,
+        401
+      ],
+      "threshold_width_css_px": 1.0,
+      "nearest_run_distance_css_px": 0.2206547338590402,
+      "integrated_darkness_css_px": 1.0,
+      "within_1_plus_minus_0_25": true,
+      "scope": "One clean paper-cylinder silhouette profile; not every orientation, join or line in the frame"
+    },
+    "scores": {
+      "prediction_pixels": 270011,
+      "target_pixels": 101205,
+      "exact_precision": 0.37150338319549947,
+      "exact_recall": 0.9911565634108986,
+      "exact_f1": 0.5404400672384811,
+      "tolerant_precision": 0.5846872905177937,
+      "tolerant_recall": 0.9993873820463416,
+      "tolerant_f1": 0.7377544893644381
+    },
+    "dark_pixels": 270011
+  }
+]

@@ -1,0 +1,964 @@
+{
+  "check_id": "technique-matrix",
+  "attempt": "002",
+  "status": "partial",
+  "executed_at_utc": "2026-10-12T13:27:44.563837+00:00",
+  "operator": "Codex setup_requirements agent, newly authored code route",
+  "reviewer": "Codex root: independent visual review; final report review pending",
+  "source_revision": "Spike work based on f454507c006185dd74b2d136b5b75e7560ed7dcd; final source fingerprints in runtime-prerequisite/002/source-manifest.json. Earlier attempts retain their own build/data artifacts when available.",
+  "dependency_versions": {
+    "bun": "1.4.0",
+    "three": "0.180.0",
+    "Playwright": "1.64.0",
+    "TypeScript": "7.0.2",
+    "three-edge-projection": "0.0.10 at 3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567"
+  },
+  "api_evidence": [
+    {
+      "path": "apps/web/spikes/look-a/README.md",
+      "finding": "Inspected installed Three renderer, line-material and timer-query implementations before using APIs."
+    }
+  ],
+  "execution_target": "Local macOS15.0 Apple M1Pro16GiB; bundledChromium155.0.8059.0 or systemChrome155.0.8059.39 as each row records",
+  "runtime_configuration": {
+    "command": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)",
+    "synthetic": true,
+    "part": "A only",
+    "network": "localhost only during execution"
+  },
+  "stage_and_resources": "No hosted stage, provider spend, credentials, deployment or Browser Rendering",
+  "inputs": [
+    "New shared scene work/spikes/look/scene.json; SHA256205b02ecb29c717cbd3fb5bf7a9289565e7c47dafa650c1e85d2fee67f27b638",
+    "Original Atlas token data in apps/web/spikes/look-a/atlas-tokens.json; no first-build renderer/asset code"
+  ],
+  "procedure": [
+    "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+  ],
+  "expected_result": "Actual measurement with every failure preserved; no owner approval inferred",
+  "observed_result": "Initial Vite-backed run intentionally interrupted after five full cells and thirteen runs of next cell; no complete54cell claim.",
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/technique-matrix/002/results.json",
+      "committed": true,
+      "bytes": 13071,
+      "sha256": "d0c59182d8f238a4c080b9e1cb7e5828c64fbc179332c429b285dbb5ae06f910",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/edges.png",
+      "committed": false,
+      "bytes": 13246,
+      "sha256": "b374f061de5475a9b1cfad53f879a3c6aa584ce5556c914d0d2ef18ed29565ed",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/result.json",
+      "committed": false,
+      "bytes": 2144,
+      "sha256": "8b83f56d570f4aa1817287593a7db030a6ec4f39abe30eaded1dd9dce7183137",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-01.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-02.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-03.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-04.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-05.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-06.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-07.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-08.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-09.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-10.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-11.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-12.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-13.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-14.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-15.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-16.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-17.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-18.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-19.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-1/run-20.png",
+      "committed": false,
+      "bytes": 14761,
+      "sha256": "6b8020b6f70fd4bdc79ade36e6ce5ae948a136126e41dec57f852be6dc20dabd",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/edges.png",
+      "committed": false,
+      "bytes": 29737,
+      "sha256": "315bdcc8dd0ec6da0ca943d06085ede02f13b2294463af21553f121425bb89a5",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/result.json",
+      "committed": false,
+      "bytes": 2144,
+      "sha256": "5f8af21304b28f3afdf72ce812327582104e6b453877eb684332095e1d01e104",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-01.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-02.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-03.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-04.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-05.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-06.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-07.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-08.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-09.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-10.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-11.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-12.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-13.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-14.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-15.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-16.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-17.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-18.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-19.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-2/run-20.png",
+      "committed": false,
+      "bytes": 31980,
+      "sha256": "91a87cdbbc52221ec706a4bd29fdc6119c8db4cad90b156dfb91c66afbf10ae2",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/edges.png",
+      "committed": false,
+      "bytes": 50018,
+      "sha256": "edd3ab68bb90411159bd91e0e7e62cdde103d4c9f3245fcc7e5f85dfd9b8909c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/result.json",
+      "committed": false,
+      "bytes": 2144,
+      "sha256": "589f1c0a0bafed3fbb8e6a7139ecb8e138a5fce629140fa4b0cbd7b7fb6a02a7",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-01.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-02.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-03.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-04.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-05.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-06.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-07.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-08.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-09.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-10.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-11.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-12.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-13.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-14.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-15.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-16.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-17.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-18.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-19.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-district-3/run-20.png",
+      "committed": false,
+      "bytes": 53913,
+      "sha256": "e7711ee49916b81d1279eb14f0ca61e87763023efde0f754f01b0659b19eaa7a",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/edges.png",
+      "committed": false,
+      "bytes": 14925,
+      "sha256": "b1108c05268fd4171ec053053a1c5b6e22f85d0ebf8bfc75c6992dc83e623be1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/result.json",
+      "committed": false,
+      "bytes": 2138,
+      "sha256": "34662df1193e3d4c07c1437800ddf6faee98fce7d2e026e9a3f1688928181fdf",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-01.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-02.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-03.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-04.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-05.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-06.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-07.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-08.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-09.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-10.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-11.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-12.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-13.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-14.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-15.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-16.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-17.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-18.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-19.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-1/run-20.png",
+      "committed": false,
+      "bytes": 16441,
+      "sha256": "561ee3d16ea7c3bb40ccf931d452071d88c6400a6723bd99e406835bdf0266de",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/edges.png",
+      "committed": false,
+      "bytes": 31927,
+      "sha256": "451670e079f41799aea7c78d80762832c451369ccac675c5c8f5cb201038acb9",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/result.json",
+      "committed": false,
+      "bytes": 2138,
+      "sha256": "dcb253fdb613deb1915fc1b13f0fd1c2aedac7b3cde3e24574a406aa33da1f28",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-01.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-02.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-03.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-04.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-05.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-06.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-07.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-08.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-09.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-10.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-11.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-12.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-13.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-14.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-15.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-16.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-17.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-18.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-19.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-2/run-20.png",
+      "committed": false,
+      "bytes": 33856,
+      "sha256": "38aa7110ed5d86749203ac8138c2dcec058723cdb0fe0a3cf8a4e15afedf69d1",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/result.json",
+      "committed": false,
+      "bytes": 1621,
+      "sha256": "181f9130757a9df8f22b1df30cebb8c93198ff9cde0fcb2abb17edf63de10b28",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-01.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-02.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-03.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-04.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-05.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-06.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-07.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-08.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-09.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-10.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-11.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-12.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/A-day-works-3/run-13.png",
+      "committed": false,
+      "bytes": 56900,
+      "sha256": "e80e775e53ac68815da6c64362aa48fc616d4238a3dd3fa68397d0cb1c258b6c",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    },
+    {
+      "path": "work/spikes/look/technique-matrix/002/webgl/results.json",
+      "committed": false,
+      "bytes": 13071,
+      "sha256": "d0c59182d8f238a4c080b9e1cb7e5828c64fbc179332c429b285dbb5ae06f910",
+      "regenerate": "LOOK_URL=http://127.0.0.1:5182 LOOK_ATTEMPT=002 LOOK_BACKEND=webgl bun apps/web/spikes/look-a/matrix.ts (use a fresh attempt on rerun)"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Local execution; prior official dependency and Blender downloads only",
+    "budget": "Local-only run authorized; hosted spend not authorized",
+    "observed_cost": "No hosted/provider calls; local compute cost not measured"
+  },
+  "cleanup_result": "Driver browsers close in finally; final local-server shutdown recorded in runtime-prerequisite/002",
+  "decision_link": "docs/spikes/evidence/look/report.md",
+  "limitations_and_next_action": "Dev/HMR measurement risk removed by frozen builds in subsequent attempts.",
+  "look": {
+    "technique": "A normal+depth / B surfaceID+depth / C hard+conditional silhouette",
+    "tone_set": "Original archived Atlas tokens copied as data; no new tone choice",
+    "theme": "day and night unless this record says otherwise",
+    "rung": "district / works / machine",
+    "dpr": "1 / 2 / 3 unless phone profile",
+    "camera": "Shared orthographic matrices in work/spikes/look/scene.json; provisional extent21/12/7",
+    "canvas": "480\u00d7360 CSS; phone390\u00d7844 where recorded",
+    "backend": "Per-cell backend and asserted renderer in results",
+    "renderer_string": "Per-cell results; no hardware/software substitution concealed",
+    "device_profile": "Local desktop; phone profile explicitly emulated, real phone not_run",
+    "clock_and_seed": "Matrix Date frozen2026-10-12T12:01:00Z; static deterministic authored geometry, no random seed needed",
+    "metrics": {
+      "cells_recorded": 6,
+      "successful_cells": 5,
+      "successful_renderer_initializations": 113,
+      "largest_changed_pixel_fraction": 0,
+      "threshold_source": "docs/spikes/look.md:20SwiftShaderruns percell, largestpixeldifference; noF1acceptance threshold"
+    },
+    "made_by": "Codex setup_requirements agent; independent Blender target and scoring by blender_target",
+    "cross_review": {
+      "reviewer_agent": "Codex root",
+      "verdict": "technical_visual_review_only",
+      "notes": "Day and night worksDPR1: all candidates preserve smooth drum cap and side; C appears finer, A/B have more broken/doubled small seams; common frame crop. No art approval. Final calibration review pending."
+    },
+    "owner_pick": {
+      "state": "pending",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  }
+}

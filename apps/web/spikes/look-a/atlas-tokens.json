@@ -1,0 +1,176 @@
+{
+  "name": "Floor Atlas",
+  "version": 1,
+  "color": {
+    "themes": [
+      { "id": "day", "name": "Day" },
+      { "id": "night", "name": "Night" }
+    ],
+    "tokens": [
+      {
+        "name": "ground",
+        "value": { "day": "#f4f1ea", "night": "#101318" },
+        "usage": "The page behind everything: the map, every view, every plate. Warm paper by day, navy-charcoal by night."
+      },
+      {
+        "name": "line",
+        "value": { "day": "#2b2e33", "night": "#d6dae0b3" },
+        "usage": "Every outline in the drawing, at the one `hairline` weight. Night is #D6DAE0 at 70%. Meets 3:1 on `ground`, `paper` and every tone in both themes. Not for text: use `ink`."
+      },
+      {
+        "name": "brass",
+        "value": { "day": "#b08a3e", "night": "#c9a24d" },
+        "usage": "Live data, and nothing else: levels, needles, floats, tide-gauge pens. Every brass part carries an engraved scale and a `line` outline. Never text, never decoration. Day brass on `ground` is 2.8:1, so the outline carries the edge."
+      },
+      {
+        "name": "steel",
+        "value": { "day": "#6b7480", "night": "#8a94a0" },
+        "usage": "Default market machinery where an island's tradition doesn't say otherwise; the volume trace on a tide gauge's paper. Not for text."
+      },
+      {
+        "name": "water",
+        "value": { "day": "#9fb7c9", "night": "#4e6a80" },
+        "usage": "Liquidity: the liquid in tanks and trays, harbours and the sea. Always a fill inside a `line` outline."
+      },
+      {
+        "name": "accent",
+        "value": { "day": "#f0640a", "night": "#ff7a1a" },
+        "usage": "Value moving, or waiting on you to move it. Exactly one orange part per frame, and the approval flag. Never text, never a landmark, an agent or a float. Day accent on `ground` is 2.9:1, so it is always outlined in `line`."
+      },
+      {
+        "name": "blueprint",
+        "value": { "day": "#2a5fd8", "night": "#3b7bff" },
+        "usage": "Proposed, unbuilt or being cast: new markets arriving, designs under review, a stall cooling in the foundry. Linework only, never a fill behind text."
+      },
+      {
+        "name": "rust",
+        "value": { "day": "#9c5634", "night": "#8a4b2a" },
+        "usage": "Dead markets and their builds, and wrecks on the low-tide flats. Night rust on `ground` is 2.8:1, so rusted parts keep their `line` outline."
+      },
+      {
+        "name": "frost",
+        "value": { "day": "#a9c7da", "night": "#cfe3f0" },
+        "usage": "Freshly cold markets, before they rust. A fill only."
+      },
+      {
+        "name": "ink",
+        "value": { "day": "#2b2e33", "night": "#d6dae0" },
+        "usage": "Interface text, the atlas layer's labels, and the stamps and traces on paper. On `ground`, `paper` and tone-0 to tone-3 in both themes (7:1 or better)."
+      },
+      {
+        "name": "ink-muted",
+        "value": { "day": "#5d626a", "night": "#9aa2ad" },
+        "usage": "Secondary interface text: dates, sources, hints, captions. On `ground` and `paper` only (5.4:1 or better in both themes); never on a tone."
+      },
+      {
+        "name": "paper",
+        "value": { "day": "#fffdf7", "night": "#191d24" },
+        "usage": "The one paper material: tide-gauge drums, notes, receipts, tide tables and plates. Barely lifts off `ground`, so a paper surface always has a `line` hairline edge."
+      },
+      {
+        "name": "engraving",
+        "value": { "day": "{ink}", "night": "{ground}" },
+        "usage": "Marks engraved into `brass`: scale ticks, graduation lines, scribed alert marks. Dark in both themes (4.2:1 on day brass, 7.8:1 on night brass). Only ever on brass."
+      },
+      {
+        "name": "tone-0",
+        "value": { "day": "#c9c4b8", "night": "#1b2028" },
+        "usage": "Shading: faces turned furthest from the light. Fills inside `line` outlines; `ink` reads on it."
+      },
+      {
+        "name": "tone-1",
+        "value": { "day": "#dbd8d0", "night": "#252c36" },
+        "usage": "Shading: the darker side face; also ruled lines on `paper`."
+      },
+      {
+        "name": "tone-2",
+        "value": { "day": "#edebe7", "night": "#303744" },
+        "usage": "Shading: the lighter side face."
+      },
+      {
+        "name": "tone-3",
+        "value": { "day": "#ffffff", "night": "#3a4352" },
+        "usage": "Shading: top faces, always the lightest."
+      }
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "atlas": "\"EB Garamond\", Garamond, \"Times New Roman\", serif",
+      "mono": "ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "notes": "\"Courier Prime\", \"Courier New\", Courier, monospace",
+      "ui": "Inter, system-ui, -apple-system, \"Segoe UI\", sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Atlas",
+        "family": "atlas",
+        "note": "An engraved serif for the atlas layer and plates. Labels are set in letterspaced small caps (font-variant-caps: all-small-caps).",
+        "styles": [
+          { "name": "atlas-island", "fontSize": "28px", "lineHeight": "32px", "fontWeight": 500, "letterSpacing": "0.18em", "sample": "Canal Town", "usage": "Island names, read from the farthest zoom. Small caps." },
+          { "name": "atlas-district", "fontSize": "18px", "lineHeight": "24px", "fontWeight": 500, "letterSpacing": "0.14em", "sample": "Games Quarter", "usage": "District names in the middle distance, and the path of scales' place corner. Small caps." },
+          { "name": "atlas-token", "fontSize": "13px", "lineHeight": "16px", "fontWeight": 500, "letterSpacing": "0.12em", "sample": "Toad", "usage": "Token and works names up close. Small caps." },
+          { "name": "plate-title", "fontSize": "22px", "lineHeight": "28px", "fontWeight": 400, "fontStyle": "italic", "sample": "The draining of a pool", "usage": "A plate's title, in sentence case." }
+        ]
+      },
+      {
+        "name": "Readouts",
+        "family": "mono",
+        "note": "The system monospace, for every number the Floor shows. Numbers live here, never in the drawing.",
+        "styles": [
+          { "name": "readout-lg", "fontSize": "20px", "lineHeight": "24px", "fontWeight": 500, "sample": "4.21M WETH/h", "usage": "The live readout in a view's corner." },
+          { "name": "readout", "fontSize": "13px", "lineHeight": "18px", "fontWeight": 400, "sample": "block 21,904,377 · 0x9f3c…a41e", "usage": "Receipts, ledgers, transactions, plate numbers and dates." },
+          { "name": "readout-sm", "fontSize": "11px", "lineHeight": "16px", "fontWeight": 400, "sample": "tx 0x4b1d…07c2", "usage": "Sources under a note, and fine print on receipts." }
+        ]
+      },
+      {
+        "name": "Notes",
+        "family": "notes",
+        "note": "A typewriter face for what agents write. Seeing it means an agent said this.",
+        "styles": [
+          { "name": "note", "fontSize": "14px", "lineHeight": "20px", "fontWeight": 400, "sample": "One wallet added most of this pool's liquidity two hours ago.", "usage": "Notes, theses and briefs: anything an agent wrote." },
+          { "name": "note-sm", "fontSize": "12px", "lineHeight": "16px", "fontWeight": 400, "sample": "Thesis: thin above the price; next large buy moves it far.", "usage": "A thesis quoted on a receipt, and pins seen at a distance." }
+        ]
+      },
+      {
+        "name": "Interface",
+        "family": "ui",
+        "note": "A plain, quiet grotesque for controls and panels.",
+        "styles": [
+          { "name": "ui-title", "fontSize": "20px", "lineHeight": "28px", "fontWeight": 600, "sample": "Wren's desk", "usage": "Panel titles." },
+          { "name": "ui-body", "fontSize": "14px", "lineHeight": "20px", "fontWeight": 400, "sample": "Ask before any trade over $500.", "usage": "Everything else in the interface: mandates, settings, the harbourmaster's answers." },
+          { "name": "ui-label", "fontSize": "12px", "lineHeight": "16px", "fontWeight": 500, "letterSpacing": "0.02em", "sample": "Approval needed", "usage": "Flag names, field labels, the path of scales, hints." }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "note": "A 4px base for the interface. The drawing has no spacing scale; it is measured in kit units.",
+    "tokens": [
+      { "name": "space-1", "value": "4px", "usage": "Between a flag or emblem and its word." },
+      { "name": "space-2", "value": "8px", "usage": "Inside small controls; between rows of a receipt." },
+      { "name": "space-3", "value": "12px", "usage": "Padding of notes and receipts." },
+      { "name": "space-4", "value": "16px", "usage": "Panel padding; the inset of a view's four corners." },
+      { "name": "space-6", "value": "24px", "usage": "Between sections of a panel; a plate's margin." },
+      { "name": "space-8", "value": "32px", "usage": "Between panels; around the drawing on a plate." }
+    ]
+  },
+  "radius": {
+    "note": "Square, like a printed plate. The only round things are stamps and pins.",
+    "tokens": [
+      { "name": "radius-none", "value": "0", "usage": "Everything: panels, paper, plates, flags, buttons." },
+      { "name": "radius-hair", "value": "2px", "usage": "Text inputs, so they read as controls rather than paper." },
+      { "name": "radius-round", "value": "50%", "usage": "Emblem stamps on paper and pins on a machine." }
+    ]
+  },
+  "drawing": {
+    "note": "Constants of the drawing itself. The camera and the scales never vary by island or design.",
+    "tokens": [
+      { "name": "hairline", "value": "1px", "usage": "The one line weight, for every edge in the drawing and every rule in the interface." },
+      { "name": "camera-pitch", "value": "30deg", "usage": "Orthographic isometric camera, from one corner looking down. No perspective." },
+      { "name": "tick-pitch", "value": "6px", "usage": "Minor tick spacing on an engraved scale drawn at interface size." },
+      { "name": "tick-major-every", "value": "5", "usage": "Every fifth tick on an engraved scale is a major mark. No numbers on any scale." }
+    ]
+  }
+}

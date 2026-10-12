@@ -1,0 +1,29 @@
+{
+  "name": "floor-look-part-a-spike",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p apps/web/spikes/look-a/tsconfig.json",
+    "lint": "oxlint --deny-warnings --config apps/web/spikes/look-a/oxlint.json apps/web/spikes/look-a --ignore-pattern '*.py'",
+    "build": "vite build --config apps/web/spikes/look-a/vite.config.ts",
+    "dev": "vite --config apps/web/spikes/look-a/vite.config.ts --host 127.0.0.1 --port 5181",
+    "test:look": "playwright test --config apps/web/spikes/look-a/playwright.config.ts"
+  },
+  "dependencies": {
+    "three": "0.180.0",
+    "three-edge-projection": "git+https://github.com/gkjohnson/three-edge-projection.git#3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567",
+    "three-mesh-bvh": "0.9.9",
+    "clipper2-js": "0.9.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "@types/bun": "1.4.2",
+    "@types/pngjs": "6.0.5",
+    "@types/three": "0.180.0",
+    "oxlint": "1.87.0",
+    "pngjs": "7.0.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
+  }
+}

@@ -1,0 +1,1352 @@
+[
+  {
+    "id": "A-day-district-1",
+    "technique": "A",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "713237f8629596229ee06b8b9df00ea12237295181d0caf712f9c9ec95840815"
+    ],
+    "pngBytes": [
+      9898
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-district-2",
+    "technique": "A",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "dfcb521bd51685c070e32cbd1f91ed434d664f10a5414aedbea6561129a9ac42"
+    ],
+    "pngBytes": [
+      24352
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-district-3",
+    "technique": "A",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "4b929a97976038c1c516746328f16ad66167ee302a7fe80ec97110c1dc6beed2"
+    ],
+    "pngBytes": [
+      39949
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-works-1",
+    "technique": "A",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "e4390291cc8d50d92920f60139820e7acb2d2880be970dae5af2f200b6730b8f"
+    ],
+    "pngBytes": [
+      12211
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-works-2",
+    "technique": "A",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "6a6cd0c4b40aeacf0fdfcbe852a91938047b0349bd14c8cd4b08eb266b6db161"
+    ],
+    "pngBytes": [
+      28452
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-works-3",
+    "technique": "A",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "a1492f2ad72ab5e2284a4072c91ad558d01a85a7b0a10db8cfafd034eb543171"
+    ],
+    "pngBytes": [
+      45791
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-machine-1",
+    "technique": "A",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "9d8e8b1b58cbaa645d640cccc302fdafbb2edfb8be805334bd65ed17005b7cef"
+    ],
+    "pngBytes": [
+      11399
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-machine-2",
+    "technique": "A",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "7117d0637d0f63c1064d9eeaa2810db7771bf7f0b9576b1f31ac4c6d146ca0ba"
+    ],
+    "pngBytes": [
+      27666
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-day-machine-3",
+    "technique": "A",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "d84d86e6110f78ca33b62b61d855e66ad2b88d2894892f18a239900137803f31"
+    ],
+    "pngBytes": [
+      46294
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-district-1",
+    "technique": "A",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "c0887c9302866ed4a7a14d8119763a7ac21af0c02aac3b24d05153b0e4a15046"
+    ],
+    "pngBytes": [
+      12313
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-district-2",
+    "technique": "A",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "2f61bb313fdc58de42d8d8a3c3dcd77f74aef925c21e290a7229f5e633d0a9f3"
+    ],
+    "pngBytes": [
+      29118
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-district-3",
+    "technique": "A",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "0dfff6c139d36e6a7e1b2511fd3c485c07fdbc49c2bc4529b47f57f31277070e"
+    ],
+    "pngBytes": [
+      48379
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-works-1",
+    "technique": "A",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "605b25fef4687c008c1bd22a156cb4c44fd02f1dfeb971cb8e32880d6542ce98"
+    ],
+    "pngBytes": [
+      15006
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-works-2",
+    "technique": "A",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "d6dd567696f5efffcf50e83b89fdc989a45f23ac192fd0ce82ce681f9da9cb3f"
+    ],
+    "pngBytes": [
+      32914
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-works-3",
+    "technique": "A",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "4cb509b761c65e133546b99e7eb47cde50bc2949046b1485a1283bebdeb7a4c2"
+    ],
+    "pngBytes": [
+      52937
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-machine-1",
+    "technique": "A",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "25f1bcbecb5021bd4828562fef686e3a448bd59aa194a2aaeebc48221f183599"
+    ],
+    "pngBytes": [
+      13886
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-machine-2",
+    "technique": "A",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "86d9b95ba2dd1aa65201d363285f3b43db55daa61e2a58525d420ba350e52d4b"
+    ],
+    "pngBytes": [
+      31038
+    ],
+    "errors": []
+  },
+  {
+    "id": "A-night-machine-3",
+    "technique": "A",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "e35d59ff31cb9519b1f13c6a6bcf4e943ff5dffe4e9ec41fb625fe693f821f87"
+    ],
+    "pngBytes": [
+      51922
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-district-1",
+    "technique": "B",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "24dfbeb6b2a8970f642abd5b6eb65ddfe48e9191f17f9757b70a4d120f47d6c9"
+    ],
+    "pngBytes": [
+      9777
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-district-2",
+    "technique": "B",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "2652652d6ac43626b30e4f66fcebf8d40a2d88f1f165914ad0ad87ffb1f66b3b"
+    ],
+    "pngBytes": [
+      24564
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-district-3",
+    "technique": "B",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "01cec62ddbc3daaa67f7ab2eda2101ed30d49a494b690f77913d50392187a20b"
+    ],
+    "pngBytes": [
+      39893
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-works-1",
+    "technique": "B",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "4e39861e1b1b3daa060c7eff3faeb0dc59b96710859273913286a1bed7313935"
+    ],
+    "pngBytes": [
+      12250
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-works-2",
+    "technique": "B",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "6f1421deff4a733d6d5a6c065e00054fae43cd2b4a2004797f6ff85385feef29"
+    ],
+    "pngBytes": [
+      28703
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-works-3",
+    "technique": "B",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "6b0e6b924007e75653cb6e0d26c27faaeae4f63ad743ac90bb0b0135b7bc7d57"
+    ],
+    "pngBytes": [
+      46381
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-machine-1",
+    "technique": "B",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "f7d0f7c4533850db75747535440a1da388020173ebd984af0b6d398d381dfa8b"
+    ],
+    "pngBytes": [
+      11577
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-machine-2",
+    "technique": "B",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "cfc68363f33946327cc0738ab9727e6b9837418ea97bbd53a1d9908131fb5373"
+    ],
+    "pngBytes": [
+      28010
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-day-machine-3",
+    "technique": "B",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "b4e86534107544f1aa371c666c7d3823d543cf1e060c657c362a6e078e671479"
+    ],
+    "pngBytes": [
+      47269
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-district-1",
+    "technique": "B",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "6ffc877d2560cf6a9dda77f54b52ad6588f14ca2dfdfecf91962295b354f0b8e"
+    ],
+    "pngBytes": [
+      12311
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-district-2",
+    "technique": "B",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "ebf8f8038456537ad86629d7ad1d32f5272556c7ab7491e4f42f81694e835c7d"
+    ],
+    "pngBytes": [
+      29291
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-district-3",
+    "technique": "B",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "387c84ea13526e64b9ec73343899daf8e7ee95c3b9bb6fc8c4da4c493439b9c3"
+    ],
+    "pngBytes": [
+      48651
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-works-1",
+    "technique": "B",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "7d7f6a91f560ebd9d564121e050771f202dc367ba91768c22ff8a008cbf50aee"
+    ],
+    "pngBytes": [
+      15106
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-works-2",
+    "technique": "B",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "db65305e2b7212ab1db2e29991ed1113f631972c23dd2edad6866c7c0c4e73b1"
+    ],
+    "pngBytes": [
+      33069
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-works-3",
+    "technique": "B",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "8b4206585696a2750261c2c4c905d4f8f6728b90e83558eb9f7f7885fd1d2a86"
+    ],
+    "pngBytes": [
+      53695
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-machine-1",
+    "technique": "B",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "b1411e85559f30d1a11d20c1ee7a20d7a1cb10e18edd61a3b60b23ee2adcb9fb"
+    ],
+    "pngBytes": [
+      14155
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-machine-2",
+    "technique": "B",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "edce00993f0b3023bb9e273a8c3693b664583ea9fcfa028c54506424d3816da2"
+    ],
+    "pngBytes": [
+      31399
+    ],
+    "errors": []
+  },
+  {
+    "id": "B-night-machine-3",
+    "technique": "B",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "0f85ca4c4fc52675223c320d94ef374470ff30a9188435b364d345f24bc6223e"
+    ],
+    "pngBytes": [
+      52683
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-district-1",
+    "technique": "C",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "0a39afa49e94472ff275442b1e8a6ae3a7a491ffb54c066c4804a59bf4606aa2"
+    ],
+    "pngBytes": [
+      9922
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-district-2",
+    "technique": "C",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "08ffc8652756769aa175f98a4710063668bc51f6ab116b5ba3a7b28661c5e05f"
+    ],
+    "pngBytes": [
+      24167
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-district-3",
+    "technique": "C",
+    "theme": "day",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "bdeee4e5c89570ef2b6f576abb50ef508b16c0f95ef80ae9275a5565cec5802d"
+    ],
+    "pngBytes": [
+      39518
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-works-1",
+    "technique": "C",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "8e6b58822bf74491184d1803db428932b769dc4690b003d49236d95046957f0d"
+    ],
+    "pngBytes": [
+      12377
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-works-2",
+    "technique": "C",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "8d5910d070156d3f19ef9fdeaef044c0e29005103b859dadf5755e4f1e17c731"
+    ],
+    "pngBytes": [
+      28641
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-works-3",
+    "technique": "C",
+    "theme": "day",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "074ae664ffeeac75cb4798198381f1b08a20a9154c26dff20d49ba541977d3f0"
+    ],
+    "pngBytes": [
+      46905
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-machine-1",
+    "technique": "C",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "0ca7e5cd010b98bbeb94aea278af7db26b04e6f8edc7bf6ee892c4aa8862c5ba"
+    ],
+    "pngBytes": [
+      11840
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-machine-2",
+    "technique": "C",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "31b2afbebb35217929ac734420c1782c06e97c774fb2c2b015e00654bc0dc445"
+    ],
+    "pngBytes": [
+      28241
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-day-machine-3",
+    "technique": "C",
+    "theme": "day",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "a3c51b1c336ebe1033f6fa39f3b7f92e94374c58d5cbd29cfe57ad71b40217c7"
+    ],
+    "pngBytes": [
+      47445
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-district-1",
+    "technique": "C",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "d6f1aaff7e32addb8ea7c6dc8d8e56fb07716a36599f5f5ab025c528a81829d7"
+    ],
+    "pngBytes": [
+      16557
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-district-2",
+    "technique": "C",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "569fdcd3897bdd88fe78709fb31bedd1d0a2c0e2ed87ebb93a4ba31360827363"
+    ],
+    "pngBytes": [
+      43849
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-district-3",
+    "technique": "C",
+    "theme": "night",
+    "rung": "district",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "f5ef93a1b430495aab6b5472b1c12f176b7d01179b868af91565890604b33ac1"
+    ],
+    "pngBytes": [
+      74921
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-works-1",
+    "technique": "C",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "b63d701229eae758479315cd1c73b1dcebd198d119c8e3e929b4f876583bc93b"
+    ],
+    "pngBytes": [
+      20596
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-works-2",
+    "technique": "C",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "f1b1bebc479bba7383ed48c2a7729b584baf99e5e40703ac21582277b488fd2a"
+    ],
+    "pngBytes": [
+      48850
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-works-3",
+    "technique": "C",
+    "theme": "night",
+    "rung": "works",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "4ddb0759a1f7d32382c8a6ad32d59c5cf29f38ccdf1fe5b7efc0a180e8d9afc4"
+    ],
+    "pngBytes": [
+      81146
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-machine-1",
+    "technique": "C",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 1,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "c10c4ef5bd531fee6737b8cf479e22863a250a43abade8b36e99bd0bd9e76430"
+    ],
+    "pngBytes": [
+      18837
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-machine-2",
+    "technique": "C",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 2,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "2778825b743b364594cd94b6f89a1881ae5314ffcbc504467901e7c86bc02857"
+    ],
+    "pngBytes": [
+      43030
+    ],
+    "errors": []
+  },
+  {
+    "id": "C-night-machine-3",
+    "technique": "C",
+    "theme": "night",
+    "rung": "machine",
+    "dpr": 3,
+    "width": 480,
+    "height": 360,
+    "stalls": 12,
+    "backend": "webgl",
+    "status": "pass",
+    "failure": null,
+    "runs": 1,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "browser": "156.0.8078.4",
+    "max_changed_pixel_fraction": 0,
+    "max_channel_delta": 0,
+    "hashes": [
+      "ed000083f5ff4822e3f0fb4574713fc3eade7e467585b486a16fcf08c2b3dd83"
+    ],
+    "pngBytes": [
+      72858
+    ],
+    "errors": []
+  }
+]
