@@ -1,6 +1,6 @@
 # Look spike handoff
 
-Status: **Part A done; the owner picked technique B on WebGL on 12 October 2026. Part B starts now.** Tones, proportions, the kit unit and reference frames are not picked yet.
+Status: **Part A done; the owner picked technique B on WebGL on 12 October 2026. Part B's first references are generated and shortlisted ([review](evidence/look/references/claude-review-001.md)); the owner is picking.** Tones, proportions, the kit unit and reference frames are not picked yet.
 
 The spike settles how the map is drawn before Stage 0 writes the Floor Atlas. It runs in two parts:
 
