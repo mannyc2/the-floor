@@ -1,0 +1,138 @@
+import { Schema } from "effect";
+
+const root = "work/ci-proof/preview-001";
+const outputPath = `${root}/baseline-comparison.json`;
+const ObjectSchema = Schema.Record(Schema.String, Schema.Unknown);
+const Inventory = Schema.Struct({
+  observedAt: Schema.String,
+  accountId: Schema.String,
+  scripts: Schema.Array(ObjectSchema),
+  namespaces: Schema.Array(ObjectSchema),
+  databases: Schema.Array(ObjectSchema),
+  secretStores: Schema.Array(ObjectSchema),
+  stateStoreSettings: ObjectSchema,
+  stateStoreBindings: Schema.Array(ObjectSchema),
+});
+const Owned = Schema.Struct({
+  observedAt: Schema.String,
+  baseline: Schema.Struct({ sha256: Schema.String }),
+  ownedWorker: Schema.Struct({ id: Schema.String, tags: Schema.Array(Schema.String) }),
+  ownedNamespaces: Schema.Array(Schema.Struct({ id: Schema.String, script: Schema.String, class: Schema.String })),
+  deployments: Schema.Struct({
+    current: Schema.Struct({ id: Schema.String }),
+    activeVersionIds: Schema.Array(Schema.String),
+  }),
+});
+const hash = (text: string) => new Bun.CryptoHasher("sha256").update(text).digest("hex");
+const canonical = (value: unknown): string => {
+  if (value === undefined) return "null";
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  const entries = Object.entries(Schema.decodeUnknownSync(ObjectSchema)(value)).sort(([a], [b]) => a.localeCompare(b));
+  return `{${entries.map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
+};
+const digest = (values: ReadonlyArray<unknown>) => hash(`[${values.map(canonical).sort().join(",")}]`);
+const identity = (value: typeof ObjectSchema.Type, key: string) => Schema.decodeUnknownSync(Schema.String)(value[key]);
+const compare = (before: ReadonlyArray<typeof ObjectSchema.Type>, after: ReadonlyArray<typeof ObjectSchema.Type>, key: string) => {
+  const beforeIds = before.map((item) => identity(item, key));
+  const afterIds = after.map((item) => identity(item, key));
+  if (new Set(beforeIds).size !== beforeIds.length || new Set(afterIds).size !== afterIds.length) {
+    throw new Error("Inventory contains duplicate identities");
+  }
+  const beforeMetadata = digest(before);
+  const afterMetadata = digest(after);
+  const beforeIdentities = digest(beforeIds);
+  const afterIdentities = digest(afterIds);
+  return {
+    beforeCount: before.length, afterCount: after.length,
+    beforeMetadataDigest: beforeMetadata, afterMetadataDigest: afterMetadata,
+    beforeIdentityDigest: beforeIdentities, afterIdentityDigest: afterIdentities,
+    identitiesEqual: beforeIdentities === afterIdentities,
+    metadataEqual: beforeMetadata === afterMetadata,
+  };
+};
+
+if (await Bun.file(outputPath).exists() && !process.argv.includes("--refresh")) {
+  throw new Error("Refusing to overwrite retained teardown comparison without an explicit refresh");
+}
+const beforeText = await Bun.file(`${root}/before.json`).text();
+const afterText = await Bun.file(`${root}/after.json`).text();
+const ownedText = await Bun.file(`${root}/owned-before-delete.json`).text();
+const before = Schema.decodeUnknownSync(Inventory)(JSON.parse(beforeText));
+const after = Schema.decodeUnknownSync(Inventory)(JSON.parse(afterText));
+const owned = Schema.decodeUnknownSync(Owned)(JSON.parse(ownedText));
+if (before.accountId !== after.accountId || owned.baseline.sha256 !== hash(beforeText)) {
+  throw new Error("Account or retained baseline does not match the owned-resource capture");
+}
+const tags = ["alchemy:stack:Floor", "alchemy:stage:pr-1", "alchemy:id:FloorWorker"];
+if (!tags.every((tag) => owned.ownedWorker.tags.includes(tag)) || owned.ownedNamespaces.length !== 2 ||
+  owned.ownedNamespaces.some((item) => item.script !== owned.ownedWorker.id) ||
+  before.scripts.some((item) => item["id"] === owned.ownedWorker.id) ||
+  before.namespaces.some((item) => owned.ownedNamespaces.some((namespace) => item["id"] === namespace.id))) {
+  throw new Error("Retained resource ownership or new-resource identity is invalid");
+}
+const inventories = {
+  workers: compare(before.scripts, after.scripts, "id"),
+  durableObjectNamespaces: compare(before.namespaces, after.namespaces, "id"),
+  d1Databases: compare(before.databases, after.databases, "uuid"),
+  secretStores: compare(before.secretStores, after.secretStores, "id"),
+};
+const beforeSettingsDigest = hash(canonical(before.stateStoreSettings));
+const afterSettingsDigest = hash(canonical(after.stateStoreSettings));
+const beforeBindingsDigest = digest(before.stateStoreBindings);
+const afterBindingsDigest = digest(after.stateStoreBindings);
+const sharedStateStore = {
+  settings: {
+    beforeMetadataDigest: beforeSettingsDigest, afterMetadataDigest: afterSettingsDigest,
+    metadataEqual: beforeSettingsDigest === afterSettingsDigest,
+  },
+  bindings: {
+    beforeCount: before.stateStoreBindings.length, afterCount: after.stateStoreBindings.length,
+    beforeMetadataDigest: beforeBindingsDigest, afterMetadataDigest: afterBindingsDigest,
+    metadataEqual: beforeBindingsDigest === afterBindingsDigest,
+  },
+};
+const ownedWorkerAbsent = !after.scripts.some((item) => item["id"] === owned.ownedWorker.id);
+const ownedNamespaces = owned.ownedNamespaces.map((item) => ({
+  id: item.id, class: item.class, script: item.script,
+  absentAfter: !after.namespaces.some((namespace) => namespace["id"] === item.id),
+}));
+const ownedStageWorkersRemaining = after.scripts.filter((item) => {
+  const candidateTags = item["tags"];
+  return Array.isArray(candidateTags) && tags.every((tag) => candidateTags.includes(tag));
+}).length;
+const ownedScriptNamespacesRemaining = after.namespaces.filter((item) => item["script"] === owned.ownedWorker.id).length;
+const baselineIdentityEqual = Object.values(inventories).every((item) => item.identitiesEqual);
+const baselineMetadataEqual = Object.values(inventories).every((item) => item.metadataEqual) &&
+  sharedStateStore.settings.metadataEqual && sharedStateStore.bindings.metadataEqual;
+const allOwnedResourcesAbsent = ownedWorkerAbsent && ownedNamespaces.every((item) => item.absentAfter) &&
+  ownedStageWorkersRemaining === 0 && ownedScriptNamespacesRemaining === 0;
+const result = {
+  observedAt: new Date().toISOString(), stage: "pr-1", stack: "Floor",
+  scope: "Offline comparison of retained account metadata; only owned identities, aggregate counts and canonical SHA-256 digests are emitted.",
+  inputs: {
+    before: { observedAt: before.observedAt, sha256: hash(beforeText), retained: "Private inventory; not included in public evidence." },
+    live: { observedAt: owned.observedAt, sha256: hash(ownedText) },
+    after: { observedAt: after.observedAt, sha256: hash(afterText), retained: "Private inventory; not included in public evidence." },
+  },
+  inventories,
+  sharedStateStore,
+  removedOwned: {
+    worker: { id: owned.ownedWorker.id, absentAfter: ownedWorkerAbsent },
+    namespaces: ownedNamespaces,
+    preDeleteDeploymentId: owned.deployments.current.id,
+    preDeleteActiveVersionIds: owned.deployments.activeVersionIds,
+    ownedStageWorkersRemaining, ownedScriptNamespacesRemaining,
+  },
+  baselineIdentityEqual, baselineMetadataEqual, allOwnedResourcesAbsent,
+  pass: baselineIdentityEqual && baselineMetadataEqual && allOwnedResourcesAbsent,
+  canonicalization: "Object keys sorted recursively; arrays retain order; inventory rows sorted by canonical JSON; SHA-256 of UTF-8 JSON. Identity digests hash sorted canonical identity strings.",
+  limitations: [
+    "Equality covers only metadata fields retained by preflight, not contents of Durable Objects, D1 databases or secret stores.",
+    "Pre-delete deployment/version identities are preserved here; deletion is evidenced by the Worker and namespace inventory, not a separate post-delete version endpoint.",
+    "No network request or mutation is performed by this comparison."
+  ],
+};
+await Bun.write(outputPath, JSON.stringify(result, null, 2) + "\n");
+console.log(JSON.stringify({ outputPath, pass: result.pass, baselineIdentityEqual, baselineMetadataEqual, allOwnedResourcesAbsent }, null, 2));
+if (!result.pass) process.exitCode = 1;

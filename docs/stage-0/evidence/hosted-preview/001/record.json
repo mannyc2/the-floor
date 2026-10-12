@@ -1,0 +1,832 @@
+{
+  "check_id": "hosted-preview-and-automatic-cleanup",
+  "attempt": "001",
+  "status": "pass",
+  "executed_at_utc": {
+    "reservation": "2026-10-12T19:06:14.692Z",
+    "manual_ci_created": "2026-10-12T19:06:17Z",
+    "manual_ci_completed_observed": "2026-10-12T19:09:57Z",
+    "live_resources": "2026-10-12T19:13:01.212Z",
+    "pr_closed": "2026-10-12T19:13:12Z",
+    "cleanup_created": "2026-10-12T19:13:15Z",
+    "cleanup_completed_observed": "2026-10-12T19:13:47Z",
+    "post_cleanup_inventory": "2026-10-12T19:14:18.463Z",
+    "offline_comparison_generated": "2026-10-12T19:18:00.778Z",
+    "automatic_pr_ci_created": "2026-10-12T19:15:30Z",
+    "automatic_pr_ci_completed_observed": "2026-10-12T19:17:24Z"
+  },
+  "operator": "Root admitted/dispatched the proof, executed the local flow and owned-metadata capture, disabled deployment, closed/reopened the PR and released admission. chains_promotion wrote/reviewed the capture helper and performed the offline private-inventory comparison. setup_requirements packaged evidence offline.",
+  "reviewer": "Root verified all 58 retained artifact sizes/hashes, complete manifest coverage, the report, executed checkout lineage, current gates and private baseline restoration. hosted_evidence_review independently reviewed public-safe results, checkout lineage, privacy limits and the original comparator. Reviews do not approve Stage 0 or art.",
+  "source_revision": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "dependency_versions": {
+    "Bun": "1.4.0",
+    "Effect": "4.0.3",
+    "Alchemy": "2.0.0-beta.80 with retained patch",
+    "Yielded": "0.1.0-beta.166-floor.0adbcff.403.2 (vendored PR 557 adaptation)",
+    "Playwright": "1.64.0",
+    "GitHub_Chromium": "156.0.8078.4, Playwright chromium v1248",
+    "local_browser_binary_version": "unknown; not separately captured"
+  },
+  "api_evidence": [
+    {
+      "kind": "manual_ci",
+      "run_id": 38295404123,
+      "url": "https://github.com/mannyc2/the-floor/actions/runs/38295404123",
+      "event": "workflow_dispatch",
+      "metadata_head": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "actual_checkout": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "conclusion": "success"
+    },
+    {
+      "kind": "automatic_close_cleanup",
+      "run_id": 38296179460,
+      "url": "https://github.com/mannyc2/the-floor/actions/runs/38296179460",
+      "event": "pull_request_target",
+      "metadata_head": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "actual_checkout": "b606b0224b50ebbf86846ca78968e97057551604",
+      "conclusion": "success"
+    },
+    {
+      "kind": "automatic_reopened_pr_checks",
+      "run_id": 38296437944,
+      "url": "https://github.com/mannyc2/the-floor/actions/runs/38296437944",
+      "event": "pull_request",
+      "metadata_head": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "actual_checkout": "a72f40936807edf744f126a8cb57536ad3c0eaf8",
+      "merge_parents": [
+        "b606b0224b50ebbf86846ca78968e97057551604",
+        "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+      ],
+      "conclusion": "success",
+      "preview": "skipped"
+    },
+    {
+      "kind": "owned_metadata",
+      "path": "resources/owned-before-delete.json",
+      "observed_at": "2026-10-12T19:13:01.212Z",
+      "transport": {
+        "apiBaseVersion": "v4",
+        "apiCalls": 6,
+        "blockedNetworkCalls": 0,
+        "observations": [
+          {
+            "path": "workers/scripts",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          },
+          {
+            "path": "workers/durable_objects/namespaces?per_page=100",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          },
+          {
+            "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/settings",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          },
+          {
+            "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/versions?per_page=10",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          },
+          {
+            "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/deployments",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          },
+          {
+            "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/versions/4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+            "method": "GET",
+            "status": 200,
+            "success": true,
+            "apiVersion": null,
+            "errorCodes": []
+          }
+        ]
+      }
+    },
+    {
+      "kind": "offline_resource_comparison",
+      "path": "resources/baseline-comparison.json",
+      "input_observations": {
+        "before": {
+          "observedAt": "2026-10-12T19:05:48.027Z",
+          "sha256": "d749993ec144b098598ad3e9fd735d5e57aabad36091e569803728215d21b7f8",
+          "retained": "Private inventory; not included in public evidence."
+        },
+        "live": {
+          "observedAt": "2026-10-12T19:13:01.212Z",
+          "sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58"
+        },
+        "after": {
+          "observedAt": "2026-10-12T19:14:18.463Z",
+          "sha256": "ef9cc49445e3ab6d088444b8d5791804ba49c026b9cf2efa9de5a1434739449a",
+          "retained": "Private inventory; not included in public evidence."
+        }
+      },
+      "pass": true
+    }
+  ],
+  "execution_target": "GitHub standard ubuntu-latest runners; hosted Cloudflare pr-1 production Worker; one separately recorded local Mac Chromium flow; offline resource comparison.",
+  "runtime_configuration": {
+    "stage": "pr-1",
+    "stack": "Floor",
+    "manual_input": {
+      "preview_pr": "1",
+      "ref": "stage-0"
+    },
+    "admitted": {
+      "FLOOR_PREVIEW_CONFIGURED": "true",
+      "FLOOR_PREVIEW_ENABLED": "true",
+      "FLOOR_PREVIEW_PR": "1"
+    },
+    "released": {
+      "FLOOR_PREVIEW_CONFIGURED": "true",
+      "FLOOR_PREVIEW_ENABLED": "false",
+      "FLOOR_PREVIEW_PR": "absent"
+    },
+    "artifact_uploads": "skipped; FLOOR_UPLOAD_ARTIFACTS unset",
+    "setup_cache": "disabled",
+    "telemetry": "ALCHEMY_TELEMETRY_DISABLED=1 on GitHub",
+    "flow": "Production page and typed GET /api/health; remote flow configured with FLOOR_FLOW_REMOTE=true.",
+    "deployed_public_revision": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+    "cleanup_public_revision": "b606b0224b50ebbf86846ca78968e97057551604",
+    "automatic_pr_merge_revision": "a72f40936807edf744f126a8cb57536ad3c0eaf8"
+  },
+  "stage_and_resources": {
+    "owned_worker": {
+      "id": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+      "created_on": "2026-10-12T19:08:43.282142Z",
+      "modified_on": "2026-10-12T19:08:52.967824Z",
+      "compatibility_date": "2026-08-18",
+      "compatibility_flags": [
+        "new_module_registry"
+      ],
+      "tags": [
+        "alchemy:stack:Floor",
+        "alchemy:stage:pr-1",
+        "alchemy:id:FloorWorker",
+        "alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS"
+      ]
+    },
+    "owned_namespaces": [
+      {
+        "id": "daab67f15071424da0386666f56ed546",
+        "name": "floor-floorworker-pr-1-6zswxsi3y42k7hvp_FLOOR_MAILBOXES",
+        "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+        "class": "FLOOR_MAILBOXES",
+        "use_sqlite": true
+      },
+      {
+        "id": "8b33ec5927bd4cd6acdd58d7d622cae0",
+        "name": "floor-floorworker-pr-1-6zswxsi3y42k7hvp_FLOOR_THREADS",
+        "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+        "class": "FLOOR_THREADS",
+        "use_sqlite": true
+      }
+    ],
+    "current_deployment": {
+      "id": "dbd7b277-5c4d-4559-9205-b930a69e57dc",
+      "created_on": "2026-10-12T19:08:50.537868Z",
+      "source": "api",
+      "strategy": "percentage",
+      "versions": [
+        {
+          "version_id": "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+          "percentage": 100
+        }
+      ]
+    },
+    "active_version_ids": [
+      "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe"
+    ],
+    "created_d1_databases": 0,
+    "resource_count_scope": "Declared production preview resources and retained inventories; pre-existing resources remain outside stage ownership."
+  },
+  "inputs": [
+    {
+      "path": "reservation.json",
+      "scope": "One admitted stage and operator limits."
+    },
+    {
+      "path": "source/manifest.json",
+      "scope": "Selected original/public source bytes and runtime/flow/cleanup sources."
+    },
+    {
+      "path": "resources/owned-before-delete.json",
+      "scope": "Owned resource identities and metadata."
+    },
+    {
+      "path": "resources/baseline-comparison.json",
+      "scope": "Public-safe digest comparison; private inputs excluded."
+    }
+  ],
+  "procedure": [
+    "Reserve included allowance, freeze the reviewed public head, and admit only PR 1.",
+    "Manually run the complete check job and preview deployment on that head.",
+    "Run the shell/typed-health flow once on GitHub and once locally; retain the local recording.",
+    "Capture owned Worker, namespace, binding and deployment/version metadata using read-only calls.",
+    "Disable deployment, close the PR once, and let automatic trusted-base cleanup execute.",
+    "Compare the post-cleanup inventory to the private baseline and validate owned identities absent.",
+    "Drain earlier runs, release admission, reopen the draft PR and observe automatic merge-revision checks with preview skipped.",
+    "Package only public-safe evidence, preserve hashes and distinguish every execution revision."
+  ],
+  "expected_result": "Manual preview and production health flow succeed; closing the PR removes only owned resources; pre-existing retained metadata is preserved; automatic PR checks pass with deployment disabled.",
+  "observed_result": {
+    "manual_ci": "check success; preview success",
+    "manual_check": {
+      "format": "pass",
+      "typecheck": "pass",
+      "lint": "pass",
+      "leaf_tests": 56,
+      "leaf_assertions": 1333,
+      "build": "pass",
+      "production_build_tests": 2,
+      "native_local_tests": 3,
+      "native_assertions": 36,
+      "local_production_flow": 1,
+      "initial_shell_gzip_bytes": 114105,
+      "shell_gzip_budget_bytes": 204800
+    },
+    "github_hosted_health_flow": {
+      "passed": 1,
+      "run_duration_seconds": 3.4
+    },
+    "local_hosted_health_flow": {
+      "passed": 1,
+      "run_duration_seconds": 3.8,
+      "recording_retained": true
+    },
+    "successful_hosted_health_assertions": 2,
+    "total_driver_worker_requests": "unknown; no total request counter retained",
+    "automatic_close_cleanup": "success",
+    "owned_resource_absence": {
+      "worker": {
+        "id": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+        "absentAfter": true
+      },
+      "namespaces": [
+        {
+          "id": "daab67f15071424da0386666f56ed546",
+          "class": "FLOOR_MAILBOXES",
+          "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+          "absentAfter": true
+        },
+        {
+          "id": "8b33ec5927bd4cd6acdd58d7d622cae0",
+          "class": "FLOOR_THREADS",
+          "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+          "absentAfter": true
+        }
+      ],
+      "preDeleteDeploymentId": "dbd7b277-5c4d-4559-9205-b930a69e57dc",
+      "preDeleteActiveVersionIds": [
+        "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe"
+      ],
+      "ownedStageWorkersRemaining": 0,
+      "ownedScriptNamespacesRemaining": 0
+    },
+    "inventory_restoration": {
+      "workers": {
+        "beforeCount": 5,
+        "afterCount": 5,
+        "beforeMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+        "afterMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+        "beforeIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00",
+        "afterIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00",
+        "identitiesEqual": true,
+        "metadataEqual": true
+      },
+      "durableObjectNamespaces": {
+        "beforeCount": 1,
+        "afterCount": 1,
+        "beforeMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9",
+        "afterMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9",
+        "beforeIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c",
+        "afterIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c",
+        "identitiesEqual": true,
+        "metadataEqual": true
+      },
+      "d1Databases": {
+        "beforeCount": 3,
+        "afterCount": 3,
+        "beforeMetadataDigest": "3d7c628057bddfb5322beb7f913469f0dde583b4966602a193e80933160e16e2",
+        "afterMetadataDigest": "3d7c628057bddfb5322beb7f913469f0dde583b4966602a193e80933160e16e2",
+        "beforeIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9",
+        "afterIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9",
+        "identitiesEqual": true,
+        "metadataEqual": true
+      },
+      "secretStores": {
+        "beforeCount": 1,
+        "afterCount": 1,
+        "beforeMetadataDigest": "a1d46860864589d3b9d78fb985535f3906e33d559f520a5bbba306ab9a8c5a21",
+        "afterMetadataDigest": "a1d46860864589d3b9d78fb985535f3906e33d559f520a5bbba306ab9a8c5a21",
+        "beforeIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba",
+        "afterIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba",
+        "identitiesEqual": true,
+        "metadataEqual": true
+      }
+    },
+    "shared_state_store": {
+      "settings": {
+        "beforeMetadataDigest": "c04400d2683fdfaf7acf3749fd493185579c1b92a992eccf0f1a07f511cdee34",
+        "afterMetadataDigest": "c04400d2683fdfaf7acf3749fd493185579c1b92a992eccf0f1a07f511cdee34",
+        "metadataEqual": true
+      },
+      "bindings": {
+        "beforeCount": 8,
+        "afterCount": 8,
+        "beforeMetadataDigest": "600697857f2306702a1106b14712d280e41d867126c2eb4b3fefa843244c1bb7",
+        "afterMetadataDigest": "600697857f2306702a1106b14712d280e41d867126c2eb4b3fefa843244c1bb7",
+        "metadataEqual": true
+      }
+    },
+    "automatic_pr_check": {
+      "check": "success",
+      "preview": "skipped",
+      "checkout": "a72f40936807edf744f126a8cb57536ad3c0eaf8"
+    },
+    "all_final_observed_runs_terminal": true,
+    "draft_pr_open": true,
+    "admission_released": true,
+    "preview_deployment_enabled": false
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/commands.txt",
+      "committed": true,
+      "bytes": 4200,
+      "sha256": "df7bb6c6a87bc99561d06a37d7078b69f3aa6a1c0d2f92d064ba771ac43316ae",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/admitted-gates.json",
+      "committed": true,
+      "bytes": 246,
+      "sha256": "27a2cd17e03fcfa1db67ab05dbda3ccd10a9039b177580faa7dd634b73d863c5",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/automatic-merge-revision.json",
+      "committed": true,
+      "bytes": 254,
+      "sha256": "c23d2f6ad4916804c07bd67e68373811b77dd0b986282f9781ff40601bbce4fc",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/automatic-pr-run.json",
+      "committed": true,
+      "bytes": 3625,
+      "sha256": "29d067f44a005e2edac93cf0572145e2e59135d4ae0e20de65c84fb35d570efb",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/automatic-pr-run.log",
+      "committed": true,
+      "bytes": 129208,
+      "sha256": "92604e1b00fc49322eb1934dbebd8f09da69944ad88908cee0aec5517eafc92f",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/ci-run.json",
+      "committed": true,
+      "bytes": 6381,
+      "sha256": "e0bf2c8a182f8c899221683c95b610b81731f4d6c330306a0f117325d5e3f70f",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/ci-run.log",
+      "committed": true,
+      "bytes": 230435,
+      "sha256": "b78755af547580fa1dacaa50a53f0e0aa35f025162437927cf48d7d02c4bd2b1",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/cleanup-run.json",
+      "committed": true,
+      "bytes": 2032,
+      "sha256": "723218381ddc75b16ad25f8549cf7ccf4664b9400140484583bd6f78f22fd754",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/cleanup-run.log",
+      "committed": true,
+      "bytes": 41324,
+      "sha256": "b8722371868c02df2b29312a2594b0ac6b06c84e85de50cfb4a550ada9cb087a",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/disabled-gates.json",
+      "committed": true,
+      "bytes": 142,
+      "sha256": "ea9662bd33f007fb47c2aacf7836cec2296dfbc6b075072d984e9d741545f3c2",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/dispatch.json",
+      "committed": true,
+      "bytes": 190,
+      "sha256": "c4c4e04ab6154e321c91527906c8fb0b0fe2fa40596a3f3d0a5d21c9d36147db",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/pr-after-checks.json",
+      "committed": true,
+      "bytes": 2261,
+      "sha256": "660d600983d368fad42f225ec38f845150148a71d0ed1683add18caf018fff39",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/pr-closed.json",
+      "committed": true,
+      "bytes": 217,
+      "sha256": "07170df5b5bcf9a6505a555607bf7e31dc106fd3f23cbb6da3f762b346d2cbf0",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/pr-reopened.json",
+      "committed": true,
+      "bytes": 196,
+      "sha256": "a80258c50de95209fe4041c9c8a25c045a2d438e5ac5af3a8e3969c6636c24bc",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/preview-comment.json",
+      "committed": true,
+      "bytes": 495,
+      "sha256": "73982f67a3bfc2cdb03bed8c65dbba9922efba541d779c2edd42443e28e32232",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/released-gates.json",
+      "committed": true,
+      "bytes": 102,
+      "sha256": "8dff6a43b7eb2b8d833946d5f011b0db1b0cc9ec8bfaab2cef407d2626bf6d76",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/run-first.json",
+      "committed": true,
+      "bytes": 3134,
+      "sha256": "3811c3fd9ff54acdb280bc905741c14c2a8957742ef2f9d7594f683ba9cf6514",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/runs-after-cleanup.json",
+      "committed": true,
+      "bytes": 942,
+      "sha256": "d2f9aa24e9b0ec57868063a37c99cbe03c5d641b67f7b9a56afeeed508a78d27",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/runs-after-close.json",
+      "committed": true,
+      "bytes": 937,
+      "sha256": "3dd9238190a955fe66ecc5215b16c29fc8da28689e0dc4777e8d6727660b51e4",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/runs-drained.json",
+      "committed": true,
+      "bytes": 363,
+      "sha256": "7ef92bf31a9387f00a8bbad4f926f3e5c1b3b27a46fbf01352a360a042821609",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/github/runs-final.json",
+      "committed": true,
+      "bytes": 1241,
+      "sha256": "17e65efe1e4b7341ae8ce7bed0548c43c67c96c5b61f174ab759c8823cdbb0cb",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/local-flow/last-run.json",
+      "committed": true,
+      "bytes": 45,
+      "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/local-flow/observation.json",
+      "committed": true,
+      "bytes": 1090,
+      "sha256": "1c51be0bc08cd1c21dceeb3e89db39bf3c99aa24b7657a758123f0d29e6d761f",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/local-flow/run.log",
+      "committed": true,
+      "bytes": 232,
+      "sha256": "3f164d15f0e8ff1fd5f10c6d8ad11fcd1db09f6258f7011cb3e57b45c123ba74",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/local-flow/shell-connected.png",
+      "committed": true,
+      "bytes": 14464,
+      "sha256": "f4cac3124097c34c5f890f5e13d6a0bc7f32e4aeec203f433c5c69c63c506579",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/local-flow/video.webm",
+      "committed": true,
+      "bytes": 15110,
+      "sha256": "f51566e5460a50ef7d55adf31c9fd424f8a3ebc8362ca7b659eb91be82c656d1",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/report.md",
+      "committed": true,
+      "bytes": 7154,
+      "sha256": "7fe3e4b8ff18367d7cdb8347f2bae17cba0458f23d0c6f6274b3517b7564c518",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/reservation.json",
+      "committed": true,
+      "bytes": 541,
+      "sha256": "4c51152e3c4159013967e7e9487718b2ecdff78183f31b59f27c18fcce950c09",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/baseline-comparison.json",
+      "committed": true,
+      "bytes": 5039,
+      "sha256": "6d7c27f5554d2b6dfbdaa104e2d6cb7797ee1a98d78da898863633b71eeea190",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/capture-comparison-review.json",
+      "committed": true,
+      "bytes": 1565,
+      "sha256": "3404ec08486e805e05c0d5a2759a8df89d8d3160897be7d2294d46fe155c7b81",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/capture-run.log",
+      "committed": true,
+      "bytes": 266,
+      "sha256": "00a14d38e9a06a5ff2c36afe4937d5a48dae0129dbdebde9fb4a9cd3755db542",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/capture-typecheck.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/compare-run.log",
+      "committed": true,
+      "bytes": 190,
+      "sha256": "302a9aac968344fb6e302e7aae7b3817f49375063f5cd3e331e24ac889cb45b0",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/compare-typecheck.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/resources/owned-before-delete.json",
+      "committed": true,
+      "bytes": 7297,
+      "sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/retained-artifacts.json",
+      "committed": true,
+      "bytes": 14682,
+      "sha256": "c2b411808dc08deae2f7747f5bb34462ee62620af7cf24b4bc00fa1d4e1784ee",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/.github/workflows/ci.yml.txt",
+      "committed": true,
+      "bytes": 8040,
+      "sha256": "976b4a6f3628e6d6e2a63f94724389989fcf0d82c15870d5ce2b53a8a86af1f2",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/.github/workflows/cleanup.yml.txt",
+      "committed": true,
+      "bytes": 1756,
+      "sha256": "2d11989ff6364604cee0108eb9b69f13d6622c1feba088cb65e93eb6b7032dd4",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/alchemy.run.ts.txt",
+      "committed": true,
+      "bytes": 847,
+      "sha256": "0029a7b668e6220efefd948b9c9db468b40271d8cec2d831b744aca4d5693a59",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/apps/floor/src/worker.ts.txt",
+      "committed": true,
+      "bytes": 1589,
+      "sha256": "7b10f5ce7ed0fef4460d5323969851cfe07f2827c2937040b4b4486ac6ca7b51",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/apps/web/src/entry.ts.txt",
+      "committed": true,
+      "bytes": 234,
+      "sha256": "bb6dbe121e73f1e5b5c7575b079dfda75a568e906fa2311fa8d654c60c6558cc",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/apps/web/src/main.ts.txt",
+      "committed": true,
+      "bytes": 3107,
+      "sha256": "6472ac2e63a15b1b64c4f74c7aad41532f7d8c53562cc0aee12b58d2218cc5dd",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/packages/api/src/http.ts.txt",
+      "committed": true,
+      "bytes": 308,
+      "sha256": "0fc95a2808c44e6daa722188ea62f8a39c32e1392f09e43850cbaf5b9b8f41d0",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/packages/contract/src/health.ts.txt",
+      "committed": true,
+      "bytes": 183,
+      "sha256": "6b837e272b5aafd88edecd909b1004f27599c56d8591b4e5d5f51c65d7ea38b6",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/scripts/ci/cleanup.ts.txt",
+      "committed": true,
+      "bytes": 650,
+      "sha256": "276afa084ad8fccaa2529b3deb1ade37a8c60c04bb4b37d4729e2bc90e57b393",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/scripts/ci/deploy.ts.txt",
+      "committed": true,
+      "bytes": 959,
+      "sha256": "54e1ace237d089e8b964fa518f899cd510b6e4f1ae7849253625bbec19f17f45",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/scripts/ci/runtime.ts.txt",
+      "committed": true,
+      "bytes": 4171,
+      "sha256": "6ea74ea7abca1a30015d3ab5c5f3656fa9cbc82a0ffca127d34ace64f96d7b35",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/stacks/_lib/policy.ts.txt",
+      "committed": true,
+      "bytes": 1008,
+      "sha256": "24503d19a7f218e275bf01641d8ae230c588af86437f4628aa6860e5453ebea6",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/testing/flows/playwright.config.ts.txt",
+      "committed": true,
+      "bytes": 1164,
+      "sha256": "d286d29cef0e75c228784d9e376e1e3c5475f4b6b18b56187db5073609ce1394",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/deployed-head/testing/flows/shell.spec.ts.txt",
+      "committed": true,
+      "bytes": 1559,
+      "sha256": "a0f06cec7ac10eca5bcc6a87f8191d80b2e9307ed1c728e59609cea6020e6976",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/manifest.json",
+      "committed": true,
+      "bytes": 17343,
+      "sha256": "cd569f73a455c00e7a45129d3ba67e836bb52ebacea1602b9c84edb24ff8ce9b",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/trusted-cleanup/.github/workflows/cleanup.yml.txt",
+      "committed": true,
+      "bytes": 1756,
+      "sha256": "2d11989ff6364604cee0108eb9b69f13d6622c1feba088cb65e93eb6b7032dd4",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/trusted-cleanup/alchemy.run.ts.txt",
+      "committed": true,
+      "bytes": 847,
+      "sha256": "0029a7b668e6220efefd948b9c9db468b40271d8cec2d831b744aca4d5693a59",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/trusted-cleanup/scripts/ci/cleanup.ts.txt",
+      "committed": true,
+      "bytes": 650,
+      "sha256": "276afa084ad8fccaa2529b3deb1ade37a8c60c04bb4b37d4729e2bc90e57b393",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/trusted-cleanup/scripts/ci/runtime.ts.txt",
+      "committed": true,
+      "bytes": 4171,
+      "sha256": "6ea74ea7abca1a30015d3ab5c5f3656fa9cbc82a0ffca127d34ace64f96d7b35",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/source/trusted-cleanup/stacks/_lib/policy.ts.txt",
+      "committed": true,
+      "bytes": 1008,
+      "sha256": "24503d19a7f218e275bf01641d8ae230c588af86437f4628aa6860e5453ebea6",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/tooling/capture-owned.ts.txt",
+      "committed": true,
+      "bytes": 13590,
+      "sha256": "ac41b73a414c11f56c6cb08ffd4c781a65c7d5df05d1a42c1e3ec70d5b5bc20b",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    },
+    {
+      "path": "docs/stage-0/evidence/hosted-preview/001/tooling/compare-baseline.ts.txt",
+      "committed": true,
+      "bytes": 8151,
+      "sha256": "df27de792f9f245639513dfedee89c6aab6bd8070b0d781146861ec8517e6778",
+      "regenerate": "Preserve historical bytes. See commands.txt and retained-artifacts.json; a fresh hosted execution requires a new attempt and allowance review."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Only the admitted shell/typed-health runtime proof, GitHub operations and scoped Cloudflare control-plane metadata/deployment/cleanup. No hosted agent turn or outside provider operation.",
+    "budget": "Existing $5 Cloudflare subscription included allowance. Root rechecked rounded account displays approximately 18:43 UTC; reservation allows one stage, 30 minutes, 80 driver requests. Limits are operator policy, not measured request/CPU totals.",
+    "observed_cost": "unknown",
+    "post_run_billing": "Not refreshed: a new dashboard session required interactive authentication. No zero-cost conclusion inferred.",
+    "worker_lifetime_upper_bound_seconds": 336,
+    "lifetime_basis": "Owned Worker created_on through first absent inventory observation, conservatively rounded up.",
+    "worker_cpu_ms": "unknown",
+    "total_worker_requests": "unknown",
+    "outside_provider_use": "No model, wallet provider, Browser Run service or R2 operation was included in the executed proof."
+  },
+  "cleanup_result": "Automatic PR-close cleanup succeeded. The exact owned Worker and two namespace IDs are absent in the post-cleanup inventory. Four retained inventory identity/metadata sets, shared state-store settings and eight binding metadata records match baseline. Admission removed; deployment false; configuration/credentials retained for future authorized work. Resource contents were not compared.",
+  "decision_link": "docs/decisions.md; docs/spikes/hosted-budget.json; docs/stage-0.md",
+  "limitations_and_next_action": [
+    "No Stage 0 completion, feature approval, art selection, renderer or phone acceptance.",
+    "Automatic PR checks are proved; automatic PR-event preview deployment remains unexercised because it was disabled.",
+    "Failed/cancelled preview teardown was skipped on this successful run and is not live-tested here.",
+    "No hosted agent turn, model/wallet provider, Browser Run service, storage-content or complete feature-flow acceptance.",
+    "Private inventory equality covers retained metadata, not resource contents; deleted version endpoints were not queried separately.",
+    "The original comparison was independently reviewed; its shared-settings/bindings extension is labelled as an offline extension, not a repeated independent review.",
+    "The local recording is not a GitHub artifact; exact local wall-clock start and total runtime request/CPU cost are unknown.",
+    "Retained PR metadata includes a historical body with earlier unverified-CI text; final run evidence supersedes that status description.",
+    "Future hosted work needs a new bounded allowance/admission review; preserve these immutable observations."
+  ],
+  "look": {
+    "technique": "n/a: shell connectivity, not look acceptance",
+    "tone_set": "n/a: shell connectivity, not look acceptance",
+    "theme": "n/a: shell connectivity, not look acceptance",
+    "rung": "n/a: shell connectivity, not look acceptance",
+    "dpr": "n/a: shell connectivity, not look acceptance",
+    "camera": "n/a: shell connectivity, not look acceptance",
+    "canvas": "n/a: shell connectivity, not look acceptance",
+    "backend": "n/a: shell connectivity, not look acceptance",
+    "renderer_string": "n/a: shell connectivity, not look acceptance",
+    "device_profile": "n/a: shell connectivity, not look acceptance",
+    "clock_and_seed": "n/a: shell connectivity, not look acceptance",
+    "metrics": {},
+    "made_by": "n/a: shell connectivity, not look acceptance",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "No art review in this attempt."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  },
+  "status_scope": "Controlled manual preview deployment, production shell/health flow, automatic PR-close teardown, retained-resource metadata restoration, and subsequent automatic PR checks. Stage 0 remains incomplete.",
+  "retention_state": "Retained in this evidence directory, prepared for root review and the next evidence commit. committed flags denote intended retention, not a claim that this packaging staged or committed files.",
+  "recorded_at_utc": "2026-10-12T19:21:17.460483+00:00"
+}

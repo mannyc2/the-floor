@@ -1,0 +1,64 @@
+{
+  "started_at_utc": "2026-10-12T19:08:40.056096+00:00",
+  "ended_at_utc": "2026-10-12T19:08:48.852532+00:00",
+  "source_revision": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "public_stage_0_revision": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+  "commit_map_entries": 63,
+  "source_history_domain": "Only the five frozen canonical head object IDs; origin tracking refs are excluded from rewrite input.",
+  "tree_entries_compared": 30600,
+  "unique_kept_blobs": 1286,
+  "forbidden_cafe_blobs_absent": 71,
+  "unchanged_commit_metadata": 63,
+  "mapped_parent_topology_matches": 63,
+  "all_84_original_images_identical": true,
+  "mirror_only_five_canonical_heads": true,
+  "prior_mapping_checks": [
+    {
+      "run": "next-6efcd61",
+      "map_sha256": "6eb384f463e1520cf2e6dc743ef25f51c984d2410ae0c70e2110a06e1d04a20c",
+      "mappings_preserved": 59,
+      "mapping_changes": 0
+    },
+    {
+      "run": "tracking-regression-8210d54",
+      "map_sha256": "1c8991dd61d497f85bb3c39838ef20afcaf43c73b7a32237c19536880e82e0ab",
+      "mappings_preserved": 62,
+      "mapping_changes": 0
+    }
+  ],
+  "fsck": [
+    {
+      "repository": "filtered.git",
+      "exit_code": 0,
+      "retained_log": "fsck-filtered-git.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "repository": "publish",
+      "exit_code": 0,
+      "retained_log": "fsck-publish.log",
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_refs_worktree_heads_config_unchanged_during_this_audit": true,
+  "captured_export_source_integrity": true,
+  "captured_ref_snapshot_still_current": true,
+  "only_content_omission": "reference/cafe-reference/",
+  "tool_hashes_match_export_result": true,
+  "remote_observation": {
+    "observed_at_utc": "2026-10-12T19:08:48.834245+00:00",
+    "url": "https://github.com/mannyc2/the-floor.git",
+    "refs": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+    },
+    "matches_published_stage_0_and_unchanged_other_refs": true,
+    "main": "Public main remains at the first-published integrated revision. Neither the mapped local-main tip nor the incremental checker's proposed main update was published in this step."
+  },
+  "ci_and_preview": "Outside this publication record; no CI, deployment or teardown acceptance claimed."
+}

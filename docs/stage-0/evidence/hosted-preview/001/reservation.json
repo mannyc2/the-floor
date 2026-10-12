@@ -1,0 +1,17 @@
+{
+  "reservedAt": "2026-10-12T19:06:14.692Z",
+  "source": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "published": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+  "pr": 1,
+  "stage": "pr-1",
+  "state": "admitting-one-preview",
+  "baselineCounts": {
+    "workers": 5,
+    "namespaces": 1,
+    "databases": 3,
+    "secretStores": 1
+  },
+  "maximumLifetimeMinutes": 30,
+  "maximumDriverRequests": 80,
+  "allowed": "Production shell and typed health only; one CI flow plus one local recording; no agents, outside providers, Browser Run or R2"
+}

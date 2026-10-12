@@ -1,0 +1,909 @@
+check	Set up job	﻿2026-10-12T19:15:34.6974089Z Current runner version: '2.337.0'
+check	Set up job	2026-10-12T19:15:34.7003537Z ##[group]Runner Image Provisioner
+check	Set up job	2026-10-12T19:15:34.7004595Z Hosted Compute Agent
+check	Set up job	2026-10-12T19:15:34.7005285Z Version: 20261002.596
+check	Set up job	2026-10-12T19:15:34.7005933Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+check	Set up job	2026-10-12T19:15:34.7006629Z Build Date: 2026-10-02T22:28:27Z
+check	Set up job	2026-10-12T19:15:34.7007333Z Worker ID: {eff7beb5-b4c5-4a2f-be50-fdf155cb935d}
+check	Set up job	2026-10-12T19:15:34.7008032Z Region: westcentralus
+check	Set up job	2026-10-12T19:15:34.7008583Z Cloud: Azure
+check	Set up job	2026-10-12T19:15:34.7009139Z ##[endgroup]
+check	Set up job	2026-10-12T19:15:34.7010509Z ##[group]Operating System
+check	Set up job	2026-10-12T19:15:34.7011141Z Ubuntu
+check	Set up job	2026-10-12T19:15:34.7011688Z 24.04.5
+check	Set up job	2026-10-12T19:15:34.7012196Z LTS
+check	Set up job	2026-10-12T19:15:34.7012987Z ##[endgroup]
+check	Set up job	2026-10-12T19:15:34.7013539Z ##[group]Runner Image
+check	Set up job	2026-10-12T19:15:34.7014162Z Image: ubuntu-24.04
+check	Set up job	2026-10-12T19:15:34.7014715Z Version: 20261004.327.1
+check	Set up job	2026-10-12T19:15:34.7015774Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+check	Set up job	2026-10-12T19:15:34.7017648Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+check	Set up job	2026-10-12T19:15:34.7018676Z ##[endgroup]
+check	Set up job	2026-10-12T19:15:34.7020035Z ##[group]GITHUB_TOKEN Permissions
+check	Set up job	2026-10-12T19:15:34.7022355Z Contents: read
+check	Set up job	2026-10-12T19:15:34.7023439Z Metadata: read
+check	Set up job	2026-10-12T19:15:34.7024016Z ##[endgroup]
+check	Set up job	2026-10-12T19:15:34.7026386Z Secret source: Actions
+check	Set up job	2026-10-12T19:15:34.7027353Z Cache mode: write
+check	Set up job	2026-10-12T19:15:34.7028149Z Prepare workflow directory
+check	Set up job	2026-10-12T19:15:34.7433655Z Prepare all required actions
+check	Set up job	2026-10-12T19:15:34.7484336Z Getting action download info
+check	Set up job	2026-10-12T19:15:35.0641745Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+check	Set up job	2026-10-12T19:15:35.2390981Z Download action repository 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6' (SHA:0c5077e51419868618aeaa5fe8019c62421857d6)
+check	Set up job	2026-10-12T19:15:35.8729098Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+check	Set up job	2026-10-12T19:15:37.2327998Z Complete job name: check
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-12T19:15:37.3280792Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3281793Z with:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3282208Z   repository: mannyc2/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3285237Z   token: ***
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3285785Z   ssh-strict: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3286344Z   ssh-user: git
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3286721Z   persist-credentials: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3287379Z   clean: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3287777Z   sparse-checkout-cone-mode: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3288249Z   fetch-depth: 1
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3288625Z   fetch-tags: false
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3288996Z   show-progress: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3289415Z   lfs: false
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3289815Z   submodules: false
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3290215Z   set-safe-directory: true
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3290641Z   allow-unsafe-pr-checkout: false
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3291354Z env:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3291790Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.3292193Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4396250Z Syncing repository: mannyc2/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4399593Z ##[group]Getting Git version info
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4400692Z Working directory is '/home/runner/work/the-floor/the-floor'
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4402062Z [command]/usr/bin/git version
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4503923Z git version 2.55.0
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4525608Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4547246Z Temporarily overriding HOME='/home/runner/work/_temp/cd777d8b-8b46-4cfc-803f-a8a897a90811' before making global git config changes
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4548927Z Adding repository directory to the temporary git global config as a safe directory
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.4550096Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/the-floor/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.5099276Z Deleting the contents of '/home/runner/work/the-floor/the-floor'
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.5109860Z ##[group]Determining repository object format
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.5111397Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.5112823Z ##[group]Initializing the repository
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.5117438Z [command]/usr/bin/git init /home/runner/work/the-floor/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6153398Z hint: Using 'master' as the name for the initial branch. This default branch name
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6154974Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6156314Z hint: to use in all of your new repositories, which will suppress this warning,
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6157228Z hint: call:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6157703Z hint:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6158540Z hint: 	git config --global init.defaultBranch <name>
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6159140Z hint:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6159817Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6160678Z hint: 'development'. The just-created branch can be renamed via this command:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6161384Z hint:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6162033Z hint: 	git branch -m <name>
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6162747Z hint:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6163503Z hint: Disable this message with "git config set advice.defaultBranchName false"
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6164639Z Initialized empty Git repository in /home/runner/work/the-floor/the-floor/.git/
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6168970Z [command]/usr/bin/git remote add origin https://github.com/mannyc2/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6852720Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6853771Z ##[group]Disabling automatic garbage collection
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.6857775Z [command]/usr/bin/git config --local gc.auto 0
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.7209251Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.7210387Z ##[group]Setting up auth
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.7212159Z Removing SSH command configuration
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.7218567Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.7261502Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.8744019Z Removing HTTP extra header
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.8750976Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.8784789Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9002946Z Removing includeIf entries pointing to credentials config files
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9004004Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9036610Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9241734Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9664104Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/the-floor/the-floor/.git.path /home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:37.9965065Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:38.1195776Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:38.1807042Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:38.2256511Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:38.2257204Z ##[group]Fetching the repository
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:38.2265613Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +a72f40936807edf744f126a8cb57536ad3c0eaf8:refs/remotes/pull/1/merge
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1841341Z From https://github.com/mannyc2/the-floor
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1843247Z  * [new ref]         a72f40936807edf744f126a8cb57536ad3c0eaf8 -> pull/1/merge
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1846557Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1847428Z ##[group]Determining the checkout info
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1850078Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1855238Z [command]/usr/bin/git sparse-checkout disable
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1915999Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1956076Z ##[group]Checking out the ref
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:50.1973884Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.2811034Z Updating files:  31% (368/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.3654197Z Updating files:  32% (377/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.4123749Z Updating files:  33% (389/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.4608627Z Updating files:  34% (401/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.5270613Z Updating files:  35% (412/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.5911546Z Updating files:  36% (424/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.6435104Z Updating files:  37% (436/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7006968Z Updating files:  38% (448/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7612777Z Updating files:  39% (460/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7968601Z Updating files:  40% (471/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7971506Z Updating files:  41% (483/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7978187Z Updating files:  42% (495/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.7986457Z Updating files:  43% (507/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8083564Z Updating files:  44% (518/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8114183Z Updating files:  45% (530/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8123478Z Updating files:  46% (542/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8141826Z Updating files:  47% (554/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8146553Z Updating files:  48% (565/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8151297Z Updating files:  49% (577/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8157654Z Updating files:  50% (589/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8164799Z Updating files:  51% (601/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8174439Z Updating files:  52% (613/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8180495Z Updating files:  53% (624/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8187083Z Updating files:  54% (636/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8197070Z Updating files:  55% (648/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8203043Z Updating files:  56% (660/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8209791Z Updating files:  57% (671/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8215935Z Updating files:  58% (683/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8221908Z Updating files:  59% (695/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8227519Z Updating files:  60% (707/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8233544Z Updating files:  61% (718/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8238617Z Updating files:  62% (730/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8246562Z Updating files:  63% (742/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8251593Z Updating files:  64% (754/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8257516Z Updating files:  65% (766/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8263998Z Updating files:  66% (777/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8270245Z Updating files:  67% (789/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8275951Z Updating files:  68% (801/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8287056Z Updating files:  69% (813/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8291363Z Updating files:  70% (824/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8299717Z Updating files:  71% (836/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8307545Z Updating files:  72% (848/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8311112Z Updating files:  73% (860/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8324427Z Updating files:  74% (871/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8329077Z Updating files:  75% (883/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8335961Z Updating files:  76% (895/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8378258Z Updating files:  77% (907/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8384870Z Updating files:  78% (919/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8389900Z Updating files:  79% (930/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8396247Z Updating files:  80% (942/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8403149Z Updating files:  81% (954/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8409163Z Updating files:  82% (966/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8415796Z Updating files:  83% (977/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8423792Z Updating files:  84% (989/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8429770Z Updating files:  85% (1001/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8437280Z Updating files:  86% (1013/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8443980Z Updating files:  87% (1024/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8450933Z Updating files:  88% (1036/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8458330Z Updating files:  89% (1048/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8466374Z Updating files:  90% (1060/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8529020Z Updating files:  91% (1072/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8541448Z Updating files:  92% (1083/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8555255Z Updating files:  93% (1095/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8559285Z Updating files:  94% (1107/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8563193Z Updating files:  95% (1119/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8567058Z Updating files:  96% (1130/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8572594Z Updating files:  97% (1142/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8577745Z Updating files:  98% (1154/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8647532Z Updating files:  99% (1166/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8648112Z Updating files: 100% (1177/1177)
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8648583Z Updating files: 100% (1177/1177), done.
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8674305Z Note: switching to 'refs/remotes/pull/1/merge'.
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8674727Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8674978Z You are in 'detached HEAD' state. You can look around, make experimental
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8675437Z changes and commit them, and you can discard any commits you make in this
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8676036Z state without impacting any branches by switching back to a branch.
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8676402Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8676638Z If you want to create a new branch to retain commits you create, you may
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8677285Z do so (now or later) by using -c with the switch command. Example:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8677629Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8677789Z   git switch -c <new-branch-name>
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678033Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678190Z Or undo this operation with:
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678401Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678525Z   git switch -
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678681Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8678990Z Turn off this advice by setting config variable advice.detachedHead to false
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8679407Z 
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8679900Z HEAD is now at a72f409 Merge cd5699b4c44870af9b0a1842f64e3cfbd82370fb into b606b0224b50ebbf86846ca78968e97057551604
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8731351Z ##[endgroup]
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8780418Z [command]/usr/bin/git log -1 --format=%H
+check	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:15:51.8808815Z a72f40936807edf744f126a8cb57536ad3c0eaf8
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	﻿2026-10-12T19:15:51.9088355Z ##[group]Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9088774Z with:
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9088999Z   bun-version: 1.4.0
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9089272Z   no-cache: true
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9091518Z   token: ***
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9091740Z env:
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9091961Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:51.9092224Z ##[endgroup]
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:52.0758803Z Downloading a new version of Bun: https://github.com/oven-sh/bun/releases/download/bun-v1.4.0/bun-linux-x64.zip
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:52.6464740Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/07028626-f17b-4bdf-b8e0-cdbaa11b4bcb.zip
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:53.3377536Z [command]/home/runner/.bun/bin/bun --revision
+check	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:15:53.3418038Z 1.4.0+34cbb9a40
+check	Run bun install --frozen-lockfile	﻿2026-10-12T19:15:53.3557763Z ##[group]Run bun install --frozen-lockfile
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3558309Z [36;1mbun install --frozen-lockfile[0m
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3761931Z shell: /usr/bin/bash -e {0}
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3762289Z env:
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3762772Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3763055Z ##[endgroup]
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3884923Z bun install v1.4.0 (34cbb9a40)
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3959455Z Resolving dependencies
+check	Run bun install --frozen-lockfile	2026-10-12T19:15:53.3973496Z Resolved, downloaded and extracted [1]
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:04.7237384Z 
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:04.7238655Z $ effect-tsgo patch --typescript --oxlint
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.1819764Z Patched typescript at /home/runner/work/the-floor/the-floor/node_modules/.bun/@typescript+typescript-linux-x64@7.0.2/node_modules/@typescript/typescript-linux-x64/lib/tsc
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.1822734Z Patched oxlint at /home/runner/work/the-floor/the-floor/node_modules/.bun/@oxlint+binding-linux-x64-gnu@1.87.0/node_modules/@oxlint/binding-linux-x64-gnu/oxlint.linux-x64-gnu.node
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.1824295Z Patched oxlint-dts at /home/runner/work/the-floor/the-floor/node_modules/.bun/oxlint@1.87.0+c4a3b9f0ab081e67/node_modules/oxlint/dist/index.d.ts
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.1825225Z Patched oxlint-tsgolint at /home/runner/work/the-floor/the-floor/node_modules/.bun/@oxlint-tsgolint+linux-x64@7.0.2003/node_modules/@oxlint-tsgolint/linux-x64/tsgolint
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2826978Z 
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2827963Z + @cloudflare/workers-types@5.20261012.1
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2828669Z + @effect/platform-browser@4.0.3
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2829079Z + @effect/platform-bun@4.0.3
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2829451Z + @effect/platform-node@4.0.3
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2829766Z + @effect/tsgo@0.51.1
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2830014Z + @foldkit/oxlint-plugin@0.15.3
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2830281Z + @foldkit/vite-plugin@0.27.1
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2830597Z + @playwright/test@1.64.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2830837Z + @types/bun@1.4.2
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2831060Z + @types/pngjs@6.0.5
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2831287Z + @types/three@0.180.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2831533Z + dprint@0.63.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2831755Z + effect-oxlint@0.4.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2831978Z + oxlint@1.87.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2832208Z + oxlint-plugin-effect@0.28.1
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2832663Z + oxlint-tsgolint@7.0.2003
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2832934Z + pngjs@7.0.0
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2833148Z + rolldown@1.2.13
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2833369Z + typescript@7.0.2
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2833583Z + vite@8.3.4
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2834038Z + @yielded/agent@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2834977Z + @yielded/agent-platform-alchemy-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2836026Z + @yielded/agent-platform-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2836994Z + @yielded/agent-storage-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2837930Z + @yielded/agent-storage-sql@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2838758Z + @yielded/agent-testing@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2839295Z + alchemy@2.0.0-beta.80
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2839529Z + effect@4.0.3
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2839659Z 
+check	Run bun install --frozen-lockfile	2026-10-12T19:16:06.2839771Z 439 packages installed [12.89s]
+check	Run bun run format:check	﻿2026-10-12T19:16:06.3024215Z ##[group]Run bun run format:check
+check	Run bun run format:check	2026-10-12T19:16:06.3024606Z [36;1mbun run format:check[0m
+check	Run bun run format:check	2026-10-12T19:16:06.3081208Z shell: /usr/bin/bash -e {0}
+check	Run bun run format:check	2026-10-12T19:16:06.3081574Z env:
+check	Run bun run format:check	2026-10-12T19:16:06.3081817Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run format:check	2026-10-12T19:16:06.3082087Z ##[endgroup]
+check	Run bun run format:check	2026-10-12T19:16:06.3242613Z $ dprint check
+check	Run bun run format:check	2026-10-12T19:16:06.7283942Z Compiling https://plugins.dprint.dev/json-0.21.0.wasm
+check	Run bun run format:check	2026-10-12T19:16:07.1886029Z Compiling https://plugins.dprint.dev/typescript-0.95.11.wasm
+check	Run bun run typecheck	﻿2026-10-12T19:16:08.6861989Z ##[group]Run bun run typecheck
+check	Run bun run typecheck	2026-10-12T19:16:08.6862578Z [36;1mbun run typecheck[0m
+check	Run bun run typecheck	2026-10-12T19:16:08.6912106Z shell: /usr/bin/bash -e {0}
+check	Run bun run typecheck	2026-10-12T19:16:08.6912631Z env:
+check	Run bun run typecheck	2026-10-12T19:16:08.6912928Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run typecheck	2026-10-12T19:16:08.6913204Z ##[endgroup]
+check	Run bun run typecheck	2026-10-12T19:16:08.7061523Z $ tsc --noEmit -p tsconfig.tools.json && tsc --noEmit -p packages/contract/tsconfig.json && tsc --noEmit -p packages/api/tsconfig.json && tsc --noEmit -p packages/chains/tsconfig.json && tsc --noEmit -p apps/floor/tsconfig.json && tsc --noEmit -p apps/web/tsconfig.json && tsc --noEmit -p testing/look/tsconfig.json && tsc --noEmit -p testing/flows/tsconfig.json
+check	Run bun run lint	﻿2026-10-12T19:16:13.2775566Z ##[group]Run bun run lint
+check	Run bun run lint	2026-10-12T19:16:13.2775910Z [36;1mbun run lint[0m
+check	Run bun run lint	2026-10-12T19:16:13.2824374Z shell: /usr/bin/bash -e {0}
+check	Run bun run lint	2026-10-12T19:16:13.2824712Z env:
+check	Run bun run lint	2026-10-12T19:16:13.2824952Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run lint	2026-10-12T19:16:13.2825219Z ##[endgroup]
+check	Run bun run lint	2026-10-12T19:16:13.2930201Z $ bun run lint:plugin && oxlint --deny-warnings apps/web/src apps/web/vite.config.ts apps/floor/src apps/floor/test packages scripts stacks testing/flows testing/look alchemy.run.ts && bun scripts/lint/styles.ts && bun scripts/lint/suppressions.ts
+check	Run bun run lint	2026-10-12T19:16:13.2962074Z $ bun build ./scripts/lint/plugin.ts --target=node --external effect --external effect-oxlint --outfile work/lint/plugin.mjs
+check	Run bun run lint	2026-10-12T19:16:13.3033107Z Bundled 3 modules in 4ms
+check	Run bun run lint	2026-10-12T19:16:13.3033717Z 
+check	Run bun run lint	2026-10-12T19:16:13.3034151Z   plugin.mjs  13.61 KB  (entry point)
+check	Run bun run lint	2026-10-12T19:16:13.3034767Z 
+check	Run bun run lint	2026-10-12T19:16:18.4121870Z Found 0 warnings and 0 errors.
+check	Run bun run lint	2026-10-12T19:16:18.4122561Z Finished in 5.0s on 84 files with 398 rules using 4 threads.
+check	Run bun run lint	2026-10-12T19:16:18.9786276Z [19:16:18.973] INFO (#2): Suppression budget: 49 reasoned directives
+check	Run bun run test:leaf	﻿2026-10-12T19:16:18.9894338Z ##[group]Run bun run test:leaf
+check	Run bun run test:leaf	2026-10-12T19:16:18.9895045Z [36;1mbun run test:leaf[0m
+check	Run bun run test:leaf	2026-10-12T19:16:18.9961017Z shell: /usr/bin/bash -e {0}
+check	Run bun run test:leaf	2026-10-12T19:16:18.9961454Z env:
+check	Run bun run test:leaf	2026-10-12T19:16:18.9961772Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run test:leaf	2026-10-12T19:16:18.9962136Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.0084406Z $ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test ./scripts/lint/test ./scripts/bundle-budget/test ./scripts/ci/test ./packages/chains/test ./testing/look/test ./apps/floor/test/decisions.test.ts
+check	Run bun run test:leaf	2026-10-12T19:16:19.0106641Z bun test v1.4.0 (34cbb9a40)
+check	Run bun run test:leaf	2026-10-12T19:16:19.0134191Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.0135296Z ##[group]scripts/lint/test/plugin.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.1322984Z (pass) contract closes every import and re-export form [10.83ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1331820Z (pass) apps and features cannot cross their ownership boundaries [2.17ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1361382Z (pass) signer excludes agent authority and Three stays in web [2.99ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1381956Z (pass) fixtures are test-owned and the historical snapshot never becomes code [2.02ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1394470Z (pass) nonliteral dependencies and opaque file reads fail closed [1.28ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1405943Z (pass) visual literals require Atlas ownership [0.70ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1409636Z (pass) legacy SDKs stay confined to development oracles [0.84ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1410721Z (pass) Atlas checks inspect CSS embedded in template strings [0.14ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1413075Z (pass) recursive copy is covered by the historical-read fence [0.19ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1413654Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.1414797Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1415171Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.1415867Z ##[group]scripts/lint/test/visual-values.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.1423815Z (pass) Atlas owns CSS and inline style values, including generated-looking files [0.37ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1424525Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.1425248Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.1425620Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.1426209Z ##[group]scripts/lint/test/suppressions.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.2262348Z (pass) ESLint suppression aliases cannot bypass the explicit budget [0.89ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2263473Z (pass) native lint and Effect exceptions remain reasoned and counted [0.31ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2263955Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2264675Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2264894Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2265942Z ##[group]scripts/bundle-budget/test/imports.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.2488594Z (pass) emitted static, literal dynamic and CommonJS edges remain visible [1.86ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2514032Z (pass) computed dependencies and invalid emitted JavaScript fail closed [2.63ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2522945Z (pass) source map authority cannot hide behind a prefix or an empty source list [0.98ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2525491Z (pass) expression-free template imports are literal dependency edges [0.25ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2526426Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2527616Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2527771Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2528199Z ##[group]scripts/bundle-budget/test/model.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.2568766Z (pass) static graph handles shared CSS, cycles and per-entry deferred cost [3.57ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2585146Z (pass) missing imports, escaping emitted files and missing renderer fail closed [1.07ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2602966Z (pass) transitive dynamic modules are included in authority inspection [1.60ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2603824Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2605122Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2605520Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2606122Z ##[group]scripts/ci/test/policy.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.2615184Z (pass) preview cleanup can address only a positive PR number [0.46ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2623013Z (pass) the root stack accepts explicit development or temporary stages only [0.76ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2623630Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2624288Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.2624512Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.2625036Z ##[group]packages/chains/test/instructions.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.3109168Z (pass) every generated account position, role, constant and discriminator matches the pinned IDL [5.03ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.3110508Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.3110990Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.3111133Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.3111490Z ##[group]packages/chains/test/construction.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.4735637Z (pass) Meteora account order, data and full unsigned bytes match the recorded SDK oracle [23.36ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.4812003Z (pass) Meteora serializes caller amounts, metadata, recipients, creator and fee payer [7.68ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.4953718Z (pass) mint byte ordering survives either caller order and preserves the actual RPC slot [13.91ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.4982267Z (pass) unsupported quote mint owner fails closed [3.09ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5004115Z (pass) unsuccessful HTTP status fails closed [1.61ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5013666Z (pass) negative RPC slot fails closed [1.20ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5053008Z (pass) invalid identities, unsupported base tokens and overflowing config fields fail without construction [4.26ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5187394Z (pass) Doppler construction retains exact oracle calldata and accepts caller inputs [13.39ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5204729Z (pass) Doppler rejects invalid addresses, nonpositive amounts and malformed salts [1.79ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5205441Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5206189Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5206597Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5207146Z ##[group]packages/chains/test/math.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.5464279Z (pass) all 940 recorded SDK 1.5.13 arithmetic cases retain their exact outcomes [21.40ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5484460Z (pass) negative unsigned inputs fail before bigint arithmetic [0.85ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5485280Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5486013Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5486277Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5486995Z ##[group]testing/look/test/metrics.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:19.5690119Z (pass) alpha compositing precedes the half-dark mask threshold [0.83ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5703162Z (pass) tolerance is an integer Euclidean disk and scales by DPR [1.34ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5705392Z (pass) empty masks never produce a vacuous perfect score [0.29ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5711059Z (pass) mismatched and malformed rasters fail before index arithmetic [0.52ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5720116Z (pass) cylinder density counts contiguous false runs, excludes nearby target lines, and preserves missing ROI [0.88ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5724835Z (pass) ROI erosion removes the two-CSS-pixel boundary before measurement [0.51ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5731570Z (pass) stroke width is measured in CSS pixels and preserves Python ties-to-even sampling [0.66ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5735368Z (pass) repeatability examines every RGBA channel and pixel [0.39ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5741112Z (pass) area averaging exposes thin-line loss and never invents survival for empty masks [0.56ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5746337Z (pass) phone summaries preserve missing samples and floor-index percentile convention [0.49ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5769911Z (pass) independent convex silhouette checks detect missing and outside edges [2.33ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5794174Z (pass) the capture contract rejects unsupported renderer choices and malformed measurements [2.39ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5841604Z (pass) PNG encoding retains every grayscale byte used by metrics [4.75ms]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5842118Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5842890Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:19.5843437Z 
+check	Run bun run test:leaf	2026-10-12T19:16:19.5844074Z ##[group]apps/floor/test/decisions.test.ts:
+check	Run bun run test:leaf	2026-10-12T19:16:20.5513029Z (pass) predicate adapter uses the dedicated endpoint and inline image wire format [24.40ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5564165Z (pass) predicate adapter rejects refusal answers [5.16ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5608683Z (pass) predicate adapter rejects missing answers [4.50ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5646590Z (pass) predicate adapter rejects unexpected answers [3.82ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5687970Z (pass) predicate adapter rejects out of range answers [4.12ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5729704Z (pass) predicate adapter rejects duplicate answers [4.18ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5756765Z (pass) duplicate question names are rejected before transport [2.67ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5794521Z (pass) provider status 429 and configuration true fail without fallback [3.76ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5824655Z (pass) provider status 200 and configuration false fail without fallback [3.02ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5861754Z (pass) provider failures preserve the original HTTP status cause [3.69ms]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5862697Z 
+check	Run bun run test:leaf	2026-10-12T19:16:20.5865213Z ##[endgroup]
+check	Run bun run test:leaf	2026-10-12T19:16:20.5865428Z 
+check	Run bun run test:leaf	2026-10-12T19:16:20.5865532Z  56 pass
+check	Run bun run test:leaf	2026-10-12T19:16:20.5865742Z  0 fail
+check	Run bun run test:leaf	2026-10-12T19:16:20.5865956Z  1333 expect() calls
+check	Run bun run test:leaf	2026-10-12T19:16:20.5866221Z Ran 56 tests across 11 files. [1.57s]
+check	Run bun run build	﻿2026-10-12T19:16:20.6052859Z ##[group]Run bun run build
+check	Run bun run build	2026-10-12T19:16:20.6053212Z [36;1mbun run build[0m
+check	Run bun run build	2026-10-12T19:16:20.6103405Z shell: /usr/bin/bash -e {0}
+check	Run bun run build	2026-10-12T19:16:20.6103719Z env:
+check	Run bun run build	2026-10-12T19:16:20.6103967Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run build	2026-10-12T19:16:20.6104226Z ##[endgroup]
+check	Run bun run build	2026-10-12T19:16:20.6196487Z $ bun run vendor:verify && bun run build:web && bun run build:floor && bun run build:chains
+check	Run bun run build	2026-10-12T19:16:20.6228760Z $ bun scripts/vendor/verify.ts
+check	Run bun run build	2026-10-12T19:16:21.1446499Z [19:16:21.139] INFO (#2): Verified six private Yielded packages, compiled exports, licenses and pinned patches.
+check	Run bun run build	2026-10-12T19:16:21.1519936Z $ vite build --config apps/web/vite.config.ts && bun scripts/bundle-budget/cli.ts --profile shell
+check	Run bun run build	2026-10-12T19:16:21.6759714Z [36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+check	Run bun run build	2026-10-12T19:16:21.6870886Z transforming...
+check	Run bun run build	2026-10-12T19:16:21.9554711Z ✓ 475 modules transformed.
+check	Run bun run build	2026-10-12T19:16:22.0023232Z rendering chunks...
+check	Run bun run build	2026-10-12T19:16:22.1207234Z computing gzip size...
+check	Run bun run build	2026-10-12T19:16:22.1268439Z apps/web/dist/.vite/manifest.json         0.13 kB │ gzip:   0.11 kB
+check	Run bun run build	2026-10-12T19:16:22.1269020Z apps/web/dist/index.html                  0.31 kB │ gzip:   0.22 kB
+check	Run bun run build	2026-10-12T19:16:22.1269611Z apps/web/dist/assets/index-BD9PcRxO.js  350.38 kB │ gzip: 115.42 kB │ map: 4,670.30 kB
+check	Run bun run build	2026-10-12T19:16:22.1269986Z 
+check	Run bun run build	2026-10-12T19:16:22.1275970Z [32m✓ built in 451ms[39m
+check	Run bun run build	2026-10-12T19:16:22.4278929Z [19:16:22.422] INFO (#2): index.html: initial: 114105 / 204800 bytes gzip
+check	Run bun run build	2026-10-12T19:16:22.5641260Z [19:16:22.563] INFO (#2): web: 1 emitted modules, 218 mapped sources inspected
+check	Run bun run build	2026-10-12T19:16:22.5643014Z [19:16:22.563] INFO (#2): Shell budget measured. Deferred renderer acceptance remains pending the external Foldkit renderer.
+check	Run bun run build	2026-10-12T19:16:22.5731451Z $ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/build.test.ts && bun scripts/bundle-budget/modules.ts --target floor --directory .alchemy/bundles/FloorWorker --entry worker.js
+check	Run bun run build	2026-10-12T19:16:22.5760034Z bun test v1.4.0 (34cbb9a40)
+check	Run bun run build	2026-10-12T19:16:22.5787098Z 
+check	Run bun run build	2026-10-12T19:16:22.5788387Z ##[group]apps/floor/test/build.test.ts:
+check	Run bun run build	2026-10-12T19:16:24.3258970Z [19:16:24.319] INFO (#6): Plan: 1 to create, 2 binding changes
+check	Run bun run build	2026-10-12T19:16:24.3275041Z [19:16:24.326] INFO (#6): [FloorWorker] create (local)
+check	Run bun run build	2026-10-12T19:16:24.3276068Z [19:16:24.326] INFO (#6): [FloorWorker/FLOOR_MAILBOXES] create
+check	Run bun run build	2026-10-12T19:16:24.3277178Z [19:16:24.326] INFO (#6): [FloorWorker/FLOOR_THREADS] create
+check	Run bun run build	2026-10-12T19:16:24.3277793Z [19:16:24.326] INFO (#6): 
+check	Run bun run build	2026-10-12T19:16:24.3498389Z [19:16:24.349] INFO (#404): [FloorWorker] pre-creating (local)
+check	Run bun run build	2026-10-12T19:16:24.3700371Z [19:16:24.369] INFO (#404): [FloorWorker] creating (local)
+check	Run bun run build	2026-10-12T19:16:24.3843722Z [19:16:24.382] INFO (#404): [FloorWorker] ready at http://localhost:19740
+check	Run bun run build	2026-10-12T19:16:24.3844639Z [19:16:24.384] INFO (#404): [FloorWorker] created (local) (34ms)
+check	Run bun run build	2026-10-12T19:16:24.4033511Z [19:16:24.402] INFO (#431): [FloorWorker] created (local) (53ms)
+check	Run bun run build	2026-10-12T19:16:24.4096764Z [19:16:24.409] INFO (#6): 
+check	Run bun run build	2026-10-12T19:16:24.4097530Z [19:16:24.409] INFO (#6): Done: 1 succeeded (83ms)
+check	Run bun run build	2026-10-12T19:16:27.6419501Z [19:16:27.641] INFO (#424): [FloorWorker] Started in 3262ms → http://localhost:19740/ (logs: /home/runner/work/the-floor/the-floor/.alchemy/log/floor-local-agent-build/FloorWorker)
+check	Run bun run build	2026-10-12T19:16:27.6788019Z (pass) Alchemy bundles and starts the bounded native Worker [3266.05ms]
+check	Run bun run build	2026-10-12T19:16:27.6891312Z (pass) private browser build metadata is not served as public assets [10.39ms]
+check	Run bun run build	2026-10-12T19:16:27.7297620Z [19:16:27.729] INFO (#654): Plan: 1 to delete, 2 binding changes
+check	Run bun run build	2026-10-12T19:16:27.7298368Z [19:16:27.729] INFO (#654): [FloorWorker] delete (local)
+check	Run bun run build	2026-10-12T19:16:27.7298933Z [19:16:27.729] INFO (#654): [FloorWorker/FLOOR_MAILBOXES] unbind
+check	Run bun run build	2026-10-12T19:16:27.7299520Z [19:16:27.729] INFO (#654): [FloorWorker/FLOOR_THREADS] unbind
+check	Run bun run build	2026-10-12T19:16:27.7300011Z [19:16:27.729] INFO (#654): 
+check	Run bun run build	2026-10-12T19:16:27.7333945Z [19:16:27.733] INFO (#1010): [FloorWorker] deleting (local)
+check	Run bun run build	2026-10-12T19:16:27.7363848Z [19:16:27.736] INFO (#1010): [FloorWorker] deleted (local) (3ms)
+check	Run bun run build	2026-10-12T19:16:27.7377330Z [19:16:27.737] INFO (#654): 
+check	Run bun run build	2026-10-12T19:16:27.7377824Z [19:16:27.737] INFO (#654): Done: 1 succeeded (8ms)
+check	Run bun run build	2026-10-12T19:16:27.7593946Z 
+check	Run bun run build	2026-10-12T19:16:27.7595280Z ##[endgroup]
+check	Run bun run build	2026-10-12T19:16:27.7595513Z 
+check	Run bun run build	2026-10-12T19:16:27.7595624Z  2 pass
+check	Run bun run build	2026-10-12T19:16:27.7595883Z  0 fail
+check	Run bun run build	2026-10-12T19:16:27.7596138Z  9 expect() calls
+check	Run bun run build	2026-10-12T19:16:27.7596441Z Ran 2 tests across 1 file. [5.18s]
+check	Run bun run build	2026-10-12T19:16:28.4591583Z [19:16:28.454] INFO (#2): floor: 10 emitted modules, 425 mapped sources inspected
+check	Run bun run build	2026-10-12T19:16:28.4755663Z $ bun build ./packages/chains/src/solana/index.ts ./packages/chains/src/evm/index.ts --root ./packages/chains/src --target browser --sourcemap=external --outdir ./work/chains-bundle && bun scripts/bundle-budget/modules.ts --target floor --directory work/chains-bundle --entry solana/index.js --entry evm/index.js
+check	Run bun run build	2026-10-12T19:16:28.5828799Z Bundled 493 modules in 104ms
+check	Run bun run build	2026-10-12T19:16:28.5853148Z 
+check	Run bun run build	2026-10-12T19:16:28.5855172Z   solana/index.js     0.92 MB  (entry point)
+check	Run bun run build	2026-10-12T19:16:28.5855978Z   evm/index.js        1.89 MB  (entry point)
+check	Run bun run build	2026-10-12T19:16:28.5856491Z   solana/index.js.map  4.34 MB  (source map)
+check	Run bun run build	2026-10-12T19:16:28.5856987Z   evm/index.js.map    5.75 MB  (source map)
+check	Run bun run build	2026-10-12T19:16:28.5857299Z 
+check	Run bun run build	2026-10-12T19:16:29.2073617Z [19:16:29.202] INFO (#2): floor: 2 emitted modules, 551 mapped sources inspected
+check	Run bun run test:native	﻿2026-10-12T19:16:29.2207701Z ##[group]Run bun run test:native
+check	Run bun run test:native	2026-10-12T19:16:29.2208077Z [36;1mbun run test:native[0m
+check	Run bun run test:native	2026-10-12T19:16:29.2256816Z shell: /usr/bin/bash -e {0}
+check	Run bun run test:native	2026-10-12T19:16:29.2257144Z env:
+check	Run bun run test:native	2026-10-12T19:16:29.2257376Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run test:native	2026-10-12T19:16:29.2257636Z ##[endgroup]
+check	Run bun run test:native	2026-10-12T19:16:29.2365828Z $ sh apps/floor/test/run.sh
+check	Run bun run test:native	2026-10-12T19:16:29.2399858Z bun test v1.4.0 (34cbb9a40)
+check	Run bun run test:native	2026-10-12T19:16:29.2426771Z 
+check	Run bun run test:native	2026-10-12T19:16:29.2427591Z ##[group]apps/floor/test/admission.test.ts:
+check	Run bun run test:native	2026-10-12T19:16:30.8352943Z [19:16:30.830] INFO (#5): Plan: 2 to create, 4 binding changes
+check	Run bun run test:native	2026-10-12T19:16:30.8357645Z [19:16:30.835] INFO (#5): [FloorLocalAgent] create (local)
+check	Run bun run test:native	2026-10-12T19:16:30.8358976Z [19:16:30.835] INFO (#5): [FloorLocalAgent/FLOOR_MAILBOXES] create
+check	Run bun run test:native	2026-10-12T19:16:30.8359567Z [19:16:30.835] INFO (#5): [FloorLocalAgent/FLOOR_THREADS] create
+check	Run bun run test:native	2026-10-12T19:16:30.8360131Z [19:16:30.835] INFO (#5): [FloorLocalAgent/FloorStorage] create
+check	Run bun run test:native	2026-10-12T19:16:30.8360681Z [19:16:30.835] INFO (#5): [FloorLocalAgent/STORAGE] create
+check	Run bun run test:native	2026-10-12T19:16:30.8361325Z [19:16:30.835] INFO (#5): [FloorStorage] create (local)
+check	Run bun run test:native	2026-10-12T19:16:30.8361814Z [19:16:30.835] INFO (#5): 
+check	Run bun run test:native	2026-10-12T19:16:30.8440868Z [19:16:30.843] INFO (#472): [FloorStorage] creating (local)
+check	Run bun run test:native	2026-10-12T19:16:30.8477165Z [19:16:30.847] INFO (#473): [FloorLocalAgent] pre-creating (local)
+check	Run bun run test:native	2026-10-12T19:16:30.9820532Z [19:16:30.981] INFO (#473): [FloorLocalAgent] creating (local)
+check	Run bun run test:native	2026-10-12T19:16:30.9869392Z [19:16:30.986] INFO (#472): [FloorStorage] created (local) (143ms)
+check	Run bun run test:native	2026-10-12T19:16:30.9929739Z [19:16:30.992] INFO (#473): [FloorLocalAgent] ready at http://localhost:19732
+check	Run bun run test:native	2026-10-12T19:16:30.9930611Z [19:16:30.992] INFO (#473): [FloorLocalAgent] created (local) (145ms)
+check	Run bun run test:native	2026-10-12T19:16:31.0113760Z [19:16:31.011] INFO (#548): [FloorStorage] created (local) (168ms)
+check	Run bun run test:native	2026-10-12T19:16:31.0115243Z [19:16:31.011] INFO (#549): [FloorLocalAgent] created (local) (164ms)
+check	Run bun run test:native	2026-10-12T19:16:31.0125343Z [19:16:31.012] INFO (#5): 
+check	Run bun run test:native	2026-10-12T19:16:31.0126125Z [19:16:31.012] INFO (#5): Done: 2 succeeded (177ms)
+check	Run bun run test:native	2026-10-12T19:16:33.9891690Z [19:16:33.988] INFO (#541): [FloorLocalAgent] Started in 2998ms → http://localhost:19732/ (logs: /home/runner/work/the-floor/the-floor/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+check	Run bun run test:native	2026-10-12T19:16:37.0876019Z [19:16:37.085] INFO (#607): {"callback":{"acceptedAt":1791832594017,"completedAt":1791832594355},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791832594345,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791832594408,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791832594416,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791832594705,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791832594705,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791832594716,"settlement":"completed","output":{"absent":true}}],"quietStartedAt":1791832594023,"observedAt":1791832597024,"localUrl":"http://localhost:19732","threadName":"native-1791832591028","storage":{"durable":{"rollbackFailed":true,"rollbackError":"RollbackProbe: \n    at file:///bundle/index.js:1427:72586\n    at next (<anonymous>)\n    at Effect.fn (file:///bundle/index.js:80:7661)\n    at Effect.fn (definition) (file:///bundle/index.js:80:7063)\n    at makeTestWorker (file:///bundle/index.js:1427:75283)\n    at makeTestWorker (definition) (file:///bundle/index.js:1427:73147)","beforeRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"item","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}},"d1":{"rollbackFailed":true,"rollbackError":"effect/sql/SqlError: Failed to execute batch\n    at catch (file:///bundle/index.js:80:10470)\n    at file:///bundle/Schema-D1dz5UzW.js:13:6380 {\n  [cause]: effect/sql/SqlError/UnknownError: Failed to execute batch\n      at classifyError (file:///bundle/index.js:80:9649)\n      at catch (file:///bundle/index.js:80:10491)\n      at file:///bundle/Schema-D1dz5UzW.js:13:6380 {\n    [cause]: Error: D1_ERROR: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n        at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:188:19)\n        at async cloudflare-internal:d1-api:137:19 {\n      [cause]: Error: UNIQUE constraint failed: storage_probe.id: SQLITE_CONSTRAINT (extended: SQLITE_CONSTRAINT_PRIMARYKEY)\n          at D1DatabaseSessionAlwaysPrimary._sendOrThrow (cloudflare-internal:d1-api:189:24)\n          at async cloudflare-internal:d1-api:137:19\n    }\n  }\n}","beforeRollback":{"rows":[{"id":"native-1791832591028","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"afterRollback":{"rows":[{"id":"native-1791832591028","version":0,"value":"before","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"casAttempts":16,"casWinners":1,"final":{"rows":[{"id":"native-1791832591028","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}}
+check	Run bun run test:native	2026-10-12T19:16:37.0899028Z (pass) Alchemy callback admits a native Yielded agent and its alarm settles without polling [6067.28ms]
+check	Run bun run test:native	2026-10-12T19:16:37.1000957Z 
+check	Run bun run test:native	2026-10-12T19:16:37.1003197Z ##[endgroup]
+check	Run bun run test:native	2026-10-12T19:16:37.1005413Z 
+check	Run bun run test:native	2026-10-12T19:16:37.1005896Z  1 pass
+check	Run bun run test:native	2026-10-12T19:16:37.1006340Z  0 fail
+check	Run bun run test:native	2026-10-12T19:16:37.1006767Z  26 expect() calls
+check	Run bun run test:native	2026-10-12T19:16:37.1007353Z Ran 1 test across 1 file. [7.86s]
+check	Run bun run test:native	2026-10-12T19:16:37.1349998Z bun test v1.4.0 (34cbb9a40)
+check	Run bun run test:native	2026-10-12T19:16:37.1382339Z 
+check	Run bun run test:native	2026-10-12T19:16:37.1384290Z ##[group]apps/floor/test/restart.test.ts:
+check	Run bun run test:native	2026-10-12T19:16:38.7271538Z [19:16:38.721] INFO (#6): Plan: 1 to update
+check	Run bun run test:native	2026-10-12T19:16:38.7276811Z [19:16:38.727] INFO (#6): [FloorLocalAgent] update (local)
+check	Run bun run test:native	2026-10-12T19:16:38.7277695Z [19:16:38.727] INFO (#6): [FloorLocalAgent/FLOOR_MAILBOXES] noop
+check	Run bun run test:native	2026-10-12T19:16:38.7278650Z [19:16:38.727] INFO (#6): [FloorLocalAgent/FLOOR_THREADS] noop
+check	Run bun run test:native	2026-10-12T19:16:38.7279424Z [19:16:38.727] INFO (#6): [FloorLocalAgent/FloorStorage] noop
+check	Run bun run test:native	2026-10-12T19:16:38.7280117Z [19:16:38.727] INFO (#6): [FloorLocalAgent/STORAGE] noop
+check	Run bun run test:native	2026-10-12T19:16:38.7280874Z [19:16:38.727] INFO (#6): [FloorStorage] noop (local)
+check	Run bun run test:native	2026-10-12T19:16:38.7281538Z [19:16:38.727] INFO (#6): 
+check	Run bun run test:native	2026-10-12T19:16:38.7382099Z [19:16:38.737] INFO (#500): [FloorLocalAgent] updating (local)
+check	Run bun run test:native	2026-10-12T19:16:38.7753166Z [19:16:38.775] INFO (#500): [FloorLocalAgent] ready at http://localhost:19732
+check	Run bun run test:native	2026-10-12T19:16:38.7754316Z [19:16:38.775] INFO (#500): [FloorLocalAgent] updated (local) (38ms)
+check	Run bun run test:native	2026-10-12T19:16:38.7805311Z [19:16:38.780] INFO (#514): [FloorLocalAgent] updated (local) (42ms)
+check	Run bun run test:native	2026-10-12T19:16:38.7855700Z [19:16:38.785] INFO (#6): 
+check	Run bun run test:native	2026-10-12T19:16:38.7856598Z [19:16:38.785] INFO (#6): Done: 1 succeeded (58ms)
+check	Run bun run test:native	2026-10-12T19:16:41.8266974Z [19:16:41.826] INFO (#507): [FloorLocalAgent] Started in 3069ms → http://localhost:19732/ (logs: /home/runner/work/the-floor/the-floor/.alchemy/log/floor-local-agent-001/FloorLocalAgent)
+check	Run bun run test:native	2026-10-12T19:16:43.4680970Z [19:16:43.467] INFO (#572): {"threadName":"native-1791832591028","afterRestart":{"callback":{"acceptedAt":1791832594017,"completedAt":1791832594355},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791832594345,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791832594408,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791832594416,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791832594705,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791832594705,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791832594716,"settlement":"completed","output":{"absent":true}}]},"afterDuplicate":{"callback":{"acceptedAt":1791832601953,"completedAt":1791832602220},"records":[{"sequence":1,"kind":"ThreadCreated","createdAt":1791832594345,"settlement":"none","output":{"absent":true}},{"sequence":2,"kind":"UserInputRecorded","createdAt":1791832594408,"settlement":"none","output":{"absent":true}},{"sequence":3,"kind":"RunStarted","createdAt":1791832594416,"settlement":"none","output":{"absent":true}},{"sequence":4,"kind":"ModelResponseRecorded","createdAt":1791832594705,"settlement":"none","output":{"absent":true}},{"sequence":5,"kind":"RunCompleted","createdAt":1791832594705,"settlement":"none","output":{"answer":"synthetic-done-v1"}},{"sequence":6,"kind":"SubmissionSettled","createdAt":1791832594716,"settlement":"completed","output":{"absent":true}}]},"quietStartedAt":1791832601957,"observedAt":1791832603458,"storage":{"durable":{"rows":[{"id":"item","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]},"d1":{"rows":[{"id":"native-1791832591028","version":1,"value":"winner-0","marker":"migration-2"}],"migrations":[{"name":"001_create.sql","hash":"519279d9957ddd379ae6bf2b4d455b9ee290044ec551ca528cd3ce57387d64c4"},{"name":"002_marker.sql","hash":"d0f6918f0d46ea1c77d223c6c8477e0a568047b366f08ed8c5ca3fd774814dde"}]}}}
+check	Run bun run test:native	2026-10-12T19:16:43.4693794Z (pass) saved records survive a new Alchemy workerd process and duplicate admission [4656.04ms]
+check	Run bun run test:native	2026-10-12T19:16:43.5117902Z [19:16:43.511] INFO (#674): Plan: 2 to delete, 4 binding changes
+check	Run bun run test:native	2026-10-12T19:16:43.5118984Z [19:16:43.511] INFO (#674): [FloorLocalAgent] delete (local)
+check	Run bun run test:native	2026-10-12T19:16:43.5119729Z [19:16:43.511] INFO (#674): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+check	Run bun run test:native	2026-10-12T19:16:43.5120427Z [19:16:43.511] INFO (#674): [FloorLocalAgent/FLOOR_THREADS] unbind
+check	Run bun run test:native	2026-10-12T19:16:43.5121187Z [19:16:43.511] INFO (#674): [FloorLocalAgent/FloorStorage] unbind
+check	Run bun run test:native	2026-10-12T19:16:43.5121829Z [19:16:43.511] INFO (#674): [FloorLocalAgent/STORAGE] unbind
+check	Run bun run test:native	2026-10-12T19:16:43.5122626Z [19:16:43.511] INFO (#674): [FloorStorage] delete (local)
+check	Run bun run test:native	2026-10-12T19:16:43.5123120Z [19:16:43.511] INFO (#674): 
+check	Run bun run test:native	2026-10-12T19:16:43.5150827Z [19:16:43.514] INFO (#1051): [FloorLocalAgent] deleting (local)
+check	Run bun run test:native	2026-10-12T19:16:43.5189432Z [19:16:43.518] INFO (#1051): [FloorLocalAgent] deleted (local) (4ms)
+check	Run bun run test:native	2026-10-12T19:16:43.5190175Z [19:16:43.518] INFO (#1049): [FloorStorage] deleting (local)
+check	Run bun run test:native	2026-10-12T19:16:43.5210705Z [19:16:43.520] INFO (#1049): [FloorStorage] deleted (local) (2ms)
+check	Run bun run test:native	2026-10-12T19:16:43.5225248Z [19:16:43.522] INFO (#674): 
+check	Run bun run test:native	2026-10-12T19:16:43.5226032Z [19:16:43.522] INFO (#674): Done: 2 succeeded (11ms)
+check	Run bun run test:native	2026-10-12T19:16:43.5328186Z 
+check	Run bun run test:native	2026-10-12T19:16:43.5329452Z ##[endgroup]
+check	Run bun run test:native	2026-10-12T19:16:43.5345886Z 
+check	Run bun run test:native	2026-10-12T19:16:43.5346285Z  1 pass
+check	Run bun run test:native	2026-10-12T19:16:43.5346632Z  0 fail
+check	Run bun run test:native	2026-10-12T19:16:43.5346984Z  7 expect() calls
+check	Run bun run test:native	2026-10-12T19:16:43.5347437Z Ran 1 test across 1 file. [6.40s]
+check	Run bun run test:native	2026-10-12T19:16:43.5654289Z bun test v1.4.0 (34cbb9a40)
+check	Run bun run test:native	2026-10-12T19:16:43.5684731Z 
+check	Run bun run test:native	2026-10-12T19:16:43.5687196Z ##[group]apps/floor/test/gate.test.ts:
+check	Run bun run test:native	2026-10-12T19:16:45.1760680Z [19:16:45.170] INFO (#6): Plan: 2 to create, 5 binding changes
+check	Run bun run test:native	2026-10-12T19:16:45.1765115Z [19:16:45.176] INFO (#6): [FloorLocalAgent] create (local)
+check	Run bun run test:native	2026-10-12T19:16:45.1766777Z [19:16:45.176] INFO (#6): [FloorLocalAgent/FLOOR_MAILBOXES] create
+check	Run bun run test:native	2026-10-12T19:16:45.1767437Z [19:16:45.176] INFO (#6): [FloorLocalAgent/FLOOR_PROBE_TOKEN] create
+check	Run bun run test:native	2026-10-12T19:16:45.1768088Z [19:16:45.176] INFO (#6): [FloorLocalAgent/FLOOR_THREADS] create
+check	Run bun run test:native	2026-10-12T19:16:45.1768799Z [19:16:45.176] INFO (#6): [FloorLocalAgent/FloorStorage] create
+check	Run bun run test:native	2026-10-12T19:16:45.1769447Z [19:16:45.176] INFO (#6): [FloorLocalAgent/STORAGE] create
+check	Run bun run test:native	2026-10-12T19:16:45.1770107Z [19:16:45.176] INFO (#6): [FloorStorage] create (local)
+check	Run bun run test:native	2026-10-12T19:16:45.1770642Z [19:16:45.176] INFO (#6): 
+check	Run bun run test:native	2026-10-12T19:16:45.1858013Z [19:16:45.185] INFO (#484): [FloorStorage] creating (local)
+check	Run bun run test:native	2026-10-12T19:16:45.1897804Z [19:16:45.189] INFO (#485): [FloorLocalAgent] pre-creating (local)
+check	Run bun run test:native	2026-10-12T19:16:45.3143642Z [19:16:45.314] INFO (#485): [FloorLocalAgent] creating (local)
+check	Run bun run test:native	2026-10-12T19:16:45.3195902Z [19:16:45.319] INFO (#484): [FloorStorage] created (local) (134ms)
+check	Run bun run test:native	2026-10-12T19:16:45.3258423Z [19:16:45.325] INFO (#485): [FloorLocalAgent] ready at http://localhost:19732
+check	Run bun run test:native	2026-10-12T19:16:45.3259408Z [19:16:45.325] INFO (#485): [FloorLocalAgent] created (local) (136ms)
+check	Run bun run test:native	2026-10-12T19:16:45.3454300Z [19:16:45.345] INFO (#560): [FloorStorage] created (local) (160ms)
+check	Run bun run test:native	2026-10-12T19:16:45.3455289Z [19:16:45.345] INFO (#561): [FloorLocalAgent] created (local) (156ms)
+check	Run bun run test:native	2026-10-12T19:16:45.3467030Z [19:16:45.346] INFO (#6): 
+check	Run bun run test:native	2026-10-12T19:16:45.3467713Z [19:16:45.346] INFO (#6): Done: 2 succeeded (170ms)
+check	Run bun run test:native	2026-10-12T19:16:48.3954060Z [19:16:48.394] INFO (#553): [FloorLocalAgent] Started in 3072ms → http://localhost:19732/ (logs: /home/runner/work/the-floor/the-floor/.alchemy/log/floor-probe-gate-local/FloorLocalAgent)
+check	Run bun run test:native	2026-10-12T19:16:48.4222335Z (pass) native probe honors the deployed secret before mutation [3069.47ms]
+check	Run bun run test:native	2026-10-12T19:16:48.4601848Z [19:16:48.459] INFO (#717): Plan: 2 to delete, 5 binding changes
+check	Run bun run test:native	2026-10-12T19:16:48.4614689Z [19:16:48.459] INFO (#717): [FloorLocalAgent] delete (local)
+check	Run bun run test:native	2026-10-12T19:16:48.4630191Z [19:16:48.459] INFO (#717): [FloorLocalAgent/FLOOR_MAILBOXES] unbind
+check	Run bun run test:native	2026-10-12T19:16:48.4632381Z [19:16:48.460] INFO (#717): [FloorLocalAgent/FLOOR_PROBE_TOKEN] unbind
+check	Run bun run test:native	2026-10-12T19:16:48.4668037Z [19:16:48.460] INFO (#717): [FloorLocalAgent/FLOOR_THREADS] unbind
+check	Run bun run test:native	2026-10-12T19:16:48.4672721Z [19:16:48.460] INFO (#717): [FloorLocalAgent/FloorStorage] unbind
+check	Run bun run test:native	2026-10-12T19:16:48.4673780Z [19:16:48.461] INFO (#717): [FloorLocalAgent/STORAGE] unbind
+check	Run bun run test:native	2026-10-12T19:16:48.4674740Z [19:16:48.461] INFO (#717): [FloorStorage] delete (local)
+check	Run bun run test:native	2026-10-12T19:16:48.4675563Z [19:16:48.461] INFO (#717): 
+check	Run bun run test:native	2026-10-12T19:16:48.4712172Z [19:16:48.466] INFO (#1094): [FloorLocalAgent] deleting (local)
+check	Run bun run test:native	2026-10-12T19:16:48.4724170Z [19:16:48.471] INFO (#1094): [FloorLocalAgent] deleted (local) (6ms)
+check	Run bun run test:native	2026-10-12T19:16:48.4737321Z [19:16:48.471] INFO (#1092): [FloorStorage] deleting (local)
+check	Run bun run test:native	2026-10-12T19:16:48.4783354Z [19:16:48.477] INFO (#1092): [FloorStorage] deleted (local) (6ms)
+check	Run bun run test:native	2026-10-12T19:16:48.4815302Z [19:16:48.478] INFO (#717): 
+check	Run bun run test:native	2026-10-12T19:16:48.4843353Z [19:16:48.478] INFO (#717): Done: 2 succeeded (17ms)
+check	Run bun run test:native	2026-10-12T19:16:48.5002684Z 
+check	Run bun run test:native	2026-10-12T19:16:48.5023826Z ##[endgroup]
+check	Run bun run test:native	2026-10-12T19:16:48.5042928Z 
+check	Run bun run test:native	2026-10-12T19:16:48.5053542Z  1 pass
+check	Run bun run test:native	2026-10-12T19:16:48.5056327Z  0 fail
+check	Run bun run test:native	2026-10-12T19:16:48.5058387Z  3 expect() calls
+check	Run bun run test:native	2026-10-12T19:16:48.5059342Z Ran 1 test across 1 file. [4.93s]
+check	Run bunx --no-install playwright install --with-deps chromium	﻿2026-10-12T19:16:48.5454020Z ##[group]Run bunx --no-install playwright install --with-deps chromium
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:48.5454702Z [36;1mbunx --no-install playwright install --with-deps chromium[0m
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:48.5504047Z shell: /usr/bin/bash -e {0}
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:48.5504486Z env:
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:48.5504956Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:48.5505367Z ##[endgroup]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.1795756Z Installing dependencies...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.1855805Z Switching to root user to install dependencies...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.3454833Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.3850141Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.3955563Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.3968217Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4084002Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4113672Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4630240Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [492 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4823921Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4844164Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [549 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.4919763Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5571256Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5645917Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5664333Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5741591Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5761000Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1765 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5847021Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [402 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5871761Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [50.7 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.5892319Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.0 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.6118162Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [748 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.6580215Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1122 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7081424Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7098614Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7161495Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7177942Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1674 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7258623Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7283288Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [45.4 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:49.7288713Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.1 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:52.9156637Z Fetched 12.3 MB in 1s (8710 kB/s)
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:53.9125238Z Reading package lists...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:53.9418639Z Reading package lists...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.1596386Z Building dependency tree...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.1603147Z Reading state information...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3406161Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3407372Z libasound2t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3409594Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3410531Z libatk-bridge2.0-0t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3411310Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3412278Z libatk1.0-0t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3413686Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3414600Z libatspi2.0-0t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3415363Z libcairo2 is already the newest version (1.18.0-3build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3416389Z libcairo2 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3416973Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3417485Z libcups2t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3417958Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3418509Z libdbus-1-3 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3419082Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3419536Z libdrm2 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3420002Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3420401Z libgbm1 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3420849Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3421403Z libglib2.0-0t64 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3421942Z libnspr4 is already the newest version (2:4.35-1.1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3422636Z libnspr4 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3423060Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3423486Z libnss3 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3423913Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3424503Z libpango-1.0-0 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3425005Z libxcb1 is already the newest version (1.15-1ubuntu2).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3425424Z libxcb1 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3425865Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3426316Z libxcomposite1 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3426714Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3427264Z libxdamage1 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3427755Z libxext6 is already the newest version (2:1.3.4-1build2).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3428318Z libxext6 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3428923Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3429534Z libxfixes3 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3430114Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3430710Z libxkbcommon0 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3431137Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3431594Z libxrandr2 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3432016Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3432779Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3433609Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3434231Z libfontconfig1 set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3434810Z fonts-liberation is already the newest version (1:2.1.5-3).
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3435239Z fonts-liberation set to manually installed.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3435700Z The following additional packages will be installed:
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3436179Z   libx11-data libx11-xcb1 xfonts-encodings xfonts-utils
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3436554Z Recommended packages:
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3437035Z   fonts-ipafont-mincho fonts-tlwg-loma
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3631548Z The following NEW packages will be installed:
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3632795Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3641550Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3643291Z   xfonts-utils
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3647350Z The following packages will be upgraded:
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3653098Z   libfreetype6 libx11-6 libx11-data libx11-xcb1
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3827160Z 4 upgraded, 9 newly installed, 0 to remove and 22 not upgraded.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3827926Z Need to get 22.3 MB of archives.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3828523Z After this operation, 79.6 MB of additional disk space will be used.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.3829302Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:54.4681767Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:55.1727285Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libx11-6 amd64 2:1.8.7-1ubuntu0.1 [653 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:55.3491823Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libx11-xcb1 amd64 2:1.8.7-1ubuntu0.1 [7796 B]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:55.4013263Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libx11-data all 2:1.8.7-1ubuntu0.1 [116 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:55.4744889Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:56.4180713Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:56.4856094Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:56.9048529Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:57.9236405Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libfreetype6 amd64 2.13.2+dfsg-1ubuntu0.2 [403 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.0288124Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.1539692Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.2160216Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.3129959Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6215218Z Fetched 22.3 MB in 4s (5586 kB/s)
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6454766Z Selecting previously unselected package fonts-ipafont-gothic.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6664295Z (Reading database ... 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6665028Z (Reading database ... 5%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6665811Z (Reading database ... 10%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6666504Z (Reading database ... 15%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6667317Z (Reading database ... 20%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6668197Z (Reading database ... 25%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6668760Z (Reading database ... 30%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6669393Z (Reading database ... 35%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6670138Z (Reading database ... 40%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6670581Z (Reading database ... 45%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6671304Z (Reading database ... 50%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.6718006Z (Reading database ... 55%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.7959302Z (Reading database ... 60%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:58.9869746Z (Reading database ... 65%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:59.1947868Z (Reading database ... 70%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:59.3811432Z (Reading database ... 75%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:59.5412119Z (Reading database ... 80%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:59.7486196Z (Reading database ... 85%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:16:59.9430315Z (Reading database ... 90%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.1417890Z (Reading database ... 95%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.1419051Z (Reading database ... 100%
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.1419807Z (Reading database ... 203191 files and directories currently installed.)
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.1468127Z Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.1636561Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.4756297Z Preparing to unpack .../01-libx11-6_2%3a1.8.7-1ubuntu0.1_amd64.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.4797203Z Unpacking libx11-6:amd64 (2:1.8.7-1ubuntu0.1) over (2:1.8.7-1build1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.5280193Z Preparing to unpack .../02-libx11-xcb1_2%3a1.8.7-1ubuntu0.1_amd64.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.5310820Z Unpacking libx11-xcb1:amd64 (2:1.8.7-1ubuntu0.1) over (2:1.8.7-1build1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.5664269Z Preparing to unpack .../03-libx11-data_2%3a1.8.7-1ubuntu0.1_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.5690880Z Unpacking libx11-data (2:1.8.7-1ubuntu0.1) over (2:1.8.7-1build1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.6878015Z Selecting previously unselected package fonts-freefont-ttf.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.7011228Z Preparing to unpack .../04-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.7023135Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8325010Z Selecting previously unselected package fonts-tlwg-loma-otf.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8452772Z Preparing to unpack .../05-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8462726Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8651225Z Selecting previously unselected package fonts-unifont.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8783576Z Preparing to unpack .../06-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:00.8795171Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.0928885Z Selecting previously unselected package fonts-wqy-zenhei.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.1058112Z Preparing to unpack .../07-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.1159108Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7256590Z Preparing to unpack .../08-libfreetype6_2.13.2+dfsg-1ubuntu0.2_amd64.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7284641Z Unpacking libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) over (2.13.2+dfsg-1ubuntu0.1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7569609Z Selecting previously unselected package xfonts-encodings.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7702063Z Preparing to unpack .../09-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7714650Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.7984173Z Selecting previously unselected package xfonts-utils.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.8114721Z Preparing to unpack .../10-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.8323114Z Unpacking xfonts-utils (1:7.7+6build3) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.8661799Z Selecting previously unselected package xfonts-cyrillic.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.8792277Z Preparing to unpack .../11-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.8804679Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9118291Z Selecting previously unselected package xfonts-scalable.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9251308Z Preparing to unpack .../12-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9261919Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9795051Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9918711Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9939852Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9961395Z Setting up libfreetype6:amd64 (2.13.2+dfsg-1ubuntu0.2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:01.9984111Z Setting up libx11-data (2:1.8.7-1ubuntu0.1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0003977Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0024228Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0087326Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0103057Z Setting up libx11-6:amd64 (2:1.8.7-1ubuntu0.1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0123379Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0143037Z Setting up libx11-xcb1:amd64 (2:1.8.7-1ubuntu0.1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0163787Z Setting up xfonts-utils (1:7.7+6build3) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0207399Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0473347Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.0720344Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.1015029Z Processing triggers for man-db (2.12.0-4build2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.1040637Z Not building database; man-db/auto-update is not 'true'.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.1057189Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.7669476Z 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.7670930Z Running kernel seems to be up-to-date.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.7671322Z 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.7671513Z Restarting services...
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.8137181Z  systemctl restart php8.3-fpm.service
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9139287Z 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9140912Z No containers need to be restarted.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9141647Z 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9142125Z No user sessions are running outdated binaries.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9142745Z 
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:02.9143067Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:03.9620557Z Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.4395649Z |                                                                                |   0% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.6449513Z |■■■■■■■■                                                                        |  10% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.7349093Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.8151637Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.8864475Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:04.9749380Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:05.0450922Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:05.1380675Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:05.2064018Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:05.2752968Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:05.3503618Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:08.4780098Z Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:08.4782587Z Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:08.9388912Z |                                                                                |   0% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:08.9768382Z |■■■■■■■■                                                                        |  10% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0048118Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0157458Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0303993Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0442836Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0490738Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0531063Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0635586Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0682556Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.0777386Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.1353987Z FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.1355542Z Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.5696135Z |                                                                                |   0% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.7385362Z |■■■■■■■■                                                                        |  10% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.7890467Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.8389152Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.8770314Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.9219927Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:09.9654672Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:10.0074745Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:10.0504043Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:10.0903426Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:10.1316399Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+check	Run bunx --no-install playwright install --with-deps chromium	2026-10-12T19:17:12.3403169Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+check	Run bun run test:flow	﻿2026-10-12T19:17:12.3566743Z ##[group]Run bun run test:flow
+check	Run bun run test:flow	2026-10-12T19:17:12.3567388Z [36;1mbun run test:flow[0m
+check	Run bun run test:flow	2026-10-12T19:17:12.3624702Z shell: /usr/bin/bash -e {0}
+check	Run bun run test:flow	2026-10-12T19:17:12.3625119Z env:
+check	Run bun run test:flow	2026-10-12T19:17:12.3625444Z   ALCHEMY_TELEMETRY_DISABLED: 1
+check	Run bun run test:flow	2026-10-12T19:17:12.3625811Z ##[endgroup]
+check	Run bun run test:flow	2026-10-12T19:17:12.3734273Z $ playwright test --config testing/flows/playwright.config.ts
+check	Run bun run test:flow	2026-10-12T19:17:15.2213917Z [WebServer] [19:17:15.214] INFO (#5): Plan: 1 to create, 2 binding changes
+check	Run bun run test:flow	2026-10-12T19:17:15.2215975Z [WebServer] [19:17:15.220] INFO (#5): [FloorWorker] create (local)
+check	Run bun run test:flow	2026-10-12T19:17:15.2217173Z [WebServer] [19:17:15.220] INFO (#5): [FloorWorker/FLOOR_MAILBOXES] create
+check	Run bun run test:flow	2026-10-12T19:17:15.2217688Z [WebServer] [19:17:15.220] INFO (#5): [FloorWorker/FLOOR_THREADS] create
+check	Run bun run test:flow	2026-10-12T19:17:15.2290121Z [WebServer] [19:17:15.220] INFO (#5): 
+check	Run bun run test:flow	2026-10-12T19:17:15.2290927Z [WebServer] [19:17:15.228] INFO (#404): [FloorWorker] pre-creating (local)
+check	Run bun run test:flow	2026-10-12T19:17:15.2469256Z [WebServer] [19:17:15.246] INFO (#404): [FloorWorker] creating (local)
+check	Run bun run test:flow	2026-10-12T19:17:15.2596631Z [WebServer] [19:17:15.259] INFO (#404): [FloorWorker] ready at http://localhost:19740
+check	Run bun run test:flow	2026-10-12T19:17:15.2597815Z [WebServer] [19:17:15.259] INFO (#404): [FloorWorker] created (local) (31ms)
+check	Run bun run test:flow	2026-10-12T19:17:15.2781997Z [WebServer] [19:17:15.277] INFO (#428): [FloorWorker] created (local) (49ms)
+check	Run bun run test:flow	2026-10-12T19:17:15.2791385Z [WebServer] [19:17:15.278] INFO (#5): 
+check	Run bun run test:flow	2026-10-12T19:17:15.2797870Z [WebServer] [19:17:15.278] INFO (#5): Done: 1 succeeded (58ms)
+check	Run bun run test:flow	2026-10-12T19:17:15.2853175Z [WebServer] [19:17:15.284] INFO (#5): Floor local production entry ready at http://127.0.0.1:19740
+check	Run bun run test:flow	2026-10-12T19:17:18.2797215Z [WebServer] [19:17:18.278] INFO (#421): [FloorWorker] Started in 3023ms → http://localhost:19740/ (logs: /home/runner/work/the-floor/the-floor/.alchemy/log/floor-shell-local/FloorWorker)
+check	Run bun run test:flow	2026-10-12T19:17:18.3365322Z 
+check	Run bun run test:flow	2026-10-12T19:17:18.3366446Z Running 1 test using 1 worker
+check	Run bun run test:flow	2026-10-12T19:17:20.9366769Z 
+check	Run bun run test:flow	2026-10-12T19:17:20.9368536Z   ✓  1 testing/flows/shell.spec.ts:7:1 › the shell verifies its connection through the running Floor Worker (430ms)
+check	Run bun run test:flow	2026-10-12T19:17:21.0100199Z [WebServer] [19:17:21.009] INFO (#5): Plan: 1 to delete, 2 binding changes
+check	Run bun run test:flow	2026-10-12T19:17:21.0101708Z [WebServer] [19:17:21.009] INFO (#5): [FloorWorker] delete (local)
+check	Run bun run test:flow	2026-10-12T19:17:21.0102879Z [WebServer] [19:17:21.009] INFO (#5): [FloorWorker/FLOOR_MAILBOXES] unbind
+check	Run bun run test:flow	2026-10-12T19:17:21.0103926Z [WebServer] [19:17:21.009] INFO (#5): [FloorWorker/FLOOR_THREADS] unbind
+check	Run bun run test:flow	2026-10-12T19:17:21.0104717Z [WebServer] [19:17:21.009] INFO (#5): 
+check	Run bun run test:flow	2026-10-12T19:17:21.0192283Z [WebServer] [19:17:21.018] INFO (#885): [FloorWorker] deleting (local)
+check	Run bun run test:flow	2026-10-12T19:17:21.0227001Z [WebServer] [19:17:21.022] INFO (#885): [FloorWorker] deleted (local) (4ms)
+check	Run bun run test:flow	2026-10-12T19:17:21.0239270Z [WebServer] [19:17:21.023] INFO (#5): 
+check	Run bun run test:flow	2026-10-12T19:17:21.0240238Z [WebServer] [19:17:21.023] INFO (#5): Done: 1 succeeded (14ms)
+check	Run bun run test:flow	2026-10-12T19:17:21.0746106Z 
+check	Run bun run test:flow	2026-10-12T19:17:21.0749994Z   1 passed (7.9s)
+check	Post Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	﻿2026-10-12T19:17:21.0998509Z Post job cleanup.
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-12T19:17:21.2725244Z Post job cleanup.
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3616994Z [command]/usr/bin/git version
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3656956Z git version 2.55.0
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3693379Z Temporarily overriding HOME='/home/runner/work/_temp/c13377d4-549b-4a77-a327-0ec11d951f59' before making global git config changes
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3694684Z Adding repository directory to the temporary git global config as a safe directory
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3696691Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/the-floor/the-floor
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3731963Z Removing SSH command configuration
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3738737Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.3773248Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4007466Z Removing HTTP extra header
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4014031Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4046665Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4254365Z Removing includeIf entries pointing to credentials config files
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4265433Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4293438Z includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4294788Z includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4296119Z includeif.gitdir:/github/workspace/.git.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4296994Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4303474Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4339461Z /home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4351609Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-139d6cfe\-6e82\-480f\-b2ef\-50809f905848\.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4414292Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4473785Z /home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4476161Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-139d6cfe\-6e82\-480f\-b2ef\-50809f905848\.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4514911Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4545800Z /github/runner_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4557667Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-139d6cfe\-6e82\-480f\-b2ef\-50809f905848\.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4607912Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4627606Z /github/runner_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4649822Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-139d6cfe\-6e82\-480f\-b2ef\-50809f905848\.config
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4703751Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+check	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:17:21.4927456Z Removing credentials config '/home/runner/work/_temp/git-credentials-139d6cfe-6e82-480f-b2ef-50809f905848.config'
+check	Complete job	﻿2026-10-12T19:17:21.5100128Z Cleaning up orphan processes

@@ -1,0 +1,19 @@
+{
+  "execution_host": "Local Mac (Darwin arm64), distinct from GitHub runners.",
+  "source_revision": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "remote_deployed_revision": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+  "reported_execution_time_utc": "2026-10-12 approximately 19:11 UTC, as reported by root; exact start not retained.",
+  "command": "FLOOR_FLOW_URL=https://floor-floorworker-pr-1-6zswxsi3y42k7hvp.c20carroll.workers.dev FLOOR_FLOW_REMOTE=true bun run test:flow > work/ci-proof/preview-001/local-remote-flow.log 2>&1",
+  "command_provenance": "Root operator report; run output retained separately.",
+  "tests_passed": 1,
+  "test_duration_seconds": 2.5,
+  "run_duration_seconds": 3.8,
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "screenshot": "local-flow/shell-connected.png",
+  "video": "local-flow/video.webm",
+  "visual_review": "Root and setup_requirements inspected the retained PNG; it shows the production shell with Connected status.",
+  "scope": "Typed health connectivity only. No look, phone, renderer, hosted model or Browser Run acceptance."
+}

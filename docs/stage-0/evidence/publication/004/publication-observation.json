@@ -1,0 +1,26 @@
+{
+  "recorded_at_utc": "2026-10-12T19:10:12.040245+00:00",
+  "operator_report": "Root published only stage-0 and dispatched the actual manual CI run; default main was intentionally left unchanged. Publication verification below does not assess that CI or preview run.",
+  "source_revision": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "published_stage_0_revision": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+  "remote_observation": {
+    "observed_at_utc": "2026-10-12T19:08:48.834245+00:00",
+    "url": "https://github.com/mannyc2/the-floor.git",
+    "refs": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+    },
+    "matches_published_stage_0_and_unchanged_other_refs": true,
+    "main": "Public main remains at the first-published integrated revision. Neither the mapped local-main tip nor the incremental checker's proposed main update was published in this step."
+  },
+  "retained_prepublication_statuses": {
+    "export-result.json": "verified-unpublished",
+    "incremental-check.json": "incremental-export-verified-not-approved-for-push"
+  },
+  "interpretation": "These historical files precede the push and remain unchanged. The checker proposed updates to main and stage-0, but the fresh remote observation confirms only stage-0 advanced.",
+  "transports": "No raw push console retained in this record; success is evidenced by the public ref and independently verified mapping.",
+  "private_account_baseline": "Excluded; this record accesses only Git history, export tools/results and public refs."
+}

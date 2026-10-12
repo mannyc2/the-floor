@@ -1,0 +1,81 @@
+{
+  "testedAt": "2026-10-12T18:56:45.916Z",
+  "scope": "Pure ref selection and validation; no network, repositories or original refs changed.",
+  "cases": [
+    {
+      "name": "original canonical heads without tracking refs",
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "all five matching publication tracking refs",
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "a subset of matching permitted tracking refs",
+      "passed": true,
+      "diagnostic": ""
+    },
+    {
+      "name": "reject refs/heads/unreviewed",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/heads/unreviewed"
+    },
+    {
+      "name": "reject refs/remotes/origin/unreviewed",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/remotes/origin/unreviewed"
+    },
+    {
+      "name": "reject refs/remotes/origin/HEAD",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/remotes/origin/HEAD"
+    },
+    {
+      "name": "reject refs/remotes/other/main",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/remotes/other/main"
+    },
+    {
+      "name": "reject refs/tags/v1",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/tags/v1"
+    },
+    {
+      "name": "reject refs/notes/commits",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/notes/commits"
+    },
+    {
+      "name": "reject refs/replace/1111111111111111111111111111111111111111",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/replace/1111111111111111111111111111111111111111"
+    },
+    {
+      "name": "reject refs/stash",
+      "passed": true,
+      "diagnostic": "Unexpected source ref needs review: refs/stash"
+    },
+    {
+      "name": "stale tracking target rejected",
+      "passed": true,
+      "diagnostic": "Tracking ref does not match the live public branch: refs/remotes/origin/main"
+    },
+    {
+      "name": "missing tracked public branch rejected",
+      "passed": true,
+      "diagnostic": "Tracking ref does not match the live public branch: refs/remotes/origin/main"
+    },
+    {
+      "name": "missing canonical source head rejected",
+      "passed": true,
+      "diagnostic": "Missing canonical source branch"
+    },
+    {
+      "name": "invalid target identifier rejected",
+      "passed": true,
+      "diagnostic": "Invalid source ref target: refs/remotes/origin/main"
+    }
+  ]
+}

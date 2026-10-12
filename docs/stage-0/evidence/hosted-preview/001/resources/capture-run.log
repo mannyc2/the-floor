@@ -1,0 +1,10 @@
+{
+  "outputPath": "work/ci-proof/preview-001/owned-before-delete.json",
+  "workerId": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+  "namespaces": 2,
+  "activeVersionIds": [
+    "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe"
+  ],
+  "apiCalls": 6,
+  "blockedNetworkCalls": 0
+}

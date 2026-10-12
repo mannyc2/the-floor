@@ -1,0 +1,47 @@
+{
+  "verified_at_utc": "2026-10-12T18:57:48.294450+00:00",
+  "source_baseline": "8210d54599e6bc0487a654e3177b3512e3ea23ed",
+  "filtered_test_head": "a9f56d806390ee971719916e691fd210f2d3aabc",
+  "unpublished_test_only": true,
+  "mapping_regression": [
+    {
+      "prior_export": "final-3dc2327",
+      "prior_map_sha256": "9b6d0921d73d135b955e454afd1fe682c32e3e5ec1a21eba2c3a8c0eea5b4622",
+      "shared_original_commits": 54,
+      "missing": [],
+      "changed": []
+    },
+    {
+      "prior_export": "next-6efcd61",
+      "prior_map_sha256": "6eb384f463e1520cf2e6dc743ef25f51c984d2410ae0c70e2110a06e1d04a20c",
+      "shared_original_commits": 59,
+      "missing": [],
+      "changed": []
+    }
+  ],
+  "fsck": [
+    {
+      "repository": "filtered.git",
+      "exit_code": 0,
+      "log": "work/publication/tracking-regression-8210d54/fsck-filtered-git.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "repository": "publish",
+      "exit_code": 0,
+      "log": "work/publication/tracking-regression-8210d54/fsck-publish.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "original_source_integrity": true,
+  "original_refs_count": 10,
+  "canonical_heads": 5,
+  "excluded_tracking_refs": 5,
+  "original_commits": 62,
+  "mapped_commits": 62,
+  "look_b_originals": 84,
+  "forbidden_blobs": 71,
+  "filter_recipe_unchanged": true
+}

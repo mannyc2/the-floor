@@ -1,0 +1,7 @@
+$ playwright test --config testing/flows/playwright.config.ts
+
+Running 1 test using 1 worker
+
+  ✓  1 testing/flows/shell.spec.ts:7:1 › the shell verifies its connection through the running Floor Worker (2.5s)
+
+  1 passed (3.8s)

@@ -1,0 +1,34 @@
+{
+  "status": "incremental-export-verified-not-approved-for-push",
+  "checkedAt": "2026-10-12T19:05:16.482Z",
+  "previousRun": "next-6efcd61",
+  "nextRun": "next-7727aff",
+  "previousMappingsPreserved": 59,
+  "nextMappings": 63,
+  "remoteChecked": true,
+  "filterRecipeUnchanged": true,
+  "sourceAndFilteredAncestryPreserved": true,
+  "proposedPublicTargets": {
+    "refs/heads/main": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+    "refs/heads/stage-0": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+    "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424"
+  },
+  "reviewedUpdates": [
+    {
+      "ref": "refs/heads/main",
+      "previousOid": "b606b0224b50ebbf86846ca78968e97057551604",
+      "proposedOid": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "refspec": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb:refs/heads/main"
+    },
+    {
+      "ref": "refs/heads/stage-0",
+      "previousOid": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f",
+      "proposedOid": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+      "refspec": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb:refs/heads/stage-0"
+    }
+  ],
+  "policyChanged": false,
+  "pushed": false
+}

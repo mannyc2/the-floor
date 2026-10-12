@@ -7,13 +7,13 @@ The promoted local skeleton and its [verification procedure](Codex/verification.
 
 | Area | Current result | Remaining gate |
 | --- | --- | --- |
-| Toolchain and ownership fences | Active strict compiler/lint, source and emitted-graph checks, reasoned suppression budget, pinned packages | [Integrated local verification passed](stage-0/evidence/workspace/002/record.json); remote CI remains |
+| Toolchain and ownership fences | Active strict compiler/lint, source and emitted-graph checks, reasoned suppression budget, pinned packages | [Local verification](stage-0/evidence/workspace/002/record.json) and [Linux CI](stage-0/evidence/hosted-preview/001/record.json) passed; renderer-specific checks remain |
 | Chains | Parameterized Kit/Codama and EVM construction; 940 dev-only math oracle cases | Product signing/broadcast belongs to later work |
 | Floor | Native agent/DOs, real provider Layers, predicate Decisions adapter, local admission/restart plus bounded hosted storage/crypto/alarm evidence | Authorized live provider access and unrun platform gates |
 | Web | Foldkit shell with production typed-health flow and a reserved map mount point | External map host, renderer, camera and picking |
 | Look harness | TypeScript metrics and deterministic drivers | External adapter, approved references, captures and phone measurements |
 | Art | Part A technique B/WebGL selected; all 84 Part B originals retained, Claude's 34-option shortlist and seven provisional owner picks recorded | Tone and proportion picks; the generation track stops before deriving them |
-| CI | Preview/admin/cleanup implementation and offline workflow syntax review; narrowed preview token minted and both GitHub secrets verified at 18:39 UTC | [Draft PR #1](https://github.com/mannyc2/the-floor/pull/1) is open; Automatic events had produced no CI run as of 18:42 UTC; a manual diagnostic at 18:44 UTC was accepted with every step intentionally skipped. `FLOOR_PREVIEW_CONFIGURED=true`; deployment admission and enablement remain unset. Remote CI, successful preview flow and teardown remain unverified |
+| CI | Linux checks and hosted production-entry flow passed; closing PR #1 automatically ran trusted cleanup, and independent inventory comparison verified all preview resources absent | [Hosted proof](stage-0/evidence/hosted-preview/001/record.json); draft PR reopened, deployment disabled and admission cleared. Automatic PR checks passed on the merge revision with preview skipped; retained remote-flow video was captured locally |
 | Budget/access | Cloudflare Alchemy profile connected; separate `floor-admin` profile configured; one bounded native hosted stage authorized | Browser full-period allowance; separately billed providers remain outside authorization |
 
 ## Inputs from the spikes
@@ -54,8 +54,8 @@ What stays behind as evidence only: the retired Wrangler and `effect-cf` probe (
 - [x] Port and test import, app, signer, three.js, testing-data, Atlas and workbench fences; validate bundle contents as well as imports.
 - [x] Configure the narrow API-package exception and a reasoned suppression budget.
 - [x] Adapt the bundle-budget model and manifest walker, preserving structured failures.
-- [ ] Implement `alchemy.run.ts` and CI as in [Alchemy's CI tutorial](https://alchemy.run/cloudflare/tutorial/part-5): a `pr-<number>` stage per pull request, cleanup on close with a guard against `prod`, a PR comment with the preview URL, and a scoped token minted by `stacks/github.ts` under a separate admin profile. Prove both creation and teardown of an isolated stage.
-- [ ] Run one production-entry flow against that stage, with an independent review of its assertions and stubs.
+- [x] Implement `alchemy.run.ts` and CI as in [Alchemy's CI tutorial](https://alchemy.run/cloudflare/tutorial/part-5): a `pr-<number>` stage per pull request, cleanup on close with a guard against `prod`, a PR comment with the preview URL, and a scoped token minted by `stacks/github.ts` under a separate admin profile. Creation and automatic close-triggered teardown of `pr-1` are [evidenced](stage-0/evidence/hosted-preview/001/record.json).
+- [x] Run one production-entry flow against that stage, with an independent review of its assertions and stubs. The hosted typed-health flow passed in GitHub and in a separately recorded local browser run; it proves connectivity only.
 - [ ] Fill `packages/atlas` with the picked look values; generate stylesheet and palette from it.
 - [ ] Wire the promoted look harness and workbench into the checks; ensure the workbench cannot enter production bundles.
 - [ ] Pass formatting, typecheck, lint, build and the stage's relevant tests without placeholder success commands.

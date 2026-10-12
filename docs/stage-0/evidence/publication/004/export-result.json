@@ -1,0 +1,89 @@
+{
+  "status": "verified-unpublished",
+  "sourceStage": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "filteredStage": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+  "generatedAt": "2026-10-12T19:04:56.178Z",
+  "toolHashes": {
+    "audit.ts": "b2e6665c7c28b371fcc1911cf4d149f9dcf5115c5a83d1753961c02c7c0a021f",
+    "guard.ts": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+    "export.ts": "8378439685a2ac9e76f61bb99cfede2e561497dbdbb7ab102f7a6e0fb50bb4f5"
+  },
+  "omission": "reference/cafe-reference",
+  "filterVersion": "a40bce548d2c",
+  "filterArgs": [
+    "filter-repo",
+    "--invert-paths",
+    "--path",
+    "reference/cafe-reference/",
+    "--prune-empty",
+    "never",
+    "--prune-degenerate",
+    "never",
+    "--preserve-commit-hashes",
+    "--preserve-commit-encoding",
+    "--replace-refs",
+    "delete-no-add"
+  ],
+  "sourceRefs": {
+    "refs/heads/main": "36678aaec7c146a1312268abcb649a09fcfaeceb",
+    "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "refs/heads/spike/platform": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+    "refs/heads/stage-0": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+    "refs/remotes/origin/main": "b606b0224b50ebbf86846ca78968e97057551604",
+    "refs/remotes/origin/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/remotes/origin/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/remotes/origin/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+    "refs/remotes/origin/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+  },
+  "sourceHeads": {
+    "refs/heads/main": "36678aaec7c146a1312268abcb649a09fcfaeceb",
+    "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+    "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+    "refs/heads/spike/platform": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+    "refs/heads/stage-0": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a"
+  },
+  "excludedTrackingRefs": {
+    "refs/remotes/origin/main": "b606b0224b50ebbf86846ca78968e97057551604",
+    "refs/remotes/origin/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/remotes/origin/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/remotes/origin/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+    "refs/remotes/origin/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+  },
+  "trackingRefValidation": {
+    "destination": "https://github.com/mannyc2/the-floor.git",
+    "observedAt": "2026-10-12T19:04:42.181Z",
+    "performed": true,
+    "publishedHeads": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+    }
+  },
+  "filteredRefs": {
+    "refs/heads/main": "ac06932ee624365010a15a377d85df850ff1bfb7",
+    "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+    "refs/heads/stage-0": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+  },
+  "originalCommits": 63,
+  "mappedCommits": 63,
+  "comparedEntries": 30600,
+  "closure": {
+    "commits": 63,
+    "inspectedEntries": 30600,
+    "uniqueBlobs": 1286
+  },
+  "forbiddenBlobCount": 71,
+  "lookBOriginalCount": 84,
+  "originalRefsWorktreesAndConfigUnchanged": true,
+  "guard": "Installed in mirror and checkout; all pushes blocked until exact target refs are reviewed and listed in their local policy.",
+  "files": {
+    "mirror": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/filtered.git",
+    "checkout": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/publish",
+    "commitMap": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/commit-map.txt"
+  }
+}

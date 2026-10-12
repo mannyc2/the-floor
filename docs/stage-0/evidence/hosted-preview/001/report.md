@@ -1,0 +1,35 @@
+# Hosted preview and teardown — attempt 001
+
+The controlled `pr-1` preview passed the production shell/typed-health flow on GitHub and in one separately recorded local browser run. Closing PR #1 then triggered automatic cleanup. The post-cleanup inventory shows the preview Worker and its two Durable Object namespaces absent, and the retained pre-existing resource metadata restored to baseline. This is bounded infrastructure evidence; Stage 0 remains incomplete.
+
+## Executed revisions and checks
+
+[Manual CI run 38295404123](https://github.com/mannyc2/the-floor/actions/runs/38295404123) was dispatched against `stage-0` with PR `1` admitted. Both the `check` and `preview` checkout logs record public revision `cd5699b4c44870af9b0a1842f64e3cfbd82370fb`. Its complete local source is `7727aff85f4ac8f5b9907f35d39284a53d05bb2a`; [publication attempt 004](../../publication/004/record.json) records that mapping. This manual run tested the dispatched head, not a GitHub merge revision.
+
+The `check` job passed formatting, typechecking, lint, 56 leaf tests with 1,333 assertions, the build and its two production build tests, three native local tests with 36 assertions, and the local production-entry browser flow. The shell bundle measured 114,105 gzip bytes against the 204,800-byte shell limit. This does not pass the separate renderer/deferred-bundle gate. Native tests used their labelled synthetic/local services and establish no hosted provider result.
+
+After cleanup and admission release, reopening the draft PR triggered [automatic PR run 38296437944](https://github.com/mannyc2/the-floor/actions/runs/38296437944). Its check job succeeded at 19:17:23 UTC and preview correctly skipped. The checkout log records GitHub merge revision `a72f40936807edf744f126a8cb57536ad3c0eaf8`; the run metadata still names PR head `cd5699b`. This proves ordinary PR check execution in addition to the manual deployed-head check. It does not prove automatic PR-event deployment, which was disabled. Earlier observations of absent automatic runs remain historical; this record assigns no cause to them.
+
+The `preview` job deployed the production Worker at 19:08:37–19:08:53 UTC, passed one hosted browser flow at 19:09:19–19:09:23, and posted the [preview comment](https://github.com/mannyc2/the-floor/pull/1#issuecomment-6130845259). The flow entered the production page, clicked **Check connection**, observed HTTP 200 from `/api/health`, reached **Connected**, and found no browser page errors. The comment and historical preview URL are retained; the preview was subsequently deleted.
+
+GitHub artifact uploads were skipped and setup caching was disabled. No GitHub browser video or screenshot is retained. The independent local Mac run used the same flow against the deployed preview, passed one test in 3.8 seconds (2.5 seconds for the test), and retained [the screenshot](local-flow/shell-connected.png) and [the video](local-flow/video.webm). Root reported the command ran at approximately 19:11 UTC; the exact wall-clock start was not retained. The 1280 × 900 capture is shell connectivity evidence, not an approved look, renderer, phone, or performance result.
+
+## Live resources and automatic teardown
+
+The GET-only capture at 19:13:01.212 UTC identified Worker `floor-floorworker-pr-1-6zswxsi3y42k7hvp`, its `FLOOR_MAILBOXES` and `FLOOR_THREADS` SQLite namespaces, and their matching bindings. Active deployment `dbd7b277-5c4d-4559-9205-b930a69e57dc` assigned 100% to version `4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe` (version 2). Six metadata GETs succeeded. This is a deployment/checkout chain of evidence, not an embedded Git revision attestation from the Worker.
+
+Deployment was disabled before the PR was closed. GitHub reports PR closure at 19:13:12 UTC and [automatic cleanup run 38296179460](https://github.com/mannyc2/the-floor/actions/runs/38296179460) creation at 19:13:15. Cleanup passed at 19:13:47. Its event metadata names the PR head, but the actual checkout log records trusted `main` revision `b606b0224b50ebbf86846ca78968e97057551604`, mapped from original source `3dc2327ca56aac9ac949d33cfc797b90748206ac`. The retained cleanup source and selected source/public blob comparisons are in [the source manifest](source/manifest.json).
+
+[The offline comparison](resources/baseline-comparison.json) links the private baseline observed at 19:05:48.027 UTC, the public owned-resource snapshot, and the private post-cleanup inventory observed at 19:14:18.463. The owned Worker and both recorded namespace identities are absent. All four retained inventory identity and metadata sets match baseline: five Workers, one namespace, three D1 databases, and one Secrets Store. Raw inventories of unrelated resources are excluded from this package. Equality is limited to retained metadata; it does not prove unchanged resource contents or independently query deleted version endpoints.
+
+The comparison also confirms equality of the retained shared state-store settings and all eight binding metadata records. This was an offline extension using the same before/after observations; its review record explicitly distinguishes the original independent review from the subsequent extension. No new account request was needed.
+
+The Worker was created at 19:08:43.282142 UTC and first observed absent at 19:14:18.463, giving a conservative lifetime bound of 336 seconds. All three earlier runs were terminal before admission was released. Final gate metadata has `FLOOR_PREVIEW_CONFIGURED=true`, `FLOOR_PREVIEW_ENABLED=false`, and no `FLOOR_PREVIEW_PR`; the gate snapshots themselves do not record exact observation times. The draft PR was reopened after cleanup with the same head and base.
+
+## Budget and limits
+
+The proof reserved one temporary stage, one Worker and two namespaces, no D1 database, at most 30 minutes and 80 driver requests. Root rechecked included allowance at approximately 18:43 UTC. Only the production shell and health flow were admitted, once on GitHub and once locally. Those are two successful health assertions; total Worker requests, CPU consumption and exact incremental cost were not measured. The post-run billing dashboard was not refreshed because a new session required interactive authentication. The pre-run rounded account displays cannot establish a final cost of zero.
+
+No agent turn, outside model/wallet provider, Browser Run service, R2 operation, new subscription or paid overage is accepted by this record. No resource-content persistence, renderer, art, phone, complete feature-flow, failed/cancelled cleanup or whole-Stage-0 approval follows from these results. The failed/cancelled-preview cleanup step was skipped on the successful manual run.
+
+[Commands and provenance notes](commands.txt), [source lineage](source/manifest.json), and [retained artifact hashes](record.json) make the scope reviewable. Public GitHub logs retain GitHub's credential masks. The capture-tool copy replaces only its selected account-ID literal; the original hash and transformation are recorded. Original private inventories remain in scratch and are represented here only by hashes, counts and comparison outcomes.

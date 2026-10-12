@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-10-12T19:15:59.644Z",
+  "scope": "Independent local consistency and publication-minimization review of retained capture and comparison; no new account requests.",
+  "checks": {
+    "sixSuccessfulGets": true,
+    "currentDeploymentMatchesFirst": true,
+    "oneActiveVersionAt100Percent": true,
+    "activeVersionMatchesDetail": true,
+    "detailVersionTwoHasEtag": true,
+    "namespaceIdentitiesDistinct": true,
+    "namespacesMatchBindings": true,
+    "recordedTimeOrder": true,
+    "baselineRestored": true,
+    "noPrivateIdentityValuesInPublicArtifacts": true,
+    "sharedStateStoreSettingsMatch": true,
+    "sharedStateStoreBindingsMatch": true
+  },
+  "privateIdentityValuesChecked": 17,
+  "leakedPrivateIdentityValues": 0,
+  "artifacts": [
+    {
+      "path": "capture-owned.ts",
+      "sha256": "9f89675e60de59635ca82bcbb6a0d411a56cb42a3eccb22b51cd8dc2cef62b0d"
+    },
+    {
+      "path": "owned-before-delete.json",
+      "sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58"
+    },
+    {
+      "path": "compare-baseline.ts",
+      "sha256": "df27de792f9f245639513dfedee89c6aab6bd8070b0d781146861ec8517e6778"
+    },
+    {
+      "path": "baseline-comparison.json",
+      "sha256": "6d7c27f5554d2b6dfbdaa104e2d6cb7797ee1a98d78da898863633b71eeea190"
+    }
+  ],
+  "pass": true,
+  "refreshedAt": "2026-10-12T19:18:01.334Z",
+  "refreshScope": "Requested offline extension to shared state-store settings and bindings; same before/live/after observations, with no new network requests or repeated independent review."
+}

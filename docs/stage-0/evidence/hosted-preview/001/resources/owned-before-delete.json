@@ -1,0 +1,252 @@
+{
+  "observedAt": "2026-10-12T19:13:01.212Z",
+  "stage": "pr-1",
+  "stack": "Floor",
+  "profile": "default",
+  "authentication": "oauth",
+  "source": {
+    "workflowRunId": 38295404123,
+    "publishedRevision": "cd5699b",
+    "localRevision": "7727aff"
+  },
+  "scope": "GET-only owned preview metadata before deletion; no script content, secret values, object instances, provider calls or resource mutations.",
+  "baseline": {
+    "observedAt": "2026-10-12T19:05:48.027Z",
+    "sha256": "d749993ec144b098598ad3e9fd735d5e57aabad36091e569803728215d21b7f8",
+    "counts": {
+      "workers": 5,
+      "namespaces": 1,
+      "databases": 3,
+      "secretStores": 1
+    },
+    "workerMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+    "namespaceMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9"
+  },
+  "inventory": {
+    "workerCount": 6,
+    "namespaceCount": 3,
+    "unrelatedWorkerMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+    "unrelatedNamespaceMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9",
+    "unrelatedWorkersMatchBaseline": true,
+    "unrelatedNamespacesMatchBaseline": true
+  },
+  "ownedWorker": {
+    "id": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+    "created_on": "2026-10-12T19:08:43.282142Z",
+    "modified_on": "2026-10-12T19:08:52.967824Z",
+    "compatibility_date": "2026-08-18",
+    "compatibility_flags": [
+      "new_module_registry"
+    ],
+    "tags": [
+      "alchemy:stack:Floor",
+      "alchemy:stage:pr-1",
+      "alchemy:id:FloorWorker",
+      "alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS"
+    ]
+  },
+  "settings": {
+    "compatibility_date": "2026-08-18",
+    "compatibility_flags": [
+      "new_module_registry"
+    ],
+    "tags": [
+      "alchemy:stack:Floor",
+      "alchemy:stage:pr-1",
+      "alchemy:id:FloorWorker",
+      "alchemy:dos:FLOOR_MAILBOXES;FLOOR_THREADS"
+    ]
+  },
+  "ownedNamespaces": [
+    {
+      "id": "daab67f15071424da0386666f56ed546",
+      "name": "floor-floorworker-pr-1-6zswxsi3y42k7hvp_FLOOR_MAILBOXES",
+      "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+      "class": "FLOOR_MAILBOXES",
+      "use_sqlite": true
+    },
+    {
+      "id": "8b33ec5927bd4cd6acdd58d7d622cae0",
+      "name": "floor-floorworker-pr-1-6zswxsi3y42k7hvp_FLOOR_THREADS",
+      "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+      "class": "FLOOR_THREADS",
+      "use_sqlite": true
+    }
+  ],
+  "durableObjectBindings": [
+    {
+      "type": "durable_object_namespace",
+      "name": "FLOOR_MAILBOXES",
+      "class_name": "FLOOR_MAILBOXES",
+      "namespace_id": "daab67f15071424da0386666f56ed546"
+    },
+    {
+      "type": "durable_object_namespace",
+      "name": "FLOOR_THREADS",
+      "class_name": "FLOOR_THREADS",
+      "namespace_id": "8b33ec5927bd4cd6acdd58d7d622cae0"
+    }
+  ],
+  "versions": {
+    "available": true,
+    "status": 200,
+    "items": [
+      {
+        "id": "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+        "number": 2,
+        "metadata": {
+          "created_on": "2026-10-12T19:08:50.537868Z",
+          "source": "api"
+        }
+      },
+      {
+        "id": "294836fa-9363-4a56-926d-1710231068de",
+        "number": 1,
+        "metadata": {
+          "created_on": "2026-10-12T19:08:43.282142Z",
+          "source": "api"
+        }
+      }
+    ],
+    "listScope": "At most ten recent versions, as returned by the API; current deployment version details are fetched separately."
+  },
+  "deployments": {
+    "available": true,
+    "status": 200,
+    "items": [
+      {
+        "id": "dbd7b277-5c4d-4559-9205-b930a69e57dc",
+        "created_on": "2026-10-12T19:08:50.537868Z",
+        "source": "api",
+        "strategy": "percentage",
+        "versions": [
+          {
+            "version_id": "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+            "percentage": 100
+          }
+        ]
+      },
+      {
+        "id": "813d6698-a18a-43a7-8423-c305cbed0ba7",
+        "created_on": "2026-10-12T19:08:43.282142Z",
+        "source": "api",
+        "strategy": "percentage",
+        "versions": [
+          {
+            "version_id": "294836fa-9363-4a56-926d-1710231068de",
+            "percentage": 100
+          }
+        ]
+      }
+    ],
+    "current": {
+      "id": "dbd7b277-5c4d-4559-9205-b930a69e57dc",
+      "created_on": "2026-10-12T19:08:50.537868Z",
+      "source": "api",
+      "strategy": "percentage",
+      "versions": [
+        {
+          "version_id": "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+          "percentage": 100
+        }
+      ]
+    },
+    "activeVersionIds": [
+      "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe"
+    ],
+    "versionDetails": [
+      {
+        "id": "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+        "number": 2,
+        "metadata": {
+          "created_on": "2026-10-12T19:08:50.537868Z",
+          "source": "api"
+        },
+        "resources": {
+          "script": {
+            "etag": "e551b5618e75eb20531562425bfbf665519b18f7b9c8f7748d3f765e9f831aa2",
+            "named_handlers": [
+              {
+                "name": "FLOOR_MAILBOXES",
+                "handlers": [
+                  "class"
+                ]
+              },
+              {
+                "name": "FLOOR_THREADS",
+                "handlers": [
+                  "class"
+                ]
+              }
+            ]
+          },
+          "script_runtime": {
+            "compatibility_date": "2026-08-18",
+            "compatibility_flags": [
+              "new_module_registry"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "transport": {
+    "apiBaseVersion": "v4",
+    "apiCalls": 6,
+    "blockedNetworkCalls": 0,
+    "observations": [
+      {
+        "path": "workers/scripts",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      },
+      {
+        "path": "workers/durable_objects/namespaces?per_page=100",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      },
+      {
+        "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/settings",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      },
+      {
+        "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/versions?per_page=10",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      },
+      {
+        "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/deployments",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      },
+      {
+        "path": "workers/scripts/floor-floorworker-pr-1-6zswxsi3y42k7hvp/versions/4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe",
+        "method": "GET",
+        "status": 200,
+        "success": true,
+        "apiVersion": null,
+        "errorCodes": []
+      }
+    ]
+  },
+  "limitations": [
+    "Read-only metadata does not establish Durable Object contents, model readiness, browser flow success or teardown.",
+    "The complete unrelated-resource baseline remains private; only counts and digests are emitted."
+  ]
+}

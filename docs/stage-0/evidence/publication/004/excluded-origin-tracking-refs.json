@@ -1,0 +1,21 @@
+{
+  "excludedTrackingRefs": {
+    "refs/remotes/origin/main": "b606b0224b50ebbf86846ca78968e97057551604",
+    "refs/remotes/origin/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+    "refs/remotes/origin/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+    "refs/remotes/origin/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+    "refs/remotes/origin/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+  },
+  "validation": {
+    "destination": "https://github.com/mannyc2/the-floor.git",
+    "observedAt": "2026-10-12T19:04:42.181Z",
+    "performed": true,
+    "publishedHeads": {
+      "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+      "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+      "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+      "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+      "refs/heads/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+    }
+  }
+}

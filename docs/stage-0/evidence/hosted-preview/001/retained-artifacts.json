@@ -1,0 +1,315 @@
+{
+  "copied_inputs": [
+    {
+      "source": "work/ci-proof/preview-001/dispatch.json",
+      "destination": "github/dispatch.json",
+      "source_bytes": 190,
+      "source_sha256": "c4c4e04ab6154e321c91527906c8fb0b0fe2fa40596a3f3d0a5d21c9d36147db",
+      "retained_bytes": 190,
+      "retained_sha256": "c4c4e04ab6154e321c91527906c8fb0b0fe2fa40596a3f3d0a5d21c9d36147db",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/run-first.json",
+      "destination": "github/run-first.json",
+      "source_bytes": 3134,
+      "source_sha256": "3811c3fd9ff54acdb280bc905741c14c2a8957742ef2f9d7594f683ba9cf6514",
+      "retained_bytes": 3134,
+      "retained_sha256": "3811c3fd9ff54acdb280bc905741c14c2a8957742ef2f9d7594f683ba9cf6514",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/ci-run.json",
+      "destination": "github/ci-run.json",
+      "source_bytes": 6381,
+      "source_sha256": "e0bf2c8a182f8c899221683c95b610b81731f4d6c330306a0f117325d5e3f70f",
+      "retained_bytes": 6381,
+      "retained_sha256": "e0bf2c8a182f8c899221683c95b610b81731f4d6c330306a0f117325d5e3f70f",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/ci-run.log",
+      "destination": "github/ci-run.log",
+      "source_bytes": 230435,
+      "source_sha256": "b78755af547580fa1dacaa50a53f0e0aa35f025162437927cf48d7d02c4bd2b1",
+      "retained_bytes": 230435,
+      "retained_sha256": "b78755af547580fa1dacaa50a53f0e0aa35f025162437927cf48d7d02c4bd2b1",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/admitted-gates.json",
+      "destination": "github/admitted-gates.json",
+      "source_bytes": 246,
+      "source_sha256": "27a2cd17e03fcfa1db67ab05dbda3ccd10a9039b177580faa7dd634b73d863c5",
+      "retained_bytes": 246,
+      "retained_sha256": "27a2cd17e03fcfa1db67ab05dbda3ccd10a9039b177580faa7dd634b73d863c5",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/disabled-gates.json",
+      "destination": "github/disabled-gates.json",
+      "source_bytes": 142,
+      "source_sha256": "ea9662bd33f007fb47c2aacf7836cec2296dfbc6b075072d984e9d741545f3c2",
+      "retained_bytes": 142,
+      "retained_sha256": "ea9662bd33f007fb47c2aacf7836cec2296dfbc6b075072d984e9d741545f3c2",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/released-gates.json",
+      "destination": "github/released-gates.json",
+      "source_bytes": 102,
+      "source_sha256": "8dff6a43b7eb2b8d833946d5f011b0db1b0cc9ec8bfaab2cef407d2626bf6d76",
+      "retained_bytes": 102,
+      "retained_sha256": "8dff6a43b7eb2b8d833946d5f011b0db1b0cc9ec8bfaab2cef407d2626bf6d76",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/pr-closed.json",
+      "destination": "github/pr-closed.json",
+      "source_bytes": 217,
+      "source_sha256": "07170df5b5bcf9a6505a555607bf7e31dc106fd3f23cbb6da3f762b346d2cbf0",
+      "retained_bytes": 217,
+      "retained_sha256": "07170df5b5bcf9a6505a555607bf7e31dc106fd3f23cbb6da3f762b346d2cbf0",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/pr-reopened.json",
+      "destination": "github/pr-reopened.json",
+      "source_bytes": 196,
+      "source_sha256": "a80258c50de95209fe4041c9c8a25c045a2d438e5ac5af3a8e3969c6636c24bc",
+      "retained_bytes": 196,
+      "retained_sha256": "a80258c50de95209fe4041c9c8a25c045a2d438e5ac5af3a8e3969c6636c24bc",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/runs-after-close.json",
+      "destination": "github/runs-after-close.json",
+      "source_bytes": 937,
+      "source_sha256": "3dd9238190a955fe66ecc5215b16c29fc8da28689e0dc4777e8d6727660b51e4",
+      "retained_bytes": 937,
+      "retained_sha256": "3dd9238190a955fe66ecc5215b16c29fc8da28689e0dc4777e8d6727660b51e4",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/cleanup-run.json",
+      "destination": "github/cleanup-run.json",
+      "source_bytes": 2032,
+      "source_sha256": "723218381ddc75b16ad25f8549cf7ccf4664b9400140484583bd6f78f22fd754",
+      "retained_bytes": 2032,
+      "retained_sha256": "723218381ddc75b16ad25f8549cf7ccf4664b9400140484583bd6f78f22fd754",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/cleanup-run.log",
+      "destination": "github/cleanup-run.log",
+      "source_bytes": 41324,
+      "source_sha256": "b8722371868c02df2b29312a2594b0ac6b06c84e85de50cfb4a550ada9cb087a",
+      "retained_bytes": 41324,
+      "retained_sha256": "b8722371868c02df2b29312a2594b0ac6b06c84e85de50cfb4a550ada9cb087a",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/runs-after-cleanup.json",
+      "destination": "github/runs-after-cleanup.json",
+      "source_bytes": 942,
+      "source_sha256": "d2f9aa24e9b0ec57868063a37c99cbe03c5d641b67f7b9a56afeeed508a78d27",
+      "retained_bytes": 942,
+      "retained_sha256": "d2f9aa24e9b0ec57868063a37c99cbe03c5d641b67f7b9a56afeeed508a78d27",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/runs-drained.json",
+      "destination": "github/runs-drained.json",
+      "source_bytes": 363,
+      "source_sha256": "7ef92bf31a9387f00a8bbad4f926f3e5c1b3b27a46fbf01352a360a042821609",
+      "retained_bytes": 363,
+      "retained_sha256": "7ef92bf31a9387f00a8bbad4f926f3e5c1b3b27a46fbf01352a360a042821609",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/automatic-pr-run.json",
+      "destination": "github/automatic-pr-run.json",
+      "source_bytes": 3625,
+      "source_sha256": "29d067f44a005e2edac93cf0572145e2e59135d4ae0e20de65c84fb35d570efb",
+      "retained_bytes": 3625,
+      "retained_sha256": "29d067f44a005e2edac93cf0572145e2e59135d4ae0e20de65c84fb35d570efb",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/automatic-pr-run.log",
+      "destination": "github/automatic-pr-run.log",
+      "source_bytes": 129208,
+      "source_sha256": "92604e1b00fc49322eb1934dbebd8f09da69944ad88908cee0aec5517eafc92f",
+      "retained_bytes": 129208,
+      "retained_sha256": "92604e1b00fc49322eb1934dbebd8f09da69944ad88908cee0aec5517eafc92f",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/automatic-merge-revision.json",
+      "destination": "github/automatic-merge-revision.json",
+      "source_bytes": 254,
+      "source_sha256": "c23d2f6ad4916804c07bd67e68373811b77dd0b986282f9781ff40601bbce4fc",
+      "retained_bytes": 254,
+      "retained_sha256": "c23d2f6ad4916804c07bd67e68373811b77dd0b986282f9781ff40601bbce4fc",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/pr-after-checks.json",
+      "destination": "github/pr-after-checks.json",
+      "source_bytes": 2261,
+      "source_sha256": "660d600983d368fad42f225ec38f845150148a71d0ed1683add18caf018fff39",
+      "retained_bytes": 2261,
+      "retained_sha256": "660d600983d368fad42f225ec38f845150148a71d0ed1683add18caf018fff39",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/runs-final.json",
+      "destination": "github/runs-final.json",
+      "source_bytes": 1241,
+      "source_sha256": "17e65efe1e4b7341ae8ce7bed0548c43c67c96c5b61f174ab759c8823cdbb0cb",
+      "retained_bytes": 1241,
+      "retained_sha256": "17e65efe1e4b7341ae8ce7bed0548c43c67c96c5b61f174ab759c8823cdbb0cb",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/owned-before-delete.json",
+      "destination": "resources/owned-before-delete.json",
+      "source_bytes": 7297,
+      "source_sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58",
+      "retained_bytes": 7297,
+      "retained_sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/baseline-comparison.json",
+      "destination": "resources/baseline-comparison.json",
+      "source_bytes": 5039,
+      "source_sha256": "6d7c27f5554d2b6dfbdaa104e2d6cb7797ee1a98d78da898863633b71eeea190",
+      "retained_bytes": 5039,
+      "retained_sha256": "6d7c27f5554d2b6dfbdaa104e2d6cb7797ee1a98d78da898863633b71eeea190",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/capture-run.log",
+      "destination": "resources/capture-run.log",
+      "source_bytes": 266,
+      "source_sha256": "00a14d38e9a06a5ff2c36afe4937d5a48dae0129dbdebde9fb4a9cd3755db542",
+      "retained_bytes": 266,
+      "retained_sha256": "00a14d38e9a06a5ff2c36afe4937d5a48dae0129dbdebde9fb4a9cd3755db542",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/capture-typecheck.log",
+      "destination": "resources/capture-typecheck.log",
+      "source_bytes": 0,
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained_bytes": 0,
+      "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/compare-run.log",
+      "destination": "resources/compare-run.log",
+      "source_bytes": 190,
+      "source_sha256": "302a9aac968344fb6e302e7aae7b3817f49375063f5cd3e331e24ac889cb45b0",
+      "retained_bytes": 190,
+      "retained_sha256": "302a9aac968344fb6e302e7aae7b3817f49375063f5cd3e331e24ac889cb45b0",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/compare-typecheck.log",
+      "destination": "resources/compare-typecheck.log",
+      "source_bytes": 0,
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained_bytes": 0,
+      "retained_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/capture-comparison-review.json",
+      "destination": "resources/capture-comparison-review.json",
+      "source_bytes": 1565,
+      "source_sha256": "3404ec08486e805e05c0d5a2759a8df89d8d3160897be7d2294d46fe155c7b81",
+      "retained_bytes": 1565,
+      "retained_sha256": "3404ec08486e805e05c0d5a2759a8df89d8d3160897be7d2294d46fe155c7b81",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/reservation.json",
+      "destination": "reservation.json",
+      "source_bytes": 541,
+      "source_sha256": "4c51152e3c4159013967e7e9487718b2ecdff78183f31b59f27c18fcce950c09",
+      "retained_bytes": 541,
+      "retained_sha256": "4c51152e3c4159013967e7e9487718b2ecdff78183f31b59f27c18fcce950c09",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/local-remote-flow.log",
+      "destination": "local-flow/run.log",
+      "source_bytes": 232,
+      "source_sha256": "3f164d15f0e8ff1fd5f10c6d8ad11fcd1db09f6258f7011cb3e57b45c123ba74",
+      "retained_bytes": 232,
+      "retained_sha256": "3f164d15f0e8ff1fd5f10c6d8ad11fcd1db09f6258f7011cb3e57b45c123ba74",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/local-remote-flow/shell-connected.png",
+      "destination": "local-flow/shell-connected.png",
+      "source_bytes": 14464,
+      "source_sha256": "f4cac3124097c34c5f890f5e13d6a0bc7f32e4aeec203f433c5c69c63c506579",
+      "retained_bytes": 14464,
+      "retained_sha256": "f4cac3124097c34c5f890f5e13d6a0bc7f32e4aeec203f433c5c69c63c506579",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/local-remote-flow/results/.last-run.json",
+      "destination": "local-flow/last-run.json",
+      "source_bytes": 45,
+      "source_sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "retained_bytes": 45,
+      "retained_sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/local-remote-flow/results/shell-the-shell-verifies-i-fdc23-gh-the-running-Floor-Worker/video.webm",
+      "destination": "local-flow/video.webm",
+      "source_bytes": 15110,
+      "source_sha256": "f51566e5460a50ef7d55adf31c9fd424f8a3ebc8362ca7b659eb91be82c656d1",
+      "retained_bytes": 15110,
+      "retained_sha256": "f51566e5460a50ef7d55adf31c9fd424f8a3ebc8362ca7b659eb91be82c656d1",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/capture-owned.ts",
+      "destination": "tooling/capture-owned.ts.txt",
+      "source_bytes": 13601,
+      "source_sha256": "9f89675e60de59635ca82bcbb6a0d411a56cb42a3eccb22b51cd8dc2cef62b0d",
+      "retained_bytes": 13590,
+      "retained_sha256": "ac41b73a414c11f56c6cb08ffd4c781a65c7d5df05d1a42c1e3ec70d5b5bc20b",
+      "transformation": "One account-ID literal replaced with <SELECTED_ACCOUNT_ID>; all other bytes unchanged. Original remains in scratch with its hash."
+    },
+    {
+      "source": "work/ci-proof/preview-001/compare-baseline.ts",
+      "destination": "tooling/compare-baseline.ts.txt",
+      "source_bytes": 8151,
+      "source_sha256": "df27de792f9f245639513dfedee89c6aab6bd8070b0d781146861ec8517e6778",
+      "retained_bytes": 8151,
+      "retained_sha256": "df27de792f9f245639513dfedee89c6aab6bd8070b0d781146861ec8517e6778",
+      "transformation": "none; exact bytes"
+    },
+    {
+      "source": "work/ci-proof/preview-001/preview-comments.json",
+      "destination": "github/preview-comment.json",
+      "source_bytes": 4237,
+      "source_sha256": "47b1ff4bfd00a3ce4e239572786e9684a7bf17c7f45cb048c30e3c9f63f3c4ad",
+      "retained_bytes": 495,
+      "retained_sha256": "73982f67a3bfc2cdb03bed8c65dbba9922efba541d779c2edd42443e28e32232",
+      "transformation": "Allowlist public comment identity, timestamps, body and author; omit unrelated GitHub app/profile metadata."
+    }
+  ],
+  "private_inputs_not_copied": [
+    "work/ci-proof/preview-001/before.json",
+    "work/ci-proof/preview-001/after.json"
+  ],
+  "video_retention": "Root explicitly requested the small local recording and PNG be retained for review; neither is a GitHub runner recording."
+}

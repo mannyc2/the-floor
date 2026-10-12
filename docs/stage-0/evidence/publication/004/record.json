@@ -1,0 +1,330 @@
+{
+  "check_id": "public-incremental-export-and-tracking-refs",
+  "attempt": "004",
+  "status": "pass",
+  "executed_at_utc": "2026-10-12T19:08:48.852532+00:00",
+  "operator": "Root exported/published stage-0; setup_requirements implemented and tested the narrow export repair, then independently verified and packaged this record.",
+  "reviewer": "Root reviewed the bounded export changes and completed the packaging review by independently verifying all 28 artifact hashes and byte counts, report and code. cleanup_discriminator independently reviewed ref-selection and mapping invariants. No CI or whole-stage approval is implied.",
+  "source_revision": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "dependency_versions": {
+    "Bun": "1.4.0",
+    "Git": "2.40.1",
+    "git-filter-repo": "a40bce548d2c"
+  },
+  "api_evidence": [
+    {
+      "observed_at_utc": "2026-10-12T19:08:48.834245+00:00",
+      "url": "https://github.com/mannyc2/the-floor.git",
+      "refs": {
+        "refs/heads/main": "b606b0224b50ebbf86846ca78968e97057551604",
+        "refs/heads/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+        "refs/heads/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+        "refs/heads/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+        "refs/heads/stage-0": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+      },
+      "matches_published_stage_0_and_unchanged_other_refs": true,
+      "main": "Public main remains at the first-published integrated revision. Neither the mapped local-main tip nor the incremental checker's proposed main update was published in this step."
+    }
+  ],
+  "execution_target": "Isolated export mirror/checkout, immutable original Git objects, and read-only public refs.",
+  "runtime_configuration": {
+    "public_stage_0_revision": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb",
+    "filter_args": [
+      "filter-repo",
+      "--invert-paths",
+      "--path",
+      "reference/cafe-reference/",
+      "--prune-empty",
+      "never",
+      "--prune-degenerate",
+      "never",
+      "--preserve-commit-hashes",
+      "--preserve-commit-encoding",
+      "--replace-refs",
+      "delete-no-add"
+    ],
+    "only_omission": "reference/cafe-reference",
+    "canonical_source_heads": 5,
+    "validated_excluded_tracking_refs": 5,
+    "exact_tracking_equality_required": true,
+    "unknown_refs": "Reject for explicit review.",
+    "source_history_domain": "Frozen canonical head object IDs only; not --all over tracking refs.",
+    "prepublication_results_preserved": true
+  },
+  "stage_and_resources": "Public GitHub repository mannyc2/the-floor. No Cloudflare or application resources are included in this audit.",
+  "inputs": [
+    {
+      "path": "export-result.json",
+      "scope": "Captured successful final export; historical status unchanged."
+    },
+    {
+      "path": "tracking-regression/result.json",
+      "scope": "Unpublished 8210d54 regression using identical tool hashes."
+    },
+    {
+      "path": "incremental-check.json",
+      "scope": "Preserves 59 prior mappings; proposed main update was not published."
+    }
+  ],
+  "procedure": [
+    "Retain exact export/tool/regression inputs.",
+    "Compare all 63 source/mapped trees, metadata and parent topology; exclude only the authorized Caf\u00e9 path.",
+    "Compare all 59 prior and 62 intermediate mappings.",
+    "Verify original-image identities, forbidden-blob absence, canonical mirror refs and source integrity.",
+    "Run full strict fsck against final mirror and checkout.",
+    "Read public refs without fetching and distinguish published stage-0 from unchanged main."
+  ],
+  "expected_result": "Canonical source history maps without drift or tracking-history contamination; only the authorized omission; public stage-0 matches the reviewed mapped source.",
+  "observed_result": {
+    "mapping": {
+      "7727aff85f4ac8f5b9907f35d39284a53d05bb2a": "cd5699b4c44870af9b0a1842f64e3cfbd82370fb"
+    },
+    "mapped_commits": 63,
+    "tree_entries": 30600,
+    "unique_retained_blobs": 1286,
+    "prior_published_mappings_preserved": 59,
+    "intermediate_mappings_preserved": 62,
+    "forbidden_blobs_absent": 71,
+    "original_images_retained": 84,
+    "policy_test_cases_passed": 15,
+    "fsck": "Both final repositories pass; empty logs.",
+    "original_source_integrity": "Unchanged during export and independent verification.",
+    "public_stage_0_matches": true,
+    "public_main_unchanged": true,
+    "ci_and_preview": "Not assessed or accepted by this record."
+  },
+  "artifacts": [
+    {
+      "path": "docs/stage-0/evidence/publication/004/clone.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/commit-map.txt",
+      "committed": true,
+      "bytes": 5211,
+      "sha256": "d38285e902c1a6adf2e68cb5a1122631a3fb4cca01e0d5b8d47add200fe26d65",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/excluded-origin-tracking-refs.json",
+      "committed": true,
+      "bytes": 1002,
+      "sha256": "335c213344ce2633a689a5741df320191b541e649f11b803dd806c6d885240c1",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/export-result.json",
+      "committed": true,
+      "bytes": 4199,
+      "sha256": "351a6527a65676339b5305b4e1c4794566098d78a2becb8b59911ff8b7d412ca",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/filter.log",
+      "committed": true,
+      "bytes": 383,
+      "sha256": "e5e0676d7d8a14dd53a92c7d45439e42637acbce4657a6709e07f35997f10219",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/forbidden-blobs.txt",
+      "committed": true,
+      "bytes": 2911,
+      "sha256": "4723f4358411d3420ba775048d2a5e056f7e5b3a35bbcfd5ba66546e6379cf55",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/fsck-filtered-git.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/fsck-publish.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/incremental-check.json",
+      "committed": true,
+      "bytes": 1311,
+      "sha256": "57e0f7e7c66d0a627aa639885c0156a8f05baa5eac24163595798e3adf553025",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/independent-verification.json",
+      "committed": true,
+      "bytes": 2722,
+      "sha256": "13e8b85a1e49880ad3c14b55d4f6c07da91e5115164be666104b818dfcb43110",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/look-b-originals.json",
+      "committed": true,
+      "bytes": 15927,
+      "sha256": "2ba5b4f5fa00767472165ba482bec46a133542dcc957b527546efc6780547336",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/publication-observation.json",
+      "committed": true,
+      "bytes": 1842,
+      "sha256": "62685fb8de8ba197af14ec2c04ebee5fe95129dfe837a9e9bb311c0c1c1e5f32",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/remote-refs.txt",
+      "committed": true,
+      "bytes": 314,
+      "sha256": "6e29d31adc00aa43fa0734c2fcade3623eb1e3c18b069d653614c570b57b64c2",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/report.md",
+      "committed": true,
+      "bytes": 4111,
+      "sha256": "e1a79ff44868c1e60e88bd6d0f56f8115b163536c1f76bfec847bfa647cc6786",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/retained-artifacts.json",
+      "committed": true,
+      "bytes": 8001,
+      "sha256": "2cc6f961251eddca6fbc2e7eac5e1c8df538dac8c89785fd374a4f672bf46a8d",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/source-refs.json",
+      "committed": true,
+      "bytes": 756,
+      "sha256": "06fa8426ccafe713a07707a81fbf3c6a0e101d825405153a97a1a04bea2d33f7",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/source-worktrees.txt",
+      "committed": true,
+      "bytes": 820,
+      "sha256": "48989d9bbff397aa793d265eb51c14165baa4c74a8d26d486e5c569d7d402302",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/audit.ts",
+      "committed": true,
+      "bytes": 4739,
+      "sha256": "b2e6665c7c28b371fcc1911cf4d149f9dcf5115c5a83d1753961c02c7c0a021f",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/export.ts",
+      "committed": true,
+      "bytes": 10366,
+      "sha256": "8378439685a2ac9e76f61bb99cfede2e561497dbdbb7ab102f7a6e0fb50bb4f5",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/guard.ts",
+      "committed": true,
+      "bytes": 2853,
+      "sha256": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/test-origin-tracking.ts",
+      "committed": true,
+      "bytes": 2767,
+      "sha256": "50d099ac31061a9705b057ddebbc9b58adedf46a57a7ee6dd117d53388e52766",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/README.txt",
+      "committed": true,
+      "bytes": 1843,
+      "sha256": "e531b7b345dcae54ddf4f791c2fb1112a18644a318bae2879cb4f74b4b58e627",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/commit-map.txt",
+      "committed": true,
+      "bytes": 5129,
+      "sha256": "1c8991dd61d497f85bb3c39838ef20afcaf43c73b7a32237c19536880e82e0ab",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/fsck-filtered-git.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/fsck-publish.log",
+      "committed": true,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/origin-tracking-test-results.json",
+      "committed": true,
+      "bytes": 2535,
+      "sha256": "8347921d3f9131dbe41178e9a809d0546cf8787c0447af19f96ad3ce8a0794ad",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/regression-result.json",
+      "committed": true,
+      "bytes": 1484,
+      "sha256": "9b23f0fc43ac319061cfedf5280947c3e3be626222d6499d827b0c396950e76c",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/result.json",
+      "committed": true,
+      "bytes": 4244,
+      "sha256": "8588acd055d527a71efdb2697babade75584fd411c1292019cd0e5257b540124",
+      "regenerate": "Preserve historical bytes. Use a new attempt for later exports, ref observations or verification executions."
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Direct public-ref reads only; no fetch into the source, push, account-resource query or credential-value access.",
+    "budget": "No metered application/provider resource used by this audit.",
+    "observed_cost": "unknown; no application spend incurred by these local Git/read-only ref operations."
+  },
+  "cleanup_result": "Original refs, worktree heads and configuration preserved. Export/test repositories and guarded publication tools remain isolated. This packaging made no commit or push.",
+  "decision_link": "docs/decisions.md; publication/001\u2013003: public hosting and authorized Caf\u00e9 omission.",
+  "limitations_and_next_action": "CI/preview evidence remains separate. Retained prepublication proposals are not actual published refs. Future source/ref changes need fresh review; strict tracking equality requires explicit authorized refresh when stale. Retained files are prepared for the next root evidence commit.",
+  "look": {
+    "technique": "n/a",
+    "tone_set": "n/a",
+    "theme": "n/a",
+    "rung": "n/a",
+    "dpr": "n/a",
+    "camera": "n/a",
+    "canvas": "n/a",
+    "backend": "n/a",
+    "renderer_string": "n/a",
+    "device_profile": "n/a",
+    "clock_and_seed": "n/a",
+    "metrics": {},
+    "made_by": "n/a",
+    "cross_review": {
+      "reviewer_agent": "n/a",
+      "verdict": "n/a",
+      "notes": "Publication verification, not a new art review."
+    },
+    "owner_pick": {
+      "state": "n/a",
+      "options_shown": [],
+      "picked": "n/a",
+      "owner_note": "",
+      "date": "n/a"
+    }
+  },
+  "retention_state": "Retained in this evidence directory with source hashes; original work copies remain scratch."
+}

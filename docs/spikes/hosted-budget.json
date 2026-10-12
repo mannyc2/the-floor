@@ -89,10 +89,11 @@
     "exactIncrementalCost": "unknown: account-wide metering and billing can lag",
     "resourcesRemaining": 0,
     "sharedStateStore": "version 7, existing Worker metadata unchanged",
-    "billingApiRead": "403 under current OAuth scopes"
+    "billingApiRead": "403 under current OAuth scopes",
+    "scope": "Earlier native hosted spike only; preview proof is recorded separately below."
   },
   "previewProofReservation": {
-    "state": "Prepared, not yet admitted or deployed. Set admission only immediately before the controlled proof and release it after all queued work and resources are absent.",
+    "state": "Completed and released: manual CI deployed pr-1; close-triggered trusted cleanup succeeded; independent inventory comparison verified all owned resources absent. Deployment disabled and admission cleared after runs drained.",
     "stage": "pr-1",
     "temporaryStages": 1,
     "maximumLifetimeMinutes": 30,
@@ -107,9 +108,33 @@
     "paidProviderCalls": 0,
     "r2Operations": 0,
     "allowanceRecheckedAt": "2026-10-12T18:43:00Z (minute precision)",
-    "allowanceObservation": "Cloudflare billable-usage view: Sep 22–Oct 21 cycle, observed through Oct 12. Workers requests 40.47k/10M, CPU 252.1k/30M; DO requests 42/1M and duration 0.1/400000 GB-seconds. Display values are rounded and can lag.",
+    "allowanceObservation": "Cloudflare billable-usage view: Sep 22\u2013Oct 21 cycle, observed through Oct 12. Workers requests 40.47k/10M, CPU 252.1k/30M; DO requests 42/1M and duration 0.1/400000 GB-seconds. Display values are rounded and can lag.",
     "driverCpuMsConservativeUpperBound": 2400000,
     "cleanup": "Disable new deployment, drain or cancel queued runs, then run trusted cleanup for pr-1 and independently compare resource identities with the baseline. Preserve the shared state store and all pre-existing resources. A failed/cancelled deploy also requests cleanup; explicit recovery remains required if the job cannot finish it.",
-    "runnerLimitations": "Manual workflow runs test the dispatched PR head, not a GitHub merge revision. GitHub artifact uploads and setup caching stay off; retain a separately labelled local remote-flow recording."
+    "runnerLimitations": "Manual workflow runs test the dispatched PR head, not a GitHub merge revision. GitHub artifact uploads and setup caching stay off; retain a separately labelled local remote-flow recording.",
+    "result": {
+      "ciRun": "https://github.com/mannyc2/the-floor/actions/runs/38295404123",
+      "cleanupRun": "https://github.com/mannyc2/the-floor/actions/runs/38296179460",
+      "cleanupTrigger": "pull_request_target closed",
+      "workerCreatedAt": "2026-10-12T19:08:43.282142Z",
+      "cleanupStepCompletedAt": "2026-10-12T19:13:45Z",
+      "resourceAbsenceVerifiedAt": "2026-10-12T19:14:18.463Z",
+      "maximumObservedLifetimeSeconds": 336,
+      "productionEntryFlows": {
+        "github": 1,
+        "localBrowserAgainstHostedPreview": 1
+      },
+      "successfulHealthAssertions": 2,
+      "totalDriverRequests": "Not instrumented; two bounded flow executions were run. Do not treat the two health assertions as a total request count.",
+      "remainingOwnedWorkers": 0,
+      "remainingOwnedNamespaces": 0,
+      "baselineIdentityAndRetainedMetadataEqual": true,
+      "sharedStateStoreSettingsAndBindingsUnchanged": true,
+      "paidProviderCalls": 0,
+      "browserProviderSessions": 0,
+      "r2Operations": 0,
+      "exactIncrementalUsageAndCost": "Unknown: account-wide metering can lag; immediate post-run dashboard read required renewed user verification and was not completed.",
+      "evidence": "docs/stage-0/evidence/hosted-preview/001/record.json"
+    }
   }
 }

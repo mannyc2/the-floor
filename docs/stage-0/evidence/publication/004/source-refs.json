@@ -1,0 +1,12 @@
+{
+  "refs/heads/main": "36678aaec7c146a1312268abcb649a09fcfaeceb",
+  "refs/heads/spike/look-a": "70ec773dc2ef3d4eeec143d99d89c3896713741c",
+  "refs/heads/spike/look-b": "6cb8c198c6bc48bb418a83f9cc11f70cdbf96a1b",
+  "refs/heads/spike/platform": "af4285b13d495c92bc6be6470f35ffae6d3d879d",
+  "refs/heads/stage-0": "7727aff85f4ac8f5b9907f35d39284a53d05bb2a",
+  "refs/remotes/origin/main": "b606b0224b50ebbf86846ca78968e97057551604",
+  "refs/remotes/origin/spike/look-a": "a4f8d28446d531280b3173f0e3c3211c7f499ff6",
+  "refs/remotes/origin/spike/look-b": "04b916cd298fc131a4451c2b3ce17a1669f6704f",
+  "refs/remotes/origin/spike/platform": "8fa188b70935ef18688c6da867e08d77962ca424",
+  "refs/remotes/origin/stage-0": "0b6878db402fc6bdc4c7b9e4a72fcfd1e12efb5f"
+}

@@ -1,0 +1,77 @@
+Historical attempt 001 — commands and provenance
+
+Source repository: the complete local Floor repository, branch stage-0.
+Deployed original source: 7727aff85f4ac8f5b9907f35d39284a53d05bb2a
+Deployed filtered public source: cd5699b4c44870af9b0a1842f64e3cfbd82370fb
+Trusted cleanup public checkout: b606b0224b50ebbf86846ca78968e97057551604
+Trusted cleanup original source: 3dc2327ca56aac9ac949d33cfc797b90748206ac
+Automatic PR check checkout: a72f40936807edf744f126a8cb57536ad3c0eaf8
+
+CI execution:
+Manual workflow_dispatch selected stage-0 and preview_pr=1. Root's retained
+dispatch.json records GitHub's accepted run ID; it does not retain the dispatch
+shell command. The exact executed check/deploy commands, environment masks,
+outputs and timestamps are retained in github/ci-run.log and the workflow source.
+No credential values are required to read this evidence.
+
+The manual check job ran:
+  bun install --frozen-lockfile
+  bun run format:check
+  bun run typecheck
+  bun run lint
+  bun run test:leaf
+  bun run build
+  bun run test:native
+  bunx --no-install playwright install --with-deps chromium
+  bun run test:flow
+
+The preview job deployed pr-1 and ran the production flow with FLOOR_FLOW_REMOTE=true
+and FLOOR_FLOW_URL taken from its generated preview metadata. Exact shell text is
+preserved in source/deployed-head/.github/workflows/ci.yml.txt and github/ci-run.log.
+
+Local browser command, exactly as reported by root:
+  FLOOR_FLOW_URL=https://floor-floorworker-pr-1-6zswxsi3y42k7hvp.c20carroll.workers.dev FLOOR_FLOW_REMOTE=true bun run test:flow > work/ci-proof/preview-001/local-remote-flow.log 2>&1
+Execution host: local Mac, Darwin arm64. Root reported approximately 19:11 UTC;
+the exact start time is unknown. The source flow config uses a 1280x900 viewport,
+one worker, video on, and traces only on failure. Its production test produced
+work/flows/shell-connected.png and work/flows/results/.../video.webm; root retained
+copies under work/ci-proof/preview-001/local-remote-flow/ before packaging.
+The copied video and PNG are explicitly local results, not GitHub recordings.
+
+Resource observation:
+tooling/capture-owned.ts.txt retains the executed read-only capture source with
+one selected-account literal replaced by <SELECTED_ACCOUNT_ID>. The original
+source hash and exact transformation are in retained-artifacts.json. Its input
+baseline stays private. It requires CI=false and --confirmed-preview-live,
+restricts outbound calls to approved Cloudflare metadata GETs, and never prints
+credentials or unrelated resource identities. It must not be rerun against a
+deleted stage or used to overwrite this attempt. Exact original invocation was
+not retained here; capture-run.log records the completed result.
+
+Cleanup:
+Closing PR1 automatically triggered pull_request_target cleanup run38296179460.
+The job checked out trusted main and ran:
+  bun install --frozen-lockfile
+  bun run preview:destroy --stage "pr-1"
+The checkout hash, masked environment and deletion result are retained in
+github/cleanup-run.log. No manual teardown was substituted for this run.
+
+Offline comparison:
+tooling/compare-baseline.ts.txt is the exact executed comparison source. It reads
+the private before.json/after.json plus public owned-before-delete.json, validates
+ownership/account/hash correspondence, and emits only owned IDs, aggregate counts
+and canonical digests. The shared-settings/bindings extension uses the same
+observations. Exact invocation was not retained here; compare-run.log and the
+empty captured typecheck log remain unchanged. Private resource contents are
+outside the observation scope.
+
+Automatic reopened-PR CI:
+github/automatic-pr-run.log records the same check job on the GitHub merge revision;
+its preview job skipped because deployment was disabled and no PR was admitted.
+
+Reproduction policy:
+These files are historical evidence. A later hosted execution needs a fresh
+allowance/admission review and a new attempt. Do not rerun deployment merely to
+regenerate hashes or recordings. Offline packaging verified every copied hash,
+selected original/public source identity, JSON syntax and linked artifact path;
+it made no provider request, runtime edit, commit or push.

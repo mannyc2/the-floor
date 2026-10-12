@@ -1,0 +1,224 @@
+import * as Cloudflare from "alchemy/Cloudflare";
+import { toEffect, withProviders } from "alchemy/Test/Core";
+import { Effect, Redacted, Schema } from "effect";
+
+const accountId = "<SELECTED_ACCOUNT_ID>";
+const basePath = "work/ci-proof/preview-001/before.json";
+const outputPath = "work/ci-proof/preview-001/owned-before-delete.json";
+const ownershipTags = ["alchemy:stack:Floor", "alchemy:stage:pr-1", "alchemy:id:FloorWorker"];
+const options = {
+  providers: Cloudflare.providers(), profile: "default", dev: false,
+  sidecar: false, stage: "preview-metadata-read-only",
+};
+const record = Schema.Record(Schema.String, Schema.Unknown);
+const decodeObject = Schema.decodeUnknownSync(record);
+const decodeObjects = Schema.decodeUnknownSync(Schema.Array(record));
+const optionalString = Schema.optional(Schema.NullOr(Schema.String));
+const Worker = Schema.Struct({
+  id: Schema.String,
+  created_on: optionalString,
+  modified_on: optionalString,
+  migration_tag: optionalString,
+  compatibility_date: optionalString,
+  compatibility_flags: Schema.optional(Schema.NullOr(Schema.Array(Schema.String))),
+  tags: Schema.optional(Schema.NullOr(Schema.Array(Schema.String))),
+});
+const Namespace = Schema.Struct({
+  id: Schema.String,
+  name: optionalString,
+  script: Schema.String,
+  class: Schema.String,
+  use_sqlite: Schema.optional(Schema.Boolean),
+});
+const Baseline = Schema.Struct({
+  observedAt: Schema.String,
+  accountId: Schema.String,
+  scripts: Schema.Array(Worker),
+  namespaces: Schema.Array(Namespace),
+  databases: Schema.Array(record),
+  secretStores: Schema.Array(record),
+});
+const Binding = Schema.Struct({
+  type: Schema.Literal("durable_object_namespace"),
+  name: Schema.String,
+  class_name: Schema.String,
+  namespace_id: Schema.String,
+  script_name: optionalString,
+});
+const hash = (text: string) => new Bun.CryptoHasher("sha256").update(text).digest("hex");
+const canonical = (value: unknown): string => {
+  if (value === undefined) return "null";
+  if (value === null || typeof value !== "object") return JSON.stringify(value);
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  const entries = Object.entries(decodeObject(value)).sort(([a], [b]) => a.localeCompare(b));
+  return `{${entries.map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
+};
+const collectionDigest = (values: ReadonlyArray<unknown>) =>
+  hash(`[${values.map(canonical).sort().join(",")}]`);
+const pick = (value: unknown, keys: ReadonlyArray<string>) => {
+  const item = decodeObject(value);
+  return Object.fromEntries(keys.flatMap((key) => item[key] === undefined ? [] : [[key, item[key]]]));
+};
+const versionMetadata = (value: unknown) => {
+  const item = decodeObject(value);
+  return {
+    ...pick(item, ["id", "number"]),
+    ...(item.metadata === undefined ? {} : { metadata: pick(item.metadata, ["created_on", "modified_on", "source"]) }),
+    ...(item.resources === undefined ? {} : (() => {
+      const resources = decodeObject(item.resources);
+      return { resources: {
+        ...(resources.script === undefined ? {} : { script: pick(resources.script, ["etag", "named_handlers"]) }),
+        ...(resources.script_runtime === undefined ? {} : { script_runtime: pick(resources.script_runtime, ["compatibility_date", "compatibility_flags", "migration_tag"]) }),
+      } };
+    })()),
+  };
+};
+const deploymentMetadata = (value: unknown) => {
+  const item = decodeObject(value);
+  return {
+    ...pick(item, ["id", "created_on", "source", "strategy"]),
+    versions: decodeObjects(item.versions).map((version) => pick(version, ["version_id", "percentage"])),
+  };
+};
+
+let phase = "validate-invocation";
+let apiCalls = 0;
+let blockedNetworkCalls = 0;
+const observations: Array<{
+  path: string; method: "GET"; status: number; success: boolean;
+  apiVersion: string | null; errorCodes: ReadonlyArray<number>;
+}> = [];
+const permittedPaths = new Set(["workers/scripts", "workers/durable_objects/namespaces?per_page=100"]);
+const originalFetch = globalThis.fetch;
+const guardedFetch = async (input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+  const url = new URL(input instanceof Request ? input.url : String(input));
+  const method = (init?.method ?? (input instanceof Request ? input.method : "GET")).toUpperCase();
+  const prefix = `/client/v4/accounts/${accountId}/`;
+  const relative = url.pathname.slice(prefix.length) + url.search;
+  if (method !== "GET" || url.origin !== "https://api.cloudflare.com" ||
+    !url.pathname.startsWith(prefix) || !permittedPaths.has(relative)) {
+    blockedNetworkCalls++;
+    throw new Error("Read-only capture rejected an unapproved network operation");
+  }
+  apiCalls++;
+  return originalFetch(input, { ...init, method: "GET", redirect: "error" });
+};
+
+const main = Effect.gen(function* () {
+  const baselineText = yield* Effect.promise(() => Bun.file(basePath).text());
+  const baseline = yield* Schema.decodeUnknownEffect(Baseline)(JSON.parse(baselineText));
+  if (baseline.accountId !== accountId) throw new Error("Baseline account mismatch");
+  phase = "resolve-existing-default-oauth";
+  const credentials = yield* yield* Cloudflare.CloudflareEnvironment;
+  if (credentials.accountId !== accountId || credentials.type !== "oauth" || credentials.source.type !== "oauth") {
+    throw new Error("Expected the authorized account and existing default OAuth profile");
+  }
+  const headers = new Headers({ Authorization: `Bearer ${Redacted.value(credentials.accessToken)}` });
+  const get = (path: string) => Effect.promise(async () => {
+    phase = `GET ${path}`;
+    permittedPaths.add(path);
+    const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/${path}`, {
+      method: "GET", headers, signal: AbortSignal.timeout(20000),
+    });
+    const json: unknown = await response.json();
+    const body = decodeObject(json);
+    const success = response.ok && body.success === true;
+    const errorCodes = Array.isArray(body.errors)
+      ? decodeObjects(body.errors).flatMap((error) => typeof error.code === "number" ? [error.code] : [])
+      : [];
+    observations.push({ path, method: "GET", status: response.status, success,
+      apiVersion: response.headers.get("cf-api-version"), errorCodes });
+    return { success, status: response.status, result: body.result, resultInfo: body.result_info, errorCodes };
+  });
+  const workersResponse = yield* get("workers/scripts");
+  if (!workersResponse.success) throw new Error("Worker inventory unavailable");
+  const workers = yield* Schema.decodeUnknownEffect(Schema.Array(Worker))(workersResponse.result);
+  const owned = workers.filter((worker) => ownershipTags.every((tag) => worker.tags?.includes(tag)));
+  if (owned.length !== 1) throw new Error("Expected exactly one owned preview Worker");
+  const worker = owned[0];
+  if (worker === undefined || baseline.scripts.some((item) => item.id === worker.id)) {
+    throw new Error("Preview Worker is not new relative to baseline");
+  }
+  const workerPath = `workers/scripts/${encodeURIComponent(worker.id)}`;
+  const namespaceResponse = yield* get("workers/durable_objects/namespaces?per_page=100");
+  if (!namespaceResponse.success) throw new Error("Namespace inventory unavailable");
+  const namespaces = yield* Schema.decodeUnknownEffect(Schema.Array(Namespace))(namespaceResponse.result);
+  const namespaceInfo = namespaceResponse.resultInfo === undefined ? {} : decodeObject(namespaceResponse.resultInfo);
+  if ((typeof namespaceInfo.total_pages === "number" && namespaceInfo.total_pages > 1) || namespaces.length >= 100) {
+    throw new Error("Namespace inventory exceeds the bounded single-page capture");
+  }
+  const ownedNamespaces = namespaces.filter((namespace) => namespace.script === worker.id);
+  if (ownedNamespaces.length !== 2 || ownedNamespaces.some((namespace) => baseline.namespaces.some((item) => item.id === namespace.id))) {
+    throw new Error("Expected exactly two new namespaces on the owned preview Worker");
+  }
+  const settingsResponse = yield* get(`${workerPath}/settings`);
+  if (!settingsResponse.success) throw new Error("Owned Worker settings unavailable");
+  const settings = decodeObject(settingsResponse.result);
+  const bindings = Schema.decodeUnknownSync(Schema.Array(Binding))(
+    decodeObjects(settings.bindings).filter((binding) => binding.type === "durable_object_namespace"),
+  );
+  if (bindings.length !== 2 || bindings.some((binding) =>
+    !ownedNamespaces.some((namespace) => namespace.id === binding.namespace_id && namespace.class === binding.class_name))) {
+    throw new Error("Owned namespace identities do not match Worker bindings");
+  }
+  const versionsResponse = yield* get(`${workerPath}/versions?per_page=10`);
+  const deploymentsResponse = yield* get(`${workerPath}/deployments`);
+  const versionsResult = versionsResponse.success ? decodeObject(versionsResponse.result) : undefined;
+  const deploymentsResult = deploymentsResponse.success ? decodeObject(deploymentsResponse.result) : undefined;
+  const versions = versionsResult === undefined ? [] : decodeObjects(versionsResult.items).map(versionMetadata);
+  const deployments = deploymentsResult === undefined ? [] : decodeObjects(deploymentsResult.deployments).map(deploymentMetadata);
+  const currentDeployment = deployments[0];
+  const activeVersionIds = currentDeployment === undefined ? [] : [...new Set(currentDeployment.versions.map((version) =>
+    Schema.decodeUnknownSync(Schema.String)(version.version_id)))];
+  if (activeVersionIds.length > 2) throw new Error("Deployment exceeds the bounded active-version capture");
+  const versionDetails: Array<unknown> = [];
+  for (const id of activeVersionIds) {
+    const detail = yield* get(`${workerPath}/versions/${encodeURIComponent(id)}`);
+    versionDetails.push(detail.success ? versionMetadata(detail.result) : { id, status: detail.status, errorCodes: detail.errorCodes });
+  }
+  phase = "assemble-owned-only-result";
+  const unchangedWorkers = workers.filter((item) => item.id !== worker.id);
+  const unchangedNamespaces = namespaces.filter((item) => item.script !== worker.id);
+  return {
+    observedAt: new Date().toISOString(), stage: "pr-1", stack: "Floor", profile: "default", authentication: "oauth",
+    source: { workflowRunId: 38295404123, publishedRevision: "cd5699b", localRevision: "7727aff" },
+    scope: "GET-only owned preview metadata before deletion; no script content, secret values, object instances, provider calls or resource mutations.",
+    baseline: { observedAt: baseline.observedAt, sha256: hash(baselineText),
+      counts: { workers: baseline.scripts.length, namespaces: baseline.namespaces.length,
+        databases: baseline.databases.length, secretStores: baseline.secretStores.length },
+      workerMetadataDigest: collectionDigest(baseline.scripts), namespaceMetadataDigest: collectionDigest(baseline.namespaces) },
+    inventory: { workerCount: workers.length, namespaceCount: namespaces.length,
+      unrelatedWorkerMetadataDigest: collectionDigest(unchangedWorkers),
+      unrelatedNamespaceMetadataDigest: collectionDigest(unchangedNamespaces),
+      unrelatedWorkersMatchBaseline: collectionDigest(unchangedWorkers) === collectionDigest(baseline.scripts),
+      unrelatedNamespacesMatchBaseline: collectionDigest(unchangedNamespaces) === collectionDigest(baseline.namespaces) },
+    ownedWorker: worker, settings: pick(settings, ["compatibility_date", "compatibility_flags", "migration_tag", "tags"]),
+    ownedNamespaces, durableObjectBindings: bindings,
+    versions: { available: versionsResponse.success, status: versionsResponse.status, items: versions,
+      listScope: "At most ten recent versions, as returned by the API; current deployment version details are fetched separately." },
+    deployments: { available: deploymentsResponse.success, status: deploymentsResponse.status, items: deployments,
+      current: currentDeployment ?? null, activeVersionIds, versionDetails },
+    transport: { apiBaseVersion: "v4", apiCalls, blockedNetworkCalls, observations },
+    limitations: ["Read-only metadata does not establish Durable Object contents, model readiness, browser flow success or teardown.",
+      "The complete unrelated-resource baseline remains private; only counts and digests are emitted."]
+  };
+});
+
+if (!process.argv.includes("--confirmed-preview-live") || process.env.CI !== "false") {
+  throw new Error("Capture requires confirmed preview deployment and CI=false; no account access performed");
+}
+if (await Bun.file(outputPath).exists()) throw new Error("Refusing to overwrite retained pre-delete evidence");
+Object.defineProperty(globalThis, "fetch", { configurable: true, writable: true, value: guardedFetch });
+try {
+  const result = await Effect.runPromise(toEffect(withProviders(main, options, "preview-owned-metadata-read-only"), options));
+  await Bun.write(outputPath, JSON.stringify(result, null, 2) + "\n");
+  console.log(JSON.stringify({ outputPath, workerId: result.ownedWorker.id, namespaces: result.ownedNamespaces.length,
+    activeVersionIds: result.deployments.activeVersionIds, apiCalls, blockedNetworkCalls }, null, 2));
+} catch (error) {
+  console.log(JSON.stringify({ observedAt: new Date().toISOString(), phase, apiCalls, blockedNetworkCalls,
+    failure: "The read-only capture did not produce a validated owned-resource record.",
+    errorType: error instanceof Error ? error.name : "unknown", observations }, null, 2));
+  process.exitCode = 1;
+} finally {
+  Object.defineProperty(globalThis, "fetch", { configurable: true, writable: true, value: originalFetch });
+}

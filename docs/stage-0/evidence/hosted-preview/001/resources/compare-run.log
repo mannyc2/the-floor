@@ -1,0 +1,7 @@
+{
+  "outputPath": "work/ci-proof/preview-001/baseline-comparison.json",
+  "pass": true,
+  "baselineIdentityEqual": true,
+  "baselineMetadataEqual": true,
+  "allOwnedResourcesAbsent": true
+}

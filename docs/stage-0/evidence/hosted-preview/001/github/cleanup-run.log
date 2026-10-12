@@ -1,0 +1,299 @@
+cleanup	Set up job	﻿2026-10-12T19:13:20.7078627Z Current runner version: '2.337.0'
+cleanup	Set up job	2026-10-12T19:13:20.7095963Z ##[group]Runner Image Provisioner
+cleanup	Set up job	2026-10-12T19:13:20.7096685Z Hosted Compute Agent
+cleanup	Set up job	2026-10-12T19:13:20.7097091Z Version: 20261002.596
+cleanup	Set up job	2026-10-12T19:13:20.7097620Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+cleanup	Set up job	2026-10-12T19:13:20.7098140Z Build Date: 2026-10-02T22:28:27Z
+cleanup	Set up job	2026-10-12T19:13:20.7098620Z Worker ID: {13f3bafd-e051-457d-a5ee-4164d9a3fb4c}
+cleanup	Set up job	2026-10-12T19:13:20.7099139Z Region: centralus
+cleanup	Set up job	2026-10-12T19:13:20.7099555Z Cloud: Azure
+cleanup	Set up job	2026-10-12T19:13:20.7099943Z ##[endgroup]
+cleanup	Set up job	2026-10-12T19:13:20.7100796Z ##[group]Operating System
+cleanup	Set up job	2026-10-12T19:13:20.7101217Z Ubuntu
+cleanup	Set up job	2026-10-12T19:13:20.7101609Z 24.04.5
+cleanup	Set up job	2026-10-12T19:13:20.7102003Z LTS
+cleanup	Set up job	2026-10-12T19:13:20.7102374Z ##[endgroup]
+cleanup	Set up job	2026-10-12T19:13:20.7102778Z ##[group]Runner Image
+cleanup	Set up job	2026-10-12T19:13:20.7103357Z Image: ubuntu-24.04
+cleanup	Set up job	2026-10-12T19:13:20.7103877Z Version: 20261004.327.1
+cleanup	Set up job	2026-10-12T19:13:20.7104621Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+cleanup	Set up job	2026-10-12T19:13:20.7105869Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+cleanup	Set up job	2026-10-12T19:13:20.7106533Z ##[endgroup]
+cleanup	Set up job	2026-10-12T19:13:20.7107331Z ##[group]GITHUB_TOKEN Permissions
+cleanup	Set up job	2026-10-12T19:13:20.7108921Z Contents: read
+cleanup	Set up job	2026-10-12T19:13:20.7109386Z Metadata: read
+cleanup	Set up job	2026-10-12T19:13:20.7109757Z ##[endgroup]
+cleanup	Set up job	2026-10-12T19:13:20.7111191Z Secret source: Actions
+cleanup	Set up job	2026-10-12T19:13:20.7111809Z Cache mode: read
+cleanup	Set up job	2026-10-12T19:13:20.7112351Z Prepare workflow directory
+cleanup	Set up job	2026-10-12T19:13:20.7520529Z Prepare all required actions
+cleanup	Set up job	2026-10-12T19:13:20.7557239Z Getting action download info
+cleanup	Set up job	2026-10-12T19:13:20.9877009Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+cleanup	Set up job	2026-10-12T19:13:21.0685433Z Download action repository 'oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6' (SHA:0c5077e51419868618aeaa5fe8019c62421857d6)
+cleanup	Set up job	2026-10-12T19:13:21.5061385Z Complete job name: cleanup
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-12T19:13:21.5512342Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5513082Z with:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5513646Z   ref: main
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5514061Z   repository: mannyc2/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5516879Z   token: ***
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5517284Z   ssh-strict: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5517664Z   ssh-user: git
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5518048Z   persist-credentials: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5518482Z   clean: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5518881Z   sparse-checkout-cone-mode: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5519331Z   fetch-depth: 1
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5519696Z   fetch-tags: false
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5520066Z   show-progress: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5520681Z   lfs: false
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5521016Z   submodules: false
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5521413Z   set-safe-directory: true
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5521825Z   allow-unsafe-pr-checkout: false
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5522371Z env:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5522760Z   STAGE: pr-1
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5523483Z   CLOUDFLARE_API_TOKEN: ***
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5524101Z   CLOUDFLARE_ACCOUNT_ID: ***
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5524504Z   ALCHEMY_TELEMETRY_DISABLED: 1
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.5525005Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6273033Z Syncing repository: mannyc2/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6275629Z ##[group]Getting Git version info
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6276471Z Working directory is '/home/runner/work/the-floor/the-floor'
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6277711Z [command]/usr/bin/git version
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6310322Z git version 2.55.0
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6324757Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6330031Z Temporarily overriding HOME='/home/runner/work/_temp/31ed5e65-ae79-41b7-9e2e-95065439c40d' before making global git config changes
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6331922Z Adding repository directory to the temporary git global config as a safe directory
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6334083Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/the-floor/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6369830Z Deleting the contents of '/home/runner/work/the-floor/the-floor'
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.6372467Z ##[group]Determining repository object format
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8762775Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8764517Z ##[group]Initializing the repository
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8769730Z [command]/usr/bin/git init /home/runner/work/the-floor/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8880991Z hint: Using 'master' as the name for the initial branch. This default branch name
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8882280Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8883871Z hint: to use in all of your new repositories, which will suppress this warning,
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8884953Z hint: call:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8885542Z hint:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8886327Z hint: 	git config --global init.defaultBranch <name>
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8887130Z hint:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8887920Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8889056Z hint: 'development'. The just-created branch can be renamed via this command:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8890044Z hint:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8890659Z hint: 	git branch -m <name>
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8891289Z hint:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8892108Z hint: Disable this message with "git config set advice.defaultBranchName false"
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8893348Z Initialized empty Git repository in /home/runner/work/the-floor/the-floor/.git/
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8895742Z [command]/usr/bin/git remote add origin https://github.com/mannyc2/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8943666Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8945000Z ##[group]Disabling automatic garbage collection
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8946047Z [command]/usr/bin/git config --local gc.auto 0
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8979151Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8980423Z ##[group]Setting up auth
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8982811Z Removing SSH command configuration
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.8984193Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9022057Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9284064Z Removing HTTP extra header
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9288818Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9358105Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9508621Z Removing includeIf entries pointing to credentials config files
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9512310Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9535215Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9676899Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9703573Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/the-floor/the-floor/.git.path /home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9727637Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9756062Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9783636Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9806366Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9807334Z ##[group]Fetching the repository
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:21.9811707Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/main*:refs/remotes/origin/main* +refs/tags/main*:refs/tags/main*
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8691161Z From https://github.com/mannyc2/the-floor
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8693046Z  * [new branch]      main       -> origin/main
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8696642Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8698161Z ##[group]Determining the checkout info
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8699591Z [command]/usr/bin/git branch --list --remote origin/main
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8724554Z   origin/main
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8729636Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8731238Z [command]/usr/bin/git sparse-checkout disable
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8778990Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8806925Z ##[group]Checking out the ref
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:27.8808530Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:28.9017723Z Updating files:  38% (433/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:28.9397531Z Updating files:  39% (438/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:28.9814430Z Updating files:  40% (449/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0147294Z Updating files:  41% (461/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0412813Z Updating files:  42% (472/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0414007Z Updating files:  43% (483/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0419631Z Updating files:  44% (494/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0425650Z Updating files:  45% (505/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0489451Z Updating files:  46% (517/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0510834Z Updating files:  47% (528/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0523863Z Updating files:  48% (539/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0537880Z Updating files:  49% (550/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0542179Z Updating files:  50% (561/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0545550Z Updating files:  51% (573/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0548810Z Updating files:  52% (584/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0553129Z Updating files:  53% (595/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0559103Z Updating files:  54% (606/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0566054Z Updating files:  55% (618/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0568765Z Updating files:  56% (629/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0572361Z Updating files:  57% (640/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0579963Z Updating files:  58% (651/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0583911Z Updating files:  59% (662/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0588091Z Updating files:  60% (674/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0592108Z Updating files:  61% (685/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0595738Z Updating files:  62% (696/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0598603Z Updating files:  63% (707/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0602347Z Updating files:  64% (719/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0605339Z Updating files:  65% (730/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0610678Z Updating files:  66% (741/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0614780Z Updating files:  67% (752/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0622225Z Updating files:  68% (763/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0625678Z Updating files:  69% (775/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0627974Z Updating files:  70% (786/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0633947Z Updating files:  71% (797/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0635919Z Updating files:  72% (808/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0643656Z Updating files:  73% (820/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0647832Z Updating files:  74% (831/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0651887Z Updating files:  75% (842/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0682870Z Updating files:  76% (853/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0687212Z Updating files:  77% (864/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0690213Z Updating files:  78% (876/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0694113Z Updating files:  79% (887/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0697797Z Updating files:  80% (898/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0702882Z Updating files:  81% (909/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0707482Z Updating files:  82% (921/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0710738Z Updating files:  83% (932/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0716034Z Updating files:  84% (943/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0721644Z Updating files:  85% (954/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0726132Z Updating files:  86% (965/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0730566Z Updating files:  87% (977/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0735857Z Updating files:  88% (988/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0739265Z Updating files:  89% (999/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0745037Z Updating files:  90% (1010/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0795323Z Updating files:  91% (1022/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0798319Z Updating files:  92% (1033/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0807862Z Updating files:  93% (1044/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0810316Z Updating files:  94% (1055/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0812957Z Updating files:  95% (1066/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0815454Z Updating files:  96% (1078/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0819145Z Updating files:  97% (1089/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0822279Z Updating files:  98% (1100/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0876741Z Updating files:  99% (1111/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0877225Z Updating files: 100% (1122/1122)
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0877711Z Updating files: 100% (1122/1122), done.
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0902225Z Switched to a new branch 'main'
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0906177Z branch 'main' set up to track 'origin/main'.
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0935254Z ##[endgroup]
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0971620Z [command]/usr/bin/git log -1 --format=%H
+cleanup	Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:29.0993341Z b606b0224b50ebbf86846ca78968e97057551604
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	﻿2026-10-12T19:13:29.1202896Z ##[group]Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1203516Z with:
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1203812Z   bun-version: 1.4.0
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1204142Z   no-cache: true
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1206254Z   token: ***
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1206521Z env:
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1206843Z   STAGE: pr-1
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1207221Z   CLOUDFLARE_API_TOKEN: ***
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1207588Z   CLOUDFLARE_ACCOUNT_ID: ***
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1207926Z   ALCHEMY_TELEMETRY_DISABLED: 1
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.1208242Z ##[endgroup]
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.2336737Z Downloading a new version of Bun: https://github.com/oven-sh/bun/releases/download/bun-v1.4.0/bun-linux-x64.zip
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:29.5498813Z [command]/usr/bin/unzip -o -q /home/runner/work/_temp/e60b5ae6-873c-47fb-b31b-38f3ae151ac6.zip
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:30.0651756Z [command]/home/runner/.bun/bin/bun --revision
+cleanup	Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	2026-10-12T19:13:30.0682943Z 1.4.0+34cbb9a40
+cleanup	Run bun install --frozen-lockfile	﻿2026-10-12T19:13:30.0819937Z ##[group]Run bun install --frozen-lockfile
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0820431Z [36;1mbun install --frozen-lockfile[0m
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0983105Z shell: /usr/bin/bash -e {0}
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0983735Z env:
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0984003Z   STAGE: pr-1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0984475Z   CLOUDFLARE_API_TOKEN: ***
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0984848Z   CLOUDFLARE_ACCOUNT_ID: ***
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0985154Z   ALCHEMY_TELEMETRY_DISABLED: 1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.0985409Z ##[endgroup]
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.1081052Z bun install v1.4.0 (34cbb9a40)
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.1132455Z Resolving dependencies
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:30.1133921Z Resolved, downloaded and extracted [1]
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:36.5325804Z 
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:36.5327184Z $ effect-tsgo patch --typescript --oxlint
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:37.9927370Z Patched typescript at /home/runner/work/the-floor/the-floor/node_modules/.bun/@typescript+typescript-linux-x64@7.0.2/node_modules/@typescript/typescript-linux-x64/lib/tsc
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:37.9929345Z Patched oxlint at /home/runner/work/the-floor/the-floor/node_modules/.bun/@oxlint+binding-linux-x64-gnu@1.87.0/node_modules/@oxlint/binding-linux-x64-gnu/oxlint.linux-x64-gnu.node
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:37.9930789Z Patched oxlint-dts at /home/runner/work/the-floor/the-floor/node_modules/.bun/oxlint@1.87.0+c4a3b9f0ab081e67/node_modules/oxlint/dist/index.d.ts
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:37.9932159Z Patched oxlint-tsgolint at /home/runner/work/the-floor/the-floor/node_modules/.bun/@oxlint-tsgolint+linux-x64@7.0.2003/node_modules/@oxlint-tsgolint/linux-x64/tsgolint
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0018880Z 
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0019883Z + @cloudflare/workers-types@5.20261012.1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0020570Z + @effect/platform-browser@4.0.3
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0020975Z + @effect/platform-bun@4.0.3
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0021320Z + @effect/platform-node@4.0.3
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0021601Z + @effect/tsgo@0.51.1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0021884Z + @foldkit/oxlint-plugin@0.15.3
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0022211Z + @foldkit/vite-plugin@0.27.1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0022950Z + @playwright/test@1.64.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0023475Z + @types/bun@1.4.2
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0023802Z + @types/pngjs@6.0.5
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0024102Z + @types/three@0.180.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0024381Z + dprint@0.63.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0024670Z + effect-oxlint@0.4.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0024961Z + oxlint@1.87.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0025249Z + oxlint-plugin-effect@0.28.1
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0034378Z + oxlint-tsgolint@7.0.2003
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0042191Z + pngjs@7.0.0
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0042658Z + rolldown@1.2.13
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0042973Z + typescript@7.0.2
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0043368Z + vite@8.3.4
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0044036Z + @yielded/agent@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0045172Z + @yielded/agent-platform-alchemy-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-alchemy-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0046310Z + @yielded/agent-platform-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-platform-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0047182Z + @yielded/agent-storage-cloudflare@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-cloudflare-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0048073Z + @yielded/agent-storage-sql@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0048807Z + @yielded/agent-testing@vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-testing-0.1.0-beta.166-floor.0adbcff.403.2.tgz
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0049299Z + alchemy@2.0.0-beta.80
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0049607Z + effect@4.0.3
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0049733Z 
+cleanup	Run bun install --frozen-lockfile	2026-10-12T19:13:38.0049916Z 439 packages installed [7.89s]
+cleanup	Run bun run preview:destroy --stage "$STAGE"	﻿2026-10-12T19:13:38.0218774Z ##[group]Run bun run preview:destroy --stage "$STAGE"
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0219231Z [36;1mbun run preview:destroy --stage "$STAGE"[0m
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0259096Z shell: /usr/bin/bash -e {0}
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0259557Z env:
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0259839Z   STAGE: pr-1
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0260339Z   CLOUDFLARE_API_TOKEN: ***
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0260699Z   CLOUDFLARE_ACCOUNT_ID: ***
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0261015Z   ALCHEMY_TELEMETRY_DISABLED: 1
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0261300Z ##[endgroup]
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:38.0352544Z $ bun scripts/ci/cleanup.ts --stage "pr-1"
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:39.2960769Z [19:13:39.292] INFO (#301): Cloudflare: using environment variables (CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN) instead of the profile.
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:39.8106850Z • Refreshing Cloudflare State Store credentials
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:42.1848189Z ✓ Refreshing Cloudflare State Store credentials
+cleanup	Run bun run preview:destroy --stage "$STAGE"	2026-10-12T19:13:44.0164247Z [19:13:44.016] INFO (#374): Cloudflare Worker delete: deleting floor-floorworker-pr-1-6zswxsi3y42k7hvp
+cleanup	Post Run oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6	﻿2026-10-12T19:13:45.0630293Z Post job cleanup.
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	﻿2026-10-12T19:13:45.1933706Z Post job cleanup.
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2576972Z [command]/usr/bin/git version
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2608193Z git version 2.55.0
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2643982Z Temporarily overriding HOME='/home/runner/work/_temp/b8d19d57-ea8b-47e2-9037-b0e65eb70ab2' before making global git config changes
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2645083Z Adding repository directory to the temporary git global config as a safe directory
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2645809Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/the-floor/the-floor
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2739334Z Removing SSH command configuration
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2740132Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2797004Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2958166Z Removing HTTP extra header
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2964733Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.2991213Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3156896Z Removing includeIf entries pointing to credentials config files
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3157870Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3174292Z includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3174872Z includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3175446Z includeif.gitdir:/github/workspace/.git.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3175818Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3180255Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3196552Z /home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3205683Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/the-floor/the-floor/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-80f1d969\-46b0\-438d\-8dfc\-38fa950ef80f\.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3333153Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3379846Z /home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3386481Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/the-floor/the-floor/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-80f1d969\-46b0\-438d\-8dfc\-38fa950ef80f\.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3425868Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3441785Z /github/runner_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3445953Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-80f1d969\-46b0\-438d\-8dfc\-38fa950ef80f\.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3534742Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3560272Z /github/runner_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3567296Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-80f1d969\-46b0\-438d\-8dfc\-38fa950ef80f\.config
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3626782Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+cleanup	Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1	2026-10-12T19:13:45.3767402Z Removing credentials config '/home/runner/work/_temp/git-credentials-80f1d969-46b0-438d-8dfc-38fa950ef80f.config'
+cleanup	Complete job	﻿2026-10-12T19:13:45.3893665Z Cleaning up orphan processes

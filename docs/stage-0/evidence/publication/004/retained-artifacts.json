@@ -1,0 +1,162 @@
+{
+  "recorded_at_utc": "2026-10-12T19:10:12.040245+00:00",
+  "copies": [
+    {
+      "path": "docs/stage-0/evidence/publication/004/export-result.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/result.json",
+      "bytes": 4199,
+      "sha256": "351a6527a65676339b5305b4e1c4794566098d78a2becb8b59911ff8b7d412ca",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/commit-map.txt",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/commit-map.txt",
+      "bytes": 5211,
+      "sha256": "d38285e902c1a6adf2e68cb5a1122631a3fb4cca01e0d5b8d47add200fe26d65",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/source-refs.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/source-refs.json",
+      "bytes": 756,
+      "sha256": "06fa8426ccafe713a07707a81fbf3c6a0e101d825405153a97a1a04bea2d33f7",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/source-worktrees.txt",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/source-worktrees.txt",
+      "bytes": 820,
+      "sha256": "48989d9bbff397aa793d265eb51c14165baa4c74a8d26d486e5c569d7d402302",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/excluded-origin-tracking-refs.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/excluded-origin-tracking-refs.json",
+      "bytes": 1002,
+      "sha256": "335c213344ce2633a689a5741df320191b541e649f11b803dd806c6d885240c1",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/forbidden-blobs.txt",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/forbidden-blobs.txt",
+      "bytes": 2911,
+      "sha256": "4723f4358411d3420ba775048d2a5e056f7e5b3a35bbcfd5ba66546e6379cf55",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/look-b-originals.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/look-b-originals.json",
+      "bytes": 15927,
+      "sha256": "2ba5b4f5fa00767472165ba482bec46a133542dcc957b527546efc6780547336",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/incremental-check.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/incremental-check.json",
+      "bytes": 1311,
+      "sha256": "57e0f7e7c66d0a627aa639885c0156a8f05baa5eac24163595798e3adf553025",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/filter.log",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/filter.log",
+      "bytes": 383,
+      "sha256": "e5e0676d7d8a14dd53a92c7d45439e42637acbce4657a6709e07f35997f10219",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/clone.log",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/clone.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/audit.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/tooling/audit.ts",
+      "bytes": 4739,
+      "sha256": "b2e6665c7c28b371fcc1911cf4d149f9dcf5115c5a83d1753961c02c7c0a021f",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/guard.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/tooling/guard.ts",
+      "bytes": 2853,
+      "sha256": "c70344a463dbf83eb28717012f412e707053e772b77d1610b775fb28572a2111",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/export.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/next-7727aff/tooling/export.ts",
+      "bytes": 10366,
+      "sha256": "8378439685a2ac9e76f61bb99cfede2e561497dbdbb7ab102f7a6e0fb50bb4f5",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tooling/test-origin-tracking.ts",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/test-origin-tracking.ts",
+      "bytes": 2767,
+      "sha256": "50d099ac31061a9705b057ddebbc9b58adedf46a57a7ee6dd117d53388e52766",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/origin-tracking-test-results.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/origin-tracking-test-results.json",
+      "bytes": 2535,
+      "sha256": "8347921d3f9131dbe41178e9a809d0546cf8787c0447af19f96ad3ce8a0794ad",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/result.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/result.json",
+      "bytes": 4244,
+      "sha256": "8588acd055d527a71efdb2697babade75584fd411c1292019cd0e5257b540124",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/commit-map.txt",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/commit-map.txt",
+      "bytes": 5129,
+      "sha256": "1c8991dd61d497f85bb3c39838ef20afcaf43c73b7a32237c19536880e82e0ab",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/regression-result.json",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/regression-result.json",
+      "bytes": 1484,
+      "sha256": "9b23f0fc43ac319061cfedf5280947c3e3be626222d6499d827b0c396950e76c",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/README.txt",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/README.txt",
+      "bytes": 1843,
+      "sha256": "e531b7b345dcae54ddf4f791c2fb1112a18644a318bae2879cb4f74b4b58e627",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/fsck-filtered-git.log",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/fsck-filtered-git.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retention": "byte-identical copy"
+    },
+    {
+      "path": "docs/stage-0/evidence/publication/004/tracking-regression/fsck-publish.log",
+      "origin": "/Users/chriscarroll/Documents/Codex/2026-10-12/set/work/publication/tracking-regression-8210d54/fsck-publish.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retention": "byte-identical copy"
+    }
+  ],
+  "generated_here": [
+    "independent-verification.json",
+    "remote-refs.txt",
+    "fsck-filtered-git.log",
+    "fsck-publish.log",
+    "publication-observation.json",
+    "report.md",
+    "record.json"
+  ],
+  "copy_policy": "Original exporter, checker and regression bytes are preserved; new observations remain separate."
+}

@@ -1,0 +1,114 @@
+{
+  "observedAt": "2026-10-12T19:18:00.778Z",
+  "stage": "pr-1",
+  "stack": "Floor",
+  "scope": "Offline comparison of retained account metadata; only owned identities, aggregate counts and canonical SHA-256 digests are emitted.",
+  "inputs": {
+    "before": {
+      "observedAt": "2026-10-12T19:05:48.027Z",
+      "sha256": "d749993ec144b098598ad3e9fd735d5e57aabad36091e569803728215d21b7f8",
+      "retained": "Private inventory; not included in public evidence."
+    },
+    "live": {
+      "observedAt": "2026-10-12T19:13:01.212Z",
+      "sha256": "64f4348e74c5fdc744c042b9fd759b091a3f9d19af0b01c703557ea03713bc58"
+    },
+    "after": {
+      "observedAt": "2026-10-12T19:14:18.463Z",
+      "sha256": "ef9cc49445e3ab6d088444b8d5791804ba49c026b9cf2efa9de5a1434739449a",
+      "retained": "Private inventory; not included in public evidence."
+    }
+  },
+  "inventories": {
+    "workers": {
+      "beforeCount": 5,
+      "afterCount": 5,
+      "beforeMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+      "afterMetadataDigest": "681a9c033feaf20a5ac7c6ed7446ad891dfe5b884c1442cf31dc10a532423767",
+      "beforeIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00",
+      "afterIdentityDigest": "5702c1a78db84880cf34a5f37a6d53c40c8ad7f79e135404d58c1f59cc16dd00",
+      "identitiesEqual": true,
+      "metadataEqual": true
+    },
+    "durableObjectNamespaces": {
+      "beforeCount": 1,
+      "afterCount": 1,
+      "beforeMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9",
+      "afterMetadataDigest": "2874df34bd01d3dff8ef187f6661dd716119069e8162efec68161fc6724095a9",
+      "beforeIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c",
+      "afterIdentityDigest": "c208cc29621ef91713d0183a16f77b16278508c67bb5f8f59349cbb4cfa0462c",
+      "identitiesEqual": true,
+      "metadataEqual": true
+    },
+    "d1Databases": {
+      "beforeCount": 3,
+      "afterCount": 3,
+      "beforeMetadataDigest": "3d7c628057bddfb5322beb7f913469f0dde583b4966602a193e80933160e16e2",
+      "afterMetadataDigest": "3d7c628057bddfb5322beb7f913469f0dde583b4966602a193e80933160e16e2",
+      "beforeIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9",
+      "afterIdentityDigest": "7636c21baee934441d9c9ada80969734b32820dbdd5c3fc005bbf5ec19f7cdb9",
+      "identitiesEqual": true,
+      "metadataEqual": true
+    },
+    "secretStores": {
+      "beforeCount": 1,
+      "afterCount": 1,
+      "beforeMetadataDigest": "a1d46860864589d3b9d78fb985535f3906e33d559f520a5bbba306ab9a8c5a21",
+      "afterMetadataDigest": "a1d46860864589d3b9d78fb985535f3906e33d559f520a5bbba306ab9a8c5a21",
+      "beforeIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba",
+      "afterIdentityDigest": "9a83827bbdf693c7e554a994cc235ee753bba1aff2ce99b6a28a103809cb7cba",
+      "identitiesEqual": true,
+      "metadataEqual": true
+    }
+  },
+  "sharedStateStore": {
+    "settings": {
+      "beforeMetadataDigest": "c04400d2683fdfaf7acf3749fd493185579c1b92a992eccf0f1a07f511cdee34",
+      "afterMetadataDigest": "c04400d2683fdfaf7acf3749fd493185579c1b92a992eccf0f1a07f511cdee34",
+      "metadataEqual": true
+    },
+    "bindings": {
+      "beforeCount": 8,
+      "afterCount": 8,
+      "beforeMetadataDigest": "600697857f2306702a1106b14712d280e41d867126c2eb4b3fefa843244c1bb7",
+      "afterMetadataDigest": "600697857f2306702a1106b14712d280e41d867126c2eb4b3fefa843244c1bb7",
+      "metadataEqual": true
+    }
+  },
+  "removedOwned": {
+    "worker": {
+      "id": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+      "absentAfter": true
+    },
+    "namespaces": [
+      {
+        "id": "daab67f15071424da0386666f56ed546",
+        "class": "FLOOR_MAILBOXES",
+        "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+        "absentAfter": true
+      },
+      {
+        "id": "8b33ec5927bd4cd6acdd58d7d622cae0",
+        "class": "FLOOR_THREADS",
+        "script": "floor-floorworker-pr-1-6zswxsi3y42k7hvp",
+        "absentAfter": true
+      }
+    ],
+    "preDeleteDeploymentId": "dbd7b277-5c4d-4559-9205-b930a69e57dc",
+    "preDeleteActiveVersionIds": [
+      "4c7e9f3b-9d47-4b33-8881-444d7e0d7ebe"
+    ],
+    "ownedStageWorkersRemaining": 0,
+    "ownedScriptNamespacesRemaining": 0
+  },
+  "baselineIdentityEqual": true,
+  "baselineMetadataEqual": true,
+  "allOwnedResourcesAbsent": true,
+  "pass": true,
+  "canonicalization": "Object keys sorted recursively; arrays retain order; inventory rows sorted by canonical JSON; SHA-256 of UTF-8 JSON. Identity digests hash sorted canonical identity strings.",
+  "limitations": [
+    "Equality covers only metadata fields retained by preflight, not contents of Durable Objects, D1 databases or secret stores.",
+    "Pre-delete deployment/version identities are preserved here; deletion is evidenced by the Worker and namespace inventory, not a separate post-delete version endpoint.",
+    "No network request or mutation is performed by this comparison."
+  ]
+}
