@@ -1,6 +1,6 @@
 # Platform spike handoff
 
-Status: **authorized 12 October 2026; not yet run.** Results go in [`evidence/platform/`](evidence/README.md).
+Status: **local checks done** (report on `spike/platform`); **hosted checks authorized** on 12 October 2026 within the decision log's limits. Results go in [`evidence/platform/`](evidence/README.md).
 
 ## Purpose and scope
 

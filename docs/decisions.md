@@ -1,6 +1,6 @@
 # Workspace decisions
 
-This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. The line technique is the only owner pick recorded so far; no deployment results have been recorded here.
+This is the active log for the new workspace. The [copied archive](floor-docs-2026-10-12/archive.md) retains the earlier product decisions and proposals. Owner decisions are recorded with their dates below; no deployment results have been recorded here.
 
 ## Current scope
 
@@ -22,21 +22,23 @@ This is the active log for the new workspace. The [copied archive](floor-docs-20
 | 12 October 2026 | Split the look spike into Part A (rendering technique, runnable without art inputs) and Part B (references, tones, proportions, assets, owner picks) | Accepted at the owner's request, so the technique work isn't blocked on references. See [the look handoff](spikes/look.md). |
 | 12 October 2026 | Line technique: B, a surface-id-and-depth edge pass, on WebGL. A (normal and depth) is the fallback. WebGPU is not the baseline | The owner's pick ("whatever's optimal") from Part A's comparison sheet. The owner saw no visible difference between A and B, so the measurements decide: B is closest to the edge-projection target (F1 within one CSS pixel 0.9999, against A's 0.989) and cheapest on CPU, and its lines come from authored `_SURFACE` ids, so where lines fall is designed rather than left to normals. C fails the stroke-width target. Software WebGPU won't start under SwiftShader, so it can't pass the repeatability gate. Evidence: `docs/spikes/evidence/look/report.md` on `spike/look-a` at `80090f8`. |
 | 12 October 2026 | Look Part B starts. Part A's stand-in scene is test geometry, not a candidate look | The owner found the stand-in world "quite ugly". Its faults are listed in [the look handoff](spikes/look.md) as what Part B has to fix. |
+| 12 October 2026 | One Effect version: 4.0.3 everywhere, overriding Foldkit's exact 4.0.0 peer | Accepted by the owner ("whatever's optimal"). Yielded's published agent needs ^4.0.3. On 4.0.3, Foldkit 0.168.0's own suite passes (2,954 passed, 1 skipped, on macOS and Linux x64), its source typechecks, and a Foldkit and three.js smoke app passes. |
+| 12 October 2026 | Run Yielded's Alchemy platform from yielded-dev/agent#557 at `0adbcff`, with the PR's patch on Alchemy beta.80, until the package is published and the fixes ship upstream. Re-check at each Yielded or Alchemy release | Accepted by the owner. It passes the local agent turn, wake and restart checks; the fallback would bring back `effect-cf`. The patch doesn't apply unchanged to beta.81, so Alchemy stays on beta.80 until then. |
+| 12 October 2026 | Hosted platform checks are authorized: one temporary Alchemy stage, sandbox wallets only, no real funds or mainnet, at most $25 of provider spend across the spike, destroyed at the end | Authorized by the owner ("whatever's necessary"). The cap is a default the owner can change. The owner adds each account when Codex asks for it. |
+| 12 October 2026 | Stage 0 starts now on everything the open items don't block. Atlas values and reference frames wait for Part B's picks; hosted wiring waits for the hosted checks. The map host, renderer, camera and picking in `apps/web` come from the external Foldkit round; Codex builds the rest | Accepted by the owner, to keep making progress. No Stage 0 completion claim until the open items close. |
 
 ## Decisions and inputs still needed
 
 | Item | Current starting point | Evidence or owner needed | Required by |
 | --- | --- | --- | --- |
 | Owner's picks | Roles settled above; technique picked | The owner's picks of reference frames, tones and proportions from shortlisted options | Look spike Part B exit |
-| Cloudflare access | Account readiness unchecked | Workers, Durable Objects and Browser Rendering access; scoped test stage and cleanup | Hosted platform checks |
-| Wallet, inference and market-data accounts | Readiness unchecked | Privy sandbox; selected inference providers; Codex market-data account (codex.io) | Respective platform checks and Stage 0 needs |
-| Yielded on Alchemy | yielded-dev/agent#557 (open, unpublished) needs a patch on Alchemy beta.80, which doesn't apply unchanged to beta.81 (platform report on `spike/platform`) | The PR merged and `@yielded/agent-platform-alchemy-cloudflare` published, with its Alchemy fixes released upstream, or a decision to carry a pinned build and patch until then | Stage 0 |
-| One Effect version | Proposed: 4.0.3 everywhere, overriding Foldkit's exact peer. Foldkit 0.168.0 and its packages pin `effect` 4.0.0 exactly, while Yielded's published agent needs ^4.0.3. On 4.0.3, Foldkit's own suite passes (2,954 passed, 1 skipped, on macOS and Linux x64), its source typechecks, and a Foldkit and three.js smoke app passes on macOS and Linux x64 | The Stage 0 lockfile with the override, and the owner's acceptance | Stage 0 |
+| Cloudflare access | Hosted checks authorized; the owner adds the Alchemy Cloudflare profile when Codex asks | Workers, Durable Objects and Browser Rendering access; scoped test stage and cleanup | Hosted platform checks |
+| Wallet, inference and market-data accounts | Hosted checks authorized; the owner supplies each sandbox account or key when Codex asks | Privy sandbox; selected inference providers; Codex market-data account (codex.io) | Respective platform checks and Stage 0 needs |
 | Browser package and containment | Cloudflare default, Browserbase fallback | Package/version exporting the adapters; tested network containment, live view and takeover | Platform spike exit |
 | Runtime compatibility | Workers and Durable Objects target | workerd evidence for SDKs, storage, Web Crypto and renderer; logged deviations where necessary | Platform spike exit |
 | Atlas values | Technique B on WebGL picked; values unselected | The owner's picks of tones, kit unit, line spec and proportions | Look spike exit |
 | Islands | Revised default: Solana plus Robinhood Chain; Base through the EVM adapter | Validate with `fomo-analytics` before Stage 3; current dataset availability not established | Stage 3 |
-| Source control hosting | Local repository with an initial commit | A remote | Parallel worktrees in the cloud and preview CI |
+| Source control hosting | Local repository | A private GitHub repository, which the owner creates when Codex reaches CI | Parallel worktrees in the cloud and preview CI |
 
 Do not store credentials in this log or the repository. Record only readiness, scope and evidence locations. Browserbase is needed only if selected by the platform spike. Historical provider claims and versions are inputs to verify during that spike, not fresh compatibility findings.
 
