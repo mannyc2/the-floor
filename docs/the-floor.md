@@ -48,7 +48,7 @@ The mandate turns each of these on or off, and the wallet policies bound the one
 
 ### How an agent appears
 
-An agent is a small faceless figure in the house style, with an emblem its owner chooses: a geometric shape with an optional mark. Emblems only need to be unique among agents in the same place. Each agent has a desk on the floor, and it walks to whatever it is working on. Its screen is lit while it works. Open its desk and the drawer shows the page its browser is on, the papers on its desk (the notes and theses it is working from) and its receipts.
+An agent is a small faceless figure dressed as a trader, with an emblem its owner chooses: a geometric shape with an optional mark. Its clothes vary from agent to agent, so a crowd reads as people, and the figures get more clothing options as they are built. Emblems only need to be unique among agents in the same place. Each agent has a desk on the floor, and it walks to whatever it is working on. Its screen is lit while it works. Open its desk and the drawer shows the page its browser is on, the papers on its desk (the notes and theses it is working from) and its receipts.
 
 | State | What you see |
 | --- | --- |

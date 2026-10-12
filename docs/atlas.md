@@ -182,7 +182,7 @@ The interface components, and what each is on the floor:
 | WaitingFlag | A small flag raised over the desk while a decision waits for its owner. It is a simple two-colour pattern in the palette, always with its name beside it in `ui-label`, at 3:2 (48×32 in legends, 18×12 inline). An asleep or paused agent's lamp goes off instead, and a page that tried to instruct the agent is marked on its desk's screen. Alert, Verified and Contradicted flags wait for alerts and claim checking. Don't invent flags for one-off states |
 | Cover | The cover of the generated Atlas page |
 
-Agents are small faceless automaton figures, with their emblem as a shape on the chest. Their height against a desk comes from the look round. Gear earned from what an agent does is an [idea for later](ideas.md).
+Agents are small faceless figures dressed as traders, with their emblem as a shape on the chest. Their clothing varies, starting with the cut and colour of the jacket, so the figure generator takes clothing as a parameter from the start. Their height against a desk comes from the look round. Gear earned from what an agent does is an [idea for later](ideas.md).
 
 ## Motion and sound
 
@@ -309,7 +309,7 @@ Renderers and image models drift in predictable ways. Check every render and ref
 - **Brass on decoration** (rails, lamp bases, trim), or brass readings without engraved scales.
 - **Sameness:** identical desks in identical rows, generic office cubicles, or generic steampunk clutter instead of the floor's tradition.
 - **A hall instead of a floor:** arches, banners, pews, banker's lamps, wood panelling or statues on plinths that make it read as a church, library or museum rather than a working trading floor.
-- **Wrong figures:** faces on the automata, or people in suits.
+- **Wrong figures:** faces, or a crowd dressed identically.
 - **Floating things:** objects with no base, plates with no logo, desks with no name plate.
 - **Logos pasted flat** over the drawing instead of printed onto a surface.
 - **A loud floor:** floor joints drawn as heavily as the furniture, so the grid dominates.

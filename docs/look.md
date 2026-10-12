@@ -63,7 +63,7 @@ Isometric technical illustration, orthographic camera from one corner looking do
 **Avoid block** (append to every frame):
 
 ```text
-Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, human figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths.
+Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, identically dressed figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths.
 ```
 
 **Traditions** (the tradition round inserts one after the style block):
@@ -75,13 +75,13 @@ Avoid: perspective, vanishing points, depth of field, photographic lighting, sof
 **1. The floor**
 
 ```text
-A large, crowded trading floor seen whole as a cutaway model, packed with banks of desks, each with a tiny faceless automaton figure, a lit screen, a phone and piles of paper. The room is loud and busy mid-session: many figures stand, shout into phones and wave slips of paper, a few stand on their desks, and a crowd has gathered in the open area at the front. At the front, a wall of screens and plates, each plate a simple painted emblem over a brass gauge with engraved scale marks, and a bell on a stand. Along one wall, whiteboards with pinned cards. Through an open door, a file room of grey cabinets. By the entrance, a small reception area with a few odd sculptures and machines on stands. Small pennants with simple painted emblems hang from the ceiling. Paper planes and loose papers in the air.
+A large, crowded trading floor seen whole as a cutaway model, packed with banks of desks, each with a tiny faceless figure in a trader's jacket, a lit screen, a phone and piles of paper. The room is loud and busy mid-session: many figures stand, shout into phones and wave slips of paper, a few stand on their desks, and a crowd has gathered in the open area at the front. At the front, a wall of screens and plates, each plate a simple painted emblem over a brass gauge with engraved scale marks, and a bell on a stand. Along one wall, whiteboards with pinned cards. Through an open door, a file room of grey cabinets. By the entrance, a small reception area with a few odd sculptures and machines on stands. Small pennants with simple painted emblems hang from the ceiling. Paper planes and loose papers in the air.
 ```
 
 **2. One desk**
 
 ```text
-A single trading desk seen close, centred with wide margins. On it: a screen showing an abstract web page, a corded phone, a small black desk lamp, a ticker-tape machine printing a paper strip, piles of papers and a notebook, and a small painted frog mascot on a lily-pad base with a brass gauge with engraved marks at its foot. A faceless automaton figure with a diamond emblem on its chest stands at the desk with the phone to its head and one arm raised. A small flag on a pole is clipped to the desk's edge, lowered.
+A single trading desk seen close, centred with wide margins. On it: a screen showing an abstract web page, a corded phone, a small black desk lamp, a ticker-tape machine printing a paper strip, piles of papers and a notebook, and a small painted frog mascot on a lily-pad base with a brass gauge with engraved marks at its foot. A faceless figure in a trader's jacket, with a diamond emblem on its chest, stands at the desk with the phone to its head and one arm raised. A small flag on a pole is clipped to the desk's edge, lowered.
 ```
 
 **3. Agents at work**
