@@ -15,7 +15,12 @@ permissions:
 
 jobs:
   cleanup:
-    if: vars.FLOOR_PREVIEW_CONFIGURED == 'true'
+    # Forks cannot have previews, so closing one must not acquire account access.
+    # Manual recovery remains available after preview admission is disabled.
+    if: >-
+      vars.FLOOR_PREVIEW_CONFIGURED == 'true' &&
+      (github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     concurrency:

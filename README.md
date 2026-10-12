@@ -37,6 +37,8 @@ The [look harness](testing/look/README.md) is promoted to TypeScript. Its real c
 
 The preview and cleanup workflows are implemented, with a `pr-<number>` guard, separate admin configuration, and a production-entry browser flow. Preview deployment remains disabled pending the remaining hosted gates and configuration of the new public GitHub repository. The account budget permits only the existing Cloudflare $5 subscription's included allowance; separately billed inference, wallet services and overage are not authorized.
 
+For the single-stage proof, set the repository variable `FLOOR_PREVIEW_PR` to the admitted PR's positive number and `FLOOR_PREVIEW_ENABLED` to `true` only after checking the allowance. Both deployment checks require that exact admission. Disable `FLOOR_PREVIEW_ENABLED` before closing the proof PR, but retain `FLOOR_PREVIEW_CONFIGURED=true`, its credentials, and the admitted number until cleanup and resource absence are verified. Drain queued runs before clearing or changing the admission; changing a variable does not revoke an already-running job. Fork PRs receive no deployment secrets and their closure cannot start Cloudflare cleanup. The cleanup workflow can still be dispatched manually for a validated `pr-<number>` stage.
+
 The six private Yielded packages are pinned, hashed builds of PR 557 at `0adbcff`, with the recorded Effect 4.0.3 Crypto adaptation and Alchemy beta.80 patch. [Provenance](vendor/yielded/0adbcff-effect-4.0.3/provenance.json) and immutable runtime attempts remain reviewable. Active builds consume the tarballs directly.
 
 ## Historical inputs
