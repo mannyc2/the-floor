@@ -1,0 +1,72 @@
+{
+  "candidate": "candidate-08",
+  "frame": "screen-day",
+  "image_sha256": "d2805d5fcd2a163ab520896890f42828c4ddba3d96eb5b0a86f4d6a050e333f1",
+  "width": 1672,
+  "height": 941,
+  "screening_status": "not_flagged_by_automatic_screen",
+  "reasons": [],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 107,
+    "families": [
+      {
+        "dominant_degrees": 30.75,
+        "segments": 22,
+        "position_span_pixels": 402.4545700511378,
+        "fitted_angle_swing_degrees": 1.8552062444642947,
+        "weighted_r_squared": 0.12361443569678188,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 152.75,
+        "segments": 38,
+        "position_span_pixels": 255.27891802747456,
+        "fitted_angle_swing_degrees": 6.4934120590624795,
+        "weighted_r_squared": 0.343787160292335,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 1,
+    "components": [
+      {
+        "bbox": [
+          1203,
+          393,
+          70,
+          87
+        ],
+        "area_pixels": 1644
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 1553,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/screen-day/001/candidate-08/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/screen-day/001/candidate-08/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

@@ -1,0 +1,147 @@
+{
+  "packaged_at_utc": "2026-10-12T17:49:33.207598+00:00",
+  "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
+  "independent_calls": 84,
+  "original_images": 84,
+  "unique_original_hashes": 84,
+  "original_image_bytes": 234184828,
+  "contact_sheets": 7,
+  "groups": [
+    {
+      "frame": "rack-day",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 12,
+      "orange_count_flags": 11,
+      "ocr_flags": 6,
+      "claude_shortlist": [
+        "06",
+        "03",
+        "01",
+        "09",
+        "12"
+      ],
+      "owner_pick": "06"
+    },
+    {
+      "frame": "rack-night",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 12,
+      "orange_count_flags": 11,
+      "ocr_flags": 7,
+      "claude_shortlist": [
+        "01",
+        "06",
+        "03",
+        "12",
+        "09"
+      ],
+      "owner_pick": "01"
+    },
+    {
+      "frame": "stall-day",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 9,
+      "orange_count_flags": 9,
+      "ocr_flags": 7,
+      "claude_shortlist": [
+        "10",
+        "09",
+        "05",
+        "02",
+        "12"
+      ],
+      "owner_pick": "10"
+    },
+    {
+      "frame": "stall-night",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 1,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 12,
+      "orange_count_flags": 10,
+      "ocr_flags": 7,
+      "claude_shortlist": [
+        "03",
+        "02",
+        "04",
+        "09",
+        "01"
+      ],
+      "owner_pick": "03"
+    },
+    {
+      "frame": "district-day",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 1,
+      "orange_count_flags": 11,
+      "ocr_flags": 12,
+      "claude_shortlist": [
+        "09",
+        "02",
+        "05",
+        "10",
+        "11"
+      ],
+      "owner_pick": "09"
+    },
+    {
+      "frame": "district-night",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 0,
+      "orange_count_flags": 10,
+      "ocr_flags": 11,
+      "claude_shortlist": [
+        "03",
+        "10",
+        "02",
+        "11",
+        "04"
+      ],
+      "owner_pick": "03"
+    },
+    {
+      "frame": "screen-day",
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 0,
+      "candidates": 12,
+      "automatic_rejections": 11,
+      "not_flagged_automatically": 1,
+      "perspective_flags": 0,
+      "orange_count_flags": 8,
+      "ocr_flags": 10,
+      "claude_shortlist": [
+        "10",
+        "01",
+        "08",
+        "06"
+      ],
+      "owner_pick": "10"
+    }
+  ],
+  "claude_review": "reviewed_and_shortlisted",
+  "owner_pick": "seven_provisional_references_picked",
+  "review_status": "review-status.json",
+  "status": "generation complete; historical automatic flags retained; Claude review and owner provisional picks recorded; stop before tones/assets"
+}

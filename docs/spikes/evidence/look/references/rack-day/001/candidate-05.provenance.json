@@ -1,0 +1,15 @@
+{
+  "frame": "rack-day",
+  "candidate": "05",
+  "tool": "built-in image_gen.imagegen",
+  "input_reference_images": 0,
+  "prompt_sha256": "c3eab79e5001125a9d5cd5a45fefba96f1bf98ca4c6515234b25c30b98cc25d6",
+  "requested_at_utc": "2026-10-12T15:55:43.061Z",
+  "completed_at_utc": "2026-10-12T15:56:26.346Z",
+  "source_path": "/Users/chriscarroll/.codex/generated_images/01a13002-d54c-7f01-acc6-fb0fd36372d2/exec-a9351450-21ad-4e74-9318-7c830823cb6c.png",
+  "output_path": "docs/spikes/evidence/look/references/rack-day/001/candidate-05.png",
+  "generation_seed": "unavailable: built-in tool exposes no seed",
+  "provider_model_version": "unavailable: built-in tool exposes no exact model revision",
+  "bytes": 2821247,
+  "sha256": "be2bb0ab3db0f676b08bd305448ac6ae607a55dcacf21e7934ce237b8a25a057"
+}

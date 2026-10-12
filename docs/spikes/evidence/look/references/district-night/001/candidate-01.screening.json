@@ -1,0 +1,163 @@
+{
+  "candidate": "candidate-01",
+  "frame": "district-night",
+  "image_sha256": "a66e0c5c48b017a1e8beba9e1ff9983a5bc75b3007fb8195a114055576b91ba3",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 103,
+    "families": [
+      {
+        "dominant_degrees": 29.75,
+        "segments": 59,
+        "position_span_pixels": 603.2517996418907,
+        "fitted_angle_swing_degrees": 3.519165032624564,
+        "weighted_r_squared": 0.09868677106333867,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 135.25,
+        "segments": 9,
+        "position_span_pixels": 616.6652914485624,
+        "fitted_angle_swing_degrees": 2.8357616993893555,
+        "weighted_r_squared": 0.08561180230474141,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 7,
+    "components": [
+      {
+        "bbox": [
+          876,
+          718,
+          80,
+          106
+        ],
+        "area_pixels": 2247
+      },
+      {
+        "bbox": [
+          827,
+          681,
+          49,
+          137
+        ],
+        "area_pixels": 1429
+      },
+      {
+        "bbox": [
+          876,
+          689,
+          50,
+          43
+        ],
+        "area_pixels": 569
+      },
+      {
+        "bbox": [
+          934,
+          838,
+          22,
+          13
+        ],
+        "area_pixels": 74
+      },
+      {
+        "bbox": [
+          916,
+          853,
+          13,
+          11
+        ],
+        "area_pixels": 49
+      },
+      {
+        "bbox": [
+          883,
+          827,
+          8,
+          8
+        ],
+        "area_pixels": 45
+      },
+      {
+        "bbox": [
+          894,
+          727,
+          7,
+          9
+        ],
+        "area_pixels": 34
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 3075,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "ul",
+        "confidence": 77.403145,
+        "psm": 11,
+        "bbox": [
+          501,
+          832,
+          11,
+          17
+        ]
+      },
+      {
+        "text": "KS",
+        "confidence": 95.095604,
+        "psm": 11,
+        "bbox": [
+          738,
+          1076,
+          64,
+          51
+        ]
+      },
+      {
+        "text": "fff",
+        "confidence": 80.992096,
+        "psm": 6,
+        "bbox": [
+          447,
+          501,
+          29,
+          8
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-night/001/candidate-01/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-night/001/candidate-01/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

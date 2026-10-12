@@ -1,0 +1,689 @@
+{
+  "check_id": "references-stall-night",
+  "attempt": "001",
+  "status": "fail",
+  "executed_at_utc": "2026-10-12T16:25:05.364Z",
+  "operator": "Codex using built-in image_gen.imagegen, one independent call per original",
+  "reviewer": "Claude; independent review recorded in claude-review-001.md",
+  "source_revision": "4e0c2ca1a72166a6517cb7ca30f911e726189ece",
+  "dependency_versions": {
+    "Bun": "1.4.0",
+    "Python": "3.12.14",
+    "opencv-python-headless": "5.0.0.93",
+    "cv2": "5.0.0",
+    "NumPy": "2.5.4",
+    "Pillow": "12.3.0",
+    "Tesseract": "5.5.1",
+    "Playwright": "1.62.1",
+    "Chrome": "155.0.8059.39",
+    "image_generation_model": "unknown: built-in tool exposes no exact model revision"
+  },
+  "api_evidence": [
+    {
+      "tool": "built-in image_gen.imagegen",
+      "independent_calls": 12,
+      "input_reference_images_per_call": 0,
+      "prompt_set": "docs/spikes/evidence/look/references/stall-night/001/prompts.json",
+      "result_provenance": "candidate-NN.provenance.json",
+      "result_images": "candidate-NN.png",
+      "montage_substitution": false
+    }
+  ],
+  "execution_target": "Built-in image generation, followed by local static image screening and local contact-sheet composition on macOS 15.0; no application renderer executed",
+  "runtime_configuration": {
+    "generation": "Exact prompts in prompts.json; tool defaults; no references; seed and provider model revision unavailable",
+    "contact_sheet": {
+      "browser": "local system Google Chrome, headless",
+      "width": 2048,
+      "device_scale_factor": 1,
+      "dimensions": [
+        2048,
+        3062
+      ]
+    },
+    "screening": "Frozen thresholds described in ../../README.md and ../../_tools/screen.py"
+  },
+  "stage_and_resources": "n/a: no application stage or hosted resources for static reference generation",
+  "inputs": [
+    {
+      "path": "docs/floor-docs-2026-10-12/the-floor.md",
+      "sha256": "a95909be89ab604af5782992be6bae6849909876d1143dcfb40913b3dbd603bb"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/prompts.json",
+      "sha256": "9f35d15bc3137be0cdcaea9a0340e364510712aa7a18bea4d130cc48cdbf5b24"
+    }
+  ],
+  "procedure": [
+    "Generate 12 independent original images with the exact prompts, preserving the source style/avoid blocks and the explicit key-frame-8 exception.",
+    "Copy each returned PNG without altering it, retaining the tool original; record bytes and SHA-256.",
+    "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png",
+    "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs stall-night",
+    "Verify 12 readable unique originals, matching prompt/output hashes, a 2048px contact sheet and all required evidence fields."
+  ],
+  "expected_result": "Twelve retained independent originals and one contact sheet. Batch automatic screen passes only when none of the twelve is flagged; this status never establishes artistic approval.",
+  "observed_result": {
+    "generation_complete": true,
+    "contact_sheet_complete": true,
+    "automatic_screen": {
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 1,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 12,
+      "orange_count_flags": 10,
+      "ocr_flags": 7,
+      "claude_shortlist": [
+        "03",
+        "02",
+        "04",
+        "09",
+        "01"
+      ],
+      "owner_pick": "03"
+    },
+    "status_scope": "This record status is the aggregate automatic screen across the batch; generation completion and art approval are separate."
+  },
+  "artifacts": [
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.png",
+      "committed": true,
+      "bytes": 2210053,
+      "sha256": "a4e5e351e527f240669f8cbf7639be745ee88ffc1c2c9f203b8e912cd24e2e7b",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "ce43c429b1c37d950f2660c2bb69bcf65322ab15975f849fba196007337d824a",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-01.screening.json",
+      "committed": true,
+      "bytes": 3979,
+      "sha256": "a4aa0d5ad3acc529ad63861d0f25aec621b1138d7f841ca39c8f591f1dc40b8e",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.png",
+      "committed": true,
+      "bytes": 2257108,
+      "sha256": "1cba1aae79b348d44fd58f52730f7f2181cf7fbecfaa9c39624a67ec6882e28d",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "7be856bcbb097ae022b667fba673f7779b70b3778ca231405cba6ef162ff888b",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-02.screening.json",
+      "committed": true,
+      "bytes": 2855,
+      "sha256": "fa3b0efdeb01a8d0f3a70fbb266154041681ce5f18762ee058a383567b5c708f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.png",
+      "committed": true,
+      "bytes": 2257204,
+      "sha256": "b29d8acfc47dfff6cab75397904cf6d7b622fa9b3e592af84f61bac1a771338d",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "64638482a955a0cc2e8ba70fa0ae3a89a2625992a4e3cd237c73d4f30a41640f",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-03.screening.json",
+      "committed": true,
+      "bytes": 2858,
+      "sha256": "c7eda2ffd4261d708b52bc8c2fb26c66ec206d2233f7683239c5663f8238d4e9",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.png",
+      "committed": true,
+      "bytes": 2353610,
+      "sha256": "f9c859de0ada3567223fecf27f4f9862c86ed7bbc0b4d9a2c05a5d3b237e3c04",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "47203cb7ea5392e8d297e682c2b2b07c10d7002e7d7f0c1eba4897d4ee58965f",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-04.screening.json",
+      "committed": true,
+      "bytes": 3023,
+      "sha256": "923bdad29db7f442c121a8b11264e11c232f2821531efe436e4b1dc3dd2d1b86",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.png",
+      "committed": true,
+      "bytes": 2174884,
+      "sha256": "3b6c3e31d4d6d8194feb98b2751ef89e461216b491adda2b9eb339a40b0e5e34",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "d558ba694e1f5bd348e42b73296e3969b831955aca6f403557586f3e99d53e95",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-05.screening.json",
+      "committed": true,
+      "bytes": 3232,
+      "sha256": "12f6f0182fb27dd7d7feb6c393d88b7ea083a173f5a10d78af2f157b682e4280",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.png",
+      "committed": true,
+      "bytes": 2094786,
+      "sha256": "a3ca56228456f23224795e78f477b090911ebd15585ae91a09bcf576dd2de36d",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "ba1d56ed2243024cadfbc2f56554adbebdceb582721fcced5cab827a58c47616",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-06.screening.json",
+      "committed": true,
+      "bytes": 3360,
+      "sha256": "a030304d5672a4824fdc546a519b42e8289f06e91ca0f77a5afdb5ce0db3bddc",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.png",
+      "committed": true,
+      "bytes": 2281280,
+      "sha256": "104cd3041dc0dc00557db16812bfc8152e25750e6af3a0fcaa2f781b55119136",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "8f6948128a45eba5b5c65196a5241a13a25a44af885574ab5d59d541588029ca",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-07.screening.json",
+      "committed": true,
+      "bytes": 3153,
+      "sha256": "922a9a6a89f0722286f7131f4495804fd660a21841ce4905da44f428a5c732c6",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.png",
+      "committed": true,
+      "bytes": 2272050,
+      "sha256": "df17a4277a6afe3cc70d0587b994d0b2341801b546dd536739259f01d786ecc9",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "76ec072ca3c0cb13c6f363168411b838dbb2ee6ec25382830cfeae74d23159d1",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-08.screening.json",
+      "committed": true,
+      "bytes": 3893,
+      "sha256": "eeb459b7169526e526308bb4a1b0a7764d56eb8c5ed559138cdb50badae4999b",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.png",
+      "committed": true,
+      "bytes": 2384108,
+      "sha256": "93ea823972ed1f78088c3a7c9e27631506110aa204de9760c3027937d975e751",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "a5b8ece79dc5b349965a0122730519f687ad376390c225e98c21edfdcdd480a3",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-09.screening.json",
+      "committed": true,
+      "bytes": 3231,
+      "sha256": "ef84145e107ab9c5f0a9ebb6fbb61ecddd14fd80a000860ad3df6f2d36d9aa20",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.png",
+      "committed": true,
+      "bytes": 2566649,
+      "sha256": "3cefc1ec5060b7ccac4051882c5bbf04227666de7583ffd21c628ff011241a34",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "7c99c20f5542119d3468ef93a17e998769f90b8885292e0b5ba0f4e36d0d52d1",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-10.screening.json",
+      "committed": true,
+      "bytes": 3801,
+      "sha256": "c7e6e5c74c56d23b9cb5c20a8983e1cb38fe5ccd46683f8528b81f7c7e238ae2",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.png",
+      "committed": true,
+      "bytes": 2065559,
+      "sha256": "addc78e4e160a230927de62cd1fdc73796eeb051d5036fc880104611641dbf31",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "24bb827a1d543800be665e634859deeb9466828944de9ce341c45cf81545d01a",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-11.screening.json",
+      "committed": true,
+      "bytes": 3362,
+      "sha256": "6e4ba8f5f0dde38209ca3c02c1d4f01e2c5a53954c4c67009640614b77e2f4e8",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.png",
+      "committed": true,
+      "bytes": 2248538,
+      "sha256": "c9b59d604910ebc4136c4977488006a92f3ba0e8a066c3c3ad5c5b841ca721db",
+      "regenerate": "Call built-in image_gen.imagegen once with the matching prompt in stall-night/001/prompts.json; omit both reference-image arguments. Exact bytes are not reproducible because the tool exposes no seed/model revision."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.provenance.json",
+      "committed": true,
+      "bytes": 803,
+      "sha256": "1a1534520c74f28f31a156a844733cdf7e9fb7d158f9c51df436ed6eda2715b6",
+      "regenerate": "Recorded observation of the corresponding independent built-in image_gen call; cannot regenerate historical metadata."
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/candidate-12.screening.json",
+      "committed": true,
+      "bytes": 3452,
+      "sha256": "04b10bb7ba91e41ea68fe7c0508c4c7ef147a7ba0718a164e0b8c5220f98f46f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/contact-sheet.html",
+      "committed": true,
+      "bytes": 3548,
+      "sha256": "3b25b51825eb57208420bed19a5500d9b70955b383f155364a1186f970b1b08f",
+      "regenerate": "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs stall-night"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/contact-sheet.png",
+      "committed": true,
+      "bytes": 6423938,
+      "sha256": "a43091d380d1d6eaad0ebcad254c1e06009f63ef917bc65f52d8c2907b74740e",
+      "regenerate": "bun docs/spikes/evidence/look/references/_tools/contact-sheet.mjs stall-night"
+    },
+    {
+      "path": "docs/spikes/evidence/look/references/stall-night/001/prompts.json",
+      "committed": true,
+      "bytes": 45866,
+      "sha256": "9f35d15bc3137be0cdcaea9a0340e364510712aa7a18bea4d130cc48cdbf5b24",
+      "regenerate": "Exact prompts are frozen generation inputs; preserve this file."
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-01/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 5858,
+      "sha256": "4e334ad11f0b8075d300c1eb558e7ddc21fd5e4d8a5f99ecf92f5c16c6246746",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-01/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 2857,
+      "sha256": "7fb3462d6bfc86449d7b9c6c766deb4a82b97069da5eff1fb040e6f614a9bf05",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-01/orange-mask.png",
+      "committed": false,
+      "bytes": 5158,
+      "sha256": "348481ebe6992b8ead54d05bf21c8ef8eb344a64e2abdd210c575bf3d5a728b2",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-02/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 5886,
+      "sha256": "776483c86b08120f550dfb080e3c7343a6209446240cd99c6a69b3b926de1735",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-02/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 1441,
+      "sha256": "d665629b76698b1625d4b124387d57bacdd4ceb855bd8225cbf83220538ac059",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-02/orange-mask.png",
+      "committed": false,
+      "bytes": 5320,
+      "sha256": "97524a3bd8fe3044bae6be98050a6ba61de644c967c50f05b070d4a31b42552d",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-03/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 4116,
+      "sha256": "2008abc642a93c248f5849691a424a642c2b61a7350cf091403849fbb9ce8916",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-03/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 594,
+      "sha256": "648c41bb1247b6813a819b930a8b9003d5285410d329d13e6e3b5850d9c77f84",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-03/orange-mask.png",
+      "committed": false,
+      "bytes": 4778,
+      "sha256": "d76d4a150de1efd1a7d65894c9b00f9601b11d6297da45585381b91865bdcc34",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-04/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 4982,
+      "sha256": "f73a0036062aabc4d23109b948991fcfbe50e2e5588fdeab6127c8b3150951f9",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-04/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 1051,
+      "sha256": "9f5d2084672913d5099a8fea3f06b60cb6e77087da1db8edaac8dc087319e237",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-04/orange-mask.png",
+      "committed": false,
+      "bytes": 4801,
+      "sha256": "c3c35b7f55e83230aee2685409e76d30da799dc4b1d556711d48eab695023e4a",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-05/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 3751,
+      "sha256": "cc18d407dc9c514641ddaa4c11a8f81204318fc5002a3ef0d1772ee871462b01",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-05/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 861,
+      "sha256": "1eb8a69281acc829a7f43b838b1ba31221d4d961c1e6fc6fc542ef608749e6e2",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-05/orange-mask.png",
+      "committed": false,
+      "bytes": 4835,
+      "sha256": "b59944abea1fd1c3e77795b0ac620b9acfb426c1c8069fb14893cbd36943fdb6",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-06/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 6521,
+      "sha256": "493a23a876c5252864f1a6009f9077bd6a97cc9e788dca81d8e24c60ae224e6c",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-06/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 426,
+      "sha256": "6c1e50f43541fa38cda48a5d6e5ba403f339f9afd110cccb478df03f3ea14b8d",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-06/orange-mask.png",
+      "committed": false,
+      "bytes": 5127,
+      "sha256": "a1668d4e5adab9271cff30ee3d253e29d40dbf295d49af975b9f8134bae90be6",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-07/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 4080,
+      "sha256": "90e7629a702221e0285fcc0ebe94ca0103b3e1ab4a6fc8a15e6145b92bea14aa",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-07/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 677,
+      "sha256": "e0ede8faeec5ca2a414ce6872bf270a14f69d6564f44498cd70e6b66f6c30a1f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-07/orange-mask.png",
+      "committed": false,
+      "bytes": 4925,
+      "sha256": "a52aeb8b1faaf7749a02435f65bf904b3157211addea836b585d2b3a17956e26",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-08/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 6895,
+      "sha256": "1c5f27c161db9ab766d4b66bbbbe3e26490287702d6511061c86e3f653c3a396",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-08/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 1744,
+      "sha256": "a1a9751bc7c5e28636037ce11156d1478ade95deeed61fc4a830dbd39ed4a057",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-08/orange-mask.png",
+      "committed": false,
+      "bytes": 5412,
+      "sha256": "d96c745600fbca445457a4dbb009a1e9955bcc77561b2134e750698f4c23e564",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-09/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 5275,
+      "sha256": "597ef5257034683350484efdd206f9fb175b2fa936f22b660271a959c900eedb",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-09/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 892,
+      "sha256": "8e64577aefd3f66ad20fad7623bf39b44fe8a758bbda0e48f5aab87f16bc3ecf",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-09/orange-mask.png",
+      "committed": false,
+      "bytes": 5000,
+      "sha256": "88af4f81b75d44c286f1496e048b0e0f9fe752d92229b797098b057c93fa407f",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-10/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 4959,
+      "sha256": "629f4334f72968e1ae994142b3cbe9000e30a44ce9a68928b5fb0a6ecf9b1a03",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-10/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 1143,
+      "sha256": "610c8ceadcda0032b5b071560fa5924969b94c3bfbec07f87d34376ece2ac5a0",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-10/orange-mask.png",
+      "committed": false,
+      "bytes": 5896,
+      "sha256": "eb04249aa1ff2020fd73c6ef4cc723bf4656bf2aaa1b3e12e695c6d25ff6fdea",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-11/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 3949,
+      "sha256": "bf006abfb5413f0a905e62ac9726a888c7ddd8d79993b64173cc88ceb8e79bb9",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-11/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 645,
+      "sha256": "2764611843f8fe9f04fdaaff256de15078106be598be9c3f8f2e3f03e089cc9d",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-11/orange-mask.png",
+      "committed": false,
+      "bytes": 5140,
+      "sha256": "94298ba615b10da7372ac5ff002e4286819d04dbb15c7b302abb6ecdfb490e68",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-12/ocr-psm-11.tsv",
+      "committed": false,
+      "bytes": 1033,
+      "sha256": "405837d1240b9609f6e211c53e355dd791fd6992a9bde7d6c03eac823e8705c2",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-12/ocr-psm-6.tsv",
+      "committed": false,
+      "bytes": 113,
+      "sha256": "cd8a52458257a3955830f5956a564331440d8618b405bd8588cb0582784b2bda",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    },
+    {
+      "path": "work/spikes/look/references/screening/stall-night/001/candidate-12/orange-mask.png",
+      "committed": false,
+      "bytes": 5896,
+      "sha256": "58882987174fd70b1535d5f5bcc11e3fcf6ac6e405c8215275f4b8c399e32dd9",
+      "regenerate": "python3 docs/spikes/evidence/look/references/_tools/screen.py docs/spikes/evidence/look/references/stall-night/001/candidate-*.png"
+    }
+  ],
+  "policy_and_cost": {
+    "network_policy": "Generation uses only the built-in image tool; no provider API fallback. Local contact-sheet composition permits file/data resources only.",
+    "budget": "User authorized 12\u201320 independent candidates per frame; 12 selected for each of 7 groups (84 total).",
+    "observed_cost": "unknown: built-in tool does not expose billing"
+  },
+  "cleanup_result": "Original tool outputs and copied evidence retained as requested. Scratch masks/OCR TSVs retained outside git. No hosted resources were created.",
+  "decision_link": "docs/decisions.md: technique B on WebGL and seven provisional reference frames picked; review-status.json records exact review and pick commits; tones/proportions remain unpicked",
+  "limitations_and_next_action": "Automatic geometry/color/OCR checks have false positives and false negatives. Generated images are composition references, not exact geometry or readings. Claude reviewed the originals and challenged heuristic false positives; the owner picked provisional references. See review-status.json for exact options and decisions. No tones, proportions, kit unit or assets were derived. Full-size originals exceed the normal artifact cap because the user explicitly requested every candidate to be committed.",
+  "look": {
+    "technique": "n/a: AI-generated references, not a run of technique B",
+    "tone_set": "n/a: no tone selection in this generation track",
+    "theme": "night",
+    "rung": "stall",
+    "dpr": "n/a: generated raster source; contact sheet uses deviceScaleFactor 1",
+    "camera": "Requested orthographic from one corner, looking down 30 degrees; actual projection is generated and not calibrated; see per-image convergence metrics",
+    "canvas": {
+      "original_dimensions": [
+        "1254x1254"
+      ],
+      "contact_sheet_dimensions": [
+        2048,
+        3062
+      ]
+    },
+    "backend": "n/a: no WebGL/WebGPU application rendering",
+    "renderer_string": "n/a: no graphics renderer evidence in this reference batch",
+    "device_profile": "n/a: no runtime/phone performance test for generated references",
+    "clock_and_seed": "Generation request/completion timestamps recorded per image except first-call timing unavailable; tool exposes no seed; not deterministic",
+    "metrics": {
+      "threshold_source": "No-perspective/no-text/one-orange rules: look handoff; detector thresholds: frozen operational choices in _tools/screen.py, not Atlas geometric tolerances.",
+      "transparency_flags": 1,
+      "candidates": 12,
+      "automatic_rejections": 12,
+      "not_flagged_automatically": 0,
+      "perspective_flags": 12,
+      "orange_count_flags": 10,
+      "ocr_flags": 7,
+      "claude_shortlist": [
+        "03",
+        "02",
+        "04",
+        "09",
+        "01"
+      ],
+      "owner_pick": "03"
+    },
+    "made_by": "Codex via built-in image generation, independent original calls; contact sheet composed locally from unchanged originals",
+    "cross_review": {
+      "reviewer_agent": "Claude",
+      "verdict": "shortlisted",
+      "notes": "Independent review and challenges to automatic flags are in ../../claude-review-001.md; exact shortlist and decision commits are in ../../review-status.json.",
+      "shortlist": [
+        "03",
+        "02",
+        "04",
+        "09",
+        "01"
+      ]
+    },
+    "owner_pick": {
+      "state": "provisional_reference_picked",
+      "options_shown": [
+        "stall-night/001/candidate-03.png",
+        "stall-night/001/candidate-02.png",
+        "stall-night/001/candidate-04.png",
+        "stall-night/001/candidate-09.png",
+        "stall-night/001/candidate-01.png"
+      ],
+      "picked": "stall-night/001/candidate-03.png",
+      "owner_note": "I agree with all your leanings",
+      "date": "2026-10-12",
+      "scope": "Provisional composition, density, silhouette and mood references; geometric and colour laws are checked on Floor renders. No tones, proportions or assets selected by this generation track."
+    }
+  }
+}

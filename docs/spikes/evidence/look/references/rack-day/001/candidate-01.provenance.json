@@ -1,0 +1,16 @@
+{
+  "frame": "rack-day",
+  "candidate": "01",
+  "tool": "built-in image_gen.imagegen",
+  "input_reference_images": 0,
+  "source_path": "/Users/chriscarroll/.codex/generated_images/01a13002-d54c-7f01-acc6-fb0fd36372d2/exec-90ab8b11-b846-450d-925b-387a8e2ab0b6.png",
+  "output_path": "docs/spikes/evidence/look/references/rack-day/001/candidate-01.png",
+  "generation_seed": "unavailable: built-in tool exposes no seed",
+  "provider_model_version": "unavailable: built-in tool exposes no exact model revision",
+  "copied_at_utc": "2026-10-12T15:52:34.227Z",
+  "bytes": 2702520,
+  "sha256": "eba8b38ed6d3305e828b2f8fa790e8ef79aebb81ca02c91153615379d5f62b42",
+  "prompt_sha256": "168abc08bd2f5b6458bb2ee9443fca835550365b28f9934e5ad7662cc196a471",
+  "requested_at_utc": "unknown: not recorded for the first tool call",
+  "completed_at_utc": "unknown: copied_at_utc is the first saved observation"
+}

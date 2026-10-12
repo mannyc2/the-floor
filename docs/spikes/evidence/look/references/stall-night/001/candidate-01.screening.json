@@ -1,0 +1,156 @@
+{
+  "candidate": "candidate-01",
+  "frame": "stall-night",
+  "image_sha256": "a4e5e351e527f240669f8cbf7639be745ee88ffc1c2c9f203b8e912cd24e2e7b",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "perspective_convergence_heuristic",
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "rejected_by_heuristic",
+    "long_segments": 169,
+    "families": [
+      {
+        "dominant_degrees": 26.75,
+        "segments": 66,
+        "position_span_pixels": 752.2882046719075,
+        "fitted_angle_swing_degrees": 7.338832159001447,
+        "weighted_r_squared": 0.7671825443479131,
+        "convergence_flag": true
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 54,
+        "position_span_pixels": 829.1720953964304,
+        "fitted_angle_swing_degrees": 0.0,
+        "weighted_r_squared": 0.0,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 151.25,
+        "segments": 31,
+        "position_span_pixels": 977.0360432259758,
+        "fitted_angle_swing_degrees": 1.7967783384771963,
+        "weighted_r_squared": 0.684890645117341,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 4,
+    "components": [
+      {
+        "bbox": [
+          427,
+          532,
+          122,
+          106
+        ],
+        "area_pixels": 2828
+      },
+      {
+        "bbox": [
+          288,
+          150,
+          94,
+          105
+        ],
+        "area_pixels": 2395
+      },
+      {
+        "bbox": [
+          646,
+          663,
+          58,
+          49
+        ],
+        "area_pixels": 1028
+      },
+      {
+        "bbox": [
+          300,
+          534,
+          14,
+          7
+        ],
+        "area_pixels": 38
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 6159,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "yj",
+        "confidence": 76.303154,
+        "psm": 11,
+        "bbox": [
+          858,
+          451,
+          37,
+          83
+        ]
+      },
+      {
+        "text": "al",
+        "confidence": 72.74736,
+        "psm": 11,
+        "bbox": [
+          516,
+          501,
+          63,
+          72
+        ]
+      },
+      {
+        "text": "Gi",
+        "confidence": 76.968605,
+        "psm": 6,
+        "bbox": [
+          708,
+          714,
+          63,
+          36
+        ]
+      },
+      {
+        "text": "q",
+        "confidence": 91.739716,
+        "psm": 6,
+        "bbox": [
+          376,
+          748,
+          14,
+          34
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/stall-night/001/candidate-01/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/stall-night/001/candidate-01/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

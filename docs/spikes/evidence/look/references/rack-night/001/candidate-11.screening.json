@@ -1,0 +1,137 @@
+{
+  "candidate": "candidate-11",
+  "frame": "rack-night",
+  "image_sha256": "33bfd232bb2c317707aca7c2dfb7c2b46ca53ef7f86447f2ac02d09c2c348da6",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "perspective_convergence_heuristic",
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "rejected_by_heuristic",
+    "long_segments": 188,
+    "families": [
+      {
+        "dominant_degrees": 21.75,
+        "segments": 103,
+        "position_span_pixels": 885.4767382522809,
+        "fitted_angle_swing_degrees": 10.688697200803361,
+        "weighted_r_squared": 0.900070197671829,
+        "convergence_flag": true
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 63,
+        "position_span_pixels": 959.7410424044634,
+        "fitted_angle_swing_degrees": 0.039736155262952315,
+        "weighted_r_squared": 0.002457147378674085,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 4,
+    "components": [
+      {
+        "bbox": [
+          179,
+          321,
+          469,
+          273
+        ],
+        "area_pixels": 24048
+      },
+      {
+        "bbox": [
+          685,
+          470,
+          40,
+          62
+        ],
+        "area_pixels": 1504
+      },
+      {
+        "bbox": [
+          997,
+          531,
+          58,
+          22
+        ],
+        "area_pixels": 99
+      },
+      {
+        "bbox": [
+          984,
+          516,
+          10,
+          10
+        ],
+        "area_pixels": 69
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 23201,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "SS",
+        "confidence": 83.993507,
+        "psm": 11,
+        "bbox": [
+          500,
+          126,
+          37,
+          12
+        ]
+      },
+      {
+        "text": "ffl",
+        "confidence": 72.751907,
+        "psm": 11,
+        "bbox": [
+          1073,
+          468,
+          20,
+          18
+        ]
+      },
+      {
+        "text": "SS",
+        "confidence": 86.114723,
+        "psm": 6,
+        "bbox": [
+          546,
+          268,
+          68,
+          27
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/rack-night/001/candidate-11/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/rack-night/001/candidate-11/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

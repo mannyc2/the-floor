@@ -1,0 +1,124 @@
+{
+  "candidate": "candidate-04",
+  "frame": "district-day",
+  "image_sha256": "40b8e77c1ee5b59a2762aa76fc51acfe89b8180c0df443486008bfb2fecb2abe",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 147,
+    "families": [
+      {
+        "dominant_degrees": 31.75,
+        "segments": 52,
+        "position_span_pixels": 555.9301066508917,
+        "fitted_angle_swing_degrees": 4.619999794786336,
+        "weighted_r_squared": 0.45564366600766426,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 7,
+        "position_span_pixels": 302.81957045794843,
+        "fitted_angle_swing_degrees": 0.511920054175188,
+        "weighted_r_squared": 0.6496994947492956,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 135.25,
+        "segments": 24,
+        "position_span_pixels": 502.1332876811308,
+        "fitted_angle_swing_degrees": 1.9951585959968097,
+        "weighted_r_squared": 0.05775509255712774,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 3,
+    "components": [
+      {
+        "bbox": [
+          724,
+          352,
+          351,
+          289
+        ],
+        "area_pixels": 32462
+      },
+      {
+        "bbox": [
+          917,
+          574,
+          27,
+          36
+        ],
+        "area_pixels": 530
+      },
+      {
+        "bbox": [
+          885,
+          440,
+          37,
+          37
+        ],
+        "area_pixels": 486
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 24825,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "A",
+        "confidence": 93.530296,
+        "psm": 6,
+        "bbox": [
+          252,
+          248,
+          44,
+          48
+        ]
+      },
+      {
+        "text": "UN",
+        "confidence": 76.108795,
+        "psm": 6,
+        "bbox": [
+          837,
+          217,
+          62,
+          46
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-04/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-04/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

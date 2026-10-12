@@ -1,0 +1,166 @@
+{
+  "candidate": "candidate-12",
+  "frame": "district-day",
+  "image_sha256": "88054eb6a1c5949bf3207716ce19a83506beb8ee10a45da243dd8c6b707675b3",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 112,
+    "families": [
+      {
+        "dominant_degrees": 30.75,
+        "segments": 37,
+        "position_span_pixels": 510.0241783069711,
+        "fitted_angle_swing_degrees": 1.5610463087527793,
+        "weighted_r_squared": 0.014440184959641167,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 7,
+        "position_span_pixels": 147.96037255770136,
+        "fitted_angle_swing_degrees": 4.100006973569368,
+        "weighted_r_squared": 0.6843008221797472,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 149.25,
+        "segments": 22,
+        "position_span_pixels": 705.4969751574473,
+        "fitted_angle_swing_degrees": 1.778828090951988,
+        "weighted_r_squared": 0.06375892073142941,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 4,
+    "components": [
+      {
+        "bbox": [
+          844,
+          453,
+          299,
+          295
+        ],
+        "area_pixels": 34665
+      },
+      {
+        "bbox": [
+          1009,
+          670,
+          11,
+          25
+        ],
+        "area_pixels": 220
+      },
+      {
+        "bbox": [
+          817,
+          649,
+          8,
+          17
+        ],
+        "area_pixels": 78
+      },
+      {
+        "bbox": [
+          863,
+          681,
+          9,
+          10
+        ],
+        "area_pixels": 58
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 28985,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "J",
+        "confidence": 93.897705,
+        "psm": 11,
+        "bbox": [
+          647,
+          819,
+          28,
+          82
+        ]
+      },
+      {
+        "text": "SY",
+        "confidence": 89.998573,
+        "psm": 11,
+        "bbox": [
+          738,
+          867,
+          41,
+          32
+        ]
+      },
+      {
+        "text": "op",
+        "confidence": 71.180313,
+        "psm": 11,
+        "bbox": [
+          1001,
+          978,
+          88,
+          74
+        ]
+      },
+      {
+        "text": "we",
+        "confidence": 81.817345,
+        "psm": 6,
+        "bbox": [
+          915,
+          392,
+          104,
+          44
+        ]
+      },
+      {
+        "text": "oA",
+        "confidence": 86.437363,
+        "psm": 6,
+        "bbox": [
+          980,
+          985,
+          111,
+          87
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-12/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-12/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

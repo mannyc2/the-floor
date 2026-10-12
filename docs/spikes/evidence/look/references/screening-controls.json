@@ -1,0 +1,122 @@
+{
+  "coefficient": 0.75,
+  "purpose": "Limited synthetic sanity controls; not validation on real reference-image geometry.",
+  "checks": {
+    "parallel_not_rejected": true,
+    "convergent_rejected": true,
+    "orange_counts_exact": true
+  },
+  "reports": {
+    "parallel": {
+      "status": "no_convergence_flag",
+      "long_segments": 87,
+      "families": [
+        {
+          "dominant_degrees": 20.75,
+          "segments": 63,
+          "position_span_pixels": 560.2116970218143,
+          "fitted_angle_swing_degrees": 0.01437528508913855,
+          "weighted_r_squared": 0.004274309516869468,
+          "convergence_flag": false
+        },
+        {
+          "dominant_degrees": 90.25,
+          "segments": 24,
+          "position_span_pixels": 853.8918714874351,
+          "fitted_angle_swing_degrees": 0.0,
+          "weighted_r_squared": 0.0,
+          "convergence_flag": false
+        }
+      ],
+      "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+    },
+    "convergent": {
+      "status": "rejected_by_heuristic",
+      "long_segments": 76,
+      "families": [
+        {
+          "dominant_degrees": 19.75,
+          "segments": 52,
+          "position_span_pixels": 488.91104176457134,
+          "fitted_angle_swing_degrees": 7.1006398034604,
+          "weighted_r_squared": 0.9962513998998428,
+          "convergence_flag": true
+        },
+        {
+          "dominant_degrees": 90.25,
+          "segments": 24,
+          "position_span_pixels": 853.8918714874351,
+          "fitted_angle_swing_degrees": 0.0,
+          "weighted_r_squared": 0.0,
+          "convergence_flag": false
+        }
+      ],
+      "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+    },
+    "orange-0": {
+      "count": 0,
+      "components": [],
+      "minimum_component_pixels": 29,
+      "raw_pixel_count": 0,
+      "lab_distance_threshold": 45,
+      "hue_degrees_maximum": 36,
+      "saturation_minimum": 0.6,
+      "closing_kernel_pixels": 7,
+      "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+      "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+    },
+    "orange-1": {
+      "count": 1,
+      "components": [
+        {
+          "bbox": [
+            100,
+            100,
+            201,
+            351
+          ],
+          "area_pixels": 70551
+        }
+      ],
+      "minimum_component_pixels": 29,
+      "raw_pixel_count": 70551,
+      "lab_distance_threshold": 45,
+      "hue_degrees_maximum": 36,
+      "saturation_minimum": 0.6,
+      "closing_kernel_pixels": 7,
+      "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+      "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+    },
+    "orange-2": {
+      "count": 2,
+      "components": [
+        {
+          "bbox": [
+            100,
+            100,
+            201,
+            351
+          ],
+          "area_pixels": 70551
+        },
+        {
+          "bbox": [
+            550,
+            100,
+            201,
+            351
+          ],
+          "area_pixels": 70551
+        }
+      ],
+      "minimum_component_pixels": 29,
+      "raw_pixel_count": 141102,
+      "lab_distance_threshold": 45,
+      "hue_degrees_maximum": 36,
+      "saturation_minimum": 0.6,
+      "closing_kernel_pixels": 7,
+      "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+      "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+    }
+  }
+}

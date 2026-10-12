@@ -1,0 +1,15 @@
+{
+  "frame": "district-night",
+  "candidate": "03",
+  "tool": "built-in image_gen.imagegen",
+  "input_reference_images": 0,
+  "prompt_sha256": "9ba643e228a6c9448f0192b7a00a14747e7276d1afbf942972a7e8ba9f13f50e",
+  "requested_at_utc": "2026-10-12T16:37:11.008Z",
+  "completed_at_utc": "2026-10-12T16:40:17.220Z",
+  "source_path": "/Users/chriscarroll/.codex/generated_images/01a13002-d54c-7f01-acc6-fb0fd36372d2/exec-c3cc8121-34e0-46ce-bf6c-43432fbce443.png",
+  "output_path": "docs/spikes/evidence/look/references/district-night/001/candidate-03.png",
+  "generation_seed": "unavailable: built-in tool exposes no seed",
+  "provider_model_version": "unavailable: built-in tool exposes no exact model revision",
+  "bytes": 2883639,
+  "sha256": "505b9928b4f2a8f1c17e3ae50e413703a0e8c338819ec626b69f4eb84b59f3c6"
+}

@@ -1,0 +1,84 @@
+{
+  "candidate": "candidate-01",
+  "frame": "rack-day",
+  "image_sha256": "eba8b38ed6d3305e828b2f8fa790e8ef79aebb81ca02c91153615379d5f62b42",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "perspective_convergence_heuristic",
+    "multiple_orange_components"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "rejected_by_heuristic",
+    "long_segments": 183,
+    "families": [
+      {
+        "dominant_degrees": 12.75,
+        "segments": 111,
+        "position_span_pixels": 941.4669235045664,
+        "fitted_angle_swing_degrees": 8.082725810652567,
+        "weighted_r_squared": 0.9451378256939634,
+        "convergence_flag": true
+      },
+      {
+        "dominant_degrees": 90.25,
+        "segments": 59,
+        "position_span_pixels": 800.3704253224391,
+        "fitted_angle_swing_degrees": 0.006698792847839374,
+        "weighted_r_squared": 9.953755559999333e-05,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 2,
+    "components": [
+      {
+        "bbox": [
+          282,
+          329,
+          506,
+          205
+        ],
+        "area_pixels": 40884
+      },
+      {
+        "bbox": [
+          687,
+          496,
+          20,
+          37
+        ],
+        "area_pixels": 217
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 35632,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/rack-day/001/candidate-01/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/rack-day/001/candidate-01/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}

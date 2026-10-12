@@ -1,0 +1,178 @@
+{
+  "candidate": "candidate-03",
+  "frame": "district-day",
+  "image_sha256": "b4e4563fe22d2a8165b88a38d82381ee4da0033fb06be29d6a6329943996914a",
+  "width": 1254,
+  "height": 1254,
+  "screening_status": "rejected_by_automatic_screen",
+  "reasons": [
+    "multiple_orange_components",
+    "ocr_glyph_detection"
+  ],
+  "nonopaque_pixels": 0,
+  "perspective": {
+    "status": "no_convergence_flag",
+    "long_segments": 245,
+    "families": [
+      {
+        "dominant_degrees": 45.25,
+        "segments": 47,
+        "position_span_pixels": 598.013163083368,
+        "fitted_angle_swing_degrees": 0.4148352480610962,
+        "weighted_r_squared": 0.0011602932628622664,
+        "convergence_flag": false
+      },
+      {
+        "dominant_degrees": 135.25,
+        "segments": 36,
+        "position_span_pixels": 510.12072599862745,
+        "fitted_angle_swing_degrees": 4.445622708969753,
+        "weighted_r_squared": 0.1306663679590654,
+        "convergence_flag": false
+      }
+    ],
+    "limit": "This estimates spatial change in edge angles, not camera calibration. Parallel-line confidence and perspective truth require Claude review; absence of a flag is not proof of orthographic projection."
+  },
+  "orange": {
+    "count": 5,
+    "components": [
+      {
+        "bbox": [
+          919,
+          623,
+          223,
+          229
+        ],
+        "area_pixels": 16356
+      },
+      {
+        "bbox": [
+          880,
+          660,
+          117,
+          114
+        ],
+        "area_pixels": 4372
+      },
+      {
+        "bbox": [
+          873,
+          790,
+          62,
+          61
+        ],
+        "area_pixels": 1069
+      },
+      {
+        "bbox": [
+          956,
+          616,
+          58,
+          150
+        ],
+        "area_pixels": 665
+      },
+      {
+        "bbox": [
+          527,
+          805,
+          12,
+          10
+        ],
+        "area_pixels": 54
+      }
+    ],
+    "minimum_component_pixels": 31,
+    "raw_pixel_count": 18084,
+    "lab_distance_threshold": 45,
+    "hue_degrees_maximum": 36,
+    "saturation_minimum": 0.6,
+    "closing_kernel_pixels": 7,
+    "palette_source": "Product starting accent values, used only for screening; no Part B tone selection.",
+    "limit": "Shade, occlusion and unrelated warm material can split or merge an apparent part. Count is a reproducible palette-mask heuristic, not semantic ownership of the accent."
+  },
+  "ocr": {
+    "flagged_tokens": [
+      {
+        "text": "Gy",
+        "confidence": 78.601059,
+        "psm": 11,
+        "bbox": [
+          644,
+          37,
+          42,
+          27
+        ]
+      },
+      {
+        "text": "A",
+        "confidence": 95.265884,
+        "psm": 11,
+        "bbox": [
+          377,
+          367,
+          19,
+          15
+        ]
+      },
+      {
+        "text": "OY",
+        "confidence": 72.910805,
+        "psm": 11,
+        "bbox": [
+          988,
+          423,
+          31,
+          21
+        ]
+      },
+      {
+        "text": "ly",
+        "confidence": 72.150597,
+        "psm": 11,
+        "bbox": [
+          593,
+          618,
+          52,
+          40
+        ]
+      },
+      {
+        "text": "Uj",
+        "confidence": 84.511421,
+        "psm": 11,
+        "bbox": [
+          581,
+          672,
+          62,
+          50
+        ]
+      },
+      {
+        "text": "A",
+        "confidence": 90.509933,
+        "psm": 11,
+        "bbox": [
+          181,
+          775,
+          26,
+          17
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "psm": 11,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-03/ocr-psm-11.tsv"
+      },
+      {
+        "psm": 6,
+        "tsv": "work/spikes/look/references/screening/district-day/001/candidate-03/ocr-psm-6.tsv"
+      }
+    ],
+    "confidence_threshold": 70,
+    "single_character_threshold": 90,
+    "limit": "OCR can confuse engraved marks or simple geometric emblems with glyphs. Flags are automatic exclusions for review, not verified transcription. Screen-frame captions are blank type strokes, so readable glyphs still need review."
+  },
+  "review": "Claude shortlist pending; this script makes no artistic approval."
+}
