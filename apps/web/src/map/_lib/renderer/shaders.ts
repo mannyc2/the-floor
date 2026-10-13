@@ -14,13 +14,19 @@ varying float entityId;
 void main() {
   vec4 point = vec4(position, 1.0);
   point.y += _ANIMATED * mix(_PREVIOUS, _NEXT, interpolation);
-  faceNormal = normalize(normalMatrix * normal);
+  vec3 transformedNormal = normal;
   surfaceId = _SURFACE;
   entityId = _ENTITY;
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
   #ifdef USE_INSTANCING
     point = instanceMatrix * point;
+    mat3 im = mat3(instanceMatrix);
+    transformedNormal /= vec3(dot(im[0], im[0]), dot(im[1], im[1]), dot(im[2], im[2]));
+    transformedNormal = im * transformedNormal;
   #endif
+  // Three's non-sheared instance normal transform followed by inverse view
+  // rotation keeps the face tones in the room when the camera quarter-turns.
+  faceNormal = normalize((vec4(normalMatrix * transformedNormal, 0.0) * viewMatrix).xyz);
   gl_Position = projectionMatrix * modelViewMatrix * point;
 }
 `;

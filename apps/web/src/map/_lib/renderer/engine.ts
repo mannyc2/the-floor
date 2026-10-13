@@ -1,6 +1,6 @@
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
-import type { Camera, Presentation, Theme } from "../../model";
+import type { Camera, Presentation, Rotation, Theme } from "../../model";
 import { createScene, names, slot, tokenColor } from "./scene";
 import { colorFragment, dataFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
 
@@ -24,7 +24,14 @@ function failForeign(operation: string, cause: unknown): never {
 function failInvariant(operation: string, detail: string): never {
   return raise(new RendererInvariant({ operation, detail }));
 }
-const DeskCount = Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 4090 }));
+// The 12-bit entity channel reserves ten identifiers for synthetic room parts.
+const DeskCount = Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 4085 }));
+const corners: Readonly<Record<Rotation, { readonly x: number; readonly z: number }>> = {
+  0: { x: 1, z: 1 },
+  1: { x: 1, z: -1 },
+  2: { x: -1, z: -1 },
+  3: { x: -1, z: 1 },
+};
 const decodeEntity = (bytes: Uint8Array) =>
   Math.floor(((bytes[0] ?? 0) + (bytes[1] ?? 0) * 256 + (bytes[2] ?? 0) * 65536) / 4096);
 
@@ -222,10 +229,13 @@ export const openEngine = (
         camera.top = view.extent / 2;
         camera.bottom = -camera.top;
         const target = new THREE.Vector3(view.x, 1, view.z);
+        const corner = corners[view.rotation];
+        const towardCamera = new THREE.Vector3(35.355339 * corner.x, 28.867513, 35.355339 * corner.z).normalize();
         camera.position.set(target.x, target.y, target.z).addScaledVector(
-          new THREE.Vector3(35.355339, 28.867513, 35.355339).normalize(),
+          towardCamera,
           250,
         );
+        data.cutaway(towardCamera);
         camera.lookAt(target);
         camera.updateProjectionMatrix();
         camera.updateMatrixWorld();
@@ -392,6 +402,11 @@ export const openEngine = (
         dpr: state.dpr,
         draws: state.drawCount,
         camera: state.camera,
+        cutaway: data.boundaries.map(boundary => ({
+          name: boundary.name,
+          id: boundary.id,
+          visible: boundary.mesh.visible && boundary.mesh.layers.test(camera.layers),
+        })),
         theme: state.theme,
         revision: state.revision,
         geometries: renderer.info.memory.geometries,

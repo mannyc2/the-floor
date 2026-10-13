@@ -33,6 +33,7 @@ export const readCaptureConfiguration = Effect.fn("Workbench.readCaptureConfigur
 export const captureCamera = (config: CaptureConfiguration): Camera => ({
   x: 0,
   z: 0,
+  rotation: 0,
   extent: config.rung === "building" ? config.desks > 12 ? 380 : 21 : config.rung === "floor" ? 12 : 7,
 });
 

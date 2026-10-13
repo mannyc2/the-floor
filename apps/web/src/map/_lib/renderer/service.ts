@@ -1,7 +1,7 @@
 import { Clock, Context, Effect, Exit, Layer, Option, Queue, Result, Schema, Scope, Stream } from "effect";
 import { Mount } from "foldkit";
 import { Message } from "../../message";
-import { type Camera, fault, type MapFault, Presentation } from "../../model";
+import { type Camera, fault, type MapFault, Presentation, type Turn } from "../../model";
 import { makeDisplayGate } from "../display-gate";
 import { makeSerialOwner } from "../serial-owner";
 import type { openCamera } from "./camera";
@@ -14,8 +14,13 @@ type MountMessage =
   | typeof Message.SelectedEntity.Type
   | typeof Message.RestedCamera.Type;
 interface RendererService {
-  readonly present: (presentation: Presentation, fromHistory?: boolean) => Effect.Effect<void, MapFault>;
+  readonly present: (
+    presentation: Presentation,
+    fromHistory?: boolean,
+    retainCamera?: boolean,
+  ) => Effect.Effect<void, MapFault>;
   readonly fly: (camera: Camera, follow: boolean) => Effect.Effect<void, MapFault>;
+  readonly rotate: (direction: Turn) => Effect.Effect<void, MapFault>;
   readonly pause: (paused: boolean) => Effect.Effect<void, MapFault>;
 }
 export interface Mounted {
@@ -79,7 +84,9 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
           applied: -1,
           paused: false,
           poisoned: false,
-          maybePending: Option.none<Presentation>(),
+          maybePending: Option.none<
+            { readonly presentation: Presentation; readonly cameraCommits: number; readonly retainCamera: boolean }
+          >(),
         };
         const camera = yield* Effect.acquireRelease(
           nativeCall("camera-open", () =>
@@ -117,10 +124,11 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
           failedNative(fault("renderer-callback", error));
         });
         const present = Effect.fn("Renderer.present")(
-          function*(presentation: Presentation, fromHistory: boolean = false) {
+          function*(presentation: Presentation, fromHistory: boolean = false, retainCamera: boolean = false) {
             if (frame.poisoned) return yield* fault("poisoned-display", "A failed frame requires a new Mount");
             if (frame.paused && !fromHistory) return yield* Effect.void;
             const sequence = ++frame.sequence;
+            const cameraCommits = camera.inspect().restCommits;
             const accepted = yield* gate.accept({
               generation,
               sequence,
@@ -129,16 +137,29 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
             });
             // Schema decoding owns the accepted value. Retaining the caller's
             // object would let later mutations change the next drawn frame.
-            if (accepted) frame.maybePending = Option.map((yield* gate.read).maybePending, value => value.presentation);
+            if (accepted) {
+              frame.maybePending = Option.map(
+                (yield* gate.read).maybePending,
+                value => ({ presentation: value.presentation, cameraCommits, retainCamera }),
+              );
+            }
             return yield* Effect.void;
           },
         );
         const pump = Effect.fnUntraced(function*() {
           if (frame.poisoned) return yield* Effect.void;
           if (Option.isSome(frame.maybePending) && !engine.inspect().lost) {
-            const presentation = frame.maybePending.value;
+            const pending = frame.maybePending.value;
             const result = yield* nativeCall("draw", () => {
-              engine.apply(presentation, frame.paused || !camera.busy());
+              // An accepted frame may precede a settled input. Apply its data,
+              // but only a camera accepted after that input may replace the view.
+              // Historical replay deliberately restores both regardless of input.
+              engine.apply(
+                pending.presentation,
+                frame.paused
+                  || (!pending.retainCamera && !camera.busy()
+                    && pending.cameraCommits === camera.inspect().restCommits),
+              );
               return engine.draw();
             });
             if (frame.poisoned || !result.drawn) return yield* Effect.void;
@@ -174,16 +195,21 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
           }),
           observer => Effect.sync(() => observer.disconnect()),
         );
-        yield* Stream.runForEach(Stream.fromQueue(changes), () =>
-          readRendered().pipe(Effect.catch(error => report(queue, error))))
+        yield* Stream.runForEach(
+          Stream.fromQueue(changes),
+          () => readRendered().pipe(Effect.catch(error => report(queue, error))),
+        )
           .pipe(Effect.forkScoped);
         const service: RendererService = {
           present,
+          rotate: direction =>
+            frame.poisoned
+              ? Effect.fail(fault("poisoned-display", "A failed frame requires a new Mount"))
+              : nativeCall("camera-rotation", () => camera.rotate(direction)),
           fly: (view, follow) =>
             frame.poisoned
               ? Effect.fail(fault("poisoned-display", "A failed frame requires a new Mount"))
-              : nativeCall("camera-flight", () =>
-                follow ? camera.follow(view) : camera.fly(view)),
+              : nativeCall("camera-flight", () => follow ? camera.follow(view) : camera.fly(view)),
           pause: Effect.fn("Renderer.pause")(function*(paused: boolean) {
             frame.paused = paused;
             yield* nativeCall("camera-pause", () => camera.pause(paused || frame.poisoned));
@@ -209,6 +235,7 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
 interface CommandService {
   readonly present: RendererService["present"];
   readonly fly: RendererService["fly"];
+  readonly rotate: RendererService["rotate"];
   readonly inspect: () => Option.Option<Mounted>;
   readonly inspectLedger: () => Option.Option<Ledger>;
   readonly mount: (options: MountOptions) => Effect.Effect<void, MapFault, Scope.Scope>;
@@ -250,8 +277,10 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
         yield* owner.replaceScoped(acquire(options), error => report(options.queue, error));
       });
       return MapCommands.of({
-        present: (presentation, fromHistory) => use(service => service.present(presentation, fromHistory)),
+        present: (presentation, fromHistory, retainCamera) =>
+          use(service => service.present(presentation, fromHistory, retainCamera)),
         fly: (camera, follow) => use(service => service.fly(camera, follow)),
+        rotate: direction => use(service => service.rotate(direction)),
         inspect: owner.current,
         inspectLedger: () => state.ledger,
         mount,

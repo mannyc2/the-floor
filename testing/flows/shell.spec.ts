@@ -11,7 +11,7 @@ test("the shell verifies its connection through the running Floor Worker", async
   await expect(page.getByRole("heading", { name: "The Floor", exact: true })).toBeVisible();
   await expect(page.getByRole("region", { name: "Trading floor" })).toBeVisible();
   await expect(page.locator("#floor-map canvas")).toBeVisible();
-  await expect(page.getByText("Synthetic renderer test scene — reference art pending")).toBeVisible();
+  await expect(page.getByText("Synthetic renderer test scene — geometry and palette unapproved")).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("Not checked");
   const response = page.waitForResponse(value =>
     new URL(value.url()).pathname === "/api/health" && value.request().method() === "GET"

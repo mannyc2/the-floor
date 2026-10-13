@@ -50,6 +50,7 @@ test("live A-B-A and real DevTools A-B-A reproduce raw frame bytes", async ({ pa
 test("Paused viewStateChanges rejects interaction and retains live acquisition", async ({ page }) => {
   await ready(page);
   await frameClick(page, "#frame-a");
+  const historical = await page.evaluate(() => window.floorTest.hash());
   const generation = await page.evaluate(() => window.floorTest.inspect().generation);
   const checkpoint = (await page.evaluate(() => window.floorTest.entries())).findLast(entry =>
     entry.tag.includes("ClickedFrameA")
@@ -59,6 +60,8 @@ test("Paused viewStateChanges rejects interaction and retains live acquisition",
   await page.locator("#frame-b").click();
   await page.evaluate(index => window.floorTest.jump(index), checkpoint.index);
   await expect.poll(() => page.evaluate(() => window.floorTest.inspect().paused)).toBe(true);
+  // Pausing input precedes the acknowledged historical draw by one frame.
+  await expect.poll(() => page.evaluate(() => window.floorTest.hash())).toBe(historical);
   const before = await page.evaluate(() => window.floorTest.hash());
   await page.mouse.move(450, 350);
   await page.mouse.down();
@@ -129,15 +132,28 @@ test("slow release stops dead and commits only the resting camera", async ({ pag
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 test("fast release glides and eventually stops", async ({ page }) => {
-  await ready(page);
+  // Own the clock before renderer acquisition so a slow GPU submission cannot
+  // turn the intended fast release into a stationary hold between mouse events.
+  await page.clock.install({ time: "2026-10-12T12:00:00Z" });
+  const before = await ready(page);
+  await page.clock.pauseAt("2026-10-12T13:00:00Z");
   await page.mouse.move(400, 400);
   await page.mouse.down();
+  await page.clock.runFor(16);
   await page.mouse.move(550, 400);
+  await page.clock.runFor(16);
   await page.mouse.up();
   const released = await page.evaluate(() => window.floorTest.inspect());
+  await page.clock.runFor(64);
+  const moving = await page.evaluate(() => window.floorTest.inspect());
+  await page.clock.runFor(3000);
+  const settled = await page.evaluate(() => window.floorTest.inspect());
+  await page.clock.resume();
   expect(released.gliding).toBe(true);
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().camera)).not.toEqual(released.camera);
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().gliding), { timeout: 3000 }).toBe(false);
+  expect(moving.camera).not.toEqual(released.camera);
+  expect(settled.gliding).toBe(false);
+  expect(settled.restCommits).toBe(before.restCommits + 1);
+  record("glide", { releaseIntervalMs: 16, motionObservationMs: 64, released, moving, settled });
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
@@ -196,7 +212,12 @@ test("flight has zoom-out arc and takes 600 to 1200 milliseconds", async ({ page
   record("flightElapsedMs", elapsed);
   expect(elapsed).toBeGreaterThanOrEqual(600);
   expect(elapsed).toBeLessThanOrEqual(1200);
-  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({ x: 4, z: -4, extent: 12 });
+  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({
+    x: 4,
+    z: -4,
+    extent: 12,
+    rotation: 0,
+  });
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
@@ -216,7 +237,7 @@ test("pointer input interrupts a flight and following stops on input", async ({ 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 test("Escape goes up one zoom rung through a flight", async ({ page }) => {
   await ready(page);
-  await page.evaluate(() => window.floorTest.setCamera({ x: 0, z: 0, extent: 7 }));
+  await page.evaluate(() => window.floorTest.setCamera({ x: 0, z: 0, extent: 7, rotation: 0 }));
   await page.locator("canvas").focus();
   await page.keyboard.press("Escape");
   await expect.poll(() => page.evaluate(() => window.floorTest.inspect().flying)).toBe(true);
@@ -241,7 +262,12 @@ test("URL back and forward retrace flights and reload restores resting camera", 
   expect(page.url()).toBe(target);
   await page.reload();
   await expect(page.locator("#status")).toContainText("SwiftShader");
-  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({ x: 4, z: -4, extent: 12 });
+  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({
+    x: 4,
+    z: -4,
+    extent: 12,
+    rotation: 0,
+  });
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
@@ -314,7 +340,7 @@ test("a submitted presentation owns its values before the next animation frame",
     const input = {
       revision: 77,
       theme: "day",
-      camera: { x: 2, z: -1, extent: 18 },
+      camera: { x: 2, z: -1, extent: 18, rotation: 0 },
       sampleTime: 0,
       playbackRate: 0,
       previousValue: 0,
@@ -327,5 +353,10 @@ test("a submitted presentation owns its values before the next animation frame",
     input.camera.extent = 999;
   });
   await expect.poll(() => page.evaluate(() => window.floorTest.inspect().revision)).toBe(77);
-  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({ x: 2, z: -1, extent: 18 });
+  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({
+    x: 2,
+    z: -1,
+    extent: 18,
+    rotation: 0,
+  });
 });

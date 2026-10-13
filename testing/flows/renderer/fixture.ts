@@ -81,7 +81,7 @@ export const stopDrag = async (page: Page) => {
 export const initial = {
   revision: 1,
   theme: "day",
-  camera: { x: 0, z: 0, extent: 21 },
+  camera: { x: 0, z: 0, extent: 21, rotation: 0 },
   sampleTime: 0,
   playbackRate: 0,
   previousValue: 0,

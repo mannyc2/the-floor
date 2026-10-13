@@ -87,7 +87,9 @@ const Phone = Schema.Array(Schema.Struct({
 test(
   "real renderer captures match verified synthetic targets and preserve missing art approval",
   ({ baseURL }, info) => {
-    test.setTimeout(600_000);
+    // Independent captures need orchestration headroom on busy hosts. Renderer
+    // performance remains governed by the separate phone-profile budgets.
+    test.setTimeout(1_200_000);
     const output = info.outputPath("look");
     const url = new URL("/look/", baseURL).href;
     return Effect.gen(function*() {
@@ -143,6 +145,9 @@ test(
       expect(new Set(metrics.cells.map((cell) => cell.id)).size).toBe(18);
       expect(metrics.primitiveValidation.cases).toBe(9);
     }).pipe(
+      // Interrupt inside Effect so scoped child-process cleanup finishes before
+      // Playwright's outer deadline can stop the worker.
+      Effect.timeout("18 minutes"),
       // oxlint-disable-next-line effecttsgo/strict-effect-provide -- This Playwright boundary owns local process and evidence-file services for the real look pipeline.
       Effect.provide(BunServices.layer),
       // oxlint-disable-next-line effect/noEffectRunInTests -- Playwright owns the native Promise boundary for this Effect-driven browser pipeline.

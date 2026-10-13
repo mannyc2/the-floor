@@ -1,12 +1,26 @@
 import { Schema } from "effect";
 
 export const EntityId = Schema.Int.check(Schema.isGreaterThan(0));
+export const Rotation = Schema.Literals([0, 1, 2, 3]);
+export type Rotation = typeof Rotation.Type;
+export const Turn = Schema.Literals(["left", "right"]);
+export type Turn = typeof Turn.Type;
 export const Camera = Schema.Struct({
   x: Schema.Finite,
   z: Schema.Finite,
   extent: Schema.Finite.check(Schema.isGreaterThan(0)),
+  rotation: Rotation,
 });
 export type Camera = typeof Camera.Type;
+// Old links predate rotation; their original corner remains the default. Invalid
+// rotations reject the whole view instead of silently pointing somewhere else.
+export const cameraFromQuery = (query: URLSearchParams) =>
+  Schema.decodeUnknownOption(Camera)({
+    x: Number(query.get("x")),
+    z: Number(query.get("z")),
+    extent: Number(query.get("extent")),
+    rotation: Number(query.get("rotation") ?? 0),
+  });
 export const Theme = Schema.Literals(["day", "night"]);
 export type Theme = typeof Theme.Type;
 export const Marker = Schema.Struct({ id: Schema.String, x: Schema.Finite, kind: Schema.Literals(["box", "sphere"]) });

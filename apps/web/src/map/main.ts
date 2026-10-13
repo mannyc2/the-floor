@@ -4,7 +4,7 @@ import { modifyFields } from "foldkit/struct";
 import { defineView } from "foldkit/submodel";
 import { makeMountMap, MapCommands } from "./_lib/renderer/service";
 import { Message } from "./message";
-import { Camera, EntityId, Presentation } from "./model";
+import { Camera, EntityId, Presentation, Turn } from "./model";
 
 export { MapCommands } from "./_lib/renderer/service";
 export { Message } from "./message";
@@ -25,7 +25,7 @@ export const initialModel = (desks: number, acquireDelay = 0, camera = Option.no
   presentation: {
     revision: 1,
     theme: "day",
-    camera: Option.getOrElse(camera, () => ({ x: 0, z: 0, extent: desks > 12 ? 380 : 21 })),
+    camera: Option.getOrElse(camera, () => ({ x: 0, z: 0, extent: desks > 12 ? 380 : 21, rotation: 0 })),
     sampleTime: 0,
     playbackRate: 0,
     previousValue: 0,
@@ -49,7 +49,7 @@ const Present = Command.define("Present", {
   execute: ({ presentation }) =>
     Effect.gen(function*() {
       const commands = yield* MapCommands;
-      yield* commands.present(presentation);
+      yield* commands.present(presentation, false, true);
       return Message.CompletedPresent();
     }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
 });
@@ -73,12 +73,23 @@ const SyncUrl = Command.define("SyncUrl", {
         url.searchParams.set("x", String(camera.x));
         url.searchParams.set("z", String(camera.z));
         url.searchParams.set("extent", String(camera.extent));
+        url.searchParams.set("rotation", String(camera.rotation));
         if (push) history.pushState({}, "", url);
         else history.replaceState({}, "", url);
         return Message.CompletedUrl();
       },
       catch: cause => Message.FailedMap({ reason: String(cause) }),
     }).pipe(Effect.catch(Effect.succeed)),
+});
+const Rotate = Command.define("Rotate", {
+  args: { direction: Turn },
+  messages: [Message.CompletedFlight, Message.FailedMap],
+  execute: ({ direction }) =>
+    Effect.gen(function*() {
+      const commands = yield* MapCommands;
+      yield* commands.rotate(direction);
+      return Message.CompletedFlight();
+    }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
 });
 const display = (model: Model, presentation: Presentation): Update.Return<Model, Message, MapCommands> => ({
   model: modifyFields(model, { presentation: () => presentation }),
@@ -112,7 +123,8 @@ export const update = (model: Model, message: Message) =>
           revision: n => n + 1,
         }),
       ),
-    ClickedFrameA: () => display(model, initialModel(model.desks).presentation),
+    ClickedFrameA: () =>
+      display(model, { ...initialModel(model.desks).presentation, camera: model.presentation.camera }),
     ClickedFrameB: () =>
       display(
         model,
@@ -123,8 +135,15 @@ export const update = (model: Model, message: Message) =>
           nextValue: () => .6,
         }),
       ),
-    ClickedFlight: () => ({ model, commands: [Fly({ camera: { x: 4, z: -4, extent: 12 }, follow: false })] }),
-    ClickedFollow: () => ({ model, commands: [Fly({ camera: { x: -4, z: -3, extent: 12 }, follow: true })] }),
+    ClickedFlight: () => ({
+      model,
+      commands: [Fly({ camera: { ...model.presentation.camera, x: 4, z: -4, extent: 12 }, follow: false })],
+    }),
+    ClickedFollow: () => ({
+      model,
+      commands: [Fly({ camera: { ...model.presentation.camera, x: -4, z: -3, extent: 12 }, follow: true })],
+    }),
+    ClickedRotate: ({ direction }) => ({ model, commands: [Rotate({ direction })] }),
     CompletedPresent: () => ({ model }),
     CompletedFlight: () => ({ model }),
     CompletedUrl: () => ({ model }),
@@ -139,7 +158,19 @@ export const makeView = (commands: MapCommands["Service"], diagnostics = false) 
   const MountMap = makeMountMap(commands);
   return defineView<Model, Message>((model, h) =>
     h.section([h.Class("map-shell"), h.AriaLabel("Trading floor")], [
-      h.p([h.Class("synthetic-label")], ["Synthetic desk scene — visual references await the owner's selection."]),
+      h.p([h.Class("synthetic-label")], ["Synthetic desk scene — unapproved geometry and palette."]),
+      h.div([h.Class("camera-rotation"), h.AriaLabel("Camera rotation")], [
+        h.button([
+          h.Id("rotate-left"),
+          h.Disabled(model.generation === 0 || !model.visible),
+          h.OnClick(Message.ClickedRotate({ direction: "left" })),
+        ], ["Rotate left"]),
+        h.button([
+          h.Id("rotate-right"),
+          h.Disabled(model.generation === 0 || !model.visible),
+          h.OnClick(Message.ClickedRotate({ direction: "right" })),
+        ], ["Rotate right"]),
+      ]),
       ...model.order.filter(key => key !== "map" || model.visible).map(key =>
         key === "map"
           ? h.keyed("div")(key, [

@@ -6,13 +6,13 @@ import { makeDisplayGate } from "../src/map/_lib/display-gate";
 import { makeLeasePool, scopedForeignValue } from "../src/map/_lib/lease-pool";
 import { makeSerialOwner } from "../src/map/_lib/serial-owner";
 import { makeTransactionalHost, type Resource } from "../src/map/_lib/transactional-host";
-import { fault, type Marker, type Presentation } from "../src/map/model";
+import { cameraFromQuery, fault, type Marker, type Presentation } from "../src/map/model";
 import { effectTest } from "./_runtime";
 
 const presentation: Presentation = {
   revision: 8,
   theme: "day",
-  camera: { x: 0, z: 0, extent: 21 },
+  camera: { x: 0, z: 0, extent: 21, rotation: 0 },
   sampleTime: 0,
   playbackRate: 0,
   previousValue: 0,
@@ -26,6 +26,27 @@ const envelope = (sequence: number, revision = sequence, generation = 1) => ({
   presentation: { ...presentation, revision },
 });
 const key = { url: "asset:desk", sha256: "a".repeat(64) };
+
+describe("Camera URL boundary", () => {
+  effectTest(
+    "legacy links retain their original corner and invalid rotations reject the view",
+    () =>
+      Effect.sync(() => {
+        expect(cameraFromQuery(new URLSearchParams("x=2&z=-1&extent=18"))).toEqual(
+          Option.some({ x: 2, z: -1, extent: 18, rotation: 0 }),
+        );
+        expect(cameraFromQuery(new URLSearchParams("x=2&z=-1&extent=18&rotation=3"))).toEqual(
+          Option.some({ x: 2, z: -1, extent: 18, rotation: 3 }),
+        );
+        for (const rotation of ["-1", "4", "1.5", "NaN", "Infinity", "east"]) {
+          expect(Option.isNone(cameraFromQuery(new URLSearchParams(`x=2&z=-1&extent=18&rotation=${rotation}`)))).toBe(
+            true,
+          );
+        }
+        expect(Option.isNone(cameraFromQuery(new URLSearchParams("rotation=3")))).toBe(true);
+      }),
+  );
+});
 
 describe("Display protocol", () => {
   effectTest("A-B-A uses display order, not revision order", () =>

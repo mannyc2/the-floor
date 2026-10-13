@@ -111,7 +111,7 @@ export const partialAcquisitionProbe = Effect.fn("Workbench.partialAcquisition")
       openEngine(host, 12, {
         revision: 1,
         theme: "day",
-        camera: { x: 0, z: 0, extent: -1 },
+        camera: { x: 0, z: 0, extent: -1, rotation: 0 },
         sampleTime: 0,
         playbackRate: 0,
         intervalStart: 0,

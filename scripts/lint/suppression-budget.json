@@ -207,6 +207,10 @@
     "oxlint": 2,
     "effect": 4
   },
+  "testing/flows/renderer/playwright.config.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
   "testing/flows/renderer/quarantine.spec.ts": {
     "oxlint": 2,
     "effect": 2
@@ -214,6 +218,10 @@
   "testing/flows/renderer/reconciliation.spec.ts": {
     "oxlint": 1,
     "effect": 2
+  },
+  "testing/flows/renderer/rotation.spec.ts": {
+    "oxlint": 1,
+    "effect": 7
   },
   "testing/flows/shell.spec.ts": {
     "oxlint": 1,

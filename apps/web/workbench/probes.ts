@@ -29,6 +29,7 @@ const createDiagnostics = (engine: Engine) => {
     }
     return {
       id: entity.id,
+      mesh: entity.mesh,
       inverse: matrix.clone().invert(),
       matrix,
       bounds: (entity.mesh.geometry.boundingBox?.clone() ?? new THREE.Box3()).applyMatrix4(matrix),
@@ -46,7 +47,10 @@ const createDiagnostics = (engine: Engine) => {
     );
     const ray = raycaster.ray, closest = { distance: Infinity, id: 0 };
     objects.forEach(object => {
-      if (!object.tree || !ray.intersectsBox(object.bounds)) return;
+      if (
+        !object.mesh.visible || !object.mesh.layers.test(data.camera.layers) || !object.tree
+        || !ray.intersectsBox(object.bounds)
+      ) return;
       localRay.copy(ray).applyMatrix4(object.inverse);
       const hit = object.tree.raycastFirst(localRay, THREE.FrontSide);
       if (hit) {

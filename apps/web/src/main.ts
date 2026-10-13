@@ -76,7 +76,7 @@ export const makeView = (commands: MapCommands["Service"]) => {
     body: h.main([h.Class("floor-shell")], [
       h.header([h.Class("floor-heading")], [
         h.h1([], ["The Floor"]),
-        h.p([], ["Synthetic renderer test scene — reference art pending"]),
+        h.p([], ["Synthetic renderer test scene — geometry and palette unapproved"]),
       ]),
       h.div([h.Id("floor-map")], [h.submodel({
         slotId: "map",

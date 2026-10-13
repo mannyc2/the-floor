@@ -1,6 +1,6 @@
 import { Schema } from "effect";
 import { defineMessageUnion } from "foldkit/message";
-import { Camera, EntityId } from "./model";
+import { Camera, EntityId, Turn } from "./model";
 export const Message = defineMessageUnion({
   SucceededMountMap: { generation: Schema.Int, renderer: Schema.String },
   FailedMap: { reason: Schema.String },
@@ -14,6 +14,7 @@ export const Message = defineMessageUnion({
   ClickedFrameB: {},
   ClickedFlight: {},
   ClickedFollow: {},
+  ClickedRotate: { direction: Turn },
   CompletedPresent: {},
   CompletedFlight: {},
   CompletedUrl: {},

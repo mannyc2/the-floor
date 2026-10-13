@@ -1,11 +1,11 @@
 import { BrowserRuntime } from "@effect/platform-browser";
-import { Cause, Context, Effect, Layer, Option, Schema } from "effect";
+import { Cause, Context, Effect, Layer, Option } from "effect";
 import { Runtime } from "foldkit";
 import { __setDevToolsOverlay as setDevToolsOverlay, type DevToolsStore } from "foldkit/devtools-host";
 import type { HtmlBuilder } from "foldkit/html";
 import { AdapterState } from "../../../testing/look/protocol";
 import { initialModel, makeView, MapCommands, Message, Model, update } from "../src/map/main";
-import { Camera } from "../src/map/model";
+import { cameraFromQuery } from "../src/map/model";
 import { makeWorkbenchApi } from "./api";
 import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
 import { WorkbenchFailure } from "./runtime";
@@ -30,11 +30,7 @@ const run = Effect.gen(function*() {
       () => new WorkbenchFailure({ operation: "devtools-store", cause: "DevTools has not initialized" }),
     );
   window.floorTest = makeWorkbenchApi(commands, store, runPromise);
-  const requestedCamera = yield* Schema.decodeEffect(Camera)({
-    x: Number(query.get("x")),
-    z: Number(query.get("z")),
-    extent: Number(query.get("extent")),
-  }).pipe(Effect.option);
+  const requestedCamera = cameraFromQuery(query);
   const delay = Number(query.get("delay") ?? 0);
   const desks = Option.isSome(config) ? config.value.desks : query.get("desks") === "1000" ? 1000 : 12;
   const initial = initialModel(

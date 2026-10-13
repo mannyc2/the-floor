@@ -14,7 +14,10 @@ const p95 = (values: ReadonlyArray<number>) => values.toSorted((a, b) => a - b)[
             await page.locator("#theme").click();
             await expect.poll(() => page.evaluate(() => window.floorTest.inspect().theme)).toBe("night");
           }
-          await page.evaluate(size => window.floorTest.setCamera({ x: -23.8, z: 43.2, extent: size }), extent);
+          await page.evaluate(
+            size => window.floorTest.setCamera({ x: -23.8, z: 43.2, extent: size, rotation: 0 }),
+            extent,
+          );
           // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
           const hashes = await page.evaluate(async () => {
             const draws: Array<string> = [];
@@ -102,7 +105,9 @@ test.describe("Phone profile", () => {
       asyncP95Ms: p95(result.asynchronous),
     });
     expect(result.info.targetBytes).toBe(47399040);
-    expect(result.info.calls).toBe(17);
+    // Two retained room walls each add a color and an ID draw; the near walls
+    // and ceiling remain absent from both passes.
+    expect(result.info.calls).toBe(21);
     // Submission time is recorded, not equated to GPU completion or a real phone.
     expect(result.frames.every(Number.isFinite)).toBe(true);
   });
@@ -110,11 +115,15 @@ test.describe("Phone profile", () => {
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 test("GPU interpolation advances without repeated attribute uploads", async ({ page }) => {
+  // Own both the monotonic clock and RAF before the renderer captures them.
+  // Wall-clock polling can miss the entire 250 ms interval under GPU load.
+  await page.clock.install({ time: "2026-10-12T12:00:00Z" });
   await ready(page);
+  await page.clock.pauseAt("2026-10-12T13:00:00Z");
   const frame: Presentation = {
     revision: 2,
     theme: "day",
-    camera: { x: 0, z: 0, extent: 21 },
+    camera: { x: 0, z: 0, extent: 21, rotation: 0 },
     sampleTime: 0,
     playbackRate: 1,
     previousValue: 0,
@@ -122,13 +131,20 @@ test("GPU interpolation advances without repeated attribute uploads", async ({ p
     intervalStart: 0,
   };
   await page.evaluate(presentation => window.floorTest.present(presentation), frame);
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().interpolation)).toBeGreaterThan(.05);
+  await page.clock.runFor(64);
   const before = await page.evaluate(() => window.floorTest.inspect());
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().interpolation)).toBeGreaterThan(
-    before.interpolation,
-  );
+  const beforeHash = await page.evaluate(() => window.floorTest.hash());
+  await page.clock.runFor(64);
   const after = await page.evaluate(() => window.floorTest.inspect());
+  const afterHash = await page.evaluate(() => window.floorTest.hash());
+  await page.clock.resume();
+  expect(before.revision).toBe(frame.revision);
+  expect(before.interpolation).toBeGreaterThan(.05);
+  expect(before.interpolation).toBeLessThan(1);
   expect(after.interpolation).toBeGreaterThan(before.interpolation);
+  expect(after.interpolation - before.interpolation).toBeCloseTo(64 / 250, 5);
+  expect(after.interpolation).toBeLessThan(1);
+  expect(afterHash).not.toBe(beforeHash);
   expect(after.cumulativeUploadCalls).toBe(before.cumulativeUploadCalls);
   expect(after.cumulativeUploadArrayBytes).toBe(before.cumulativeUploadArrayBytes);
   expect(after.uploadCalls).toBe(0);
@@ -136,6 +152,9 @@ test("GPU interpolation advances without repeated attribute uploads", async ({ p
   record("interpolation", {
     before,
     after,
+    beforeHash,
+    afterHash,
+    elapsedBrowserMs: 64,
     mechanism: "one global interpolation uniform; per-instance previous/next attributes",
   });
 });

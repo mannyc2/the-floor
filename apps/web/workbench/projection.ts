@@ -25,7 +25,7 @@ const projectMeshes = Effect.fn("Workbench.projectMeshes")(
     yield* Effect.addFinalizer(() => Effect.sync(() => transformed.forEach((geometry) => geometry.dispose())));
     const view = new THREE.Matrix4().makeRotationX(-Math.PI / 2).multiply(camera.matrixWorldInverse);
     for (const mesh of meshes) {
-      if (!mesh.visible) continue;
+      if (!mesh.visible || !mesh.layers.test(camera.layers)) continue;
       const originalGeometry: THREE.BufferGeometry = mesh.geometry;
       const count = mesh instanceof THREE.InstancedMesh ? mesh.count : 1;
       for (let index = 0; index < count; index += 1) {

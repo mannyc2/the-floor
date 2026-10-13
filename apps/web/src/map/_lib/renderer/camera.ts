@@ -1,5 +1,5 @@
 import { Option, Result } from "effect";
-import type { Camera } from "../../model";
+import { type Camera, cameraFromQuery, type Rotation, type Turn } from "../../model";
 import { type Engine, listen, RendererFailure } from "./engine";
 
 type Point = { readonly x: number; readonly y: number };
@@ -22,6 +22,8 @@ interface Flight {
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 export const cameraRungs = { building: 21, floor: 12, desk: 7 };
 const limitedExtent = (extent: number) => Math.max(4, Math.min(1200, extent));
+const rightTurn: Readonly<Record<Rotation, Rotation>> = { 0: 1, 1: 2, 2: 3, 3: 0 };
+const leftTurn: Readonly<Record<Rotation, Rotation>> = { 0: 3, 1: 0, 2: 1, 3: 2 };
 
 export const openCamera = (
   engine: Engine,
@@ -95,12 +97,12 @@ export const openCamera = (
     return excess === 0 ? value : Math.sign(value) * (bound + 12 * Math.tanh(excess / 12));
   };
   const place = (view: Camera) =>
-    engine.setCamera({ x: soft(view.x), z: soft(view.z), extent: limitedExtent(view.extent) });
+    engine.setCamera({ ...view, x: soft(view.x), z: soft(view.z), extent: limitedExtent(view.extent) });
   const anchor = (point: Point, ground: Ground, extent: number) => {
     const view = read();
-    engine.setCamera({ x: view.x, z: view.z, extent: limitedExtent(extent) });
+    engine.setCamera({ ...view, extent: limitedExtent(extent) });
     const under = engine.groundAt(point.x, point.y);
-    place({ x: view.x + ground.x - under.x, z: view.z + ground.z - under.z, extent: limitedExtent(extent) });
+    place({ ...view, x: view.x + ground.x - under.x, z: view.z + ground.z - under.z, extent: limitedExtent(extent) });
   };
   const zoom = (point: Point, factor: number) => {
     if (state.paused) return;
@@ -120,6 +122,24 @@ export const openCamera = (
       duration: Math.max(600, Math.min(1200, duration)),
       history,
     });
+  };
+  const rotate = (direction: Turn) => {
+    if (state.paused) return;
+    stop();
+    // A turn ends the active gesture. Retaining its ground anchor after the
+    // basis changes would jump back to the old view on the next pointer move.
+    pointers.forEach((_, id) => {
+      if (engine.canvas.hasPointerCapture(id)) engine.canvas.releasePointerCapture(id);
+    });
+    pointers.clear();
+    state.maybeDrag = Option.none();
+    state.maybePinch = Option.none();
+    state.maybeTap = Option.none();
+    state.multiple = false;
+    const view = read();
+    engine.setCamera({ ...view, rotation: (direction === "right" ? rightTurn : leftTurn)[view.rotation] });
+    engine.draw();
+    rest();
   };
   const up = () =>
     fly({
@@ -254,7 +274,7 @@ export const openCamera = (
         const before = engine.groundAt(point.x, point.y);
         const after = engine.groundAt(point.x + event.deltaX, point.y + event.deltaY);
         const view = read();
-        place({ x: view.x + after.x - before.x, z: view.z + after.z - before.z, extent: view.extent });
+        place({ ...view, x: view.x + after.x - before.x, z: view.z + after.z - before.z });
         engine.draw();
         rest();
       } else zoom(point, Math.exp(event.deltaY * .0015));
@@ -266,6 +286,13 @@ export const openCamera = (
     listenInput("keydown", event => {
       if (!state.paused) {
         stop();
+        if (
+          !event.altKey && !event.ctrlKey && !event.metaKey
+          && (event.key.toLowerCase() === "q" || event.key.toLowerCase() === "e")
+        ) {
+          event.preventDefault();
+          if (!event.repeat) rotate(event.key.toLowerCase() === "q" ? "left" : "right");
+        }
         if (event.key === "Escape") {
           event.preventDefault();
           up();
@@ -275,11 +302,8 @@ export const openCamera = (
   ];
   const pop = () =>
     guard(() => {
-      const query = new URL(location.href).searchParams;
-      const x = Number(query.get("x"));
-      const z = Number(query.get("z"));
-      const extent = Number(query.get("extent"));
-      if ([x, z, extent].every(Number.isFinite) && extent > 0) fly({ x, z, extent }, false);
+      const camera = cameraFromQuery(new URL(location.href).searchParams);
+      if (Option.isSome(camera)) fly(camera.value, false);
     });
   window.addEventListener("popstate", pop);
   engine.ledger.listeners++;
@@ -290,6 +314,7 @@ export const openCamera = (
       const t = Math.min(1, (nowMonotonicMs() - flight.start) / flight.duration);
       const ease = t * t * (3 - 2 * t);
       engine.setCamera({
+        rotation: flight.to.rotation,
         x: lerp(flight.from.x, flight.to.x, ease),
         z: lerp(flight.from.z, flight.to.z, ease),
         extent: lerp(flight.from.extent, flight.to.extent, ease)
@@ -305,7 +330,7 @@ export const openCamera = (
       const dt = Math.min(50, nowMonotonicMs() - glide.at);
       glide.at = nowMonotonicMs();
       const view = read();
-      place({ x: view.x + glide.velocity.x * dt, z: view.z + glide.velocity.z * dt, extent: view.extent });
+      place({ ...view, x: view.x + glide.velocity.x * dt, z: view.z + glide.velocity.z * dt });
       const damping = Math.exp(-dt / 140);
       glide.velocity = { x: glide.velocity.x * damping, z: glide.velocity.z * damping };
       if (Math.hypot(glide.velocity.x, glide.velocity.z) < view.extent / 100000) {
@@ -317,6 +342,7 @@ export const openCamera = (
   };
   return {
     fly,
+    rotate,
     tick,
     up,
     follow: (camera: Camera) => {

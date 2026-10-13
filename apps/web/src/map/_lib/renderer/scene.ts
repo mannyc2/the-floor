@@ -41,6 +41,12 @@ export interface Entity {
   readonly mesh: THREE.Mesh;
   readonly maybeInstance: Option.Option<number>;
 }
+interface Boundary {
+  readonly name: string;
+  readonly id: number;
+  readonly mesh: THREE.Mesh;
+  readonly outward: THREE.Vector3;
+}
 
 const joined = (parts: Array<THREE.BufferGeometry>) => {
   // Every part has the same scalar attributes and all callers provide geometry.
@@ -54,6 +60,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   const geometries: Array<THREE.BufferGeometry> = [];
   const meshes: Array<THREE.Mesh> = [];
   const entities: Array<Entity> = [];
+  const boundaries: Array<Boundary> = [];
   const scene = new THREE.Scene();
   scene.name = "synthetic-unapproved-desk-scene";
   const kitUnit = 1;
@@ -103,6 +110,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     geometries.push(geometry);
     entities.push({ id, mesh, maybeInstance: Option.none() });
     scene.add(mesh);
+    return mesh;
   };
   const desk = (variant: number) =>
     joined([
@@ -117,7 +125,13 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     ]);
   const columns = config.desks > 12 ? 32 : 6;
   const rows = Math.ceil(config.desks / columns);
-  add("synthetic-floor", 1, box(Math.max(18, columns * 2.8), .25, Math.max(15, rows * 2.7), 0, -.15, 0, 4));
+  const width = Math.max(18, columns * 2.8);
+  // The large synthetic field's row placement is intentionally stable for its
+  // measured frontmost leg. Include the chair overhang when enclosing it.
+  const depth = config.desks > 12
+    ? Math.max(15, 2 * (Math.max(15 * 2.7 + .9, (rows - 16) * 2.7 + 1.46) + .5))
+    : 15;
+  add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
   Array.from({ length: 3 }, (_variantValue, variant) => {
     const geometry = desk(variant);
     const count = Math.floor((config.desks + 2 - variant) / 3);
@@ -157,6 +171,17 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   add("synthetic-primitive-box", gaugeId + 2, box(.7, 1.1, .7, 2.8, .6, -2));
   add("synthetic-primitive-sphere", gaugeId + 3, part(new THREE.SphereGeometry(.5, 16, 8), 5, -2.4, .55, -1.8));
 
+  // The complete shell is synthetic verification geometry. All five authored
+  // surfaces exist; camera-facing ones are omitted from every render pass.
+  const boundary = (name: string, id: number, geometry: THREE.BufferGeometry, outward: THREE.Vector3) => {
+    boundaries.push({ name, id, mesh: add(`synthetic-${name}`, id, geometry), outward });
+  };
+  boundary("wall-east", gaugeId + 4, box(.2, 7, depth, width / 2, 3.5, 0, 6), new THREE.Vector3(1, 0, 0));
+  boundary("wall-west", gaugeId + 5, box(.2, 7, depth, -width / 2, 3.5, 0, 6), new THREE.Vector3(-1, 0, 0));
+  boundary("wall-south", gaugeId + 6, box(width, 7, .2, 0, 3.5, depth / 2, 6), new THREE.Vector3(0, 0, 1));
+  boundary("wall-north", gaugeId + 7, box(width, 7, .2, 0, 3.5, -depth / 2, 6), new THREE.Vector3(0, 0, -1));
+  boundary("ceiling", gaugeId + 8, box(width, .2, depth, 0, 7, 0, 7), new THREE.Vector3(0, 1, 0));
+
   meshes.forEach(mesh => {
     const instanceCount = mesh instanceof THREE.InstancedMesh
       ? mesh.count
@@ -183,6 +208,14 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     meshes,
     geometries,
     entities,
+    boundaries,
+    cutaway: (towardCamera: THREE.Vector3) => {
+      // Camera masking must not overwrite authored visibility or workbench asset
+      // isolation when a later resize reapplies the resting camera.
+      boundaries.forEach(partition => {
+        partition.mesh.layers.set(partition.outward.dot(towardCamera) <= 0 ? 0 : 1);
+      });
+    },
     gaugeId,
     syntheticCylinder: { center: { x: -3.5, y: 1.15, z: -3.5 }, radius: .52, height: 1.45 },
   };

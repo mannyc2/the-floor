@@ -5,18 +5,22 @@ test.use({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 test("phone touch grabs within one pixel without scrolling the page", async ({ page }) => {
   await ready(page);
-  const cdp = await page.context().newCDPSession(page);
-  const anchor = await page.evaluate(() => window.floorTest.ground(190, 450));
-  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: 190, y: 450, id: 1 }] });
-  await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: 250, y: 530, id: 1 }] });
-  const point = await page.evaluate(groundPoint => window.floorTest.project(groundPoint.x, 0, groundPoint.z), anchor);
-  const error = Math.hypot(point.x - 250, point.y - 530);
-  record("grabErrorCssPx", error);
-  expect(error).toBeLessThan(1);
-  expect(await page.evaluate(() => ({ x: scrollX, y: scrollY }))).toEqual({ x: 0, y: 0 });
-  // oxlint-disable-next-line effect/noFixedWaitInTests -- A stationary touch hold is the input that distinguishes slow release from a fling.
-  await page.waitForTimeout(120);
-  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  for (const rotation of [1, 2, 3, 0]) {
+    await page.getByRole("button", { name: "Rotate right", exact: true }).tap();
+    await expect.poll(() => page.evaluate(() => window.floorTest.inspect().camera.rotation)).toBe(rotation);
+    const cdp = await page.context().newCDPSession(page);
+    const anchor = await page.evaluate(() => window.floorTest.ground(190, 450));
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: 190, y: 450, id: 1 }] });
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: 250, y: 530, id: 1 }] });
+    const point = await page.evaluate(groundPoint => window.floorTest.project(groundPoint.x, 0, groundPoint.z), anchor);
+    const error = Math.hypot(point.x - 250, point.y - 530);
+    record("grabErrorCssPx", error);
+    expect(error).toBeLessThan(1);
+    expect(await page.evaluate(() => ({ x: scrollX, y: scrollY }))).toEqual({ x: 0, y: 0 });
+    // oxlint-disable-next-line effect/noFixedWaitInTests -- A stationary touch hold is the input that distinguishes slow release from a fling.
+    await page.waitForTimeout(120);
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  }
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
@@ -58,7 +62,7 @@ test("phone double-tap zooms toward the tapped ground point", async ({ page }) =
 test("two-finger tap goes up a zoom rung", async ({ page }) => {
   await ready(page);
   const cdp = await page.context().newCDPSession(page);
-  await page.evaluate(() => window.floorTest.setCamera({ x: 0, z: 0, extent: 7 }));
+  await page.evaluate(() => window.floorTest.setCamera({ x: 0, z: 0, extent: 7, rotation: 0 }));
   await cdp.send("Input.dispatchTouchEvent", {
     type: "touchStart",
     touchPoints: [{ x: 155, y: 450, id: 1 }, { x: 235, y: 450, id: 2 }],
