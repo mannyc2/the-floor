@@ -11,7 +11,7 @@ Deployables live under `apps/`; code shared by at least two apps, or isolated by
 | `packages/api` | HTTP/RPC definitions from contract Schemas |
 | `packages/chains` | Chain, venue and launchpad adapters shared by floor and signer |
 | `packages/wallets` | Wallet provider service shared by floor and signer |
-| `packages/world` | *Planned.* World model: desks, plots, layout, and the piece kit's types and checks; no three.js |
+| `packages/world` | World model: desks, plots, layout, and the piece kit's types and checks; no three.js |
 | `packages/atlas` | *Planned.* Tokens, materials, look, camera, motion, scales, proportions, chrome and asset/scene Schemas; no three.js |
 | `assets` | *Planned.* Asset sources and manifests, including reproducible generated models |
 | `testing` | Flows, look scenes, approved reference frames, bench, recordings and fixtures |

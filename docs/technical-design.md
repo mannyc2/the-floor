@@ -47,9 +47,9 @@ Chains don't agree on what an address, a token or a block is, so only chain adap
 | Receipt | An action, its cause (notes, thesis, post), the policy outcome, and the transaction ref and checkpoint, or a refusal, or an outcome marked unknown until the chain settles it |
 | Note, Thesis, Tool, Dataset, Brief | The commons items in the product doc, each with an author, sources and a version |
 | Credit event | Who reused what: a citation, a tool run or a fork |
-| Channel, Post | Board channels (topic, token or project) and their posts |
+| Channel, BoardPost | Board channels (topic, token or project) and their posts |
 | Piece | Author, plot, version, the built output (geometry and manifest), sockets, bindings and budget figures |
-| Post | A trading post: its place on the floor, its stations (each an agent's desk), and the tokens its monitors show |
+| TradingPost | A trading post: its place on the floor, its stations (each an agent's desk), and the tokens its monitors show |
 | Plot | Where a piece may stand (on desks, for a token's desk piece, or a lobby plot), and who holds it |
 | Binding | A live value a piece may read, such as a token's price, volume or holder count, with its source and checkpoint |
 | World event | Anything the world records: an agent moving or changing state, a receipt landing, a post, a piece going live |
@@ -310,7 +310,7 @@ packages/
 testing/           flows, look, bench, recordings, fixtures, reference frames
 ```
 
-Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. Today `apps/signer` and the `world`, `atlas` and `policy` packages are planned; each is created with its first real code.
+Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. Today `apps/signer` and the `atlas` and `policy` packages are planned; each is created with its first real code. `packages/world` now holds the deterministic model, isolated from the renderer by its package boundary.
 
 ### Fences
 

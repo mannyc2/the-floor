@@ -1,3 +1,4 @@
+import { Address, Signature as EvmSignature } from "@floor/chains/evm/validation";
 import { Context, Effect, Layer, Redacted, Schema } from "effect";
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http";
 import { P256 } from "./authorization";
@@ -46,14 +47,14 @@ export const PolicyInput = Schema.Struct({
 const Created = Schema.Struct({ id: Id });
 const Wallet = Schema.Struct({
   id: Id,
-  address: Schema.String.check(Schema.isPattern(/^0x[0-9a-fA-F]{40}$/)),
+  address: Address,
   chain_type: Schema.Literal("ethereum"),
   owner_id: Id,
 });
 const Signed = Schema.Struct({
   method: Schema.Literal("personal_sign"),
   data: Schema.Struct({
-    signature: Schema.String.check(Schema.isPattern(/^0x[0-9a-fA-F]{130}$/)),
+    signature: EvmSignature,
     encoding: Schema.Literal("hex"),
   }),
 });

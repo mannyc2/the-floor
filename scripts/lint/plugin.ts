@@ -1,5 +1,6 @@
 import { Array, Effect, Option, Path, Schema } from "effect";
 import { Diagnostic, type ESTree, Plugin, Rule, RuleContext, Visitor } from "effect-oxlint";
+import { chainNeutralSchemas } from "./chain-neutral-schemas";
 import { isTestingPath as testingPath } from "./paths";
 import { hasVisualLiteral } from "./visual-values";
 
@@ -303,6 +304,7 @@ export default Plugin.define({
   name: "floor",
   rules: {
     "contract-isolation": contractIsolation,
+    "chain-neutral-schemas": chainNeutralSchemas,
     "app-isolation": appIsolation,
     "feature-isolation": featureIsolation,
     "signer-isolation": signerIsolation,

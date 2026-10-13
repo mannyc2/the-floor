@@ -62,6 +62,14 @@ The decisions that stand, and why. Where this log and a doc disagree, the log wi
 | 12 Oct 2026 | **GitHub storage.** Artifact uploads (`FLOOR_UPLOAD_ARTIFACTS`) and setup caching stay off until the pooled storage allowance is verified. Actions are pinned by commit to Node 24 releases | Runner time is free for public repositories, but storage is billed separately |
 | 12 Oct 2026 | **Evidence lives with the claim.** A result goes in the doc or decision it supports, with the command or run link that shows it. Raw logs, captures and image candidates stay in `work/`, which git ignores. Only the owner's picked reference frames are committed, under `testing/reference/` | It keeps the repository to what is in use. A claim still needs its proof, just not inside the repository |
 
+## Stage 1 groundwork
+
+| Date | Decision | Why |
+| --- | --- | --- |
+| 12 Oct 2026 | **Contracts may proceed in an isolated worktree before Stage 0 review.** This work is on `stage-1-contracts` in `../the-floor-contracts`. It may be committed locally, but must not be pushed or merged until the owner has reviewed Stage 0. `apps/web`, `packages/atlas` and `testing/look` remain outside this work | The owner's attached Stage 1 instructions explicitly authorize parallel groundwork while the other session builds the look and renderer. This exception is not approval of either stage |
+| 12 Oct 2026 | **Stage 1 implementation defaults are recorded for owner review.** The complete schema and layout choices, reasons and local verification are in [Stage 1](stage-1.md). `BoardPost` names a board message and `TradingPost` names the physical place | The owner asked for a concrete choice wherever the design left a field open, with each choice and its reason listed; the names remove the duplicated `Post` type |
+| 12 Oct 2026 | **Schema properties use Effect's own Arbitrary module.** `effect/Arbitrary` is a reviewed external unstable API used by the contract/world tests. No property-testing dependency is added | Installed Effect 4.0.3 provides schema generation, shrinking and seeded property checks. Production package exports do not expose its types |
+
 ## Open items
 
 | Item | Where it stands | Needed | By |

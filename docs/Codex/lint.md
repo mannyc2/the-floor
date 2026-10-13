@@ -9,6 +9,7 @@ The workspace keeps strict native TypeScript options and all 91 explicit Effect 
 The custom rules cover imports, re-exports, literal and computed dynamic imports, type imports and CommonJS boundaries in app/package production source. Positive and negative fixtures exercise:
 
 - Contract's Effect-only boundary and app/feature ownership.
+- Chain-neutral Schema definitions outside the Solana and EVM adapter directories: no hex-specific patterns, bare block fields or chain-native units.
 - Signer exclusion of model, agent and Floor dependencies.
 - Three.js confined to web.
 - Production exclusion of testing exports, fixture/workbench code and file reads or copies that bypass imports.
