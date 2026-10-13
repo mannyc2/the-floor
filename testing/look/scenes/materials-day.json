@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "_tag": "MaterialReferenceBrief",
+  "id": "materials-day",
+  "source": "synthetic",
+  "theme": "day",
+  "reference": {
+    "image": "testing/reference/materials-day.png",
+    "imageSha256": "bb16f3bf86145cf56b1401dd231322d79eac5aa48dc8950ed7d9287cc08808dc",
+    "width": 1200,
+    "height": 900
+  },
+  "approval": {
+    "_tag": "OwnerApproved",
+    "date": "2026-10-13",
+    "owner": "The project owner, as recorded in the decision log",
+    "decisionReference": "docs/decisions.md#the-look",
+    "decisionEntry": "13 Oct 2026 — Corrected day material A is approved, with brass and engraving still provisional.",
+    "scope": "Visible day material values, including shared ground, paper, line, timber, floor, steel, glass and jacket colours. Brass and engraving are provisionally accepted separately. The captured blockout does not approve geometry, proportions, kit unit, instrument design, interface typography, name plates, night or renderer acceptance."
+  },
+  "approvedVisibleDayValues": {
+    "ground": "#F1DFC4",
+    "line": "#080808",
+    "timber-1": "#82532F",
+    "timber-2": "#B17742",
+    "timber-3": "#DAAB7C",
+    "floor-1": "#86643D",
+    "floor-2": "#A57C4D",
+    "floor-3": "#CC9B61",
+    "steel-1": "#605E5C",
+    "steel-2": "#83817D",
+    "steel-3": "#A6A39E",
+    "glass-1": "#4E606F",
+    "glass-2": "#657C8D",
+    "glass-3": "#88A6BE",
+    "jacket-blue-1": "#475F82",
+    "jacket-blue-2": "#5F7FAB",
+    "jacket-blue-3": "#7DA5DE",
+    "jacket-red-1": "#934841",
+    "jacket-red-2": "#C16157",
+    "jacket-red-3": "#F97F73",
+    "jacket-green-1": "#4D644F",
+    "jacket-green-2": "#678469",
+    "jacket-green-3": "#87AC89",
+    "glass-0": "#4E606F",
+    "paper": "#EBD9BC"
+  },
+  "lineOpacity": 1,
+  "paperMapping": "One flat paper material: source paper-0, paper-1, paper-2 and paper-3 all equal the approved paper value. The legacy diagnostic paper alias is not this material.",
+  "provisionalDayInstrument": {
+    "_tag": "Provisional",
+    "values": {
+      "brass-3": "#FED683",
+      "engraving": "#080808"
+    },
+    "reason": "The owner accepts brass and engraving provisionally until real instrument geometry exists; the top face still reads more like yellow paint than metal. Recheck appearance and the existing contrast rules on real bound instruments."
+  },
+  "unshownSupportValues": {
+    "_tag": "Unreviewed",
+    "reason": "These source slots are retained only to reproduce the study. They had no visible pixels in the approved camera and receive no visible-face approval. New geometry or views must check them.",
+    "values": {
+      "timber-0": "#5D3A1F",
+      "floor-0": "#5F4629",
+      "steel-0": "#4C4B48",
+      "brass-0": "#634C22",
+      "brass-1": "#917135",
+      "brass-2": "#C1974A",
+      "jacket-blue-0": "#2C3D55",
+      "jacket-red-0": "#602D28",
+      "jacket-green-0": "#304031"
+    }
+  },
+  "provenance": {
+    "kind": "renderer-material-study",
+    "sourceImage": "work/look/tones/materials-006/material-a-corrected-day-dpr1-1.png",
+    "copy": "byte-exact",
+    "sourceProposal": "work/look/tones/materials-006/sample-proposal.json",
+    "sourceProposalSha256": "74633d8658e546eea861bd191b3fd44886ee6a612287cb5f41585c8634f19321",
+    "originalSelection": "material-a, bottom row of materials-005/review-all.png",
+    "correction": "materials-006: timber top lifted toward #DDB185 to approximately 1.2:1 against unchanged floor; brass top lifted to retain mounting separation.",
+    "studyId": "material-a-corrected"
+  },
+  "captureEvidence": {
+    "_tag": "Ready",
+    "protocolVersion": 1,
+    "config": {
+      "technique": "B",
+      "backend": "webgl",
+      "theme": "day",
+      "rung": "building",
+      "dpr": 1,
+      "width": 1200,
+      "height": 900,
+      "desks": 12,
+      "asset": "scene",
+      "seed": 439041101,
+      "fixedTimeEpochMs": 1791806460000
+    },
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "sourceSceneSha256": "e26879e10214b8eb3d94075044c832afcf57b8101ec5a6785b20028b4620bb8a",
+    "fontManifestSha256": "76b586e31ee3bfd3aed9220fc01b07a1aa3b2a917037ab803e27d70fec2ecaf9",
+    "paletteSha256": "d174ee71f499e141cae4261352414c9c4e82caf6f5b8556c5a9b4437148ff203",
+    "approvalScope": "Reproduction metadata, not approval of camera scale, geometry or renderer acceptance.",
+    "fontManifestMeaning": "Empty wordless-canvas font manifest; no interface glyphs or font bytes are certified.",
+    "camera": {
+      "x": 0,
+      "z": 0,
+      "extent": 14,
+      "rotation": 0
+    }
+  },
+  "night": {
+    "_tag": "Pending",
+    "reason": "No night reference exists. The owner requested two renderer options derived from the approved day materials, lights down with desk lamps and screens lit, then a separate blind pick against the day render, with none allowed."
+  },
+  "geometry": {
+    "_tag": "Pending",
+    "reason": "The study is a fixed diagnostic blockout. Proportions, kit unit, actual assets and instrument geometry remain separate picks and implementation work."
+  },
+  "rules": [
+    "docs/atlas.md#approved-day-materials-and-provisional-instruments--13-october-2026",
+    "docs/decisions.md#the-look"
+  ]
+}

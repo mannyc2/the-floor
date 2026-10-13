@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "_tag": "ReferenceBrief",
+  "id": "post",
+  "frame": "a post",
+  "rung": "desk",
+  "source": "synthetic",
+  "themes": [
+    "day",
+    "night"
+  ],
+  "camera": {
+    "_tag": "Pending",
+    "reason": "Centre, world units per CSS pixel, quarter turn, viewport and DPR belong to the renderer scene after the proportions and kit-unit pick; the bitmap is not measured camera geometry."
+  },
+  "clock": {
+    "_tag": "Pending",
+    "reason": "Assign the harness's fixed synthetic time and seed when the executable scene is built; this generated bitmap has no replayable renderer clock."
+  },
+  "placements": {
+    "_tag": "Pending",
+    "reason": "Asset ids, variants, positions and labelled synthetic readings require the picked proportions, kit unit and asset generators."
+  },
+  "expect": {
+    "_tag": "Pending",
+    "reason": "Instrument masks, labels, tick spacing, tone-histogram limit and silhouette threshold require real renderer scenes and recorded measurements; none is inferred from this image."
+  },
+  "reference": {
+    "day": {
+      "image": "testing/reference/post-day.png",
+      "imageSha256": "aaa6293275df2579275c4094a46bb4eafc05f009870f542b37c05a7a5b90ffc6",
+      "width": 1536,
+      "height": 1024,
+      "approval": {
+        "_tag": "OwnerApproved",
+        "owner": "The project owner, as recorded in the decision log",
+        "decisionReference": "docs/decisions.md#the-look"
+      },
+      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
+      "provenance": {
+        "kind": "generated-reference",
+        "sourceImage": "work/look/references/004/post/candidate-04.png",
+        "generationRound": "004",
+        "candidate": "04",
+        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
+        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
+        "sourcePromptRecord": "work/look/references/004/post/prompts.json",
+        "shortlistRecord": "work/look/references/004/shortlist/notes.md",
+        "copy": "byte-exact"
+      }
+    },
+    "night": {
+      "_tag": "Pending",
+      "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
+    }
+  },
+  "observed": [
+    "One many-sided circular counter stands on an isolated timber floor patch with paper margins.",
+    "Boxy token monitors hang around a central pole above occupied stations, corded phones, desk lamps and long ticker-paper strips.",
+    "A raised-arm phone caller contrasts with seated workers and a sleeper; a frog on a lily-pad form stands over a marked gold-coloured gauge, and one station has a small flag.",
+    "Storage and paper stacks fill the counter's centre and the station fronts, making it look used rather than uniform."
+  ],
+  "corrections": [
+    "Give the sleeping station a visible lamp that is off; the image does not supply one clearly.",
+    "Replace coloured or arrow-tipped price lines with a single brass price line and faint scale, and remove orange accents.",
+    "The frog and its base are not brass; only a gauge bound to a labelled synthetic reading may use brass, with engraved marks.",
+    "Treat the flag only as the named waiting-for-owner state; do not introduce token flags or an activity highlight.",
+    "Resolve the actual counter envelope, station spacing and figure ratio in the proportions round, with the picked character bodies.",
+    "Colour audit 13 October: the sampled brass gauge/counter pair is only 1.010:1; adjust it to meet the proposed 1.5:1 separation on its actual mount. Lift dark glass, steel, timber and jacket faces for near-black 3:1 outlines; preserve the sampled visible timber range, which locally reaches 2.933:1. Remove paper writing and lamp glow."
+  ],
+  "rules": [
+    "docs/atlas.md#the-laws",
+    "docs/decisions.md#the-look"
+  ]
+}

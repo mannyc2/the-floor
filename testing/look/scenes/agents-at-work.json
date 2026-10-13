@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "_tag": "ReferenceBrief",
+  "id": "agents-at-work",
+  "frame": "agents at work",
+  "rung": "floor",
+  "source": "synthetic",
+  "themes": [
+    "day",
+    "night"
+  ],
+  "camera": {
+    "_tag": "Pending",
+    "reason": "Centre, world units per CSS pixel, quarter turn, viewport and DPR belong to the renderer scene after the proportions and kit-unit pick; the bitmap is not measured camera geometry."
+  },
+  "clock": {
+    "_tag": "Pending",
+    "reason": "Assign the harness's fixed synthetic time and seed when the executable scene is built; this generated bitmap has no replayable renderer clock."
+  },
+  "placements": {
+    "_tag": "Pending",
+    "reason": "Asset ids, variants, positions and labelled synthetic readings require the picked proportions, kit unit and asset generators."
+  },
+  "expect": {
+    "_tag": "Pending",
+    "reason": "Instrument masks, labels, tick spacing, tone-histogram limit and silhouette threshold require real renderer scenes and recorded measurements; none is inferred from this image."
+  },
+  "reference": {
+    "day": {
+      "image": "testing/reference/agents-at-work-day.png",
+      "imageSha256": "832858e0a2af0e859c0244882c8209f36a7e64ed2fa88c78bbf81372068e57bb",
+      "width": 1536,
+      "height": 1024,
+      "approval": {
+        "_tag": "OwnerApproved",
+        "owner": "The project owner, as recorded in the decision log",
+        "decisionReference": "docs/decisions.md#the-look"
+      },
+      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
+      "provenance": {
+        "kind": "generated-reference",
+        "sourceImage": "work/look/references/004/agents-at-work/candidate-06.png",
+        "generationRound": "004",
+        "candidate": "06",
+        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
+        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
+        "sourcePromptRecord": "work/look/references/004/agents-at-work/prompts.json",
+        "shortlistRecord": "work/look/references/004/shortlist/notes.md",
+        "copy": "byte-exact"
+      }
+    },
+    "night": {
+      "_tag": "Pending",
+      "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
+    }
+  },
+  "observed": [
+    "Two crowded round posts leave a paper-strewn aisle between them.",
+    "A trader stands on the left counter with a phone, another pins a card to a wall board, and another runs across the foreground carrying a slip.",
+    "A paper plane crosses between the posts; a seated trader sleeps near a small raised flag at the left post.",
+    "Closely packed CRT screens and corded phones support varied standing and seated postures."
+  ],
+  "corrections": [
+    "Replace the monitors' multicoloured tables with token emblems and single brass price lines, without words or numbers in the drawing.",
+    "Remove any paper-plane motion trail; pose, placement and actual motion carry the throw.",
+    "Provide a visible unlit lamp at the sleeping station.",
+    "Keep the raised flag tied to waiting for the owner, not to the nearby sleeping trader or general activity.",
+    "Use the picked character bodies and curled-wrist throw; determine scene positions and the camera in the proportions round.",
+    "Colour audit 13 October: strengthen the sampled timber visible range (observed pair 1.989:1, incomplete orientation evidence), lift dark outlined faces, replace coloured numerical screen rows with brass line and scale, and remove paper writing and light gradients."
+  ],
+  "rules": [
+    "docs/atlas.md#the-laws",
+    "docs/decisions.md#the-look"
+  ]
+}
