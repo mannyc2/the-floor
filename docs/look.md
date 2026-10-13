@@ -66,7 +66,7 @@ Isometric technical illustration, orthographic camera from one corner looking do
 **Avoid block** (append to every frame):
 
 ```text
-Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, identically dressed figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths, flags, pennants, coats of arms, heraldry, emblem panels with dials, pale mannequin figures.
+Avoid: perspective, vanishing points, depth of field, photographic lighting, soft gradients, bloom, neon, holograms, casino imagery, coins and dollar signs, candlestick charts, readable screens, text, letters, numbers, arrows, callouts, motion lines, watermarks, real brand logos, faces on figures, identically dressed figures, identical desks, generic office cubicles, generic steampunk clutter, decorative gears, brass on decorative parts, churches, chapels, libraries, museums, arched windows, stained glass, columns, pews, banners, banker's lamps, statues on plinths, flags, pennants, coats of arms, heraldry, emblem panels with dials, pale mannequin figures, orange.
 ```
 
 **Tradition** (insert after the style block in frames 1 to 6):
@@ -88,7 +88,7 @@ A single trading post seen close, centred with wide margins: a round counter und
 **3. Agents at work**
 
 ```text
-Two trading posts seen from above, agents at work, busy and loud. One figure has just thrown a paper plane toward a station at the other post. Another stands at a whiteboard on the wall, pinning a card. One figure stands on a counter, shouting into a phone. One station's lamp is off and its figure is slumped asleep. One station has a small raised flag. One figure hurries from one post to the other, carrying a slip of paper.
+Two trading posts seen from above, agents at work, busy and loud, with faceless figures in traders' jackets of varied colours. One figure has just thrown a paper plane toward a station at the other post. Another stands at a whiteboard on the wall, pinning a card. One figure stands on a counter, shouting into a phone. One station's lamp is off and its figure is slumped asleep. One station has a small raised flag. One figure hurries from one post to the other, carrying a slip of paper.
 ```
 
 **4. The lobby**
@@ -105,7 +105,7 @@ The whole building seen from outside as a cutaway model with its front wall remo
 
 **6. The screen**
 
-The one frame that includes the interface. It drops "text" and "letters" from the avoid block, and keeps the captions as blank lines of type.
+The one frame that includes the interface. It drops "text" and "letters" from the avoid block, adds "words, readable captions", and keeps the captions as blank lines of type.
 
 ```text
 A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected station and not covering it. Everything else is the floor: trading posts crowded with traders, the wall of screens with the bell and the podium, whiteboards and the elevator landing, dense and busy.
@@ -115,12 +115,12 @@ For night versions, add: *At night, the overhead lights are off; the monitors an
 
 **7. The characters**
 
-Traders have no faces, so their bodies carry everything: posture, stance, stillness and props, as the Mandalorian does under his helmet. The first sheet's best poses (ringing the bell, one arm up, the phone call, throwing a paper plane) carry over; its cube heads and single stiff body don't. Each prompt uses the style block without the cutaway sentence, no tradition line, and the character line below. Add to the avoid block: *facial features, eyes, mouths, cube or box heads, robots, masks, identical bodies, stiff symmetrical stances, cartoon mascots.*
+Traders have no faces, so their bodies carry everything: posture, stance, stillness and props, as the Mandalorian does under his helmet. The first sheet's best poses (ringing the bell, one arm up, the phone call, throwing a paper plane) carry over; its cube heads and single stiff body don't. Each prompt uses the style block without the cutaway sentence, no tradition line, and the character line below. Add to the avoid block: *facial features, eyes, mouths, cube or box heads, white or grey heads, robots, masks, identical bodies, stiff symmetrical stances, straight-arm salutes, cartoon mascots, gold trim, modern office desks, multi-monitor desks.*
 
 **Character line** (insert after the style block in 7a to 7c):
 
 ```text
-Faceless traders on a 1980s exchange floor. Each has a smooth, rounded head with no eyes, nose, mouth or eyebrows, and hair only as a simple shape. With no face, the body tells everything a figure feels: the tilt of the head, the curve of the spine, the set of the shoulders, the stance, the hands, and how still it holds. Builds and heights vary, and proportions are lightly stylised so a posture still reads when the figure is small: the head a little large, the hands clear, one strong line of action. Clothes and props are part of the character: trading jackets in varied colours with a blank badge, shirtsleeves with a loosened tie, braces, a sweater vest, a jacket slung over one shoulder, a corded phone, a fan of order slips, a pencil, a coffee cup. Each wears its agent's emblem, a small diamond, on its chest.
+Faceless traders on a 1980s exchange floor. Each has a smooth, rounded head with no eyes, nose, mouth or eyebrows, and hair only as a simple shape. With no face, the body tells everything a figure feels: the tilt of the head, the curve of the spine, the set of the shoulders, the stance, the hands, and how still it holds. Builds and heights vary, and proportions are lightly stylised so a posture still reads when the figure is small: the head a little large, the hands clear, one strong line of action. Clothes and props are part of the character: trading jackets in varied colours with a blank badge, shirtsleeves with a loosened tie, braces, a sweater vest, a jacket slung over one shoulder, a corded phone, a fan of order slips, a pencil, a coffee cup. Each wears its agent's emblem, a small diamond, on its chest. Heads are in a range of natural tones. Any station is a 1980s trading station: a counter with one boxy monitor, a corded phone and papers.
 ```
 
 **7a. The cast**
