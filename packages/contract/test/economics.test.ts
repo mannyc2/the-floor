@@ -170,6 +170,15 @@ test("swaps round trip in the action union and reject same-asset or cross-chain 
       }), propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
+test("swaps reject a foreign-chain sell while the buy remains on the declared chain", () =>
+  runTest(
+    Arbitrary.checkEffect(swapArbitrary, (intent) => {
+      const otherChain = intent.chain === "eip155:1" ? "eip155:2" : "eip155:1";
+      return Schema.is(SwapIntent)(intent)
+        && !Schema.is(SwapIntent)({ ...intent, sell: AssetRef.make(`${otherChain}/token:sell`) });
+    }, propertyOptions).pipe(Effect.tap(expectPassed)),
+  ));
+
 test("withdrawals carry only a destination reference and reject a cross-chain asset", () =>
   runTest(
     Arbitrary.checkEffect(withdrawalArbitrary, (intent) =>

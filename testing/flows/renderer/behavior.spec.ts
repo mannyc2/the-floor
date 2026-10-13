@@ -185,10 +185,18 @@ test("flight has zoom-out arc and takes 600 to 1200 milliseconds", async ({ page
   const start = performance.now();
   await page.locator("#fly").click();
   await expect.poll(() => page.evaluate(() => window.floorTest.inspect().flying)).toBe(true);
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().camera.extent), { intervals: [10] })
-    .toBeGreaterThan(21);
-  const mid = await page.evaluate(() => window.floorTest.inspect().camera);
-  expect(mid.extent).toBeGreaterThan(21);
+  // Retain the observed zoom-out sample: another browser round trip can arrive
+  // after the flight has already started zooming back toward its destination.
+  const midpoint = await page.waitForFunction(
+    (minimumExtent: number) => {
+      const extent = window.floorTest.inspect().camera.extent;
+      return extent > minimumExtent ? extent : false;
+    },
+    21,
+    { polling: 10, timeout: 5000 },
+  );
+  expect(await midpoint.jsonValue()).toBeGreaterThan(21);
+  await midpoint.dispose();
   await expect.poll(() => page.evaluate(() => window.floorTest.inspect().flying), { intervals: [20], timeout: 1600 })
     .toBe(false);
   // oxlint-disable-next-line effect/noGlobals -- Native monotonic timing independently measures the complete browser flight duration.
