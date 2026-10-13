@@ -99,7 +99,8 @@
     "floor/static-modules": "error",
     "floor/data-reads": "error",
     "floor/atlas-literals": "error",
-    "floor/legacy-dependencies": "error"
+    "floor/legacy-dependencies": "error",
+    "floor/oracle-dependencies": "error"
   },
   "ignorePatterns": [
     "work/**",

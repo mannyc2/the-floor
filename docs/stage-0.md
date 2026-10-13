@@ -10,7 +10,7 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 | The Floor's Worker | Yielded agent and mailbox Durable Objects on Alchemy, Anthropic and OpenAI Layers, and a predicate-only Decisions adapter | Native tests (admission, restart, Durable Object and D1 storage) and a bounded hosted run |
 | Web | A Foldkit shell over the contract Schemas and `@floor/api`, with a typed health check and a scoped map host over labelled synthetic desks | The health flow has local and hosted evidence; the renderer has local browser evidence only |
 | Chains | Solana construction (Kit, generated Meteora codecs, `bigint` maths) and EVM construction (Doppler on Base). Nothing signs or broadcasts | 940 SDK oracle cases and exact-byte parity tests |
-| Wallets | A native Privy client in `packages/wallets` | Leaf tests. It hasn't reached the sandbox |
+| Wallets | A native Privy client in `packages/wallets`, with the owner's limited approval for additional operations before Stage 0 review | [Oracle and leaf evidence, including the test-transport incident](../packages/wallets/README.md). Sandbox proof remains unrun |
 | Look harness | Pixel metrics, deterministic capture, the phone profile and impostor checks, connected to the development renderer and independent CPU targets | Leaf tests and real renderer captures; the local results are below |
 | CI | Preview deploys per admitted PR, cleanup on close, and scoped credentials | [CI 38295404123](https://github.com/mannyc2/the-floor/actions/runs/38295404123) and [cleanup 38296179460](https://github.com/mannyc2/the-floor/actions/runs/38296179460) |
 

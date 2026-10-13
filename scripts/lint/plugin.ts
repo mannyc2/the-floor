@@ -1,6 +1,6 @@
 import { Array, Effect, Option, Path, Schema } from "effect";
 import { Diagnostic, type ESTree, Plugin, Rule, RuleContext, Visitor } from "effect-oxlint";
-import { isTestingPath as testingPath } from "./paths";
+import { isPrivySolanaKitPath, isTestingPath as testingPath, isWalletOraclePath } from "./paths";
 import { hasVisualLiteral } from "./visual-values";
 
 interface Boundary {
@@ -180,6 +180,20 @@ export const productionFixtures = boundaryRule({
       : Option.none(),
 });
 
+export const oracleDependencies = boundaryRule({
+  name: "oracle-dependencies",
+  description: "Privy's SDK is a development oracle; its Solana helper is never imported.",
+  allSources: true,
+  violation: ({ source, production }) => {
+    if (isPrivySolanaKitPath(source)) {
+      return Option.some(`Never import '${source}'; the native Solana adapter owns transaction construction.`);
+    }
+    return production && isWalletOraclePath(source)
+      ? Option.some(`Production cannot import '${source}'; Privy's SDK and its dependencies are test oracles only.`)
+      : Option.none();
+  },
+});
+
 export const staticModules = Rule.define({
   name: "static-modules",
   meta: Rule.meta({ type: "problem", description: "Production dependencies must be statically checkable." }),
@@ -308,6 +322,7 @@ export default Plugin.define({
     "signer-isolation": signerIsolation,
     "three-isolation": threeIsolation,
     "legacy-dependencies": legacyDependencies,
+    "oracle-dependencies": oracleDependencies,
     "production-fixtures": productionFixtures,
     "static-modules": staticModules,
     "data-reads": dataReads,

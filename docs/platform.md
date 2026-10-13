@@ -87,7 +87,13 @@ A model instruction isn't network enforcement, and an unrestricted session is ne
 
 ### Wallets
 
-In Privy's sandbox, using the native client in [`packages/wallets`](../packages/wallets/README.md): create an agent's wallet, set a two-of-two key quorum with the signer, confirm a policy, sign an allowed transaction, and see a disallowed one refused. Sandbox value only: no real funds, mainnet broadcast or real launch. The client signs requests correctly in tests, but nothing has reached the sandbox yet.
+In Privy's sandbox, using the native client in [`packages/wallets`](../packages/wallets/README.md): create an agent's Solana wallet, set a two-of-two key quorum with the signer, confirm a policy, sign an allowed transaction, and see a disallowed one refused. Sandbox value only: no real funds, mainnet broadcast or real launch. The native client uses Effect HttpClient and Web Crypto; the pinned official SDK is only a development oracle, excluded from every production bundle. The owner's 13 October approval includes the client operations ahead of Stage 0 review, not provider access. The sandbox proof has not run. A faulty timeout-test fixture allowed unintended reads using synthetic credentials during development; the [incident and correction](../packages/wallets/README.md#test-transport-incident) are recorded separately and prove no sandbox capability.
+
+Wallet/policy reads and owner-signed PATCH, Solana sign-only RPC and optional signed request expiry are available for that check. `PrivyPolicyRefusal` represents the provider's explicit `policy_violation`; authentication, validation and transport failures remain separate. Offline cryptographic quorum tests are local fixtures, not proof of Privy's enforcement.
+
+Privy evaluates Solana policy rules per instruction. The supported transfer amount and recipient conditions do not prove an aggregate per-transaction cap or restrict transfers made through an allowed program's CPI. Conditions on addresses resolved only through an address lookup table also need explicit provider proof. Resolve these limits before Stage 3 trading; the [decision log](decisions.md#open-items) keeps the aggregate cap open. The chain adapter constructs and serializes transactions; this client signs without broadcasting.
+
+Second-milestone signing with a logged-in owner's session remains out of scope. The SDK's JWT exchange decrypts a temporary key with HPKE using DHKEM(P-256, HKDF-SHA256) and ChaCha20-Poly1305. Web Crypto does not provide ChaCha20-Poly1305; when that feature is built, the Effect-first exception permits a small audited implementation. That does not admit the SDK's HPKE dependencies to today's production graph.
 
 ### Live inference
 

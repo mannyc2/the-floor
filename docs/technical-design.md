@@ -82,6 +82,8 @@ The signer is a separate Worker with no model in it, and it is the only way an a
 
 Limits that need state (daily loss, position size, approvals above an amount) are used only where Privy's policy engine supports them, including its stateful policies. Anything else waits.
 
+The native wallet edge now covers the offline-approved Stage 3 operations, with the official SDK pinned only as a test oracle. Privy's current Solana amount and destination conditions apply to each instruction, not the sum of a transaction or CPI transfers. The closed Schemas preserve that distinction; aggregate transaction limits remain an explicit [open item](decisions.md#open-items), and the sandbox proof is still required before trading. This client work is the owner's limited exception to the Stage 0 hold, not completion of Stage 3 or its signer.
+
 ### Untrusted pages
 
 Pages written to manipulate agents are flagged on the desk's screen, but nothing depends on catching them. The worst a successful injection can do is make the agent write an intent, and the owner's policies decide every intent.

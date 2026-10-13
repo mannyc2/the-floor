@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { Option, Result, Schema } from "effect";
-import { assets, budgetGroups, inspectSources, Manifest } from "../model";
+import { assets, budgetGroups, inspectSources, Manifest, type Target } from "../model";
 
 const decode = Schema.decodeUnknownOption(Manifest);
 const manifest = (input: typeof Manifest.Encoded) => Option.getOrThrow(decode(input));
@@ -65,5 +65,38 @@ test("transitive dynamic modules are included in authority inspection", () => {
     ]
   ) {
     expect(Result.isFailure(inspectSources("web", [source]))).toBe(true);
+  }
+});
+
+test("wallet SDK dependency families cannot enter any production source map", () => {
+  const targets: readonly Target[] = ["web", "floor", "signer"];
+  for (const target of targets) {
+    for (
+      const source of [
+        "node_modules/@privy-io/node/index.mjs",
+        "node_modules/@privy-io/node/authorization/index.mjs",
+        "node_modules/svix/dist/index.js",
+        "node_modules/@hpke/core/esm/mod.js",
+        "node_modules/@hpke/chacha20poly1305/esm/mod.js",
+        "node_modules/.bun/@privy-io+node@0.35.0/node_modules/@privy-io/node/index.mjs",
+        "node_modules/.bun/svix@1.94.0/node_modules/svix/dist/index.js",
+        "node_modules\\@hpke\\core\\esm\\mod.js",
+        "node_modules/@privy-io/node@0.35.0/index.mjs",
+      ]
+    ) {
+      const result = inspectSources(target, ["packages/wallets/src/privy/client.ts", source]);
+      expect(Result.isFailure(result)).toBe(true);
+      if (Result.isFailure(result)) {
+        expect(result.failure.reason).toBe("ForbiddenSource");
+        expect(result.failure.detail).toBe(`${target}: ${source}`);
+      }
+    }
+    expect(Result.isSuccess(inspectSources(target, [
+      "packages/wallets/src/privy/client.ts",
+      "node_modules/effect/src/http/HttpClient.ts",
+      "node_modules/@solana/kit/dist/index.js",
+      "node_modules/@privy-io/node-other/index.js",
+      "node_modules/svix-other/index.js",
+    ]))).toBe(true);
   }
 });
