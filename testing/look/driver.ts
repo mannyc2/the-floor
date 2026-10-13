@@ -145,18 +145,25 @@ const matrixCell = Effect.fn("captureMatrixCell")(
     const errors: Array<string> = [];
     page.on("pageerror", (error) => errors.push(error.message));
     const hashes: Array<string> = [], pngBytes: Array<number> = [];
-    let baseline = Option.none<Raster>(), source = Option.none<string>(), fonts = Option.none<string>();
+    let baseline = Option.none<Raster>(),
+      source = Option.none<string>(),
+      fonts = Option.none<string>(),
+      palette = Option.none<string>();
     let maxChangedPixelFraction = 0, maxChannelDelta = 0, renderer = "";
     for (let run = 0; run < repetitions; run += 1) {
       const state = yield* navigate(page, options, config);
       if (
         Option.isSome(source) && source.value !== state.sourceSceneSha256
         || Option.isSome(fonts) && fonts.value !== state.fontManifestSha256
+        || Option.isSome(palette) && palette.value !== state.paletteSha256
       ) {
-        return yield* new HarnessBlocked({ reason: "Scene or font assets changed inside one capture attempt" });
+        return yield* new HarnessBlocked({
+          reason: "Scene, palette or font assets changed inside one capture attempt",
+        });
       }
       source = Option.some(state.sourceSceneSha256);
       fonts = Option.some(state.fontManifestSha256);
+      palette = Option.some(state.paletteSha256);
       renderer = state.renderer;
       const captured = yield* screenshot(page, `${folder}/run-${String(run + 1).padStart(2, "0")}.png`, config);
       hashes.push(Hex.encode(yield* crypto.digest("SHA-256", captured.bytes)));
@@ -184,6 +191,7 @@ const matrixCell = Effect.fn("captureMatrixCell")(
       errors,
       sourceSceneSha256: Option.getOrNull(source),
       fontManifestSha256: Option.getOrNull(fonts),
+      paletteSha256: Option.getOrNull(palette),
     };
     yield* writeJson(`${folder}/result.json`, record);
     return record;
@@ -343,9 +351,10 @@ const impostorCell = Effect.fn("captureImpostorCheck")(function*(options: Driver
   if (
     high.state.sourceSceneSha256 !== direct.state.sourceSceneSha256
     || high.state.fontManifestSha256 !== direct.state.fontManifestSha256
+    || high.state.paletteSha256 !== direct.state.paletteSha256
   ) {
     return yield* new HarnessBlocked({
-      reason: "The two impostor resolutions must use identical scene and font assets",
+      reason: "The two impostor resolutions must use identical scene, palette and font assets",
     });
   }
   const result = yield* areaAverageImpostor(high.gray, direct.gray, 4);

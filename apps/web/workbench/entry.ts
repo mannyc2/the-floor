@@ -10,11 +10,13 @@ import { makeWorkbenchApi } from "./api";
 import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
 import { WorkbenchFailure } from "./runtime";
 import { SceneDigest } from "./scene-evidence";
+import { readToneStudy } from "./tone-study";
 
 const run = Effect.gen(function*() {
   const query = new URL(location.href).searchParams;
   const look = document.body.hasAttribute("data-look");
   const config = look ? Option.some(yield* readCaptureConfiguration(query)) : Option.none();
+  const study = look ? yield* readToneStudy(query) : Option.none();
   const context = yield* Effect.context<MapCommands | SceneDigest>();
   const commands = Context.get(context, MapCommands);
   const runPromise = Effect.runPromiseWith(context);
@@ -36,7 +38,7 @@ const run = Effect.gen(function*() {
   const initial = initialModel(
     desks,
     Number.isFinite(delay) ? Math.max(0, Math.min(5000, delay)) : 0,
-    Option.isSome(config) ? Option.some(captureCamera(config.value)) : requestedCamera,
+    Option.isSome(config) ? Option.some(captureCamera(config.value, Option.isSome(study))) : requestedCamera,
   );
   const model: Model = Option.isSome(config)
     ? {
@@ -76,7 +78,7 @@ const run = Effect.gen(function*() {
       mask: (enabled) => runPromise(ready().mask(enabled)),
       bench: (frames, warmupFrames) => runPromise(ready().bench(frames, warmupFrames)),
     };
-    yield* prepareLookAdapter(commands, config.value).pipe(
+    yield* prepareLookAdapter(commands, config.value, study).pipe(
       Effect.timeout("15 seconds"),
       Effect.tap((adapter) =>
         Effect.sync(() => {

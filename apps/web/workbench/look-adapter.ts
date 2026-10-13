@@ -7,10 +7,12 @@ import {
   fixedTimeEpochMs,
   ReadyState,
 } from "../../../testing/look/protocol";
+import { syntheticPalette } from "../src/map/_lib/renderer/scene";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera } from "../src/map/model";
 import { browserCall, nextFrame, settled, WorkbenchFailure } from "./runtime";
 import { digestJson, sceneDigest } from "./scene-evidence";
+import { installToneStudy, type ToneStudy } from "./tone-study";
 
 export const readCaptureConfiguration = Effect.fn("Workbench.readCaptureConfiguration")(
   function*(query: URLSearchParams) {
@@ -30,16 +32,17 @@ export const readCaptureConfiguration = Effect.fn("Workbench.readCaptureConfigur
   },
 );
 
-export const captureCamera = (config: CaptureConfiguration): Camera => ({
+export const captureCamera = (config: CaptureConfiguration, toneStudy = false): Camera => ({
   x: 0,
   z: 0,
   rotation: 0,
-  extent: config.rung === "building" ? config.desks > 12 ? 380 : 21 : config.rung === "floor" ? 12 : 7,
+  extent: toneStudy ? 14 : config.rung === "building" ? config.desks > 12 ? 380 : 21 : config.rung === "floor" ? 12 : 7,
 });
 
 export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(function*(
   commands: MapCommands["Service"],
   config: CaptureConfiguration,
+  study: Option.Option<ToneStudy>,
 ) {
   if (config.seed !== fixedSeed || config.fixedTimeEpochMs !== fixedTimeEpochMs) {
     return yield* new WorkbenchFailure({
@@ -54,6 +57,18 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
   }
   const engine = mounted.value.engine;
   engine.canvas.dataset["floorLook"] = "";
+  engine.setCamera(captureCamera(config, Option.isSome(study)));
+  if (Option.isSome(study)) {
+    if (config.asset !== "scene" || config.rung !== "building" || config.desks !== 12) {
+      return yield* new WorkbenchFailure({ operation: "tone-study", cause: "Tone studies use the fixed whole scene" });
+    }
+    if (!(yield* installToneStudy(engine, study.value))) {
+      return yield* new WorkbenchFailure({
+        operation: "tone-study",
+        cause: "The renderer's surface material is absent",
+      });
+    }
+  }
   if (config.asset === "rack") {
     const scene = engine.diagnosticScene();
     const gauge = Option.fromUndefinedOr(scene.entities.find((entity) => entity.id === scene.gaugeId));
@@ -62,7 +77,6 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
     }
     for (const mesh of scene.meshes) mesh.visible = mesh === gauge.value.mesh;
   }
-  engine.setCamera(captureCamera(config));
   engine.draw(true);
   yield* settled;
   const observed = engine.inspect();
@@ -83,6 +97,7 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
     renderer: observed.renderer,
     sourceSceneSha256,
     fontManifestSha256,
+    paletteSha256: yield* digestJson(Option.isSome(study) ? study.value.palette : syntheticPalette),
   });
   const mask = Effect.fn("Workbench.mask")(function*(enabled: boolean) {
     engine.setMask(enabled);

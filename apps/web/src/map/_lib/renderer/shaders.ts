@@ -32,15 +32,22 @@ void main() {
 `;
 export const colorFragment = `
 uniform sampler2D palette;
+uniform float paletteSize;
 varying vec3 faceNormal;
 varying float materialSlot;
 void main() {
   float index = floor(materialSlot + 0.5);
   if (index >= 4.0) {
-    float light = dot(normalize(faceNormal), normalize(vec3(-0.4, 0.8, 0.45)));
-    index = light > 0.65 ? 7.0 : light > 0.1 ? 6.0 : light > -0.5 ? 5.0 : 4.0;
+    float base = 4.0 + floor((index - 4.0) / 4.0) * 4.0;
+    vec3 n = normalize(faceNormal);
+    // Horizontal tops must remain lightest at every camera corner. Sloped
+    // forms use these provisional bands until the Atlas records the pick.
+    float side = dot(n.xz, normalize(vec2(-1.0, 1.0)));
+    // Diagonal station faces lie on the side-band boundary. Absorb inverse-view
+    // roundoff there so a quarter turn cannot change a stationary face's tone.
+    index = base + (n.y > 0.5 ? 3.0 : n.y < -0.5 ? 0.0 : side >= -0.0001 ? 2.0 : 1.0);
   }
-  gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / 8.0, 0.5)).rgb, 1.0);
+  gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, 0.5)).rgb, 1.0);
   #include <colorspace_fragment>
 }
 `;

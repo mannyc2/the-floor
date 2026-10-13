@@ -2,35 +2,65 @@ import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Theme } from "../../model";
+import { type Palette, PaletteName } from "./palette";
 
 // These neutral values describe the synthetic renderer exercise only. The owner’s
 // future Atlas picks replace them; they are not a proposed palette or kit unit.
-const syntheticPalette = {
-  ground: { day: 0xe6e6e6, night: 0x181818 },
-  line: { day: 0x292929, night: 0xd8d8d8 },
-  steel: { day: 0x777777, night: 0x898989 },
-  paper: { day: 0xf2f2f2, night: 0x262626 },
-  "tone-0": { day: 0x777777, night: 0x303030 },
-  "tone-1": { day: 0x999999, night: 0x454545 },
-  "tone-2": { day: 0xbbbbbb, night: 0x606060 },
-  "tone-3": { day: 0xdddddd, night: 0x808080 },
+export const syntheticPalette: Palette = {
+  colors: {
+    ground: { day: 0xe6e6e6, night: 0x181818 },
+    line: { day: 0x292929, night: 0xd8d8d8 },
+    steel: { day: 0x777777, night: 0x898989 },
+    paper: { day: 0xf2f2f2, night: 0x262626 },
+    "tone-0": { day: 0x777777, night: 0x303030 },
+    "tone-1": { day: 0x999999, night: 0x454545 },
+    "tone-2": { day: 0xbbbbbb, night: 0x606060 },
+    "tone-3": { day: 0xdddddd, night: 0x808080 },
+    "timber-0": { day: 0x777777, night: 0x303030 },
+    "timber-1": { day: 0x999999, night: 0x454545 },
+    "timber-2": { day: 0xbbbbbb, night: 0x606060 },
+    "timber-3": { day: 0xdddddd, night: 0x808080 },
+    "floor-0": { day: 0x777777, night: 0x303030 },
+    "floor-1": { day: 0x999999, night: 0x454545 },
+    "floor-2": { day: 0xbbbbbb, night: 0x606060 },
+    "floor-3": { day: 0xdddddd, night: 0x808080 },
+    "paper-0": { day: 0x777777, night: 0x303030 },
+    "paper-1": { day: 0x999999, night: 0x454545 },
+    "paper-2": { day: 0xbbbbbb, night: 0x606060 },
+    "paper-3": { day: 0xdddddd, night: 0x808080 },
+    "steel-0": { day: 0x777777, night: 0x303030 },
+    "steel-1": { day: 0x999999, night: 0x454545 },
+    "steel-2": { day: 0xbbbbbb, night: 0x606060 },
+    "steel-3": { day: 0xdddddd, night: 0x808080 },
+    "glass-0": { day: 0x777777, night: 0x303030 },
+    "glass-1": { day: 0x999999, night: 0x454545 },
+    "glass-2": { day: 0xbbbbbb, night: 0x606060 },
+    "glass-3": { day: 0xdddddd, night: 0x808080 },
+    "brass-0": { day: 0x777777, night: 0x303030 },
+    "brass-1": { day: 0x999999, night: 0x454545 },
+    "brass-2": { day: 0xbbbbbb, night: 0x606060 },
+    "brass-3": { day: 0xdddddd, night: 0x808080 },
+    "jacket-blue-0": { day: 0x777777, night: 0x303030 },
+    "jacket-blue-1": { day: 0x999999, night: 0x454545 },
+    "jacket-blue-2": { day: 0xbbbbbb, night: 0x606060 },
+    "jacket-blue-3": { day: 0xdddddd, night: 0x808080 },
+    "jacket-red-0": { day: 0x777777, night: 0x303030 },
+    "jacket-red-1": { day: 0x999999, night: 0x454545 },
+    "jacket-red-2": { day: 0xbbbbbb, night: 0x606060 },
+    "jacket-red-3": { day: 0xdddddd, night: 0x808080 },
+    "jacket-green-0": { day: 0x777777, night: 0x303030 },
+    "jacket-green-1": { day: 0x999999, night: 0x454545 },
+    "jacket-green-2": { day: 0xbbbbbb, night: 0x606060 },
+    "jacket-green-3": { day: 0xdddddd, night: 0x808080 },
+  },
+  lineOpacity: { day: 1, night: .7 },
 };
-export type PaletteName = keyof typeof syntheticPalette;
-export const names: ReadonlyArray<PaletteName> = [
-  "ground",
-  "line",
-  "steel",
-  "paper",
-  "tone-0",
-  "tone-1",
-  "tone-2",
-  "tone-3",
-];
+export const names = PaletteName.literals;
 export const slot = (name: string): Option.Option<number> => {
   const index = names.findIndex(item => item === name);
   return index < 0 ? Option.none() : Option.some(index);
 };
-export const tokenColor = (name: PaletteName, theme: Theme): number => syntheticPalette[name][theme];
+export const tokenColor = (name: PaletteName, theme: Theme): number => syntheticPalette.colors[name][theme];
 export interface SceneConfig {
   readonly width: number;
   readonly height: number;

@@ -1,7 +1,8 @@
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
 import type { Camera, Presentation, Rotation, Theme } from "../../model";
-import { createScene, names, slot, tokenColor } from "./scene";
+import type { Palette } from "./palette";
+import { createScene, names, slot, syntheticPalette } from "./scene";
 import { colorFragment, dataFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
 
 export class RendererFailure extends Schema.TaggedError<RendererFailure>()("RendererFailure", {
@@ -129,7 +130,11 @@ export const openEngine = (
       const palette = own(new THREE.DataTexture(paletteBytes, names.length, 1, THREE.RGBAFormat, THREE.FloatType));
       palette.minFilter = THREE.NearestFilter;
       palette.magFilter = THREE.NearestFilter;
-      const surfaceUniforms = { palette: { value: palette }, interpolation: { value: 0 } };
+      const surfaceUniforms = {
+        palette: { value: palette },
+        paletteSize: { value: names.length },
+        interpolation: { value: 0 },
+      };
       const idUniforms = { interpolation: surfaceUniforms.interpolation };
       const material = own(
         new THREE.ShaderMaterial({
@@ -180,6 +185,7 @@ export const openEngine = (
       const screenCamera = new THREE.Camera();
       const state = {
         camera: initial.camera,
+        palette: syntheticPalette,
         theme: initial.theme,
         revision: initial.revision,
         width: 1,
@@ -243,13 +249,13 @@ export const openEngine = (
       };
       const setTheme = (theme: Theme) => {
         names.forEach((name, index) => {
-          const color = new THREE.Color(tokenColor(name, theme));
+          const color = new THREE.Color(state.palette.colors[name][theme]);
           paletteBytes.set([color.r, color.g, color.b, 1], index * 4);
         });
         palette.needsUpdate = true;
         state.theme = theme;
-        screenUniforms.lineColor.value.setHex(tokenColor("line", theme));
-        screenUniforms.lineOpacity.value = theme === "night" ? .7 : 1;
+        screenUniforms.lineColor.value.setHex(state.palette.colors.line[theme]);
+        screenUniforms.lineOpacity.value = state.palette.lineOpacity[theme];
         state.dirty = true;
       };
       const writeAttribute = (name: string, value: number, entityId: number) => {
@@ -315,7 +321,7 @@ export const openEngine = (
         const start = nowMonotonicMs();
         renderer.info.reset();
         renderer.setRenderTarget(colorTarget);
-        renderer.setClearColor(tokenColor("ground", state.theme));
+        renderer.setClearColor(state.palette.colors.ground[state.theme]);
         renderer.render(data.scene, camera);
         renderer.setRenderTarget(idTarget);
         renderer.setClearColor(0);
@@ -476,6 +482,12 @@ export const openEngine = (
         advance,
         inspect,
         setCamera,
+        // The workbench supplies unapproved candidate data through the same
+        // upload path that the Atlas will use, never through image recolouring.
+        setPalette: (selection: Palette) => {
+          state.palette = selection;
+          setTheme(state.theme);
+        },
         groundAt,
         project,
         apply,

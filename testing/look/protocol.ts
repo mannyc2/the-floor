@@ -26,6 +26,7 @@ export const ReadyState = Schema.TaggedStruct("Ready", {
   renderer: Schema.NonEmptyString,
   sourceSceneSha256: Sha256,
   fontManifestSha256: Sha256,
+  paletteSha256: Sha256,
 });
 export const AdapterState = Schema.Union([
   ReadyState,
