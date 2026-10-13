@@ -2,7 +2,7 @@ import { getAddressDecoder } from "@solana/kit";
 import { Effect, Layer, Schema } from "effect";
 import { FetchHttpClient } from "effect/http";
 import type { DopplerLaunchInput } from "../evm";
-import { MeteoraLaunch } from "../solana";
+import { MeteoraLaunch, QuoteAccountRpcReply } from "../solana";
 import type { MeteoraLaunchInput } from "../solana";
 import { config } from "./meteora-config";
 
@@ -38,18 +38,9 @@ export const dopplerInput: DopplerLaunchInput = {
   curves: [{ tickLower: 0, tickUpper: 240000, numPositions: 10, shares: 10n ** 18n }],
 };
 
-const RpcReply = Schema.Struct({
-  jsonrpc: Schema.Literal("2.0"),
-  id: Schema.Literal(1),
-  result: Schema.Struct({
-    context: Schema.Struct({ slot: Schema.Int }),
-    value: Schema.Struct({ owner: Schema.String }),
-  }),
-});
-
 export const quoteRpcLayer = (options: { readonly slot: number; readonly owner: string; readonly status?: number }) =>
   Layer.unwrap(Effect.gen(function*() {
-    const json = yield* Schema.encodeEffect(Schema.fromJsonString(RpcReply))({
+    const json = yield* Schema.encodeEffect(Schema.fromJsonString(QuoteAccountRpcReply))({
       jsonrpc: "2.0",
       id: 1,
       result: { context: { slot: options.slot }, value: { owner: options.owner } },

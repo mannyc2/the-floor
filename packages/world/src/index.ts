@@ -15,6 +15,9 @@ import {
   AgentLocation,
   BlueprintFloor,
   BlueprintTradingPost,
+  canonicalFloorOrigin,
+  canonicalPostAnchor,
+  canonicalStationPosition,
   DeskPlot,
   type Floor,
   LobbyPlot,
@@ -22,72 +25,72 @@ import {
   OpenTradingPost,
   type Plot,
   type Station,
-  type World,
+  World,
   WorldChangeError,
-  type WorldLayoutConfig,
-  type WorldPoint,
+  WorldLayoutConfig,
+  WorldValidationError,
 } from "@floor/contract/world";
-import { Array, Option, Result } from "effect";
+import { Array, Option, Result, Schema } from "effect";
 
 export const defaultLayout: typeof WorldLayoutConfig.Type = defaultWorldLayout;
 
-// These are abstract topology units, deliberately independent of the Atlas's
-// eventual kit unit. A square spiral opens new posts on the perimeter while
-// preserving every existing anchor as occupancy grows.
-const postAnchor = (index: number): typeof WorldPoint.Type => {
-  if (index === 0) return { x: 0, z: 0 };
-  const ring = Math.ceil((Math.sqrt(index + 1) - 1) / 2);
-  const side = ring * 2;
-  const offset = (side + 1) ** 2 - 1 - index;
-  if (offset < side) return { x: (ring - offset) * 8, z: -ring * 8 };
-  if (offset < side * 2) return { x: -ring * 8, z: (-ring + offset - side) * 8 };
-  if (offset < side * 3) return { x: (-ring + offset - side * 2) * 8, z: ring * 8 };
-  return { x: ring * 8, z: (ring - offset + side * 3) * 8 };
-};
-
-const stationPosition = (anchor: typeof WorldPoint.Type, index: number, capacity: number): typeof WorldPoint.Type => {
-  const angle = index * 2 * Math.PI / capacity;
-  return { x: anchor.x + Math.cos(angle) * 2, z: anchor.z + Math.sin(angle) * 2 };
-};
+const topologyPoint = (point: Option.Option<{ readonly x: number; readonly z: number }>, reference: string) =>
+  Result.fromOption(point, () => new WorldChangeError({ reason: "invalidTopology", reference }));
 
 const blueprintFloor = (
   chain: ChainRef,
-  level: number,
+  floorIndex: number,
   config: typeof WorldLayoutConfig.Type,
-): typeof BlueprintFloor.Type => {
-  // IDs are local to a World. Encoding the level and slot avoids dependence on
-  // arrival IDs, clocks or randomness and keeps a desk stable during movement.
-  const id = FloorId.make(`floor_${level}`);
-  return BlueprintFloor.make({
-    id,
-    chain,
-    level,
-    posts: Array.makeBy(config.postsPerFloor, (index) =>
-      BlueprintTradingPost.make({
-        id: TradingPostId.make(`${id}_post_${index}`),
-        index,
-        anchor: postAnchor(index),
-      })),
+): Result.Result<typeof BlueprintFloor.Type, WorldChangeError> =>
+  Result.gen(function*() {
+    // World-local indices keep identity independent of clocks, randomness and
+    // agent IDs, and remain stable when rooms open beside the lobby.
+    const id = FloorId.make(`floor_${floorIndex}`);
+    const origin = yield* topologyPoint(canonicalFloorOrigin(floorIndex, config.postsPerFloor), id);
+    const posts = yield* Result.all(Array.makeBy(config.postsPerFloor, index => {
+      const postId = TradingPostId.make(`${id}_post_${index}`);
+      return topologyPoint(canonicalPostAnchor(index), postId).pipe(
+        Result.map(anchor => BlueprintTradingPost.make({ id: postId, index, anchor })),
+      );
+    }));
+    return BlueprintFloor.make({ id, chain, index: floorIndex, origin, posts });
   });
-};
+
+const decodeWorld = Schema.decodeResult(Schema.toType(World));
+const validateWorld = (world: typeof World.Type, operation: "assignAgent" | "moveAgent" | "assignPlot") =>
+  decodeWorld(world).pipe(Result.mapError(cause =>
+    new WorldValidationError({
+      operation,
+      reason: "invalidWorld",
+      reference: world.id,
+      cause,
+    })
+  ));
 
 export const createWorld = (
   id: WorldId,
   firstChain: ChainRef,
   layout: typeof WorldLayoutConfig.Type = defaultLayout,
-): typeof World.Type => ({
-  id,
-  layout,
-  floors: [blueprintFloor(firstChain, 1, layout)],
-  lobbyPlots: Array.makeBy(layout.lobbyPlots, (slot) =>
-    LobbyPlot.make({
-      id: PlotId.make(`lobby_plot_${slot}`),
-      slot,
-      token: Option.none(),
-      holder: Option.none(),
-    })),
-  agents: [],
-});
+): Result.Result<typeof World.Type, WorldValidationError | WorldChangeError> =>
+  Result.gen(function*() {
+    const config = yield* Schema.decodeResult(WorldLayoutConfig)(layout).pipe(Result.mapError(cause =>
+      new WorldValidationError({ operation: "createWorld", reason: "invalidLayout", reference: id, cause })
+    ));
+    const floor = yield* blueprintFloor(firstChain, 0, config);
+    return {
+      id,
+      layout: config,
+      floors: [floor],
+      lobbyPlots: Array.makeBy(config.lobbyPlots, index =>
+        LobbyPlot.make({
+          id: PlotId.make(`lobby_plot_${index}`),
+          index,
+          token: Option.none(),
+          holder: Option.none(),
+        })),
+      agents: [],
+    };
+  });
 
 const floorHasSpace = (floor: typeof Floor.Type, config: typeof WorldLayoutConfig.Type) =>
   floor.posts.some(post => post._tag === "BlueprintTradingPost" || post.stations.length < config.stationsPerPost);
@@ -104,10 +107,13 @@ export const agentLocation = (world: typeof World.Type, agentId: AgentId): Optio
   Array.findFirst(world.agents, agent => agent.agentId === agentId).pipe(Option.map(agent => agent.location));
 
 export const assignAgent = (
-  world: typeof World.Type,
+  input: typeof World.Type,
   agentId: AgentId,
   chain: ChainRef,
-): Result.Result<typeof World.Type, WorldChangeError> => {
+): Result.Result<typeof World.Type, WorldValidationError | WorldChangeError> => {
+  const validated = validateWorld(input, "assignAgent");
+  if (Result.isFailure(validated)) return validated;
+  const world = validated.success;
   if (world.agents.some(agent => agent.agentId === agentId)) {
     return Result.fail(new WorldChangeError({ reason: "duplicateAgent", reference: agentId }));
   }
@@ -115,7 +121,7 @@ export const assignAgent = (
     world.floors,
     floor => floor._tag === "OpenFloor" && floor.chain === chain && floorHasSpace(floor, world.layout),
   );
-  // Only the final blueprint changes chain; occupied floors never change level
+  // Only the final blueprint changes chain; occupied floors never change index
   // when a second chain arrives or an earlier chain needs overflow capacity.
   const floor = Option.getOrElse(existingFloor, () => Array.lastNonEmpty(world.floors));
   const post = Array.findFirst(
@@ -123,16 +129,18 @@ export const assignAgent = (
     candidate => candidate._tag === "BlueprintTradingPost" || candidate.stations.length < world.layout.stationsPerPost,
   );
   return Option.match(post, {
-    onNone: () => Result.fail(new WorldChangeError({ reason: "unknownPost", reference: floor.id })),
+    onNone: () => Result.fail(new WorldChangeError({ reason: "floorFull", reference: floor.id })),
     onSome: selected => {
       const previousStations = selected._tag === "OpenTradingPost" ? selected.stations : [];
       const index = previousStations.length;
       const id = StationId.make(`${selected.id}_station_${index}`);
       const deskId = DeskId.make(`${id}_desk`);
+      const position = topologyPoint(canonicalStationPosition(selected.index, index, world.layout.stationsPerPost), id);
+      if (Result.isFailure(position)) return Result.fail(position.failure);
       const station: typeof Station.Type = {
         id,
         index,
-        position: stationPosition(selected.anchor, index, world.layout.stationsPerPost),
+        position: position.success,
         desk: {
           id: deskId,
           agentId,
@@ -156,15 +164,18 @@ export const assignAgent = (
           ? OpenFloor.make({
             id: floor.id,
             chain,
-            level: floor.level,
+            index: floor.index,
+            origin: floor.origin,
             posts: Array.map(floor.posts, current => current.id === selected.id ? openPost : current),
           })
           : candidate);
+      const nextFloor = floor._tag === "BlueprintFloor"
+        ? blueprintFloor(chain, floor.index + 1, world.layout).pipe(Result.map(value => Array.append(floors, value)))
+        : Result.succeed(floors);
+      if (Result.isFailure(nextFloor)) return Result.fail(nextFloor.failure);
       return Result.succeed({
         ...world,
-        floors: floor._tag === "BlueprintFloor"
-          ? [...floors, blueprintFloor(chain, floor.level + 1, world.layout)]
-          : floors,
+        floors: nextFloor.success,
         agents: [...world.agents, { agentId, location: AgentLocation.cases.AtDesk.make({ deskId }) }],
       });
     },
@@ -183,15 +194,24 @@ const locationExists = (world: typeof World.Type, location: typeof AgentLocation
   });
 
 export const moveAgent = (
-  world: typeof World.Type,
+  input: typeof World.Type,
   agentId: AgentId,
   location: typeof AgentLocation.Type,
-): Result.Result<typeof World.Type, WorldChangeError> => {
+): Result.Result<typeof World.Type, WorldValidationError | WorldChangeError> => {
+  const validated = validateWorld(input, "moveAgent");
+  if (Result.isFailure(validated)) return validated;
+  const world = validated.success;
   if (!world.agents.some(agent => agent.agentId === agentId)) {
     return Result.fail(new WorldChangeError({ reason: "unknownAgent", reference: agentId }));
   }
   if (!locationExists(world, location)) {
-    return Result.fail(new WorldChangeError({ reason: "unknownLocation", reference: agentId }));
+    const reference = AgentLocation.match(location, {
+      AtDesk: (target): string => target.deskId,
+      AtPost: (target): string => target.postId,
+      AtPlace: (target): string => target.floorId,
+      InLobby: (target): string => target.place,
+    });
+    return Result.fail(new WorldChangeError({ reason: "unknownLocation", reference }));
   }
   return Result.succeed({
     ...world,
@@ -200,11 +220,14 @@ export const moveAgent = (
 };
 
 export const assignPlot = (
-  world: typeof World.Type,
+  input: typeof World.Type,
   plotId: PlotId,
   token: Option.Option<AssetRef>,
   holder: Option.Option<OwnerId>,
-): Result.Result<typeof World.Type, WorldChangeError> => {
+): Result.Result<typeof World.Type, WorldValidationError | WorldChangeError> => {
+  const validated = validateWorld(input, "assignPlot");
+  if (Result.isFailure(validated)) return validated;
+  const world = validated.success;
   if (!allPlots(world).some(plot => plot.id === plotId)) {
     return Result.fail(new WorldChangeError({ reason: "unknownPlot", reference: plotId }));
   }

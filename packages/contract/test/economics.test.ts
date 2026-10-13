@@ -17,6 +17,7 @@ import {
   PolicyDecision,
   Receipt,
   ReceiptCause,
+  ResolvedWithdrawal,
   SwapIntent,
   WithdrawalIntent,
 } from "../src/economics.ts";
@@ -91,6 +92,21 @@ const withdrawalArbitrary = scenarioArbitrary.pipe(Arbitrary.map((scenario) =>
     requestedAt: scenario.action.requestedAt,
     asset: AssetRef.make(`${scenario.action.chain}/token:withdraw`),
     dollars: scenario.dollars,
+    destination: scenario.destinationId,
+  })
+));
+const resolvedWithdrawalArbitrary = scenarioArbitrary.pipe(Arbitrary.map((scenario) =>
+  ResolvedWithdrawal.make({
+    intent: WithdrawalIntent.make({
+      id: scenario.action.id,
+      agent: scenario.action.agent,
+      owner: scenario.action.owner,
+      chain: scenario.action.chain,
+      requestedAt: scenario.action.requestedAt,
+      asset: AssetRef.make(`${scenario.action.chain}/token:withdraw`),
+      dollars: scenario.dollars,
+      destination: scenario.destinationId,
+    }),
     destination: VerifiedWithdrawalDestination.cases.OwnAccount.make({
       id: scenario.destinationId,
       owner: scenario.action.owner,
@@ -130,9 +146,16 @@ test("agents cannot use another owner's policy or duplicate a chain wallet", () 
       const differentOwner = OwnerId.make(agent.owner === "another-owner" ? "other-owner" : "another-owner");
       const first = agent.wallets[0];
       const otherChain = first.account.startsWith("other:chain:") ? "third:chain:wallet" : "other:chain:wallet";
+      const sameChain = first.account.slice(0, first.account.lastIndexOf(":"));
+      const differentId = WalletId.make(first.id === "second-wallet" ? "third-wallet" : "second-wallet");
+      const differentAddress = first.account.endsWith(":second") ? "third" : "second";
       return !Schema.is(Agent)({ ...agent, policy: { ...agent.policy, owner: differentOwner } })
         && !Schema.is(Agent)({ ...agent, wallets: [first, first] })
-        && !Schema.is(Agent)({ ...agent, wallets: [first, { ...first, account: AccountRef.make(otherChain) }] });
+        && !Schema.is(Agent)({ ...agent, wallets: [first, { ...first, account: AccountRef.make(otherChain) }] })
+        && !Schema.is(Agent)({
+          ...agent,
+          wallets: [first, { id: differentId, account: AccountRef.make(`${sameChain}:${differentAddress}`) }],
+        });
     }, propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
@@ -147,30 +170,54 @@ test("swaps round trip in the action union and reject same-asset or cross-chain 
       }), propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
-test("withdrawals round trip and reject a recipient belonging to anyone else", () =>
+test("withdrawals carry only a destination reference and reject a cross-chain asset", () =>
   runTest(
     Arbitrary.checkEffect(withdrawalArbitrary, (intent) =>
       Effect.gen(function*() {
-        const differentOwner = OwnerId.make(intent.owner === "another-owner" ? "other-owner" : "another-owner");
+        const otherChain = intent.chain === "eip155:1" ? "eip155:2" : "eip155:1";
         const valid = yield* roundTrip(ActionIntent, intent);
         return valid
-          && !Schema.is(WithdrawalIntent)({ ...intent, destination: { ...intent.destination, owner: differentOwner } });
+          && !Schema.is(WithdrawalIntent)({
+            ...intent,
+            destination: { id: intent.destination, verification: "self-asserted" },
+          })
+          && !Schema.is(WithdrawalIntent)({ ...intent, asset: AssetRef.make(`${otherChain}/token:withdraw`) });
+      }), propertyOptions).pipe(Effect.tap(expectPassed)),
+  ));
+
+test("resolved withdrawals reject the wrong destination, owner or account chain independently", () =>
+  runTest(
+    Arbitrary.checkEffect(resolvedWithdrawalArbitrary, (resolved) =>
+      Effect.gen(function*() {
+        const { intent, destination } = resolved;
+        const differentOwner = OwnerId.make(intent.owner === "another-owner" ? "other-owner" : "another-owner");
+        const differentId = DestinationId.make(
+          destination.id === "other-destination" ? "third-destination" : "other-destination",
+        );
+        const otherChain = intent.chain === "eip155:1" ? "eip155:2" : "eip155:1";
+        return (yield* roundTrip(ResolvedWithdrawal, resolved))
+          && !Schema.is(ResolvedWithdrawal)({ ...resolved, destination: { ...destination, id: differentId } })
+          && !Schema.is(ResolvedWithdrawal)({ ...resolved, destination: { ...destination, owner: differentOwner } })
+          && !Schema.is(ResolvedWithdrawal)({
+            ...resolved,
+            destination: { ...destination, account: AccountRef.make(`${otherChain}:owner`) },
+          });
       }), propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
 test("withdrawal owner checks apply to banks as well as chain accounts", () =>
   runTest(
-    Arbitrary.checkEffect(withdrawalArbitrary, (intent) => {
+    Arbitrary.checkEffect(resolvedWithdrawalArbitrary, ({ intent, destination }) => {
       const bank = VerifiedWithdrawalDestination.cases.OwnBank.make({
-        id: intent.destination.id,
+        id: destination.id,
         owner: intent.owner,
         providerReference: "bank-owner",
-        verifiedAt: intent.destination.verifiedAt,
-        verification: intent.destination.verification,
+        verifiedAt: destination.verifiedAt,
+        verification: destination.verification,
       });
       const differentOwner = OwnerId.make(intent.owner === "another-owner" ? "other-owner" : "another-owner");
-      return Schema.is(WithdrawalIntent)({ ...intent, destination: bank })
-        && !Schema.is(WithdrawalIntent)({ ...intent, destination: { ...bank, owner: differentOwner } });
+      return Schema.is(ResolvedWithdrawal)({ intent, destination: bank })
+        && !Schema.is(ResolvedWithdrawal)({ intent, destination: { ...bank, owner: differentOwner } });
     }, propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
@@ -204,7 +251,11 @@ test("receipts reject a foreign owner or a transaction/checkpoint from another c
       const differentOwner = OwnerId.make(receipt.action.owner === "another-owner" ? "other-owner" : "another-owner");
       return !Schema.is(Receipt)({ ...receipt, checkpoint: { ...receipt.checkpoint, chain: otherChain } })
         && !Schema.is(Receipt)({ ...receipt, transaction: { ...receipt.transaction, chain: otherChain } })
-        && !Schema.is(Receipt)({ ...receipt, policy: { ...receipt.policy, owner: differentOwner } });
+        && !Schema.is(Receipt)({ ...receipt, policy: { ...receipt.policy, owner: differentOwner } })
+        && !Schema.is(Receipt)({
+          ...receipt,
+          causes: [ReceiptCause.cases.OwnerRequest.make({ owner: differentOwner, request: receipt.transaction.hash })],
+        });
     }, propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
@@ -226,8 +277,16 @@ test("unknown outcomes round trip without invented transaction or checkpoint evi
           reason: "Submission outcome is not yet known",
         });
         const roundTripped = yield* roundTrip(Receipt, receipt);
+        const otherChain = ChainRef.make(receipt.action.chain === "eip155:1" ? "eip155:2" : "eip155:1");
+        const withTransaction = { ...receipt, transaction: Option.some(scenario.transaction) };
         // oxlint-disable-next-line effect/preferTaggedConstructors -- Changing only the tag reproduces an unknown outcome falsely advertised as settled.
-        return roundTripped && !Schema.is(Receipt)({ ...receipt, _tag: "SettledReceipt" });
+        const falseSettlement = { ...receipt, _tag: "SettledReceipt" };
+        return roundTripped && !Schema.is(Receipt)(falseSettlement)
+          && Schema.is(Receipt)(withTransaction)
+          && !Schema.is(Receipt)({
+            ...withTransaction,
+            transaction: Option.some({ ...scenario.transaction, chain: otherChain }),
+          });
       }), propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
@@ -250,9 +309,27 @@ test("unconfirmed and denied policies can produce only matching refusal receipts
           policy: PolicyDecision.cases.Denied.make({ policy: scenario.policy, reasons: ["Trade exceeds the cap"] }),
           refusal: { code: "policyDenied", detail: "Trade exceeds the cap" },
         });
+        const allowed = Receipt.cases.RefusedReceipt.make({
+          ...unconfirmed,
+          policy: PolicyDecision.cases.Allowed.make({ policy: scenario.policy }),
+          refusal: { code: "simulationFailed", detail: "Simulation failed" },
+        });
+        const differentOwner = OwnerId.make(
+          scenario.action.owner === "another-owner" ? "other-owner" : "another-owner",
+        );
         return (yield* roundTrip(Receipt, unconfirmed)) && (yield* roundTrip(Receipt, denied))
+          && (yield* roundTrip(Receipt, allowed))
           && !Schema.is(Receipt)({ ...unconfirmed, refusal: { code: "simulationFailed", detail: "unrelated" } })
-          && !Schema.is(Receipt)({ ...denied, refusal: { code: "policyUnconfirmed", detail: "unrelated" } });
+          && !Schema.is(Receipt)({ ...denied, refusal: { code: "policyUnconfirmed", detail: "unrelated" } })
+          && !Schema.is(Receipt)({ ...allowed, refusal: { code: "policyDenied", detail: "unrelated" } })
+          && !Schema.is(Receipt)({ ...allowed, refusal: { code: "policyUnconfirmed", detail: "unrelated" } })
+          && !Schema.is(Receipt)({
+            ...denied,
+            policy: PolicyDecision.cases.Denied.make({
+              policy: { ...scenario.policy, owner: differentOwner },
+              reasons: ["Trade exceeds the cap"],
+            }),
+          });
       }), propertyOptions).pipe(Effect.tap(expectPassed)),
   ));
 
@@ -277,10 +354,100 @@ test("money has no missing-as-zero path and keeps decimal precision across JSON"
     expect(budget._tag).toBe("Failure");
   })));
 
+test("every confirmed policy limit names the Privy policy that enforces it", () =>
+  runTest(
+    Arbitrary.checkEffect(scenarioArbitrary, ({ policy }) => {
+      const limits = {
+        ...policy.limits,
+        dailyLossDollars: Option.some(policy.limits.tradeCapDollars),
+        positionFraction: Option.some({ value: 0.5, providerPolicyId: policy.limits.tradeCapDollars.providerPolicyId }),
+        approvalAboveDollars: Option.some(policy.limits.tradeCapDollars),
+      };
+      const confirmed = ConfirmedPolicy.make({ ...policy, limits });
+      return [
+        { ...limits, allowedPrograms: { value: limits.allowedPrograms.value } },
+        { ...limits, allowedDestinations: { value: limits.allowedDestinations.value } },
+        { ...limits, tradeCapDollars: { value: limits.tradeCapDollars.value } },
+        { ...limits, launchAllowed: { value: limits.launchAllowed.value } },
+        { ...limits, dailyLossDollars: Option.some({ value: limits.tradeCapDollars.value }) },
+        { ...limits, positionFraction: Option.some({ value: 0.5 }) },
+        { ...limits, approvalAboveDollars: Option.some({ value: limits.tradeCapDollars.value }) },
+      ].every((incomplete) => !Schema.is(ConfirmedPolicy)({ ...confirmed, limits: incomplete }));
+    }, propertyOptions).pipe(Effect.tap(expectPassed)),
+  ));
+
+test("money accepts one bounded decimal spelling and rejects hostile scales before arithmetic", () =>
+  runTest(Effect.gen(function*() {
+    for (
+      const wire of [
+        "1e1000000",
+        "1e-1000000",
+        "1e9007199254740992",
+        "1e-9007199254740992",
+        "1e999999999999999999999",
+        "+1",
+        "01",
+        "1.0",
+        "0.00",
+        ".1",
+        "1.",
+        "1E2",
+        "-0",
+        "1000000000000000000000000000000",
+        "0.0000000000000000001",
+      ]
+    ) {
+      expect((yield* Schema.decodeEffect(Usd)(wire).pipe(Effect.result))._tag).toBe("Failure");
+    }
+    for (const wire of ["0", "0.000000000000000001", "999999999999999999999999999999.999999999999999999"]) {
+      const amount = yield* Schema.decodeEffect(Usd)(wire);
+      expect(yield* Schema.encodeEffect(Usd)(amount)).toBe(wire);
+    }
+    for (
+      const amount of [
+        BigDecimal.make(1n, Number.MAX_SAFE_INTEGER),
+        BigDecimal.make(1n, -Number.MAX_SAFE_INTEGER),
+        BigDecimal.make(1n, 19),
+        BigDecimal.make(1n, -30),
+        BigDecimal.make(10n ** 48n, 18),
+      ]
+    ) {
+      expect((yield* Schema.encodeUnknownEffect(Usd)(amount).pipe(Effect.result))._tag).toBe("Failure");
+      expect((yield* Schema.encodeUnknownEffect(PositiveUsd)(amount).pipe(Effect.result))._tag).toBe("Failure");
+    }
+  })));
+
+test("timestamps require real canonical ISO instants and digests accept padded base64", () =>
+  runTest(Effect.gen(function*() {
+    for (
+      const text of [
+        "0",
+        "October 12, 2026",
+        "10/12/2026",
+        "2026-10-12",
+        "2026-10-12T15:00:00",
+        "2026-02-30T00:00:00.000Z",
+        "2026-10-12T15:00:00.000+00:00",
+      ]
+    ) {
+      expect((yield* Schema.decodeEffect(Timestamp)(text).pipe(Effect.result))._tag).toBe("Failure");
+    }
+    for (const text of ["0000-01-01T00:00:00.000Z", "2024-02-29T00:00:00.000Z", "9999-12-31T23:59:59.999Z"]) {
+      const time = yield* Schema.decodeEffect(Timestamp)(text);
+      expect(yield* Schema.encodeEffect(Timestamp)(time)).toBe(text);
+    }
+    for (const digest of ["dGVzdA==", "YWJjZGU=", "sha256:abc/def+123=", "abcdef0123456789"]) {
+      const decoded = yield* Schema.decodeEffect(Digest)(digest);
+      expect(yield* roundTrip(Digest, decoded)).toBe(true);
+    }
+    for (const digest of ["", "=abc", "a=b", "abc===", "a".repeat(257)]) {
+      expect((yield* Schema.decodeEffect(Digest)(digest).pipe(Effect.result))._tag).toBe("Failure");
+    }
+  })));
+
 test("owners cannot repeat withdrawal destinations or wallet authority references", () =>
   runTest(
-    Arbitrary.checkEffect(withdrawalArbitrary, (intent) => {
-      const destination = intent.destination;
+    Arbitrary.checkEffect(resolvedWithdrawalArbitrary, ({ intent, destination }) => {
       const owner = Owner.make({
         id: intent.owner,
         identity: { provider: "privy", subject: "owner-account" },
@@ -292,8 +459,11 @@ test("owners cannot repeat withdrawal destinations or wallet authority reference
         }),
       });
       const wallet = { id: WalletId.make("owner-wallet"), account: AccountRef.make("eip155:1:owner") };
-      return !Schema.is(Owner)({ ...owner, withdrawalDestinations: [destination, destination] })
+      const differentOwner = OwnerId.make(intent.owner === "another-owner" ? "other-owner" : "another-owner");
+      return !Schema.is(Owner)({ ...owner, withdrawalDestinations: [{ ...destination, owner: differentOwner }] })
+        && !Schema.is(Owner)({ ...owner, withdrawalDestinations: [destination, destination] })
         && !Schema.is(Owner)({ ...owner, wallets: [wallet, wallet] })
+        && !Schema.is(Owner)({ ...owner, wallets: [wallet, { ...wallet, id: WalletId.make("other-owner-wallet") }] })
         && !Schema.is(Owner)({
           ...owner,
           wallets: [wallet, { ...wallet, account: AccountRef.make("other:chain:owner") }],

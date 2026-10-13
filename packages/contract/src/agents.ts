@@ -1,4 +1,4 @@
-import { Array, BigDecimal, Schema } from "effect";
+import { Array, BigDecimal, Schema, SchemaGetter } from "effect";
 import {
   AccountRef,
   AgentId,
@@ -15,17 +15,42 @@ import {
   WalletId,
 } from "./identifiers.ts";
 
-// Decimal dollars remain exact across JSON, policy evaluation and the signer;
-// binary floating-point prices must never become payment instructions.
-const DecimalDollars = Schema.String.check(
-  Schema.isTrimmed(),
-  Schema.isPattern(/^[+]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$/),
-).pipe(
-  Schema.decodeTo(Schema.BigDecimalFromString),
-);
-export const Usd = DecimalDollars.check(Schema.isGreaterThanOrEqualToBigDecimal(BigDecimal.make(0n, 0))).pipe(
-  Schema.brand("Usd"),
-);
+// A single bounded decimal spelling prevents exponent-sized allocations at the
+// signer. Values have at most 30 integer and 18 fractional digits; no exponent,
+// leading plus/zeroes or trailing fractional zeroes crosses the wire.
+const DollarString = Schema.String.check(Schema.isPattern(/^(0|[1-9][0-9]{0,29})(\.[0-9]{0,17}[1-9])?$/));
+const DollarValue = Schema.BigDecimal.annotate({
+  toCodecArbitrary: () =>
+    Schema.link<BigDecimal.BigDecimal>()(DollarString, {
+      decode: SchemaGetter.transform(BigDecimal.fromStringUnsafe),
+      encode: SchemaGetter.transform(decimalString),
+    }),
+}).check(Schema.makeFilter((amount) => {
+  // Bound the raw representation before normalize/format/scale can do work
+  // proportional to an untrusted exponent or coefficient.
+  if (
+    !Number.isSafeInteger(amount.scale) || amount.scale < -29 || amount.scale > 18 || amount.value < 0n
+    || amount.value >= 10n ** 48n
+  ) return false;
+  const normalized = BigDecimal.normalize(amount);
+  return normalized.scale >= -29 && normalized.scale <= 18
+    && normalized.value.toString().length - normalized.scale <= 30;
+}, { message: "Dollars require at most 30 integer and 18 fractional digits" }));
+const decimalString = (amount: BigDecimal.BigDecimal) => {
+  // Effect's formatter switches to exponent notation at scale 16; the bounded
+  // domain above lets the wire retain a canonical plain decimal instead.
+  const normalized = BigDecimal.normalize(amount);
+  const digits = normalized.value.toString();
+  if (normalized.scale <= 0) return digits + "0".repeat(-normalized.scale);
+  const padded = digits.padStart(normalized.scale + 1, "0");
+  const point = padded.length - normalized.scale;
+  return `${padded.slice(0, point)}.${padded.slice(point)}`;
+};
+const DecimalDollars = DollarString.pipe(Schema.decodeTo(DollarValue, {
+  decode: SchemaGetter.transform(BigDecimal.fromStringUnsafe),
+  encode: SchemaGetter.transform(decimalString),
+}));
+export const Usd = DecimalDollars.pipe(Schema.brand("Usd"));
 export type Usd = typeof Usd.Type;
 export const PositiveUsd = DecimalDollars.check(Schema.isGreaterThanBigDecimal(BigDecimal.make(0n, 0))).pipe(
   Schema.brand("PositiveUsd"),
@@ -93,12 +118,28 @@ export type PolicyLimits = typeof PolicyLimits.Type;
 const policyFields = { id: PolicyId, version: VersionId, owner: OwnerId, limits: PolicyLimits };
 export const DraftPolicy = Schema.TaggedStruct("DraftPolicy", { ...policyFields, requestedAt: Timestamp });
 export type DraftPolicy = typeof DraftPolicy.Type;
+export const PrivyPolicyId = Label.pipe(Schema.brand("PrivyPolicyId"));
+export type PrivyPolicyId = typeof PrivyPolicyId.Type;
+const enforcedLimit = <S extends Schema.Constraint>(value: S) =>
+  Schema.Struct({ value, providerPolicyId: PrivyPolicyId });
+// Pair each enforced value with its provider policy. A loose policy-id list
+// cannot demonstrate which stateful limits were actually installed.
+export const ConfirmedPolicyLimits = Schema.Struct({
+  allowedPrograms: enforcedLimit(PolicyLimits.fields.allowedPrograms),
+  allowedDestinations: enforcedLimit(PolicyLimits.fields.allowedDestinations),
+  tradeCapDollars: enforcedLimit(PositiveUsd),
+  dailyLossDollars: Schema.OptionFromNullOr(enforcedLimit(PositiveUsd)),
+  positionFraction: Schema.OptionFromNullOr(enforcedLimit(Fraction)),
+  approvalAboveDollars: Schema.OptionFromNullOr(enforcedLimit(PositiveUsd)),
+  launchAllowed: enforcedLimit(Schema.Boolean),
+});
+export type ConfirmedPolicyLimits = typeof ConfirmedPolicyLimits.Type;
 export const ConfirmedPolicy = Schema.TaggedStruct("ConfirmedPolicy", {
   ...policyFields,
+  limits: ConfirmedPolicyLimits,
   confirmation: Schema.Struct({
     ownerSignature: Digest,
     provider: Schema.Literal("privy"),
-    providerPolicyIds: Schema.NonEmptyArray(Label).check(Schema.isUnique()),
     confirmedAt: Timestamp,
   }),
 });

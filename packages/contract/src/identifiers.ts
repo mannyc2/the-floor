@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import { DateTime, Option, Schema } from "effect";
 
 // CAIP validates the shared envelope; namespace-specific checks and canonicalization
 // belong to chain adapters, so this contract never guesses an address format.
@@ -67,9 +67,21 @@ export type SignerId = typeof SignerId.Type;
 
 export const Label = Schema.NonEmptyString.check(Schema.isMaxLength(256));
 export type Label = typeof Label.Type;
-export const Timestamp = Schema.DateTimeUtcFromString;
+// Check the wire before DateTime's permissive parser can interpret a locale-
+// dependent string or normalize an impossible calendar date into another day.
+const IsoTimestamp = Schema.String.check(
+  Schema.isPattern(/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$/),
+  Schema.makeFilter((text) => Option.exists(DateTime.make(text), (time) => DateTime.formatIso(time) === text), {
+    message: "Timestamps must be real UTC ISO dates with millisecond precision",
+  }),
+);
+const timestampRange = Schema.makeIsBetween({ order: DateTime.Order, formatter: DateTime.formatIso })({
+  minimum: DateTime.makeUnsafe("0000-01-01T00:00:00.000Z"),
+  maximum: DateTime.makeUnsafe("9999-12-31T23:59:59.999Z"),
+});
+export const Timestamp = IsoTimestamp.pipe(Schema.decodeTo(Schema.DateTimeUtcFromString)).check(timestampRange);
 export type Timestamp = typeof Timestamp.Type;
-export const Digest = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_.:+/-]{1,256}$/)).pipe(
+export const Digest = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_.:+/-]+={0,2}$/), Schema.isMaxLength(256)).pipe(
   Schema.brand("Digest"),
 );
 export type Digest = typeof Digest.Type;

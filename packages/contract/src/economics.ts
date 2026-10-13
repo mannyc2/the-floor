@@ -7,6 +7,7 @@ import {
   ChainRef,
   Checkpoint,
   CommonsId,
+  DestinationId,
   Digest,
   IntentId,
   Label,
@@ -48,16 +49,32 @@ export const WithdrawalIntent = Schema.TaggedStruct("Withdrawal", {
   ...intentFields,
   asset: AssetRef,
   dollars: PositiveUsd,
-  destination: VerifiedWithdrawalDestination,
+  destination: DestinationId,
 }).check(
-  Schema.makeFilter(
-    (intent) =>
-      intent.owner === intent.destination.owner && intent.asset.startsWith(`${intent.chain}/`)
-      && (intent.destination._tag === "OwnBank" || intent.destination.account.startsWith(`${intent.chain}:`)),
-    { message: "A withdrawal uses its chain and a verified destination belonging to its owner" },
-  ),
+  Schema.makeFilter((intent) => intent.asset.startsWith(`${intent.chain}/`), {
+    message: "A withdrawal asset belongs to its declared chain",
+  }),
 );
 export type WithdrawalIntent = typeof WithdrawalIntent.Type;
+// Only the signer resolves this ID from its verified owner-destination registry.
+// The agent supplies no account, bank details or self-asserted verification.
+export const ResolvedWithdrawal = Schema.Struct({
+  intent: WithdrawalIntent,
+  destination: VerifiedWithdrawalDestination,
+}).check(
+  Schema.makeFilter((resolved) => resolved.intent.destination === resolved.destination.id, {
+    message: "The resolved destination must match the requested identifier",
+  }),
+  Schema.makeFilter((resolved) => resolved.intent.owner === resolved.destination.owner, {
+    message: "A resolved withdrawal destination belongs to the action's owner",
+  }),
+  Schema.makeFilter(
+    (resolved) =>
+      resolved.destination._tag === "OwnBank" || resolved.destination.account.startsWith(`${resolved.intent.chain}:`),
+    { message: "A resolved account destination belongs to the withdrawal chain" },
+  ),
+);
+export type ResolvedWithdrawal = typeof ResolvedWithdrawal.Type;
 export const ActionIntent = Schema.Union([SwapIntent, LaunchIntent, WithdrawalIntent]);
 export type ActionIntent = typeof ActionIntent.Type;
 

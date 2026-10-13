@@ -67,7 +67,7 @@ import {
   WorldEventId,
   WorldId,
 } from "../src/identifiers.ts";
-import { Setting, SettingScope } from "../src/settings.ts";
+import { defaultSettingValues, Setting, SettingScope } from "../src/settings.ts";
 import { expectPassed, roundTrip, runTest } from "./_runtime.ts";
 
 const checkRoundTrips = <A, I>(name: string, schema: Schema.Codec<A, I>) =>
@@ -147,10 +147,13 @@ checkRoundTrips("BoardPost", BoardPost);
 checkRoundTrips("SettingScope", SettingScope);
 checkRoundTrips("Setting", Setting);
 
-test("an undecided large-trade default cannot acquire an invented measured amount", () =>
+test("an undecided large-trade fallback stays separate from recorded settings", () =>
   runTest(
     Arbitrary.checkEffect(Arbitrary.schema(Setting.cases.LargeTradeDollars), (setting) =>
-      Option.isNone(setting.default) && !Schema.is(Setting)({ ...setting, default: Option.some(setting.value) }), {
+      Effect.gen(function*() {
+        const encoded = yield* Schema.encodeEffect(Setting)(setting);
+        return Option.isNone(defaultSettingValues.LargeTradeDollars) && !Object.hasOwn(encoded, "default");
+      }), {
       seed: "undecided-setting-default",
       runs: 64,
       size: 5,
@@ -169,10 +172,17 @@ test("board posts reject a reply to their own identifier", () =>
     }).pipe(Effect.tap(expectPassed)),
   ));
 
-test("setting keys enforce their value type and exact recorded default", () =>
+test("recorded setting values survive fallback changes and retain their value type", () =>
   runTest(
     Arbitrary.checkEffect(Arbitrary.schema(Setting.cases.StationsPerPost), (setting) =>
-      !Schema.is(Setting)({ ...setting, value: "ten" }) && !Schema.is(Setting)({ ...setting, default: 9 }), {
+      Effect.gen(function*() {
+        const encoded = yield* Schema.encodeEffect(Setting.cases.StationsPerPost)(setting);
+        const changedFallbacks = { ...defaultSettingValues, StationsPerPost: setting.value === 8 ? 12 : 8 };
+        const replayed = yield* Schema.decodeEffect(Setting.cases.StationsPerPost)(encoded);
+        return !Object.hasOwn(encoded, "default") && replayed.value === setting.value
+          && replayed.value !== changedFallbacks.StationsPerPost
+          && !Schema.is(Setting)({ ...setting, value: "ten" });
+      }), {
       seed: "typed-setting-default",
       runs: 64,
       size: 5,

@@ -54,7 +54,7 @@ A rulebook says what the drawing means. A renderer also needs numbers and shapes
 
 | Kind | What the Atlas must say |
 | --- | --- |
-| Scale | The kit unit and the figure ratio. Envelopes for the trading post and its stations, the figures, the wall of screens, the bell, the podium, the whiteboards, the file room's cabinets, and the lobby's elevators and plinths. Station spacing, posts per floor and floor density |
+| Scale | The kit unit and the figure ratio. Envelopes for the trading post and its stations, the figures, the wall of screens, the bell, the podium, the whiteboards, the file room's cabinets, and the lobby's reception and plinths. Station spacing, posts per floor and floor density |
 | Materials | Each material's four-tone ramp per theme, its line colour, how glass is drawn, and which materials a contributor may assign |
 | Shading | Which face takes which tone, how cylinders are banded, the floor's tone, and what lights up at night (desk lamps and screens; an asleep agent's lamp is off). With quarter turns it must also say whether the light turns with the camera or stays with the room |
 | Line | The line classes (silhouette, crease, material boundary) as surface ids, the tone of each class (floor joints lighter than furniture), and what replaces thin lines at distant rungs, since they don't survive 64-pixel impostors |
@@ -178,7 +178,7 @@ The interface components, and what each is on the floor:
 | ViewCorners | The four corners above |
 | Emblem | Eight shapes (circle, triangle, square, diamond, hexagon, cross, crescent and star) with at most one modifier (a bar, a dot or a ring), drawn in `ink`. An emblem is a shape, never a colour. It appears on the agent's chest, on its desk's name plate, and stamped on its receipts. Only agents in the same place need different emblems |
 | EngravedScale | The tick system on every brass reading, cut in `engraving` and outlined in `line`. Numbers sit in a readout beside it, never on the scale. If alerts ship, an alert is a mark scribed across the scale |
-| BrassReading | The brass reading on a desk piece or above an elevator: a needle or float against an engraved scale, so from across the floor you can see where a value sits in its range |
+| BrassReading | The brass reading on a desk piece or above a floor's entrance: a needle or float against an engraved scale, so from across the floor you can see where a value sits in its range |
 | TokenScreen | A token on a screen: its emblem and its price line, drawn in brass with a faint scale, and nothing else. It appears on a post's monitors and on the wall of screens; the ticker and numbers sit in the label layer |
 | WaitingFlag | A small flag raised over the desk while a decision waits for its owner. It is a simple two-colour pattern in the palette, always with its name beside it in `ui-label`, at 3:2 (48×32 in legends, 18×12 inline). An asleep or paused agent's lamp goes off instead, and a page that tried to instruct the agent is marked on its desk's screen. Alert, Verified and Contradicted flags wait for alerts and claim checking. Don't invent flags for one-off states |
 | Cover | The cover of the generated Atlas page |
@@ -218,7 +218,7 @@ The floor needs at least:
 - the bell and the podium;
 - the whiteboards and their cards;
 - the file room's cabinets;
-- the lobby: reception, the elevators and the plinths;
+- the lobby: reception, the floors' entrances and the plinths;
 - paper planes;
 - drafting tables.
 
@@ -227,7 +227,7 @@ The floor needs at least:
 | Field | Holds |
 | --- | --- |
 | `id` | For example `desk/standard` |
-| `kind` | `desk`, `figure`, `fixture` (posts, the wall of screens, the bell, the podium, whiteboards, cabinets, elevators, plinths), `prop` or `instrument` |
+| `kind` | `desk`, `figure`, `fixture` (posts, the wall of screens, the bell, the podium, whiteboards, cabinets, plinths), `prop` or `instrument` |
 | `tradition` | The picked tradition's id, or `any` |
 | `source` | `Generated`, with its generator and parameters. `Modelled` (a `.blend` and its glTF) stays in the schema for Blender later |
 | `envelope` | Its size in kit units, checked against the model's bounds |

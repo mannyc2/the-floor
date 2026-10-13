@@ -76,7 +76,7 @@ Avoid: perspective, vanishing points, depth of field, photographic lighting, sof
 **1. The floor**
 
 ```text
-A large, crowded exchange floor seen whole as a cutaway model, mid-session. Round trading posts stand across the floor, each crowned with a cluster of monitors, and each monitor shows only a simple painted emblem and a single price line. Around each post, a ring of stations, each with a lit screen, a phone and piles of paper. Tiny faceless figures in traders' jackets of varied colours crowd the posts: they shout into phones and wave slips of paper, a few stand on the counters, and the busiest post has the biggest crowd. At the front, a wall of screens showing more emblems and price lines, a bell on a stand and a podium with a microphone. Along one wall, whiteboards covered in pinned cards. Through an open door, a file room of grey cabinets. At one corner, an elevator landing. Order slips litter the floor, and paper planes and loose papers fly through the air.
+A large, crowded exchange floor seen whole as a cutaway model, mid-session. Round trading posts stand across the floor, each crowned with a cluster of monitors, and each monitor shows only a simple painted emblem and a single price line. Around each post, a ring of stations, each with a lit screen, a phone and piles of paper. Tiny faceless figures in traders' jackets of varied colours crowd the posts: they shout into phones and wave slips of paper, a few stand on the counters, and the busiest post has the biggest crowd. At the front, a wall of screens showing more emblems and price lines, a bell on a stand and a podium with a microphone. Along one wall, whiteboards covered in pinned cards. Through an open door, a file room of grey cabinets. At one side, a wide doorway to the lobby. Order slips litter the floor, and paper planes and loose papers fly through the air.
 ```
 
 **2. A post**
@@ -94,13 +94,13 @@ Two trading posts seen from above, agents at work, busy and loud, with faceless 
 **4. The lobby**
 
 ```text
-The building's ground-floor lobby seen whole as a cutaway model: revolving doors from the street, a reception desk, a bank of elevators with a small brass dial above each door, a directory board of blank plates, and a few plots holding odd sculptures and machines that people made. Faceless figures in traders' jackets of varied colours arrive, wait for the elevators and step out carrying papers.
+The exchange's lobby seen whole as a cutaway model: revolving doors from the street, a reception desk, wide doorways into the trading floors on every side with a small brass dial above each, a directory board of blank plates, and a few plots holding odd sculptures and machines that people made. Faceless figures in traders' jackets of varied colours arrive, cross toward the floors and come back out carrying papers.
 ```
 
 **5. The building**
 
 ```text
-The whole building seen from outside as a cutaway model with its front wall removed: the lobby at the bottom, and above it several exchange floors stacked one over another, each crowded and lit, with an elevator shaft running up through them. The top floors are drawn only in thin blue blueprint linework, unbuilt and empty. Small and dense, and readable as one building.
+The whole exchange seen from above as a cutaway model with its roof and near walls removed: the lobby in the middle, and around it several trading floors side by side on one level, each crowded and lit, joined by wide doorways. The floors at the outer edge are drawn only in thin blue blueprint linework, unbuilt and empty. Small and dense, and readable as one building.
 ```
 
 **6. The screen**
@@ -108,7 +108,7 @@ The whole building seen from outside as a cutaway model with its front wall remo
 The one frame that includes the interface. It drops "text" and "letters" from the avoid block, adds "words, readable captions", and keeps the captions as blank lines of type.
 
 ```text
-A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected station and not covering it. Everything else is the floor: trading posts crowded with traders, the wall of screens with the bell and the podium, whiteboards and the elevator landing, dense and busy.
+A full-screen isometric cutaway of the trading floor in daylight, edge to edge with no page around it, filling a widescreen display. In each of the four corners, a small caption in the manner of an engraved atlas plate, set on the paper ground as fine blank lines of type. A slim search field floats near the top centre. A narrow paper drawer is open along the right edge, holding a small picture of an agent's screen, a note card and a receipt, beside the selected station and not covering it. Everything else is the floor: trading posts crowded with traders, the wall of screens with the bell and the podium, whiteboards and the doorway to the lobby, dense and busy.
 ```
 
 For night versions, add: *At night, the overhead lights are off; the monitors and small desk lamps glow, and a few stations are dark.*

@@ -7,12 +7,13 @@ const fieldName = (node: ESTree.Node): Option.Option<string> => {
   if (node.type === "Literal" && Predicate.isString(node.value)) return Option.some(node.value);
   return Option.none();
 };
-const chainName = (name: string): boolean => {
-  const words = name.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
-  return /(?:^|_)(?:lamports?|wei|gwei|satoshis?)(?:_|$)/.test(words)
-    || words === "block" || /(?:^|_)block_(?:number|height)(?:_|$)/.test(words);
-};
-const hexPattern = (value: string): boolean => /0(?:[xX]|\[xX\]|\[Xx\])/.test(value);
+const nameWords = (name: string): string => name.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toLowerCase();
+const chainUnit = (name: string): boolean =>
+  /(?:^|_)(?:lamports?|wei|gwei|satoshis?|sats?)(?:_|$)/.test(nameWords(name));
+const blockNumberName = (name: string): boolean => /(?:^|_)block_?(?:number|num|height)(?:_|$)/.test(nameWords(name));
+// A hexadecimal prefix is a token boundary. Substrings in a leverage label or
+// screen resolution do not establish a chain encoding.
+const hexPattern = (value: string): boolean => /(?:^|[^a-zA-Z0-9]|\\b)0(?:[xX]|\[xX\]|\[Xx\])/.test(value);
 const schemaModule = (source: string): boolean => source === "effect/Schema";
 const construction = (name: string): boolean =>
   name !== "isSchema" && name !== "isSchemaError"
@@ -25,14 +26,16 @@ interface Violation {
 }
 const literalViolation = (node: ESTree.Node, value: string): readonly Violation[] => {
   if (hexPattern(value)) return [{ node, detail: "a chain-specific 0x pattern" }];
-  if (chainName(value)) return [{ node, detail: "a chain-specific unit or bare block number" }];
+  if (chainUnit(value)) return [{ node, detail: "a chain-specific unit" }];
   return [];
 };
 const inspectControlFlow = (
   node: ESTree.Node,
   visit: (child: ESTree.Node) => readonly Violation[],
 ): readonly Violation[] => {
-  if (node.type === "ArrowFunctionExpression" || node.type === "FunctionExpression") {
+  if (
+    node.type === "ArrowFunctionExpression" || node.type === "FunctionExpression" || node.type === "FunctionDeclaration"
+  ) {
     return Option.match(Option.fromNullishOr(node.body), { onNone: () => [], onSome: visit });
   }
   if (node.type === "BlockStatement") return node.body.flatMap(visit);
@@ -43,18 +46,29 @@ const inspectControlFlow = (
   if (node.type === "ConditionalExpression") {
     return [...visit(node.test), ...visit(node.consequent), ...visit(node.alternate)];
   }
+  if (node.type === "IfStatement") {
+    return [
+      ...visit(node.test),
+      ...visit(node.consequent),
+      ...Option.match(Option.fromNullishOr(node.alternate), { onNone: () => [], onSome: visit }),
+    ];
+  }
+  if (node.type === "ExpressionStatement") return visit(node.expression);
+  if (node.type === "UnaryExpression") return visit(node.argument);
+  if (node.type === "VariableDeclaration") return node.declarations.flatMap(visit);
+  if (node.type === "VariableDeclarator") {
+    return Option.match(Option.fromNullishOr(node.init), { onNone: () => [], onSome: visit });
+  }
   return [];
 };
 const inspectFields = (
   node: ESTree.ObjectExpression,
   visit: (child: ESTree.Node) => readonly Violation[],
+  fieldViolation: (key: ESTree.Node, value: ESTree.Node) => readonly Violation[],
 ): readonly Violation[] =>
   node.properties.flatMap(property => {
     if (property.type === "SpreadElement") return visit(property.argument);
-    const own = Option.exists(fieldName(property.key), chainName)
-      ? [{ node: property.key, detail: "a chain-specific unit or bare block number" }]
-      : [];
-    return [...own, ...visit(property.value)];
+    return [...fieldViolation(property.key, property.value), ...visit(property.value)];
   });
 const inspectCall = (
   node: ESTree.CallExpression | ESTree.NewExpression,
@@ -89,10 +103,17 @@ export const chainNeutralSchemas = Rule.define({
     const initializer = (node: ESTree.Node): Option.Option<ESTree.Node> =>
       Option.flatMap(
         binding(node),
-        definition =>
-          definition.type === "Variable" && definition.node.type === "VariableDeclarator"
-            ? Option.fromNullishOr(definition.node.init)
-            : Option.none(),
+        definition => {
+          if (definition.type === "Variable" && definition.node.type === "VariableDeclarator") {
+            return Option.fromNullishOr(definition.node.init);
+          }
+          if (definition.type === "FunctionName" && definition.node.type === "FunctionDeclaration") {
+            return Option.some(
+              definition.node,
+            );
+          }
+          return Option.none();
+        },
       );
     const imported = (node: ESTree.Node): Option.Option<{ readonly source: string; readonly name: string }> =>
       Option.flatMap(binding(node), definition => {
@@ -133,6 +154,10 @@ export const chainNeutralSchemas = Rule.define({
       const next = new Set([...seen, node]);
       if (node.type === "MemberExpression") {
         if (namespace(node.object, next)) return fieldName(node.property);
+        if (Option.exists(fieldName(node.property), name => name === "make" || name === "makeUnsafe")) {
+          return Option
+            .none();
+        }
         return operation(node.object, next);
       }
       if (node.type === "CallExpression") return operation(node.callee, next);
@@ -144,13 +169,61 @@ export const chainNeutralSchemas = Rule.define({
       return Option.none();
     };
     const isSchema = (node: ESTree.Node): boolean => Option.exists(operation(node), construction);
+    const numericSchema = (node: ESTree.Node, seen: ReadonlySet<ESTree.Node> = new Set()): boolean => {
+      if (seen.has(node)) return false;
+      const next = new Set([...seen, node]);
+      const name = operation(node);
+      if (Option.exists(name, value => /^(?:Int|Finite|Number|BigInt)/.test(value))) return true;
+      if (node.type === "Identifier") return Option.exists(initializer(node), value => numericSchema(value, next));
+      if (node.type === "ArrayExpression") {
+        return node.elements.some(value =>
+          Option.exists(Option.fromNullishOr(value), child => numericSchema(child, next))
+        );
+      }
+      return node.type === "CallExpression"
+        && Option.exists(
+          name,
+          value => /^(?:optional|required|OptionFrom|NullOr|UndefinedOr|Union|brand|toType|toEncoded)/.test(value),
+        )
+        && node.arguments.some(value => numericSchema(value, next));
+    };
+    const fieldViolation = (key: ESTree.Node, value: ESTree.Node): readonly Violation[] => {
+      const name = fieldName(key);
+      const forbidden = Option.exists(name, field =>
+        chainUnit(field) || blockNumberName(field)
+        || (/^(?:block|slot)$/.test(nameWords(field)) && numericSchema(value)));
+      return forbidden ? [{ node: key, detail: "a chain-specific unit or bare block number" }] : [];
+    };
+    const resolvedValue = (
+      node: ESTree.Node,
+      seen: ReadonlySet<ESTree.Node> = new Set(),
+    ): Option.Option<ESTree.Node> => {
+      if (seen.has(node)) return Option.none();
+      const next = new Set([...seen, node]);
+      if (node.type === "Identifier") return Option.flatMap(initializer(node), value => resolvedValue(value, next));
+      if (node.type !== "MemberExpression") return Option.some(node);
+      return Option.flatMap(resolvedValue(node.object, next), object => {
+        if (object.type !== "ObjectExpression") return Option.none();
+        const name = node.computed
+          ? Option.flatMap(resolvedValue(node.property, next), fieldName)
+          : fieldName(node.property);
+        return Option.flatMap(
+          Array.findLast(object.properties, property =>
+            property.type === "Property"
+            && Option.exists(fieldName(property.key), value => Option.contains(name, value))),
+          property => property.type === "Property" ? resolvedValue(property.value, next) : Option.none(),
+        );
+      });
+    };
     // Follow local constant bindings, including extracted fields and patterns. Scope
     // resolution keeps a shadowed `Schema` or an ordinary transaction fixture out.
     const inspect = (node: ESTree.Node, seen: ReadonlySet<ESTree.Node> = new Set()): readonly Violation[] => {
       if (seen.has(node)) return [];
       const next = new Set([...seen, node]);
       const visit = (child: ESTree.Node) => inspect(child, next);
-      if (node.type === "Identifier") return Option.match(initializer(node), { onNone: () => [], onSome: visit });
+      if (node.type === "Identifier" || node.type === "MemberExpression") {
+        return Option.match(resolvedValue(node), { onNone: () => [], onSome: visit });
+      }
       if (node.type === "Literal") {
         const value = "regex" in node ? node.regex.pattern : Predicate.isString(node.value) ? node.value : "";
         return literalViolation(node, value);
@@ -161,7 +234,7 @@ export const chainNeutralSchemas = Rule.define({
           ...node.expressions.flatMap(visit),
         ];
       }
-      if (node.type === "ObjectExpression") return inspectFields(node, visit);
+      if (node.type === "ObjectExpression") return inspectFields(node, visit, fieldViolation);
       if (node.type === "ArrayExpression") {
         return node.elements.flatMap(value =>
           Option.match(Option.fromNullishOr(value), { onNone: () => [], onSome: visit })
@@ -169,7 +242,7 @@ export const chainNeutralSchemas = Rule.define({
       }
       if (node.type === "SpreadElement") return visit(node.argument);
       if (node.type === "CallExpression" || node.type === "NewExpression") return inspectCall(node, visit);
-      if (node.type === "BinaryExpression" && node.operator === "+") return [...visit(node.left), ...visit(node.right)];
+      if (node.type === "BinaryExpression") return [...visit(node.left), ...visit(node.right)];
       if (
         node.type === "TSAsExpression" || node.type === "TSSatisfiesExpression"
         || node.type === "ParenthesizedExpression"
@@ -190,10 +263,10 @@ export const chainNeutralSchemas = Rule.define({
     return Visitor.merge(
       Visitor.on("CallExpression", node => isSchema(node) ? report(inspect(node)) : Effect.void),
       Visitor.on("VariableDeclarator", node => {
-        if (!Option.exists(Option.fromNullishOr(node.init), isSchema)) return Effect.void;
-        return Option.exists(fieldName(node.id), chainName)
-          ? report([{ node: node.id, detail: "a chain-specific unit or bare block number" }])
-          : Effect.void;
+        return Option.match(Option.filter(Option.fromNullishOr(node.init), isSchema), {
+          onNone: () => Effect.void,
+          onSome: value => report(fieldViolation(node.id, value)),
+        });
       }),
     );
   },

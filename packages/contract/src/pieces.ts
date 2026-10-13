@@ -129,16 +129,20 @@ const partFields = {
   socket: Schema.OptionFromNullOr(SocketAttachment),
   motion: Schema.OptionFromNullOr(Driver),
 };
+// Material semantics cannot depend on a palette slot's spelling. The later
+// palette resolver must preserve this tag when it resolves a slot to a surface.
+export const PieceMaterial = Schema.TaggedUnion({
+  Decorative: { slot: Label },
+  Brass: { slot: Label },
+});
 export const PiecePart = Schema.Union([
   Schema.TaggedStruct("Decoration", {
     ...partFields,
-    material: Label.check(
-      Schema.makeFilter((slot) => slot.toLowerCase() !== "brass" || "Brass is reserved for live readings"),
-    ),
+    material: PieceMaterial.cases.Decorative,
   }),
   Schema.TaggedStruct("Instrument", {
     ...partFields,
-    material: Schema.Literal("brass"),
+    material: PieceMaterial.cases.Brass,
     binding: Label,
     scale: ReadingScale,
   }),
@@ -163,6 +167,22 @@ export const PieceBudget = Schema.Struct({
   animatedNodes: Count,
   texturePixels: Count,
 });
+const outputReads = (driver: typeof Driver.Type, binding: string) => {
+  // Presence of an unused reading node is not evidence that the displayed
+  // motion follows it. Track dependencies in the graph's topological order.
+  const reads: Array<boolean> = [];
+  for (const node of driver.nodes) {
+    reads.push(DriverNode.match(node, {
+      Constant: () => false,
+      Time: () => false,
+      Reading: (value) => value.binding === binding,
+      Unary: (value) => reads[value.input] === true,
+      Binary: (value) => reads[value.left] === true || reads[value.right] === true,
+      Clamp: (value) => reads[value.input] === true || reads[value.minimum] === true || reads[value.maximum] === true,
+    }));
+  }
+  return reads[driver.output] === true;
+};
 const checkPart = (part: typeof PiecePart.Type, names: ReadonlyArray<string>, sockets: ReadonlyArray<string>) => {
   if (
     Option.isSome(part.socket) && part.socket.value._tag === "LocalSocket" && !sockets.includes(part.socket.value.name)
@@ -170,10 +190,13 @@ const checkPart = (part: typeof PiecePart.Type, names: ReadonlyArray<string>, so
     return "A part must attach to a declared socket";
   }
   if (part._tag === "Instrument" && !names.includes(part.binding)) return "An instrument must name a declared binding";
-  return Option.isNone(part.motion)
-    || part.motion.value.nodes.every((node) =>
-      node._tag !== "Reading" || (part._tag === "Instrument" && names.includes(node.binding))
-    ) || "Only brass instruments may be driven by declared live readings";
+  if (Option.isNone(part.motion)) return true;
+  if (part._tag === "Instrument" && !outputReads(part.motion.value, part.binding)) {
+    return "An instrument's motion must depend on its engraved binding";
+  }
+  return part.motion.value.nodes.every((node) =>
+    node._tag !== "Reading" || (part._tag === "Instrument" && node.binding === part.binding)
+  ) || "Only brass instruments may read live data, and only from their engraved binding";
 };
 
 export const Piece = Schema.Struct({

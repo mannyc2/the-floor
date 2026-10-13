@@ -1,4 +1,4 @@
-import { Schema } from "effect";
+import { Option, Schema } from "effect";
 import { PositiveUsd } from "./agents.ts";
 import { AgentId, ChainRef, FloorId, OwnerId, Timestamp } from "./identifiers.ts";
 
@@ -21,18 +21,30 @@ export const defaultWorldLayout = Object.freeze({
   monitorsPerPost: 7,
   lobbyPlots: 8,
 });
-// Keys select both the value's schema and its recorded default. A free-form
-// key/value dictionary could accept a boolean for a capacity or erase its unit.
+// Fallbacks are configuration, not historical facts. Changing them cannot make
+// a previously recorded SettingChanged event fail its schema.
+export const defaultSettingValues = Object.freeze({
+  StationsPerPost: defaultWorldLayout.stationsPerPost,
+  PostsPerFloor: defaultWorldLayout.postsPerFloor,
+  MonitorsPerPost: defaultWorldLayout.monitorsPerPost,
+  LobbyPlots: defaultWorldLayout.lobbyPlots,
+  QuarterTurnRotation: true,
+  GasPayer: "agent",
+  MoneyMode: "fork",
+  AgentAdmission: "floorOwned",
+  ReplayOrigin: "recordingStart",
+  LargeTradeDollars: Option.none<PositiveUsd>(),
+});
 export const Setting = Schema.TaggedUnion({
-  StationsPerPost: { ...fields, value: StationsPerPost, default: Schema.Literal(defaultWorldLayout.stationsPerPost) },
-  PostsPerFloor: { ...fields, value: PostsPerFloor, default: Schema.Literal(defaultWorldLayout.postsPerFloor) },
-  MonitorsPerPost: { ...fields, value: MonitorsPerPost, default: Schema.Literal(defaultWorldLayout.monitorsPerPost) },
-  LobbyPlots: { ...fields, value: LobbyPlots, default: Schema.Literal(defaultWorldLayout.lobbyPlots) },
-  QuarterTurnRotation: { ...fields, value: Schema.Boolean, default: Schema.Literal(true) },
-  GasPayer: { ...fields, value: Schema.Literal("agent"), default: Schema.Literal("agent") },
-  MoneyMode: { ...fields, value: Schema.Literal("fork"), default: Schema.Literal("fork") },
-  AgentAdmission: { ...fields, value: Schema.Literal("floorOwned"), default: Schema.Literal("floorOwned") },
-  ReplayOrigin: { ...fields, value: Schema.Literal("recordingStart"), default: Schema.Literal("recordingStart") },
-  LargeTradeDollars: { ...fields, value: PositiveUsd, default: Schema.OptionFromNullOr(Schema.Never) },
+  StationsPerPost: { ...fields, value: StationsPerPost },
+  PostsPerFloor: { ...fields, value: PostsPerFloor },
+  MonitorsPerPost: { ...fields, value: MonitorsPerPost },
+  LobbyPlots: { ...fields, value: LobbyPlots },
+  QuarterTurnRotation: { ...fields, value: Schema.Boolean },
+  GasPayer: { ...fields, value: Schema.Literal("agent") },
+  MoneyMode: { ...fields, value: Schema.Literal("fork") },
+  AgentAdmission: { ...fields, value: Schema.Literal("floorOwned") },
+  ReplayOrigin: { ...fields, value: Schema.Literal("recordingStart") },
+  LargeTradeDollars: { ...fields, value: PositiveUsd },
 });
 export type Setting = typeof Setting.Type;

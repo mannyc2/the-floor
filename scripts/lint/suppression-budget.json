@@ -191,6 +191,10 @@
     "oxlint": 1,
     "effect": 0
   },
+  "scripts/lint/test/_runtime.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
   "scripts/vendor/verify.ts": {
     "oxlint": 1,
     "effect": 0
