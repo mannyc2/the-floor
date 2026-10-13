@@ -23,6 +23,20 @@ The closed Solana subset supports program allowlists, direct SOL transfers with 
 
 These are **per-instruction** limits. Privy evaluates every instruction separately: several allowed transfers can exceed one instruction's cap, and an allowed custom program can transfer through CPI. These Schemas do not implement the requested aggregate per-transaction cap or transaction-wide destination restrictions. The installed SDK and current [provider policy documentation](https://docs.privy.io/controls/policies/overview) expose no Solana transaction amount field. Address-lookup-table-only accounts also need provider proof; see the [Solana examples](https://docs.privy.io/controls/policies/example-policies/solana). Aggregate limits and that sandbox evidence remain open in the [decision log](../../docs/decisions.md#open-items), before trading begins.
 
+### Remaining B acceptance
+
+The 13 October follow-up review checked the installed 0.35.0 policy condition sources and aggregation methods against the current public documentation. [Stateful aggregations](https://docs.privy.io/controls/policies/stateful-policies) support Ethereum methods only, with rolling time windows; they cannot total the instructions of one Solana request. The newer [Anchor IDL conditions](https://docs.privy.io/controls/policies/example-policies/solana-idls) still inspect individual instructions. Neither an SDK upgrade nor an invented transaction-amount field establishes the missing guarantee.
+
+The required guarantee remains that owner limits survive a compromised signer. A local check in that signer can be bypassed by submitting different bytes directly. A required independent co-authorizer could validate and authorize the exact canonical request for transaction forms whose effects it can soundly bound; this does not establish arbitrary-program or CPI spending limits. It introduces another trusted key and deployment boundary. That is an unapproved architecture option, not implemented enforcement. Accepting signer-local checks as sufficient would instead require an explicit change to the guarantee.
+
+Policy attachment is a separate authority boundary: a wallet owner can change its attached policies through wallet PATCH. Giving the execution quorum wallet ownership therefore does not establish owner-only policy control, even if a different key owns the policy itself. The native edge exposes provider operations; it does not yet provision or verify a separation between wallet administration and routine execution.
+
+If independent authorization is chosen, the documented candidate is a separately held wallet/policy owner and one additional signer: a three-of-three quorum containing the agent, transaction signer and independent authorizer. [Additional signers](https://docs.privy.io/controls/authorization-keys/owners/overview) cannot administer the wallet or export its key. The complete restrictive policy must be explicit in that signer's `override_policy_ids`: [signer policies](https://docs.privy.io/recipes/wallets/conditional-signer-policies) are independent, so a wallet-level policy is not a universal intersection. No weaker quorum or runtime-controlled owner may provide an alternate execution route.
+
+Privy's [authorization reference](https://docs.privy.io/api-reference/authorization-signatures#updating-key-quorums) requires the existing quorum's threshold to update or delete it. The independent authorizer must therefore refuse administration requests as well as disallowed transactions; otherwise it could help remove itself. Its key must be isolated from the transaction signer. The separate owner can intentionally replace the execution route and remains trusted. These are documented API semantics and an unapproved design, not provider-conformance evidence.
+
+Any future aggregate validator must bind its decision to the serialized transaction, wallet and owner-policy revision, sum all relevant transfers without crediting incoming funds, and define whether fees and rent are included. Unknown program effects, unresolved lookup tables and token extensions must be rejected until their effects are supported. A direct-transfer-only validator would exclude arbitrary program trades, so it would not by itself complete Stage 3 trading. The no-provider-call restriction remains in force; this review supplies documentation and source evidence only.
+
 ## SDK oracle and production fences
 
 The native client is the chosen implementation. `@privy-io/node` **0.35.0** is an exact `devDependency` of this package only; it is not a production fallback. The SDK provides an independent implementation for comparison, the same role the Meteora SDK serves for the chain maths. Source lint and emitted-module/source-map checks reject `@privy-io/node`, `svix` and `@hpke/*` from web, Floor, chains and the future signer. No test imports the SDK's `/solana-kit` helper, which peers on Kit ^5.1.0 while the project uses 8.
@@ -68,7 +82,7 @@ Run `bun run test` here, or the root checks.
 
 ## Verification — 13 October 2026
 
-The final repository checks ran in the isolated `codex/privy-native-oracle` worktree, after the transport guard was installed. Raw logs are under `work/privy-oracle/`.
+The implementation checks below apply to commit `5dcb626` in the isolated `codex/privy-native-oracle` worktree, after the transport guard was installed. Raw logs are under `work/privy-oracle/`. The later B follow-up changed documentation only: two independent reviews checked the linked provider evidence and unresolved guarantees, and `bun run format:check` and `git diff --check` passed. Markdown is outside the configured formatter plugins; runtime checks were not repeated for these documentation corrections.
 
 | Command | Result |
 | --- | --- |

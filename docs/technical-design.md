@@ -73,16 +73,18 @@ The agent loop is a [Yielded Agent](https://github.com/yielded-dev/agent/): `Age
 
 ### The signer
 
-The signer is a separate Worker with no model in it, and it is the only way an agent's action gets signed.
+The planned signer is a separate Worker with no model in it, and it is the only way an agent's action gets signed. The following are requirements for Stage 3, not claims about the current wallet client.
 
-1. **Owner's limits.** The owner's confirmed policy compiles to Privy's policy rules: allowed programs, caps, and allowed destinations. Privy enforces them on every signature, and they hold even if the signer is compromised.
-2. **Building the transaction.** The signer builds the transaction from the intent through the chain adapter, simulates it, and asks Privy for the second signature.
+1. **Owner's limits.** The owner's confirmed policy must compile to Privy's policy rules: allowed programs, caps, and allowed destinations. Privy must enforce them on every signature, and they must hold even if the signer is compromised.
+2. **Building the transaction.** The signer builds the transaction from the intent through the chain adapter, simulates it, obtains the required request-authorization signatures, and asks Privy to sign the transaction.
 3. **The receipt.** It is written together with the transaction ref, so no trade exists without one. A refused intent gets a refusal receipt. An unknown outcome is settled from the chain, never retried blindly.
 4. **Policy changes** need a request signed by the owner. The agent can never change its own policy.
 
 Limits that need state (daily loss, position size, approvals above an amount) are used only where Privy's policy engine supports them, including its stateful policies. Anything else waits.
 
-The native wallet edge now covers the offline-approved Stage 3 operations, with the official SDK pinned only as a test oracle. Privy's current Solana amount and destination conditions apply to each instruction, not the sum of a transaction or CPI transfers. The closed Schemas preserve that distinction; aggregate transaction limits remain an explicit [open item](decisions.md#open-items), and the sandbox proof is still required before trading. This client work is the owner's limited exception to the Stage 0 hold, not completion of Stage 3 or its signer.
+The native wallet edge implements the approved wallet RPC and resource operations, with the official SDK pinned only as a test oracle. Current Solana amount and destination conditions apply per instruction; they do not establish an aggregate transaction cap or restrictions on transfers through CPI. Privy documents that address conditions needing accounts found only in an address lookup table are rejected ([policy overview](https://docs.privy.io/controls/policies/overview), [Solana limitations](https://docs.privy.io/controls/policies/example-policies/solana#known-limitations)). Aggregate, CPI and lookup-table guarantees remain unproved in the Floor. The [open item](decisions.md#open-items) and sandbox proof still stand before trading. This client work is the owner's limited exception to the Stage 0 hold, not completion of Stage 3 or its signer.
+
+Policy ownership also differs from wallet ownership. A wallet owner can replace the wallet's policy attachments, even when another owner controls the policy's rules ([Privy owner permissions](https://docs.privy.io/controls/authorization-keys/owners/overview)). Thus separate policy ownership alone does not establish owner-only limits. The current client and offline quorum fixtures do not prove that the agent and signer lack policy-attachment authority. The requirement above remains unchanged; neither a signer-local gate nor another enforcement architecture has been approved as its replacement.
 
 ### Untrusted pages
 
