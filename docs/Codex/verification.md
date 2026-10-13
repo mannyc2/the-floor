@@ -31,6 +31,10 @@ Each flow must enter through production, avoid arranging the state it asserts, a
 
 The look harness must pin renderer backend, viewport, DPR, fonts, time and randomness. Its references need the owner's recorded pick. The phone profile is 390×844 at DPR 3 with 4× CPU throttling; it is not proof of performance on a real phone. Preserve measurement limits with each report.
 
+The complete look pipeline has an 18-minute orchestration deadline inside Effect and a 20-minute runner ceiling, leaving time for scoped child-process cleanup. These bound a hung pipeline; the 360 captures, 20 repetitions per cell, primitive comparisons and separate phone CPU budget of 16.7 ms remain unchanged.
+
+If another checkout owns the renderer test port, set `FLOOR_RENDERER_PORT` to a free local port, for example `FLOOR_RENDERER_PORT=5185 bun run test:flow`. The validated port controls the browser, server and readiness probe together; the default remains 5180 and an occupied listener is never reused.
+
 Evidence for this repository comes from its own runs, never from another codebase's tests or screenshots. Record fresh full-day data for the floor's chain before claiming full-day flow coverage.
 
 Preview deployment is gated by `FLOOR_PREVIEW_ENABLED` and the single admitted PR in `FLOOR_PREVIEW_PR`; cleanup is independently gated by `FLOOR_PREVIEW_CONFIGURED`. The procedure, the queueing rules and the spending limits are in `docs/platform.md`. Cleanup checks out only the trusted default branch and rejects non-PR stage names before loading credentials. Fork PRs receive no deployment secrets. No production deployment is enabled. Hosted creation, deployed flow and cleanup proof remain separate from local verification.

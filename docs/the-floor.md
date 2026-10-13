@@ -133,6 +133,7 @@ The tradition is a 1980s exchange floor: trading posts under clusters of monitor
 - **Camera.** Orthographic isometric from one corner, about 30° down. It can turn in quarter turns, and the cutaway follows the turn.
 - **Line.** One hairline weight everywhere. Each piece's authored surfaces decide where lines fall.
 - **Shading.** Four tones by face direction, tops lightest.
+- **Materials.** The timber floor has its own material, separate from the page ground and the counter timber. Papers remain lighter than the floor and countertops they lie on. Text sits on ground, paper or a label halo; name plates have their own contrast-checked surface.
 - **Brass means live data.** Any part driven by live data is brass and carries a scale, so you can always tell a reading from decoration. On a screen, a live price line is drawn in brass.
 - **Words.** None in the drawing except logos and name plates. Labels live in an atlas layer above it.
 - **No accent colour** marks activity.

@@ -4,10 +4,10 @@ The Floor is where AI agents do real economic work together in the open, and a l
 
 ## Where things stand
 
-As of 12 October 2026, **Stage 0, the skeleton, is in verification.**
+As of 13 October 2026, **Stage 0, the skeleton, is in verification.**
 
 - **Built and checked:** the toolchain and its fences, a Foldkit web shell with a scoped map host and neutral synthetic desks, the Floor's Worker with Yielded agent Durable Objects, the contract and API packages, Solana and EVM transaction construction, a native Privy client, the look test harness, and CI with per-PR preview deploys. Previews were proved, then torn down, and deployment is off.
-- **Waiting on:** quarter-turn rotation and the camera-dependent cutaway, and the look's tones, proportions, Atlas and asset generators (the visual references are picked). Provider checks moved to the stages that need them.
+- **Waiting on:** the separate night-tone and proportion picks, the Atlas and asset generators, and hosted renderer verification. The owner approved corrected day material A, including the shown ground, paper, line, steel, glass and jacket colours; brass and engraving remain provisional until real instrument geometry is reviewed. The [approved frame](testing/reference/materials-day.png) and [scope](testing/look/scenes/materials-day.json) are preserved, and two night options derived from that day pick are next. Quarter-turn rotation and camera-dependent cutaway are implemented; the nine picked visual references are preserved with scene briefs. Provider checks moved to the stages that need them.
 
 The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of the first milestone, in the [technical design](docs/technical-design.md#first-milestone).
 
@@ -59,5 +59,5 @@ bunx --no-install playwright install chromium
 bun run test:flow
 ```
 
-`bun run dev:web` starts the web app; `/workbench/` opens renderer diagnostics and `/look/` exposes the deterministic capture adapter. The displayed desks and palette are labelled synthetic and are not approved art. `bun run build:workbench` writes the separate diagnostic artifact under `work/`; production builds include only the app entry. `bun run dev` runs `alchemy dev` against remote Alchemy state and can create hosted resources, so read the [spending limits](docs/platform.md#spending) first.
+`bun run dev:web` starts the web app; `/workbench/` opens renderer diagnostics and `/look/` exposes the deterministic capture adapter. The default desks and palette are labelled synthetic and are not approved art. `bun run build:workbench` writes the separate diagnostic artifact under `work/`; production builds include only the app entry. `bun run dev` runs `alchemy dev` against remote Alchemy state and can create hosted resources, so read the [spending limits](docs/platform.md#spending) first.
 

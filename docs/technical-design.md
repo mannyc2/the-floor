@@ -190,7 +190,7 @@ Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource
 - **The design system is code.** `packages/atlas` holds tokens, the four-tone materials, the line spec, camera rungs and flights, motion curves, reading scales, proportions and the screen's dimensions. A build step generates the stylesheet and the palette texture, and lint bans colour and pixel literals anywhere else.
 - **Reference frames.** The owner's picks from the floor's reference round become the reference frames, committed under `testing/reference/` with a scene spec each. The tones and proportions come from them.
 - **Owner approval.** Art is approved by the owner picking between options another agent shortlisted. No agent approves its own output.
-- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. Line accuracy is measured against the edge-projection target. A frame, once approved, becomes a screenshot regression.
+- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. Line accuracy is measured against the edge-projection target. An executable scene baseline becomes a screenshot regression after the owner approves that scope. A material-only pick preserves its exact frame and approved colours without approving the study geometry or a full scene baseline.
 
 ### The camera
 
@@ -204,7 +204,7 @@ Orthographic, isometric from one corner, about 30° down, with quarter-turn rota
 - follow modes stop on input;
 - on a phone, touch moves the world and never scrolls the page.
 
-The current synthetic renderer verifies pan, zoom, rung changes, interrupted flights and resting URL state from one fixed corner. Quarter-turn rotation and camera-dependent wall/ceiling cutaway remain open, as do following a moving target and the measured comparison with drag through the Model. See the [open items](decisions.md#open-items).
+The synthetic renderer supports four discrete corners, buttons and Q/E on the focused canvas, and rotation in the resting Model and URL. Camera layer masks remove the near pair of walls and ceiling in both colour and picking passes while preserving scene isolation. Accepted frames carry the camera's commit revision so stale queued data cannot undo a newer turn; data-only controls retain the view, while historical replay restores it. Following a moving target and the measured comparison with drag through the Model remain open. Local evidence and the outstanding hosted run are in [Stage 0](stage-0.md) and the [open items](decisions.md#open-items).
 
 ### Level of detail and targets
 

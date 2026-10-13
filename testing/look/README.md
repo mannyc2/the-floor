@@ -63,11 +63,19 @@ The current scene is explicitly synthetic and unapproved. Its camera extents are
 
 The adapter methods are:
 
-- `state()` returns `Loading`, `Failed` with a reason, `Unavailable`, or `Ready`. `Ready` includes protocol version 1, the applied configuration, the actual renderer identity, `sourceSceneSha256` and `fontManifestSha256`. Scene hashes cover immutable scene/geometry bytes independent of theme, rung and raster resolution; configuration is recorded separately. Font hashes identify the exact font manifest/bytes. Use lower-case SHA-256 hex.
+- `state()` returns `Loading`, `Failed` with a reason, `Unavailable`, or `Ready`. `Ready` includes protocol version 1, the applied configuration, the actual renderer identity, `sourceSceneSha256`, `paletteSha256` and `fontManifestSha256`. Scene hashes cover immutable scene/geometry bytes independent of theme, rung and raster resolution; configuration is recorded separately. Palette hashes cover the day/night colour table and line opacity. Font hashes identify the exact font manifest/bytes. Use lower-case SHA-256 hex.
 - `mask(enabled)` returns a promise that resolves only after the edge-only black-on-white frame (or restored colour frame) has finished rendering. It must preserve camera, geometry, viewport and line semantics.
 - `bench(frames, warmupFrames)` returns `BenchResult` after the requested warmup. `cpuMs` and `completedFrameMs` must each contain exactly `frames` samples. Report GPU timers as `Measured` with method and nonempty actual samples, or `Unavailable` with a reason. Do not estimate GPU time from frame or CPU time. The current adapter measures CPU submission with the Effect monotonic clock and completed rendering by waiting for `gl.finish`; its GPU timer result is `Unavailable`.
 
 The runner checks returned values and the observed canvas raster. `Ready` is not a substitute for named owner approval. The URL must be the development-only `/look/` renderer route. The production shell exposes neither `floorLook` nor `floorTest`.
+
+## Tone studies
+
+The optional `tones` query contains the JSON encoding of the workbench's `ToneStudy`: an `id` and a validated `palette` with day/night `colors` and `lineOpacity`. Candidates stay in ignored `work/`; the application never imports them. Only `asset=scene`, `rung=building` and `desks=12` admit this fixed study. Its initial Model and renderer both use a 14-unit camera extent, and the scene hash records its blockout and hidden synthetic geometry. The study has independent four-slot ramps for timber, timber floor, paper, steel, glass, brass and three jacket colours. Three horizontal brass dials have static synthetic readings and engraved scales on timber, steel and glass mounting blocks; they do not claim live data or final instrument geometry. Paper remains its own material.
+
+The same engine uploads candidate colours to the linear palette texture and draws its normal colour and surface-id/depth passes. The room-relative four-band shading keeps horizontal tops lightest through quarter turns and uses a small tie tolerance on diagonal side faces. The slope bands, camera and geometry are provisional diagnostic choices until the Atlas is built from the owner's picks. Shape probes expose broad faces and curved bands; they are not proposed characters or production assets.
+
+Tone captures retain the sample provenance, exact palette, shader/source hashes, actual renderer identity and repeated RGBA comparisons. An unlabelled contact sheet supports independent shortlisting and the owner’s choice. Day and night have separate picks: corrected day A is approved, with brass and engraving provisional; the requested night options will be shown beside that approved day render. Numerical contrast checks and another agent's review do not approve art. Reference-image picks are preserved separately in [the scene briefs](scenes/README.md).
 
 ## Target and primitive handoff
 
