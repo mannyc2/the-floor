@@ -1,8 +1,8 @@
 # The look
 
-How the floor gets drawn, how art is approved, and the next reference round. The rules the drawing follows are in the [product doc](the-floor.md#the-look). The renderer that applies them is in the [technical design](technical-design.md#rendering-and-the-look).
+How the floor gets drawn, how art is approved, and the steps left to finish the look. The rules the drawing follows are in the [product doc](the-floor.md#the-look). The renderer that applies them is in the [technical design](technical-design.md#rendering-and-the-look).
 
-**Where it stands.** The line technique and the tradition are picked: a 1980s exchange floor, with exchange floor 05 from the second tradition round as the lead reference. The frames round made frames 1 to 6, which go to the owner as shortlists, and a character sheet with no pick. The characters run again as their own round. Then come tones, proportions and the kit unit. No Atlas value is picked yet.
+**Where it stands.** The line technique, the tradition (a 1980s exchange floor), the reference frames and the characters are picked, and the image rounds are finished (see the [decision log](decisions.md#the-look)). Next come tones, proportions and the kit unit, rendered by the Floor's own renderer, then the Atlas and the asset generators. No Atlas value is picked yet.
 
 ## Who does what
 
@@ -39,12 +39,12 @@ What earlier rounds showed references can and can't do:
 - **A tradition comes first.** Nothing looks built from anything until the place has a tradition and materials.
 - **References set mood, not geometry.** Image models drift on exactly what the Floor cares about: true orthographic projection, readable brass scales and no text. A reference sets composition, density, silhouettes and tonal mood. The rules are checked on the Floor's own renders, and line accuracy comes from the edge-projection target, because generated images have no clean line layer.
 
-## The next round
+## The steps
 
 1. **Tradition.** Done: the 1980s exchange floor (see the [decision log](decisions.md#the-look)).
-2. **Frames.** Frames 1 to 6 below, by day, 8 candidates per frame. Claude shortlists 3–4 per frame, with a one-line note on each candidate's weaknesses. Automatic flags for perspective or text are advisory, because they misfire often. The owner gets one contact sheet per frame and picks one. Night versions of the picked frames (all but the screen) follow, made the same way.
-3. **Characters.** The first character sheet had no pick: its poses read, but cube heads on one stiff body read as mannequins. The characters now run as their own round, separate from the frames: prompts 7a to 7c below, 8 candidates each, shortlisted and picked the same way. A build sheet in the picked direction follows (turnaround, poses and clothing variants), and the figure generator is built from it, with clothing and posture as parameters.
-4. **Tones.** Sample two or three tone sets from the picked frames. Each needs a range of at least 2.5:1, each side face at least 1.25:1 against the ground, and tops darker than the paper. Render a test scene in each with technique B. The other agent shortlists, and the owner picks blind, with the renders unlabelled and set beside the reference.
+2. **Frames.** Done: frames 1 to 6 below, by day, 8 candidates each, shortlisted by Claude with a one-line note on each candidate's weaknesses and picked by the owner. Automatic flags for perspective or text are advisory, because they misfire often. There are no generated night versions: night comes from the tone sets.
+3. **Characters.** Done: the first character sheet had no pick, because cube heads on one stiff body read as mannequins, so the characters ran as their own round (prompts 7a to 7c below, 8 candidates each), shortlisted and picked the same way. The figure generator is built straight from the picked cast, moods and moments sheets, with clothing and posture as parameters; there is no generated build sheet.
+4. **Tones.** Sample two or three tone sets from the picked frames, each with its night counterpart. Each needs a range of at least 2.5:1, each side face at least 1.25:1 against the ground, and tops darker than the paper. Render a test scene in each with technique B. The other agent shortlists, and the owner picks blind, with the renders unlabelled and set beside the reference.
 5. **Proportions and the kit unit.** Derive the figure ratio, the post's size, station spacing and floor density from the picked frames, for example a figure's height against a station. Render two or three variants, then shortlist and pick the same way.
 6. **Assets.** Make the trading post with its stations, one figure and one token screen, both as a three.js generator and from SVG profiles. These are real assets for the web asset kit, so write them to the repository's standards. Compare each route against the picked frames using the tone histogram, edge density, silhouette overlap with the reference's main forms, whether a post, the wall of screens and a lobby piece are told apart as 64-pixel thumbnails, the budgets and sockets, and the effort. The owner picks only where the routes differ visibly.
 7. **The newcomer test.** Show the floor render to someone who hasn't seen the Floor, and ask what is going on and which agent is doing what. Record their answers as observations, separate from the metrics.
@@ -141,4 +141,4 @@ A character reference sheet on warm paper: one faceless trader, the same build a
 Four small moments on a 1980s exchange floor, as vignettes on warm paper in a two-by-two grid, each with two to four faceless traders whose bodies tell the story, and a little of the floor around them: a corner of a trading post, its monitors and scattered order slips. The bell: the Floor's own voice rings a bell on a stand by the podium, and the traders nearby turn and look up. The bid: one trader throws an arm high with a slip while the neighbours lean in, shouting into phones. The call: one trader turns away from the crowd to listen on the phone, a hand over the other ear, very still amid the noise. The plane: one trader throws a paper plane to another station, where someone half-rises to catch it.
 ```
 
-The build sheet's prompt is written from the pick: front, three-quarter, side and back views, the poses, and six clothing variants of the picked figure.
+These prompts made the picked character sheets. The figure is built from those sheets, not from a further generated build sheet.

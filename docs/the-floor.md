@@ -129,7 +129,7 @@ Not every token gets a place, and no place is permanent.
 
 ### The look
 
-The tradition is a 1980s exchange floor: trading posts under clusters of monitors, a crowd of faceless traders in jackets, papers everywhere and a warm floor. It reads as a working trading floor, crowded and loud mid-session, never a hall. Its reference frames come from the next round (see [the look](look.md)). The rules:
+The tradition is a 1980s exchange floor: trading posts under clusters of monitors, a crowd of faceless traders in jackets, papers everywhere and a warm floor. It reads as a working trading floor, crowded and loud mid-session, never a hall. Its reference frames are picked (see [the look](look.md)). The rules:
 - **Camera.** Orthographic isometric from one corner, about 30° down. It can turn in quarter turns, and the cutaway follows the turn.
 - **Line.** One hairline weight everywhere. Each piece's authored surfaces decide where lines fall.
 - **Shading.** Four tones by face direction, tops lightest.

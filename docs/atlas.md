@@ -2,7 +2,7 @@
 
 The Atlas is the Floor's design system, written as code in `packages/atlas`. The renderer, the interface, the piece checks, plates and the look tests all read their visual values from it, and nothing copies them by hand. This doc is the plan for that code, and the home of what isn't code: the laws, the voice and the common failures.
 
-**Where it stands.** `packages/atlas` doesn't exist yet. Stage 0 builds it once the owner's picks from [the look](look.md)'s next round are recorded (see [Stage 0](stage-0.md)). Until then this doc fixes the structure and the rules. Anything marked *starting* is a placeholder to tune against the picked frames, not a decision. The tones, the materials, the kit unit and the proportions aren't set at all.
+**Where it stands.** `packages/atlas` doesn't exist yet. Stage 0 builds it from the owner's picks: the reference frames and characters are picked, and the tones, proportions and kit unit come next (see [the look](look.md) and [Stage 0](stage-0.md)). Until then this doc fixes the structure and the rules. Anything marked *starting* is a placeholder to tune against the picked frames, not a decision. The tones, the materials, the kit unit and the proportions aren't set at all.
 
 ## Two layers
 
