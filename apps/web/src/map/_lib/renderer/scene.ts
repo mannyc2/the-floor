@@ -52,7 +52,20 @@ export const syntheticPalette: Palette = {
     "jacket-green-1": { day: 0x999999, night: 0x454545 },
     "jacket-green-2": { day: 0xbbbbbb, night: 0x606060 },
     "jacket-green-3": { day: 0xdddddd, night: 0x808080 },
+    "screen-light-0": { day: 0x777777, night: 0x777777 },
+    "screen-light-1": { day: 0x777777, night: 0x777777 },
+    "screen-light-2": { day: 0x777777, night: 0x777777 },
+    "screen-light-3": { day: 0x777777, night: 0x777777 },
+    "lamp-light-0": { day: 0x777777, night: 0x777777 },
+    "lamp-light-1": { day: 0x777777, night: 0x777777 },
+    "lamp-light-2": { day: 0x777777, night: 0x777777 },
+    "lamp-light-3": { day: 0x777777, night: 0x777777 },
+    "engraving-0": { day: 0x777777, night: 0x777777 },
+    "engraving-1": { day: 0x777777, night: 0x777777 },
+    "engraving-2": { day: 0x777777, night: 0x777777 },
+    "engraving-3": { day: 0x777777, night: 0x777777 },
   },
+  darkLine: { day: 0x292929, night: 0x292929 },
   lineOpacity: { day: 1, night: .7 },
 };
 export const names = PaletteName.literals;
@@ -106,6 +119,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     });
     geometry.setAttribute("_SURFACE", new THREE.BufferAttribute(surfaces, 1));
     geometry.setAttribute("_MAT", new THREE.BufferAttribute(new Float32Array(count).fill(materialSlot), 1));
+    geometry.setAttribute("_LINE", new THREE.BufferAttribute(new Float32Array(count), 1));
     geometry.setAttribute(
       "_ANIMATED",
       new THREE.BufferAttribute(new Float32Array(count).fill(animatedPart ? 1 : 0), 1),

@@ -224,8 +224,8 @@
     "effect": 7
   },
   "testing/flows/renderer/tone-study.spec.ts": {
-    "oxlint": 2,
-    "effect": 8
+    "oxlint": 3,
+    "effect": 10
   },
   "testing/flows/shell.spec.ts": {
     "oxlint": 1,

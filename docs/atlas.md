@@ -2,7 +2,7 @@
 
 The Atlas is the Floor's design system, written as code in `packages/atlas`. The renderer, the interface, the piece checks, plates and the look tests all read their visual values from it, and nothing copies them by hand. This doc is the plan for that code, and the home of what isn't code: the laws, the voice and the common failures.
 
-**Where it stands.** `packages/atlas` doesn't exist yet. The owner approved corrected day material A on 13 October: the visible timber and floor faces, ground, paper, line, steel, glass and jacket colours shown in the [approved frame](../testing/reference/materials-day.png). The [approval brief](../testing/look/scenes/materials-day.json) fixes that scope. Brass and engraving stay provisional until real instrument geometry is reviewed; hidden material faces, night, proportions and the kit unit are not approved. Stage 0 still needs those picks and the Atlas implementation (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
+**Where it stands.** `packages/atlas` doesn't exist yet. On 13 October the owner approved corrected day material A and then night B: the shown material values, with the night line classes and flat lit lamp/screen faces. The preserved [day](../testing/reference/materials-day.png) and [night](../testing/reference/materials-night.png) frames have separate [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) approval scopes. Brass and engraving stay provisional until real instrument geometry is reviewed; hidden material faces, geometry, proportions, the kit unit and the interface are not approved. Stage 0 still needs those reviews and the Atlas implementation (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
 
 The nine image-generated reference PNGs are preserved in `testing/reference/`. Their staged briefs in `testing/look/scenes/` record each `frame`, image hash, owner decision and required corrections. Renderer-dependent fields remain tagged `Pending`; migrate the briefs to the executable `ReferenceScene` below when the picks and generators supply those fields. No placeholder camera or invented measurement stands in for missing evidence.
 
@@ -116,28 +116,32 @@ apps/web/workbench/       a second Vite entry, built only for development and pr
 | Assets | The manifest beside each model | The budget and socket checks. The renderer attaches instruments, logos, name plates and desk pieces to sockets |
 | The screen | Foldkit components in `apps/web`, styled only by `atlas.css` | The workbench's screen scenes |
 
-
 ## Starting values
 
-The approved day drawing values are recorded in the [material approval brief](../testing/look/scenes/materials-day.json). The table distinguishes those values from provisional brass/engraving and the unpicked interface, blueprint and night seeds; it does not approve an interface or a night theme.
+The approved drawing values are recorded in the [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) material approval briefs. The table distinguishes those values from provisional brass/engraving and the unpicked interface and blueprint seeds. The picks do not approve an interface or any unshown material face.
 
 | Token | Day | Night | Used for |
 | --- | --- | --- | --- |
-| `ground` | `#F1DFC4` — approved | `#101318` — starting | The page behind everything |
-| `line` | `#080808` — approved | `#D6DAE0` at 70% — starting | Every outline. Not for text |
-| `ink` | `#2B2E33` — proposed | `#D6DAE0` — starting | Text on ground, paper or a label halo; never a constraint on wordless materials |
-| `ink-muted` | `#505050` — proposed | `#9AA2AD` — starting | Secondary text, on `ground` and `paper` only; the day proposal passes on the approved surfaces |
-| `paper` | `#EBD9BC` — approved | `#191D24` — starting | The paper material, compared with the floor and countertops it lies on, with a hairline edge |
-| `brass` | `#FED683` — provisional dial top | `#C9A24D` — starting | Live data, and nothing else; final colour waits for real instrument geometry |
-| `engraving` | `#080808` — provisional | `ground` — starting | Marks cut into brass. Dark in both themes; the day line pick does not approve its use as engraving |
+| `ground` | `#F1DFC4` — approved | `#0D0F10` — approved | The page behind everything |
+| `line` | `#080808` — approved | `#C2CDD7`, opaque — approved ordinary class | Ordinary outlines. Not for text |
+| Dark line classes | Day uses its approved near-black line | `#080808`, opaque — approved surface and instrument-contour classes | Paper/light-face edges and complete instrument contours; engraving itself remains provisional |
+| `ink` | `#2B2E33` — proposed | Unpicked; separate light-on-ground and dark-on-paper values required | Text on its own ground, paper or label halo; never a constraint on wordless materials |
+| `ink-muted` | `#505050` — proposed | Unpicked; each actual text background needs its own check | Secondary text, on `ground` and `paper` only; the day proposal passes on the approved surfaces |
+| `paper` | `#EBD9BC` — approved | `#AFA79B` — approved | The paper material, compared with the floor and countertops it lies on, with a hairline edge |
+| `brass` | `#FED683` — provisional dial top | `#9F8655` — provisional dial top | Live data, and nothing else; final colour waits for real instrument geometry |
+| `engraving` | `#080808` — provisional | `#080808` — provisional | Marks cut into brass. Dark in both themes; approved line treatments do not approve engraving on real instruments |
 | `blueprint` | `#2A5FD8` — starting | `#3B7BFF` — starting | Proposed and unbuilt things, as linework only |
 
 - **Text surfaces.** `ink` reaches at least 7:1 on ground, paper and the actual opaque label halo. Text never sits directly on a material tone. A name plate is its own surface and must reach 7:1 against its own ink. `ink-muted` keeps 5.4:1 on ground and paper only. Text is never brass or blueprint. These checks do not force timber, steel, glass, brass or clothing to become text backgrounds.
 - **Visible outlines.** A near-black day line reaches at least 3:1 against ground, paper and every visible material face, using the final composited colour. The underside is exempt only while hidden; if a view exposes it, it must pass. A lighter floor-joint line is permitted only if it still reaches 3:1 on the floor; weight stays one CSS pixel. A token pick does not prove a new material or view passes; check every visible face in the rendered scene.
 - **Tone structure.** The body ramp keeps at least 2.5:1 from top to darkest visible side, each visible side keeps at least 1.25:1 against page ground, and tops remain darker than paper. Each material has its own directional slots; this does not demand a 2.5:1 range inside a sheet of paper or a flat glass screen. Record the scope and measured visible faces of every candidate.
 - **Paper on its support.** Paper is lighter than the actual timber floor and each countertop it lies on, and always has a hairline edge. There is no paper-versus-page-ground brightness requirement. A failing support pair is corrected in that pair, rather than by bleaching every material.
-- **Brass separation — provisional working threshold.** Brass reaches at least 1.5:1 luminance contrast against every actual mounting or adjoining support face, including glass behind a price line, and retains its near-black outline. Engraving reaches at least 4.2:1 on the brass face that carries it. Check pairs in the scene, not just brass against the page ground; an outline alone does not pass separation. A new mounting material needs a new pair check. Use 1.5:1 as the working material-separation floor while developing the real instruments. The owner approved the other day materials but left brass and engraving provisional; this is not final approval of their colours, appearance or the threshold on unseen instrument geometry. The value is not a text-accessibility standard.
-- **Day comes first.** Corrected day A is approved within the scope above. Next come two blind night options derived from those same materials: lights down, with desk lamps and screens lit. There is no night reference image and no request for one; use the approved day material identities as the source. Night values still need their own renderer evidence and owner pick. The eventual Atlas defines both themes, and no value from one theme is hard-coded into the other.
+- **Brass separation — provisional working threshold.** Brass reaches at least 1.5:1 luminance contrast against every actual mounting or adjoining support face, including glass behind a price line, and retains its near-black outline. Engraving reaches at least 4.2:1 on the brass face that carries it. Check pairs in the scene, not just brass against the page ground; an outline alone does not pass separation. A new mounting material needs a new pair check. Use 1.5:1 as the working material-separation floor while developing the real instruments. The owner approved the other shown day and night materials but left brass and engraving provisional; this is not final approval of their colours, appearance or the threshold on unseen instrument geometry. The value is not a text-accessibility standard.
+- **Day and night are separate picks.** Corrected day A and the subsequently selected night B are approved within their recorded scopes. The night options came from those same material identities: lights down, with desk lamps and screens lit, without a generated night reference. Their renderer evidence and the owner’s top-row choice are recorded separately. The eventual Atlas defines both themes, and no value from one theme is hard-coded into the other.
+
+**Approved night treatment.** The owner picked night B from two derived options, both of which keep the existing day values unchanged. Dark room materials use a pale outline, while paper, lamp/screen light faces, brass and engraving use an authored dark stroke class at the same one-CSS-pixel weight. Paper and light faces keep their stroke on the current face, so their dark line does not spread onto a dim neighbour. A separate instrument contour class keeps brass and engraved ticks dark along the complete outline, including its edge pixels on the verified mounting face. That adjoining face must also meet 3:1 against the dark stroke; new instrument geometry needs a fresh boundary check. Flat lamp and screen faces represent emitted light with solid colours, without gradients, glow or light pools; they are not raised material bodies required to supply a 2.5:1 ramp. The ordinary material bodies, visible sphere band, paper supports and provisional brass mounts retain their numerical checks.
+
+Night paper is light enough to admit dark text at 7:1. The dark page ground needs a separate light ink treatment; a single shared night ink cannot satisfy both surfaces. Any future surface-specific ink and muted-ink variants must meet the existing 7:1 and 5.4:1 thresholds on their actual backgrounds. These studies show no interface text, halos or name plates and approve none of those values. The owner approved the shown night material values, line-class treatment and light-source colours; the approved day reference remains exact. Brass and engraving remain provisional, and this material pick does not approve geometry or the interface.
 
 **Type**, starting choices:
 
@@ -157,7 +161,7 @@ The look tests need every font loaded and content-hashed, so the fonts ship with
 
 ## Reference colour audit — 13 October 2026
 
-All nine owner-picked PNGs were inspected, including cropped views of every retained sample. `bun work/look/tones/rules-003/audit.ts` reproduces the coordinate-labelled patch medians, linear-sRGB luminance ratios and image hashes in `work/look/tones/rules-003/reference-samples.json`; `crops.ts` renders the inspection sheets. The full reasoning is retained in `work/look/tones/rules-003/rule-audit.md`. These are observations of textured reference pixels, not recovered palette tokens, authored line layers or an approval. Missing orientation, interface, binding and night evidence remains unavailable.
+All nine owner-picked PNGs were inspected, including cropped views of every retained sample. `bun work/look/tones/rules-003/audit.ts` reproduces the coordinate-labelled patch medians, linear-sRGB luminance ratios and image hashes in `work/look/tones/rules-003/reference-samples.json`; `crops.ts` renders the inspection sheets. The full reasoning is retained in `work/look/tones/rules-003/rule-audit.md`. These are observations of textured reference pixels, not recovered palette tokens, authored line layers or an approval. The original day-image audit contains no interface, live-binding or night evidence and cannot establish every orientation. The later night renderer pick is recorded separately below.
 
 The post's sampled ground is `#F1E0C4`, floor `#B48450` and counter top `#BF8D57`: three different surfaces. Its paper is slightly darker than page ground but lighter than its supports. The confirmed gauge/support pair is only 1.010:1, supporting a correction under the proposed 1.5:1 brass rule. Its dark glass can reach only about 1.67:1 even against black, so the retained 3:1 visible-line rule requires lifting that glass. The timber's top-to-darkest-visible-side range is 2.933:1; a second lighter side at 1.867:1 does not invalidate the range. Other deficient ramps remain corrections below.
 
@@ -186,9 +190,8 @@ The post's sampled ground is `#F1E0C4`, floor `#B48450` and counter top `#BF8D57
 | No jacket color near brass; emblem ink, not gold | Post band#BE8635 vs yellow jacket#BE883B is1.019 by luminance and very close hue. Gold badges on all character sheets are explicit. | Retain existing recorded corrections. Replace yellow/ochre brass-like jackets with separated colors; ink emblems. No unrequested numerical hue threshold invented. |
 | Varied jacket colors, natural head tones | Present across crowd/cast/moments; moods intentionally repeats one person. | Retain. No requirement that a repeated mood sheet vary its one character's jacket. |
 | Focus/hover/selection/disabled color semantics; waiting flag two-color palette | Stills do not show interactive transitions or actual controls; flag colors alone do not prove states. | Retain; unavailable reference evidence, test real interface behavior later. |
-| Day/night token pairs; night lights only screens/lamps | No owner-picked night images exist. | Retain a separate night pick derived from the approved day materials. No inferred night acceptance. |
+| Day/night token pairs; night lights only screens/lamps | The nine image-generated day frames contain no night evidence. | Retain a separate renderer pick derived from the approved day materials. The subsequent night B pick supplies that scoped approval; none is inferred from the day frames. |
 | Orange forbidden in historical prompt avoid block | Warm timber and terracotta clothing coexist with that broad prompt guidance; red-orange screen logos also appear. | Historical prompts remain provenance, not additional unseen palette acceptance tests. Current no-activity-accent and no-brass-like-jacket semantics govern. |
-
 
 ### Corrections carried by the nine picks
 
@@ -204,14 +207,35 @@ The post's sampled ground is `#F1E0C4`, floor `#B48450` and counter top `#BF8D57
 | characters-moods-day | No modelled floor: page ground only | Add timber support when realized. Gold emblems corrected; desk visible range about2.05 and monitor1.760 need stronger ramps; dark jacket lifted; no screen-front glass evidence in this sheet. |
 | characters-moments-day | Pale tiled floor, not timber | Replace with intended timber; gold badges and brass-like jackets corrected; decorative bell stand corrected; monitor range1.790 strengthened; screen glass here is lighter and can clear near-black3, unlike post; writing/gradients removed. Paper/floor1.100 is a valid brighter-than-support pair, not a failed invented threshold. |
 
-
 ## Approved day materials and provisional instruments — 13 October 2026
 
 The owner selected material A, the bottom row of `work/look/tones/materials-005/review-all.png`, then approved the corrected comparison at `work/look/tones/materials-006/review-all.png`. The correction preserved its hues and floor while lifting the timber top toward the reference’s `#DDB185` to about 1.2:1 against the floor. Approval covers the shown timber and floor faces, ground, paper, line, steel, glass and jacket colours. The exact frame is preserved at [materials-day.png](../testing/reference/materials-day.png), with scope and values in the [approval brief](../testing/look/scenes/materials-day.json).
 
 Only two day entries change from selected A: timber top `#D39A5D` → `#DAAB7C`, and brass dial top `#F9C361` → `#FED683`. The floor stays `#CC9B61`; every other day and night slot, and line opacity, is unchanged. The timber/floor ratio rises from 1.014:1 to **1.198:1**. Raising timber reduces its separation from the original brass, so the modest brass lift is needed to retain the provisional 1.5:1 working mounting floor. Brass now measures **1.501:1 on timber, 1.815:1 on steel and 1.839:1 on glass**. All visible fills retain at least **3.077:1** against the near-black line; the brass top remains below paper in luminance, and engraving reaches **14.458:1**.
 
-`work/look/tones/materials-006/sample-proposal.json` records the exact correction, and `correct-palette.py` reproduces it. These values describe the shown day material study. The 2.5:1 body range is checked on the raised timber, steel, glass and jacket probes; this does not claim a 2.5 range for flat paper, thin brass dials or the floor slab. Only the three horizontal brass faces are demonstrated; new instrument sides and mounting pairs still require their own checks. The owner left brass and engraving provisional because the dial top still reads as painted rather than metal. Revisit their appearance and pair checks on real instrument geometry; the shown yellow dials are not final brass approval. The approved near-black outline remains distinct from the provisional use of that colour for engraving. Hidden faces, night, proportions, exact instrument geometry and interface approval remain separate.
+`work/look/tones/materials-006/sample-proposal.json` records the exact correction, and `correct-palette.py` reproduces it. These values describe the shown day material study. The 2.5:1 body range is checked on the raised timber, steel, glass and jacket probes; this does not claim a 2.5 range for flat paper, thin brass dials or the floor slab. Only the three horizontal brass faces are demonstrated; new instrument sides and mounting pairs still require their own checks. The owner left brass and engraving provisional because the dial top still reads as painted rather than metal. Revisit their appearance and pair checks on real instrument geometry; the shown yellow dials are not final brass approval. The approved near-black outline remains distinct from the provisional use of that colour for engraving. Hidden faces, proportions, exact instrument geometry and interface approval remain separate. Night was picked separately as recorded below.
+
+## Approved night materials — 13 October 2026
+
+The owner chose the top row of `work/look/tones/night-007/review-all.png`. Its retained `review-order.json` maps that row to **night B**. The exact [night frame](../testing/reference/materials-night.png) and [approval brief](../testing/look/scenes/materials-night.json) preserve the shown material values, pale ordinary outlines, dark surface and instrument contours, and flat lit lamp/screen faces. The night pick keeps the same material families as corrected day A; all 44 pre-existing day entries and day opacity remain unchanged.
+
+These are the shown directional night values, not approval of hidden downward slots or arbitrary new views:
+
+| Material | Dark side | Light side | Top |
+| --- | --- | --- | --- |
+| Counter timber | `#392416` | `#66462C` | `#7F664E` |
+| Timber floor | `#342618` | `#55412C` | `#735A3E` |
+| Steel | `#292928` | `#494846` | `#696865` |
+| Glass | `#212A32` | `#3E4D58` | `#576B7C` |
+| Blue jacket | `#202938` | `#39485F` | `#556A89` |
+| Red jacket | `#3F201E` | `#6A3A36` | `#995650` |
+| Green jacket | `#222B23` | `#3D4B3E` | `#5A6E5B` |
+
+The visible lower glass-sphere band also uses `#212A32`; the unshown steel underside is not approved. Ground is `#0D0F10`, flat paper `#AFA79B`, the opaque ordinary line `#C2CDD7`, and the opaque surface-dark and instrument-contour lines `#080808`. The shown lit lamp faces are flat `#D2C2A8`, and lit screen faces are flat `#8BAAC2`. Those light faces do not turn steel housings or lamp bases into brass and introduce no glow, gradient or light pool. Their dormant day palette entries and the unused prototype aliases are outside this approval.
+
+The independent audit measures night B’s minimum raised-body top/visible-side range at **2.613:1**, visible-side/page-ground separation at **1.314:1**, and authored visible-fill/line contrast at **3.324:1**. Paper is brighter than the counter and floor. A possible `#080808` paper ink reaches **8.415:1**, but no text, label halo, name plate or interface value was shown or approved; dark ground needs a separate light ink treatment.
+
+Brass top `#9F8655` and engraving `#080808` remain **provisional pending real instrument review**. Their measured pairs are **1.537:1 on timber, 1.596:1 on steel and 1.583:1 on glass**, with **5.737:1** for dark engraving against brass. The approved dark instrument contour treatment does not approve the engraving design or its final material appearance. Geometry, lamp design, proportions, the kit unit, actual instruments and the interface remain unapproved. The [Stage 0 record](stage-0.md#night-material-study-and-approved-b) retains the numeric and pixel checks, rejected attempts, contour corrections and owner decision.
 
 ## The interface
 

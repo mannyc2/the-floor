@@ -167,6 +167,7 @@ export const openEngine = (
         pixel: { value: new THREE.Vector2(1, 1) },
         edgeSpan: { value: new THREE.Vector2(0, 1) },
         lineColor: { value: new THREE.Color() },
+        darkLineColor: { value: new THREE.Color() },
         lineOpacity: { value: 1 },
         mask: { value: 0 },
       };
@@ -255,6 +256,7 @@ export const openEngine = (
         palette.needsUpdate = true;
         state.theme = theme;
         screenUniforms.lineColor.value.setHex(state.palette.colors.line[theme]);
+        screenUniforms.darkLineColor.value.setHex(state.palette.darkLine[theme]);
         screenUniforms.lineOpacity.value = state.palette.lineOpacity[theme];
         state.dirty = true;
       };

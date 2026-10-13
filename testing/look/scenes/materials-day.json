@@ -110,8 +110,9 @@
     }
   },
   "night": {
-    "_tag": "Pending",
-    "reason": "No night reference exists. The owner requested two renderer options derived from the approved day materials, lights down with desk lamps and screens lit, then a separate blind pick against the day render, with none allowed."
+    "_tag": "OwnerApprovedReference",
+    "brief": "testing/look/scenes/materials-night.json",
+    "reason": "The owner subsequently chose the top option, night B, on 13 October 2026. Its separate brief records the approved visible night values and keeps brass/engraving provisional; this does not expand the day approval."
   },
   "geometry": {
     "_tag": "Pending",

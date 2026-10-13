@@ -11,6 +11,7 @@ import { expect, record, test } from "./fixture";
 // Deliberately neutral diagnostic values exercise data injection without
 // committing the owner's unpicked art candidates as regression fixtures.
 const palette: Palette = {
+  darkLine: syntheticPalette.darkLine,
   colors: {
     ...syntheticPalette.colors,
     "timber-0": { day: 0x454545, night: 0x262626 },
@@ -35,24 +36,27 @@ const palette: Palette = {
   },
   lineOpacity: { day: 1, night: .35 },
 };
-const viewport = { width: 900, height: 700 };
+const viewport = { width: 1200, height: 900 };
 test.use({ viewport, deviceScaleFactor: 1 });
+interface StudyOptions {
+  readonly lighting?: ToneStudy["lighting"];
+  readonly dpr?: 1 | 3;
+}
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright owns the native navigation boundary around the Schema-encoded diagnostic request.
-const openStudy = async (page: Page, candidate: Palette, theme: Theme, desks = 12) => {
+const openStudy = async (page: Page, candidate: Palette, theme: Theme, desks = 12, options: StudyOptions = {}) => {
+  const study = { id: "neutral-browser-regression", palette: candidate };
+  const configured = options.lighting ? { ...study, lighting: options.lighting } : study;
   // oxlint-disable-next-line effect/noEffectRunInTests -- This native Playwright request adapter runs the production-owned Schema codec before entering the browser route.
   const encoded = await Effect.runPromise(
-    Schema.encodeEffect(Schema.fromJsonString(ToneStudy))({
-      id: "neutral-browser-regression",
-      palette: candidate,
-    }),
+    Schema.encodeEffect(Schema.fromJsonString(ToneStudy))(configured),
   );
   const query = new URLSearchParams({
     technique: "B",
     backend: "webgl",
     theme,
     rung: "building",
-    dpr: "1",
+    dpr: String(options.dpr ?? 1),
     width: String(viewport.width),
     height: String(viewport.height),
     desks: String(desks),
@@ -65,9 +69,9 @@ const openStudy = async (page: Page, candidate: Palette, theme: Theme, desks = 1
 };
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright owns document navigation and waits for the real renderer's capture readiness.
-const loadStudy = async (page: Page, candidate = palette, theme: Theme = "day") => {
+const loadStudy = async (page: Page, candidate = palette, theme: Theme = "day", options: StudyOptions = {}) => {
   await page.clock.setFixedTime(fixedTimeEpochMs);
-  await openStudy(page, candidate, theme);
+  await openStudy(page, candidate, theme, 12, options);
   await expect.poll(() => page.evaluate(() => window.floorLook?.state()._tag)).toBe("Ready");
   const state = await page.evaluate(() => window.floorTest.inspect());
   expect(state.renderer).toContain("SwiftShader");
@@ -100,13 +104,14 @@ const facePixels = async (page: Page, points: ReadonlyArray<Point>) =>
   await page.evaluate(locations => {
     const state = window.floorTest.inspect();
     const bytes = window.floorTest.frame();
+    const width = state.width * state.dpr, height = state.height * state.dpr;
     return locations.map(point => {
       const screen = window.floorTest.project(point.x, point.y, point.z);
-      const x = Math.floor(screen.x), y = Math.floor(screen.y);
-      const offset = ((state.height - 1 - y) * state.width + x) * 4;
+      const x = Math.floor(screen.x * state.dpr), y = Math.floor(screen.y * state.dpr);
+      const offset = ((height - 1 - y) * width + x) * 4;
       return {
         screen,
-        inViewport: x >= 0 && y >= 0 && x < state.width && y < state.height,
+        inViewport: x >= 0 && y >= 0 && x < width && y < height,
         entity: window.floorTest.pick(screen.x, screen.y),
         rgba: bytes.slice(offset, offset + 4),
       };
@@ -160,6 +165,168 @@ test("candidate colors survive a theme roundtrip and WebGL context restoration",
   expect(await page.evaluate(() => window.floorTest.hash())).toBe(original);
   record("paletteRoundtrip", { original, night, day, nightFace, materialSamples, materials });
 });
+
+// Equal neutral face bands isolate light assignment and stroke ownership from
+// the candidate art. Changing only darkLine must preserve every other pixel.
+const lightPalette: Palette = {
+  ...palette,
+  darkLine: { day: 0x080808, night: 0x080808 },
+  lineOpacity: { day: 1, night: 1 },
+  colors: {
+    ...palette.colors,
+    "glass-0": { day: 0x333333, night: 0x333333 },
+    "glass-1": { day: 0x333333, night: 0x333333 },
+    "glass-2": { day: 0x333333, night: 0x333333 },
+    "glass-3": { day: 0x333333, night: 0x333333 },
+    "screen-light-0": { day: 0xcccccc, night: 0xcccccc },
+    "screen-light-1": { day: 0xcccccc, night: 0xcccccc },
+    "screen-light-2": { day: 0xcccccc, night: 0xcccccc },
+    "screen-light-3": { day: 0xcccccc, night: 0xcccccc },
+    "lamp-light-0": { day: 0xeaeaea, night: 0xeaeaea },
+    "lamp-light-1": { day: 0xeaeaea, night: 0xeaeaea },
+    "lamp-light-2": { day: 0xeaeaea, night: 0xeaeaea },
+    "lamp-light-3": { day: 0xeaeaea, night: 0xeaeaea },
+    "engraving-0": { day: 0x101010, night: 0x101010 },
+    "engraving-1": { day: 0x101010, night: 0x101010 },
+    "engraving-2": { day: 0x101010, night: 0x101010 },
+    "engraving-3": { day: 0x101010, night: 0x101010 },
+  },
+};
+const lightSamples = [
+  { point: { x: 2.238346515846016, y: 1.62, z: 2.2383465158460165 }, entity: 3021, color: 0xcccccc },
+  { point: { x: 1.1013188116980477, y: 3.55, z: 1.101318811698048 }, entity: 3030, color: 0xcccccc },
+  { point: { x: 1.6950491291502923, y: 1.703247695595442, z: 2.6425722159402665 }, entity: 3187, color: 0xeaeaea },
+  { point: { x: 0, y: 1.62, z: 3.1655 }, entity: 3008, color: 0x333333 },
+  { point: { x: 0, y: 3.55, z: 1.5575 }, entity: 3017, color: 0x333333 },
+  { point: { x: -.67, y: 1.703247695595442, z: 3.067161467333048 }, entity: 3182, color: 0x333333 },
+];
+for (const dpr of [1, 3]) {
+  test.describe(`Lighting DPR ${dpr}`, () => {
+    test.use({ deviceScaleFactor: dpr });
+    test(
+      `lit faces and dark material strokes preserve picking and the technique B mask DPR ${dpr}`,
+      // @effect-diagnostics-next-line asyncFunction:off -- Real GPU readback verifies light identities, authored stroke output, mask invariance and context restoration at both raster scales.
+      async ({ page }, info) => {
+        const observations: Array<{
+          readonly mask: string;
+          readonly color: string;
+          readonly normalizedSha256: string;
+          readonly histogram: ReadonlyArray<readonly [number, number]>;
+        }> = [];
+        const strokeColors = [0x080808, 0x121212];
+        for (const stroke of strokeColors) {
+          const candidate = { ...lightPalette, darkLine: { day: stroke, night: stroke } };
+          await loadStudy(page, candidate, "night", { lighting: "desk-lamps-and-screens", dpr: dpr === 1 ? 1 : 3 });
+          const faces = await facePixels(page, lightSamples.map(sample => sample.point));
+          expect(faces.map(sample => sample.entity)).toEqual(lightSamples.map(sample => sample.entity));
+          expect(faces.map(sample => sample.rgba)).toEqual(lightSamples.map(sample => rgb(sample.color)));
+          const contours = await page.evaluate(({ scale, darkStroke, paleStroke }) => {
+            const state = window.floorTest.inspect(), bytes = window.floorTest.frame();
+            const width = state.width * scale, height = state.height * scale;
+            const lower = Math.floor(scale / 2), upper = Math.ceil(scale / 2);
+            const directions = [[upper, 0], [-lower, 0], [0, -upper], [0, lower]];
+            const ids = new Map<number, number>();
+            const identity = (x: number, y: number) => {
+              const key = y * width + x;
+              const id = ids.get(key) ?? window.floorTest.pick((x + .5) / scale, (y + .5) / scale);
+              ids.set(key, id);
+              return id;
+            };
+            // These independent boundary regions were found by the image
+            // review. Every witness must also identify the actual face pair.
+            const probes = [
+              { name: "brass-on-timber", x: 206, y: 516, current: 3133, opposite: 3134, expected: darkStroke },
+              { name: "lamp-in-steel", x: 543, y: 507, current: 3186, opposite: 3187, expected: paleStroke },
+            ];
+            if (scale === 3) {
+              // The raised top tick occludes the plate at this raster scale;
+              // its exposed contour must still carry dark instrument ink.
+              probes.push({
+                name: "engraving-on-timber",
+                x: 235,
+                y: 504,
+                current: 3133,
+                opposite: 3135,
+                expected: darkStroke,
+              });
+            }
+            return probes.map(probe => {
+              const witnesses: Array<{ x: number; y: number; rgba: Array<number> }> = [];
+              for (let x = probe.x * scale; x < (probe.x + 5) * scale; x++) {
+                for (let y = probe.y * scale; y < (probe.y + 5) * scale; y++) {
+                  if (identity(x, y) !== probe.current) continue;
+                  const crosses = directions.some(([dx = 0, dy = 0]) => identity(x + dx, y + dy) === probe.opposite);
+                  if (!crosses) continue;
+                  const offset = ((height - 1 - y) * width + x) * 4;
+                  witnesses.push({ x, y, rgba: bytes.slice(offset, offset + 4) });
+                }
+              }
+              return { ...probe, witnesses };
+            });
+          }, { scale: dpr, darkStroke: stroke, paleStroke: lightPalette.colors.line.night });
+          for (const contour of contours) {
+            expect(contour.witnesses.length, contour.name).toBeGreaterThan(0);
+            for (const witness of contour.witnesses) expect(witness.rgba, contour.name).toEqual(rgb(contour.expected));
+          }
+          record(`contours-${stroke}`, contours);
+          // @effect-diagnostics-next-line asyncFunction:off -- Browser Web Crypto hashes normalized real GPU bytes while retaining their exact pixel locations.
+          const { histogram, normalizedSha256 } = await page.evaluate(async strokeColor => {
+            const bytes = window.floorTest.frame(), counts = new Map<number, number>();
+            const normalized = new Uint8Array(bytes);
+            let color = 0;
+            bytes.forEach((value, offset) => {
+              if (offset % 4 < 3) color = color * 256 + value;
+              else {
+                counts.set(color, (counts.get(color) ?? 0) + 1);
+                if (color === strokeColor) {
+                  normalized[offset - 3] = 8;
+                  normalized[offset - 2] = 8;
+                  normalized[offset - 1] = 8;
+                }
+                color = 0;
+              }
+            });
+            // oxlint-disable-next-line effect/noGlobals -- This serialized browser boundary cannot import Effect Crypto; hashing beside GPU readback avoids transferring millions of diagnostic bytes.
+            const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", normalized));
+            return {
+              histogram: [...counts.entries()].toSorted(([a], [b]) => a - b),
+              normalizedSha256: Array.from(digest, byte => byte.toString(16).padStart(2, "0")).join(""),
+            };
+          }, stroke);
+          const color = await page.evaluate(() => window.floorTest.hash());
+          await page.evaluate(() => window.floorLook?.mask(true));
+          const mask = await page.evaluate(() => window.floorTest.hash());
+          await page.evaluate(() => window.floorLook?.mask(false));
+          expect(await page.evaluate(() => window.floorTest.hash())).toBe(color);
+          await page.locator("canvas[data-floor-look]").screenshot({ path: info.outputPath(`lighting-${stroke}.png`) });
+          observations.push({ mask, color, normalizedSha256, histogram });
+          record(`lighting-${stroke}`, { faces, mask, color, normalizedSha256, histogram });
+        }
+        const first = observations[0], second = observations[1];
+        expect(first).toBeDefined();
+        expect(second).toBeDefined();
+        if (!first || !second) return;
+        expect(first.color).not.toBe(second.color);
+        expect(first.mask).toBe(second.mask);
+        expect(first.normalizedSha256).toBe(second.normalizedSha256);
+        const before = new Map(first.histogram), after = new Map(second.histogram);
+        const count = before.get(0x080808);
+        expect(count).toBeGreaterThan(25 * dpr * dpr);
+        expect(after.get(0x121212)).toBe(count);
+        expect(before.has(0x121212)).toBe(false);
+        expect(after.has(0x080808)).toBe(false);
+        before.delete(0x080808);
+        after.delete(0x121212);
+        expect([...before.entries()]).toEqual([...after.entries()]);
+        await page.evaluate(() => window.floorTest.lose());
+        await expect.poll(() => page.evaluate(() => window.floorTest.inspect().lost)).toBe(true);
+        await page.evaluate(() => window.floorTest.restore());
+        await expect.poll(() => page.evaluate(() => window.floorTest.inspect().lost)).toBe(false);
+        await expect.poll(() => page.evaluate(() => window.floorTest.hash())).toBe(second.color);
+      },
+    );
+  });
+}
 
 const corners: ReadonlyArray<
   { readonly rotation: Rotation; readonly station: number; readonly tone: "timber-1" | "timber-2" }

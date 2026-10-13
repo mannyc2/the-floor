@@ -4,8 +4,13 @@ import type { Engine } from "../src/map/_lib/renderer/engine";
 import { Palette, PaletteName } from "../src/map/_lib/renderer/palette";
 import { WorkbenchFailure } from "./runtime";
 
-export const ToneStudy = Schema.Struct({ id: Schema.NonEmptyString, palette: Palette });
+export const ToneStudy = Schema.Struct({
+  id: Schema.NonEmptyString,
+  palette: Palette,
+  lighting: Schema.optionalKey(Schema.Literal("desk-lamps-and-screens")),
+});
 export type ToneStudy = typeof ToneStudy.Type;
+const stationLit = (index: number) => index !== 0 && index !== 5;
 
 export const readToneStudy = Effect.fn("Workbench.readToneStudy")(function*(query: URLSearchParams) {
   const encoded = Option.fromNullOr(query.get("tones"));
@@ -26,6 +31,8 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         mesh.visible = false;
       });
       data.scene.name = "synthetic-unapproved-tone-study";
+      const lighting = study.lighting === "desk-lamps-and-screens";
+      const engraving: PaletteName = lighting ? "engraving-0" : "line";
       const counter = { surface: 1, entity: 3000 };
       const add = (geometry: THREE.BufferGeometry, slot: PaletteName, name: string) => {
         const flat = geometry.index ? geometry.toNonIndexed() : geometry;
@@ -39,6 +46,13 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         const attribute = (value: number) => new THREE.BufferAttribute(new Float32Array(size).fill(value), 1);
         flat.setAttribute("_SURFACE", new THREE.BufferAttribute(surfaces, 1));
         flat.setAttribute("_MAT", attribute(PaletteName.literals.indexOf(slot)));
+        // Plates and their raised diagnostic engraving share one dark contour.
+        // Other bright faces preserve pale strokes on dim adjoining housings.
+        const darkLine = lighting
+          && ["paper-", "brass-", "engraving-", "screen-light-", "lamp-light-"].some(prefix => slot.startsWith(prefix));
+        const instrumentContour = slot.startsWith("brass-") || slot.startsWith("engraving-");
+        const lineClass = darkLine ? (instrumentContour ? 2 : 1) : 0;
+        flat.setAttribute("_LINE", attribute(lineClass));
         const entityId = counter.entity++;
         flat.setAttribute("_ENTITY", attribute(entityId));
         flat.setAttribute("_PALETTE", attribute(-1));
@@ -88,7 +102,8 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         const screen = point(2.93);
         box(.82, .65, .42, screen.x, 1.62, screen.z, "steel-0", angle);
         const glass = point(3.153);
-        box(.66, .46, .025, glass.x, 1.62, glass.z, "glass-0", angle);
+        const screenSlot = lighting && stationLit(index) ? "screen-light-0" : "glass-0";
+        box(.66, .46, .025, glass.x, 1.62, glass.z, screenSlot, angle);
         const phone = point(3.2, -.62);
         box(.27, .16, .43, phone.x, 1.375, phone.z, "steel-0", angle);
         for (let stack = 0; stack < 3; stack++) {
@@ -103,7 +118,7 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         const overhead = point(1.25);
         box(1.05, .8, .55, overhead.x, 3.55, overhead.z, "steel-0", angle);
         const face = point(1.54);
-        box(.86, .59, .035, face.x, 3.55, face.z, "glass-0", angle);
+        box(.86, .59, .035, face.x, 3.55, face.z, screenSlot, angle);
       }
       for (let index = 0; index < 18; index++) {
         const angle = index * 2.399963229728653;
@@ -133,11 +148,37 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         for (let tick = 0; tick <= 10; tick++) {
           const angle = -.75 * Math.PI + tick * 1.5 * Math.PI / 10;
           const length = tick % 5 === 0 ? .14 : .075;
-          box(.024, .005, length, x + Math.sin(angle) * .33, top + .024, z + Math.cos(angle) * .33, "line", angle);
+          box(.024, .005, length, x + Math.sin(angle) * .33, top + .024, z + Math.cos(angle) * .33, engraving, angle);
         }
-        box(.026, .005, .27, x + .055, top + .029, z + .09, "line", .55);
-        cylinder(.037, .01, x, top + .029, z, "line");
+        box(.026, .005, .27, x + .055, top + .029, z + .09, engraving, .55);
+        cylinder(.037, .01, x, top + .029, z, engraving);
       });
+      if (lighting) {
+        // Appending these diagnostic lamps preserves the approved blockout's
+        // entity IDs. Steel housings and flat diffuser faces add no glow or brass.
+        for (let index = 0; index < 8; index++) {
+          const angle = index * Math.PI / 4;
+          const point = (radius: number) => ({
+            x: Math.sin(angle) * radius + Math.cos(angle) * -.67,
+            z: Math.cos(angle) * radius - Math.sin(angle) * -.67,
+          });
+          const base = point(2.7), arm = point(2.795), head = point(2.93);
+          box(.26, .045, .22, base.x, 1.3175, base.z, "steel-0", angle);
+          box(.045, .38, .045, base.x, 1.53, base.z, "steel-0", angle);
+          box(.045, .045, .28, arm.x, 1.72, arm.z, "steel-0", angle);
+          add(
+            new THREE.BoxGeometry(.42, .24, .26).rotateX(Math.PI / 12).rotateY(angle).translate(head.x, 1.74, head.z),
+            "steel-0",
+            "lamp-head",
+          );
+          add(
+            new THREE.BoxGeometry(.35, .17, .012).translate(0, 0, .136).rotateX(Math.PI / 12).rotateY(angle)
+              .translate(head.x, 1.74, head.z),
+            stationLit(index) ? "lamp-light-0" : "glass-0",
+            "lamp-diffuser",
+          );
+        }
+      }
       engine.setPalette(study.palette);
       engine.canvas.setAttribute(
         "aria-label",

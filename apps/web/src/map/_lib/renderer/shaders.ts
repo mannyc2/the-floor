@@ -1,6 +1,7 @@
 export const surfaceVertex = `
 attribute float _SURFACE;
 attribute float _MAT;
+attribute float _LINE;
 attribute float _ENTITY;
 attribute float _PALETTE;
 attribute float _ANIMATED;
@@ -11,12 +12,14 @@ varying vec3 faceNormal;
 varying float surfaceId;
 varying float materialSlot;
 varying float entityId;
+varying float lineClass;
 void main() {
   vec4 point = vec4(position, 1.0);
   point.y += _ANIMATED * mix(_PREVIOUS, _NEXT, interpolation);
   vec3 transformedNormal = normal;
   surfaceId = _SURFACE;
   entityId = _ENTITY;
+  lineClass = _LINE;
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
   #ifdef USE_INSTANCING
     point = instanceMatrix * point;
@@ -54,10 +57,13 @@ void main() {
 export const dataFragment = `
 varying float surfaceId;
 varying float entityId;
+varying float lineClass;
 void main() {
   float id = floor(entityId + 0.5) * 4096.0 + floor(surfaceId + 0.5);
   vec3 encoded = vec3(mod(id, 256.0), mod(floor(id / 256.0), 256.0), floor(id / 65536.0)) / 255.0;
-  gl_FragColor = vec4(encoded, 1.0);
+  // RGB remains the exact picking identity. Alpha carries ordinary (1),
+  // surface-dark (.5) or instrument-contour (0); none can create a surface edge.
+  gl_FragColor = vec4(encoded, 1.0 - lineClass * 0.5);
 }
 `;
 export const screenVertex = `
@@ -74,23 +80,30 @@ uniform sampler2D depths;
 uniform vec2 pixel;
 uniform vec2 edgeSpan;
 uniform vec3 lineColor;
+uniform vec3 darkLineColor;
 uniform float lineOpacity;
 uniform float mask;
 varying vec2 coordinate;
-float edgeAt(vec2 direction) {
+vec2 edgeAt(vec2 direction) {
   vec2 neighbor = coordinate + direction * pixel;
-  vec3 a = texture2D(ids, coordinate).rgb;
-  vec3 b = texture2D(ids, neighbor).rgb;
+  vec4 a = texture2D(ids, coordinate);
+  vec4 b = texture2D(ids, neighbor);
   float depth = abs(texture2D(depths, coordinate).r - texture2D(depths, neighbor).r);
-  return max(step(0.001, length(a - b)), step(0.0012, depth));
+  float edge = max(step(0.001, length(a.rgb - b.rgb)), step(0.0012, depth));
+  // Only instrument plates and markings extend dark contours across an edge.
+  // Surface-dark lights cannot spread dark ink onto their dim steel housing.
+  return vec2(edge, edge * (1.0 - step(0.25, b.a)));
 }
 void main() {
-  float edge = max(
+  vec2 edge = max(
     max(edgeAt(vec2(edgeSpan.y, 0.0)), edgeAt(vec2(-edgeSpan.x, 0.0))),
     max(edgeAt(vec2(0.0, edgeSpan.y)), edgeAt(vec2(0.0, -edgeSpan.x)))
   );
   vec3 base = texture2D(colors, coordinate).rgb;
-  gl_FragColor = vec4(mask > 0.5 ? vec3(1.0 - edge) : mix(base, lineColor, edge * lineOpacity), 1.0);
+  float dark = max(step(0.25, 1.0 - texture2D(ids, coordinate).a), edge.y);
+  vec3 stroke = mix(lineColor, darkLineColor, dark);
+  float opacity = mix(lineOpacity, 1.0, dark);
+  gl_FragColor = vec4(mask > 0.5 ? vec3(1.0 - edge.x) : mix(base, stroke, edge.x * opacity), 1.0);
   #include <colorspace_fragment>
 }
 `;
