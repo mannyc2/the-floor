@@ -7,9 +7,11 @@ import {
   fixedTimeEpochMs,
   ReadyState,
 } from "../../../testing/look/protocol";
+import type { Engine } from "../src/map/_lib/renderer/engine";
 import { syntheticPalette } from "../src/map/_lib/renderer/scene";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera } from "../src/map/model";
+import { installProportionStudy, proportionCamera, type ProportionStudy } from "./proportion-study";
 import { browserCall, nextFrame, settled, WorkbenchFailure } from "./runtime";
 import { digestJson, sceneDigest } from "./scene-evidence";
 import { installToneStudy, type ToneStudy } from "./tone-study";
@@ -39,10 +41,44 @@ export const captureCamera = (config: CaptureConfiguration, toneStudy = false): 
   extent: toneStudy ? 14 : config.rung === "building" ? config.desks > 12 ? 380 : 21 : config.rung === "floor" ? 12 : 7,
 });
 
+const prepareProportions = Effect.fn("Workbench.prepareProportions")(
+  function*(
+    engine: Engine,
+    config: CaptureConfiguration,
+    study: Option.Option<ToneStudy>,
+    proportions: Option.Option<ProportionStudy>,
+  ) {
+    if (Option.isSome(proportions)) {
+      if (
+        Option.isSome(study) || config.asset !== "scene" || config.rung !== "building" || config.desks !== 12
+      ) {
+        return yield* new WorkbenchFailure({
+          operation: "proportion-study",
+          cause: "Proportion studies require the separate whole-scene request",
+        });
+      }
+      if (!(yield* installProportionStudy(engine, proportions.value, config.theme === "night"))) {
+        return yield* new WorkbenchFailure({
+          operation: "proportion-study",
+          cause: "The renderer's surface material is absent",
+        });
+      }
+      engine.setCamera(proportionCamera(proportions.value, config.height));
+      yield* Effect.logInfo("Unapproved proportion diagnostic installed", {
+        id: proportions.value.id,
+        view: proportions.value.view,
+        recipe: proportions.value.recipe,
+      });
+    }
+    return yield* Effect.void;
+  },
+);
+
 export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(function*(
   commands: MapCommands["Service"],
   config: CaptureConfiguration,
   study: Option.Option<ToneStudy>,
+  proportions: Option.Option<ProportionStudy>,
 ) {
   if (config.seed !== fixedSeed || config.fixedTimeEpochMs !== fixedTimeEpochMs) {
     return yield* new WorkbenchFailure({
@@ -58,6 +94,7 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
   const engine = mounted.value.engine;
   engine.canvas.dataset["floorLook"] = "";
   engine.setCamera(captureCamera(config, Option.isSome(study)));
+  yield* prepareProportions(engine, config, study, proportions);
   if (Option.isSome(study)) {
     if (config.asset !== "scene" || config.rung !== "building" || config.desks !== 12) {
       return yield* new WorkbenchFailure({ operation: "tone-study", cause: "Tone studies use the fixed whole scene" });
@@ -97,7 +134,13 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
     renderer: observed.renderer,
     sourceSceneSha256,
     fontManifestSha256,
-    paletteSha256: yield* digestJson(Option.isSome(study) ? study.value.palette : syntheticPalette),
+    paletteSha256: yield* digestJson(
+      Option.isSome(proportions)
+        ? proportions.value.palette
+        : Option.isSome(study)
+        ? study.value.palette
+        : syntheticPalette,
+    ),
   });
   const mask = Effect.fn("Workbench.mask")(function*(enabled: boolean) {
     engine.setMask(enabled);

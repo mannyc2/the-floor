@@ -211,6 +211,10 @@
     "oxlint": 1,
     "effect": 0
   },
+  "testing/flows/renderer/proportion-study.spec.ts": {
+    "oxlint": 2,
+    "effect": 4
+  },
   "testing/flows/renderer/quarantine.spec.ts": {
     "oxlint": 2,
     "effect": 2
