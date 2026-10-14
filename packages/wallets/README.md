@@ -98,5 +98,3 @@ Scratch-copy mutation audits detected **31 of 31** deliberate changes, without m
 - 15 dependency/module-fence mutations, tested in a scratch copy with `bun test ./scripts/lint/test ./scripts/bundle-budget/test`; `work/privy-fence-mutations/results.txt` retains passing baseline and restored runs.
 - 13 authorization/key-handling mutations: `python3 work/privy-oracle-mutations/run.py`; the final run explicitly preloaded the absolute `test/_offline.ts` path for every scratch command. Its baseline passed 21 tests and 2,449 assertions; `work/privy-oracle-mutations/report.json` records each command and failure. Two mutations disable local quorum-fixture guards, which prove test behavior rather than provider enforcement.
 - Three canonicalization mutations: `bun work/privy-oracle/mutate-canonical.ts`; `work/privy-oracle/canonical-mutations/report.json` records failures when surrogate rejection, UTF-16 property ordering or numeric formatting is disabled.
-
-When merging alongside the Stage 1 contracts work, retain its canonical EVM validation imports in `src/privy/schema.ts`; those Schemas have moved out of `client.ts`.

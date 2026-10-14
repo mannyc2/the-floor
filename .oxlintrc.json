@@ -100,7 +100,8 @@
     "floor/data-reads": "error",
     "floor/atlas-literals": "error",
     "floor/legacy-dependencies": "error",
-    "floor/oracle-dependencies": "error"
+    "floor/oracle-dependencies": "error",
+    "floor/chain-neutral-schemas": "error"
   },
   "ignorePatterns": [
     "work/**",

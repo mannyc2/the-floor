@@ -148,7 +148,8 @@
           "effect/Path",
           "@effect/platform-bun",
           "@effect/platform-node",
-          "@floor/api"
+          "@floor/api",
+          "effect/Arbitrary"
         ]
       }
     ]

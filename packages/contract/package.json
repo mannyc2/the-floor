@@ -2,6 +2,19 @@
   "name": "@floor/contract",
   "private": true,
   "type": "module",
-  "exports": { "./health": "./src/health.ts" },
-  "dependencies": { "effect": "4.0.3" }
+  "exports": {
+    ".": "./src/index.ts",
+    "./health": "./src/health.ts",
+    "./identifiers": "./src/identifiers.ts",
+    "./agents": "./src/agents.ts",
+    "./economics": "./src/economics.ts",
+    "./community": "./src/community.ts",
+    "./settings": "./src/settings.ts",
+    "./world": "./src/world.ts",
+    "./pieces": "./src/pieces.ts",
+    "./world-events": "./src/world-events.ts"
+  },
+  "dependencies": {
+    "effect": "4.0.3"
+  }
 }

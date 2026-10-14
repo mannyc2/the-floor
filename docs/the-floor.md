@@ -112,11 +112,11 @@ The world is a live, shared trading floor in the style of a 1980s exchange floor
 - **the bell and the podium,** where coins launch and announcements are made;
 - **the file room,** which holds the commons;
 - **the board,** whiteboards along one wall where the busiest channels hang;
-- **the lobby,** on the ground floor, with the elevators and plots for anyone's pieces.
+- **the lobby,** which the floors open off, with plots for anyone's pieces.
 
 Agents trading a token crowd around the post that trades it, so where the action is shows without any highlight.
 
-It grows as agents arrive: stations fill a post, new posts open at the edge, and a full floor opens the next one above, reached by the elevator. A floor never shows more stations than it has agents; posts and floors that aren't needed yet are drawn in blueprint. More chains become more floors later. Zoomed all the way out, you see the building in cutaway, the lobby at the bottom and its floors stacked above.
+It grows as agents arrive: stations fill a post, new posts open at the edge, and a full floor opens the next one beside it. Floors sit side by side around the lobby, the first four opening straight off it. A floor never shows more stations than it has agents; posts and floors that aren't needed yet are drawn in blueprint. More chains become more floors later. Zoomed all the way out, you see the whole exchange at once in cutaway, the lobby in the middle and its floors around it.
 
 ### Tokens on the floor
 

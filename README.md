@@ -22,6 +22,7 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 | [Ideas](docs/ideas.md) | Everything not in the first milestone: cut features, later plans and ideas not yet adopted |
 | [Research](docs/research.md) | The facts behind the defaults: chains, launchpads, market data, wallets, funding and regulation |
 | [Stage 0](docs/stage-0.md) | What the current stage has done, and what's left |
+| [Stage 1 groundwork](docs/stage-1.md) | Contract and world-model choices and verification; isolated work pending Stage 0 review |
 | [Platform](docs/platform.md) | Cloudflare and Alchemy, preview CI, spending limits, and the provider checks still open |
 | [The look](docs/look.md) | How the floor gets drawn, and the steps left to finish it |
 | [The Atlas](docs/atlas.md) | The design system as code: what `packages/atlas` holds and how assets are made |
@@ -36,6 +37,7 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 | `apps/web/workbench` | Development and test entry for renderer diagnostics, replay and deterministic look captures |
 | `apps/floor` | The Floor's Worker: the API, and the agent and mailbox Durable Objects |
 | `packages/contract`, `packages/api` | The Schemas, and the HTTP API defined from them |
+| `packages/world` | Deterministic floor, station, plot and agent-location model |
 | `packages/chains` | Solana and EVM transaction construction |
 | `packages/wallets` | The native Privy client |
 | `testing/look`, `testing/flows` | The deterministic look harness, and the browser flows |

@@ -65,16 +65,30 @@ const tokenProgram = address("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 const mintMetadataProgram = address("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
 const encoder = getAddressEncoder();
 const utf8 = new TextEncoder();
-const RpcResponse = Schema.Struct({
+// The wire shape belongs to this adapter; keeping acceptance policy separate
+// lets replay callers encode invalid replies and verify the production boundary.
+export const QuoteAccountRpcReply = Schema.Struct({
   jsonrpc: Schema.Literal("2.0"),
   id: Schema.Literal(1),
   result: Schema.Struct({
-    context: Schema.Struct({ slot: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)) }),
-    // This promotion covers the tested legacy SPL instruction. Token-2022 needs
-    // a separately verified instruction path, so it is rejected at the edge.
-    value: Schema.Struct({ owner: Schema.Literal(tokenProgram) }),
+    context: Schema.Struct({ slot: Schema.Int }),
+    value: Schema.Struct({ owner: Schema.String }),
   }),
 });
+const RpcResponse = QuoteAccountRpcReply.check(
+  Schema.makeFilter(reply =>
+    reply.result.context.slot >= 0
+      ? true
+      : { path: ["result", "context", "slot"], issue: "RPC slot must be nonnegative" }
+  ),
+  // This promotion covers the tested legacy SPL instruction. Token-2022 needs
+  // a separately verified instruction path, so it is rejected at the edge.
+  Schema.makeFilter(reply =>
+    reply.result.value.owner === tokenProgram
+      ? true
+      : { path: ["result", "value", "owner"], issue: "Quote mint must belong to the legacy SPL token program" }
+  ),
+);
 
 const derive = Effect.fn("Meteora.deriveAddress")(function*(
   program: Address,

@@ -1,3 +1,4 @@
+import { Address as EthereumAddress, Signature as EthereumSignature } from "@floor/chains/evm/validation";
 import { Option, Schema } from "effect";
 
 export const Id = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_-]{1,128}$/));
@@ -8,7 +9,6 @@ export const Base64Value = Schema.NonEmptyString.check(
 );
 export const Signature = Base64Value;
 const SolanaAddress = Schema.String.check(Schema.isPattern(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/));
-const EthereumAddress = Schema.String.check(Schema.isPattern(/^0x[0-9a-fA-F]{40}$/));
 const Amount = Schema.String.check(Schema.isPattern(/^(0|[1-9][0-9]*)$/));
 const Chain = Schema.Literals(["ethereum", "solana"]);
 const SystemProgram = "11111111111111111111111111111111";
@@ -194,7 +194,7 @@ export const Policy = Schema.Union([
 export const SignedMessage = Schema.Struct({
   method: Schema.Literal("personal_sign"),
   data: Schema.Struct({
-    signature: Schema.String.check(Schema.isPattern(/^0x[0-9a-fA-F]{130}$/)),
+    signature: EthereumSignature,
     encoding: Schema.Literal("hex"),
   }),
 });

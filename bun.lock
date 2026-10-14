@@ -104,11 +104,19 @@
     "packages/wallets": {
       "name": "@floor/wallets",
       "dependencies": {
+        "@floor/chains": "workspace:*",
         "effect": "4.0.3",
       },
       "devDependencies": {
         "@privy-io/node": "0.35.0",
         "alchemy": "2.0.0-beta.80",
+      },
+    },
+    "packages/world": {
+      "name": "@floor/world",
+      "dependencies": {
+        "@floor/contract": "workspace:*",
+        "effect": "4.0.3",
       },
     },
   },
@@ -314,6 +322,8 @@
     "@floor/wallets": ["@floor/wallets@workspace:packages/wallets"],
 
     "@floor/web": ["@floor/web@workspace:apps/web"],
+
+    "@floor/world": ["@floor/world@workspace:packages/world"],
 
     "@foldkit/oxlint-plugin": ["@foldkit/oxlint-plugin@0.15.3", "", { "dependencies": { "effect-oxlint": "^0.3.4 || ^0.4.0" } }, "sha512-LprfdZcR4uIqzTqHhJWT9bjJiS1km4MsN9Yyqk8JcKAEHpAxwgneG3MvA7p5aPXVDpZE/zh5FCGzhRIz1MnscQ=="],
 

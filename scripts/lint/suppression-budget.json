@@ -111,6 +111,18 @@
     "oxlint": 2,
     "effect": 0
   },
+  "packages/contract/test/_runtime.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "packages/contract/test/economics.test.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "packages/contract/test/pieces.test.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
   "packages/wallets/src/privy/authorization.ts": {
     "oxlint": 1,
     "effect": 0
@@ -167,6 +179,10 @@
     "oxlint": 3,
     "effect": 0
   },
+  "packages/world/test/_runtime.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
   "scripts/bundle-budget/cli.ts": {
     "oxlint": 1,
     "effect": 0
@@ -212,6 +228,10 @@
     "effect": 0
   },
   "scripts/lint/suppressions.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "scripts/lint/test/_runtime.ts": {
     "oxlint": 1,
     "effect": 0
   },

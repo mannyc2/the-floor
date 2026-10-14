@@ -5,6 +5,7 @@
   "exports": {
     "./solana": "./src/solana/index.ts",
     "./evm": "./src/evm/index.ts",
+    "./evm/validation": "./src/evm/validation.ts",
     "./math": "./src/solana/math.ts",
     "./testing": "./src/testing/index.ts"
   },
