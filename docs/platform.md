@@ -20,6 +20,8 @@ Alchemy v2 is how the Floor is written for Cloudflare, not only how it is deploy
 - **Tests.** Native tests use Alchemy's harness with local state (`Test.make({ dev: true })`) and a fetch guard that allows only loopback, so they need no profile and touch nothing hosted.
 - **Deploys** happen only through preview CI. There is no production deployment.
 
+The build checks reachable emitted Worker code against Cloudflare's **64 MiB uncompressed** size limit, separately from the web application's gzip budgets. Cloudflare [changed its Worker size limit on 4 September 2026](https://developers.cloudflare.com/changelog/post/2026-09-04-increased-worker-size-limit/): compressed size is no longer a deployment limit. `bun run build:floor` counts each reachable emitted module once, excluding source maps, and rejects a result above the platform limit. This numerical Worker gate was added with the RPC/MCP replacement; the earlier Worker checks enforced dependency boundaries without a numerical size budget.
+
 ## Credentials
 
 Credentials are Alchemy profiles in `~/.alchemy`, never environment files or the repository:

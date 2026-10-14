@@ -19,7 +19,7 @@ Until the Atlas cleanup lands, intentional Atlas source edits require `bun scrip
 
 ## Local checks
 
-One Playwright config, `testing/flows/playwright.config.ts`, owns the `shell` and `renderer` projects. `bun run e2e` runs both serially. The shell flow enters the real local Alchemy Worker through its web UI and checks `/api/health`; it has no model, authentication or network stubs, and its promise is connectivity only. SIGTERM finalization removes the local stage. Playwright retains videos and final screenshots under `work/flows/`.
+One Playwright config, `testing/flows/playwright.config.ts`, owns the `shell` and `renderer` projects. `bun run e2e` runs both serially. The shell flow enters the real local Alchemy Worker through its web UI and checks the health RPC at `POST /api/rpc` and discovers and calls the read-only health MCP tool at `/mcp`; it has no model, authentication or network stubs, and its promise is connectivity only. SIGTERM finalization removes the local stage. Playwright retains videos and final screenshots under `work/flows/`.
 
 The renderer project runs the separately built development workbench. Its behavior, camera, picking, replay, ownership and phone assertions remain required. The finished tone/proportion studies and 360-capture matrix are retired; the `/look/` adapter and scene loading remain for asset work. Approved-frame checks arrive with the asset branch and use `toHaveScreenshot` at zero tolerance; reference images cannot be replaced without the owner's pick.
 

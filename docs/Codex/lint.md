@@ -25,6 +25,8 @@ Test helpers, Layers and fixtures live in each package's or app's `test/` folder
 
 ## Build and visual checks
 
+Worker bundles keep the existing RPC branch's 64 MiB uncompressed code limit. Web source maps also exclude server-only MCP implementations.
+
 Web bundles keep the 200 KiB initial and 180 KiB deferred gzip budgets; the deferred renderer entry remains required. Each entry's initial imports are counted once, and shared initial code is excluded from its deferred total.
 
 Artifact checks inspect emitted JavaScript and source maps for the workbench and Privy SDK families across the web, Floor and chain builds. Emitted text catches external SDK imports; source maps identify bundled code. The general AST dependency walker, unrelated artifact policies and pinned bundler-helper hash are retired. Local source boundaries still enforce the other capability rules.

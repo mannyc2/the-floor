@@ -36,7 +36,7 @@ export default defineConfig({
         command: "bun --preload ./apps/floor/test/local-only.ts apps/floor/test/serve-local.ts",
         env: { CI: "true", ALCHEMY_TELEMETRY_DISABLED: "1" },
         cwd: "../..",
-        url: "http://127.0.0.1:19740/api/health",
+        url: "http://127.0.0.1:19740/",
         reuseExistingServer: false,
         gracefulShutdown: { signal: "SIGTERM", timeout: 10000 },
         timeout: 120000,

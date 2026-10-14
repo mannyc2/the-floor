@@ -1,6 +1,6 @@
 # Floor Worker
 
-`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env? })`. The root stack binds the web assets to this Worker. `GET /api/health` implements `@floor/api/http`; no model, submission or inspection endpoint is public in Stage 0. Health and static assets start without provider credentials.
+`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves the one backend RPC group, and `/mcp` exposes its non-streaming calls as read-only MCP tools. Only health is public; no model, submission or inspection endpoint is exposed. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. There are no writes or authentication yet: authentication waits for the Privy device-token check. Health, MCP and static assets start without provider credentials.
 
 The native Alchemy Worker binds `FLOOR_THREADS` and `FLOOR_MAILBOXES`. The agent, definition digest, submission ledger, alarm execution and record storage use the pinned Yielded packages. A mailbox schedules admission through Alchemy's native callback, then the Yielded alarm completes the agent without a polling request. The internal agent currently answers a supplied question with a schema-checked answer and has no tools. This is the Stage 0 runtime foundation, not the later trading agent or design gate.
 

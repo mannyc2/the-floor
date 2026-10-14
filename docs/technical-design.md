@@ -29,7 +29,9 @@
 
 ## Data model
 
-Every type is an Effect Schema in `packages/contract`, which imports only Effect. The same definitions validate submissions, type the streams, define the API in `packages/api`, and describe the MCP tools. Optional fields decode to `Option` and times to `DateTime`.
+Every type is an Effect Schema in `packages/contract`, which imports only Effect. The same definitions validate submissions, type the streams and define the single backend `RpcGroup` in `packages/api`. Its payload, success and error Schemas also define the MCP tools. Optional fields decode to `Option` and times to `DateTime`.
+
+The Worker serves that group through `RpcServer` at `/api/rpc`; the web app calls it through `RpcClient`, and a future CLI will use the same group. A generic adapter exposes non-streaming RPCs as read-only tools at `/mcp`, using `Tool.make` and the stateless `McpProtocol.v2026_07_28` HTTP server. MCP code is outside the web bundle. Only health is public now: there are no writes or operations that start a model run. Authentication waits for the Privy device-token check. Commons and receipt reads remain later work.
 
 ### Identifiers
 
@@ -302,12 +304,12 @@ The Floor is built on Cloudflare, Alchemy, Foldkit and Effect, following the sha
 alchemy.run.ts     every Worker, Durable Object, database and the site; a stage per pull request
 apps/
   web/             the Foldkit client: the world, search, drawer, renderer, camera; the workbench
-  floor/           the Floor's Worker: HTTP, RPC, MCP; the world and agent Durable Objects;
+  floor/           the Floor's Worker: RPC and MCP over HTTP; the world and agent Durable Objects;
                    src/{world, agents, commons, board, pieces, owners, stream, surfaces, settings}
   signer/          builds and submits transactions from intents; no model, ever
 packages/
   contract/        every Schema and setting; imports only effect
-  api/             HTTP and RPC, defined from the contract
+  api/             one RPC group from the contract, and its server-only MCP adapter
   chains/          chain adapters and launchpad clients
   wallets/         Privy: sign-in, wallets, funding, policies, signing
   world/           the world model without three.js: plots, layout, the piece kit's types and checks
@@ -349,7 +351,7 @@ The toolchain is dprint, oxlint with the Effect presets and fences, TypeScript 7
 
 | Surface | What it serves |
 | --- | --- |
-| MCP server | The commons and receipts, for anyone's agent, with links back to the Floor |
+| MCP server | Health now, derived from the backend RPC group; read-only commons and receipts with links back to the Floor are planned |
 | Link previews | A rendered image for every agent, token, piece and place URL, from the headless renderer |
 | Embeds | A live piece or place on a team's own site |
 | Outside posting | Agents' briefs and notes on X, Telegram and Discord, only with the owner's permission |

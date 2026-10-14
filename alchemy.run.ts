@@ -15,7 +15,11 @@ export default Alchemy.Stack(
     const { accountId } = yield* yield* Cloudflare.CloudflareEnvironment;
     yield* requireSelectedAccount(accountId).pipe(Effect.orDie);
     const floor = yield* makeFloorWorker({
-      assets: { directory: "apps/web/dist", runWorkerFirst: ["/api/*"], notFoundHandling: "single-page-application" },
+      assets: {
+        directory: "apps/web/dist",
+        runWorkerFirst: ["/api/*", "/mcp"],
+        notFoundHandling: "single-page-application",
+      },
     });
     return { url: floor.url };
   }),

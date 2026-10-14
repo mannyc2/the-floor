@@ -39,7 +39,7 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 | `apps/web/src/map` | The Foldkit map host, deferred three.js renderer, camera, ID-image picking and display protocol |
 | `apps/web/workbench` | Development and test entry for renderer diagnostics, replay and deterministic look captures |
 | `apps/floor` | The Floor's Worker: the API, and the agent and mailbox Durable Objects |
-| `packages/contract`, `packages/api` | The Schemas, and the HTTP API defined from them |
+| `packages/contract`, `packages/api` | The Schemas, and one RPC group shared by the web client and MCP tools |
 | `packages/world` | Deterministic floor, station, plot and agent-location model |
 | `packages/atlas` | Recorded drawing values with approval scopes, generated CSS, linear palette and DTCG tokens |
 | `packages/chains` | Solana and EVM transaction construction |

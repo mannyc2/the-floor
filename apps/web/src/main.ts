@@ -1,7 +1,7 @@
-import { FloorHttpApi } from "@floor/api/http";
+import { FloorRpcs } from "@floor/api/rpc";
 import { Health } from "@floor/contract/health";
-import { Effect, Option, Schema } from "effect";
-import { HttpApiClient } from "effect/http-api";
+import { Effect, Layer, Option, Schema } from "effect";
+import { RpcClient, RpcSerialization } from "effect/rpc";
 import { Command, Http, Runtime, Update } from "foldkit";
 import type { Document, HtmlBuilder } from "foldkit/html";
 import { defineMessageUnion } from "foldkit/message";
@@ -23,20 +23,25 @@ export const Message = defineMessageUnion({
 });
 export type Message = typeof Message.Type;
 
+const RpcProtocol = RpcClient.layerProtocolHttp({ url: "/api/rpc" }).pipe(
+  Layer.provide([Http.layer, RpcSerialization.layerJson]),
+);
+
 const CheckConnection = Command.define("CheckConnection", {
   messages: [Message.SucceededCheckConnection, Message.FailedCheckConnection],
   execute: Effect.gen(function*() {
-    const client = yield* HttpApiClient.make(FloorHttpApi);
-    const health = yield* client.health.get();
+    const client = yield* RpcClient.make(FloorRpcs);
+    const health = yield* client.health({});
     return Message.SucceededCheckConnection({ health });
   }).pipe(
+    Effect.scoped,
     Effect.timeout("10 seconds"),
     Effect.catch(error =>
       Effect.logWarning("Floor connection check failed", error).pipe(Effect.as(Message.FailedCheckConnection()))
     ),
-    // Foldkit owns the command lifecycle; this stateless fetch adapter needs no application-wide resource.
+    // Each check owns its RPC fibers; finishing or cancelling the command releases them.
     // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The browser command is the fetch composition boundary.
-    Effect.provide(Http.layer),
+    Effect.provide(RpcProtocol),
   ),
 });
 

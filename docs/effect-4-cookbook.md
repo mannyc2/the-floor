@@ -23,10 +23,10 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
    - `withDecodingDefaultKey` for defaults (`scripts/bundle-budget/model.ts`).
    - `Schema.toEquivalence` to compare decoded values.
    - `Schema.fromJsonString(Schema.toCodecJson(X))` to carry an `Option` through JSON.
-5. **HTTP API.**
-   - Endpoints are `HttpApiEndpoint.get(name, path, { query, success, error })`; groups are `HttpApiGroup.make(…).add(…)`; the API is `HttpApi.make(…).add(…).prefix(…)` (`packages/api/src/http.ts`).
-   - Middleware is `HttpApiMiddleware.Service<S, { provides }>()`.
-   - Handlers are `HttpApiBuilder.group(Api, "g", Effect.fn(function* (h) { return h.handleAll({ … }) }))` with `HttpApiBuilder.layer`.
+5. **One backend RPC group.**
+   - Define `Rpc.make(name, { payload, success, error })` with contract Schemas, then `RpcGroup.make(…)` (`packages/api/src/rpc.ts`). The Floor has no separate `HttpApi`.
+   - Implement the group with `FloorRpcs.toLayer({ … })`, and serve it with `RpcServer.layerHttp({ group: FloorRpcs, path: "/api/rpc", protocol: "http" })` plus a serialization Layer.
+   - Call it with scoped `RpcClient.make(FloorRpcs)`, providing `RpcClient.layerProtocolHttp({ url })`, the matching serialization Layer and an `HttpClient`.
 6. **RPC streams.**
    - On the server, `RpcGroup.make(Rpc.make("watch", { success, stream: true }))` runs with `RpcServer.layerHttp({ group, path, protocol: "websocket" })` and `RpcSerialization.layerNdjson`.
    - On the client, `RpcClient.layerProtocolSocket()` runs with `Socket.layerWebSocket(url)` and `Socket.layerWebSocketConstructorGlobal`.
@@ -39,7 +39,7 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
    - `FiberMap.run(map, key, effect, { onlyIfMissing: true })` gives one run per key.
 9. **AI.**
    - Tools are `Tool.make(name, { parameters, success, failure, failureMode: "return" })`, then `Toolkit.make(…)` and `toolkit.toLayer(…)`.
-   - MCP is `McpServer.layerHttp({ path, protocols: [McpProtocol.v2026_07_28] })`.
+   - MCP is `McpServer.layerHttp({ name, version, path, protocols: [McpProtocol.v2026_07_28] })`. This protocol keeps no session state. The Floor's server-only adapter derives each non-streaming tool with `Tool.make` from the RPC payload, success and error Schemas; the web imports only the RPC group.
    - Decisions use `Decision.make({ decisions: { key: Decision.probability(…) } })` with `model.decide(…)`. Stub a model with `DecisionModel.make({ decide })`.
    - `@effect/ai-openai` has no Decisions provider, so the Floor has its own predicate-only adapter (`apps/floor/src/agents/decisions.ts`). The OpenAI model Layer is in `apps/floor/src/agents/models.ts`.
 10. **Yielded Agent.**

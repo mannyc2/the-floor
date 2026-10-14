@@ -8,7 +8,7 @@ Deployables live under `apps/`; code shared by at least two apps, or isolated by
 | `apps/floor` | Worker and world/agent Durable Objects; world, agents, commons, board, pieces, owners, stream, surfaces and settings |
 | `apps/signer` | *Planned.* Separate Worker for co-signing, journal and dispatch; no model dependencies |
 | `packages/contract` | Schemas, chain-neutral references, settings definitions and defaults; Effect-only imports |
-| `packages/api` | HTTP/RPC definitions from contract Schemas |
+| `packages/api` | One RPC group from contract Schemas, with a separate server-only MCP adapter export |
 | `packages/chains` | Chain, venue and launchpad adapters shared by floor and signer |
 | `packages/wallets` | Wallet provider service shared by floor and signer |
 | `packages/world` | World model: desks, plots, layout, and the piece kit's types and checks; no three.js |

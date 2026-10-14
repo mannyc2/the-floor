@@ -10,7 +10,11 @@ const stack = Stack(
   "FloorShellLocal",
   { providers: providers(), state: localState() },
   makeFloorWorker({
-    assets: { directory: "apps/web/dist", runWorkerFirst: ["/api/*"], notFoundHandling: "single-page-application" },
+    assets: {
+      directory: "apps/web/dist",
+      runWorkerFirst: ["/api/*", "/mcp"],
+      notFoundHandling: "single-page-application",
+    },
   }),
 );
 const serve = Effect.gen(function*() {
