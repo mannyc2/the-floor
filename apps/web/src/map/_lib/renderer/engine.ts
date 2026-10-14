@@ -4,9 +4,11 @@ import { syntheticPaletteLinearRgba } from "@floor/atlas/palette";
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
 import type { Camera, Presentation, Theme } from "../../model";
+import { makeInstanceSnapshots } from "./instances";
 import type { Palette } from "./palette";
 import { createScene, names, slot, syntheticPalette } from "./scene";
 import { colorFragment, dataFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
+import { trackUploads } from "./uploads";
 
 export class RendererFailure extends Schema.TaggedError<RendererFailure>()("RendererFailure", {
   operation: Schema.String,
@@ -42,6 +44,11 @@ export const createLedger = () => ({
   history: new Array<{ geometries: number; textures: number; contextLost: boolean }>(),
 });
 export type Ledger = ReturnType<typeof createLedger>;
+export interface DrawSample {
+  readonly atMs: number;
+  readonly camera: Camera;
+  readonly draw: number;
+}
 export const listen = <K extends keyof HTMLElementEventMap>(
   ledger: Ledger,
   element: HTMLElement,
@@ -119,6 +126,8 @@ export const openEngine = (
       element.append(canvas);
       renderer.info.autoReset = false;
       const gl = renderer.getContext();
+      const bufferUploads = trackUploads(gl);
+      finalizers.push(bufferUploads.restore);
       const extension = gl.getExtension("WEBGL_debug_renderer_info");
       const rendererName = Schema.decodeUnknownOption(Schema.String)(
         extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
@@ -133,8 +142,12 @@ export const openEngine = (
         paletteSize: { value: names.length },
         paletteTheme: { value: .25 },
         interpolation: { value: 0 },
+        instanceInterpolation: { value: 1 },
       };
-      const idUniforms = { interpolation: surfaceUniforms.interpolation };
+      const idUniforms = {
+        interpolation: surfaceUniforms.interpolation,
+        instanceInterpolation: surfaceUniforms.instanceInterpolation,
+      };
       const material = own(
         new THREE.ShaderMaterial({
           vertexShader: surfaceVertex,
@@ -195,6 +208,7 @@ export const openEngine = (
         lost: false,
         dirty: true,
         drawCount: 0,
+        cumulativeDrawCpuMs: 0,
         uploadBytes: 0,
         uploadCalls: 0,
         cumulativeUploadCalls: 0,
@@ -207,6 +221,11 @@ export const openEngine = (
         anchorMonotonicMs: nowMonotonicMs(),
         failureHandler: Option.none<(error: RendererFailure) => void>(),
       };
+      const drawObservers = new Set<(sample: DrawSample) => void>();
+      finalizers.push(() => drawObservers.clear());
+      const instances = makeInstanceSnapshots(data.entities, nowMonotonicMs, () => {
+        state.dirty = true;
+      }, surfaceUniforms.instanceInterpolation);
       const observeAttribute = (attribute: THREE.BufferAttribute) => {
         attribute.onUpload(() => {
           state.uploadCalls++;
@@ -340,9 +359,17 @@ export const openEngine = (
         renderer.render(screenScene, screenCamera);
         state.drawCount++;
         state.dirty = false;
-        return { cpuMs: nowMonotonicMs() - start, drawn: true };
+        const ended = nowMonotonicMs();
+        const cpuMs = ended - start;
+        state.cumulativeDrawCpuMs += cpuMs;
+        if (drawObservers.size > 0) {
+          const sample = { atMs: ended, camera: state.camera, draw: state.drawCount };
+          drawObservers.forEach(observe => observe(sample));
+        }
+        return { cpuMs, drawn: true };
       };
       const advance = () => {
+        instances.advance();
         if (state.playbackRate === 0) return;
         // Presentation values are simulation offsets. Only the monotonic
         // elapsed duration is scaled, so capture epochs never enter replay math.
@@ -411,6 +438,7 @@ export const openEngine = (
         height: state.height,
         dpr: state.dpr,
         draws: state.drawCount,
+        cumulativeDrawCpuMs: state.cumulativeDrawCpuMs,
         camera: state.camera,
         cutaway: data.boundaries.map(boundary => ({
           name: boundary.name,
@@ -431,8 +459,11 @@ export const openEngine = (
         uploadCalls: state.uploadCalls,
         cumulativeUploadCalls: state.cumulativeUploadCalls,
         cumulativeUploadArrayBytes: state.cumulativeUploadArrayBytes,
+        bufferUploads: bufferUploads.read(),
         lost: state.lost,
         interpolation: surfaceUniforms.interpolation.value,
+        instanceInterpolation: instances.interpolation.value,
+        snapshotRevision: instances.revision(),
         entityCount: data.entities.length,
         desks,
       });
@@ -483,7 +514,15 @@ export const openEngine = (
         ledger,
         canvas,
         draw,
+        observeDraws: (observe: (sample: DrawSample) => void) => {
+          drawObservers.add(observe);
+          return () => {
+            drawObservers.delete(observe);
+          };
+        },
         advance,
+        snapshot: instances.snapshot,
+        instancePositions: instances.positions,
         inspect,
         setCamera,
         // The workbench supplies unapproved candidate data through the same

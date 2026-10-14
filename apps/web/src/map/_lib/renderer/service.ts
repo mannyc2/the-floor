@@ -14,12 +14,14 @@ type MountMessage =
   | typeof Message.SelectedEntity.Type
   | typeof Message.RestedCamera.Type;
 interface RendererService {
+  readonly snapshot: (input: Schema.Json) => Effect.Effect<Effect.Success<ReturnType<Engine["snapshot"]>>, MapFault>;
   readonly present: (
     presentation: Presentation,
     fromHistory?: boolean,
     retainCamera?: boolean,
   ) => Effect.Effect<void, MapFault>;
   readonly fly: (camera: Camera, follow: boolean) => Effect.Effect<void, MapFault>;
+  readonly followTarget: (readTarget: () => Option.Option<Camera>) => Effect.Effect<void, MapFault>;
   readonly rotate: (direction: Turn) => Effect.Effect<void, MapFault>;
   readonly pause: (paused: boolean) => Effect.Effect<void, MapFault>;
 }
@@ -28,6 +30,19 @@ export interface Mounted {
   readonly engine: Engine;
   readonly camera: ReturnType<typeof openCamera>;
   readonly service: RendererService;
+  readonly observeFrames: (observe: (sample: RendererFrame) => void) => () => void;
+}
+export interface RendererFrame {
+  readonly atMs: number;
+  readonly cpuMs: number;
+  readonly snapshotCpuMs: number;
+  readonly pumpCpuMs: number;
+  readonly betweenPumpDrawCpuMs: number;
+  readonly snapshots: number;
+  readonly revision: number;
+  readonly draws: number;
+  readonly uploadCalls: number;
+  readonly uploadBytes: number;
 }
 interface OwnedMount extends Mounted {
   readonly scope: Scope.Closeable;
@@ -84,10 +99,14 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
           applied: -1,
           paused: false,
           poisoned: false,
+          snapshotCpuMs: 0,
+          snapshots: 0,
           maybePending: Option.none<
             { readonly presentation: Presentation; readonly cameraCommits: number; readonly retainCamera: boolean }
           >(),
         };
+        const frameObservers = new Set<(sample: RendererFrame) => void>();
+        let previousFrame = engine.inspect();
         const camera = yield* Effect.acquireRelease(
           nativeCall("camera-open", () =>
             cameraModule.openCamera(engine, now, (view, history) => {
@@ -201,6 +220,24 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
         )
           .pipe(Effect.forkScoped);
         const service: RendererService = {
+          snapshot: input =>
+            Effect.suspend(() => {
+              if (frame.poisoned || frame.paused) {
+                return Effect.fail(fault("inactive-snapshot", "Renderer is not live"));
+              }
+              const started = now();
+              return engine.snapshot(input).pipe(
+                Effect.mapError(cause => fault("instance-snapshot", cause)),
+                Effect.tap(() =>
+                  Effect.sync(() => {
+                    frame.snapshots++;
+                  })
+                ),
+                Effect.ensuring(Effect.sync(() => {
+                  frame.snapshotCpuMs += now() - started;
+                })),
+              );
+            }),
           present,
           rotate: direction =>
             frame.poisoned
@@ -210,6 +247,10 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
             frame.poisoned
               ? Effect.fail(fault("poisoned-display", "A failed frame requires a new Mount"))
               : nativeCall("camera-flight", () => follow ? camera.follow(view) : camera.fly(view)),
+          followTarget: readTarget =>
+            frame.poisoned
+              ? Effect.fail(fault("poisoned-display", "A failed frame requires a new Mount"))
+              : nativeCall("camera-follow-target", () => camera.followTarget(readTarget)),
           pause: Effect.fn("Renderer.pause")(function*(paused: boolean) {
             frame.paused = paused;
             yield* nativeCall("camera-pause", () => camera.pause(paused || frame.poisoned));
@@ -220,21 +261,70 @@ export class Renderer extends Context.Service<Renderer, Mounted>()("floor/web/ma
         yield* Stream.runForEach(options.viewStateChanges, state => service.pause(state === "Paused"))
           .pipe(Effect.catch(error => report(queue, error)), Effect.forkScoped);
         yield* present(initial);
+        const measuredPump = Effect.suspend(() => {
+          if (frameObservers.size === 0) {
+            frame.snapshots = 0;
+            frame.snapshotCpuMs = 0;
+            return pump();
+          }
+          const before = engine.inspect();
+          const start = now();
+          return pump().pipe(Effect.tap(() =>
+            Effect.sync(() => {
+              const pumpCpuMs = now() - start;
+              const after = engine.inspect();
+              const betweenPumpDrawCpuMs = before.cumulativeDrawCpuMs - previousFrame.cumulativeDrawCpuMs;
+              // Data arrival may occur between RAF callbacks. Attribute its entire
+              // decode/diff cost to the next frame, including both draws if a
+              // presentation and camera tick submit separately in that frame.
+              const sample: RendererFrame = {
+                atMs: start,
+                cpuMs: pumpCpuMs + frame.snapshotCpuMs + betweenPumpDrawCpuMs,
+                snapshotCpuMs: frame.snapshotCpuMs,
+                pumpCpuMs,
+                betweenPumpDrawCpuMs,
+                snapshots: frame.snapshots,
+                revision: after.snapshotRevision,
+                draws: after.draws - previousFrame.draws,
+                uploadCalls: after.bufferUploads.calls - previousFrame.bufferUploads.calls,
+                uploadBytes: after.bufferUploads.bytes - previousFrame.bufferUploads.bytes,
+              };
+              previousFrame = after;
+              frame.snapshots = 0;
+              frame.snapshotCpuMs = 0;
+              frameObservers.forEach(observe => observe(sample));
+            })
+          ));
+        });
         yield* nextFrame.pipe(
-          Effect.andThen(pump()),
+          Effect.andThen(measuredPump),
           Effect.forever,
           Effect.catch(error => Effect.sync(() => failedNative(error))),
           Effect.forkScoped,
         );
         Queue.offerUnsafe(queue, Message.SucceededMountMap({ generation, renderer: engine.inspect().renderer }));
-        return Renderer.of({ generation, engine, camera, service });
+        return Renderer.of({
+          generation,
+          engine,
+          camera,
+          service,
+          observeFrames: observe => {
+            if (frameObservers.size === 0) previousFrame = engine.inspect();
+            frameObservers.add(observe);
+            return () => {
+              frameObservers.delete(observe);
+            };
+          },
+        });
       }),
     );
 }
 
 interface CommandService {
+  readonly snapshot: RendererService["snapshot"];
   readonly present: RendererService["present"];
   readonly fly: RendererService["fly"];
+  readonly followTarget: RendererService["followTarget"];
   readonly rotate: RendererService["rotate"];
   readonly inspect: () => Option.Option<Mounted>;
   readonly inspectLedger: () => Option.Option<Ledger>;
@@ -277,9 +367,11 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
         yield* owner.replaceScoped(acquire(options), error => report(options.queue, error));
       });
       return MapCommands.of({
+        snapshot: input => use(service => service.snapshot(input)),
         present: (presentation, fromHistory, retainCamera) =>
           use(service => service.present(presentation, fromHistory, retainCamera)),
         fly: (camera, follow) => use(service => service.fly(camera, follow)),
+        followTarget: readTarget => use(service => service.followTarget(readTarget)),
         rotate: direction => use(service => service.rotate(direction)),
         inspect: owner.current,
         inspectLedger: () => state.ledger,

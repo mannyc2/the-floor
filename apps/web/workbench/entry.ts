@@ -4,9 +4,10 @@ import { Runtime } from "foldkit";
 import { __setDevToolsOverlay as setDevToolsOverlay, type DevToolsStore } from "foldkit/devtools-host";
 import type { HtmlBuilder } from "foldkit/html";
 import { AdapterState } from "../../../testing/look/protocol";
-import { initialModel, makeView, MapCommands, Message, Model, update } from "../src/map/main";
+import { initialModel, makeView, MapCommands, Model } from "../src/map/main";
 import { cameraFromQuery } from "../src/map/model";
 import { makeWorkbenchApi } from "./api";
+import { ComparisonMessage, comparisonPorts, comparisonSubscriptions, makeCameraComparison } from "./camera-comparison";
 import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
 import { WorkbenchFailure } from "./runtime";
 import { SceneDigest } from "./scene-evidence";
@@ -29,7 +30,13 @@ const run = Effect.gen(function*() {
       debug.store,
       () => new WorkbenchFailure({ operation: "devtools-store", cause: "DevTools has not initialized" }),
     );
-  window.floorTest = makeWorkbenchApi(commands, store, runPromise);
+  const embedded = { handle: Option.none<Runtime.EmbedHandle<typeof comparisonPorts>>() };
+  const comparison = yield* makeCameraComparison(commands, input =>
+    Option.getOrThrowWith(
+      embedded.handle,
+      () => new WorkbenchFailure({ operation: "camera-comparison-port", cause: "Application is not embedded" }),
+    ).ports.comparisonCamera.send(input));
+  window.floorTest = makeWorkbenchApi(commands, store, runPromise, comparison);
   const requestedCamera = cameraFromQuery(query);
   const delay = Number(query.get("delay") ?? 0);
   const desks = Option.isSome(config) ? config.value.desks : query.get("desks") === "1000" ? 1000 : 12;
@@ -53,14 +60,23 @@ const run = Effect.gen(function*() {
   const application = Runtime.makeApplication({
     Model,
     init: () => ({ model }),
-    update,
-    view: (current: Model, h: HtmlBuilder<Message>) => ({ title: "The Floor workbench", body: mapView(current, h) }),
+    update: comparison.update,
+    view: (current: Model, h: HtmlBuilder<ComparisonMessage>) => ({
+      title: "The Floor workbench",
+      body: h.submodel({ slotId: "map", model: current, view: mapView, toParentMessage: message => message }),
+    }),
+    ports: comparisonPorts,
+    subscriptions: comparisonSubscriptions,
     container: document.getElementById("root"),
     resources: Layer.succeedContext(context),
-    devTools: { Message, show: "Always", keyframeInterval: 1 },
+    devTools: { Message: ComparisonMessage, show: "Always", keyframeInterval: 1 },
   });
   yield* Effect.acquireRelease(
-    Effect.sync(() => Runtime.embed(application)),
+    Effect.sync(() => {
+      const handle = Runtime.embed(application);
+      embedded.handle = Option.some(handle);
+      return handle;
+    }),
     (handle) => Effect.sync(() => handle.dispose()),
   );
   if (Option.isSome(config)) {

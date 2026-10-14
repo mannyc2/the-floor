@@ -1,13 +1,18 @@
-import { Effect, Option, SubscriptionRef } from "effect";
+import { Effect, Option, Schema, SubscriptionRef } from "effect";
 import type { DevToolsStore } from "foldkit/devtools-host";
 import { createLedger } from "../src/map/_lib/renderer/engine";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
+import { Model } from "../src/map/main";
 import type { Camera, Presentation } from "../src/map/model";
+import type { CameraComparison } from "./camera-comparison";
+import { followInstance, interruptFollow, moveFollowInstance } from "./camera-follow-probe";
 import { diagnostics } from "./probes";
 import { partialAcquisitionProbe, reconciliationProbe } from "./reconciliation-probe";
 import { replayProbe } from "./replay-probe";
 import { WorkbenchFailure } from "./runtime";
 import { digestBytes, SceneDigest } from "./scene-evidence";
+import { snapshotStream } from "./snapshot-probe";
+import { makeUploadOracle } from "./upload-oracle";
 
 export type RunWorkbench = <A, E>(effect: Effect.Effect<A, E, SceneDigest | MapCommands>) => Promise<A>;
 
@@ -15,6 +20,7 @@ export const makeWorkbenchApi = (
   commands: MapCommands["Service"],
   store: () => DevToolsStore,
   run: RunWorkbench,
+  comparison: CameraComparison,
 ) => {
   const current = () =>
     Option.getOrThrowWith(
@@ -27,6 +33,36 @@ export const makeWorkbenchApi = (
       .map((entry, index) => ({ tag: entry.tag, index }));
   return {
     inspect: () => ({ ...current().engine.inspect(), ...current().camera.inspect(), generation: current().generation }),
+    model: () =>
+      run(Effect.gen(function*() {
+        const state = yield* SubscriptionRef.get(store().stateRef);
+        if (Option.isNone(state.maybeLatestModel)) {
+          return yield* new WorkbenchFailure({ operation: "current-model", cause: "No live Model recorded" });
+        }
+        return yield* Schema.decodeUnknownEffect(Model)(state.maybeLatestModel.value);
+      })),
+    followInstance: (entity: number) => run(followInstance(commands, entity)),
+    moveFollowInstance: (entity: number, x: number, z: number) => run(moveFollowInstance(commands, entity, x, z)),
+    interruptFollow: (entity: number, input: "click" | "key", pointerId: number) =>
+      run(interruptFollow(commands, entity, input, pointerId)),
+    snapshot: (input: Schema.Json) => run(commands.snapshot(input)),
+    instances: () => current().engine.instancePositions(),
+    snapshotStream: () => run(snapshotStream(current())),
+    snapshotOnce: (input: Schema.Json) =>
+      run(Effect.gen(function*() {
+        const mounted = current();
+        mounted.engine.draw();
+        const oracle = makeUploadOracle(mounted.engine);
+        const before = mounted.engine.inspect();
+        const receipt = yield* mounted.service.snapshot(input);
+        const expected = oracle.readExpected();
+        const draw = mounted.engine.draw();
+        const after = mounted.engine.inspect();
+        return { receipt, expected, draw, before, after, instances: mounted.engine.instancePositions() };
+      })),
+    startCameraComparison: comparison.start,
+    cameraComparison: comparison.inspect,
+    finishCameraComparison: comparison.finish,
     ledger: () => structuredClone(Option.getOrElse(commands.inspectLedger(), createLedger)),
     draw: () => current().engine.draw(true),
     hash,

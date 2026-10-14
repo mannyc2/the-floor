@@ -37,6 +37,7 @@ export const openCamera = (
   interface CameraState {
     paused: boolean;
     following: boolean;
+    maybeFollowTarget: Option.Option<{ readonly read: () => Option.Option<Camera>; needsRest: boolean }>;
     maybeDrag: Option.Option<Drag>;
     maybeFlight: Option.Option<Flight>;
     maybeGlide: Option.Option<{ velocity: Ground; at: number }>;
@@ -51,6 +52,7 @@ export const openCamera = (
   const state: CameraState = {
     paused: false,
     following: false,
+    maybeFollowTarget: Option.none(),
     maybeDrag: Option.none(),
     maybeFlight: Option.none(),
     maybeGlide: Option.none(),
@@ -69,6 +71,7 @@ export const openCamera = (
   };
   const stop = () => {
     state.following = false;
+    state.maybeFollowTarget = Option.none();
     state.maybeFlight = Option.none();
     state.maybeGlide = Option.none();
   };
@@ -164,7 +167,11 @@ export const openCamera = (
       if (state.paused || event.button !== 0) return;
       event.preventDefault();
       engine.canvas.focus({ preventScroll: true });
+      const interrupted = state.following || Option.isSome(state.maybeFlight) || Option.isSome(state.maybeGlide);
       stop();
+      // A click can cancel a flight without becoming a drag. Persist that
+      // interrupted view now, since a click has no later resting camera event.
+      if (interrupted) rest(false);
       const point = local(event);
       pointers.set(event.pointerId, point);
       engine.canvas.setPointerCapture(event.pointerId);
@@ -286,6 +293,7 @@ export const openCamera = (
     }),
     listenInput("keydown", event => {
       if (!state.paused) {
+        const interrupted = state.following || Option.isSome(state.maybeFlight) || Option.isSome(state.maybeGlide);
         stop();
         if (
           !event.altKey && !event.ctrlKey && !event.metaKey
@@ -293,11 +301,11 @@ export const openCamera = (
         ) {
           event.preventDefault();
           if (!event.repeat) rotate(event.key.toLowerCase() === "q" ? "left" : "right");
-        }
-        if (event.key === "Escape") {
+          else if (interrupted) rest(false);
+        } else if (event.key === "Escape") {
           event.preventDefault();
           up();
-        }
+        } else if (interrupted) rest(false);
       }
     }),
   ];
@@ -310,6 +318,32 @@ export const openCamera = (
   engine.ledger.listeners++;
   const tick = () => {
     if (state.paused) return;
+    if (Option.isSome(state.maybeFollowTarget)) {
+      const follow = state.maybeFollowTarget.value;
+      const target = follow.read();
+      if (Option.isNone(target)) {
+        stop();
+        rest(false);
+      } else if (Option.isSome(state.maybeFlight)) {
+        // Retarget the original flight instead of restarting its clock for
+        // every world update; a continuously moving target must still arrive.
+        state.maybeFlight = Option.some({ ...state.maybeFlight.value, to: target.value });
+      } else {
+        const view = read();
+        if (
+          view.x !== target.value.x || view.z !== target.value.z || view.extent !== target.value.extent
+          || view.rotation !== target.value.rotation
+        ) {
+          engine.setCamera(target.value);
+          follow.needsRest = true;
+        } else if (follow.needsRest) {
+          // Follow motion has the same ownership as a drag: only the settled
+          // view reaches the Model and URL, never every interpolated frame.
+          follow.needsRest = false;
+          rest(false);
+        }
+      }
+    }
     if (Option.isSome(state.maybeFlight)) {
       const flight = state.maybeFlight.value;
       const t = Math.min(1, (nowMonotonicMs() - flight.start) / flight.duration);
@@ -347,8 +381,17 @@ export const openCamera = (
     tick,
     up,
     follow: (camera: Camera) => {
+      if (state.paused) return;
       fly(camera);
       state.following = true;
+    },
+    followTarget: (readTarget: () => Option.Option<Camera>) => {
+      if (state.paused) return;
+      const target = readTarget();
+      if (Option.isNone(target)) return;
+      fly(target.value);
+      state.following = true;
+      state.maybeFollowTarget = Option.some({ read: readTarget, needsRest: false });
     },
     pause: (paused: boolean) => {
       state.paused = paused;
@@ -359,7 +402,8 @@ export const openCamera = (
         state.maybePinch = Option.none();
       }
     },
-    busy: () => pointers.size > 0 || Option.isSome(state.maybeFlight) || Option.isSome(state.maybeGlide),
+    busy: () =>
+      state.following || pointers.size > 0 || Option.isSome(state.maybeFlight) || Option.isSome(state.maybeGlide),
     inspect: () => ({
       following: state.following,
       paused: state.paused,

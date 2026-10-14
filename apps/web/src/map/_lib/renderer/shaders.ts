@@ -6,10 +6,16 @@ attribute float _MAT;
 attribute float _LINE;
 attribute float _ENTITY;
 attribute float _PALETTE;
+#ifdef USE_INSTANCING
+attribute vec4 _INSTANCE_FROM;
+attribute vec3 _INSTANCE_TO;
+uniform float instanceInterpolation;
+#else
 attribute float _ANIMATED;
 attribute float _PREVIOUS;
 attribute float _NEXT;
 uniform float interpolation;
+#endif
 varying vec3 faceNormal;
 varying float surfaceId;
 varying float materialSlot;
@@ -17,7 +23,9 @@ varying float entityId;
 varying float lineClass;
 void main() {
   vec4 point = vec4(position, 1.0);
-  point.y += _ANIMATED * mix(_PREVIOUS, _NEXT, interpolation);
+  #ifndef USE_INSTANCING
+    point.y += _ANIMATED * mix(_PREVIOUS, _NEXT, interpolation);
+  #endif
   vec3 transformedNormal = normal;
   surfaceId = _SURFACE;
   entityId = _ENTITY;
@@ -25,6 +33,8 @@ void main() {
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
   #ifdef USE_INSTANCING
     point = instanceMatrix * point;
+    point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO, instanceInterpolation);
+    point.xyz *= _INSTANCE_FROM.w;
     mat3 im = mat3(instanceMatrix);
     transformedNormal /= vec3(dot(im[0], im[0]), dot(im[1], im[1]), dot(im[2], im[2]));
     transformedNormal = im * transformedNormal;
