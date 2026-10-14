@@ -1,0 +1,12 @@
+:root,
+:root[data-theme="day"] {
+  --atlas-ground: #f1dfc4;
+  --atlas-line: #080808;
+  --atlas-paper: #ebd9bc;
+}
+
+:root[data-theme="night"] {
+  --atlas-ground: #0d0f10;
+  --atlas-line: #c2cdd7;
+  --atlas-paper: #afa79b;
+}

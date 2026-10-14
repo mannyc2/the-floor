@@ -1,0 +1,15 @@
+{
+  "name": "@floor/atlas",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tokens": "./src/tokens.ts",
+    "./materials": "./src/materials.ts",
+    "./look": "./src/look.ts",
+    "./proportions": "./src/proportions.ts",
+    "./camera": "./src/camera.ts",
+    "./palette": "./generated/palette.ts",
+    "./atlas.css": "./generated/atlas.css"
+  },
+  "dependencies": { "effect": "4.0.3" }
+}

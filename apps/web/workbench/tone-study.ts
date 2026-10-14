@@ -1,3 +1,4 @@
+import { lineClasses } from "@floor/atlas/look";
 import { Effect, Option, Schema } from "effect";
 import * as THREE from "three";
 import type { Engine } from "../src/map/_lib/renderer/engine";
@@ -51,7 +52,9 @@ export const installToneStudy = (engine: Engine, study: ToneStudy) =>
         const darkLine = lighting
           && ["paper-", "brass-", "engraving-", "screen-light-", "lamp-light-"].some(prefix => slot.startsWith(prefix));
         const instrumentContour = slot.startsWith("brass-") || slot.startsWith("engraving-");
-        const lineClass = darkLine ? (instrumentContour ? 2 : 1) : 0;
+        const lineClass = darkLine
+          ? (instrumentContour ? lineClasses.instrumentContour.value : lineClasses.surfaceDark.value)
+          : lineClasses.ordinary.value;
         flat.setAttribute("_LINE", attribute(lineClass));
         const entityId = counter.entity++;
         flat.setAttribute("_ENTITY", attribute(entityId));

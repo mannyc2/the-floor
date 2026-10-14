@@ -12,7 +12,7 @@ bun run test:native
 bun run test:flow
 ```
 
-Use Bun 1.4.0, and verify installation with `bun install --frozen-lockfile`. The lockfile contains only the dependencies actually adopted. Keep the compiler/Oxlint patch in `prepare`. Never substitute a Bun server build for Workers.
+Use Bun 1.4.0, and verify installation with `bun install --frozen-lockfile`. The lockfile contains only the dependencies actually adopted. After intentional Atlas source edits, run `bun run build:atlas` and review the generated changes. Lint and web/workbench builds verify the committed source/output manifest without regenerating it, so hand edits and stale outputs fail. Keep the compiler/Oxlint patch in `prepare`. Never substitute a Bun server build for Workers.
 
 The local shell flow enters the real Alchemy Worker and checks `/api/health` through its web UI. It has no model, authentication or network stubs; its promise is connectivity only. The native agent tests inject a labelled scripted model at `./testing`; Decisions and wallet leaf tests use a fake HTTP transport. Production-entry review confirmed that the shell flow neither arranges its asserted state nor claims unimplemented product behavior. Playwright retains a video and final screenshot, and SIGTERM finalization removes the local stage.
 

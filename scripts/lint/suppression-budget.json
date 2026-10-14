@@ -310,5 +310,9 @@
   "testing/look/test/_runtime.ts": {
     "oxlint": 1,
     "effect": 0
+  },
+  "scripts/build-atlas.ts": {
+    "oxlint": 1,
+    "effect": 0
   }
 }

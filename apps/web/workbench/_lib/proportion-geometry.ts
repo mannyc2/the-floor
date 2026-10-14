@@ -1,3 +1,4 @@
+import { lineClasses } from "@floor/atlas/look";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
@@ -57,7 +58,11 @@ export const createProportionGeometry = (engine: Engine, night: boolean) => {
         flat.setAttribute("_ENTITY", values(entity));
         flat.setAttribute(
           "_LINE",
-          values(night && ["paper-", "screen-light-", "lamp-light-"].some(prefix => slot.startsWith(prefix)) ? 1 : 0),
+          values(
+            night && ["paper-", "screen-light-", "lamp-light-"].some(prefix => slot.startsWith(prefix))
+              ? lineClasses.surfaceDark.value
+              : lineClasses.ordinary.value,
+          ),
         );
         flat.setAttribute("_PALETTE", values(-1));
         flat.setAttribute("_ANIMATED", values(0));

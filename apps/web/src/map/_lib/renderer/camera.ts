@@ -1,3 +1,5 @@
+import { cameraFlight, cameraRungs } from "@floor/atlas/camera";
+export { cameraRungs } from "@floor/atlas/camera";
 import { Option, Result } from "effect";
 import { type Camera, cameraFromQuery, type Rotation, type Turn } from "../../model";
 import { type Engine, listen, RendererFailure } from "./engine";
@@ -20,7 +22,6 @@ interface Flight {
   readonly history: boolean;
 }
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-export const cameraRungs = { building: 21, floor: 12, desk: 7 };
 const limitedExtent = (extent: number) => Math.max(4, Math.min(1200, extent));
 const rightTurn: Readonly<Record<Rotation, Rotation>> = { 0: 1, 1: 2, 2: 3, 3: 0 };
 const leftTurn: Readonly<Record<Rotation, Rotation>> = { 0: 3, 1: 0, 2: 1, 3: 2 };
@@ -112,14 +113,14 @@ export const openCamera = (
     engine.draw();
     rest();
   };
-  const fly = (to: Camera, history = true, duration = 900) => {
+  const fly = (to: Camera, history = true, duration = cameraFlight.defaultMs.value) => {
     if (state.paused) return;
     stop();
     state.maybeFlight = Option.some({
       from: read(),
       to,
       start: nowMonotonicMs(),
-      duration: Math.max(600, Math.min(1200, duration)),
+      duration: Math.max(cameraFlight.minimumMs.value, Math.min(cameraFlight.maximumMs.value, duration)),
       history,
     });
   };
@@ -318,7 +319,7 @@ export const openCamera = (
         x: lerp(flight.from.x, flight.to.x, ease),
         z: lerp(flight.from.z, flight.to.z, ease),
         extent: lerp(flight.from.extent, flight.to.extent, ease)
-          + Math.max(flight.from.extent, flight.to.extent) * .2 * Math.sin(Math.PI * t),
+          + Math.max(flight.from.extent, flight.to.extent) * cameraFlight.arc.value * Math.sin(Math.PI * t),
       });
       if (t === 1) {
         state.maybeFlight = Option.none();

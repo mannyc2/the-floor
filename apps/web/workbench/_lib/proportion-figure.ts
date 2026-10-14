@@ -1,3 +1,4 @@
+import { characterMaterials } from "@floor/atlas/materials";
 import * as THREE from "three";
 import type { PaletteName } from "../../src/map/_lib/renderer/palette";
 import { box, limb, oval, type Part, part, type Point } from "./proportion-geometry";
@@ -33,13 +34,13 @@ const legParts = ({ sitting, pose, hip, build, width }: Rig): Array<Part> => {
   const leftKnee: Point = [-.065, sitting ? hip - .025 : .265, sitting ? .18 : pose === "walking" ? .05 : .025];
   const rightKnee: Point = [.063, sitting ? hip - .02 : .27, sitting ? .185 : pose === "throwing" ? -.11 : -.025];
   const leg = (x: number, knee: Point, foot: Point) => {
-    add(limb([x, hip, 0], knee, .047 * build, "steel-0"));
-    add(limb(knee, [foot[0], .065, foot[2]], .04 * build, "steel-0"));
-    add(oval(.102 * build, .07, .185, foot[0], foot[1], foot[2] + .035, "steel-0"));
+    add(limb([x, hip, 0], knee, .047 * build, characterMaterials.trousers.value));
+    add(limb(knee, [foot[0], .065, foot[2]], .04 * build, characterMaterials.trousers.value));
+    add(oval(.102 * build, .07, .185, foot[0], foot[1], foot[2] + .035, characterMaterials.trousers.value));
   };
   leg(-.055, leftKnee, leftFoot);
   leg(.055, rightKnee, rightFoot);
-  add(oval(width * .76, .14, .14 * build, 0, hip, 0, "steel-0"));
+  add(oval(width * .76, .14, .14 * build, 0, hip, 0, characterMaterials.trousers.value));
 
   return parts;
 };
@@ -82,7 +83,7 @@ const jacketParts = ({ hip, width, shoulder, lean, jacket }: Rig): Array<Part> =
     ], 3),
   );
   opening.computeVertexNormals();
-  add(part(opening, "glass-0"));
+  add(part(opening, characterMaterials.shirt.value));
   for (const side of [-1, 1]) {
     add(limb(
       [side * width * .17, shoulder + .015, lean + width * .15],
@@ -91,7 +92,7 @@ const jacketParts = ({ hip, width, shoulder, lean, jacket }: Rig): Array<Part> =
       jacket,
     ));
   }
-  add(oval(.074, .11, .075, 0, shoulder + .055, lean, "tone-0"));
+  add(oval(.074, .11, .075, 0, shoulder + .055, lean, characterMaterials.skin.value));
   return parts;
 };
 const headParts = ({ pose, shape, head, drop, lean, reading }: Rig): Array<Part> => {
@@ -108,13 +109,13 @@ const headParts = ({ pose, shape, head, drop, lean, reading }: Rig): Array<Part>
   const nod = pose === "asleep" ? .8 : reading ? .28 : 0;
   const headGeometry = new THREE.SphereGeometry(1, 20, 14).scale(head * .36, head / 2, head * .39);
   headGeometry.rotateZ(tilt).rotateX(nod).translate(...headCentre);
-  add(part(headGeometry, "tone-0"));
+  add(part(headGeometry, characterMaterials.skin.value));
   // A shallow cap keeps the face blank and leaves the head's larger silhouette
   // intact. Its neutral hair proxy is shared by every proportion candidate.
   add(part(
     new THREE.SphereGeometry(1, 20, 10, 0, Math.PI * 2, 0, Math.PI * .37)
       .scale(head * .375, head * .52, head * .406).rotateZ(tilt).rotateX(nod).translate(...headCentre),
-    "steel-0",
+    characterMaterials.hair.value,
   ));
   return parts;
 };
@@ -237,8 +238,8 @@ export const figureParts = (shape: FigureShape, pose: FigurePose, jacket: Palett
       limb(start, elbow, .042 * build, jacket),
       limb(elbow, [cuff.x, cuff.y, cuff.z], .034 * build, jacket),
       pose === "throwing" && index === 0
-        ? limb(hand, [hand[0], hand[1] - .035, hand[2] + .04], .025, "tone-0")
-        : oval(.055, .073, .053, ...hand, "tone-0"),
+        ? limb(hand, [hand[0], hand[1] - .035, hand[2] + .04], .025, characterMaterials.skin.value)
+        : oval(.055, .073, .053, ...hand, characterMaterials.skin.value),
     ];
   });
   return [...legParts(rig), ...jacketParts(rig), ...headParts(rig), ...arms, ...propParts(rig, left.hand, right.hand)];

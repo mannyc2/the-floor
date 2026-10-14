@@ -21,6 +21,7 @@
         "@effect/platform-bun": "4.0.3",
         "@effect/platform-node": "4.0.3",
         "@effect/tsgo": "0.51.1",
+        "@floor/atlas": "workspace:*",
         "@foldkit/oxlint-plugin": "0.15.3",
         "@foldkit/vite-plugin": "0.27.1",
         "@playwright/test": "1.64.0",
@@ -62,6 +63,7 @@
       "dependencies": {
         "@effect/platform-browser": "4.0.3",
         "@floor/api": "workspace:*",
+        "@floor/atlas": "workspace:*",
         "@floor/contract": "workspace:*",
         "effect": "4.0.3",
         "foldkit": "0.168.0",
@@ -78,6 +80,12 @@
       "name": "@floor/api",
       "dependencies": {
         "@floor/contract": "workspace:*",
+        "effect": "4.0.3",
+      },
+    },
+    "packages/atlas": {
+      "name": "@floor/atlas",
+      "dependencies": {
         "effect": "4.0.3",
       },
     },
@@ -314,6 +322,8 @@
     "@floor/api": ["@floor/api@workspace:packages/api"],
 
     "@floor/app-floor": ["@floor/app-floor@workspace:apps/floor"],
+
+    "@floor/atlas": ["@floor/atlas@workspace:packages/atlas"],
 
     "@floor/chains": ["@floor/chains@workspace:packages/chains"],
 

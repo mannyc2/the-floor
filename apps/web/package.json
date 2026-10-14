@@ -13,7 +13,8 @@
     "foldkit": "0.168.0",
     "three": "0.180.0",
     "@floor/contract": "workspace:*",
-    "@floor/api": "workspace:*"
+    "@floor/api": "workspace:*",
+    "@floor/atlas": "workspace:*"
   },
   "devDependencies": {
     "@foldkit/vite-plugin": "0.27.1",

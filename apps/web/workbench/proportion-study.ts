@@ -1,3 +1,6 @@
+import { cameraValues, proportionCameraValues } from "@floor/atlas/camera";
+import { figureHeight, ProportionRecipe, studyCounts, studyLayout } from "@floor/atlas/proportions";
+export { figureHeight, ProportionRecipe } from "@floor/atlas/proportions";
 import { Effect, Option, Schema } from "effect";
 import * as THREE from "three";
 import type { Engine } from "../src/map/_lib/renderer/engine";
@@ -14,19 +17,6 @@ import {
 } from "./_lib/proportion-geometry";
 import { WorkbenchFailure } from "./runtime";
 
-const ratio = (minimum: number, maximum: number) => Schema.Finite.check(Schema.isBetween({ minimum, maximum }));
-export const ProportionRecipe = Schema.Struct({
-  headRatio: ratio(.13, .25),
-  shoulderRatio: ratio(.18, .34),
-  worktopRatio: ratio(.4, .65),
-  counterRadiusRatio: ratio(.9, 1.8),
-  stationWidthRatio: ratio(.55, 1.15),
-  stationDepthRatio: ratio(.3, .65),
-  postPitchRatio: ratio(3.2, 6),
-  figureRadiusRatio: ratio(1.1, 2.1),
-  monitorCrownRatio: ratio(1.3, 1.9),
-});
-export type ProportionRecipe = typeof ProportionRecipe.Type;
 export const ProportionStudy = Schema.Struct({
   id: Schema.NonEmptyString,
   palette: Palette,
@@ -34,7 +24,6 @@ export const ProportionStudy = Schema.Struct({
   view: Schema.Literals(["post", "floor", "cast", "readability"]),
 });
 export type ProportionStudy = typeof ProportionStudy.Type;
-export const figureHeight = 8;
 export const readProportionStudy = Effect.fn("Workbench.readProportionStudy")(function*(query: URLSearchParams) {
   const encoded = Option.fromNullOr(query.get("proportions"));
   if (Option.isNone(encoded)) return Option.none<ProportionStudy>();
@@ -42,18 +31,22 @@ export const readProportionStudy = Effect.fn("Workbench.readProportionStudy")(fu
 });
 
 export const proportionCamera = (study: ProportionStudy, height: number): Camera => ({
-  x: study.view === "cast" || study.view === "readability" ? -2 : -4,
-  z: study.view === "cast" || study.view === "readability" ? -2 : -4,
+  x: study.view === "cast" || study.view === "readability"
+    ? proportionCameraValues.castCentre.value
+    : proportionCameraValues.postCentre.value,
+  z: study.view === "cast" || study.view === "readability"
+    ? proportionCameraValues.castCentre.value
+    : proportionCameraValues.postCentre.value,
   rotation: 0,
   // One common camera per view avoids enlarging a smaller recipe to hide the
   // very differences under review. The readout rung projects upright H to 40px.
   extent: study.view === "floor"
-    ? 78
+    ? proportionCameraValues.floorExtent.value
     : study.view === "post"
-    ? 38
+    ? proportionCameraValues.postExtent.value
     : study.view === "cast"
-    ? 25
-    : figureHeight * Math.cos(Math.PI / 6) * height / 40,
+    ? proportionCameraValues.castExtent.value
+    : figureHeight * Math.cos(cameraValues.pitchRadians.value) * height / studyCounts.readabilityHeightCssPx.value,
 });
 
 const poses: ReadonlyArray<FigurePose> = [
@@ -123,7 +116,7 @@ const installPost = (
     0,
     figureHeight,
   );
-  for (let station = 0; station < 8; station++) {
+  for (let station = 0; station < studyCounts.stationsPerPost.value; station++) {
     const angle = station * Math.PI / 4;
     const at = (
       r: number,
@@ -262,8 +255,22 @@ export const installProportionStudy = (engine: Engine, study: ProportionStudy, n
       const pitch = study.recipe.postPitchRatio * figureHeight;
       // Both shortlisted layouts share this support. The widest candidate's
       // loose-paper corners reach beyond 35 units, so a 68-unit tile is too small.
-      const floorSize = cast ? 30 : study.view === "floor" ? 72 : 36;
-      geometry.add("timber-floor", [box(floorSize, .15, cast ? 21 : floorSize, 0, -.075, 0, "floor-0")]);
+      const floorSize = cast
+        ? studyLayout.castFloorWidth.value
+        : study.view === "floor"
+        ? studyLayout.floorWidth.value
+        : studyLayout.postFloorWidth.value;
+      geometry.add("timber-floor", [
+        box(
+          floorSize,
+          studyLayout.floorThickness.value,
+          cast ? studyLayout.castFloorDepth.value : floorSize,
+          0,
+          studyLayout.floorCentreY.value,
+          0,
+          "floor-0",
+        ),
+      ]);
       if (cast) {
         const castPoses: ReadonlyArray<FigurePose> = [
           "standing",
@@ -277,7 +284,11 @@ export const installProportionStudy = (engine: Engine, study: ProportionStudy, n
         ];
         castPoses.forEach((pose, index) => {
           const row = Math.floor(index / 4), column = index % 4;
-          const centre: Point = [(column - 1.5) * 6.5, 0, (row - .5) * 8];
+          const centre: Point = [
+            (column - 1.5) * studyLayout.castColumnPitch.value,
+            0,
+            (row - .5) * studyLayout.castRowPitch.value,
+          ];
           if (pose === "seated" || pose === "asleep") {
             const top = study.recipe.worktopRatio;
             geometry.add(`cast-${index}-chair`, chairParts(top), centre, Math.PI / 4, figureHeight);

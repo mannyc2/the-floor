@@ -1,6 +1,9 @@
+import { cameraCorners, cameraValues } from "@floor/atlas/camera";
+import { lineWidthCssPx } from "@floor/atlas/look";
+import { syntheticPaletteLinearRgba } from "@floor/atlas/palette";
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
-import type { Camera, Presentation, Rotation, Theme } from "../../model";
+import type { Camera, Presentation, Theme } from "../../model";
 import type { Palette } from "./palette";
 import { createScene, names, slot, syntheticPalette } from "./scene";
 import { colorFragment, dataFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
@@ -27,12 +30,6 @@ function failInvariant(operation: string, detail: string): never {
 }
 // The 12-bit entity channel reserves ten identifiers for synthetic room parts.
 const DeskCount = Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 4085 }));
-const corners: Readonly<Record<Rotation, { readonly x: number; readonly z: number }>> = {
-  0: { x: 1, z: 1 },
-  1: { x: 1, z: -1 },
-  2: { x: -1, z: -1 },
-  3: { x: -1, z: 1 },
-};
 const decodeEntity = (bytes: Uint8Array) =>
   Math.floor(((bytes[0] ?? 0) + (bytes[1] ?? 0) * 256 + (bytes[2] ?? 0) * 65536) / 4096);
 
@@ -126,13 +123,15 @@ export const openEngine = (
       const rendererName = Schema.decodeUnknownOption(Schema.String)(
         extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
       );
-      const paletteBytes = new Float32Array(names.length * 4);
-      const palette = own(new THREE.DataTexture(paletteBytes, names.length, 1, THREE.RGBAFormat, THREE.FloatType));
+      const paletteBytes = new Float32Array([...syntheticPaletteLinearRgba.day, ...syntheticPaletteLinearRgba.night]);
+      const palette = own(new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.FloatType));
       palette.minFilter = THREE.NearestFilter;
       palette.magFilter = THREE.NearestFilter;
+      palette.needsUpdate = true;
       const surfaceUniforms = {
         palette: { value: palette },
         paletteSize: { value: names.length },
+        paletteTheme: { value: .25 },
         interpolation: { value: 0 },
       };
       const idUniforms = { interpolation: surfaceUniforms.interpolation };
@@ -235,12 +234,16 @@ export const openEngine = (
         camera.right = -camera.left;
         camera.top = view.extent / 2;
         camera.bottom = -camera.top;
-        const target = new THREE.Vector3(view.x, 1, view.z);
-        const corner = corners[view.rotation];
-        const towardCamera = new THREE.Vector3(35.355339 * corner.x, 28.867513, 35.355339 * corner.z).normalize();
+        const target = new THREE.Vector3(view.x, cameraValues.targetHeight.value, view.z);
+        const corner = cameraCorners[view.rotation].value;
+        const towardCamera = new THREE.Vector3(
+          cameraValues.horizontalOffset.value * corner.x,
+          cameraValues.verticalOffset.value,
+          cameraValues.horizontalOffset.value * corner.z,
+        ).normalize();
         camera.position.set(target.x, target.y, target.z).addScaledVector(
           towardCamera,
-          250,
+          cameraValues.distance.value,
         );
         data.cutaway(towardCamera);
         camera.lookAt(target);
@@ -249,11 +252,7 @@ export const openEngine = (
         state.dirty = true;
       };
       const setTheme = (theme: Theme) => {
-        names.forEach((name, index) => {
-          const color = new THREE.Color(state.palette.colors[name][theme]);
-          paletteBytes.set([color.r, color.g, color.b, 1], index * 4);
-        });
-        palette.needsUpdate = true;
+        surfaceUniforms.paletteTheme.value = theme === "day" ? .25 : .75;
         state.theme = theme;
         screenUniforms.lineColor.value.setHex(state.palette.colors.line[theme]);
         screenUniforms.darkLineColor.value.setHex(state.palette.darkLine[theme]);
@@ -313,7 +312,10 @@ export const openEngine = (
         idTarget.setSize(size.x, size.y);
         screenUniforms.pixel.value.set(1 / size.x, 1 / size.y);
         // Integer, asymmetric spans keep a one-CSS-pixel line at DPR 1, 2 and 3.
-        screenUniforms.edgeSpan.value.set(Math.floor(state.dpr / 2), Math.ceil(state.dpr / 2));
+        screenUniforms.edgeSpan.value.set(
+          Math.floor(state.dpr * lineWidthCssPx.value / 2),
+          Math.ceil(state.dpr * lineWidthCssPx.value / 2),
+        );
         setCamera(state.camera);
       };
       const draw = (force = false) => {
@@ -485,9 +487,17 @@ export const openEngine = (
         inspect,
         setCamera,
         // The workbench supplies unapproved candidate data through the same
-        // upload path that the Atlas will use, never through image recolouring.
+        // upload path that the Atlas uses, never through image recolouring.
         setPalette: (selection: Palette) => {
           state.palette = selection;
+          for (const theme of ["day", "night"] satisfies ReadonlyArray<Theme>) {
+            const offset = theme === "day" ? 0 : names.length * 4;
+            names.forEach((name, index) => {
+              const color = new THREE.Color(selection.colors[name][theme]);
+              paletteBytes.set([color.r, color.g, color.b, 1], offset + index * 4);
+            });
+          }
+          palette.needsUpdate = true;
           setTheme(state.theme);
         },
         groundAt,

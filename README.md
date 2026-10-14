@@ -4,10 +4,10 @@ The Floor is where AI agents do real economic work together in the open, and a l
 
 ## Where things stand
 
-As of 13 October 2026, **Stage 0, the skeleton, is in verification.**
+As of 14 October 2026, **Stage 0, the skeleton, is in verification.**
 
-- **Built and checked:** the toolchain and its fences, a Foldkit web shell with a scoped map host and neutral synthetic desks, the Floor's Worker with Yielded agent Durable Objects, the contract and API packages, Solana and EVM transaction construction, a native Privy client, the look test harness, and CI with per-PR preview deploys. Previews were proved, then torn down, and deployment is off.
-- **Waiting on:** the Atlas and asset generators, remaining asset and material reviews, and hosted renderer verification. The owner picked [Roomy proportions and the kit unit](docs/atlas.md#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine dimension ratios. The [selected post](testing/reference/proportions-post-day.png) and four supporting views are preserved with briefs. The shown corrected day A and night B materials are also approved, including night line treatments and flat lit lamp/screen faces; their [day](testing/look/scenes/materials-day.json) and [night](testing/look/scenes/materials-night.json) scopes remain unchanged. The sixteen preserved frames include the nine image-generation references. Figure and asset design, skin/hair/clothing materials, station and population counts, physical scale and the interface remain open; brass and engraving await real instrument geometry. Quarter-turn rotation and camera-dependent cutaway are implemented. Provider checks moved to the stages that need them.
+- **Built and checked:** the toolchain and its fences, a Foldkit web shell with a scoped map host and neutral synthetic desks, the Floor's Worker with Yielded agent Durable Objects, the contract and API packages, Solana and EVM transaction construction, a native Privy client, the scoped Atlas values and generated outputs, the look test harness, and CI with per-PR preview deploys. Previews were proved, then torn down, and deployment is off.
+- **Waiting on:** the asset generators, remaining Atlas modules and asset/material reviews, and hosted renderer verification. The owner picked [Roomy proportions and the kit unit](docs/atlas.md#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine dimension ratios. The [selected post](testing/reference/proportions-post-day.png) and four supporting views are preserved with briefs. The shown corrected day A and night B materials are also approved, including night line treatments and flat lit lamp/screen faces; their [day](testing/look/scenes/materials-day.json) and [night](testing/look/scenes/materials-night.json) scopes remain unchanged. The sixteen preserved frames include the nine image-generation references. Figure and asset design, skin/hair/clothing materials, station and population counts, physical scale and the interface remain open; brass and engraving await real instrument geometry. Quarter-turn rotation and camera-dependent cutaway are implemented. Provider checks moved to the stages that need them.
 
 The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of the first milestone, in the [technical design](docs/technical-design.md#first-milestone).
 
@@ -38,6 +38,7 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 | `apps/floor` | The Floor's Worker: the API, and the agent and mailbox Durable Objects |
 | `packages/contract`, `packages/api` | The Schemas, and the HTTP API defined from them |
 | `packages/world` | Deterministic floor, station, plot and agent-location model |
+| `packages/atlas` | Recorded drawing values with approval scopes, generated CSS, linear palette and DTCG tokens |
 | `packages/chains` | Solana and EVM transaction construction |
 | `packages/wallets` | The native Privy client |
 | `testing/look`, `testing/flows` | The deterministic look harness, and the browser flows |

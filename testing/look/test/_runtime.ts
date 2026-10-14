@@ -1,4 +1,7 @@
-import { Effect } from "effect";
+// oxlint-disable effect/noEffectRunInTests, effecttsgo/strict-effect-provide -- Bun owns this Promise/Effect boundary and the native filesystem Layer used to read tracked approval briefs.
+import { Effect, type Layer } from "effect";
 
-// oxlint-disable-next-line effect/noEffectRunInTests -- Bun is the workspace leaf runner; this adapter owns its Promise/Effect test boundary.
 export const runTest = <A, E>(effect: Effect.Effect<A, E>) => Effect.runPromise(effect);
+
+export const runPlatformTest = <A, E, R>(effect: Effect.Effect<A, E, R>, layer: Layer.Layer<R>) =>
+  Effect.runPromise(effect.pipe(Effect.provide(layer)));

@@ -1,3 +1,5 @@
+import { shading } from "@floor/atlas/look";
+
 export const surfaceVertex = `
 attribute float _SURFACE;
 attribute float _MAT;
@@ -36,21 +38,24 @@ void main() {
 export const colorFragment = `
 uniform sampler2D palette;
 uniform float paletteSize;
+uniform float paletteTheme;
 varying vec3 faceNormal;
 varying float materialSlot;
 void main() {
   float index = floor(materialSlot + 0.5);
-  if (index >= 4.0) {
-    float base = 4.0 + floor((index - 4.0) / 4.0) * 4.0;
+  if (index >= ${shading.unshadedSlots.value.toFixed(1)}) {
+    float base = ${shading.unshadedSlots.value.toFixed(1)} + floor((index - ${
+  shading.unshadedSlots.value.toFixed(1)
+}) / ${shading.tonesPerMaterial.value.toFixed(1)}) * ${shading.tonesPerMaterial.value.toFixed(1)};
     vec3 n = normalize(faceNormal);
     // Horizontal tops must remain lightest at every camera corner. Sloped
     // forms use these provisional bands until the Atlas records the pick.
     float side = dot(n.xz, normalize(vec2(-1.0, 1.0)));
     // Diagonal station faces lie on the side-band boundary. Absorb inverse-view
     // roundoff there so a quarter turn cannot change a stationary face's tone.
-    index = base + (n.y > 0.5 ? 3.0 : n.y < -0.5 ? 0.0 : side >= -0.0001 ? 2.0 : 1.0);
+    index = base + (n.y > ${shading.verticalThreshold.value} ? 3.0 : n.y < -${shading.verticalThreshold.value} ? 0.0 : side >= ${shading.sideTolerance.value} ? 2.0 : 1.0);
   }
-  gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, 0.5)).rgb, 1.0);
+  gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, paletteTheme)).rgb, 1.0);
   #include <colorspace_fragment>
 }
 `;
