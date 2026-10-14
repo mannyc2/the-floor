@@ -25,7 +25,8 @@
     "**/.alchemy/**",
     "**/client/**",
     "packages/chains/idl/**",
-    "packages/chains/test/fixtures/**"
+    "packages/chains/test/fixtures/**",
+    "packages/wallets/test/fixtures/canonical-json/**"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.95.11.wasm",

@@ -1,5 +1,5 @@
 import { Array, Effect, HashSet, Option, Record, Result, Schema } from "effect";
-import { isTestingPath } from "../lint/paths";
+import { isTestingPath, isWalletOraclePath } from "../lint/paths";
 
 const Chunk = Schema.Struct({
   file: Schema.String,
@@ -110,7 +110,9 @@ export const inspectSources = (
     const three = /(?:^|\/)(?:three|three-mesh-bvh|three-edge-projection)(?:@[^/]+)?\//.test(path);
     const inference = /(?:^|\/)(?:@yielded\/|@effect\/ai-|@anthropic-ai\/|openai\/|effect\/[^/]*\/ai\/|apps\/floor\/)/
       .test(path);
-    if (fixture || legacy || (target !== "web" && three) || (target === "signer" && inference)) {
+    if (
+      fixture || legacy || isWalletOraclePath(path) || (target !== "web" && three) || (target === "signer" && inference)
+    ) {
       return Result.fail(new BundleBudgetError({ reason: "ForbiddenSource", detail: `${target}: ${source}` }));
     }
   }

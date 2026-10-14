@@ -127,13 +127,45 @@
     "oxlint": 2,
     "effect": 0
   },
+  "packages/wallets/test/_offline-fetch.ts": {
+    "oxlint": 1,
+    "effect": 1
+  },
+  "packages/wallets/test/_oracle.ts": {
+    "oxlint": 2,
+    "effect": 0
+  },
+  "packages/wallets/test/authorization-breaking.test.ts": {
+    "oxlint": 5,
+    "effect": 0
+  },
   "packages/wallets/test/authorization.test.ts": {
     "oxlint": 2,
     "effect": 0
   },
+  "packages/wallets/test/canonical.test.ts": {
+    "oxlint": 0,
+    "effect": 1
+  },
   "packages/wallets/test/client.test.ts": {
     "oxlint": 3,
     "effect": 1
+  },
+  "packages/wallets/test/feature-errors.test.ts": {
+    "oxlint": 3,
+    "effect": 1
+  },
+  "packages/wallets/test/offline-fetch.test.ts": {
+    "oxlint": 4,
+    "effect": 0
+  },
+  "packages/wallets/test/oracle.test.ts": {
+    "oxlint": 4,
+    "effect": 0
+  },
+  "packages/wallets/test/request-deadline.test.ts": {
+    "oxlint": 3,
+    "effect": 0
   },
   "scripts/bundle-budget/cli.ts": {
     "oxlint": 1,
@@ -144,6 +176,14 @@
     "effect": 0
   },
   "scripts/bundle-budget/modules.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "scripts/bundle-budget/test/_runtime.ts": {
+    "oxlint": 1,
+    "effect": 0
+  },
+  "scripts/bundle-budget/test/graph.test.ts": {
     "oxlint": 1,
     "effect": 0
   },

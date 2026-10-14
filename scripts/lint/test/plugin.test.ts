@@ -1,12 +1,13 @@
 import { expect, test } from "bun:test";
 import * as Testing from "effect-oxlint/testing";
-import {
+import plugin, {
   appIsolation,
   atlasLiterals,
   contractIsolation,
   dataReads,
   featureIsolation,
   legacyDependencies,
+  oracleDependencies,
   productionFixtures,
   signerIsolation,
   staticModules,
@@ -238,6 +239,84 @@ test("legacy SDKs stay confined to development oracles", () => {
         context("packages/chains/test/oracle.test.ts"),
       ),
     ).toHaveLength(0);
+  }
+});
+
+const oracleImportForms = (source: string) => [
+  ...["ImportDeclaration", "ExportAllDeclaration", "ExportNamedDeclaration", "ImportExpression", "TSImportType"].map(
+    visitor => ({ visitor, node: { source: Testing.strLiteral(source) } }),
+  ),
+  { visitor: "TSExternalModuleReference", node: { expression: Testing.strLiteral(source) } },
+  { visitor: "CallExpression", node: Testing.callExpr("require", [Testing.strLiteral(source)]) },
+  {
+    visitor: "ImportExpression",
+    node: {
+      source: {
+        type: "TemplateLiteral",
+        expressions: [],
+        quasis: [{ type: "TemplateElement", value: { raw: source, cooked: source }, tail: true }],
+      },
+    },
+  },
+];
+
+test("wallet oracle imports and re-exports are excluded from every production owner", () => {
+  expect(plugin.rules["oracle-dependencies"]).toBe(oracleDependencies);
+  for (
+    const filename of [
+      "apps/web/src/entry.ts",
+      "apps/floor/src/worker.ts",
+      "apps/signer/src/worker.ts",
+      "packages/chains/src/solana/index.ts",
+      "packages/wallets/src/privy/client.ts",
+    ]
+  ) {
+    for (
+      const source of [
+        "@privy-io/node",
+        "@privy-io/node/authorization",
+        "svix",
+        "svix/dist/index.js",
+        "@hpke/core",
+        "@hpke/chacha20poly1305",
+        "../../node_modules/@privy-io/node/index.mjs",
+      ]
+    ) {
+      for (const { visitor, node } of oracleImportForms(source)) {
+        expect(Testing.runRule(oracleDependencies, visitor, node, context(filename))).toHaveLength(1);
+        expect(Testing.runRule(oracleDependencies, visitor, node, context("packages/wallets/test/oracle.test.ts")))
+          .toHaveLength(0);
+      }
+    }
+    for (
+      const source of ["effect/http/HttpClient", "@floor/wallets", "@solana/kit", "@privy-io/node-other", "svix-other"]
+    ) {
+      for (const { visitor, node } of oracleImportForms(source)) {
+        expect(Testing.runRule(oracleDependencies, visitor, node, context(filename))).toHaveLength(0);
+      }
+    }
+  }
+});
+
+test("the SDK Solana helper is forbidden even in development oracles", () => {
+  for (
+    const filename of [
+      "packages/wallets/src/privy/client.ts",
+      "packages/wallets/test/oracle.test.ts",
+      "scripts/probe.ts",
+    ]
+  ) {
+    for (
+      const source of [
+        "@privy-io/node/solana-kit",
+        "@privy-io/node/solana-kit/index",
+        "@privy-io/node/lib/solana-kit.mjs",
+      ]
+    ) {
+      for (const { visitor, node } of oracleImportForms(source)) {
+        expect(Testing.runRule(oracleDependencies, visitor, node, context(filename))).toHaveLength(1);
+      }
+    }
   }
 });
 

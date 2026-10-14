@@ -1,0 +1,5 @@
+# Preserve the upstream byte vectors and license across line-ending settings.
+/input/* -text
+/output/* -text
+# The upstream license uses CRLF; those CR bytes are line terminators.
+/LICENSE -text whitespace=cr-at-eol

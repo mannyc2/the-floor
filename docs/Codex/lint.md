@@ -14,8 +14,11 @@ The custom rules cover imports, re-exports, literal and computed dynamic imports
 - Production exclusion of testing exports, fixture/workbench code and file reads or copies that bypass imports.
 - Atlas ownership of colour and pixel literals in strings, templates, HTML and CSS. Approved generated exceptions remain unavailable until their manifest exists.
 - Exclusion of retired effect-cf, web3.js/Anchor/BN and the full Meteora SDK from production.
+- Exclusion of the Privy SDK, `svix` and `@hpke/*` from every production graph; Privy's `/solana-kit` helper is forbidden even in tests. The native wallet client is checked against a development-only SDK oracle.
 
 Build checks independently inspect the reachable emitted module graph and every source map. A full AST parser rejects computed module dependencies; literal dynamic imports and re-exports are traversed. Missing or empty maps fail, except the individually hashed reviewed bundler helper. Nonempty `sourceRoot` fails closed rather than changing source authority invisibly. Web modules must also appear in the Vite manifest. Production bundle checks cover actual web, Floor and chain artifacts; the signer target is tested with negative fixtures until a signer app exists.
+
+The Privy oracle fence was verified on 13 October 2026 with `bun test ./scripts/lint/test ./scripts/bundle-budget/test`: 25 tests and 1,276 assertions passed. The emitted-graph fixtures check bundled sources and unbundled dependencies behind seven static, re-export, dynamic and CommonJS forms for web, Floor and signer, with clean native-client controls. A scratch-copy audit detected all 15 disabled guards, with passing baseline and restored runs; its raw results remain under `work/privy-fence-mutations/`.
 
 Bundle budgets remain data: 200 KiB initial and 180 KiB deferred gzip. The complete profile is the web build default and requires a deferred renderer entry. The shell profile remains available only for bundle-check fixtures.
 

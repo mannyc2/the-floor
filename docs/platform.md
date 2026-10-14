@@ -87,7 +87,15 @@ A model instruction isn't network enforcement, and an unrestricted session is ne
 
 ### Wallets
 
-In Privy's sandbox, using the native client in [`packages/wallets`](../packages/wallets/README.md): create an agent's wallet, set a two-of-two key quorum with the signer, confirm a policy, sign an allowed transaction, and see a disallowed one refused. Sandbox value only: no real funds, mainnet broadcast or real launch. The client signs requests correctly in tests, but nothing has reached the sandbox yet.
+In Privy's sandbox, using the native client in [`packages/wallets`](../packages/wallets/README.md): create an agent's Solana wallet, set a two-of-two key quorum with the signer, confirm a policy, sign an allowed transaction, and see a disallowed one refused. Sandbox value only: no real funds, mainnet broadcast or real launch. The native client uses Effect HttpClient and Web Crypto; the pinned official SDK is only a development oracle, excluded from every production bundle. The owner's 13 October approval includes the client operations ahead of Stage 0 review, not provider access. The sandbox proof has not run. A faulty timeout-test fixture allowed unintended reads using synthetic credentials during development; the [incident and correction](../packages/wallets/README.md#test-transport-incident) are recorded separately and prove no sandbox capability.
+
+Wallet/policy reads and owner-signed PATCH, Solana sign-only RPC and optional signed request expiry are available for that check. `PrivyPolicyRefusal` represents the provider's explicit `policy_violation`; authentication, validation and transport failures remain separate. Offline cryptographic quorum tests are local fixtures, not proof of Privy's enforcement.
+
+Privy evaluates Solana policy rules per instruction. Transfer amount and recipient conditions apply to each transfer, not to a transaction's total or to transfers an allowed program makes through CPI. Its [Solana documentation](https://docs.privy.io/controls/policies/example-policies/solana#known-limitations) says address conditions needing accounts found only in an address lookup table are rejected. Those are the Floor's limits; it adds no enforcement of its own ([decision log](decisions.md#stack-and-platform)). The chain adapter constructs and serializes transactions; this client signs without broadcasting.
+
+Owner-only policy control must cover both rule changes and wallet attachments. Privy's [owner permissions](https://docs.privy.io/controls/authorization-keys/owners/overview) give wallet owners authority to replace assigned policies; a different owner on the policy itself does not prevent that. The current client and offline quorum tests do not establish the required authority separation. The sandbox must prove that execution credentials cannot replace the owner's limits.
+
+Second-milestone signing with a logged-in owner's session remains out of scope. The SDK's JWT exchange decrypts a temporary key with HPKE using DHKEM(P-256, HKDF-SHA256) and ChaCha20-Poly1305. Web Crypto does not provide ChaCha20-Poly1305; when that feature is built, the Effect-first exception permits a small audited implementation. That does not admit the SDK's HPKE dependencies to today's production graph.
 
 ### Live inference
 
