@@ -1,6 +1,6 @@
 # Stage 1: contracts and world groundwork
 
-12 October 2026. This branch implements the contract Schemas and a deterministic world model. The owner authorized it in a separate `stage-1-contracts` worktree while another session finishes Stage 0's renderer and look. It must not be pushed or merged before the owner reviews Stage 0. Neither stage is approved by these results.
+12 October 2026. This work implements the contract Schemas and a deterministic world model. The owner initially authorized it in a separate `stage-1-contracts` worktree while another session finished Stage 0's renderer and look, with integration held for Stage 0 review. The work was already present in local `main` at `41ec8cc` when, on 14 October, the owner requested the proportion branch's integration after a clean 72/72 full flow. The [local-integration decision](decisions.md#repository-ci-and-spending) records that later authorization and the continuing no-push instruction. Neither stage is approved by these results.
 
 ## What is implemented
 

@@ -197,35 +197,85 @@ test("soft bounds resist without allowing departure from the map", async ({ page
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 test("flight has zoom-out arc and takes 600 to 1200 milliseconds", async ({ page }) => {
   await ready(page);
-  // oxlint-disable-next-line effect/noGlobals -- Native monotonic timing independently measures the complete browser flight duration.
-  const start = performance.now();
-  await page.locator("#fly").click();
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().flying)).toBe(true);
-  // Retain the observed zoom-out sample: another browser round trip can arrive
-  // after the flight has already started zooming back toward its destination.
-  const midpoint = await page.waitForFunction(
-    (minimumExtent: number) => {
-      const extent = window.floorTest.inspect().camera.extent;
-      return extent > minimumExtent ? extent : false;
-    },
-    21,
-    { polling: 10, timeout: 5000 },
-  );
-  expect(await midpoint.jsonValue()).toBeGreaterThan(21);
-  await midpoint.dispose();
-  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().flying), { intervals: [20], timeout: 1600 })
-    .toBe(false);
-  // oxlint-disable-next-line effect/noGlobals -- Native monotonic timing independently measures the complete browser flight duration.
-  const elapsed = performance.now() - start;
-  record("flightElapsedMs", elapsed);
-  expect(elapsed).toBeGreaterThanOrEqual(600);
-  expect(elapsed).toBeLessThanOrEqual(1200);
-  expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({
-    x: 4,
-    z: -4,
-    extent: 12,
-    rotation: 0,
+  // Observe before the real input: protocol round trips can miss the entire
+  // zoom-out arc. Browser click timing includes UI work without actionability
+  // or transport delay; retained RAF samples have ordinary frame resolution.
+  const observation = await page.locator("#fly").evaluateHandle(button => {
+    type Timestamp = { readonly status: "pending" } | { readonly status: "observed"; readonly atMs: number };
+    const samples: Array<{ atMs: number; extent: number; flying: boolean }> = [];
+    let click: Timestamp = { status: "pending" };
+    let completion: Timestamp = { status: "pending" };
+    let sawFlight = false;
+    let frame: { readonly status: "idle" } | { readonly status: "scheduled"; readonly id: number } = { status: "idle" };
+    const clock = performance;
+    // oxlint-disable-next-line effect/noGlobals -- This serialized browser observer measures native input and rendering on one monotonic clock.
+    const now = () => clock.now();
+    const clicked = () => {
+      click = { status: "observed", atMs: now() };
+    };
+    const stop = () => {
+      if (frame.status === "scheduled") cancelAnimationFrame(frame.id);
+      frame = { status: "idle" };
+      button.removeEventListener("click", clicked, true);
+    };
+    const sample = () => {
+      if (click.status === "observed") {
+        const state = window.floorTest.inspect();
+        const atMs = now();
+        samples.push({ atMs, extent: state.camera.extent, flying: state.flying });
+        sawFlight ||= state.flying;
+        if (sawFlight && !state.flying) {
+          completion = { status: "observed", atMs };
+          stop();
+          return;
+        }
+      }
+      frame = { status: "scheduled", id: requestAnimationFrame(sample) };
+    };
+    button.addEventListener("click", clicked, { capture: true, once: true });
+    frame = { status: "scheduled", id: requestAnimationFrame(sample) };
+    return { read: () => ({ click, completion, samples }), stop };
   });
+  // oxlint-disable-next-line effect/noTryCatch -- The native observation handle must cancel its RAF and DOM listener even when a bounded wait or assertion fails.
+  try {
+    await page.locator("#fly").click();
+    await expect.poll(() => observation.evaluate(probe => probe.read().completion.status), {
+      intervals: [20],
+      timeout: 5000,
+    }).toBe("observed");
+    const observed = await observation.evaluate(probe => probe.read());
+    const firstFlying = observed.samples.find(sample => sample.flying);
+    expect(observed.click.status).toBe("observed");
+    expect(observed.completion.status).toBe("observed");
+    expect(firstFlying).toBeDefined();
+    expect(observed.samples.at(-1)?.flying).toBe(false);
+    expect(Math.max(...observed.samples.map(sample => sample.extent))).toBeGreaterThan(21);
+    if (observed.click.status !== "observed" || observed.completion.status !== "observed" || !firstFlying) return;
+    const elapsed = observed.completion.atMs - observed.click.atMs;
+    record("flightNativeTiming", {
+      basis: "real DOM click to first RAF observing flight completion",
+      elapsedMs: elapsed,
+      firstFlyingAtMs: firstFlying.atMs,
+      observedFlyingMs: observed.completion.atMs - firstFlying.atMs,
+    });
+    expect(elapsed).toBeGreaterThanOrEqual(600);
+    expect(elapsed).toBeLessThanOrEqual(1200);
+    expect((await page.evaluate(() => window.floorTest.inspect())).camera).toEqual({
+      x: 4,
+      z: -4,
+      extent: 12,
+      rotation: 0,
+    });
+  } finally {
+    record(
+      "flightObservation",
+      await observation.evaluate(probe => {
+        probe.stop();
+        return probe.read();
+      }),
+    );
+    await observation.dispose();
+  }
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.

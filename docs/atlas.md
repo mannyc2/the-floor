@@ -2,7 +2,7 @@
 
 The Atlas is the Floor's design system, written as code in `packages/atlas`. The renderer, the interface, the piece checks, plates and the look tests all read their visual values from it, and nothing copies them by hand. This doc is the plan for that code, and the home of what isn't code: the laws, the voice and the common failures.
 
-**Where it stands.** `packages/atlas` doesn't exist yet. On 13 October the owner approved corrected day material A and then night B: the shown material values, with the night line classes and flat lit lamp/screen faces. The preserved [day](../testing/reference/materials-day.png) and [night](../testing/reference/materials-night.png) frames have separate [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) approval scopes. Brass and engraving stay provisional until real instrument geometry is reviewed; hidden material faces, geometry, proportions, the kit unit and the interface are not approved. Stage 0 still needs those reviews and the Atlas implementation (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
+**Where it stands.** `packages/atlas` doesn't exist yet. On 13 October the owner approved corrected day material A and then night B: the shown material values, with the night line classes and flat lit lamp/screen faces. The preserved [day](../testing/reference/materials-day.png) and [night](../testing/reference/materials-night.png) frames have separate [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) approval scopes. The owner then picked [Roomy proportions and the kit unit](#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine ratios. Brass and engraving, figure/asset design, skin/hair/clothing materials, newly exposed or hidden material bands, final clearances, counts, physical scale and the interface remain open. Stage 0 still needs those reviews and the Atlas implementation (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
 
 The nine image-generated reference PNGs are preserved in `testing/reference/`. Their staged briefs in `testing/look/scenes/` record each `frame`, image hash, owner decision and required corrections. Renderer-dependent fields remain tagged `Pending`; migrate the briefs to the executable `ReferenceScene` below when the picks and generators supply those fields. No placeholder camera or invented measurement stands in for missing evidence.
 
@@ -235,7 +235,43 @@ The visible lower glass-sphere band also uses `#212A32`; the unshown steel under
 
 The independent audit measures night B’s minimum raised-body top/visible-side range at **2.613:1**, visible-side/page-ground separation at **1.314:1**, and authored visible-fill/line contrast at **3.324:1**. Paper is brighter than the counter and floor. A possible `#080808` paper ink reaches **8.415:1**, but no text, label halo, name plate or interface value was shown or approved; dark ground needs a separate light ink treatment.
 
-Brass top `#9F8655` and engraving `#080808` remain **provisional pending real instrument review**. Their measured pairs are **1.537:1 on timber, 1.596:1 on steel and 1.583:1 on glass**, with **5.737:1** for dark engraving against brass. The approved dark instrument contour treatment does not approve the engraving design or its final material appearance. Geometry, lamp design, proportions, the kit unit, actual instruments and the interface remain unapproved. The [Stage 0 record](stage-0.md#night-material-study-and-approved-b) retains the numeric and pixel checks, rejected attempts, contour corrections and owner decision.
+Brass top `#9F8655` and engraving `#080808` remain **provisional pending real instrument review**. Their measured pairs are **1.537:1 on timber, 1.596:1 on steel and 1.583:1 on glass**, with **5.737:1** for dark engraving against brass. The approved dark instrument contour treatment does not approve the engraving design or its final material appearance. This night material pick does not approve geometry, lamp design, proportions, the kit unit, actual instruments or the interface. The [Stage 0 record](stage-0.md#night-material-study-and-approved-b) retains the numeric and pixel checks, rejected attempts, contour corrections and owner decision.
+
+## Approved proportions and kit unit — 13 October 2026
+
+The owner picked **Option 1, Roomy**, from two independently shortlisted dimension packages, saying “it looks better height-wise.” Approval is limited to **`K = H/8` and the nine Roomy ratios below**. `H` is the canonical nominal standing figure height, so `H = 8K`; posed limbs, shoes and hair retain their own silhouette bounds. The unit is dimensionless, with no metre conversion. Adoption into `packages/atlas` remains unfinished. Compact is retained here only to document the alternative shown with the same materials, camera and pose assignments.
+
+| Parameter, relative to `H` | Compact — not selected | Roomy — approved |
+| --- | --- | --- |
+| Head ellipsoid height, before hair and pose | 0.190 | 0.175 |
+| Nominal shoulder/torso width parameter | 0.285 | 0.270 |
+| Working surface height | 0.500 | 0.540 |
+| Outer counter-lip radius | 1.150 | 1.320 |
+| Nominal station frontage chord | 0.800 | 0.900 |
+| Nominal station radial depth | 0.350 | 0.400 |
+| Station figure stance radius | 1.320 | 1.490 |
+| Neighbouring post-centre pitch | 3.550 | 4.250 |
+| Monitor crown top height | 1.500 | 1.500 |
+
+The width parameter places paired radial support-frame centre lines whose projected chord at the outer lip has the stated width; the actual clear space is smaller by frame thickness. Nominal depth reaches the inner counter-body boundary, and the worktop extends another `0.035H` inward. The shoulder parameter precedes build variation, the shaped jacket and sleeve/gesture bounds. These distinctions prevent nominal construction values from masquerading as measured clearances. The retained neutral occupied-ring estimate excludes spillover traders and is not a collision or aisle guarantee; generated figure, chair and station bounds must be reviewed separately.
+
+The source observations in `work/look/proportions/round-001/candidate-recipes.json` name pixel coordinates, PNG hashes and uncertainty. Three cast silhouettes suggest head/hair spans around `0.15–0.17` of standing height, but independent manual ranges extend from `0.13` to `0.22` across builds, poses and obscured jaws. The moods cabinets suggest a lower worktop than the picked post, so the proposed `0.50H` and selected `0.54H` were explicit post-based design choices. Hair, leaning bodies, occlusion and inconsistent generated perspective prevent recovery of a unique physical dimension. The floor supplies evidence of crowded, uneven rings and circulation, not an exact post pitch inferred from monitor crowns.
+
+Each isolated post has eight station occupants. The floor comparison has three posts with 24 station occupants and 12 additional traders, distributed `2/4/6` in pairs; both packages use the same assignments. These are controlled comparison counts, not approved population or density targets. Close and native 40-CSS-pixel views include standing front/back, phone, reading, seated, asleep, walking and throwing poses; seated and asleep figures have chairs and working surfaces. A nominal standing figure defines the small-view scale, so slumped figures and raised hands retain their different projected bounds. Emblems are omitted pending asset implementation; this study gives no badge approval.
+
+The shared provisional skin hue comes from a labelled cheek patch in the picked cast frame, then changes luminance to satisfy the drawing rules. Its day ramp is `#7A5B42`, `#7A5B42`, `#A77E5C`, `#D9A579`; night is `#33261D`, `#33261D`, `#584436`, `#7E634F`. This is one diagnostic hue, not a completed cast skin range. Hair/trousers provisionally reuse steel and shirt openings reuse glass; those semantic uses are unapproved. Curved figures expose steel and jacket downward bands that the approved material studies hid, so four previously unapproved bands copy their corresponding approved dark sides in both themes. All approved visible day and night values remain byte-identical. `skin-proposal.json` records these eight scoped assignments and their numeric checks; it does not expand the material approvals.
+
+The five preserved frames witness the selected package; they do not approve every depicted material, asset or construction dimension:
+
+| Selected view | Scoped approval brief |
+| --- | --- |
+| [Day post](../testing/reference/proportions-post-day.png) | [Post](../testing/look/scenes/proportions-post-day.json) |
+| [Day floor](../testing/reference/proportions-floor-day.png) | [Floor](../testing/look/scenes/proportions-floor-day.json) |
+| [Day cast](../testing/reference/proportions-cast-day.png) | [Cast](../testing/look/scenes/proportions-cast-day.json) |
+| [Day native readability](../testing/reference/proportions-readability-day.png) | [Readability](../testing/look/scenes/proportions-readability-day.json) |
+| [Night post](../testing/reference/proportions-post-night.png) | [Night post](../testing/look/scenes/proportions-post-night.json) |
+
+The [Stage 0 evidence](stage-0.md#proportion-study-and-approved-roomy) separates numerical preflight, rendered review and the subsequent owner choice. Both packages passed the independent shortlist; the owner's pick sets the approval. Skin, hair and clothing materials, newly exposed underside bands, figure and asset design, eight stations per post, the 36-figure population, physical units, brass, final clearances and additional construction dimensions remain unapproved. Atlas implementation and the asset generators remain unfinished. Raw candidate and review statuses are retained as historical evidence, not rewritten as approval.
 
 ## The interface
 

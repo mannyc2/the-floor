@@ -5,6 +5,7 @@ import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera, Presentation } from "../src/map/model";
 import { diagnostics } from "./probes";
 import { projectTargets } from "./projection";
+import { proportionEvidence } from "./proportion-study";
 import { partialAcquisitionProbe, reconciliationProbe } from "./reconciliation-probe";
 import { replayProbe } from "./replay-probe";
 import { WorkbenchFailure } from "./runtime";
@@ -33,6 +34,7 @@ export const makeWorkbenchApi = (
     hash,
     frame: () => Array.from(current().engine.frameBytes()),
     png: () => current().engine.canvas.toDataURL(),
+    proportions: () => Option.getOrNull(proportionEvidence(current().engine)),
     mask: (value: boolean) => current().engine.setMask(value),
     project: (x: number, y: number, z: number) => current().engine.project(x, y, z),
     ground: (x: number, y: number) => current().engine.groundAt(x, y),
