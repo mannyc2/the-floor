@@ -40,6 +40,7 @@ export const snapshotStream = Effect.fn("Workbench.snapshotStream")(function*(mo
     scheduledMs: number;
     receivedMs: number;
     acceptedMs: number;
+    observedMs: number;
     changedInstances: number;
     changedAttributes: number;
     expected: ReturnType<typeof uploads.readExpected>;
@@ -80,18 +81,23 @@ export const snapshotStream = Effect.fn("Workbench.snapshotStream")(function*(mo
       const acceptedMs = now() - started;
       pendingUpload = true;
       const actual = new Map(engine.instancePositions().map(instance => [instance.id, instance]));
+      const expected = uploads.readExpected();
+      const targetsMatch = snapshot.instances.every(instance =>
+        Option.exists(
+          Option.fromUndefinedOr(actual.get(instance.id)),
+          value => value.visible && coordinatesMatch(instance, value.target),
+        )
+      );
+      // The oracle is probe overhead, not renderer CPU. Retain its duration so
+      // delayed producer callbacks cannot be attributed to rendering by omission.
       received.push({
         ...receipt,
         scheduledMs: step * 250,
         receivedMs,
         acceptedMs,
-        expected: uploads.readExpected(),
-        targetsMatch: snapshot.instances.every(instance =>
-          Option.exists(
-            Option.fromUndefinedOr(actual.get(instance.id)),
-            value => value.visible && coordinatesMatch(instance, value.target),
-          )
-        ),
+        observedMs: now() - started,
+        expected,
+        targetsMatch,
       });
     }),
     { concurrency: 1 },

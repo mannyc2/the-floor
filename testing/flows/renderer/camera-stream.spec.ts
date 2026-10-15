@@ -190,10 +190,29 @@ test("camera drag comparison measures local input and real Foldkit Model present
   }
   record("comparison", {
     endpoint:
-      "native pointer handler entry to the shared renderer draw-end callback after all three passes; excludes observer callback cost",
+      "native pointer handler entry to the shared renderer draw-end callback after both passes; excludes observer callback cost",
     limits:
       "Serial acknowledged small drags; excludes compositor latency and inertial release; desktop SwiftShader, not a real phone",
     order: "local, model, model, local",
     results,
   });
+});
+
+// @effect-diagnostics-next-line asyncFunction:off -- Playwright observes the real fixed-follow button and mounted presentation queue.
+test("completed fixed follow releases camera ownership to later presentations", async ({ page }) => {
+  await ready(page);
+  await page.getByRole("button", { name: "Follow", exact: true }).click();
+  await expect.poll(() => page.evaluate(() => window.floorTest.inspect())).toMatchObject({
+    camera: { x: -4, z: -3 },
+    flying: false,
+    following: false,
+  });
+  const settled = await page.evaluate(() => window.floorTest.inspect());
+  await expect.poll(() => page.evaluate(() => window.floorTest.model()))
+    .toMatchObject({ presentation: { camera: settled.camera } });
+  const presentation = (await page.evaluate(() => window.floorTest.model())).presentation;
+  const next = { ...presentation, revision: presentation.revision + 1, camera: { ...settled.camera, x: 3, z: 2 } };
+  await page.evaluate(value => window.floorTest.present(value), next);
+  await expect.poll(() => page.evaluate(() => window.floorTest.inspect().camera)).toEqual(next.camera);
+  record("fixedFollowReleased", { settled, applied: await page.evaluate(() => window.floorTest.inspect()) });
 });

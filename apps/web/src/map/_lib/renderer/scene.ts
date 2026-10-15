@@ -45,14 +45,18 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   scene.name = "synthetic-unapproved-desk-scene";
   const kitUnit = 1;
 
-  const attributed = (source: THREE.BufferGeometry, materialSlot: number, animatedPart = false) => {
-    const geometry = Option.isNone(Option.fromNullishOr(source.index)) ? source : source.toNonIndexed();
-    if (geometry !== source) source.dispose();
+  const attributed = (geometry: THREE.BufferGeometry, materialSlot: number, animatedPart = false) => {
     const count = geometry.getAttribute("position").count;
     const surfaces = new Float32Array(count).fill(counter.surface++);
     geometry.groups.forEach(group => {
       const id = counter.surface++;
-      surfaces.fill(id, group.start, Math.min(group.start + group.count, count));
+      // Box and cylinder groups own separate face vertices. Preserve their
+      // indices so shared triangle corners are shaded once, without welding
+      // across normals or authored surface boundaries.
+      for (let offset = group.start; offset < group.start + group.count; offset++) {
+        const vertex = geometry.index ? geometry.index.getX(offset) : offset;
+        surfaces[vertex] = id;
+      }
     });
     geometry.setAttribute("_SURFACE", new THREE.BufferAttribute(surfaces, 1));
     geometry.setAttribute("_MAT", new THREE.BufferAttribute(new Float32Array(count).fill(materialSlot), 1));

@@ -385,7 +385,7 @@ The floor needs at least:
 - **`tokens.json`,** in the Design Tokens Format (DTCG 2025.10), with status and source metadata in the `org.the-floor.atlas` extension.
 - **`manifest.json`:** the exact source and output inventories with SHA-256 hashes, so hand edits and stale generation are detected.
 
-Both the stylesheet and the texture ship in the web bundles, so they count toward the budgets. The planned published Atlas page will be generated from the repository. It will show swatches and material spheres, each reference scene beside its frame in day and night, the screen at 1440×900 and 390×844, and the asset catalogue with 64-pixel thumbnails and budgets.
+The stylesheet ships in the web bundles. The renderer builds an RGBA8 palette directly from authored colour values; the generated linear-space rows remain a verified generator output pending cleanup and no longer enter the renderer bundle. The planned published Atlas page will be generated from the repository. It will show swatches and material spheres, each reference scene beside its frame in day and night, the screen at 1440×900 and 390×844, and the asset catalogue with 64-pixel thumbnails and budgets.
 
 The fences already enforce one source:
 - **`atlas-literals`** (in `scripts/lint/plugin.ts`) fails any hex colour, `rgb()` or `hsl()` call, or `px` value in a string or template in production source outside `packages/atlas/src/`.

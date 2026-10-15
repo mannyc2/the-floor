@@ -1,13 +1,12 @@
 import { cameraCorners, cameraValues } from "@floor/atlas/camera";
 import { lineWidthCssPx } from "@floor/atlas/look";
-import { syntheticPaletteLinearRgba } from "@floor/atlas/palette";
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
 import type { Camera, Presentation, Theme } from "../../model";
 import { makeInstanceSnapshots } from "./instances";
 import type { Palette } from "./palette";
 import { createScene, names, slot, syntheticPalette } from "./scene";
-import { colorFragment, dataFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
+import { colorFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
 import { trackUploads } from "./uploads";
 
 export class RendererFailure extends Schema.TaggedError<RendererFailure>()("RendererFailure", {
@@ -102,7 +101,9 @@ export const openEngine = (
       canvas.style.touchAction = "none";
       canvas.setAttribute("aria-label", "Synthetic desk scene — unapproved geometry and palette");
       canvas.tabIndex = 0;
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true });
+      // The canvas receives only the full-screen composite. Scene depth belongs
+      // to the offscreen target, so the default framebuffer needs no depth buffer.
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, depth: false, preserveDrawingBuffer: true });
       ledger.acquired++;
       ledger.live++;
       ledger.contexts++;
@@ -126,27 +127,51 @@ export const openEngine = (
       element.append(canvas);
       renderer.info.autoReset = false;
       const gl = renderer.getContext();
+      if (!(gl instanceof WebGL2RenderingContext)) failInvariant("context", "WebGL2 is required");
       const bufferUploads = trackUploads(gl);
       finalizers.push(bufferUploads.restore);
       const extension = gl.getExtension("WEBGL_debug_renderer_info");
       const rendererName = Schema.decodeUnknownOption(Schema.String)(
         extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
       );
-      const paletteBytes = new Float32Array([...syntheticPaletteLinearRgba.day, ...syntheticPaletteLinearRgba.night]);
-      const palette = own(new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.FloatType));
+      // Palette colors are authored as sRGB bytes. The scene target preserves
+      // those bytes, so converting each covered fragment through linear adds no information.
+      const paletteBytes = new Uint8Array(names.length * 2 * 4);
+      const writePaletteBytes = (selection: Palette) => {
+        for (const theme of ["day", "night"] satisfies ReadonlyArray<Theme>) {
+          const offset = theme === "day" ? 0 : names.length * 4;
+          names.forEach((name, index) => {
+            const color = selection.colors[name][theme];
+            paletteBytes.set([(color >>> 16) & 255, (color >>> 8) & 255, color & 255, 255], offset + index * 4);
+          });
+        }
+      };
+      writePaletteBytes(syntheticPalette);
+      const palette = own(
+        new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.UnsignedByteType),
+      );
+      palette.colorSpace = THREE.NoColorSpace;
       palette.minFilter = THREE.NearestFilter;
       palette.magFilter = THREE.NearestFilter;
       palette.needsUpdate = true;
+      // Fractional outlines use the same hardware sRGB decoder as a color target.
+      // A shader approximation can round the final blended byte differently.
+      const colorDecodeBytes = new Uint8Array(256 * 4).map((_value, index) =>
+        index % 4 === 3 ? 255 : Math.floor(index / 4)
+      );
+      const colorDecode = own(
+        new THREE.DataTexture(colorDecodeBytes, 256, 1, THREE.RGBAFormat, THREE.UnsignedByteType),
+      );
+      colorDecode.colorSpace = THREE.SRGBColorSpace;
+      colorDecode.minFilter = THREE.NearestFilter;
+      colorDecode.magFilter = THREE.NearestFilter;
+      colorDecode.needsUpdate = true;
       const surfaceUniforms = {
         palette: { value: palette },
         paletteSize: { value: names.length },
         paletteTheme: { value: .25 },
         interpolation: { value: 0 },
         instanceInterpolation: { value: 1 },
-      };
-      const idUniforms = {
-        interpolation: surfaceUniforms.interpolation,
-        instanceInterpolation: surfaceUniforms.instanceInterpolation,
       };
       const material = own(
         new THREE.ShaderMaterial({
@@ -155,28 +180,35 @@ export const openEngine = (
           uniforms: surfaceUniforms,
         }),
       );
-      const idMaterial = own(
-        new THREE.ShaderMaterial({ vertexShader: surfaceVertex, fragmentShader: dataFragment, uniforms: idUniforms }),
-      );
       const data = createScene({ width: element.clientWidth, height: element.clientHeight, desks }, material);
       data.geometries.forEach(own);
       data.meshes.forEach(mesh => {
         if (mesh instanceof THREE.InstancedMesh) own(mesh);
       });
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 500);
-      const colorTarget = own(
-        new THREE.WebGLRenderTarget(1, 1, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter }),
+      const sceneTarget = own(
+        new THREE.WebGLRenderTarget(1, 1, { count: 2, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter }),
       );
-      colorTarget.texture.colorSpace = THREE.SRGBColorSpace;
-      const idTarget = own(
-        new THREE.WebGLRenderTarget(1, 1, { minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter }),
+      const colorTexture = Option.getOrElse(
+        Option.fromUndefinedOr(sceneTarget.textures[0]),
+        () => failInvariant("scene-target", "Color attachment is required"),
       );
-      idTarget.depthTexture = new THREE.DepthTexture(1, 1, THREE.UnsignedIntType);
+      const idTexture = Option.getOrElse(
+        Option.fromUndefinedOr(sceneTarget.textures[1]),
+        () => failInvariant("scene-target", "Identity attachment is required"),
+      );
+      // The surface shader stores encoded bytes explicitly. Sampling them without
+      // conversion lets the composite leave pixels outside outlines untouched.
+      colorTexture.colorSpace = THREE.NoColorSpace;
+      idTexture.colorSpace = THREE.NoColorSpace;
+      sceneTarget.depthTexture = new THREE.DepthTexture(1, 1, THREE.UnsignedIntType);
+      const clearGroundBytes = new Float32Array([0, 0, 0, 1]);
+      const clearIdentity = new Float32Array([0, 0, 0, 1]);
       const screenUniforms = {
-        colors: { value: colorTarget.texture },
-        ids: { value: idTarget.texture },
-        depths: { value: idTarget.depthTexture },
-        pixel: { value: new THREE.Vector2(1, 1) },
+        colors: { value: colorTexture },
+        colorDecode: { value: colorDecode },
+        ids: { value: idTexture },
+        depths: { value: sceneTarget.depthTexture },
         edgeSpan: { value: new THREE.Vector2(0, 1) },
         lineColor: { value: new THREE.Color() },
         darkLineColor: { value: new THREE.Color() },
@@ -327,9 +359,7 @@ export const openEngine = (
         renderer.setPixelRatio(state.dpr);
         renderer.setSize(state.width, state.height);
         const size = renderer.getDrawingBufferSize(new THREE.Vector2());
-        colorTarget.setSize(size.x, size.y);
-        idTarget.setSize(size.x, size.y);
-        screenUniforms.pixel.value.set(1 / size.x, 1 / size.y);
+        sceneTarget.setSize(size.x, size.y);
         // Integer, asymmetric spans keep a one-CSS-pixel line at DPR 1, 2 and 3.
         screenUniforms.edgeSpan.value.set(
           Math.floor(state.dpr * lineWidthCssPx.value / 2),
@@ -343,20 +373,33 @@ export const openEngine = (
         state.uploadCalls = 0;
         const start = nowMonotonicMs();
         renderer.info.reset();
-        renderer.setRenderTarget(colorTarget);
-        renderer.setClearColor(state.palette.colors.ground[state.theme]);
-        renderer.render(data.scene, camera);
-        renderer.setRenderTarget(idTarget);
-        renderer.setClearColor(0);
-        const savedMaterial = data.scene.overrideMaterial;
-        data.scene.overrideMaterial = idMaterial;
+        renderer.setRenderTarget(sceneTarget);
+        // One geometry pass writes color and exact IDs against the same depth.
+        // Their backgrounds differ, so a broadcast clear would corrupt picking.
+        const ground = state.palette.colors.ground[state.theme];
+        clearGroundBytes[0] = ((ground >>> 16) & 255) / 255;
+        clearGroundBytes[1] = ((ground >>> 8) & 255) / 255;
+        clearGroundBytes[2] = (ground & 255) / 255;
+        renderer.state.buffers.color.setMask(true);
+        renderer.state.buffers.depth.setMask(true);
+        renderer.state.buffers.depth.setClear(1);
+        gl.clearBufferfv(gl.COLOR, 0, clearGroundBytes);
+        gl.clearBufferfv(gl.COLOR, 1, clearIdentity);
+        renderer.clear(false, true, false);
+        const savedAutoClear = renderer.autoClear;
+        renderer.autoClear = false;
         const rendered = Result.try(() => renderer.render(data.scene, camera));
-        data.scene.overrideMaterial = savedMaterial;
-        if (Result.isFailure(rendered)) return failForeign("id-pass", rendered.failure);
+        renderer.autoClear = savedAutoClear;
+        if (Result.isFailure(rendered)) return failForeign("scene-pass", rendered.failure);
         // Three requires null to select the browser’s default framebuffer.
         // oxlint-disable-next-line effect/noNullish -- Three requires null to select the default browser framebuffer.
         renderer.setRenderTarget(null);
-        renderer.render(screenScene, screenCamera);
+        // The opaque, depth-free quad overwrites every canvas pixel. Clearing it
+        // first adds work on software renderers without contributing to the image.
+        renderer.autoClear = false;
+        const composited = Result.try(() => renderer.render(screenScene, screenCamera));
+        renderer.autoClear = savedAutoClear;
+        if (Result.isFailure(composited)) return failForeign("composite-pass", composited.failure);
         state.drawCount++;
         state.dirty = false;
         const ended = nowMonotonicMs();
@@ -395,7 +438,7 @@ export const openEngine = (
         draw();
         const point = pixelCoordinates(x, y);
         const bytes = new Uint8Array(4);
-        renderer.readRenderTargetPixels(idTarget, point.x, point.y, 1, 1, bytes);
+        renderer.readRenderTargetPixels(sceneTarget, point.x, point.y, 1, 1, bytes, 0, 1);
         return decodeEntity(bytes);
       };
       const pickAsync = (x: number, y: number) =>
@@ -408,7 +451,7 @@ export const openEngine = (
           const bytes = new Uint8Array(4);
           // Three 0.180 implements this with PIXEL_PACK_BUFFER, fenceSync and getBufferSubData.
           return Effect.tryPromise({
-            try: () => renderer.readRenderTargetPixelsAsync(idTarget, point.x, point.y, 1, 1, bytes),
+            try: () => renderer.readRenderTargetPixelsAsync(sceneTarget, point.x, point.y, 1, 1, bytes, 0, 1),
             catch: cause => new RendererFailure({ operation: "async-pick", cause }),
           }).pipe(Effect.map(() => decodeEntity(bytes)));
         });
@@ -452,9 +495,10 @@ export const openEngine = (
         programs: renderer.info.programs?.length ?? 0,
         calls: renderer.info.render.calls,
         triangles: renderer.info.render.triangles,
-        targetBytes: canvas.width * canvas.height * 16,
+        targetBytes: canvas.width * canvas.height * 12,
         lineBufferBytes: 0,
         paletteBytes: paletteBytes.byteLength,
+        transferBytes: colorDecodeBytes.byteLength,
         uploadBytes: state.uploadBytes,
         uploadCalls: state.uploadCalls,
         cumulativeUploadCalls: state.cumulativeUploadCalls,
@@ -529,13 +573,7 @@ export const openEngine = (
         // upload path that the Atlas uses, never through image recolouring.
         setPalette: (selection: Palette) => {
           state.palette = selection;
-          for (const theme of ["day", "night"] satisfies ReadonlyArray<Theme>) {
-            const offset = theme === "day" ? 0 : names.length * 4;
-            names.forEach((name, index) => {
-              const color = new THREE.Color(selection.colors[name][theme]);
-              paletteBytes.set([color.r, color.g, color.b, 1], offset + index * 4);
-            });
-          }
+          writePaletteBytes(selection);
           palette.needsUpdate = true;
           setTheme(state.theme);
         },

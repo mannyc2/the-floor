@@ -17,31 +17,29 @@ attribute float _NEXT;
 uniform float interpolation;
 #endif
 varying vec3 faceNormal;
-varying float surfaceId;
 varying float materialSlot;
-varying float entityId;
 varying float lineClass;
+flat out vec3 identity;
 void main() {
   vec4 point = vec4(position, 1.0);
   #ifndef USE_INSTANCING
     point.y += _ANIMATED * mix(_PREVIOUS, _NEXT, interpolation);
   #endif
-  vec3 transformedNormal = normal;
-  surfaceId = _SURFACE;
-  entityId = _ENTITY;
+  // Entity and surface are constant on each triangle. Encoding them per vertex
+  // avoids repeated byte arithmetic across every covered fragment.
+  float id = floor(_ENTITY + 0.5) * 4096.0 + floor(_SURFACE + 0.5);
+  identity = vec3(mod(id, 256.0), mod(floor(id / 256.0), 256.0), floor(id / 65536.0)) / 255.0;
   lineClass = _LINE;
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
   #ifdef USE_INSTANCING
-    point = instanceMatrix * point;
+    // Instances translate authored geometry; shape transforms are baked into
+    // its vertices and normals, so a general matrix transform adds no information.
+    point.xyz += instanceMatrix[3].xyz;
     point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO, instanceInterpolation);
     point.xyz *= _INSTANCE_FROM.w;
-    mat3 im = mat3(instanceMatrix);
-    transformedNormal /= vec3(dot(im[0], im[0]), dot(im[1], im[1]), dot(im[2], im[2]));
-    transformedNormal = im * transformedNormal;
   #endif
-  // Three's non-sheared instance normal transform followed by inverse view
-  // rotation keeps the face tones in the room when the camera quarter-turns.
-  faceNormal = normalize((vec4(normalMatrix * transformedNormal, 0.0) * viewMatrix).xyz);
+  // Inverse view rotation keeps the face tones in the room when the camera turns.
+  faceNormal = normalize((vec4(normalMatrix * normal, 0.0) * viewMatrix).xyz);
   gl_Position = projectionMatrix * modelViewMatrix * point;
 }
 `;
@@ -51,6 +49,9 @@ uniform float paletteSize;
 uniform float paletteTheme;
 varying vec3 faceNormal;
 varying float materialSlot;
+varying float lineClass;
+flat in vec3 identity;
+layout(location = 1) out highp vec4 identityColor;
 void main() {
   float index = floor(materialSlot + 0.5);
   if (index >= ${shading.unshadedSlots.value.toFixed(1)}) {
@@ -66,19 +67,9 @@ void main() {
     index = base + (n.y > ${shading.verticalThreshold.value} ? 3.0 : n.y < -${shading.verticalThreshold.value} ? 0.0 : side >= ${shading.sideTolerance.value} ? 2.0 : 1.0);
   }
   gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, paletteTheme)).rgb, 1.0);
-  #include <colorspace_fragment>
-}
-`;
-export const dataFragment = `
-varying float surfaceId;
-varying float entityId;
-varying float lineClass;
-void main() {
-  float id = floor(entityId + 0.5) * 4096.0 + floor(surfaceId + 0.5);
-  vec3 encoded = vec3(mod(id, 256.0), mod(floor(id / 256.0), 256.0), floor(id / 65536.0)) / 255.0;
   // RGB remains the exact picking identity. Alpha carries ordinary (1),
   // surface-dark (.5) or instrument-contour (0); none can create a surface edge.
-  gl_FragColor = vec4(encoded, 1.0 - lineClass * 0.5);
+  identityColor = vec4(identity, 1.0 - lineClass * 0.5);
 }
 `;
 export const screenVertex = `
@@ -90,35 +81,72 @@ void main() {
 `;
 export const screenFragment = `
 uniform sampler2D colors;
+uniform sampler2D colorDecode;
 uniform sampler2D ids;
 uniform sampler2D depths;
-uniform vec2 pixel;
 uniform vec2 edgeSpan;
 uniform vec3 lineColor;
 uniform vec3 darkLineColor;
 uniform float lineOpacity;
 uniform float mask;
 varying vec2 coordinate;
-vec2 edgeAt(vec2 direction) {
-  vec2 neighbor = coordinate + direction * pixel;
-  vec4 a = texture2D(ids, coordinate);
-  vec4 b = texture2D(ids, neighbor);
-  float depth = abs(texture2D(depths, coordinate).r - texture2D(depths, neighbor).r);
-  float edge = max(step(0.001, length(a.rgb - b.rgb)), step(0.0012, depth));
+float decodeChannel(float encoded) {
+  return texelFetch(colorDecode, ivec2(int(floor(encoded * 255.0 + 0.5)), 0), 0).r;
+}
+vec2 edgeAt(ivec2 neighbor, vec4 a, vec4 b, float centerDepth) {
+  float depth = abs(centerDepth - texelFetch(depths, neighbor, 0).r);
+  // IDs are nearest-sampled bytes: every nonzero distance is at least 1/255.
+  // Squaring the same threshold preserves that decision without a per-pixel sqrt.
+  vec3 difference = a.rgb - b.rgb;
+  float edge = max(step(0.001 * 0.001, dot(difference, difference)), step(0.0012, depth));
   // Only instrument plates and markings extend dark contours across an edge.
   // Surface-dark lights cannot spread dark ink onto their dim steel housing.
   return vec2(edge, edge * (1.0 - step(0.25, b.a)));
 }
 void main() {
-  vec2 edge = max(
-    max(edgeAt(vec2(edgeSpan.y, 0.0)), edgeAt(vec2(-edgeSpan.x, 0.0))),
-    max(edgeAt(vec2(0.0, edgeSpan.y)), edgeAt(vec2(0.0, -edgeSpan.x)))
-  );
-  vec3 base = texture2D(colors, coordinate).rgb;
-  float dark = max(step(0.25, 1.0 - texture2D(ids, coordinate).a), edge.y);
-  vec3 stroke = mix(lineColor, darkLineColor, dark);
-  float opacity = mix(lineOpacity, 1.0, dark);
-  gl_FragColor = vec4(mask > 0.5 ? vec3(1.0 - edge.x) : mix(base, stroke, edge.x * opacity), 1.0);
-  #include <colorspace_fragment>
+  // The composite and its nearest-sampled inputs have the same pixel dimensions.
+  // Integer texels avoid normalized filtering work; explicit clamping preserves
+  // the previous ClampToEdgeWrapping at the canvas boundary.
+  ivec2 center = ivec2(gl_FragCoord.xy);
+  ivec2 last = textureSize(ids, 0) - ivec2(1);
+  ivec2 right = clamp(center + ivec2(int(edgeSpan.y), 0), ivec2(0), last);
+  ivec2 left = clamp(center - ivec2(int(edgeSpan.x), 0), ivec2(0), last);
+  ivec2 up = clamp(center + ivec2(0, int(edgeSpan.y)), ivec2(0), last);
+  ivec2 down = clamp(center - ivec2(0, int(edgeSpan.x)), ivec2(0), last);
+  vec4 centerId = texelFetch(ids, center, 0);
+  vec4 rightId = texelFetch(ids, right, 0);
+  vec4 leftId = texelFetch(ids, left, 0);
+  vec4 upId = texelFetch(ids, up, 0);
+  vec4 downId = texelFetch(ids, down, 0);
+  vec3 base = texelFetch(colors, center, 0).rgb;
+  // Zero RGB is reserved for cleared background. Only an entirely empty
+  // neighborhood can skip depth reads; checking the center alone loses outlines.
+  vec3 occupied = max(centerId.rgb, max(max(rightId.rgb, leftId.rgb), max(upId.rgb, downId.rgb)));
+  if (max(occupied.r, max(occupied.g, occupied.b)) == 0.0) {
+    gl_FragColor = vec4(mask > 0.5 ? vec3(1.0) : base, 1.0);
+  } else {
+    float centerDepth = texelFetch(depths, center, 0).r;
+    vec2 edge = max(
+      max(edgeAt(right, centerId, rightId, centerDepth), edgeAt(left, centerId, leftId, centerDepth)),
+      max(edgeAt(up, centerId, upId, centerDepth), edgeAt(down, centerId, downId, centerDepth))
+    );
+    if (mask > 0.5) {
+      gl_FragColor = vec4(vec3(1.0 - edge.x), 1.0);
+    } else if (edge.x == 0.0) {
+      // A binary zero edge leaves the stored color unchanged. Only an outline
+      // needs linear-light blending and a transfer back to encoded output.
+      gl_FragColor = vec4(base, 1.0);
+    } else {
+      float dark = max(step(0.25, 1.0 - centerId.a), edge.y);
+      vec3 stroke = mix(lineColor, darkLineColor, dark);
+      float opacity = mix(lineOpacity, 1.0, dark);
+      if (opacity == 1.0) {
+        gl_FragColor = sRGBTransferOETF(vec4(stroke, 1.0));
+      } else {
+        vec3 linear = vec3(decodeChannel(base.r), decodeChannel(base.g), decodeChannel(base.b));
+        gl_FragColor = sRGBTransferOETF(vec4(mix(linear, stroke, opacity), 1.0));
+      }
+    }
+  }
 }
 `;

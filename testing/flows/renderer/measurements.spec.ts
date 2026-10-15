@@ -103,10 +103,10 @@ test.describe("Phone profile", () => {
       syncP95Ms: p95(result.synchronous),
       asyncP95Ms: p95(result.asynchronous),
     });
-    expect(result.info.targetBytes).toBe(47399040);
-    // Two retained room walls each add a color and an ID draw; the near walls
-    // and ceiling remain absent from both passes.
-    expect(result.info.calls).toBe(21);
+    // Two RGBA8 attachments share one unsigned-int depth texture. The logical
+    // target-byte estimate counts four bytes per depth texel, not physical VRAM.
+    expect(result.info.targetBytes).toBe(35549280);
+    expect(result.info.calls).toBe(11);
     // Submission time is recorded, not equated to GPU completion or a real phone.
     expect(result.frames.every(Number.isFinite)).toBe(true);
   });

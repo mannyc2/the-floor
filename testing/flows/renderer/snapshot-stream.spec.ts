@@ -91,7 +91,7 @@ test("invalid complete snapshots preserve accepted instance buffers", async ({ p
 });
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright owns the browser callback and assertions.
-test("GPU buffer accounting distinguishes allocations from exact typed source ranges", async ({ page }) => {
+test("buffer-call accounting distinguishes allocations from exact typed source ranges", async ({ page }) => {
   await ready(page);
   const report = await page.evaluate(() => {
     const canvas = document.querySelector("canvas");

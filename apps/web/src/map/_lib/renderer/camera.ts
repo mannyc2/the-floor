@@ -357,6 +357,9 @@ export const openCamera = (
       });
       if (t === 1) {
         state.maybeFlight = Option.none();
+        // A fixed destination has no subscription after arrival. Retaining its
+        // ownership would reject later Model presentations until the next input.
+        if (Option.isNone(state.maybeFollowTarget)) state.following = false;
         engine.setCamera(flight.to);
         rest(flight.history);
       }
