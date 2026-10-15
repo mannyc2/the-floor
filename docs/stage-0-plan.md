@@ -4,13 +4,13 @@
 
 ## Where things stand
 
-`main` holds `69132c4`, which records the wallet-authority blocker, and the commit that adds this plan. Nothing is pushed; `origin/main` is still `835a28c`. Four branches each add one commit to `b1bc6b2`:
+`main` holds `69132c4`, which records the wallet-authority blocker, and the commits that add this plan. Nothing is pushed; `origin/main` is still `835a28c`. Four branches start from `b1bc6b2`. Each has its implementation commit, and three also have a documentation-only prep commit from 14 October:
 
 | Branch | Adds | Status | Before it merges |
 | --- | --- | --- | --- |
-| `codex/renderer-stream` at `490a91d` | Fixed-ID snapshot stream, buffer accounting, moving-target follow, drag comparison | The default SwiftShader run fails (see [A](#a-renderer-stream)); its 81/81 run used the Apple GPU profile | Workstream A |
-| `codex/asset-kit` at `7b21b4e` | Atlas asset/scene Schemas, post and two station generators, compressed models, preflight, asset and approved-frame suites | Sheet returned without a pick; corner three fails through the shading rule | Workstream C |
-| `codex/rpc-api` at `4a863f1` | One health RPC group, scoped web client, read-only MCP adapter | Its record allowed only a local commit; the 14 Oct decision now allows the merge | Workstream I |
+| `codex/renderer-stream` at `a441f50` | Fixed-ID snapshot stream, buffer accounting, moving-target follow, drag comparison | The default SwiftShader run fails (see [A](#a-renderer-stream)); its 81/81 run used the Apple GPU profile | Workstream A |
+| `codex/asset-kit` at `5edefdf` | Atlas asset/scene Schemas, post and two station generators, compressed models, preflight, asset and approved-frame suites | Sheet returned without a pick; corner three fails through the shading rule | Workstream C |
+| `codex/rpc-api` at `12b5399` | One health RPC group, scoped web client, read-only MCP adapter | Its record allowed only a local commit; the 14 Oct decision now allows the merge | Workstream I |
 | `codex/exchange-view` at `24fd50a` | Whole-exchange composition study | Both compositions rejected | Stays unmerged as the record; its harness and the `canonicalFloorOrigin` export can be reused by F |
 
 `git worktree list` shows each branch's worktree.
@@ -58,8 +58,8 @@ Branch `codex/renderer-stream`.
 Prep run on 14 October, idle machine, default SwiftShader: `FLOOR_RENDERER_PORT=5183 bun run test:renderer testing/flows/renderer/snapshot-stream.spec.ts testing/flows/renderer/snapshot-phone.spec.ts`. The 12-desk stream and the three snapshot-stream checks passed. The 1,000-desk stream failed its 250 ms arrival bound in all four runs, with first late arrivals of 263.4, 273.8, 250.6 and 260.6 ms; a failed run doesn't report the later assertions. The logs are under `work/renderer-stream/prep-swiftshader-001/` and `-002/` in that worktree. Plain `bun run test:flow`, and therefore CI, fails on this branch.
 
 1. Find where the 1,000-desk arrival delay comes from (snapshot construction, reconciliation or frame scheduling under 4× throttling) and meet the unchanged 16.7 ms CPU and 250 ms arrival limits on SwiftShader. If that can't be done, stop at the owner gate. Don't relax the bound or change the default profile.
-2. Restore a narrowed open item, **World integration**: the live-world subscription for moving targets, instance growth beyond fixed IDs, the full snapshot-to-instance diff path from the world model, and snapshot replay through the Model. Call the measurement buffer-call accounting wherever "GPU upload" overstates it.
-3. Replace the three markdown links to `work/renderer-stream/verification/full-flow-002.log` in `decisions.md` with plain-text paths, since ignored files can't be linked.
+2. Done in prep (`a441f50`): open items for **World integration** and **Sustained stream on SwiftShader**, and plain-text paths instead of links to ignored logs. Still to do: call the measurement buffer-call accounting wherever "GPU upload" overstates it, and remove the SwiftShader item once the default run passes.
+3. Keep the World integration item when updating the records; it carries the work the fixed-ID stream leaves open.
 4. Decide, and record why, whether `trackUploads` stays in production. It currently wraps `bufferData` and `bufferSubData` on every production engine; the alternative is to move it behind diagnostics.
 5. Check the reported change that `busy()` now includes `following`: after a finished fixed follow (the production follow button), queued presentations may not move the camera until the next input. Fix it or record it.
 6. Add leaf tests for any part of `instances.ts` that doesn't need a browser; today it is covered only by browser tests.
@@ -92,8 +92,8 @@ Prep analysis, not yet verified in a renderer: `colorFragment` in `apps/web/src/
 Branch `codex/asset-kit`.
 
 1. Put `test:approved` and `test:assets` into the required sequence, so the seven-frame pixel guard runs locally and in CI. Update `docs/Codex/verification.md` to match.
-2. Run `bun run check:assets` byte-for-byte on Linux, in a container with Bun 1.4.0 and a frozen install. `bun run build` runs it in CI, and the models have only been built on macOS. If the bytes differ, make generation deterministic; don't loosen the comparison.
-3. Add a decision row: the generated models under `assets/` are committed build outputs with `SyntheticUnapproved` status, not reference frames. Record the triangle and bounds caps there as authored ceilings; today they appear only in the Atlas. Update `docs/Codex/file-structure.md` to say the models are unapproved until picked.
+2. Run `bun run check:assets` byte-for-byte on Linux, in a container with Bun 1.4.0 and a frozen install. `bun run build` runs it in CI, and the models have only been built on macOS. If the bytes differ, make generation deterministic; don't loosen the comparison. Not done in prep, because the Docker daemon wasn't running.
+3. Done in prep (`5edefdf`): a decision row recording the generated models as committed `SyntheticUnapproved` build outputs with authored budget ceilings, and the matching `assets` row in `docs/Codex/file-structure.md`.
 4. Keep paper-contact contrast and raster line endings as open measurements, matching the look open item on `main`.
 5. The kit hard-codes eight stations per post, while the world default is ten (8 to 12 allowed). Parameterise it, or record the mismatch for G. Correct the "45° intervals" wording, which assumes eight stations.
 6. Leave the existing sheet and its captures as they are; the owner has returned it without a pick.
@@ -168,10 +168,9 @@ The owner arranges someone who hasn't seen the Floor. Show the render, then reco
 
 Branch `codex/rpc-api`.
 
-1. Add an **Authentication** open item. Today `/api/rpc` and `/mcp` are public and expose only health. Needed: `CurrentOwner` middleware (the queued task) with a public group served through MCP and a separate owner group. The MCP adapter rejects any RPC with middleware at the type level and forwards no request headers.
-2. Define, or remove, the "Privy device-token check" that the API row cites.
-3. Remove `effect/http-api` from the unstable-API allowlist if nothing uses it.
-4. Make sure Stage 0 says the 12 Oct hosted proof covered the HTTP route, not RPC.
+1. Done in prep (`12b5399`): an **Authentication** open item. It names the token check the API row waits for (ES256 `CurrentOwner` verification with web and CLI claim shapes) and the public/owner group split the MCP adapter forces. The branch's Stage 0 record already says the hosted health proof predates RPC.
+2. Remove `effect/http-api` from the unstable-API allowlist if nothing uses it.
+3. Optional: the admission check's one failure missed its request-free window under load and passed on an unchanged retry. Check whether that window is sensitive to host load before D4.
 
 **Done when:** the corrections are committed and the branch passes the full sequence.
 
