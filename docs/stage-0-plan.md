@@ -4,7 +4,7 @@
 
 ## Where things stand
 
-`main` holds `69132c4`, which records the wallet-authority blocker, and the commits that add this plan. Nothing is pushed; `origin/main` is still `835a28c`. Four branches start from `b1bc6b2`. Each has its implementation commit, and three also have a documentation-only prep commit from 14 October:
+Before this execution, `main` was at `ae45e35`, including the wallet-authority blocker and this plan. Nothing is pushed; `origin/main` is still `835a28c`. The four original branches start from `b1bc6b2`. These were their starting records:
 
 | Branch | Adds | Status | Before it merges |
 | --- | --- | --- | --- |
@@ -14,6 +14,21 @@
 | `codex/exchange-view` at `24fd50a` | Whole-exchange composition study | Both compositions rejected | Stays unmerged as the record; its harness and the `canonicalFloorOrigin` export can be reused by F |
 
 `git worktree list` shows each branch's worktree.
+
+### Local execution — 14–15 October 2026
+
+The authorized local work retained each branch's evidence and kept the browser suites serial. No implementation has merged into `main`: A's unchanged SwiftShader arrival gate still blocks D1, so C and I cannot bypass it. The existing authentication task remains queued behind D3; no duplicate was started. Nothing was pushed, deployed or sent to a provider. These results do not close Stage 0 or approve art.
+
+| Workstream | Local result | What remains |
+| --- | --- | --- |
+| A | Independent source review and exact-pixel checks passed. The fixed-follow bug is corrected and four instance leaf tests were added. After bounded scene/shader changes, the full default run passed 81/82 checks; the 1,000-desk stream still had 250.4 and 251.7 ms arrival lateness against the unchanged 250 ms limit. All 105 retained renderer CPU samples were at most 7.1 ms. Changes and all failed experiments remain uncommitted in the renderer worktree; its last commit is still `a441f50` | Owner decision on gating, or a changed implementation that passes; no relaxed limit or backend substitution. World integration remains open |
+| C | `codex/asset-kit` at `c3c6f1f`: full sequence, 72 renderer checks, six asset cases and seven exact approved frames passed. Linux amd64 with Bun 1.4.0 and a frozen install reproduced all three committed models byte-for-byte. Required asset/frame checks are wired into local and CI sequences; station-count mismatch is explicitly deferred to G | Wait for D1 before D2. The returned asset sheet remains unchanged and unpicked |
+| I | `codex/rpc-api` at `26354a0`: obsolete HTTP-API allowlist entry removed; complete sequence, real local RPC/MCP shell and all 72 renderer checks passed | Wait for D1/D2 before D3, then the existing authentication task |
+| B | `codex/shading-options` at `b53242b`, based on C: both workbench-only rules passed all 24 preflight reports; 48 final view/theme/corner cells and 24 exact paired line masks were independently audited. Ordinary checks passed, including 72 renderer, six assets and seven exact approved frames; the headed demonstration passed 12 cases | Owner shading pick. Camera-relative reproduced all seven approved frames exactly; axis-fixed failed all seven, changing 454 of 6,672,000 pixels. Production and references are unchanged |
+| E | The production-entry camera flow and hosted run sheet on `codex/hosted-renderer-flow` at `c6d741c` passed the full local sequence: 365 leaves, three native checks, three production-entry cases and 72 renderer cases; three headed cases also passed. Independent trace/PNG review confirmed real requests, exact reload pixels and one resting commit | After D3, rebase and include the RPC shell's eight direct MCP requests in the separate non-browser budget, then rerun the combined checks. Push/admission/preview and hosted allowance remain owner gates |
+| F | The isolated candidate on `codex/world-layout-proposal` at `68d3910` passed 376 leaf tests, three native checks, the live Worker check, all 89 renderer checks and seven exact approved frames; two headed cases also passed. Eleven numerical properties passed; Bun/JavaScriptCore and Node/V8 produced identical bytes for 24 plans and 80 allocation states. All 16 corrected scene/plan views were independently reviewed, and the final run reproduced those PNGs exactly; the original failed visual packet is retained | Owner adoption remains open, including the 4.25H minimum-spacing interpretation and large fixed lobby. No production layout or approved Atlas value has changed |
+
+Detailed commands and limitations are in each worktree's `docs/stage-0.md`; F's rule audit and proposal are in its `docs/world-layout-proposal.md`. Raw logs and captures stay under each worktree's ignored `work/` directory. B's independently filtered blind sheets are `work/shading-options/blind-review/{post,desk,materials}.png`; the option mapping remains separate until the owner's pick. F's navigation sheets are `work/world-layout-proposal/contact-sheet-{scene,plan}-003.png`, with full-size images in `review-final/` in that directory. G waits for B's pick and D2. The newcomer test has not run and needs the owner to arrange a new viewer.
 
 ## Rules for every session
 
@@ -117,7 +132,7 @@ These merge cleanly as text but need a hand check: `apps/web/workbench/entry.ts`
 1. **D1:** merge renderer-stream after A. Run the full sequence on the SwiftShader default.
 2. **D2:** merge asset-kit after C. Run `test:assets`, `test:approved` and the workbench specs that `entry.ts`/`api.ts` affect.
 3. **D3:** merge rpc-api after I. The queued authentication task starts from here; don't start a second one.
-4. **D4:** run one combined verification with the browser slot held alone: frozen install, `format:check`, `typecheck`, `lint`, `test:leaf` (about 398 tests: 365 + 26 + 7), `build`, `test:native`, `test:flow` (81 renderer checks plus any A adds), `test:assets` (6) and `test:approved` (7). Then get an independent review of the decision log, the open items and Stage 0 for consistency.
+4. **D4:** run one combined verification with the browser slot held alone: frozen install, `format:check`, `typecheck`, `lint`, `test:leaf` (about 402 tests: 365 base + 26 C + 7 I + 4 A), `build`, `test:native`, `test:flow` (82 renderer checks in the current A tree, subject to further gate repairs), `test:assets` (6) and `test:approved` (7). B's option study and F's unadopted proposal are outside D1–D3. Then get an independent review of the decision log, the open items and Stage 0 for consistency.
 
 **Done when:** one clean D4 run passes without a retry, and it is recorded in Stage 0 with its commands.
 
@@ -171,7 +186,7 @@ Branch `codex/rpc-api`.
 
 1. Done in prep (`12b5399`): an **Authentication** open item. It names the token check the API row waits for (ES256 `CurrentOwner` verification with web and CLI claim shapes) and the public/owner group split the MCP adapter forces. The branch's Stage 0 record already says the hosted health proof predates RPC.
 2. Remove `effect/http-api` from the unstable-API allowlist if nothing uses it.
-3. Optional: the admission check's one failure missed its request-free window under load and passed on an unchanged retry. Check whether that window is sensitive to host load before D4.
+3. The earlier admission check failed its three-second settlement check: the callback completed inside the request-free interval, but `SubmissionSettled` arrived 1,025 ms after its observation boundary. The retained log does not establish host load as the cause. I's new unchanged run passed, with callback completion after 313 ms and settlement after 646 ms; keep the failed evidence and recheck this promise in D4.
 
 **Done when:** the corrections are committed and the branch passes the full sequence.
 
