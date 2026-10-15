@@ -1,12 +1,13 @@
-import { expect, test } from "@playwright/test";
 import { Option, Schema } from "effect";
+import { expect, test } from "./production";
 
 const decodeJson = Schema.decodeUnknownOption(Schema.fromJsonString(Schema.Json));
 
-// Enters through the production page and its typed RPC client. No intercepted
-// routes, injected models, fixtures or direct database arrangement are involved.
+// Enters through the production page and its typed RPC client. Requests pass
+// unmodified through the stage budget guard; no stubbed responses, injected
+// models, fixtures or direct database arrangement are involved.
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright requires a native Promise callback at this test boundary.
-test("the shell and read-only MCP share health through the running Floor Worker", async ({ page, request }) => {
+test("the shell and read-only MCP share health through the running Floor Worker", async ({ page, stageRequest }) => {
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   await page.goto("/");
@@ -62,7 +63,8 @@ test("the shell and read-only MCP share health through the running Floor Worker"
     const requestHeaders = method === "tools/call"
       ? { ...headers, "mcp-method": method, "mcp-name": "health" }
       : { ...headers, "mcp-method": method };
-    const result = await request.post("/mcp", {
+    const result = await stageRequest("/mcp", {
+      method: "POST",
       headers: requestHeaders,
       data: { jsonrpc: "2.0", id, method, params: { ...params, _meta: meta } },
     });
@@ -70,7 +72,8 @@ test("the shell and read-only MCP share health through the running Floor Worker"
     expect(result.headers()["mcp-session-id"]).toBeUndefined();
     expect(Option.getOrThrow(decodeJson(await result.text()))).toMatchObject({ jsonrpc: "2.0", id, result: expected });
   }
-  const invalid = await request.post("/mcp", {
+  const invalid = await stageRequest("/mcp", {
+    method: "POST",
     headers: { ...headers, "mcp-method": "tools/call", "mcp-name": "health" },
     data: {
       jsonrpc: "2.0",
@@ -80,16 +83,18 @@ test("the shell and read-only MCP share health through the running Floor Worker"
     },
   });
   expect(Option.getOrThrow(decodeJson(await invalid.text()))).toMatchObject({ id: 4, result: { isError: true } });
-  const malformed = await request.post("/mcp", {
+  const malformed = await stageRequest("/mcp", {
+    method: "POST",
     headers: { ...headers, "mcp-method": "tools/call", "mcp-name": "health" },
     data: { jsonrpc: "2.0", id: 5, method: "tools/call", params: { name: "health", arguments: [], _meta: meta } },
   });
   expect(Option.getOrThrow(decodeJson(await malformed.text()))).toMatchObject({ id: 5, error: { code: -32602 } });
-  const wrongVersion = await request.post("/mcp", {
+  const wrongVersion = await stageRequest("/mcp", {
+    method: "POST",
     headers: { ...headers, "mcp-protocol-version": "2025-11-25", "mcp-method": "server/discover" },
     data: { jsonrpc: "2.0", id: 6, method: "server/discover", params: { _meta: meta } },
   });
   expect(wrongVersion.status()).toBe(400);
-  expect((await request.get("/mcp")).status()).toBe(405);
-  expect((await request.delete("/mcp")).status()).toBe(405);
+  expect((await stageRequest("/mcp", { method: "GET" })).status()).toBe(405);
+  expect((await stageRequest("/mcp", { method: "DELETE" })).status()).toBe(405);
 });

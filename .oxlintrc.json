@@ -459,6 +459,7 @@
     {
       "files": [
         "testing/flows/**/*.spec.ts",
+        "testing/flows/production.ts",
         "testing/flows/renderer/fixture.ts"
       ],
       "rules": {
