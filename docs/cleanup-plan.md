@@ -4,7 +4,7 @@
 
 ## Rules
 
-- No features. Each workstream deletes or simplifies; nothing new lands.
+- No features. Each workstream deletes or simplifies; nothing new lands. D1, the renderer-stream merge, is the one exception.
 - Keep planned code; cut dead code. Planned code is simplified but stays: the MCP adapter, contract's later-stage schemas, `packages/chains` including `math.ts`, `packages/wallets` and the Decisions adapter. Dead code is code nothing imports and nobody plans to use. Git keeps it.
 - The behaviour specs are the guard. A spec may change how it observes, for example counting uploads from a Playwright init script instead of an engine counter, but never what it asserts. Never weaken a check.
 - Approved values and frames don't change. A pixel change stops the workstream for the owner.
@@ -34,11 +34,12 @@ Also: about 8,600 lines of generated `tokens.json`, `atlas.css` and `manifest.js
 ## Order
 
 1. **T** alone first. It changes lint, typecheck and the Playwright config that every other workstream runs.
-2. **K, W, R and S** in parallel. W rebases onto K if K lands first; K owns only the palette lines in `engine.ts`.
-3. **Branches:** rebase and slim each Stage 0 branch onto the cleaned `main`. The Stage 0 plan's integration (D) then resumes; D1 still waits for the unchanged 250 ms check.
-4. **Docs** last, describing the result.
+2. **D1, R and S** in parallel. D1 is the [Stage 0 plan](stage-0-plan.md#d-integration)'s renderer-stream merge: rebase onto T, rerun the full flow with the unchanged limits, merge, nothing more. R and S don't touch the renderer.
+3. **K and W** in parallel, after D1. W rebases onto K if K lands first; K owns only the palette lines in `engine.ts`.
+4. **Branches:** rebase and slim the remaining Stage 0 branches onto the cleaned `main`. Integration (D2 to D4) then resumes.
+5. **Docs** last, describing the result.
 
-Browser slot priority: T, W, K, R.
+Browser slot priority: T, D1, W, K, R.
 
 ## T. Tooling
 
@@ -64,7 +65,7 @@ Branch `codex/cleanup-atlas`. Browser slot for one renderer run.
 
 - `packages/atlas/src` holds plain `as const` values. The approval wrapper (status, date, decision link, brief, scope, reason) and the duplicate wrapped and plain exports go. A one-line comment says why only where a value isn't obvious.
 - `generated/` goes (`palette.ts`, `tokens.json`, `atlas.css`, `manifest.json`), with `scripts/build-atlas.ts`, `scripts/atlas/`, the manifest check, `atlas-approvals.test.ts` and the generated-output tests. One snapshot test pins the approved values.
-- The engine fills its palette texture from the values with three.js's own sRGB-to-linear conversion, the function `palette.ts` copied. Before deleting `palette.ts`, show the Float32 bytes are identical and say so in the commit body.
+- Since D1 the engine writes its RGBA8 palette straight from the sRGB hex values, so the generated linear arrays have no renderer consumer. Keep that byte path; show the palette bytes are identical before and after, and say so in the commit body.
 - `index.html` drops its link to `atlas.css`; CSS variables arrive with the interface.
 - Scene briefs in `testing/look/scenes/` keep what renders a frame. Their approval and provenance fields go; the decision log's look rows already state each pick and its scope.
 - Afterwards the production web build contains no `docs/decisions` or `testing/look/scenes` paths and no approval text.
@@ -76,7 +77,8 @@ Branch `codex/cleanup-atlas`. Browser slot for one renderer run.
 
 Branch `codex/cleanup-map`. Browser slot.
 
-- Delete `lease-pool.ts`, `transactional-host.ts`, `contracts.ts`, the unused parts of `model.ts`, `test/protocols.test.ts` and `workbench/reconciliation-probe.ts`. The reconciliation spec's 2,000-step test drives the deleted host through that probe and goes with it; renderer-stream re-adds the memory-to-baseline assertion against its real instance path. The partial-acquisition test stays.
+- Delete `lease-pool.ts`, `transactional-host.ts`, `contracts.ts`, the unused parts of `model.ts`, `test/protocols.test.ts` and `workbench/reconciliation-probe.ts`. The reconciliation spec's 2,000-step test drives the deleted host through that probe and goes with it; W re-adds the memory-to-baseline assertion against the instance path D1 merged. The partial-acquisition test stays.
+- Renderer-stream's slimming, merged in D1: its upload wrapper and frame observers leave the production frame loop for the test page or workbench, and its interpolation replaces the old gauge path rather than running beside it. The 250 ms stream check must still pass.
 - One `Semaphore` permit is held for the scoped renderer's lifetime, with the mounted renderer in a `Ref<Option<…>>` and native failure delivered through a `Deferred` the mount awaits. This replaces `serial-owner.ts`, `display-gate.ts` and the `poisoned`, `paused`, `lost` and `closed` flags. `ScopedRef.set` doesn't fit: it acquires the new value before releasing the old one. Quarantine behaviour stays.
 - The engine exposes `camera`, `draw`, `pick` and `apply`, plus one workbench-only internals handle. Leak, listener and upload counting move to Playwright `addInitScript` wrappers. `preserveDrawingBuffer` is set only where the workbench reads pixels back.
 - Test controls move to the workbench, which wraps the map with `Update.foldChild` as `src/main.ts` already does: the seven diagnostic messages and the Model fields `order`, `visible`, `acquireDelay`, `applied` and `cameraCommits`. `status` becomes a tagged union.
@@ -118,9 +120,9 @@ Branch `codex/cleanup-chains-wallets`. No browser slot.
 
 ## Branches
 
-After T, K, W, R and S land, rebase each branch onto `main` and slim it:
+After the cleanup lands, rebase each remaining branch onto `main` and slim it:
 
-- **`codex/renderer-stream`:** its measurement (the upload wrapper and frame observers) lives in the test page or the workbench, not the production frame loop. Its interpolation replaces the old gauge path rather than adding a second one. It re-adds the memory-to-baseline assertion against its instance path. Integration still waits for the unchanged 250 ms check.
+- **`codex/renderer-stream`:** merged as D1 after T; its slimming is W's.
 - **`codex/asset-kit`:** the workbench calls `makePost` and `makeStation` directly. The committed GLB models, manifests, codec, pipeline and their checks go until a modelled asset exists, and so does the JSON scene that mirrors code. Preflight keeps only the rule run. Approved frames use Playwright's `toHaveScreenshot` with zero tolerance. No approval labels remain in models or code, and the branch's committed-models decision row goes.
 - **`codex/shading-options`:** a `SIDE_MODE` define in `shaders.ts` replaces patching GLSL text, and a contact sheet for the owner's pick replaces the 48-case suite. After the pick, the losing mode is deleted.
 - **`codex/rpc-api`:** rebase only. The MCP adapter stays as it is.

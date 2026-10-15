@@ -1,6 +1,6 @@
 # Stage 0 plan
 
-14–15 October 2026. This orders the work left before Stage 0 can close. The [cleanup plan](cleanup-plan.md) runs first; each branch below then rebases onto the cleaned `main` and slims before integration. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14–15 October rows in the [decision log](decisions.md): local integration and its unchanged renderer timing gate, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
+14–15 October 2026. This orders the work left before Stage 0 can close. The [cleanup plan](cleanup-plan.md) runs first, with renderer-stream merging as D1 once its tooling step lands; the other branches then rebase onto the cleaned `main` and slim before integration. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14–15 October rows in the [decision log](decisions.md): local integration and its unchanged renderer timing gate, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
 
 ## Where things stand
 
@@ -17,11 +17,11 @@ Before this execution, `main` was at `ae45e35`, including the wallet-authority b
 
 ### Local execution — 14–15 October 2026
 
-The authorized local work retained each branch's evidence and kept the browser suites serial. No implementation has merged into `main`: A's unchanged SwiftShader arrival gate still blocks D1, so C and I cannot bypass it. On 15 October the owner confirmed that integration stays blocked until that check passes. The existing authentication task remains queued behind D3; no duplicate was started. Nothing was pushed, deployed or sent to a provider. These results do not close Stage 0 or approve art.
+The authorized local work retained each branch's evidence and kept the browser suites serial. No implementation has merged into `main`. A passed the unchanged SwiftShader gate on 15 October, so D1 runs once the cleanup's T lands. The existing authentication task remains queued behind D3; no duplicate was started. Nothing was pushed, deployed or sent to a provider. These results do not close Stage 0 or approve art.
 
 | Workstream | Local result | What remains |
 | --- | --- | --- |
-| A | Independent source review and exact-pixel checks passed. The fixed-follow bug is corrected and four instance leaf tests were added. After bounded scene/shader changes, the full default run passed 81/82 checks; the 1,000-desk stream still had 250.4 and 251.7 ms arrival lateness against the unchanged 250 ms limit. All 105 retained renderer CPU samples were at most 7.1 ms. Changes and all failed experiments remain uncommitted in the renderer worktree; its last commit is still `a441f50` | A changed implementation that passes the unchanged gate. The owner's 15 October decision keeps integration blocked; no relaxed limit or backend substitution. World integration remains open |
+| A | `codex/renderer-stream` at `f0310c9`: colour and identity share one geometry pass. The default SwiftShader full flow passed the Worker shell and all 82 renderer checks; the 1,000-desk stream's worst arrival lateness was 194.1 ms against the unchanged 250 ms, with 9.8 ms worst frame CPU. The seven approved frames stayed exact and an independent audit passed. The commit body has the commands | D1 after T. World integration remains open |
 | C | `codex/asset-kit` at `c3c6f1f`: full sequence, 72 renderer checks, six asset cases and seven exact approved frames passed. Linux amd64 with Bun 1.4.0 and a frozen install reproduced all three committed models byte-for-byte. Required asset/frame checks are wired into local and CI sequences; station-count mismatch is explicitly deferred to G | Wait for D1 before D2. The returned asset sheet remains unchanged and unpicked |
 | I | `codex/rpc-api` at `26354a0`: obsolete HTTP-API allowlist entry removed; complete sequence, real local RPC/MCP shell and all 72 renderer checks passed | Wait for D1/D2 before D3, then the existing authentication task |
 | B | `codex/shading-options` at `b53242b`, based on C: both workbench-only rules passed all 24 preflight reports; 48 final view/theme/corner cells and 24 exact paired line masks were independently audited. Ordinary checks passed, including 72 renderer, six assets and seven exact approved frames; the headed demonstration passed 12 cases | Owner shading pick. Camera-relative reproduced all seven approved frames exactly; axis-fixed failed all seven, changing 454 of 6,672,000 pixels. Production and references are unchanged |
@@ -43,7 +43,7 @@ Detailed commands and limitations are in each worktree's `docs/stage-0.md`; F's 
 
 ## Owner gates
 
-The renderer timing decision is resolved: on 15 October the owner required integration to remain blocked until the unchanged 250 ms SwiftShader check passes. A failing check does not reopen a request to waive it.
+The renderer timing decision is resolved: on 15 October the owner required integration to remain blocked until the unchanged 250 ms SwiftShader check passes. A failing check does not reopen a request to waive it. A passed it at `f0310c9`; it still applies to D1's rerun and to W.
 
 Stop and ask the owner for:
 - any art pick: the all-corner shading options, the Stage 0 asset round, a later exchange composition;
@@ -57,9 +57,9 @@ Stop and ask the owner for:
 
 | Phase | Workstreams | Notes |
 | --- | --- | --- |
-| First | The [cleanup plan](cleanup-plan.md): T, then K, W, R and S, then rebase and slim the branches | Agreed 15 October |
-| Before the cleanup | A, C, I, F's audit and proposal, E's draft, B's analysis | Local results above; A's timing check still open |
-| Integration | D1 after A, D2 after C, D3 after I, then D4 | The queued authentication task starts when D3 lands |
+| First | The [cleanup plan](cleanup-plan.md): T; then D1, R and S; then K and W; then rebase and slim the remaining branches | Agreed 15 October; D1 moved ahead of K and W once A passed |
+| Before the cleanup | A, C, I, F's audit and proposal, E's draft, B's analysis | Local results above |
+| Integration | D1 inside the cleanup, then D2 after C, D3 after I, then D4 | The queued authentication task starts when D3 lands |
 | Owner picks | B's options, then F's proposal | B can render once C's tooling is available |
 | After the picks | B's production change, G, E's hosted run (with the owner's go-ahead), H | G uses single-post and desk views until F is adopted |
 | Close | The owner's Stage 0 review | |
@@ -70,7 +70,7 @@ Browser slot priority: D, then A, C, B, E, F, G.
 
 ### A. Renderer stream
 
-Branch `codex/renderer-stream`.
+Branch `codex/renderer-stream`. Done on 15 October at `f0310c9`; see the table above.
 
 Prep run on 14 October, idle machine, default SwiftShader: `FLOOR_RENDERER_PORT=5183 bun run test:renderer testing/flows/renderer/snapshot-stream.spec.ts testing/flows/renderer/snapshot-phone.spec.ts`. The 12-desk stream and the three snapshot-stream checks passed. The 1,000-desk stream failed its 250 ms arrival bound in all four runs, with first late arrivals of 263.4, 273.8, 250.6 and 260.6 ms; a failed run doesn't report the later assertions. The logs are under `work/renderer-stream/prep-swiftshader-001/` and `-002/` in that worktree. Plain `bun run test:flow`, and therefore CI, fails on this branch.
 
@@ -131,7 +131,7 @@ Done on local `main`, in the order the decision sets. Expected conflicts from re
 
 These merge cleanly as text but need a hand check: `apps/web/workbench/entry.ts` and `api.ts` (renderer-stream wraps every workbench run in its comparison submodel, and asset-kit changes camera selection and the look adapter), and the suppression budget, which should be the union of all entries. Regenerate `bun.lock` with `bun install`, then confirm `bun install --frozen-lockfile`. The 14 October edits on `main` also touch the open-items table that the branches edit. Keep the owner's rows, add the branches' facts, and keep A's World integration item.
 
-1. **D1:** merge renderer-stream after A. Run the full sequence on the SwiftShader default.
+1. **D1:** once the cleanup's T lands, rebase renderer-stream onto `main`, run the full sequence on the SwiftShader default with the unchanged limits, and merge. `main`'s decision rows win over the branch's 15 October integration row. Its slimming is W's.
 2. **D2:** merge asset-kit after C. Run `test:assets`, `test:approved` and the workbench specs that `entry.ts`/`api.ts` affect.
 3. **D3:** merge rpc-api after I. The queued authentication task starts from here; don't start a second one.
 4. **D4:** run one combined verification with the browser slot held alone: frozen install, `format:check`, `typecheck`, `lint`, `test:leaf` (about 402 tests: 365 base + 26 C + 7 I + 4 A), `build`, `test:native`, `test:flow` (82 renderer checks in the current A tree, subject to further gate repairs), `test:assets` (6) and `test:approved` (7). B's option study and F's unadopted proposal are outside D1–D3. Then get an independent review of the decision log, the open items and Stage 0 for consistency.
