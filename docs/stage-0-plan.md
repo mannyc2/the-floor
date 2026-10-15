@@ -106,6 +106,7 @@ Done on local `main`, in the order the decision sets. Expected conflicts from re
 
 | Pair | Conflicting files |
 | --- | --- |
+| `main` (with the 14 Oct records) with renderer-stream or asset-kit | `docs/decisions.md`, `docs/stage-0.md` |
 | renderer-stream with asset-kit | `docs/decisions.md`, `docs/stage-0.md` |
 | asset-kit with rpc-api | root `package.json`, `docs/Codex/verification.md`, `docs/stage-0.md` |
 | renderer-stream with rpc-api | `docs/stage-0.md` |
