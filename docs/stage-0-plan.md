@@ -1,6 +1,6 @@
 # Stage 0 plan
 
-14–15 October 2026. This orders the work left before Stage 0 can close. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14–15 October rows in the [decision log](decisions.md): local integration and its unchanged renderer timing gate, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
+14–15 October 2026. This orders the work left before Stage 0 can close. The [cleanup plan](cleanup-plan.md) runs first; each branch below then rebases onto the cleaned `main` and slims before integration. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14–15 October rows in the [decision log](decisions.md): local integration and its unchanged renderer timing gate, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
 
 ## Where things stand
 
@@ -36,7 +36,7 @@ Detailed commands and limitations are in each worktree's `docs/stage-0.md`; F's 
 - **One browser suite on the machine at a time.** Ask the orchestrator for the browser slot before `test:flow`, `test:renderer`, `test:assets`, `test:approved`, `test:phone:mac`, the shell flow or a headed demonstration, and release it when the run ends. Concurrent suites have caused timing failures and a phone-budget failure.
 - Renderer ports: A 5183, C 5181, B 5184, E 5185, F 5186, G 5187, D 5198. The local shell flow always uses Worker port 19740, so it also needs the browser slot.
 - Never push, open a pull request, deploy, enable previews, call a provider or spend. Stop at the owner gates below.
-- Never weaken a check, relabel a failure or switch a default profile to get a pass. Keep failed runs; record each result with its command in the doc it supports, and keep raw output in `work/<workstream>/`.
+- Never weaken a check, relabel a failure or switch a default profile to get a pass. Keep failed runs; put each result with its command in the commit body, and keep raw output in `work/<workstream>/`.
 - Edit `docs/decisions.md`, `docs/stage-0.md`, `scripts/lint/suppression-budget.json`, root `package.json` and `apps/web/workbench/{api,entry}.ts` only on your own branch. Integration (D) assembles `main`, where the owner's 14 October rows win over branch wording.
 - No agent approves its own output. An independent review is a filter, not an approval.
 - Report back with: branch and commit; each command and result, failures included; changes to shared files; questions for the owner.
@@ -57,7 +57,8 @@ Stop and ask the owner for:
 
 | Phase | Workstreams | Notes |
 | --- | --- | --- |
-| Now, in parallel | A, C, I, F's audit and proposal, E's draft, B's analysis | A takes the browser slot first |
+| First | The [cleanup plan](cleanup-plan.md): T, then K, W, R and S, then rebase and slim the branches | Agreed 15 October |
+| Before the cleanup | A, C, I, F's audit and proposal, E's draft, B's analysis | Local results above; A's timing check still open |
 | Integration | D1 after A, D2 after C, D3 after I, then D4 | The queued authentication task starts when D3 lands |
 | Owner picks | B's options, then F's proposal | B can render once C's tooling is available |
 | After the picks | B's production change, G, E's hosted run (with the owner's go-ahead), H | G uses single-post and desk views until F is adopted |

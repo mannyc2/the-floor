@@ -1,6 +1,6 @@
 # File structure
 
-Deployables live under `apps/`; code shared by at least two apps, or isolated by a required fence, lives under `packages/`. Each implemented package has its own `package.json`, explicit exports and a `./testing` export when it supplies test Layers. Remove packages with no production importers unless a fence needs their boundary. Rows marked *planned* don't exist yet: create them with their first real code, never as empty placeholders.
+Deployables live under `apps/`; code shared by at least two apps, or isolated by a required fence, lives under `packages/`. Each implemented package has its own `package.json`, and explicit exports. Remove packages with no production importers unless a fence needs their boundary or the owner has planned them. Rows marked *planned* don't exist yet: create them with their first real code, never as empty placeholders.
 
 | Location | Responsibility |
 | --- | --- |
@@ -21,8 +21,8 @@ Deployables live under `apps/`; code shared by at least two apps, or isolated by
 
 Organize application source by the feature that uses it, not by technical mechanism. Keep each service interface and Layer together. Use `_components/` and `_lib/` for feature-local helpers. Import relatively inside a feature and through `@floor/<package>` for shared code. Never import across sibling features or between apps.
 
-App and package leaf tests live in their own `test/`; test Layers live in `src/testing/`. Cross-package tests use public exports, never relative imports into another package's source. A package's tests do not depend on flow fixtures.
+App and package leaf tests, test Layers and fixtures live in their own `test/`. Cross-package tests use public exports, never relative imports into another package's source. A package's tests do not depend on flow fixtures.
 
 The workbench is `apps/web/workbench/`; reference scene specs are `testing/look/scenes/`; approved frames go in `testing/reference/`. The map host and renderer live under `apps/web/src/map`. Workbench diagnostics and edge-projection tools cannot enter the production import graph. The Atlas values come from the owner's recorded visual picks (see `docs/look.md`).
 
-Keep `docs/the-floor.md` and `docs/technical-design.md` current. Record decisions and their reasons in `docs/decisions.md`; where they disagree, the decision log wins and the current doc gets fixed. Record each result with the doc or decision it supports, and keep raw output in `work/`, which git ignores.
+Keep `docs/the-floor.md` and `docs/technical-design.md` current. Record decisions and their reasons in `docs/decisions.md`; where they disagree, the decision log wins and the current doc gets fixed. Put results in commit or pull request bodies, and keep raw output in `work/`, which git ignores.
