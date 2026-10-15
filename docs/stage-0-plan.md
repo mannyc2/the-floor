@@ -1,6 +1,6 @@
 # Stage 0 plan
 
-14 October 2026. This orders the work left before Stage 0 can close. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14 October rows in the [decision log](decisions.md): local integration, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
+14–15 October 2026. This orders the work left before Stage 0 can close. It is written for an orchestrating agent that runs each workstream in its own session. The owner's decisions behind it are the 14–15 October rows in the [decision log](decisions.md): local integration and its unchanged renderer timing gate, the hosted check, the Stage 0 look finish line, all-corner shading, the returned asset sheet, the rejected exchange compositions and the world layout revision. Stage 0 stays open until every item in [Stage 0](stage-0.md#left) is done and verified and the owner has reviewed it.
 
 ## Where things stand
 
@@ -17,11 +17,11 @@ Before this execution, `main` was at `ae45e35`, including the wallet-authority b
 
 ### Local execution — 14–15 October 2026
 
-The authorized local work retained each branch's evidence and kept the browser suites serial. No implementation has merged into `main`: A's unchanged SwiftShader arrival gate still blocks D1, so C and I cannot bypass it. The existing authentication task remains queued behind D3; no duplicate was started. Nothing was pushed, deployed or sent to a provider. These results do not close Stage 0 or approve art.
+The authorized local work retained each branch's evidence and kept the browser suites serial. No implementation has merged into `main`: A's unchanged SwiftShader arrival gate still blocks D1, so C and I cannot bypass it. On 15 October the owner confirmed that integration stays blocked until that check passes. The existing authentication task remains queued behind D3; no duplicate was started. Nothing was pushed, deployed or sent to a provider. These results do not close Stage 0 or approve art.
 
 | Workstream | Local result | What remains |
 | --- | --- | --- |
-| A | Independent source review and exact-pixel checks passed. The fixed-follow bug is corrected and four instance leaf tests were added. After bounded scene/shader changes, the full default run passed 81/82 checks; the 1,000-desk stream still had 250.4 and 251.7 ms arrival lateness against the unchanged 250 ms limit. All 105 retained renderer CPU samples were at most 7.1 ms. Changes and all failed experiments remain uncommitted in the renderer worktree; its last commit is still `a441f50` | Owner decision on gating, or a changed implementation that passes; no relaxed limit or backend substitution. World integration remains open |
+| A | Independent source review and exact-pixel checks passed. The fixed-follow bug is corrected and four instance leaf tests were added. After bounded scene/shader changes, the full default run passed 81/82 checks; the 1,000-desk stream still had 250.4 and 251.7 ms arrival lateness against the unchanged 250 ms limit. All 105 retained renderer CPU samples were at most 7.1 ms. Changes and all failed experiments remain uncommitted in the renderer worktree; its last commit is still `a441f50` | A changed implementation that passes the unchanged gate. The owner's 15 October decision keeps integration blocked; no relaxed limit or backend substitution. World integration remains open |
 | C | `codex/asset-kit` at `c3c6f1f`: full sequence, 72 renderer checks, six asset cases and seven exact approved frames passed. Linux amd64 with Bun 1.4.0 and a frozen install reproduced all three committed models byte-for-byte. Required asset/frame checks are wired into local and CI sequences; station-count mismatch is explicitly deferred to G | Wait for D1 before D2. The returned asset sheet remains unchanged and unpicked |
 | I | `codex/rpc-api` at `26354a0`: obsolete HTTP-API allowlist entry removed; complete sequence, real local RPC/MCP shell and all 72 renderer checks passed | Wait for D1/D2 before D3, then the existing authentication task |
 | B | `codex/shading-options` at `b53242b`, based on C: both workbench-only rules passed all 24 preflight reports; 48 final view/theme/corner cells and 24 exact paired line masks were independently audited. Ordinary checks passed, including 72 renderer, six assets and seven exact approved frames; the headed demonstration passed 12 cases | Owner shading pick. Camera-relative reproduced all seven approved frames exactly; axis-fixed failed all seven, changing 454 of 6,672,000 pixels. Production and references are unchanged |
@@ -43,10 +43,11 @@ Detailed commands and limitations are in each worktree's `docs/stage-0.md`; F's 
 
 ## Owner gates
 
+The renderer timing decision is resolved: on 15 October the owner required integration to remain blocked until the unchanged 250 ms SwiftShader check passes. A failing check does not reopen a request to waive it.
+
 Stop and ask the owner for:
 - any art pick: the all-corner shading options, the Stage 0 asset round, a later exchange composition;
 - adopting the world layout proposal;
-- how the 1,000-desk SwiftShader stream is gated if A can't meet its limits;
 - pushing, admitting a pull request, enabling previews, and the allowance check before a hosted run;
 - any change to an approved value or scope;
 - the newcomer test, which needs a person who hasn't seen the Floor;
@@ -72,14 +73,14 @@ Branch `codex/renderer-stream`.
 
 Prep run on 14 October, idle machine, default SwiftShader: `FLOOR_RENDERER_PORT=5183 bun run test:renderer testing/flows/renderer/snapshot-stream.spec.ts testing/flows/renderer/snapshot-phone.spec.ts`. The 12-desk stream and the three snapshot-stream checks passed. The 1,000-desk stream failed its 250 ms arrival bound in all four runs, with first late arrivals of 263.4, 273.8, 250.6 and 260.6 ms; a failed run doesn't report the later assertions. The logs are under `work/renderer-stream/prep-swiftshader-001/` and `-002/` in that worktree. Plain `bun run test:flow`, and therefore CI, fails on this branch.
 
-1. Find where the 1,000-desk arrival delay comes from (snapshot construction, reconciliation or frame scheduling under 4× throttling) and meet the unchanged 16.7 ms CPU and 250 ms arrival limits on SwiftShader. If that can't be done, stop at the owner gate. Don't relax the bound or change the default profile.
+1. Find where the 1,000-desk arrival delay comes from (snapshot construction, reconciliation or frame scheduling under 4× throttling) and meet the unchanged 16.7 ms CPU and 250 ms arrival limits on SwiftShader. Until that passes, integration remains blocked under the owner's 15 October decision. Don't relax the bound or change the default profile.
 2. Done in prep (`a441f50`): open items for **World integration** and **Sustained stream on SwiftShader**, and plain-text paths instead of links to ignored logs. Still to do: call the measurement buffer-call accounting wherever "GPU upload" overstates it, and remove the SwiftShader item once the default run passes.
 3. Keep the World integration item when updating the records; it carries the work the fixed-ID stream leaves open.
 4. Decide, and record why, whether `trackUploads` stays in production. It currently wraps `bufferData` and `bufferSubData` on every production engine; the alternative is to move it behind diagnostics.
 5. Check the reported change that `busy()` now includes `following`: after a finished fixed follow (the production follow button), queued presentations may not move the camera until the next input. Fix it or record it.
 6. Add leaf tests for any part of `instances.ts` that doesn't need a browser; today it is covered only by browser tests.
 
-**Done when:** the default `bun run test:flow` passes on an idle machine, or the owner has chosen the gating; the docs are corrected; and an independent source review has run.
+**Done when:** the default `bun run test:flow` passes on an idle machine with the unchanged timing limits; the docs are corrected; and an independent source review has run.
 
 ### B. All-corner shading
 
