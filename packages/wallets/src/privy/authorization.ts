@@ -36,7 +36,7 @@ export class P256 extends Context.Service<P256, {
   readonly signRaw: (key: CryptoKey, payload: string) => Effect.Effect<Uint8Array, PrivyFailure>;
 }>()("Floor/Privy/P256") {
   static readonly layer = Layer.sync(P256, () => {
-    // oxlint-disable-next-line effect/noGlobals -- Effect Crypto 4.0.3 has no asymmetric-key operations; this single platform edge owns native SubtleCrypto access.
+    // Effect Crypto 4.0.3 has no asymmetric-key operations; this service owns SubtleCrypto.
     const subtle = globalThis.crypto.subtle;
     const signRaw = Effect.fn("Privy.P256.signRaw")((key: CryptoKey, payload: string) =>
       Effect.tryPromise({

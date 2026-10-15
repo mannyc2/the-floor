@@ -12,7 +12,6 @@ Command.make(
   }),
 ).pipe(
   Command.run({ version: "1.0.0" }),
-  // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The executable owns CLI services; rejected stages never acquire the live deployment runtime.
   Effect.provide(BunServices.layer),
   runMain,
 );

@@ -2,7 +2,6 @@ import { expect, test } from "@playwright/test";
 
 // Enters through the production page and its typed HTTP client. No intercepted
 // routes, injected models, fixtures or direct database arrangement are involved.
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns the single native asynchronous callback below and its awaited assertions. */
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright requires a native Promise callback at this test boundary.
 test("the shell verifies its connection through the running Floor Worker", async ({ page }) => {
   const errors: string[] = [];
@@ -27,4 +26,3 @@ test("the shell verifies its connection through the running Floor Worker", async
   expect(errors).toEqual([]);
   await page.screenshot({ path: "work/flows/shell-connected.png", fullPage: true });
 });
-/* oxlint-enable effecttsgo/async-function, effect/noAsyncFunction */

@@ -33,11 +33,11 @@ jobs:
       - run: bun run format:check
       - run: bun run typecheck
       - run: bun run lint
-      - run: bun run test:leaf
+      - run: bun run test
       - run: bun run build
       - run: bun run test:native
       - run: bunx --no-install playwright install --with-deps chromium
-      - run: bun run test:flow
+      - run: bun run e2e
       # Public runner time is free; artifact storage has a separate allowance.
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ always() && vars.FLOOR_UPLOAD_ARTIFACTS == 'true' }}
@@ -131,7 +131,7 @@ jobs:
         run: |
           export FLOOR_FLOW_URL="$(jq -er '.url' work/ci/preview.json)"
           export FLOOR_FLOW_REMOTE=true
-          bun run test:flow
+          bun run e2e
       - name: Publish preview link
         if: steps.current.outputs.deploy == 'true'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0

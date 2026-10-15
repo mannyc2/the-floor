@@ -13,7 +13,7 @@ Object.defineProperty(globalThis, "fetch", {
       return Effect.runPromise(Effect.fail(new OutboundRequestDenied({ origin: url.origin })));
     }
     // The preload intercepts the native transport before Alchemy loads; using an HttpClient here would recurse.
-    // oxlint-disable-next-line effecttsgo/global-fetch, effect/noGlobals -- Delegate only after the loopback guard at the native transport boundary.
+    // oxlint-disable-next-line effect/noGlobals -- Delegate only after the loopback guard at the native transport boundary.
     return nativeFetch(input, init); // @effect-diagnostics globalFetch:off -- This preload delegates to the guarded native transport.
   },
 });

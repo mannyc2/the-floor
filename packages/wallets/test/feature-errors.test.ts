@@ -14,12 +14,10 @@ const withFixture = <E>(
   name: string,
   fixture: Pick<ReturnType<typeof capture>, "layer">,
   effect: Effect.Effect<void, E, PrivyWallets | P256>,
-) =>
-  // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Each case owns an isolated offline HTTP boundary and ephemeral authorization keys.
-  test(name, effect.pipe(Effect.provide(fixture.layer)));
+) => test(name, effect.pipe(Effect.provide(fixture.layer)));
 
 const logged = (error: PrivyFailure | PrivyPolicyRefusal) => {
-  // oxlint-disable-next-line effecttsgo/prefer-schema-over-json, effect/noGlobals -- Verify ordinary JSON logging independently of the tagged error's schema encoder; provider fields must not leak credentials.
+  // oxlint-disable-next-line effect/noGlobals -- Verify ordinary JSON logging independently of the tagged error's schema encoder; provider fields must not leak credentials.
   const json = JSON.stringify(error); // @effect-diagnostics preferSchemaOverJson:off -- Native JSON logging is the boundary under test.
   return [json, inspect(error), String(error)];
 };
@@ -141,7 +139,6 @@ const rawResponse = (body: string) => {
   const calls: Request[] = [];
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
     (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      // oxlint-disable-next-line effect/noEffectRunInTests -- The fake Fetch must return a Promise; raw response bytes deliberately bypass JSON encoding to test malformed provider data.
       Effect.runPromise(Effect.sync(() => {
         calls.push(input instanceof Request ? new Request(input, init) : new Request(String(input), init));
         return new Response(body, { headers: { "content-type": "application/json" } });

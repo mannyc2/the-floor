@@ -57,12 +57,12 @@ bun install --frozen-lockfile
 bun run format:check
 bun run typecheck
 bun run lint
-bun run test:leaf
+bun run test
 bun run build
 bun run test:native
 bunx --no-install playwright install chromium
-bun run test:flow
+bun run e2e
 ```
 
-`bun run dev:web` starts the web app; `/workbench/` opens renderer diagnostics and `/look/` exposes the deterministic capture adapter. The default desks and palette are labelled synthetic and are not approved art. `bun run build:workbench` writes the separate diagnostic artifact under `work/`; production builds include only the app entry. `bun run dev` runs `alchemy dev` against remote Alchemy state and can create hosted resources, so read the [spending limits](docs/platform.md#spending) first.
+`bun run dev:web` starts the web app; `/workbench/` opens renderer diagnostics and `/look/` exposes the deterministic capture adapter. The default desks and palette are labelled synthetic and are not approved art. `bunx --no-install vite build --config apps/web/vite.config.ts --mode workbench` writes the separate diagnostic artifact under `work/`; production builds include only the app entry. `bun run dev` runs `alchemy dev` against remote Alchemy state and can create hosted resources, so read the [spending limits](docs/platform.md#spending) first.
 

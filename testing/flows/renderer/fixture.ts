@@ -1,8 +1,14 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns these native Promise callbacks and their awaited browser assertions. */
 import { BunServices } from "@effect/platform-bun";
 import { expect, test as base } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { Effect, FileSystem, Schema } from "effect";
+import type { LookAdapter } from "../../look/protocol";
+
+declare global {
+  interface Window {
+    floorLook?: LookAdapter;
+  }
+}
 
 // oxlint-disable-next-line effect/noUnknownParameters -- This report boundary serializes diagnostic outputs with the Schema.Unknown JSON codec; it does not consume them as domain inputs.
 const saveReport = (title: string, report: unknown) =>
@@ -15,7 +21,6 @@ const saveReport = (title: string, report: unknown) =>
   }).pipe(
     // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The Playwright report adapter owns its filesystem service.
     Effect.provide(BunServices.layer),
-    // oxlint-disable-next-line effect/noEffectRunInTests -- Playwright owns the native Promise boundary for saving diagnostic artifacts.
     Effect.runPromise,
   );
 
@@ -74,7 +79,7 @@ export const ready = async (page: Page, query = ""): Promise<ReturnType<BrowserP
 };
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
 export const stopDrag = async (page: Page) => {
-  // oxlint-disable-next-line effect/noFixedWaitInTests -- A stationary 120 ms hold is the slow-release input, not a readiness delay.
+  // A stationary 120 ms hold is the slow-release input, not a readiness delay.
   await page.waitForTimeout(120);
   await page.mouse.up();
 };

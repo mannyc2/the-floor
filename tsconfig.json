@@ -158,5 +158,40 @@
     "work",
     "node_modules"
   ],
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "tsconfig.tools.json"
+    },
+    {
+      "path": "packages/contract"
+    },
+    {
+      "path": "packages/world"
+    },
+    {
+      "path": "packages/atlas"
+    },
+    {
+      "path": "packages/api"
+    },
+    {
+      "path": "packages/chains"
+    },
+    {
+      "path": "packages/wallets"
+    },
+    {
+      "path": "apps/floor"
+    },
+    {
+      "path": "apps/web"
+    },
+    {
+      "path": "testing/look"
+    },
+    {
+      "path": "testing/flows"
+    }
+  ]
 }

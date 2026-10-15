@@ -1,4 +1,3 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns these native Promise callbacks and their awaited browser assertions. */
 import type { Presentation } from "../../../apps/web/src/map/model";
 import { expect, ready, record, test } from "./fixture";
 const p95 = (values: ReadonlyArray<number>) => values.toSorted((a, b) => a - b)[Math.ceil(values.length * .95) - 1];

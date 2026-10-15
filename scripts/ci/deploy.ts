@@ -20,7 +20,6 @@ const command = Command.make(
 
 command.pipe(
   Command.run({ version: "1.0.0" }),
-  // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The executable owns CLI and artifact I/O; the live engine is acquired only after stage validation.
   Effect.provide(BunServices.layer),
   runMain,
 );

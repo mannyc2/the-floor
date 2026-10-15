@@ -96,14 +96,14 @@ for (const { directory, manifest } of manifests) {
 }
 await cp(join(source, "bun.lock"), join(destination, "build.bun.lock"));
 await cp(join(source, "package.json"), join(destination, "build.package.json"));
-await cp(join(source, "patches/alchemy@2.0.0-beta.80.patch"), join(destination, "alchemy@2.0.0-beta.80.patch"));
+if (await sha256(join(source, "patches/alchemy@2.0.0-beta.80.patch")) !== await sha256(join(destination, "../../../patches/alchemy@2.0.0-beta.80.patch"))) throw new Error("Alchemy patch differs from the repository copy");
 await cp(join(source, "LICENSE"), join(destination, "LICENSE"));
 await Bun.write(join(destination, "provenance.json"), JSON.stringify({
   upstream: { repository: "https://github.com/yielded-dev/agent", revision, pullRequest: "https://github.com/yielded-dev/agent/pull/557", implementationModified: true, patch: "effect-4.0.3-crypto.patch", patchSha256: await sha256(join(destination, "effect-4.0.3-crypto.patch")) },
   modifiedSource,
   runtime: { effect: "4.0.3", alchemy: "2.0.0-beta.80", bun: Bun.version },
   build: { command: "bun run build", tool: "vite-plus 0.3.3 / vp pack", declarations: true, sourceMaps: true, sourceExportsConvertedUsing: "scripts/release-publish.ts withPublishManifests" },
-  buildInputs: await Promise.all(["build.package.json", "build.bun.lock", "alchemy@2.0.0-beta.80.patch", "LICENSE"].map(async (path) => ({ path, sha256: await sha256(join(destination, path)) }))),
+  buildInputs: await Promise.all(["build.package.json", "build.bun.lock", "../../../patches/alchemy@2.0.0-beta.80.patch", "LICENSE"].map(async (path) => ({ path, sha256: await sha256(join(destination, path)) }))),
   packages,
 }, null, 2) + "\n");
 console.log(JSON.stringify(packages.map(({ name, filename, bytes, sha256 }) => ({ name, filename, bytes, sha256 })), null, 2));

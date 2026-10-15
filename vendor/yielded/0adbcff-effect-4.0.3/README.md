@@ -24,8 +24,8 @@ are pinned in the packaged manifests.
 Consumers must declare all six `file:` archives in both `dependencies` and
 `overrides`. Bun otherwise queries the public registry for unpublished
 transitive versions. The root `package.json` is the active example.
-The Alchemy `patchedDependencies` entry must reference the included
-`alchemy@2.0.0-beta.80.patch`, byte-identical to the upstream PR's patch.
+The Alchemy `patchedDependencies` entry references the repository's
+`patches/alchemy@2.0.0-beta.80.patch`, byte-identical to the upstream PR's patch.
 The legacy Cloudflare package still declares `effect-cf` as a peer; active
 Floor code imports the native Alchemy adapter. Installation alone does not prove
 which modules enter a Worker bundle.
@@ -47,7 +47,7 @@ for package in effect-agent storage-sql storage-cloudflare platform-cloudflare p
 done
 cd ../..
 bun vendor/yielded/0adbcff-effect-4.0.3/pack.archive.mjs work/yielded-rebuild
-bun scripts/vendor/verify.ts
+bun install --frozen-lockfile
 bun run typecheck
 bun run lint
 bun run build
@@ -66,4 +66,4 @@ The archives are committed so the Floor consumes this exact build without
 cloning or rebuilding an upstream workspace. `provenance.json` records the
 hashes of what is used.
 
-`pack.archive.mjs` is the packer that built the archives, kept for regeneration. It is not loaded by active builds or checks. Active archive verification is typed Effect code under scripts/vendor/verify.ts, with Schema decoding at every JSON boundary and the full Floor compiler/lint settings.
+`pack.archive.mjs` is the packer that built the archives, kept for regeneration. It is not loaded by active builds or checks. `bun install --frozen-lockfile` verifies the archives against the sha512 integrity values in `bun.lock`.

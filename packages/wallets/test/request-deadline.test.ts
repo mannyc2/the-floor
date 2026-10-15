@@ -16,7 +16,6 @@ const stalled = Effect.fn("Privy.test.stalled")(function*(status: number) {
   const aborted: Request[] = [];
   // Fetch and ReadableStream consume Promises. Keep this single test adapter
   // bound to the test's Effect context; it never opens a network connection.
-  // oxlint-disable-next-line effect/noEffectRunInTests -- This is the fake Fetch/ReadableStream Promise adapter, retaining the test context for its readiness signal.
   const run = Effect.runPromiseWith(context);
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
     (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
@@ -58,7 +57,6 @@ for (const status of [200, 403]) {
     const operation = Effect.gen(function*() {
       return yield* (yield* PrivyWallets).getWallet("synthetic-stalled-wallet");
     }).pipe(
-      // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Each deadline test owns its abort-aware fake Fetch and client settings.
       Effect.provide(fixture.layer),
       Effect.result,
       Effect.tap(() => Deferred.succeed(finished, void 0)),
@@ -89,7 +87,6 @@ for (const status of [200, 403]) {
     expect(fixture.requests.every(request => request.signal.aborted)).toBe(true);
   }).pipe(
     Effect.scoped,
-    // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- The deadline is exercised through a deterministic test clock, never a wall-clock wait.
     Effect.provide(TestClock.layer()),
   );
   test(`the whole request deadline cancels a stalled ${status} body and never retries`, program);

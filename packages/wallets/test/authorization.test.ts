@@ -44,7 +44,6 @@ test(
     expect(error.operation).toBe("import-private-key");
     expect(error.cause).toBeDefined();
   }).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Alchemy owns this isolated test entry and the native edge is scoped to it.
     Effect.provide(P256.layer),
   ),
 );
@@ -59,7 +58,6 @@ test(
     expect(Redacted.isRedacted(error.cause)).toBe(true);
     expect(String(error.cause).includes("private-material")).toBe(false);
   }).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- This test owns the native edge and checks that decoder diagnostics cannot reveal a private-key input.
     Effect.provide(P256.layer),
   ),
 );

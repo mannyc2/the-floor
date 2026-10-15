@@ -192,5 +192,4 @@ const generate = Effect.gen(function*() {
   return { codecs: codecs.size, instructions: instructions.length };
 });
 
-// oxlint-disable-next-line effecttsgo/strict-effect-provide -- This Bun executable owns its filesystem and crypto runtime services.
 BunRuntime.runMain(generate.pipe(Effect.provide(BunServices.layer)));

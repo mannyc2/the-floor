@@ -24,7 +24,7 @@
     },
     {
       "path": "scripts/build-atlas.ts",
-      "sha256": "2873ef7c7b866216ed2ae1814d41a1acb3beb3d6fbd924ff16130970dac3d11a"
+      "sha256": "1802094d627b98b6ad7e59253f481fec4cfea8d62af5dd4072f60b717d024c73"
     },
     {
       "path": "scripts/atlas/outputs.ts",
@@ -32,7 +32,7 @@
     },
     {
       "path": "scripts/atlas/manifest.ts",
-      "sha256": "7fe5ec73d799fbf24fa7f40f6d92d38350d39d550b26c227f2cc5c60e7d8ab31"
+      "sha256": "94a46c2fe567de8720da756bad25e829964fa862030385f48e19125c14894dbe"
     }
   ],
   "outputs": [

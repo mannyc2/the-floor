@@ -20,7 +20,6 @@ const makeHarness = (reply: Schema.Json, status = 200, configured = true) => {
   const calls: Array<{ readonly url: string; readonly method: string; readonly body: typeof WireRequest.Type }> = [];
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
     (request: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      // oxlint-disable-next-line effect/noEffectRunInTests -- This fake implements Fetch's Promise boundary; Alchemy owns the test effects and no network is touched.
       Effect.runPromise(Effect.gen(function*() {
         const received = request instanceof Request ? new Request(request, init) : new Request(String(request), init);
         const body = yield* Effect.promise(() => received.text()).pipe(
@@ -45,9 +44,7 @@ const testWithHarness = <E>(
   name: string,
   harness: ReturnType<typeof makeHarness>,
   effect: Effect.Effect<void, E, Decisions>,
-) =>
-  // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- This is the isolated test entry boundary; each case gets its own fake transport and configuration.
-  test(name, effect.pipe(Effect.provide(harness.layer)));
+) => test(name, effect.pipe(Effect.provide(harness.layer)));
 
 const success = makeHarness({ answers: [{ type: "predicate", name: "price_readable", probability: 0.92 }] });
 testWithHarness(

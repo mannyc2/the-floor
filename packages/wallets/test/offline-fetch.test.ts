@@ -5,7 +5,6 @@ import { P256 } from "../src/privy/authorization";
 import { PrivySettings, PrivyWallets } from "../src/privy/client";
 import { makeOfflineFetch, offlineFetchMarker, OutboundRequestDenied } from "./_offline-fetch";
 
-// oxlint-disable-next-line effect/noEffectRunInTests -- Bun owns these isolated guard regressions; this adapter is their Promise/Effect boundary.
 const run = <A, E>(effect: Effect.Effect<A, E>) => Effect.runPromise(effect);
 
 class FetchRejected extends Schema.TaggedError<FetchRejected>()("FetchRejected", {
@@ -49,7 +48,6 @@ test("an accidental default Privy transport is blocked before native Fetch", () 
           }),
       );
       const error = yield* PrivyWallets.use(client => client.getWallet("synthetic-wallet")).pipe(
-        // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Deliberately omit the fake Fetch service to exercise the global fail-closed transport fence.
         Effect.provide(layer),
         Effect.flip,
       );

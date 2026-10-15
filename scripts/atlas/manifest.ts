@@ -86,7 +86,7 @@ export const verifyGeneratedAtlas = Effect.fn("Atlas.verifyGenerated")(function*
   if (!Schema.toEquivalence(AtlasManifest)(expected, actual)) {
     return yield* new AtlasGeneratedError({
       file: manifestPath,
-      message: "Atlas source or output manifest drift; run bun run build:atlas and review the changes",
+      message: "Atlas source or output manifest drift; run bun scripts/build-atlas.ts and review the changes",
     });
   }
   const canonicalManifest = (yield* Schema.encodeEffect(AtlasManifestJson)(expected)) + "\n";

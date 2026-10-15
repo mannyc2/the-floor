@@ -8,17 +8,13 @@ import { initialModel, makeView, MapCommands, Message, Model, update } from "../
 import { cameraFromQuery } from "../src/map/model";
 import { makeWorkbenchApi } from "./api";
 import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
-import { proportionCamera, readProportionStudy } from "./proportion-study";
 import { WorkbenchFailure } from "./runtime";
 import { SceneDigest } from "./scene-evidence";
-import { readToneStudy } from "./tone-study";
 
 const run = Effect.gen(function*() {
   const query = new URL(location.href).searchParams;
   const look = document.body.hasAttribute("data-look");
   const config = look ? Option.some(yield* readCaptureConfiguration(query)) : Option.none();
-  const study = look ? yield* readToneStudy(query) : Option.none();
-  const proportions = look ? yield* readProportionStudy(query) : Option.none();
   const context = yield* Effect.context<MapCommands | SceneDigest>();
   const commands = Context.get(context, MapCommands);
   const runPromise = Effect.runPromiseWith(context);
@@ -40,13 +36,7 @@ const run = Effect.gen(function*() {
   const initial = initialModel(
     desks,
     Number.isFinite(delay) ? Math.max(0, Math.min(5000, delay)) : 0,
-    Option.isSome(config)
-      ? Option.some(
-        Option.isSome(proportions)
-          ? proportionCamera(proportions.value, config.value.height)
-          : captureCamera(config.value, Option.isSome(study)),
-      )
-      : requestedCamera,
+    Option.isSome(config) ? Option.some(captureCamera(config.value)) : requestedCamera,
   );
   const model: Model = Option.isSome(config)
     ? {
@@ -86,7 +76,7 @@ const run = Effect.gen(function*() {
       mask: (enabled) => runPromise(ready().mask(enabled)),
       bench: (frames, warmupFrames) => runPromise(ready().bench(frames, warmupFrames)),
     };
-    yield* prepareLookAdapter(commands, config.value, study, proportions).pipe(
+    yield* prepareLookAdapter(commands, config.value).pipe(
       Effect.timeout("15 seconds"),
       Effect.tap((adapter) =>
         Effect.sync(() => {
@@ -104,6 +94,4 @@ const run = Effect.gen(function*() {
   yield* Effect.logInfo("Synthetic renderer workbench mounted");
   return yield* Effect.never;
 });
-
-// oxlint-disable-next-line effecttsgo/strict-effect-provide -- This development entry owns the application scope and provides its command and digest services once.
 BrowserRuntime.runMain(run.pipe(Effect.scoped, Effect.provide(Layer.merge(MapCommands.layer, SceneDigest.layer))));

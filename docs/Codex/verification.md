@@ -1,44 +1,48 @@
 # Verification
 
-Run these checks before every implementation commit:
+Run these checks before every implementation commit, in order:
 
 ```sh
+bun install --frozen-lockfile
 bun run format:check
 bun run typecheck
 bun run lint
-bun run test:leaf
+bun run test
 bun run build
 bun run test:native
-bun run test:flow
+bun run e2e
 ```
 
-Use Bun 1.4.0, and verify installation with `bun install --frozen-lockfile`. The lockfile contains only the dependencies actually adopted. After intentional Atlas source edits, run `bun run build:atlas` and review the generated changes. Lint and web/workbench builds verify the committed source/output manifest without regenerating it, so hand edits and stale outputs fail. Keep the compiler/Oxlint patch in `prepare`. Never substitute a Bun server build for Workers.
+Use Bun 1.4.0. The frozen install verifies the pinned tarballs against `bun.lock` and keeps the compiler/Oxlint patch in `prepare`. `typecheck` runs one `tsc -b` over the eleven project references with the strict options and all 91 Effect diagnostics. `test` runs the explicit leaf paths; native Worker tests and browser flows have their own commands so CI stops at the first failed acceptance step.
 
-The local shell flow enters the real Alchemy Worker and checks `/api/health` through its web UI. It has no model, authentication or network stubs; its promise is connectivity only. The native agent tests inject a labelled scripted model at `./testing`; Decisions and wallet leaf tests use a fake HTTP transport. Production-entry review confirmed that the shell flow neither arranges its asserted state nor claims unimplemented product behavior. Playwright retains a video and final screenshot, and SIGTERM finalization removes the local stage.
+Until the Atlas cleanup lands, intentional Atlas source edits require `bun scripts/build-atlas.ts` and review of the generated changes. Style lint and builds verify the committed source/output manifest without regenerating it. Never substitute a Bun server build for Workers: `build` uses Alchemy's local Worker harness, alongside the web and chain builds and their artifact fences.
 
-The full implementation CI sequence is fixed by the technical design:
+## Local checks
+
+One Playwright config, `testing/flows/playwright.config.ts`, owns the `shell` and `renderer` projects. `bun run e2e` runs both serially. The shell flow enters the real local Alchemy Worker through its web UI and checks `/api/health`; it has no model, authentication or network stubs, and its promise is connectivity only. SIGTERM finalization removes the local stage. Playwright retains videos and final screenshots under `work/flows/`.
+
+The renderer project runs the separately built development workbench. Its behavior, camera, picking, replay, ownership and phone assertions remain required. The finished tone/proportion studies and 360-capture matrix are retired; the `/look/` adapter and scene loading remain for asset work. Approved-frame checks arrive with the asset branch and use `toHaveScreenshot` at zero tolerance; reference images cannot be replaced without the owner's pick.
+
+Only one browser suite may run on the machine at a time. If another checkout owns the renderer port, select a free port with `FLOOR_RENDERER_PORT`, for example `FLOOR_RENDERER_PORT=5185 bun run e2e`. The validated port controls the browser, server and readiness probe together; the default is 5180 and an occupied listener is never reused. A project can be selected with `bun run e2e --project renderer` or `--project shell`.
+
+The default renderer is SwiftShader. The phone profile is 390×844 at DPR 3 with 4× CPU throttling and keeps its 16.7 ms renderer CPU budget. It is a desktop profile, not evidence from a real phone. `FLOOR_PHONE_RENDERER=apple bun run e2e --project renderer --grep "configured phone profile"` is a separate local measurement and cannot replace the default check. Renderer-stream's sustained-update 250 ms arrival check remains an integration gate on that branch.
+
+Native agent tests use a labelled scripted model. Decisions and wallet leaf tests use fake HTTP transports; the wallet test preload blocks external Fetch and off-host redirects. Recorded data remains labelled replay data. Each flow must enter through production, avoid arranging the state it asserts, assert the named product promise, label stubs and recordings, and receive a second reviewer. Use request-hashed recorded model responses that fail on unknown requests. Evidence comes from this repository's own runs, and full-day flow claims require fresh full-day data for its chain.
+
+## CI and hosted acceptance
+
+The required sequence is:
 
 1. Formatting, types and lint; no later acceptance step runs after a failure.
-2. Leaf and property tests.
-3. Local flows against forks and recorded providers, entering through production. Build their production artifacts before running them.
-4. Alchemy preview deployment, then the same flows against the stage.
-5. Camera and deterministic look tests against the stage, with affected frames presented for the owner's pick.
-6. Phone-profile bench with renderer CPU measurements and the comparison table.
-7. Retained flow recordings for review.
-8. Verified teardown when the pull request closes; cleanup must also handle failed runs and partial deployment.
+2. Leaf tests, production builds, native tests and local browser flows.
+3. Alchemy preview deployment, then the production-entry flow against that stage.
+4. Camera and deterministic look checks, the phone-profile bench and retained flow recordings. The current renderer project runs locally on the CI runner; it does not prove hosted renderer behavior. Stage 0's production-entry hosted camera flow remains pending integration and its owner gate.
+5. Verified teardown on close, including failed runs and partial deployment.
 
-Each flow must enter through production, avoid arranging the state it asserts, assert the named product promise, label stubs and recordings, and receive a second reviewer. Use request-hashed recorded model responses that fail on unknown requests. Stage 0 needs one real flow on its deployed stage; later stages add the promises in the design.
+`FLOOR_FLOW_URL` selects the shell's target and `FLOOR_FLOW_REMOTE=true` omits its local Worker. The renderer project still serves the workbench locally. Hosted shell success and local renderer success are separate evidence.
 
-The look harness must pin renderer backend, viewport, DPR, fonts, time and randomness. Its references need the owner's recorded pick. The phone profile is 390×844 at DPR 3 with 4× CPU throttling; it is not proof of performance on a real phone. Preserve measurement limits with each report.
+Preview deployment requires both `FLOOR_PREVIEW_ENABLED` and the single admitted `FLOOR_PREVIEW_PR`; cleanup is independently gated by `FLOOR_PREVIEW_CONFIGURED`. The procedure, queueing rules and spending limits are in [the platform](../platform.md). Cleanup checks out only the trusted default branch and rejects non-PR stage names before loading credentials. Fork PRs receive no deployment secrets. No production deployment is enabled. Recheck the allowance and explicitly admit one PR before enabling deployment.
 
-The complete look pipeline has an 18-minute orchestration deadline inside Effect and a 20-minute runner ceiling, leaving time for scoped child-process cleanup. These bound a hung pipeline; the 360 captures, 20 repetitions per cell, primitive comparisons and separate phone CPU budget of 16.7 ms remain unchanged.
+`FLOOR_UPLOAD_ARTIFACTS` stays off until GitHub's separate storage allowance is verified; without uploads, runner-created recordings expire with the job. Local captures against previews are separate executions, not retained CI recordings. Actions remain pinned to verified Node 24 releases.
 
-If another checkout owns the renderer test port, set `FLOOR_RENDERER_PORT` to a free local port, for example `FLOOR_RENDERER_PORT=5185 bun run test:flow`. The validated port controls the browser, server and readiness probe together; the default remains 5180 and an occupied listener is never reused.
-
-Evidence for this repository comes from its own runs, never from another codebase's tests or screenshots. Record fresh full-day data for the floor's chain before claiming full-day flow coverage.
-
-Preview deployment is gated by `FLOOR_PREVIEW_ENABLED` and the single admitted PR in `FLOOR_PREVIEW_PR`; cleanup is independently gated by `FLOOR_PREVIEW_CONFIGURED`. The procedure, the queueing rules and the spending limits are in `docs/platform.md`. Cleanup checks out only the trusted default branch and rejects non-PR stage names before loading credentials. Fork PRs receive no deployment secrets. No production deployment is enabled. Hosted creation, deployed flow and cleanup proof remain separate from local verification.
-
-`FLOOR_UPLOAD_ARTIFACTS` defaults off until GitHub's separate storage allowance is verified; runner-created recordings then expire with the job. Record any local capture against a preview as a separate execution, not as a retained CI recording. GitHub actions are pinned to verified Node 24 releases.
-
-The first hosted proof ran on 12 October 2026: [CI](https://github.com/mannyc2/the-floor/actions/runs/38295404123) deployed `pr-1` and passed the typed-health flow, and closing the PR ran [trusted cleanup](https://github.com/mannyc2/the-floor/actions/runs/38296179460). An inventory comparison confirmed owned resources gone and baseline metadata unchanged. Later work must recheck the allowance and explicitly admit its one PR before enabling deployment.
+Put each result and its command or CI run link in the commit or pull request body, including failures and measurement limits. Raw logs and captures belong in ignored `work/`. Local verification does not close the hosted, art or Stage 0 owner gates.

@@ -51,8 +51,8 @@ export const BenchResult = Schema.Struct({
 });
 export type BenchResult = typeof BenchResult.Type;
 
-// The web-owned adapter constructs scene/cameras and the CPU edge target. This
-// protocol carries only observations, so testing/look cannot import three.js.
+// The web-owned adapter constructs scenes and cameras. This protocol carries
+// only observations, so testing/look cannot import three.js.
 export interface LookAdapter {
   readonly state: () => AdapterState;
   readonly mask: (enabled: boolean) => Promise<void>;
@@ -64,26 +64,3 @@ declare global {
     floorLook?: LookAdapter;
   }
 }
-
-export const matrixConfigurations = (): ReadonlyArray<CaptureConfiguration> => {
-  const themes: ReadonlyArray<CaptureConfiguration["theme"]> = ["day", "night"];
-  const rungs: ReadonlyArray<CaptureConfiguration["rung"]> = ["building", "floor", "desk"];
-  const dprs: ReadonlyArray<CaptureConfiguration["dpr"]> = [1, 2, 3];
-  return themes.flatMap((theme) =>
-    rungs.flatMap((rung) =>
-      dprs.map((dpr) => ({
-        technique: "B",
-        backend: "webgl",
-        theme,
-        rung,
-        dpr,
-        width: 480,
-        height: 360,
-        desks: 12,
-        asset: "scene",
-        seed: fixedSeed,
-        fixedTimeEpochMs,
-      }))
-    )
-  );
-};

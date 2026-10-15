@@ -1,5 +1,13 @@
-import { Effect, Option } from "effect";
-import { MeasurementError } from "./pixels";
+import { Effect, Option, Schema } from "effect";
+
+export class MeasurementError extends Schema.TaggedError<MeasurementError>()("MeasurementError", {
+  operation: Schema.String,
+  invariant: Schema.String,
+}) {
+  override get message() {
+    return `${this.operation}: ${this.invariant}`;
+  }
+}
 
 export const phoneProfile = {
   width: 390,

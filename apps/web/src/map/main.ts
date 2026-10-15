@@ -151,7 +151,6 @@ export const update = (model: Model, message: Message) =>
 
 // A native DOM attribute is the replay bridge: Foldkit's historical view carries
 // the historical presentation without sending a Command to the live Model.
-// oxlint-disable-next-line effecttsgo/schema-sync -- Foldkit view construction is synchronous and encodes an already Schema-owned Model into its replay attribute.
 // @effect-diagnostics-next-line schemaSync:off -- Foldkit view construction cannot await the Schema encoder.
 const encodeFrame = Schema.encodeSync(Schema.fromJsonString(Presentation));
 export const makeView = (commands: MapCommands["Service"], diagnostics = false) => {

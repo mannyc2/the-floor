@@ -16,7 +16,6 @@ export const probePrivyHttp = Effect.fn("Privy.probeHttp")(function*(origin: str
   if (url.protocol !== "http:" || !["localhost", "127.0.0.1", "[::1]"].includes(url.hostname)) {
     return yield* new PrivyFailure({ operation: "local-http-probe", detail: "Loopback origin required" });
   }
-  // oxlint-disable-next-line effect/noGlobals -- This test-only transport redirects the fixed Privy destination to this local Worker's controlled fixture.
   const localFetch = globalThis.fetch;
   const context = yield* Effect.context();
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
@@ -27,7 +26,7 @@ export const probePrivyHttp = Effect.fn("Privy.probeHttp")(function*(origin: str
           Effect.fail(new PrivyFailure({ operation: "local-http-probe", detail: "Unexpected API destination" })),
         );
       }
-      // oxlint-disable-next-line effecttsgo/global-fetch, effect/noGlobals -- The guarded Fetch adapter is the native network boundary; its only destination is the validated loopback fixture.
+      // oxlint-disable-next-line effect/noGlobals -- The guarded Fetch adapter is the native network boundary; its only destination is the validated loopback fixture.
       return localFetch(new Request(`${url.origin}/privy-fixture`, request)); // @effect-diagnostics globalFetch:off -- Test-only loopback transport boundary.
     },
     { preconnect: () => {} },

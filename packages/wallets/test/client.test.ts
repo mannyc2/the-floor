@@ -23,7 +23,6 @@ const harness = (reply: Schema.Json, status = 200) => {
   const calls: { readonly request: Request; readonly body: Schema.Json }[] = [];
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
     (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      // oxlint-disable-next-line effect/noEffectRunInTests -- This fake implements Fetch's Promise boundary while the real HttpClient builds and decodes the request; it never performs network I/O.
       Effect.runPromise(Effect.gen(function*() {
         const request = input instanceof Request ? new Request(input, init) : new Request(String(input), init);
         const body = yield* Effect.promise(() => request.text()).pipe(
@@ -50,9 +49,7 @@ const withHarness = <E>(
   name: string,
   fixture: ReturnType<typeof harness>,
   effect: Effect.Effect<void, E, PrivyWallets | P256>,
-) =>
-  // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Each test owns its isolated HTTP boundary and ephemeral cryptographic keys.
-  test(name, effect.pipe(Effect.provide(fixture.layer)));
+) => test(name, effect.pipe(Effect.provide(fixture.layer)));
 
 // An independent test decoder feeds the DER wire form back into Web Crypto.
 const fromDer = Effect.fn("Privy.test.fromDer")(function*(encoded: string) {
@@ -197,7 +194,7 @@ for (
       expect(Option.isSome(header)).toBe(true);
       if (Option.isNone(header)) return;
       const signature = header.value;
-      // oxlint-disable-next-line effecttsgo/prefer-schema-over-json, effect/noGlobals -- Check the actual generic JSON logging boundary, independently of PrivyFailure's schema encoder.
+      // oxlint-disable-next-line effect/noGlobals -- Check the actual generic JSON logging boundary, independently of PrivyFailure's schema encoder.
       const json = JSON.stringify(error); // @effect-diagnostics preferSchemaOverJson:off -- Native JSON logging is the behavior under test.
       const serialized = [json, inspect(error), String(error)];
       for (const secret of ["offline-secret", Base64.encode("offline-app:offline-secret"), signature]) {

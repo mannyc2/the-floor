@@ -13,12 +13,10 @@ import oracle from "./fixtures/instruction-oracle.json";
 
 const runSolana = <A, E>(effect: Effect.Effect<A, E, MeteoraLaunch | Crypto.Crypto>, rpc = meteoraRpcLayer) =>
   runTest(effect.pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Each leaf test owns a fresh SDK/HTTP boundary with labelled replay data.
     Effect.provide(Layer.merge(rpc, BunCrypto.layer)),
   ));
 const runEvm = <A, E>(effect: Effect.Effect<A, E, DopplerLaunch | Crypto.Crypto>) =>
   runTest(effect.pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Each leaf test owns a fresh SDK boundary and test crypto service.
     Effect.provide([DopplerLaunch.layer, BunCrypto.layer]),
   ));
 

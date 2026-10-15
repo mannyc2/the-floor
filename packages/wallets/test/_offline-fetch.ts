@@ -19,7 +19,6 @@ export const makeOfflineFetch = (nativeFetch: typeof globalThis.fetch): typeof g
         return Effect.runPromise(Effect.fail(new OutboundRequestDenied({ origin: url.origin })));
       }
       // A loopback redirect must not escape to a provider after this check.
-      // oxlint-disable-next-line effecttsgo/global-fetch, effect/noGlobals -- This native test boundary delegates only checked loopback requests and disables automatic redirects.
       return nativeFetch(input, { ...init, redirect: "error" }); // @effect-diagnostics globalFetch:off -- Guarded loopback-only native transport.
     },
     {

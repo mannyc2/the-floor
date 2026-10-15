@@ -30,7 +30,6 @@ const checkStyles = Effect.fn("Atlas.checkStyles")(function*(root: string = ".")
 
 if (import.meta.main) {
   checkStyles().pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The lint entry owns the filesystem adapter.
     Effect.provide(BunServices.layer),
     BunRuntime.runMain,
   );

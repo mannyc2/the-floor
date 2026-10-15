@@ -19,7 +19,6 @@
   "devDependencies": {
     "@foldkit/vite-plugin": "0.27.1",
     "@types/three": "0.180.0",
-    "three-edge-projection": "github:gkjohnson/three-edge-projection#3ac00e1d7bb87bf417ddbd93a5cc7c683a2d0567",
     "three-mesh-bvh": "0.9.9"
   }
 }

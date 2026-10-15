@@ -1,6 +1,5 @@
 import { Predicate } from "effect";
 import type { Presentation } from "../../../apps/web/src/map/model";
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns these native Promise callbacks and their awaited browser assertions. */
 import { expect, frameClick, ready, record, stopDrag, test } from "./fixture";
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.

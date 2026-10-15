@@ -49,7 +49,6 @@ const verifyQuorum = (
 
 const submit = (fixture: ReturnType<typeof capture>, authorization: Authorization) =>
   PrivyWallets.use(client => client.signMessage({ walletId, message }, { ...authorization, requestExpiry })).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Each case owns a synthetic cryptographic verifier and HTTP response; no remote service is contacted.
     Effect.provide(fixture.layer),
   );
 
@@ -86,7 +85,6 @@ for (const { name, changed } of variations) {
       if (error._tag === "PrivyFailure") expect(error.kind).toBe("authorization");
       expect(fixture.calls).toHaveLength(2);
     }).pipe(
-      // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Alchemy owns this isolated test entry and its ephemeral cryptographic service.
       Effect.provide(P256.layer),
     ),
   );
@@ -106,7 +104,6 @@ test(
     if (error._tag === "PrivyFailure") expect(error.code).toBe("insufficient_correct_authorization_signatures");
     expect(fixture.calls).toHaveLength(2);
   }).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Only local ephemeral authorization keys and the offline verifier are used.
     Effect.provide(P256.layer),
   ),
 );
@@ -130,7 +127,6 @@ test(
     }
     expect(fixture.calls).toHaveLength(0);
   }).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Duplicate-authorizer validation is exercised with actual ephemeral CryptoKeys.
     Effect.provide(P256.layer),
   ),
 );
@@ -150,7 +146,6 @@ test(
     if (error._tag === "PrivyFailure") expect(error.code).toBe("insufficient_correct_authorization_signatures");
     expect(fixture.calls).toHaveLength(1);
   }).pipe(
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- This test documents the provider-owned identity check with a labelled local verifier.
     Effect.provide(P256.layer),
   ),
 );

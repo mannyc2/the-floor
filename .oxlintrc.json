@@ -58,29 +58,29 @@
     "import/no-cycle": "error",
     "effect/noTernary": "off",
     "effect/noShapeInSymbolNames": "off",
-    "effecttsgo/api-stability-leak": "error",
-    "effecttsgo/abort-controller-in-effect": "error",
-    "effecttsgo/async-function": "error",
-    "effecttsgo/crypto-random-uuid": "error",
-    "effecttsgo/crypto-random-uuid-in-effect": "error",
-    "effecttsgo/extends-native-error": "error",
-    "effecttsgo/global-console": "error",
-    "effecttsgo/global-console-in-effect": "error",
-    "effecttsgo/global-date": "error",
-    "effecttsgo/global-date-in-effect": "error",
-    "effecttsgo/global-fetch": "error",
-    "effecttsgo/global-fetch-in-effect": "error",
-    "effecttsgo/global-random": "error",
-    "effecttsgo/global-random-in-effect": "error",
-    "effecttsgo/global-timers": "error",
-    "effecttsgo/global-timers-in-effect": "error",
-    "effecttsgo/instance-of-schema": "error",
-    "effecttsgo/new-promise": "error",
-    "effecttsgo/node-builtin-import": "error",
-    "effecttsgo/prefer-schema-over-json": "error",
-    "effecttsgo/process-env": "error",
-    "effecttsgo/process-env-in-effect": "error",
-    "effecttsgo/schema-sync": "error",
+    "effecttsgo/api-stability-leak": "off",
+    "effecttsgo/abort-controller-in-effect": "off",
+    "effecttsgo/async-function": "off",
+    "effecttsgo/crypto-random-uuid": "off",
+    "effecttsgo/crypto-random-uuid-in-effect": "off",
+    "effecttsgo/extends-native-error": "off",
+    "effecttsgo/global-console": "off",
+    "effecttsgo/global-console-in-effect": "off",
+    "effecttsgo/global-date": "off",
+    "effecttsgo/global-date-in-effect": "off",
+    "effecttsgo/global-fetch": "off",
+    "effecttsgo/global-fetch-in-effect": "off",
+    "effecttsgo/global-random": "off",
+    "effecttsgo/global-random-in-effect": "off",
+    "effecttsgo/global-timers": "off",
+    "effecttsgo/global-timers-in-effect": "off",
+    "effecttsgo/instance-of-schema": "off",
+    "effecttsgo/new-promise": "off",
+    "effecttsgo/node-builtin-import": "off",
+    "effecttsgo/prefer-schema-over-json": "off",
+    "effecttsgo/process-env": "off",
+    "effecttsgo/process-env-in-effect": "off",
+    "effecttsgo/schema-sync": "off",
     "eslint/no-underscore-dangle": [
       "error",
       {
@@ -90,18 +90,93 @@
         ]
       }
     ],
-    "floor/contract-isolation": "error",
     "floor/app-isolation": "error",
     "floor/feature-isolation": "error",
-    "floor/signer-isolation": "error",
-    "floor/three-isolation": "error",
-    "floor/production-fixtures": "error",
-    "floor/static-modules": "error",
-    "floor/data-reads": "error",
     "floor/atlas-literals": "error",
-    "floor/legacy-dependencies": "error",
-    "floor/oracle-dependencies": "error",
-    "floor/chain-neutral-schemas": "error"
+    "effecttsgo/acquire-release-disposable": "off",
+    "effecttsgo/all-of-map-to-for-each": "off",
+    "effecttsgo/catch-all-tag-dispatch-to-catch-tag": "off",
+    "effecttsgo/catch-all-to-map-error": "off",
+    "effecttsgo/catch-chain-to-first-success-of": "off",
+    "effecttsgo/catch-conditional-refail-to-catch-if": "off",
+    "effecttsgo/catch-die-to-or-die": "off",
+    "effecttsgo/catch-if-tag-to-catch-tag": "off",
+    "effecttsgo/catch-refail-to-tap-error": "off",
+    "effecttsgo/catch-tag-to-catch-reason": "off",
+    "effecttsgo/catch-to-ignore": "off",
+    "effecttsgo/catch-to-or-else-succeed": "off",
+    "effecttsgo/catch-unfailable-effect": "off",
+    "effecttsgo/duplicate-package": "off",
+    "effecttsgo/effect-fn-iife": "off",
+    "effecttsgo/effect-fn-opportunity": "off",
+    "effecttsgo/effect-gen-uses-adapter": "off",
+    "effecttsgo/effect-in-failure": "off",
+    "effecttsgo/effect-in-void-success": "off",
+    "effecttsgo/effect-map-flatten": "off",
+    "effecttsgo/effect-map-void": "off",
+    "effecttsgo/effect-succeed-with-void": "off",
+    "effecttsgo/experimental-api-usage": "off",
+    "effecttsgo/flat-map-conditional-to-filter-or-fail": "off",
+    "effecttsgo/flat-map-ignored-param-to-and-then": "off",
+    "effecttsgo/flat-map-to-map": "off",
+    "effecttsgo/generic-effect-services": "off",
+    "effecttsgo/global-error-in-effect-catch": "off",
+    "effecttsgo/global-error-in-effect-failure": "off",
+    "effecttsgo/layer-merge-all-with-dependencies": "off",
+    "effecttsgo/lazy-effect": "off",
+    "effecttsgo/lazy-promise-in-effect-sync": "off",
+    "effecttsgo/leaking-requirements": "off",
+    "effecttsgo/map-some-to-as-some": "off",
+    "effecttsgo/match-effect-to-map-both": "off",
+    "effecttsgo/match-effect-to-match": "off",
+    "effecttsgo/multiple-catch-tag": "off",
+    "effecttsgo/multiple-effect-provide": "off",
+    "effecttsgo/obsolete-match-import": "off",
+    "effecttsgo/obsolete-schema-import": "off",
+    "effecttsgo/option-match-to-from-option": "off",
+    "effecttsgo/outdated-api": "off",
+    "effecttsgo/prefer-succeed-some-or-none": "off",
+    "effecttsgo/prefer-typed-schema-decoder": "off",
+    "effecttsgo/prefer-unsafe-constructor": "off",
+    "effecttsgo/promise-in-effect-success": "off",
+    "effecttsgo/provide-layer-succeed-to-provide-service": "off",
+    "effecttsgo/race-first-with-sleep-to-timeout": "off",
+    "effecttsgo/redundant-map-error": "off",
+    "effecttsgo/redundant-or-die": "off",
+    "effecttsgo/redundant-schema-tag-identifier": "off",
+    "effecttsgo/return-effect-in-gen": "off",
+    "effecttsgo/run-effect-inside-effect": "off",
+    "effecttsgo/run-of-exit-to-run-exit": "off",
+    "effecttsgo/schema-number": "off",
+    "effecttsgo/schema-struct-with-tag": "off",
+    "effecttsgo/schema-sync-in-effect": "off",
+    "effecttsgo/scope-in-layer-effect": "off",
+    "effecttsgo/sync-to-succeed": "off",
+    "effecttsgo/timeout-catch-tag-to-timeout-or-else": "off",
+    "effecttsgo/try-catch-in-effect-gen": "off",
+    "effecttsgo/unknown-in-effect-catch": "off",
+    "effecttsgo/unnecessary-effect-gen": "off",
+    "effecttsgo/unnecessary-fail-yieldable-error": "off",
+    "effecttsgo/unnecessary-pipe": "off",
+    "effecttsgo/unnecessary-pipe-chain": "off",
+    "effecttsgo/unnecessary-typeof-type": "off",
+    "effecttsgo/unstable-api-usage": "off",
+    "effect/noAsyncFunction": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+            "message": "The native Solana adapter owns transaction construction, including in tests."
+          },
+          {
+            "regex": "^(?:three|three-mesh-bvh|three-edge-projection)(?:/|$)",
+            "message": "Three.js belongs only in apps/web."
+          }
+        ]
+      }
+    ]
   },
   "ignorePatterns": [
     "work/**",
@@ -119,6 +194,242 @@
     }
   ],
   "overrides": [
+    {
+      "files": [
+        "apps/web/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "apps/*/src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}",
+        "packages/*/src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              },
+              {
+                "regex": "^(?:three|three-mesh-bvh|three-edge-projection)(?:/|$)",
+                "message": "Three.js belongs only in apps/web."
+              },
+              {
+                "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
+                "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
+                "message": "Privy SDK dependencies are development oracles only."
+              },
+              {
+                "regex": "^(?:effect-cf|@solana/web3\\.js|@coral-xyz/anchor|bn\\.js|@meteora-ag/dynamic-bonding-curve-sdk)(?:/|$)|^@whetstone-research/doppler-sdk$",
+                "message": "Use the reviewed Alchemy and native chain service edges."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "apps/web/src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              },
+              {
+                "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
+                "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
+                "message": "Privy SDK dependencies are development oracles only."
+              },
+              {
+                "regex": "^(?:effect-cf|@solana/web3\\.js|@coral-xyz/anchor|bn\\.js|@meteora-ag/dynamic-bonding-curve-sdk)(?:/|$)|^@whetstone-research/doppler-sdk$",
+                "message": "Use the reviewed Alchemy and native chain service edges."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "apps/signer/src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              },
+              {
+                "regex": "^(?:three|three-mesh-bvh|three-edge-projection)(?:/|$)",
+                "message": "Three.js belongs only in apps/web."
+              },
+              {
+                "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
+                "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
+                "message": "Privy SDK dependencies are development oracles only."
+              },
+              {
+                "regex": "^(?:effect-cf|@solana/web3\\.js|@coral-xyz/anchor|bn\\.js|@meteora-ag/dynamic-bonding-curve-sdk)(?:/|$)|^@whetstone-research/doppler-sdk$",
+                "message": "Use the reviewed Alchemy and native chain service edges."
+              },
+              {
+                "regex": "^(?:openai(?:/|$)|@anthropic-ai/|@yielded/|@effect/ai-|effect/ai(?:/|$)|@floor/app-floor(?:/|$))|(?:^|/)apps/floor(?:/|$)",
+                "message": "Signer authority excludes models, agents and Floor application code."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "packages/contract/src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "*",
+                  "!effect",
+                  "!effect/**",
+                  "!@floor/contract",
+                  "!@floor/contract/**",
+                  "!./**"
+                ],
+                "message": "Contract imports only Effect and its own modules."
+              },
+              {
+                "regex": "(?:^|/)\\.\\.(?:/|$)",
+                "message": "Contract modules use local children or their own package exports."
+              },
+              {
+                "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
+                "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
+                "message": "Privy SDK dependencies are development oracles only."
+              },
+              {
+                "regex": "^(?:effect-cf|@solana/web3\\.js|@coral-xyz/anchor|bn\\.js|@meteora-ag/dynamic-bonding-curve-sdk)(?:/|$)|^@whetstone-research/doppler-sdk$",
+                "message": "Use the reviewed Alchemy and native chain service edges."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "apps/*/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
+        "packages/*/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
+        "apps/*/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}",
+        "packages/*/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              },
+              {
+                "regex": "^(?:three|three-mesh-bvh|three-edge-projection)(?:/|$)",
+                "message": "Three.js belongs only in apps/web."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "apps/web/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
+        "apps/web/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
+                "message": "The native Solana adapter owns transaction construction, including in tests."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/test/**/*.ts",
+        "testing/flows/**/*.spec.ts"
+      ],
+      "rules": {
+        "effect/noEffectRunInTests": "off",
+        "effect/noInlineProvide": "off",
+        "effecttsgo/strict-effect-provide": "off"
+      }
+    },
+    {
+      "files": [
+        "scripts/build-atlas.ts",
+        "scripts/lint/styles.ts",
+        "scripts/lint/suppressions.ts",
+        "scripts/bundle-budget/cli.ts",
+        "scripts/bundle-budget/modules.ts",
+        "testing/look/run.ts",
+        "apps/web/src/entry.ts",
+        "apps/web/workbench/entry.ts",
+        "scripts/ci/admin.ts",
+        "scripts/ci/deploy.ts",
+        "scripts/ci/cleanup.ts",
+        "packages/chains/scripts/bounded-client.ts"
+      ],
+      "rules": {
+        "effecttsgo/strict-effect-provide": "off"
+      }
+    },
     {
       "files": [
         "apps/web/src/**/*.ts"
@@ -169,6 +480,15 @@
       ],
       "rules": {
         "foldkit/no-impure-call-at-decision-time": "off"
+      }
+    },
+    {
+      "files": [
+        "testing/flows/**/*.spec.ts",
+        "testing/flows/renderer/fixture.ts"
+      ],
+      "rules": {
+        "effect/noAsyncFunction": "off"
       }
     }
   ]

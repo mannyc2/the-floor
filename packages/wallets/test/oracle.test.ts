@@ -27,7 +27,6 @@ const check = Effect.fn("Privy.oracle.check")(function*<A, B, E>(
 ) {
   const fixture = capture(reply);
   yield* PrivyWallets.use(nativeCall).pipe(
-    // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Each comparison owns a synthetic transport; production client construction remains unchanged.
     Effect.provide(fixture.layer),
   );
   const sdkResult = sdkCall(fixture.sdk);
@@ -319,7 +318,6 @@ test(
   "156 seeded native operations match the pinned SDK wire and cross-verify three signers",
   generatedCases.pipe(
     Random.withSeed(0x50726976),
-    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The offline test owns ephemeral keys; no provider credentials or transport are available.
     Effect.provide(P256.layer),
   ),
   { timeout: 30000 },

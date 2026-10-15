@@ -1,4 +1,3 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns the browser callback and native asynchronous assertions. */
 import { expect, ready, record, test } from "./fixture";
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright owns this native Promise test boundary.
@@ -63,4 +62,3 @@ test("a native resize failure stops frames and camera commits until a fresh Moun
   expect(recovered.paused).toBe(false);
   record("native failure stops host until fresh Mount", { failed, after, afterHistory, recovered });
 });
-/* oxlint-enable effecttsgo/async-function, effect/noAsyncFunction */

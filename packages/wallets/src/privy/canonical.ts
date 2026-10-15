@@ -9,7 +9,7 @@ const serialize = (value: Schema.Json): Result.Result<string, PrivyFailure> => {
   if (Schema.is(Schema.String)(value) && !value.isWellFormed()) return invalid("Lone surrogate");
   if (Predicate.isNumber(value) && !Number.isFinite(value)) return invalid("Non-finite number");
   if (Schema.is(Schema.Union([Schema.Null, Schema.String, Schema.Finite, Schema.Boolean]))(value)) {
-    // oxlint-disable-next-line effecttsgo/prefer-schema-over-json, effect/noGlobals -- JCS specifically requires ECMAScript's primitive serialization; the public boundary is already Schema-decoded.
+    // oxlint-disable-next-line effect/noGlobals -- JCS specifically requires ECMAScript's primitive serialization; the public boundary is already Schema-decoded.
     return Result.succeed(JSON.stringify(value));
   }
   if (Schema.is(Schema.Array(Schema.Json))(value)) {

@@ -24,7 +24,6 @@ export const capture = <E = never>(
   const calls: Captured[] = [];
   const fetch = FetchHttpClient.Fetch.of(Object.assign(
     (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      // oxlint-disable-next-line effect/noEffectRunInTests -- A fake Fetch must expose a Promise to both HTTP clients; this boundary never calls a network transport.
       Effect.runPromise(Effect.gen(function*() {
         const request = input instanceof Request ? new Request(input, init) : new Request(String(input), init);
         const call = { request, body: yield* Effect.promise(() => request.text()) };
@@ -56,7 +55,6 @@ export const capture = <E = never>(
 };
 
 export const privateKey = Effect.fn("Privy.oracle.privateKey")((key: CryptoKey) =>
-  // oxlint-disable-next-line effect/noGlobals -- Only ephemeral test keys are exported to feed the independent SDK signer; production keeps its keys opaque.
   Effect.promise(() => globalThis.crypto.subtle.exportKey("pkcs8", key)).pipe(
     Effect.map(bytes => Base64.encode(new Uint8Array(bytes))),
   )

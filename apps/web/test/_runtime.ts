@@ -8,8 +8,6 @@ export const effectTest = <A, E>(name: string, body: () => Effect.Effect<A, E, S
   test(name, () =>
     body().pipe(
       Effect.scoped,
-      // oxlint-disable-next-line effecttsgo/strict-effect-provide -- This Bun test adapter is the sole runtime boundary for the controllable clock.
       Effect.provide(TestClock.layer()),
-      // oxlint-disable-next-line effect/noEffectRunInTests -- Bun consumes a Promise; only this test adapter runs Effects.
       Effect.runPromise,
     ));

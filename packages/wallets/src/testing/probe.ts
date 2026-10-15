@@ -27,7 +27,6 @@ export const probePrivy = Effect.gen(function*() {
   const expected = "{\"10\":\"ten\",\"2\":\"two\",\"a\":\"😀\",\"z\":[4.5,0.002,1e+30]}";
   const raw = yield* p256.signRaw(first.privateKey, canonical);
   const exported = yield* Effect.tryPromise({
-    // oxlint-disable-next-line effect/noGlobals -- Only this probe exports its ephemeral private key to test the production PKCS8 import boundary; no key leaves memory.
     try: () => globalThis.crypto.subtle.exportKey("pkcs8", first.privateKey),
     catch: cause => new PrivyFailure({ operation: "probe-export", detail: "Ephemeral key export failed", cause }),
   });

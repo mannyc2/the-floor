@@ -379,7 +379,7 @@ The floor needs at least:
 
 ## Generated outputs and the fences
 
-`bun run build:atlas` runs `scripts/build-atlas.ts` and writes these files under `packages/atlas/generated/`:
+`bun scripts/build-atlas.ts` writes these files under `packages/atlas/generated/`:
 - **`atlas.css`:** the recorded colour tokens as custom properties per theme. Type, spacing and other unpicked interface values remain absent.
 - **`palette.ts`:** linear-space RGBA texture data in the renderer's exact palette-slot order, with separate material, proportion-study and synthetic palettes.
 - **`tokens.json`,** in the Design Tokens Format (DTCG 2025.10), with status and source metadata in the `org.the-floor.atlas` extension.

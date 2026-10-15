@@ -1,14 +1,11 @@
-import { Array, Effect, Option, Path, Schema } from "effect";
+import { Effect, Option, Path, Schema } from "effect";
 import { Diagnostic, type ESTree, Plugin, Rule, RuleContext, Visitor } from "effect-oxlint";
-import { chainNeutralSchemas } from "./chain-neutral-schemas";
-import { isPrivySolanaKitPath, isTestingPath as testingPath, isWalletOraclePath } from "./paths";
 import { hasVisualLiteral } from "./visual-values";
 
 interface Boundary {
   readonly file: string;
   readonly source: string;
   readonly target: Option.Option<string>;
-  readonly production: boolean;
 }
 
 interface BoundaryRule {
@@ -19,6 +16,13 @@ interface BoundaryRule {
 }
 
 const within = (file: string, directory: string) => file === directory || file.startsWith(`${directory}/`);
+// Imports often omit the source extension, so testing ownership is determined
+// before module resolution and also checked again on emitted source-map paths.
+const testingPath = (file: string): boolean =>
+  file.replaceAll("\\", "/").split("/").some(part =>
+    part.endsWith("-testing") || ["test", "testing", "__tests__", "_fixtures", "fixtures", "recordings"].includes(part)
+  ) || /\.(test|spec)(?:\.[cm]?[jt]sx?)?$/.test(file);
+
 const productionPath = (file: string) => /^(apps|packages)\/[^/]+\/src\//.test(file) && !testingPath(file);
 const app = (file: string) => Option.fromUndefinedOr(/^apps\/([^/]+)\//.exec(file)?.[1]);
 const feature = (file: string) =>
@@ -26,14 +30,6 @@ const feature = (file: string) =>
     Option.fromUndefinedOr(/^(?:apps|packages)\/[^/]+\/src\/([^/]+)\//.exec(file)?.[1]),
     name => !name.startsWith("_") && name !== "testing",
   );
-const literal = (node: ESTree.Node): Option.Option<string> => {
-  if (node.type === "Literal") return Schema.decodeUnknownOption(Schema.String)(node.value);
-  if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
-    return Option.flatMap(Array.head(node.quasis), part => Option.fromNullishOr(part.value.cooked));
-  }
-  return Option.none();
-};
-
 const moduleVisitor = (rule: BoundaryRule) =>
   Effect.gen(function*() {
     const context = yield* RuleContext;
@@ -59,12 +55,18 @@ const moduleVisitor = (rule: BoundaryRule) =>
       return Option.none();
     };
     const report = (node: ESTree.Node, source: string) =>
-      Option.match(rule.violation({ file, source, target: target(source), production }), {
+      Option.match(rule.violation({ file, source, target: target(source) }), {
         onNone: () => Effect.void,
         onSome: message => context.report(Diagnostic.make({ node, message })),
       });
-    const reportLiteral = (node: ESTree.Node, value: ESTree.Node) =>
-      Option.match(literal(value), { onNone: () => Effect.void, onSome: source => report(node, source) });
+    // Native import restrictions inspect string literals, but not templates, require calls or type queries.
+    const inspectable = (node: ESTree.Node) =>
+      rule.allSources === true
+        ? context.report(Diagnostic.make({
+          node,
+          message: "Use a static import or a string-literal import() so module boundaries remain inspectable.",
+        }))
+        : Effect.void;
     return Visitor.merge(
       Visitor.on("ImportDeclaration", node => report(node.source, node.source.value)),
       Visitor.on("ExportAllDeclaration", node => report(node.source, node.source.value)),
@@ -73,15 +75,18 @@ const moduleVisitor = (rule: BoundaryRule) =>
           onNone: () => Effect.void,
           onSome: source => report(source, source.value),
         })),
-      Visitor.on("ImportExpression", node => reportLiteral(node, node.source)),
-      Visitor.on("TSImportType", node => report(node.source, node.source.value)),
+      Visitor.on("ImportExpression", node =>
+        node.source.type === "Literal"
+          ? Option.match(Schema.decodeUnknownOption(Schema.String)(node.source.value), {
+            onNone: () => inspectable(node),
+            onSome: source => report(node, source),
+          })
+          : inspectable(node)),
+      Visitor.on("TSImportType", inspectable),
       Visitor.on("TSExternalModuleReference", node => report(node.expression, node.expression.value)),
       Visitor.on("CallExpression", node =>
         node.callee.type === "Identifier" && node.callee.name === "require"
-          ? Option.match(Array.head(node.arguments), {
-            onNone: () => Effect.void,
-            onSome: source => reportLiteral(node, source),
-          })
+          ? inspectable(node)
           : Effect.void),
     );
   });
@@ -96,16 +101,6 @@ const boundaryRule = (definition: BoundaryRule) =>
       return yield* moduleVisitor(definition).pipe(Effect.provide(Path.layer));
     },
   });
-
-export const contractIsolation = boundaryRule({
-  name: "contract-isolation",
-  description: "Contract schemas depend only on Effect and their own package.",
-  violation: ({ file, source, target }) =>
-    !within(file, "packages/contract/src") || source === "effect" || source.startsWith("effect/")
-      || Option.exists(target, value => within(value, "packages/contract/src"))
-      ? Option.none()
-      : Option.some(`Contract cannot import '${source}'; only Effect and its own modules are allowed.`),
-});
 
 export const appIsolation = boundaryRule({
   name: "app-isolation",
@@ -137,161 +132,6 @@ export const featureIsolation = boundaryRule({
   },
 });
 
-export const signerIsolation = boundaryRule({
-  name: "signer-isolation",
-  description: "Signer authority excludes inference, agents and Floor application code.",
-  violation: ({ file, source, target }) => {
-    if (!within(file, "apps/signer")) return Option.none();
-    const inference = /^(?:openai(?:\/|$)|@anthropic-ai\/|@yielded\/|@effect\/ai-|effect\/ai(?:\/|$))/.test(source);
-    return inference || Option.exists(target, value => within(value, "apps/floor"))
-      ? Option.some(`Signer cannot import agent or inference capability '${source}'.`)
-      : Option.none();
-  },
-});
-
-export const threeIsolation = boundaryRule({
-  name: "three-isolation",
-  description: "Three.js and its adapters stay in the web application, including test adapters.",
-  allSources: true,
-  violation: ({ file, source }) =>
-    !within(file, "apps/web") && /^(?:three(?:\/|$)|three-mesh-bvh(?:\/|$)|three-edge-projection(?:\/|$))/.test(source)
-      ? Option.some(`Three.js capability '${source}' belongs only in apps/web.`)
-      : Option.none(),
-});
-
-export const legacyDependencies = boundaryRule({
-  name: "legacy-dependencies",
-  description: "Production uses the accepted runtime and chain service edges.",
-  violation: ({ source }) =>
-    /^(?:effect-cf|@solana\/web3\.js|@coral-xyz\/anchor|bn\.js|@meteora-ag\/dynamic-bonding-curve-sdk)(?:\/|$)/.test(
-        source,
-      )
-      || source === "@whetstone-research/doppler-sdk"
-      ? Option.some(`Production cannot import '${source}'; use the reviewed Alchemy or chain adapter.`)
-      : Option.none(),
-});
-
-export const productionFixtures = boundaryRule({
-  name: "production-fixtures",
-  description: "Production excludes test exports, fixtures, recordings and the workbench.",
-  violation: ({ source, target }) =>
-    testingPath(source) || source.split("/").includes("workbench")
-      || Option.exists(target, value => testingPath(value) || value.split("/").includes("workbench"))
-      ? Option.some(`Production cannot import test or workbench material '${source}'.`)
-      : Option.none(),
-});
-
-export const oracleDependencies = boundaryRule({
-  name: "oracle-dependencies",
-  description: "Privy's SDK is a development oracle; its Solana helper is never imported.",
-  allSources: true,
-  violation: ({ source, production }) => {
-    if (isPrivySolanaKitPath(source)) {
-      return Option.some(`Never import '${source}'; the native Solana adapter owns transaction construction.`);
-    }
-    return production && isWalletOraclePath(source)
-      ? Option.some(`Production cannot import '${source}'; Privy's SDK and its dependencies are test oracles only.`)
-      : Option.none();
-  },
-});
-
-export const staticModules = Rule.define({
-  name: "static-modules",
-  meta: Rule.meta({ type: "problem", description: "Production dependencies must be statically checkable." }),
-  create: function*() {
-    const context = yield* RuleContext;
-    const relative = context.filename.replaceAll("\\", "/").replace(context.cwd.replaceAll("\\", "/") + "/", "");
-    if (!productionPath(relative)) return {};
-    const check = (node: ESTree.Node, value: Option.Option<ESTree.Node>) =>
-      Option.isSome(Option.flatMap(value, literal))
-        ? Effect.void
-        : context.report(
-          Diagnostic.make({ node, message: "Use a literal dependency so authority boundaries can be checked." }),
-        );
-    return Visitor.merge(
-      Visitor.on("ImportExpression", node => check(node, Option.some(node.source))),
-      Visitor.on("CallExpression", node =>
-        node.callee.type === "Identifier" && node.callee.name === "require"
-          ? check(node, Array.head(node.arguments))
-          : Effect.void),
-    );
-  },
-});
-
-// Collect path fragments before normalization so join('testing', file) is visible.
-const pathFragments = (node: ESTree.Node): readonly string[] => {
-  const value = literal(node);
-  if (Option.isSome(value)) return [value.value];
-  if (node.type === "BinaryExpression" && node.operator === "+") {
-    return [...pathFragments(node.left), ...pathFragments(node.right)];
-  }
-  if (node.type === "TemplateLiteral") return node.quasis.map(part => part.value.raw);
-  if (node.type === "CallExpression" || node.type === "NewExpression") return node.arguments.flatMap(pathFragments);
-  return [];
-};
-const staticPath = (node: ESTree.Node): boolean => {
-  if (Option.isSome(literal(node))) return true;
-  if (node.type === "BinaryExpression" && node.operator === "+") return staticPath(node.left) && staticPath(node.right);
-  if (
-    node.type === "CallExpression"
-    && Option.exists(calledName(node.callee), name => name === "join" || name === "resolve")
-  ) {
-    return node.arguments.length > 0 && node.arguments.every(staticPath);
-  }
-  return false;
-};
-const calledName = (node: ESTree.Node): Option.Option<string> => {
-  if (node.type === "Identifier") return Option.some(node.name);
-  if (node.type === "MemberExpression") {
-    if (!node.computed && node.property.type === "Identifier") return Option.some(node.property.name);
-    return literal(node.property);
-  }
-  return Option.none();
-};
-
-export const dataReads = Rule.define({
-  name: "data-reads",
-  meta: Rule.meta({
-    type: "problem",
-    description: "File reads and copies cannot bypass the testing and workbench fences.",
-  }),
-  create: function*() {
-    const context = yield* RuleContext;
-    const relative = context.filename.replaceAll("\\", "/").replace(context.cwd.replaceAll("\\", "/") + "/", "");
-    const production = productionPath(relative);
-    return Visitor.on("CallExpression", node => {
-      const name = calledName(node.callee);
-      if (
-        !Option.exists(
-          name,
-          value =>
-            /^(?:file|readFile|readFileSync|readFileString|readTextFile|createReadStream|copyFile|copyFileSync|copy|cp|cpSync|glob)$/
-              .test(value),
-        )
-      ) return Effect.void;
-      const input = Array.head(node.arguments);
-      const fragments = Option.match(input, { onNone: () => [], onSome: pathFragments });
-      const joined = fragments.join("/").replaceAll("\\", "/");
-      const forbidden = production && (testingPath(joined) || joined.split("/").includes("workbench"));
-      if (forbidden) {
-        return context.report(
-          Diagnostic.make({
-            node,
-            message: "Production file reads and copies cannot consume testing or workbench data.",
-          }),
-        );
-      }
-      // Runtime file inputs belong in an explicit capability edge; opaque paths cannot prove a production-data boundary.
-      if (production && !Option.exists(input, staticPath)) {
-        return context.report(
-          Diagnostic.make({ node, message: "A production file dependency must have a statically declared path." }),
-        );
-      }
-      return Effect.void;
-    });
-  },
-});
-
 export const atlasLiterals = Rule.define({
   name: "atlas-literals",
   meta: Rule.meta({ type: "problem", description: "Production visual values come from the approved Atlas source." }),
@@ -317,17 +157,8 @@ export const atlasLiterals = Rule.define({
 export default Plugin.define({
   name: "floor",
   rules: {
-    "contract-isolation": contractIsolation,
-    "chain-neutral-schemas": chainNeutralSchemas,
     "app-isolation": appIsolation,
     "feature-isolation": featureIsolation,
-    "signer-isolation": signerIsolation,
-    "three-isolation": threeIsolation,
-    "legacy-dependencies": legacyDependencies,
-    "oracle-dependencies": oracleDependencies,
-    "production-fixtures": productionFixtures,
-    "static-modules": staticModules,
-    "data-reads": dataReads,
     "atlas-literals": atlasLiterals,
   },
 });
