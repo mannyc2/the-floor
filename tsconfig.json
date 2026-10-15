@@ -127,7 +127,6 @@
           "effect/ai",
           "effect/cli",
           "effect/http",
-          "effect/http-api",
           "effect/rpc",
           "effect/sql",
           "effect/schema/Model",
