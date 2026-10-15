@@ -31,6 +31,23 @@ Checked on 13 October against the installed 0.35.0 policy condition sources and 
 
 Policy attachment is a separate authority boundary: a wallet owner can change its attached policies through wallet PATCH. Giving the execution quorum wallet ownership therefore does not establish owner-only policy control, even if a different key owns the policy itself. [Additional signers](https://docs.privy.io/controls/authorization-keys/owners/overview) cannot administer the wallet or export its key, and a signer's restrictive policy must be explicit in its `override_policy_ids`, because [signer policies](https://docs.privy.io/recipes/wallets/conditional-signer-policies) are independent of wallet-level ones. The native edge exposes wallet and policy updates; it does not yet provision or verify that separation, which stays an [open item](../../docs/decisions.md#open-items).
 
+### Administration authority blocker — 14 October 2026
+
+The offline investigation cannot establish the full requested separation using Privy's documented controls. Implementation stopped under the owner's instruction to report a missing provider control rather than work around it. No delegation, additional tests or sandbox script were added, and no Privy API calls were made in this investigation. The existing test preloads and signer dependency fences remain unchanged.
+
+Wallet administration and quorum administration are different boundaries:
+
+| Requirement | Available evidence |
+| --- | --- |
+| Keep wallet ownership, policy attachments, additional signers and wallet-key export out of routine execution | Privy's [owner/signer permissions](https://docs.privy.io/controls/authorization-keys/owners/overview) explicitly support this with a separate wallet owner and an additional signer. Policy rules also need a separate owner, and the additional signer needs an explicit restrictive override policy. This configuration is not yet implemented or sandbox-verified here. |
+| Prevent routine execution from replacing its quorum members or changing its threshold | The [quorum update API](https://docs.privy.io/api-reference/key-quorums/update) accepts replacement public keys, users, nested quorums and a threshold. Privy's [authorization rules](https://docs.privy.io/api-reference/authorization-signatures#updating-key-quorums) explicitly say quorums have no owners: updates and deletion require signatures meeting the existing quorum's threshold. The [quorum update intent](https://docs.privy.io/api-reference/intents/update-key-quorum) also requires its members' authorization. The supported shapes expose no separate administrator, administration threshold, policy attachment or immutability switch. |
+
+The installed development oracle, `@privy-io/node` 0.35.0, agrees: `src/resources/key-quorums.ts` defines the mutable fields, `src/resources/intents.ts` documents member authorization for `updateKeyQuorum`, and `src/resources/wallets/wallets.ts` makes `AdditionalSignerItemInput.signer_id` a `KeyQuorumID`. Registering a [single authorization key](https://docs.privy.io/controls/authorization-keys/keys/create/key) through the REST API still uses a key quorum; it does not supply an independent administration control.
+
+For the planned two-of-two execution quorum, one member alone being unable to update it is a narrower guarantee than keeping administration outside routine execution. The agent and signer together hold the execution quorum's member authority. A local refusal to call PATCH would not remove that authority from compromised credentials. Adding another co-authorizer or requiring the owner on routine requests would change the requested design. Neither was introduced.
+
+This is a documentation and installed-source finding, independently reviewed twice, not an observed live quorum modification or proof of a provider bypass. Before implementation resumes, Privy must identify a supported control that separates quorum administration from execution, or the owner must explicitly revise the requirement. After that, the sandbox proof still needs positive execution and owner-administration controls plus negative attempts to replace policies, owners, quorum members or thresholds, add signers, export keys and widen signer authority. It must require both an explicit environment opt-in and a command-line flag, and use only approved sandbox resources. No such proof has run; Stage 3 trading remains blocked.
+
 ## SDK oracle and production fences
 
 The native client is the chosen implementation. `@privy-io/node` **0.35.0** is an exact `devDependency` of this package only; it is not a production fallback. The SDK provides an independent implementation for comparison, the same role the Meteora SDK serves for the chain maths. Source lint and emitted-module/source-map checks reject `@privy-io/node`, `svix` and `@hpke/*` from web, Floor, chains and the future signer. No test imports the SDK's `/solana-kit` helper, which peers on Kit ^5.1.0 while the project uses 8.
@@ -98,3 +115,22 @@ Scratch-copy mutation audits detected **31 of 31** deliberate changes, without m
 - 15 dependency/module-fence mutations, tested in a scratch copy with `bun test ./scripts/lint/test ./scripts/bundle-budget/test`; `work/privy-fence-mutations/results.txt` retains passing baseline and restored runs.
 - 13 authorization/key-handling mutations: `python3 work/privy-oracle-mutations/run.py`; the final run explicitly preloaded the absolute `test/_offline.ts` path for every scratch command. Its baseline passed 21 tests and 2,449 assertions; `work/privy-oracle-mutations/report.json` records each command and failure. Two mutations disable local quorum-fixture guards, which prove test behavior rather than provider enforcement.
 - Three canonicalization mutations: `bun work/privy-oracle/mutate-canonical.ts`; `work/privy-oracle/canonical-mutations/report.json` records failures when surrogate rejection, UTF-16 property ordering or numeric formatting is disabled.
+
+
+## Verification — 14 October 2026 (authority investigation)
+
+The requested local sequence passed with Bun 1.4.0 on an isolated checkout of `229969bcb605a3edd0d65b52b70b3338eb95c155` containing only these wallet documentation changes. Concurrent Atlas implementation in the shared checkout is outside this result. Logs, installed SDK source hashes and snapshots, the review receipt, and browser recordings/captures are retained under `work/wallet-authority-001/isolated/` in the primary checkout.
+
+| Command | Result |
+| --- | --- |
+| `bun install --frozen-lockfile` | Passed |
+| `bun run format:check` | Passed |
+| `bun run typecheck` | Passed |
+| `bun run lint` | Passed, including dependency fences and the unchanged 207-directive suppression budget |
+| `bun run test:leaf` | 353 tests, 16,575 assertions; zero failures, with the existing external-network preload |
+| `bun run build` | Passed web, Worker and chain builds, bundle budgets and module/source-map fences |
+| `bun run test:native` | All three native Worker checks passed |
+| `FLOOR_FLOW_REMOTE=false FLOOR_FLOW_URL=http://127.0.0.1:19740 FLOOR_RENDERER_PORT=5199 bun run test:flow` | Shell flow and all 72 renderer checks passed; renderer suite took 14.5 minutes and included the 360-capture look matrix and configured phone profile |
+| `git diff --check` | Passed |
+
+These checks cover the existing implementation and documentation; they do not prove the missing provider authority boundary. No Privy API request, sandbox proof, hosted preview/deployed flow, real-phone check or push was performed. Preview admission remains disabled and provider access remains unapproved. The open wallet item and Stage 0 approval remain open.
