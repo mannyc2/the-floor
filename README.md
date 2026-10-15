@@ -22,6 +22,7 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 | [Ideas](docs/ideas.md) | Everything not in the first milestone: cut features, later plans and ideas not yet adopted |
 | [Research](docs/research.md) | The facts behind the defaults: chains, launchpads, market data, wallets, funding and regulation |
 | [Stage 0](docs/stage-0.md) | What the current stage has done, and what's left |
+| [Stage 0 plan](docs/stage-0-plan.md) | The ordered work to close Stage 0: workstreams, dependencies, integration and the owner's gates |
 | [Stage 1 groundwork](docs/stage-1.md) | Contract and world-model choices and verification; stage approval remains pending |
 | [Platform](docs/platform.md) | Cloudflare and Alchemy, preview CI, spending limits, and the provider checks still open |
 | [The look](docs/look.md) | How the floor gets drawn, and the steps left to finish it |
