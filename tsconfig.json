@@ -146,6 +146,7 @@
           "effect/Path",
           "@effect/platform-bun",
           "@effect/platform-node",
+          "@effect/platform-node-shared/NodeSocketServer",
           "@floor/api",
           "effect/Arbitrary"
         ]
