@@ -19,7 +19,8 @@
     "@yielded/agent": "0.1.0-beta.166-floor.0adbcff.403.2",
     "@yielded/agent-platform-cloudflare": "0.1.0-beta.166-floor.0adbcff.403.2",
     "@yielded/agent-platform-alchemy-cloudflare": "0.1.0-beta.166-floor.0adbcff.403.2",
-    "@floor/world": "workspace:*"
+    "@floor/world": "workspace:*",
+    "jose": "6.2.12"
   },
   "devDependencies": {
     "@yielded/agent-testing": "0.1.0-beta.166-floor.0adbcff.403.2",

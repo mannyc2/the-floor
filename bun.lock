@@ -53,6 +53,7 @@
         "@yielded/agent-platform-cloudflare": "0.1.0-beta.166-floor.0adbcff.403.2",
         "alchemy": "2.0.0-beta.80",
         "effect": "4.0.3",
+        "jose": "6.2.12",
       },
       "devDependencies": {
         "@effect/platform-browser": "4.0.3",

@@ -1,6 +1,27 @@
 # Floor Worker
 
-`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env?, devPort? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves public health, `/mcp` exposes it as a read-only tool, and `/api/world` streams public world snapshots and deliveries through HTTP NDJSON RPC. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. Production exposes no model, submission or mutation endpoint. Owner operations wait for the Privy device-token check. Health, world reads, MCP and static assets start without provider credentials.
+`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env?, devPort? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves public health, `/mcp` exposes it as a read-only tool, and `/api/world` streams public world snapshots and deliveries through HTTP NDJSON RPC. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. Production exposes no model, submission, mutation or owner endpoint. Health, world reads, MCP and static assets start without provider credentials.
+
+## Owner authentication
+
+`@floor/api/auth` exports the `AuthenticateOwner` RPC middleware and the `CurrentOwner` service it provides. No production RPC uses it yet. Attach it to a separate owner RPC group; the MCP adapter accepts only public RPCs. Compose the verifier in `src/owners/auth.ts` at the first protected route's runtime boundary:
+
+```ts
+const OwnerAuthenticationLive = Layer.unwrap(
+  Effect.map(PrivyTokens, ({ verify }) => AuthenticateOwner.layer(verify)),
+).pipe(Layer.provide(PrivyTokens.layer));
+```
+
+`PrivyTokens.layer` requires `PRIVY_APP_ID`. It verifies ES256 signatures with `jose` on Web Crypto using only `https://api.privy.io/v1/apps/{appId}/jwks.json`, with an audience exactly equal to that app ID. The service owns the JWKS cache and cancels outstanding retrieval when its scope closes; one request's cancellation does not cancel another's shared key retrieval. JOSE's default five-second retrieval timeout, thirty-second fetch cooldown and ten-minute key cache apply. Tokens must expire; `exp`, and optional `nbf`/`iat`, must be finite numeric dates, and expiry is checked again after key retrieval.
+
+The accepted shapes are the owner's 14 October 2026 sandbox observations, not documented Privy guarantees:
+
+| Origin | Issuer | Subject | Required claim | Forbidden claim |
+| --- | --- | --- | --- | --- |
+| Web | `privy.io` | `did:privy:…` | Nonempty `sid` | `grant` |
+| CLI | `privy:{appId}` | Nonempty unprefixed subject | `grant: device_code` | `sid` |
+
+`CurrentOwner` carries `{ subject, origin }`, with CLI subjects normalized to `did:privy:…` and `origin` equal to `web` or `cli`. The provider subject is not a persisted Floor `OwnerId`. Other claim combinations fail, and a missing or invalid Bearer credential never runs the handler. RPC errors carry only the authentication reason; internal failures keep a redacted foreign cause. Browser sign-in, CLI login, protected handlers and CLI-origin restrictions on withdrawals and policy changes are not built.
 
 The native Alchemy Worker binds `FLOOR_THREADS`, `FLOOR_MAILBOXES` and `FLOOR_WORLDS`. The original agent, definition digest, submission ledger, alarm execution and record storage use the pinned Yielded packages. A mailbox schedules admission through Alchemy's native callback, then the Yielded alarm completes a schema-checked question-and-answer turn without a polling request. Each world object atomically journals its events and snapshots in native SQL, preserving chain checkpoints and an independent resume sequence.
 

@@ -47,7 +47,7 @@ The sustained snapshot checks retain every revision, deterministic draw/triangle
 
 ### RPC and MCP
 
-`FloorRpcs` serves health at `/api/rpc`; its server-only MCP adapter exposes unary read-only operations at `/mcp`. `WorldRpcs` serves the separate stream at `/api/world`. The production Floor Worker has no public mutation or model-run route. Authentication must precede owner operations or hosted first-trade exposure, and the current RPC surface still needs hosted verification.
+`FloorRpcs` serves health at `/api/rpc`; its server-only MCP adapter exposes unary read-only operations at `/mcp`. `WorldRpcs` serves the separate stream at `/api/world`. The production Floor Worker has no public mutation or model-run route, and all three routes are credential-free. The `AuthenticateOwner` RPC middleware and its `PrivyTokens` verifier exist for a future owner RPC group, but no RPC uses them and there is no browser sign-in or CLI login. Owner operations or hosted first-trade exposure must wait for that protected group, and the current RPC surface still needs hosted verification.
 
 ### Live world
 

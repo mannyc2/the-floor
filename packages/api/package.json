@@ -5,6 +5,7 @@
   "exports": {
     "./rpc": "./src/rpc.ts",
     "./mcp": "./src/mcp.ts",
+    "./auth": "./src/auth.ts",
     "./signer": "./src/signer.ts",
     "./world": "./src/world.ts",
     "./world-rpc": "./src/world-rpc.ts"
