@@ -13,6 +13,7 @@ const fixture = () => {
     return { id: index + 1, x, y: 0, z: 0 };
   });
   const clock = { now: 0, dirty: 0 };
+  const recordedInterpolation = { value: 0 };
   const snapshots = makeInstanceSnapshots(
     positions.map((position, index) => ({ id: position.id, mesh, maybeInstance: Option.some(index) })),
     () => clock.now,
@@ -20,13 +21,14 @@ const fixture = () => {
       clock.dirty++;
     },
     { value: 1 },
+    recordedInterpolation,
   );
   const buffers = () =>
     ["_INSTANCE_FROM", "_INSTANCE_TO"].map(name => {
       const attribute = geometry.getAttribute(name);
       return { values: Array.from(attribute.array), version: "version" in attribute ? attribute.version : -1 };
     });
-  return { snapshots, clock, positions, buffers };
+  return { snapshots, clock, positions, buffers, recordedInterpolation };
 };
 
 describe("Complete instance snapshots", () => {
@@ -97,6 +99,51 @@ describe("Complete instance snapshots", () => {
         snapshots.advance();
         expect(clock.dirty).toBe(settledDirty);
         expect(buffers()).toEqual(afterSnapshot);
+      }),
+  );
+
+  effectTest(
+    "a recorded presentation cannot rewind or pause a live position packet",
+    () =>
+      Effect.gen(function*() {
+        const { snapshots, clock, positions, buffers, recordedInterpolation } = fixture();
+        yield* snapshots.snapshot({
+          revision: 0,
+          instances: positions.map(position => ({ ...position, x: position.x + 4 })),
+        });
+        clock.now = 125;
+        snapshots.advance();
+        expect(snapshots.positions().map(position => position.x)).toEqual([12, 22, 32]);
+        const before = buffers();
+        snapshots.present(0, 0, 0);
+        expect(recordedInterpolation.value).toBe(0);
+        expect(snapshots.positions().map(position => position.x)).toEqual([12, 22, 32]);
+        clock.now = 250;
+        snapshots.advance();
+        expect(snapshots.positions().map(position => position.x)).toEqual([14, 24, 34]);
+        expect(buffers()).toEqual(before);
+      }),
+  );
+
+  effectTest(
+    "recorded reverse playback reaches its start and then stops dirtying the scene",
+    () =>
+      Effect.sync(() => {
+        const { snapshots, clock, recordedInterpolation } = fixture();
+        snapshots.present(250, 0, -1);
+        expect(recordedInterpolation.value).toBe(1);
+        clock.now = 125;
+        snapshots.advance();
+        expect(recordedInterpolation.value).toBe(.5);
+        clock.now = 250;
+        snapshots.advance();
+        expect(recordedInterpolation.value).toBe(0);
+        const settledDirty = clock.dirty;
+        clock.now = 500;
+        snapshots.advance();
+        expect(recordedInterpolation.value).toBe(0);
+        expect(clock.dirty).toBe(settledDirty);
+        expect(snapshots.positions().map(position => position.x)).toEqual([10, 20, 30]);
       }),
   );
 

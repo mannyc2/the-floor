@@ -23,10 +23,6 @@ export const cameraFromQuery = (query: URLSearchParams) =>
   });
 export const Theme = Schema.Literals(["day", "night"]);
 export type Theme = typeof Theme.Type;
-export const Marker = Schema.Struct({ id: Schema.String, x: Schema.Finite, kind: Schema.Literals(["box", "sphere"]) });
-export type Marker = typeof Marker.Type;
-export const Snapshot = Schema.Struct({ revision: Schema.Int, markers: Schema.Array(Marker) });
-export type Snapshot = typeof Snapshot.Type;
 export const Presentation = Schema.Struct({
   revision: Schema.Int,
   theme: Theme,
@@ -41,18 +37,34 @@ export const Presentation = Schema.Struct({
   intervalStart: Schema.Finite,
 });
 export type Presentation = typeof Presentation.Type;
-export const Envelope = Schema.Struct({
-  generation: Schema.Int.check(Schema.isGreaterThan(0)),
-  sequence: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
-  mode: Schema.Literals(["Live", "Paused"]),
-  presentation: Presentation,
-});
-export type Envelope = typeof Envelope.Type;
-export const Receipt = Schema.Struct({ generation: Schema.Int, sequence: Schema.Int });
-export type Receipt = typeof Receipt.Type;
 export class MapFault extends Schema.TaggedError<MapFault>()("MapFault", {
-  phase: Schema.String,
+  phase: Schema.Literals([
+    "renderer-import",
+    "camera-import",
+    "renderer-callback",
+    "renderer-retire",
+    "webgl-open",
+    "camera-open",
+    "camera-close",
+    "camera-input",
+    "camera-rotation",
+    "camera-flight",
+    "camera-follow-target",
+    "camera-pause",
+    "pick",
+    "poisoned-display",
+    "presentation",
+    "draw",
+    "advance",
+    "inactive-snapshot",
+    "instance-snapshot",
+    "not-mounted",
+    "host",
+    "rendered-schema",
+    "replay-observer",
+  ]),
   message: Schema.String,
   cause: Schema.Defect(),
 }) {}
-export const fault = (phase: string, cause: unknown) => new MapFault({ phase, message: String(cause), cause });
+export const fault = (phase: MapFault["phase"], cause: unknown) =>
+  new MapFault({ phase, message: String(cause), cause });

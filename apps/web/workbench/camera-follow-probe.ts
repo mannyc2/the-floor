@@ -1,5 +1,6 @@
 import { Clock, Effect, Option } from "effect";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
+import { mountedProbe } from "./renderer-probe";
 import { nextFrame, WorkbenchFailure } from "./runtime";
 
 // This source observes the real reconciled instance, including its interpolation.
@@ -12,7 +13,7 @@ export const followInstance = Effect.fn("Workbench.followInstance")(function*(
   if (Option.isNone(mounted)) {
     return yield* new WorkbenchFailure({ operation: "follow-instance", cause: "Map is not mounted" });
   }
-  const { engine } = mounted.value;
+  const { engine } = mountedProbe(mounted.value);
   const initial = engine.inspect().camera;
   const readTarget = () =>
     Option.map(
@@ -35,7 +36,7 @@ export const moveFollowInstance = Effect.fn("Workbench.moveFollowInstance")(func
   if (Option.isNone(mounted)) {
     return yield* new WorkbenchFailure({ operation: "move-follow-instance", cause: "Map is not mounted" });
   }
-  const engine = mounted.value.engine;
+  const engine = mountedProbe(mounted.value).engine;
   return yield* commands.snapshot({
     revision: engine.inspect().snapshotRevision + 1,
     instances: engine.instancePositions().filter(instance => instance.visible).map(instance => ({
@@ -59,7 +60,7 @@ export const interruptFollow = Effect.fn("Workbench.interruptFollow")(function*(
   if (Option.isNone(mounted)) {
     return yield* new WorkbenchFailure({ operation: "interrupt-follow", cause: "Map is not mounted" });
   }
-  const { engine, camera } = mounted.value;
+  const { engine, camera } = mountedProbe(mounted.value);
   const clock = yield* Clock.Clock;
   const now = () => Number(clock.monotonicTimeNanosUnsafe()) / 1e6;
   const initial = engine.inspect().camera;
