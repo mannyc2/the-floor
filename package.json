@@ -21,7 +21,8 @@
     "test:signer": "sh apps/signer/test/run.sh",
     "dev:fork": "sh apps/signer/test/install-surfpool.sh && bun apps/signer/test/clone-programs.ts && CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun --preload ./apps/floor/test/local-only.ts apps/signer/test/serve-local.ts",
     "test:first-trade": "bun scripts/first-trade.ts test",
-    "dev:first-trade": "bun scripts/first-trade.ts serve"
+    "dev:first-trade": "bun scripts/first-trade.ts serve",
+    "preflight:assets": "bun apps/web/workbench/asset-preflight.ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20261012.1",

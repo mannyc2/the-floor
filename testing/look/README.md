@@ -1,6 +1,6 @@
 # Capture adapter and phone profile
 
-The development-only `/look/` route supports deterministic renderer captures and the required phone benchmark. The finished tone/proportion studies, capture matrix, pixel metrics and CPU target generator are retired. Approved frames and their scene briefs remain under `testing/reference/` and `testing/look/scenes/`; the asset branch supplies their zero-tolerance screenshot checks.
+The development-only `/look/` route supports deterministic renderer captures and the required phone benchmark. The finished tone/proportion studies, capture matrix, pixel metrics and CPU target generator are retired. Approved frames and their scene briefs remain under `testing/reference/` and `testing/look/scenes/`; the `approved` Playwright project checks them at zero tolerance.
 
 ## Commands
 

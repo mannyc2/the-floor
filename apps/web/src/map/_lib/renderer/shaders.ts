@@ -42,7 +42,7 @@ void main() {
     point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO.xyz, instanceInterpolation);
     point.xyz *= _INSTANCE_FROM.w;
   #endif
-  // Inverse view rotation keeps the face tones in the room when the camera turns.
+  // Inverse view rotation gives world normals, so tops are found on world Y.
   faceNormal = normalize((vec4(normalMatrix * normal, 0.0) * viewMatrix).xyz);
   gl_Position = projectionMatrix * modelViewMatrix * point;
 }
@@ -63,11 +63,12 @@ void main() {
   shading.tonesPerMaterial.toFixed(1)
 }) * ${shading.tonesPerMaterial.toFixed(1)};
     vec3 n = normalize(faceNormal);
-    // Horizontal tops must remain lightest at every camera corner. Sloped
-    // forms use these provisional bands until the Atlas records the pick.
-    float side = dot(n.xz, normalize(vec2(-1.0, 1.0)));
-    // Diagonal station faces lie on the side-band boundary. Absorb inverse-view
-    // roundoff there so a quarter turn cannot change a stationary face's tone.
+    // Tops and undersides follow world Y: in view space the camera's pitch would
+    // tilt walls toward the top band. Sides follow the view, so the dark side
+    // stays on the screen's right as the camera turns.
+    float side = -(mat3(viewMatrix) * n).x;
+    // Faces turned straight at the camera lie on the side-band boundary.
+    // Absorb view-transform roundoff there so they keep one tone.
     index = base + (n.y > ${shading.verticalThreshold} ? 3.0 : n.y < -${shading.verticalThreshold} ? 0.0 : side >= ${shading.sideTolerance} ? 2.0 : 1.0);
   }
   gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, paletteTheme)).rgb, 1.0);

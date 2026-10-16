@@ -8,20 +8,20 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 | --- | --- |
 | Toolchain and fences | Strict TypeScript project references with Effect diagnostics, type-aware Oxlint, import and artifact boundaries, reasoned suppressions, and pinned dependencies |
 | Floor runtime | Yielded agent and mailbox Durable Objects on Alchemy, SQL admissions, typed snapshots, an OpenAI model Layer, a predicate-only Decisions adapter and the bounded first-trade loop; scripted Layers live only in tests |
-| Web and renderer | Foldkit shell, typed health RPC, scoped renderer lifetime, synthetic desk scene, ID-image picking, camera gestures and quarter turns, cutaway, fixed-ID snapshots, moving-target follow and the live first-trade desk/receipt viewer |
+| Web and renderer | Foldkit shell, typed health RPC, scoped renderer lifetime, synthetic desk scene, ID-image picking, camera gestures and quarter turns, camera-relative side tones, cutaway, fixed-ID snapshots, moving-target follow and the live first-trade desk/receipt viewer |
 | Live world | One Durable Object per world identity, atomic SQL event/snapshot history, internal publishing and a public read-only RPC stream with sequence-based reconnects |
 | Chains and fork signer | Solana launch/swap construction and pool reads, EVM construction, and a separate local signer Worker that journals real fork outcomes and refuses a foreign genesis |
 | Wallets | The native Privy client and its offline oracle tests; the [wallet record](../packages/wallets/README.md) retains the test-transport incident and administration blocker |
 | Atlas and references | Plain drawing values and a value snapshot, sixteen preserved owner-picked frames, and render-only scene briefs; approval history stays in the decision log and git |
-| Verification and CI | Serial shell/first-trade/renderer browser projects, a production-entry camera flow under a stage request budget, native Worker, agent and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
+| Verification and CI | Serial shell, first-trade, renderer, approved-frame and asset browser projects, a production-entry camera flow under a stage request budget, native Worker, agent and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
 
 These are implemented surfaces with the evidence described by their commits. They do not establish the open product, art, hosted or provider promises below.
 
 ## Left
 
-- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K, W, the owner middleware and the hosted-flow branch are on local `main`. The asset, shading and world-layout branches still follow their existing plans and owner gates. Those remaining merges still need combined verification and the cleanup's final size accounting.
+- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K, W, the owner middleware, the hosted-flow branch, the slimmed asset kit and the picked side-tone rule are on local `main`. The world-layout branch still follows its plan and owner gate. Its merge still needs combined verification and the cleanup's final size accounting.
 - [ ] **Complete renderer acceptance.** The production-entry camera, seeded-desk pick and RPC/MCP flows pass locally but have not run against a deployed stage; that run and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
-- [ ] **Finish the Stage 0 look.** One post with its stations, one figure and one token screen must be built through the generator and SVG-profile routes, shortlisted and picked in day and night at all four quarter turns. The first asset sheet was returned without a pick. Every corner must satisfy the visible-body rules, with the seven picked renderer frames unchanged; the all-corner shading correction still needs the owner's choice. Paper-contact and line-ending measurements belong to the real assets.
+- [ ] **Finish the Stage 0 look.** One post with its stations, one figure and one token screen must be built through the generator and SVG-profile routes, shortlisted and picked in day and night at all four quarter turns. The first asset sheet was returned without a pick. Side tones now follow the camera (16 Oct pick), so the generated post and stations pass the visible-body rules at every corner in day and night, and the seven picked renderer frames are unchanged. Paper-contact and line-ending measurements belong to the real assets.
 - [ ] **Run the newcomer test, or record it as not run.** This requires a person who has not seen the Floor.
 - [ ] **Owner review.** The decisions, integrated flow and picked frames must be reviewed before Stage 0 closes. The first-trade exception does not waive this gate.
 
@@ -33,7 +33,7 @@ The agent's browser containment, Privy's sandbox and quorum administration, live
 
 The active browser checks cover camera gestures/history, quarter turns and cutaway, ID picking, context loss/restoration, scoped acquisition and release, quarantine after failed retirement, instance reconciliation, replay diagnostics and the desktop phone profile. The [verification guide](Codex/verification.md) defines the required checks and their limits.
 
-Finished tone/proportion studies, the large capture matrix and the obsolete host-protocol tests have left the suite. The `/look/` adapter and scene loading remain for asset work; zero-tolerance approved-frame checks arrive with that branch. Production builds exclude the workbench and its diagnostics. The default desks and palette remain visibly labelled synthetic.
+Finished tone/proportion studies, the large capture matrix and the obsolete host-protocol tests have left the suite. The `approved` project reproduces the seven picked renderer frames at zero tolerance and checks the top, dark and light side tones at all four corners; the `assets` project renders the generated post and stations through the `/look/` adapter. Production builds exclude the workbench and its diagnostics. The default desks and palette remain visibly labelled synthetic.
 
 ### Renderer stream
 

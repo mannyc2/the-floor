@@ -1,5 +1,6 @@
 import { Effect, Option, Schema, SubscriptionRef } from "effect";
 import type { DevToolsStore } from "foldkit/devtools-host";
+import { Box3 } from "three";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera, Presentation } from "../src/map/model";
 import type { CameraComparison } from "./camera-comparison";
@@ -68,6 +69,11 @@ export const makeWorkbenchApi = (
     hash,
     frame: () => Array.from(current().engine.frameBytes()),
     png: () => current().engine.canvas.toDataURL(),
+    assetBounds: () =>
+      current().engine.diagnosticScene().meshes.filter(mesh => mesh.name.startsWith("asset_")).map(mesh => {
+        const bounds = new Box3().setFromObject(mesh);
+        return { name: mesh.name, minimum: bounds.min.toArray(), maximum: bounds.max.toArray() };
+      }),
     mask: (value: boolean) => current().engine.setMask(value),
     project: (x: number, y: number, z: number) => current().engine.project(x, y, z),
     ground: (x: number, y: number) => current().engine.groundAt(x, y),
