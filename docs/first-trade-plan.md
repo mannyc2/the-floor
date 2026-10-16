@@ -6,7 +6,7 @@
 
 **Implemented locally:** L, F, A and V are integrated with the cleanup and RPC dependencies. The combined browser flow enters through the production viewer, observes researching, trading and idle, picks the desk through the renderer, matches its receipt to the agent's actual result and confirms the transaction and checkpoint on the fork. Reloading recovers the receipt. Commands and results live in the implementation commit bodies; raw evidence stays in ignored `work/`.
 
-The slice uses a labelled scripted model, a disposable fork key and one occupied canonical floor. It does not provide conversation recovery, multi-floor navigation, live inference, Privy enforcement, hosted acceptance or approved asset geometry. Those limits preserve the separate Stage 0 and later-stage gates.
+The slice uses a labelled scripted model, a disposable fork key and one occupied canonical floor. It does not provide conversation recovery, live inference, Privy enforcement, hosted acceptance or approved asset geometry. Multi-floor navigation, movement and follow came afterwards with [World integration](decisions.md#repository-ci-and-spending). Those limits preserve the separate Stage 0 and later-stage gates.
 
 ## Rules
 

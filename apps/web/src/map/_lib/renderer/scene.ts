@@ -2,7 +2,7 @@ import { PaletteName, syntheticPalette } from "@floor/atlas/materials";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import type { Theme } from "../../model";
+import type { GroundArea, Theme } from "../../model";
 export { syntheticPalette } from "@floor/atlas/materials";
 
 export const names = PaletteName.literals;
@@ -15,12 +15,16 @@ export interface SceneConfig {
   readonly width: number;
   readonly height: number;
   readonly desks: number;
-  readonly live?: boolean;
+  // A live scene draws the world's floors instead of the synthetic test room.
+  readonly live?: { readonly floors: ReadonlyArray<GroundArea> };
 }
 export interface Entity {
   readonly id: number;
   readonly mesh: THREE.Mesh;
   readonly maybeInstance: Option.Option<number>;
+  // An agent marker shares its desk's identity, so picking either selects the
+  // same agent without spending a second slot of the 12-bit entity channel.
+  readonly marker?: boolean;
 }
 interface Boundary {
   readonly name: string;
@@ -100,7 +104,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   };
   const monitor = (variant: number) => {
     const geometry = box(.75 + variant * .1, .52, .1, 0, 1.7, -.48, 2);
-    if (config.live === true) {
+    if (config.live) {
       const normals = geometry.getAttribute("normal");
       const materials = geometry.getAttribute("_MAT");
       for (let index = 0; index < normals.count; index++) {
@@ -128,7 +132,20 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   const depth = config.desks > 12
     ? Math.max(15, 2 * (Math.max(15 * 2.7 + .9, (rows - 16) * 2.7 + 1.46) + .5))
     : 15;
-  add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
+  if (!config.live) add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
+  else if (config.live.floors.length > 0) {
+    // Every floor's ground in one mesh: floors never move while a mount lives,
+    // and a new floor changes renderer capacity, which remounts.
+    add(
+      "synthetic-floor",
+      1,
+      joined(
+        config.live.floors.map(area =>
+          box(area.x1 - area.x0, .25, area.z1 - area.z0, (area.x0 + area.x1) / 2, -.15, (area.z0 + area.z1) / 2, 4)
+        ),
+      ),
+    );
+  }
   Array.from({ length: 3 }, (_variantValue, variant) => {
     const geometry = desk(variant);
     const count = Math.floor((config.desks + 2 - variant) / 3);
@@ -149,6 +166,20 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     geometries.push(geometry);
     scene.add(mesh);
   });
+  if (config.live) {
+    // The existing synthetic cylinder, standing on the floor, marks where each
+    // desk's agent is. It is not a figure design; reconciled offsets place it.
+    const geometry = cylinder(.52, 1.45, 0, .725, 0, 3);
+    const mesh = new THREE.InstancedMesh(geometry, material, config.desks);
+    mesh.name = "synthetic-agent-marker";
+    Array.from({ length: config.desks }, (_instanceValue, index) => {
+      mesh.setMatrixAt(index, new THREE.Matrix4());
+      entities.push({ id: index + 2, mesh, maybeInstance: Option.some(index), marker: true });
+    });
+    meshes.push(mesh);
+    geometries.push(geometry);
+    scene.add(mesh);
+  }
   const gaugeId = config.desks + 2;
   add(
     "synthetic-interpolation-gauge",
@@ -181,7 +212,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
 
   // Measurement props and the synthetic room cannot obscure canonical desks
   // that arrive outside the renderer workbench's original rectangular field.
-  if (config.live === true) {
+  if (config.live) {
     entities.filter(entity => entity.id >= gaugeId).forEach(entity => {
       entity.mesh.visible = false;
     });

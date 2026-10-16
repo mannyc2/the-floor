@@ -146,7 +146,7 @@ Stage 0 can close when:
 - the owner has reviewed the decisions, the flows and the picked frames.
 
 Deferred:
-- Broader World integration (moving world events, navigation across occupied floors and snapshot replay): beyond the bounded first-trade viewer. The durable live subscription and single-floor mapping belong to the separately authorized first-trade slice.
+- The rest of World integration: named-place positions, a production reason for agents to move, spacing at a crowded post and the identity channel's 4,085-desk bound, with the world layout and Stage 2. Multi-floor navigation, movement, follow and Model-owned resume are implemented locally.
 - The building rung, level of detail and a new exchange composition: after F, before the building rung is drawn.
 - The lobby, wall of screens, bell and podium, whiteboards, cabinets and the interface: Stage 2.
 - Brass and engraving: when real instruments exist.

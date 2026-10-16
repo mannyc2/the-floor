@@ -21,6 +21,18 @@ export const cameraFromQuery = (query: URLSearchParams) =>
     extent: Number(query.get("extent")),
     rotation: Number(query.get("rotation") ?? 0),
   });
+// Ground areas and positions are in the viewer's frame: the world plan shifted
+// so the first floor's origin sits at zero.
+export const GroundArea = Schema.Struct({ x0: Schema.Finite, z0: Schema.Finite, x1: Schema.Finite, z1: Schema.Finite });
+export type GroundArea = typeof GroundArea.Type;
+// What a live mount needs that a synthetic one does not: each floor's ground,
+// the reachable extent of the world and its first reconciled instances.
+export const LiveScene = Schema.Struct({
+  floors: Schema.Array(GroundArea),
+  bounds: GroundArea,
+  snapshot: Schema.Json,
+});
+export type LiveScene = typeof LiveScene.Type;
 export const Theme = Schema.Literals(["day", "night"]);
 export type Theme = typeof Theme.Type;
 export const Presentation = Schema.Struct({

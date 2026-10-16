@@ -15,9 +15,11 @@
       .floor-heading h1 { font-size: 1rem; }
       #status { position: fixed; left: 1rem; bottom: 1rem; max-width: 55%; font-size: .75rem; }
       .map-status { position: absolute; left: 1rem; bottom: 3rem; font-size: .75rem; }
-      .world-status { position: absolute; left: 1rem; top: 5rem; max-width: 24rem; font-size: .8rem; }
+      .world-status { position: absolute; left: 1rem; top: 5rem; max-width: 24rem; max-height: calc(100% - 10rem); overflow-y: auto; font-size: .8rem; }
       .world-status p { margin: 0 0 .5rem; }
       .world-status button { margin: 0 .5rem .5rem 0; }
+      .world-floors { margin-bottom: .5rem; }
+      .world-floors [aria-current="location"] { font-weight: bold; }
       .desk-drawer { position: absolute; top: 4rem; right: 0; bottom: 5rem; width: 20rem; padding: 1.25rem; overflow-y: auto; overflow-wrap: anywhere; background: var(--floor-paper); color: var(--floor-ink); }
       .desk-drawer h2 { font-size: 1.1rem; }
       .desk-drawer h3 { font-size: 1rem; }

@@ -1,10 +1,13 @@
 import { FloorRpcs } from "@floor/api/rpc";
+import { ChangeWorldState, MoveInWorld, WorldPublisher } from "@floor/api/world";
 import { WorldRoutes } from "@floor/api/world-rpc";
 import { signerClientLayer } from "@floor/chains/signer-client";
 import { readPoolLayer } from "@floor/chains/solana/read-pool";
 import { SolanaRpc } from "@floor/chains/solana/rpc";
 import { Receipt, SwapIntent } from "@floor/contract/economics";
 import { Health } from "@floor/contract/health";
+import { AgentId, Checkpoint, WorldId } from "@floor/contract/identifiers";
+import { WorldEvent } from "@floor/contract/world-events";
 import type { Providers } from "alchemy/Cloudflare";
 import { WorkerConfigProvider } from "alchemy/Cloudflare/Workers/ConfigProvider";
 import { Request } from "alchemy/Cloudflare/Workers/Request";
@@ -32,6 +35,10 @@ const Dependencies = Layer.unwrap(Effect.gen(function*() {
   );
 }));
 const Runtime = makeFirstAgentRuntime(Dependencies).pipe(Layer.provideMerge(WorldRuntimeLive));
+// Arrivals for a separate, labelled synthetic world. The multi-floor browser
+// flow publishes through the same internal service the agent uses; production
+// has no such route.
+const WorldArrivals = Schema.Struct({ world: WorldId, checkpoint: Checkpoint, agents: Schema.Array(AgentId) });
 const HealthRoutes = RpcServer.layerHttp({ group: FloorRpcs, path: "/api/rpc", protocol: "http" }).pipe(
   Layer.provide(RpcSerialization.layerJson),
   Layer.provide(
@@ -53,6 +60,7 @@ export const makeTradeTestWorker = Effect.fn("makeTradeTestWorker")(
       },
       Effect.gen(function*() {
         const agent = yield* FirstAgent;
+        const world = yield* WorldPublisher;
         const rpc = yield* HttpRouter.toHttpEffect(
           Layer.merge(WorldRoutes, HealthRoutes).pipe(Layer.provide(HttpServer.layerServices)),
         );
@@ -61,8 +69,28 @@ export const makeTradeTestWorker = Effect.fn("makeTradeTestWorker")(
             const request = yield* Request;
             const path = new URL(request.url).pathname;
             if (path.startsWith("/api/")) return yield* rpc;
-            if (path !== "/trade" || request.method !== "POST") return HttpServerResponse.text("ready");
+            const publication = ["/world/arrivals", "/world/state", "/world/move"].includes(path);
+            if ((path !== "/trade" && !publication) || request.method !== "POST") {
+              return HttpServerResponse.text("ready");
+            }
             const body = yield* Effect.tryPromise(() => request.json());
+            if (path === "/world/arrivals") {
+              const input = yield* Schema.decodeUnknownEffect(Schema.toCodecJson(WorldArrivals))(body);
+              const joined = yield* Effect.forEach(
+                input.agents,
+                arrival => world.join({ world: input.world, checkpoint: input.checkpoint, agent: arrival }),
+                { concurrency: 1 },
+              );
+              return yield* HttpServerResponse.schemaJson(Schema.Array(WorldEvent))(joined);
+            }
+            if (path === "/world/state") {
+              const input = yield* Schema.decodeUnknownEffect(Schema.toCodecJson(ChangeWorldState))(body);
+              return yield* HttpServerResponse.schemaJson(WorldEvent)(yield* world.state(input));
+            }
+            if (path === "/world/move") {
+              const input = yield* Schema.decodeUnknownEffect(Schema.toCodecJson(MoveInWorld))(body);
+              return yield* HttpServerResponse.schemaJson(WorldEvent)(yield* world.move(input));
+            }
             const input = yield* Schema.decodeUnknownEffect(Schema.toCodecJson(TradeMandate))(body);
             const receipt = yield* agent.run(input);
             return yield* HttpServerResponse.schemaJson(Receipt)(receipt);

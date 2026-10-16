@@ -4,7 +4,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./stream": "./src/stream.ts"
+    "./stream": "./src/stream.ts",
+    "./layout": "./src/layout.ts"
   },
   "dependencies": {
     "@floor/contract": "workspace:*",

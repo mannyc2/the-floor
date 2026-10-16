@@ -16,7 +16,7 @@ import {
 } from "effect";
 import { Mount } from "foldkit";
 import { Message } from "../../message";
-import { type Camera, fault, type MapFault, Presentation, type Turn } from "../../model";
+import { type Camera, fault, LiveScene, type MapFault, Presentation, type Turn } from "../../model";
 import type { openCamera } from "./camera";
 import type { Engine } from "./engine";
 
@@ -38,6 +38,7 @@ interface RendererService {
   ) => Effect.Effect<void, MapFault>;
   readonly fly: (camera: Camera, follow: boolean) => Effect.Effect<void, MapFault>;
   readonly followTarget: (readTarget: () => Option.Option<Camera>) => Effect.Effect<void, MapFault>;
+  readonly followMarker: (id: number) => Effect.Effect<void, MapFault>;
   readonly rotate: (direction: Turn) => Effect.Effect<void, MapFault>;
   readonly pause: (paused: boolean) => Effect.Effect<void, MapFault>;
 }
@@ -60,7 +61,7 @@ interface MountOptions {
   readonly element: HTMLElement;
   readonly desks: number;
   readonly initial: Presentation;
-  readonly initialSnapshot: Option.Option<Schema.Json>;
+  readonly live: Option.Option<LiveScene>;
   readonly queue: Queue.Enqueue<MountMessage>;
   readonly viewStateChanges: Stream.Stream<Mount.ViewState>;
 }
@@ -105,7 +106,7 @@ const acquire = Effect.fn("Renderer.acquire")(
       preserveDrawingBuffer: configuration.preserveDrawingBuffer ?? false,
       active: live,
       failed: error => failedNative(fault("renderer-callback", error)),
-      initialSnapshot: options.initialSnapshot,
+      live: options.live,
     }).pipe(Effect.catchCause(cause => Effect.fail(fault("webgl-open", cause))));
     const frame: FrameState = {
       sequence: 0,
@@ -117,23 +118,33 @@ const acquire = Effect.fn("Renderer.acquire")(
     };
     const camera = yield* Effect.acquireRelease(
       nativeCall("camera-open", () =>
-        cameraModule.openCamera(engine, options.desks, now, (view, history) => {
-          if (live() && frame.mode === "Live") {
-            Queue.offerUnsafe(queue, Message.RestedCamera({ camera: view, history }));
-          }
-        }, (x, y) => {
-          if (
-            live() && frame.mode === "Live" && !engine.internals.renderer.getContext().isContextLost()
-            && frame.applied === frame.sequence
-          ) {
-            const picked = Result.try({ try: () => engine.pick(x, y), catch: cause => fault("pick", cause) });
-            if (Result.isFailure(picked)) failedNative(picked.failure);
-            else {Queue.offerUnsafe(
-                queue,
-                Message.SelectedEntity({ entity: picked.success > 0 ? Option.some(picked.success) : Option.none() }),
-              );}
-          }
-        }, error => failedNative(fault("camera-input", error)))),
+        cameraModule.openCamera(
+          engine,
+          Option.match(options.live, {
+            onNone: () => cameraModule.syntheticBounds(options.desks),
+            onSome: scene => scene.bounds,
+          }),
+          now,
+          (view, history) => {
+            if (live() && frame.mode === "Live") {
+              Queue.offerUnsafe(queue, Message.RestedCamera({ camera: view, history }));
+            }
+          },
+          (x, y) => {
+            if (
+              live() && frame.mode === "Live" && !engine.internals.renderer.getContext().isContextLost()
+              && frame.applied === frame.sequence
+            ) {
+              const picked = Result.try({ try: () => engine.pick(x, y), catch: cause => fault("pick", cause) });
+              if (Result.isFailure(picked)) failedNative(picked.failure);
+              else {Queue.offerUnsafe(
+                  queue,
+                  Message.SelectedEntity({ entity: picked.success > 0 ? Option.some(picked.success) : Option.none() }),
+                );}
+            }
+          },
+          error => failedNative(fault("camera-input", error)),
+        )),
       resource => nativeCall("camera-close", () => resource.dispose()).pipe(Effect.orDie),
     );
     const available = <A>(use: () => Effect.Effect<A, MapFault>) =>
@@ -200,6 +211,17 @@ const acquire = Effect.fn("Renderer.acquire")(
         available(() => nativeCall("camera-flight", () => follow ? camera.follow(view) : camera.fly(view))),
       followTarget: readTarget =>
         available(() => nativeCall("camera-follow-target", () => camera.followTarget(readTarget))),
+      // Follow keeps the view's zoom and corner and tracks the marker's
+      // interpolated position; the marker leaving the floor releases it.
+      followMarker: id =>
+        available(() =>
+          nativeCall("camera-follow-target", () => {
+            const view = engine.camera.read();
+            camera.followTarget(() =>
+              Option.map(engine.internals.instances.marker(id), position => ({ ...view, x: position.x, z: position.z }))
+            );
+          })
+        ),
       pause: paused =>
         nativeCall("camera-pause", () => {
           frame.mode = paused ? "Paused" : "Live";
@@ -245,6 +267,7 @@ interface CommandService {
   readonly present: RendererService["present"];
   readonly fly: RendererService["fly"];
   readonly followTarget: RendererService["followTarget"];
+  readonly followMarker: RendererService["followMarker"];
   readonly rotate: RendererService["rotate"];
   readonly inspect: () => Option.Option<Mounted>;
   readonly mount: (options: MountOptions) => Effect.Effect<void, MapFault, Scope.Scope>;
@@ -308,6 +331,7 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
             use(service => service.present(presentation, fromHistory, retainCamera)),
           fly: (view, follow) => use(service => service.fly(view, follow)),
           followTarget: readTarget => use(service => service.followTarget(readTarget)),
+          followMarker: id => use(service => service.followMarker(id)),
           rotate: direction => use(service => service.rotate(direction)),
           inspect: () => Ref.getUnsafe(current),
           mount,
@@ -321,7 +345,7 @@ export const makeMountMap = (commands: MapCommands["Service"]) =>
     args: {
       initialPresentation: Presentation,
       initialDesks: Schema.Int,
-      initialSnapshot: Schema.Option(Schema.Json),
+      initialLive: Schema.Option(LiveScene),
     },
     messages: [
       Message.SucceededMountMap,
@@ -330,7 +354,7 @@ export const makeMountMap = (commands: MapCommands["Service"]) =>
       Message.SelectedEntity,
       Message.RestedCamera,
     ],
-    execute: ({ element, initialPresentation, initialDesks, initialSnapshot, viewStateChanges }) =>
+    execute: ({ element, initialPresentation, initialDesks, initialLive, viewStateChanges }) =>
       Stream.callback<MountMessage>(queue =>
         Effect.gen(function*() {
           if (!(element instanceof HTMLElement)) return yield* fault("host", "Expected an HTMLElement");
@@ -338,7 +362,7 @@ export const makeMountMap = (commands: MapCommands["Service"]) =>
             element,
             desks: initialDesks,
             initial: initialPresentation,
-            initialSnapshot,
+            live: initialLive,
             queue,
             viewStateChanges,
           });

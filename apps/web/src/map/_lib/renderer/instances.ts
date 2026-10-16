@@ -9,6 +9,8 @@ export const InstanceSnapshot = Schema.Struct({
     id: Schema.Int.check(Schema.isGreaterThan(0)),
     ...Position.fields,
     active: Schema.optionalKey(Schema.Boolean),
+    // Where this slot's agent stands; omitted while its place has no position.
+    marker: Schema.optionalKey(Position),
   })),
 });
 export type InstanceSnapshot = typeof InstanceSnapshot.Type;
@@ -118,6 +120,7 @@ export const makeInstanceSnapshots = (
     const base = new THREE.Vector3().setFromMatrixPosition(matrix);
     return [{
       id: entity.id,
+      marker: entity.marker === true,
       mesh: entity.mesh,
       index,
       attributes,
@@ -128,15 +131,35 @@ export const makeInstanceSnapshots = (
       staged: { x: 0, y: 0, z: 0, present: false, active: false },
     }];
   });
-  const byId = new Map(members.map(member => [member.id, member]));
+  const byId = new Map<number, (typeof members)[number]>();
+  const markers = new Map<number, (typeof members)[number]>();
+  for (const member of members) (member.marker ? markers : byId).set(member.id, member);
   // Staging is reusable and invisible to rendering. Validation can reject a
   // complete packet without changing accepted buffers, while avoiding thousands
   // of short-lived plans and Option wrappers on every 4 Hz arrival.
   const state = { revision: -1 };
+  const stage = (
+    member: (typeof members)[number],
+    target: { readonly id: number; readonly x: number; readonly y: number; readonly z: number },
+    active: boolean,
+  ): Result.Result<void, InstanceSnapshotFailure> => {
+    const x = Math.fround(target.x - member.base.x);
+    const y = Math.fround(target.y - member.base.y);
+    const z = Math.fround(target.z - member.base.z);
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) {
+      return Result.fail(new InstanceSnapshotFailure({ phase: "coordinate", cause: { overflow: target.id } }));
+    }
+    member.staged.x = x;
+    member.staged.y = y;
+    member.staged.z = z;
+    member.staged.present = true;
+    member.staged.active = active;
+    return Result.void;
+  };
   const stageSnapshot = (next: InstanceSnapshot): Result.Result<void, InstanceSnapshotFailure> => {
     // Validate the whole snapshot before writing. Identity is independent of
     // incoming order; omitted slots disappear and can return without allocating
-    // geometry. Growing this fixed scene belongs to world integration.
+    // geometry. A world that needs more slots remounts with a larger allocation.
     for (const member of members) member.staged.present = false;
     for (const target of next.instances) {
       const member = byId.get(target.id);
@@ -146,17 +169,17 @@ export const makeInstanceSnapshots = (
       if (member.staged.present) {
         return Result.fail(new InstanceSnapshotFailure({ phase: "identity", cause: { duplicate: target.id } }));
       }
-      const x = Math.fround(target.x - member.base.x);
-      const y = Math.fround(target.y - member.base.y);
-      const z = Math.fround(target.z - member.base.z);
-      if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) {
-        return Result.fail(new InstanceSnapshotFailure({ phase: "coordinate", cause: { overflow: target.id } }));
+      const staged = stage(member, target, target.active ?? false);
+      if (Result.isFailure(staged)) return staged;
+      const placement = target.marker;
+      if (placement) {
+        const marker = markers.get(target.id);
+        if (!marker) {
+          return Result.fail(new InstanceSnapshotFailure({ phase: "identity", cause: { unknownMarker: target.id } }));
+        }
+        const placed = stage(marker, { id: target.id, ...placement }, false);
+        if (Result.isFailure(placed)) return placed;
       }
-      member.staged.x = x;
-      member.staged.y = y;
-      member.staged.z = z;
-      member.staged.present = true;
-      member.staged.active = target.active ?? false;
     }
     return Result.void;
   };
@@ -246,10 +269,21 @@ export const makeInstanceSnapshots = (
       positions.advance();
       recorded.advance();
     },
+    // The marker's interpolated ground position, read every frame by Follow.
+    marker: (id: number): Option.Option<Position> => {
+      const member = markers.get(id);
+      if (!member || !member.visible) return Option.none();
+      return Option.some({
+        x: member.base.x + member.from.x + (member.to.x - member.from.x) * interpolation.value,
+        y: member.base.y + member.from.y + (member.to.y - member.from.y) * interpolation.value,
+        z: member.base.z + member.from.z + (member.to.z - member.from.z) * interpolation.value,
+      });
+    },
     positions: () =>
-      members.map(member => {
+      members.flatMap(member => {
+        if (member.marker) return [];
         const offset = mix(member.from, member.to, interpolation.value);
-        return {
+        return [{
           id: member.id,
           x: member.base.x + offset.x,
           y: member.base.y + offset.y,
@@ -260,7 +294,7 @@ export const makeInstanceSnapshots = (
             y: member.base.y + member.to.y,
             z: member.base.z + member.to.z,
           },
-        };
+        }];
       }),
   };
 };
