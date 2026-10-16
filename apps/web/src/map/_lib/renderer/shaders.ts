@@ -54,17 +54,17 @@ flat in vec3 identity;
 layout(location = 1) out highp vec4 identityColor;
 void main() {
   float index = floor(materialSlot + 0.5);
-  if (index >= ${shading.unshadedSlots.value.toFixed(1)}) {
-    float base = ${shading.unshadedSlots.value.toFixed(1)} + floor((index - ${
-  shading.unshadedSlots.value.toFixed(1)
-}) / ${shading.tonesPerMaterial.value.toFixed(1)}) * ${shading.tonesPerMaterial.value.toFixed(1)};
+  if (index >= ${shading.unshadedSlots.toFixed(1)}) {
+    float base = ${shading.unshadedSlots.toFixed(1)} + floor((index - ${shading.unshadedSlots.toFixed(1)}) / ${
+  shading.tonesPerMaterial.toFixed(1)
+}) * ${shading.tonesPerMaterial.toFixed(1)};
     vec3 n = normalize(faceNormal);
     // Horizontal tops must remain lightest at every camera corner. Sloped
     // forms use these provisional bands until the Atlas records the pick.
     float side = dot(n.xz, normalize(vec2(-1.0, 1.0)));
     // Diagonal station faces lie on the side-band boundary. Absorb inverse-view
     // roundoff there so a quarter turn cannot change a stationary face's tone.
-    index = base + (n.y > ${shading.verticalThreshold.value} ? 3.0 : n.y < -${shading.verticalThreshold.value} ? 0.0 : side >= ${shading.sideTolerance.value} ? 2.0 : 1.0);
+    index = base + (n.y > ${shading.verticalThreshold} ? 3.0 : n.y < -${shading.verticalThreshold} ? 0.0 : side >= ${shading.sideTolerance} ? 2.0 : 1.0);
   }
   gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, paletteTheme)).rgb, 1.0);
   // RGB remains the exact picking identity. Alpha carries ordinary (1),

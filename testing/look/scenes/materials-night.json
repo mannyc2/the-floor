@@ -10,15 +10,7 @@
     "width": 1200,
     "height": 900
   },
-  "approval": {
-    "_tag": "OwnerApproved",
-    "date": "2026-10-13",
-    "owner": "The project owner, as recorded in the decision log",
-    "decisionReference": "docs/decisions.md#the-look",
-    "decisionEntry": "13 Oct 2026 — Night material B is approved, with brass and engraving still provisional.",
-    "scope": "The owner chose the top row of the final blind comparison: visible night ground, paper, timber, floor, steel, glass and jacket colours, the shown ordinary and dark stroke treatment, and flat lit lamp/screen colours. Brass and engraving remain provisional separately. The captured blockout does not approve geometry, proportions, lamp or instrument design, kit unit, interface typography, name plates or renderer acceptance."
-  },
-  "approvedVisibleNightValues": {
+  "materialValues": {
     "ground": "#0D0F10",
     "line": "#C2CDD7",
     "timber-1": "#392416",
@@ -46,104 +38,37 @@
     "paper": "#AFA79B",
     "darkLine": "#080808",
     "screen-light": "#8BAAC2",
-    "lamp-light": "#D2C2A8"
+    "lamp-light": "#D2C2A8",
+    "brass-3": "#9F8655",
+    "engraving": "#080808",
+    "timber-0": "#27180D",
+    "floor-0": "#21180D",
+    "steel-0": "#292927",
+    "brass-0": "#362912",
+    "brass-1": "#4E3C1D",
+    "brass-2": "#755C2F",
+    "jacket-blue-0": "#131A24",
+    "jacket-red-0": "#2A1311",
+    "jacket-green-0": "#141B15"
   },
   "lineOpacity": 1,
-  "flatMaterialMapping": {
-    "paper": "Source paper-0 through paper-3 all equal the approved flat paper value; the legacy diagnostic paper alias is excluded.",
-    "screen-light": "Source screen-light-0 through screen-light-3 all equal the approved flat lit-screen value.",
-    "lamp-light": "Source lamp-light-0 through lamp-light-3 all equal the approved flat diffuser value. These emitted-light faces are not raised body ramps."
+  "capture": {
+    "technique": "B",
+    "backend": "webgl",
+    "theme": "night",
+    "rung": "building",
+    "dpr": 1,
+    "width": 1200,
+    "height": 900,
+    "desks": 12,
+    "asset": "scene",
+    "seed": 439041101,
+    "fixedTimeEpochMs": 1791806460000
   },
-  "strokeClasses": {
-    "ordinary": {
-      "value": "line",
-      "scope": "Ordinary material outlines, including dark room materials and the page ground."
-    },
-    "surfaceDark": {
-      "value": "darkLine",
-      "scope": "Paper and lit lamp/screen faces own dark strokes on their own face; they do not spread dark strokes onto dim neighbouring housings."
-    },
-    "instrumentContour": {
-      "value": "darkLine",
-      "scope": "Brass and engraved ticks share the complete dark instrument contour, including adjoining edge pixels on the verified mounting face. This shown stroke treatment does not finalize instrument materials or geometry; new mounts still require a contrast check."
-    }
-  },
-  "provisionalNightInstrument": {
-    "_tag": "Provisional",
-    "values": {
-      "brass-3": "#9F8655",
-      "engraving": "#080808"
-    },
-    "reason": "The owner’s night pick retains the existing provisional brass and engraving status until real instrument geometry is reviewed. The use of the approved dark outline colour for engraving remains provisional."
-  },
-  "unshownSupportValues": {
-    "_tag": "Unreviewed",
-    "reason": "These source slots reproduce the study but had no visible pixels in the picked camera. New geometry and views require their own checks.",
-    "values": {
-      "timber-0": "#27180D",
-      "floor-0": "#21180D",
-      "steel-0": "#292927",
-      "brass-0": "#362912",
-      "brass-1": "#4E3C1D",
-      "brass-2": "#755C2F",
-      "jacket-blue-0": "#131A24",
-      "jacket-red-0": "#2A1311",
-      "jacket-green-0": "#141B15"
-    }
-  },
-  "provenance": {
-    "kind": "renderer-material-study",
-    "sourceImage": "work/look/tones/night-007/night-b-night-dpr1-1.png",
-    "copy": "byte-exact",
-    "sourceProposal": "work/look/tones/night-007/sample-proposal.json",
-    "sourceProposalSha256": "58a5c0a3945b15c1b86dcab67a395acc45feb60afa67a7edd34dfa1f3d92f7ae",
-    "studyId": "night-b",
-    "blindSelection": "Top row of work/look/tones/night-007/review-all.png, recorded by the owner as “Top”.",
-    "reviewSheetSha256": "adbcdc3c8fc795b80fba69bae3d649e815f2549c4cc5581c3aa86ee73db1d731",
-    "sourceDayBrief": "testing/look/scenes/materials-day.json",
-    "sourceDayImageSha256": "bb16f3bf86145cf56b1401dd231322d79eac5aa48dc8950ed7d9287cc08808dc",
-    "derivation": "Derived from corrected day A without a night reference; all 44 existing source day values and day opacity were retained. Added dormant day light/engraving values are not approved by this night pick."
-  },
-  "captureEvidence": {
-    "_tag": "Ready",
-    "protocolVersion": 1,
-    "config": {
-      "technique": "B",
-      "backend": "webgl",
-      "theme": "night",
-      "rung": "building",
-      "dpr": 1,
-      "width": 1200,
-      "height": 900,
-      "desks": 12,
-      "asset": "scene",
-      "seed": 439041101,
-      "fixedTimeEpochMs": 1791806460000
-    },
-    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
-    "sourceSceneSha256": "5b244a7421aa3b1bdccb9c18cacf7b7ed09f4c6fa696c9fd3ec9198d69f0593e",
-    "fontManifestSha256": "76b586e31ee3bfd3aed9220fc01b07a1aa3b2a917037ab803e27d70fec2ecaf9",
-    "paletteSha256": "b756603517b5caaf1a8cb045f824a566295a6ea2721f41ad0229ba092e2fd2a9",
-    "approvalScope": "Reproduction metadata, not approval of camera scale, geometry or renderer acceptance.",
-    "fontManifestMeaning": "Empty wordless-canvas font manifest; no interface glyphs or font bytes are certified.",
-    "camera": {
-      "x": 0,
-      "z": 0,
-      "extent": 14,
-      "rotation": 0
-    }
-  },
-  "day": {
-    "_tag": "OwnerApprovedReference",
-    "brief": "testing/look/scenes/materials-day.json",
-    "reason": "Corrected day A is separately approved within that brief’s recorded scope."
-  },
-  "geometry": {
-    "_tag": "Pending",
-    "reason": "Fixed diagnostic blockout. Proportions, kit unit, actual assets, lamp design and real instrument geometry remain separate work."
-  },
-  "rules": [
-    "docs/atlas.md#approved-night-materials--13-october-2026",
-    "docs/decisions.md#the-look"
-  ]
+  "camera": {
+    "x": 0,
+    "z": 0,
+    "extent": 14,
+    "rotation": 0
+  }
 }

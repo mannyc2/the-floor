@@ -1,0 +1,826 @@
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+
+exports[`drawing values retain their recorded bytes and dimensions 1`] = `
+{
+  "cameraCorners": {
+    "0": {
+      "x": 1,
+      "z": 1,
+    },
+    "1": {
+      "x": 1,
+      "z": -1,
+    },
+    "2": {
+      "x": -1,
+      "z": -1,
+    },
+    "3": {
+      "x": -1,
+      "z": 1,
+    },
+  },
+  "cameraFlight": {
+    "arc": 0.2,
+    "defaultMs": 900,
+    "maximumMs": 1200,
+    "minimumMs": 600,
+  },
+  "cameraRungs": {
+    "building": 21,
+    "desk": 7,
+    "floor": 12,
+  },
+  "cameraValues": {
+    "distance": 250,
+    "horizontalOffset": 35.355339,
+    "pitchRadians": 0.5235987755982988,
+    "quarterTurnRadians": 1.5707963267948966,
+    "targetHeight": 1,
+    "verticalOffset": 28.867513,
+  },
+  "characterMaterials": {
+    "hair": "steel-0",
+    "shirt": "glass-0",
+    "skin": "tone-0",
+    "trousers": "steel-0",
+  },
+  "colors": {
+    "ground": {
+      "day": 15851460,
+      "night": 855824,
+    },
+    "line": {
+      "day": 526344,
+      "night": 12766679,
+    },
+    "paper": {
+      "day": 15456700,
+      "night": 11511707,
+    },
+  },
+  "darkLine": {
+    "day": 526344,
+    "night": 526344,
+  },
+  "figureHeight": 8,
+  "lineClasses": {
+    "instrumentContour": 2,
+    "ordinary": 0,
+    "surfaceDark": 1,
+  },
+  "lineOpacity": {
+    "day": 1,
+    "night": 1,
+  },
+  "lineWidthCssPx": 1,
+  "materialPalette": {
+    "colors": {
+      "brass-0": {
+        "day": 6507554,
+        "night": 3549458,
+      },
+      "brass-1": {
+        "day": 9531701,
+        "night": 5127197,
+      },
+      "brass-2": {
+        "day": 12687178,
+        "night": 7691311,
+      },
+      "brass-3": {
+        "day": 16701059,
+        "night": 10454613,
+      },
+      "engraving-0": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-1": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-2": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-3": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "floor-0": {
+        "day": 6243881,
+        "night": 2168845,
+      },
+      "floor-1": {
+        "day": 8807485,
+        "night": 3417624,
+      },
+      "floor-2": {
+        "day": 10845261,
+        "night": 5587244,
+      },
+      "floor-3": {
+        "day": 13409121,
+        "night": 7559742,
+      },
+      "glass-0": {
+        "day": 5136495,
+        "night": 2173490,
+      },
+      "glass-1": {
+        "day": 5136495,
+        "night": 2173490,
+      },
+      "glass-2": {
+        "day": 6651021,
+        "night": 4083032,
+      },
+      "glass-3": {
+        "day": 8955582,
+        "night": 5729148,
+      },
+      "ground": {
+        "day": 15851460,
+        "night": 855824,
+      },
+      "jacket-blue-0": {
+        "day": 2899285,
+        "night": 1251876,
+      },
+      "jacket-blue-1": {
+        "day": 4677506,
+        "night": 2107704,
+      },
+      "jacket-blue-2": {
+        "day": 6258603,
+        "night": 3754079,
+      },
+      "jacket-blue-3": {
+        "day": 8234462,
+        "night": 5597833,
+      },
+      "jacket-green-0": {
+        "day": 3162161,
+        "night": 1317653,
+      },
+      "jacket-green-1": {
+        "day": 5071951,
+        "night": 2239267,
+      },
+      "jacket-green-2": {
+        "day": 6784105,
+        "night": 4016958,
+      },
+      "jacket-green-3": {
+        "day": 8891529,
+        "night": 5926491,
+      },
+      "jacket-red-0": {
+        "day": 6303016,
+        "night": 2757393,
+      },
+      "jacket-red-1": {
+        "day": 9652289,
+        "night": 4136990,
+      },
+      "jacket-red-2": {
+        "day": 12673367,
+        "night": 6961718,
+      },
+      "jacket-red-3": {
+        "day": 16351091,
+        "night": 10049104,
+      },
+      "lamp-light-0": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-1": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-2": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-3": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "line": {
+        "day": 526344,
+        "night": 12766679,
+      },
+      "paper": {
+        "day": 15921906,
+        "night": 2500134,
+      },
+      "paper-0": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-1": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-2": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-3": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "screen-light-0": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-1": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-2": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-3": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "steel": {
+        "day": 7829367,
+        "night": 9013641,
+      },
+      "steel-0": {
+        "day": 5000008,
+        "night": 2697511,
+      },
+      "steel-1": {
+        "day": 6315612,
+        "night": 2697512,
+      },
+      "steel-2": {
+        "day": 8618365,
+        "night": 4802630,
+      },
+      "steel-3": {
+        "day": 10920862,
+        "night": 6908005,
+      },
+      "timber-0": {
+        "day": 6109727,
+        "night": 2562061,
+      },
+      "timber-1": {
+        "day": 8540975,
+        "night": 3744790,
+      },
+      "timber-2": {
+        "day": 11630402,
+        "night": 6702636,
+      },
+      "timber-3": {
+        "day": 14330748,
+        "night": 8349262,
+      },
+      "tone-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "tone-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "tone-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "tone-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+    },
+    "darkLine": {
+      "day": 526344,
+      "night": 526344,
+    },
+    "lineOpacity": {
+      "day": 1,
+      "night": 1,
+    },
+  },
+  "proportionCameraValues": {
+    "castCentre": -2,
+    "castExtent": 25,
+    "floorExtent": 78,
+    "postCentre": -4,
+    "postExtent": 38,
+    "rotation": 0,
+  },
+  "proportionPalette": {
+    "colors": {
+      "brass-0": {
+        "day": 6507554,
+        "night": 3549458,
+      },
+      "brass-1": {
+        "day": 9531701,
+        "night": 5127197,
+      },
+      "brass-2": {
+        "day": 12687178,
+        "night": 7691311,
+      },
+      "brass-3": {
+        "day": 16701059,
+        "night": 10454613,
+      },
+      "engraving-0": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-1": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-2": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "engraving-3": {
+        "day": 526344,
+        "night": 526344,
+      },
+      "floor-0": {
+        "day": 6243881,
+        "night": 2168845,
+      },
+      "floor-1": {
+        "day": 8807485,
+        "night": 3417624,
+      },
+      "floor-2": {
+        "day": 10845261,
+        "night": 5587244,
+      },
+      "floor-3": {
+        "day": 13409121,
+        "night": 7559742,
+      },
+      "glass-0": {
+        "day": 5136495,
+        "night": 2173490,
+      },
+      "glass-1": {
+        "day": 5136495,
+        "night": 2173490,
+      },
+      "glass-2": {
+        "day": 6651021,
+        "night": 4083032,
+      },
+      "glass-3": {
+        "day": 8955582,
+        "night": 5729148,
+      },
+      "ground": {
+        "day": 15851460,
+        "night": 855824,
+      },
+      "jacket-blue-0": {
+        "day": 4677506,
+        "night": 2107704,
+      },
+      "jacket-blue-1": {
+        "day": 4677506,
+        "night": 2107704,
+      },
+      "jacket-blue-2": {
+        "day": 6258603,
+        "night": 3754079,
+      },
+      "jacket-blue-3": {
+        "day": 8234462,
+        "night": 5597833,
+      },
+      "jacket-green-0": {
+        "day": 5071951,
+        "night": 2239267,
+      },
+      "jacket-green-1": {
+        "day": 5071951,
+        "night": 2239267,
+      },
+      "jacket-green-2": {
+        "day": 6784105,
+        "night": 4016958,
+      },
+      "jacket-green-3": {
+        "day": 8891529,
+        "night": 5926491,
+      },
+      "jacket-red-0": {
+        "day": 9652289,
+        "night": 4136990,
+      },
+      "jacket-red-1": {
+        "day": 9652289,
+        "night": 4136990,
+      },
+      "jacket-red-2": {
+        "day": 12673367,
+        "night": 6961718,
+      },
+      "jacket-red-3": {
+        "day": 16351091,
+        "night": 10049104,
+      },
+      "lamp-light-0": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-1": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-2": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "lamp-light-3": {
+        "day": 15456700,
+        "night": 13812392,
+      },
+      "line": {
+        "day": 526344,
+        "night": 12766679,
+      },
+      "paper": {
+        "day": 15921906,
+        "night": 2500134,
+      },
+      "paper-0": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-1": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-2": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "paper-3": {
+        "day": 15456700,
+        "night": 11511707,
+      },
+      "screen-light-0": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-1": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-2": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "screen-light-3": {
+        "day": 8955582,
+        "night": 9153218,
+      },
+      "steel": {
+        "day": 7829367,
+        "night": 9013641,
+      },
+      "steel-0": {
+        "day": 6315612,
+        "night": 2697512,
+      },
+      "steel-1": {
+        "day": 6315612,
+        "night": 2697512,
+      },
+      "steel-2": {
+        "day": 8618365,
+        "night": 4802630,
+      },
+      "steel-3": {
+        "day": 10920862,
+        "night": 6908005,
+      },
+      "timber-0": {
+        "day": 6109727,
+        "night": 2562061,
+      },
+      "timber-1": {
+        "day": 8540975,
+        "night": 3744790,
+      },
+      "timber-2": {
+        "day": 11630402,
+        "night": 6702636,
+      },
+      "timber-3": {
+        "day": 14330748,
+        "night": 8349262,
+      },
+      "tone-0": {
+        "day": 8018754,
+        "night": 3352093,
+      },
+      "tone-1": {
+        "day": 8018754,
+        "night": 3352093,
+      },
+      "tone-2": {
+        "day": 10976860,
+        "night": 5784630,
+      },
+      "tone-3": {
+        "day": 14263673,
+        "night": 8282959,
+      },
+    },
+    "darkLine": {
+      "day": 526344,
+      "night": 526344,
+    },
+    "lineOpacity": {
+      "day": 1,
+      "night": 1,
+    },
+  },
+  "roomyRecipe": {
+    "counterRadiusRatio": 1.32,
+    "figureRadiusRatio": 1.49,
+    "headRatio": 0.175,
+    "monitorCrownRatio": 1.5,
+    "postPitchRatio": 4.25,
+    "shoulderRatio": 0.27,
+    "stationDepthRatio": 0.4,
+    "stationWidthRatio": 0.9,
+    "worktopRatio": 0.54,
+  },
+  "shading": {
+    "sideTolerance": -0.0001,
+    "tonesPerMaterial": 4,
+    "unshadedSlots": 4,
+    "verticalThreshold": 0.5,
+  },
+  "studyCounts": {
+    "floorPosts": 3,
+    "readabilityHeightCssPx": 40,
+    "stationsPerPost": 8,
+  },
+  "studyLayout": {
+    "castColumnPitch": 6.5,
+    "castFloorDepth": 21,
+    "castFloorWidth": 30,
+    "castRowPitch": 8,
+    "floorCentreY": -0.075,
+    "floorThickness": 0.15,
+    "floorWidth": 72,
+    "postFloorWidth": 36,
+  },
+  "syntheticPalette": {
+    "colors": {
+      "brass-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "brass-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "brass-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "brass-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "engraving-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "engraving-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "engraving-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "engraving-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "floor-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "floor-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "floor-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "floor-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "glass-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "glass-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "glass-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "glass-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "ground": {
+        "day": 15132390,
+        "night": 1579032,
+      },
+      "jacket-blue-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "jacket-blue-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "jacket-blue-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "jacket-blue-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "jacket-green-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "jacket-green-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "jacket-green-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "jacket-green-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "jacket-red-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "jacket-red-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "jacket-red-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "jacket-red-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "lamp-light-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "lamp-light-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "lamp-light-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "lamp-light-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "line": {
+        "day": 2697513,
+        "night": 14211288,
+      },
+      "paper": {
+        "day": 15921906,
+        "night": 2500134,
+      },
+      "paper-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "paper-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "paper-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "paper-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "screen-light-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "screen-light-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "screen-light-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "screen-light-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "steel": {
+        "day": 7829367,
+        "night": 9013641,
+      },
+      "steel-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "steel-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "steel-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "steel-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "timber-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "timber-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "timber-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "timber-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+      "tone-0": {
+        "day": 7829367,
+        "night": 3158064,
+      },
+      "tone-1": {
+        "day": 10066329,
+        "night": 4539717,
+      },
+      "tone-2": {
+        "day": 12303291,
+        "night": 6316128,
+      },
+      "tone-3": {
+        "day": 14540253,
+        "night": 8421504,
+      },
+    },
+    "darkLine": {
+      "day": 2697513,
+      "night": 2697513,
+    },
+    "lineOpacity": {
+      "day": 1,
+      "night": 0.7,
+    },
+  },
+}
+`;

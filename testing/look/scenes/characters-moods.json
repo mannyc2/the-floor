@@ -30,49 +30,11 @@
       "image": "testing/reference/characters-moods-day.png",
       "imageSha256": "d0b6e97e607c73faf5983fb88f773c3193a46f1e3e912135b78ab0cfd35421c3",
       "width": 1536,
-      "height": 1024,
-      "approval": {
-        "_tag": "OwnerApproved",
-        "owner": "The project owner, as recorded in the decision log",
-        "decisionReference": "docs/decisions.md#the-look"
-      },
-      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
-      "provenance": {
-        "kind": "generated-reference",
-        "sourceImage": "work/look/references/005/characters-moods/candidate-08.png",
-        "generationRound": "005",
-        "candidate": "08",
-        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
-        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
-        "sourcePromptRecord": "work/look/references/005/characters-moods/prompts.json",
-        "shortlistRecord": "work/look/references/005/shortlist/notes.md",
-        "copy": "byte-exact"
-      }
+      "height": 1024
     },
     "night": {
       "_tag": "Pending",
       "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
     }
-  },
-  "observed": [
-    "One blue-jacketed trader repeats in eight separate station vignettes on paper.",
-    "The top row contrasts a relaxed phone call, a tense hunch, a raised-fist celebration and a head-down slump.",
-    "The bottom row contrasts leaning boredom, a hand-to-chin pause, an urgent raised-slip call and sleep on folded arms.",
-    "Simple hair, clear hands and rounded blank heads leave the posture legible."
-  ],
-  "corrections": [
-    "The chest emblem is not gold; use the Atlas emblem material once picked.",
-    "No jacket colour sits near brass, which is reserved for live readings.",
-    "A paper-plane throw keeps a curled wrist so it never reads as a salute.",
-    "The shouting pose has no mouth; posture carries the mood.",
-    "Heads are a little larger than in the references so they read at 40 pixels; the exact ratio still needs a pick.",
-    "Use the post reference's 1980s trading-station detail instead of adopting the bare beige cabinets as finished assets.",
-    "The asleep station needs a lamp visibly off; the sheet's absent lamps do not establish the state indicator.",
-    "Check the calm moods separately at small size; this image pick is not a measured 40-pixel readability result.",
-    "Colour audit 13 October: add timber support in the realized scene; this sheet has no modelled floor. Strengthen the observed desk range (about 2.05:1) and monitor range (1.760:1), lift dark jacket faces, and retain the gold-emblem correction. The sheet gives no clean front-glass sample."
-  ],
-  "rules": [
-    "docs/atlas.md#the-laws",
-    "docs/decisions.md#the-look"
-  ]
+  }
 }

@@ -11,26 +11,8 @@
     "width": 1200,
     "height": 900
   },
-  "approval": {
-    "_tag": "OwnerApproved",
-    "kind": "ProportionsAndKitUnitOnly",
-    "date": "2026-10-13",
-    "owner": "The project owner, as recorded in the decision log",
-    "decisionReference": "docs/decisions.md#the-look",
-    "decisionEntry": "13 Oct 2026 — Roomy proportions and the kit unit are approved within a limited scope.",
-    "selection": "Option 1 (roomy)",
-    "ownerNote": "it looks better height-wise.",
-    "scope": "Only K = H/8 and the nine recorded roomy ratios. The preserved image witnesses that selected package; it does not approve all depicted materials, assets, counts, clearances or camera settings."
-  },
-  "approvedKitUnit": {
-    "standingHeightSymbol": "H",
-    "unitSymbol": "K",
-    "definition": "K = H / 8",
-    "standingHeightK": 8,
-    "physicalScale": null,
-    "meaning": "Canonical nominal standing height; posed limbs, shoes and hair can extend or shorten projected silhouette bounds."
-  },
-  "approvedRatiosRelativeToH": {
+  "standingHeightK": 8,
+  "ratios": {
     "headRatio": 0.175,
     "shoulderRatio": 0.27,
     "worktopRatio": 0.54,
@@ -41,80 +23,23 @@
     "figureRadiusRatio": 1.49,
     "monitorCrownRatio": 1.5
   },
-  "parameterDefinitions": {
-    "headRatio": "Hair-free head ellipsoid height divided by canonical standing H; reference observations include hair, so this is a deliberate readable-head choice.",
-    "shoulderRatio": "Canonical torso/shoulder width parameter divided by H, before the build multiplier, shaped jacket profile and sleeve/pose envelope; not a measured full silhouette width.",
-    "worktopRatio": "Top working surface elevation divided by H. .50/.54 are post-first design choices above the moods cabinet projected estimates.",
-    "counterRadiusRatio": "Outer circular counter lip radius divided by H; furniture footprint excludes chair/figure/action clearance.",
-    "stationWidthRatio": "Nominal outer-lip chord between paired radial support-frame centre lines, divided by H. Frame angles are plus/minus asin(width / (2 * counterRadius)). Actual clear width is smaller by frame thickness; this is not an exact unobstructed knee or work envelope.",
-    "stationDepthRatio": "Nominal radial distance from the outer lip to the inner counter-body boundary, divided by H. The worktop adds a .035H inner overhang, so its full surface depth is this value plus .035H; equipment and frame clearances are separate.",
-    "postPitchRatio": "Neighboring post floor-center spacing divided by H.",
-    "figureRadiusRatio": "Standing figure stance center radius from post center, divided by H. Both candidates leave .17H from outer lip.",
-    "monitorCrownRatio": "Top of the central monitor cluster divided by H."
+  "capture": {
+    "technique": "B",
+    "backend": "webgl",
+    "theme": "day",
+    "rung": "building",
+    "dpr": 1,
+    "width": 1200,
+    "height": 900,
+    "desks": 12,
+    "asset": "scene",
+    "seed": 439041101,
+    "fixedTimeEpochMs": 1791806460000
   },
-  "notApproved": [
-    "Skin, hair and clothing materials, including their current semantic palette bindings.",
-    "Figure and asset design, including silhouettes, props, furniture construction and animation.",
-    "Eight stations per post.",
-    "The 36-figure population, post count and specific crowd distribution.",
-    "Physical units or conversion to metres.",
-    "Brass and engraving.",
-    "Additional geometry dimensions, final clearances, collision envelopes, camera framing and scale.",
-    "Newly exposed underside colour assignments, interface and renderer or Stage 0 acceptance."
-  ],
-  "provenance": {
-    "kind": "renderer-proportion-study",
-    "sourceImage": "work/look/proportions/round-001/roomy-day-cast-dpr1-1.png",
-    "copy": "byte-exact",
-    "studyId": "roomy",
-    "sourceRecipe": "work/look/proportions/round-001/candidate-recipes.json",
-    "sourceRecipeSha256": "16aa22d595ea7b2a300f6ba02085905a510f1f582cd47ccce511e7044822ebe0",
-    "sourceCharacterPalette": "work/look/proportions/round-001/skin-proposal.json",
-    "sourceCharacterPaletteSha256": "c4f59b657e5e336045c5f651ead4caab758791557fc7afa10674c6984c918803",
-    "blindReviewSheet": "work/look/proportions/round-001/review-details.png",
-    "reviewSheetSha256": "699ba7d0356901be75d481da1970bc3227f9e8a214d0d38273cf09060fc16282",
-    "blindOrder": "work/look/proportions/round-001/review-order.json",
-    "blindOrderSha256": "57b02d96b63f8dec47c7b4f56509affcd462f980b02ab403125dea110a58aa37",
-    "selectionMeaning": "Option 1 is the middle column beside the picked reference; Option 2 was the compact alternative. Raw candidate and review statuses retain their pre-selection meaning."
-  },
-  "captureEvidence": {
-    "_tag": "Ready",
-    "protocolVersion": 1,
-    "config": {
-      "technique": "B",
-      "backend": "webgl",
-      "theme": "day",
-      "rung": "building",
-      "dpr": 1,
-      "width": 1200,
-      "height": 900,
-      "desks": 12,
-      "asset": "scene",
-      "seed": 439041101,
-      "fixedTimeEpochMs": 1791806460000
-    },
-    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
-    "sourceSceneSha256": "f3b4c5054d048d392d6d47fc091017055eaceb50d3b7881da0d91a3187033393",
-    "fontManifestSha256": "76b586e31ee3bfd3aed9220fc01b07a1aa3b2a917037ab803e27d70fec2ecaf9",
-    "paletteSha256": "b41a5c1970c9c819f5bea51b633a5f89ade6623314f9d3cb90fa6e9359cfe5e9",
-    "camera": {
-      "x": -2,
-      "z": -2,
-      "rotation": 0,
-      "extent": 25
-    },
-    "nominalStandingHeightCssPx": 249.41531717776627,
-    "repeatImageSha256": "de706f9cf620fe3e3c2804a65fca601978fb235c982247da1860282c9adf538c",
-    "approvalScope": "Reproduction metadata only. No palette, camera, population, final asset or physical-scale approval is implied.",
-    "fontManifestMeaning": "Empty wordless-canvas manifest; no interface fonts or glyphs are certified."
-  },
-  "materialApprovalReferences": [
-    "testing/look/scenes/materials-day.json",
-    "testing/look/scenes/materials-night.json"
-  ],
-  "materialScope": "Prior day/night approvals remain exactly as recorded in those briefs. This proportion pick does not approve diagnostic skin, hair, shirt, trouser or new underside assignments.",
-  "rules": [
-    "docs/atlas.md#approved-proportions-and-kit-unit--13-october-2026",
-    "docs/decisions.md#the-look"
-  ]
+  "camera": {
+    "x": -2,
+    "z": -2,
+    "rotation": 0,
+    "extent": 25
+  }
 }

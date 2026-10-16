@@ -12,7 +12,7 @@ Deployables live under `apps/`; code shared by at least two apps, or isolated by
 | `packages/chains` | Chain, venue and launchpad adapters shared by floor and signer |
 | `packages/wallets` | Wallet provider service shared by floor and signer |
 | `packages/world` | World model: desks, plots, layout, and the piece kit's types and checks; no three.js |
-| `packages/atlas` | Recorded tokens, materials, look, camera and proportions with approval scope; generated CSS, linear palette and DTCG tokens; no three.js. Other design-system modules and asset/scene Schemas remain planned |
+| `packages/atlas` | Plain tokens, materials, look, camera and proportions; no generated output or three.js. Approval history lives in the decision log. Other design-system modules and asset/scene Schemas remain planned |
 | `assets` | *Planned.* Asset sources and manifests, including reproducible generated models |
 | `testing` | Flows, look scenes, approved reference frames, bench, recordings and fixtures |
 | `scripts` | Build, lint, budget and verification tooling |

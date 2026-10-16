@@ -7,9 +7,9 @@
     "./materials": "./src/materials.ts",
     "./look": "./src/look.ts",
     "./proportions": "./src/proportions.ts",
-    "./camera": "./src/camera.ts",
-    "./palette": "./generated/palette.ts",
-    "./atlas.css": "./generated/atlas.css"
+    "./camera": "./src/camera.ts"
   },
-  "dependencies": { "effect": "4.0.3" }
+  "dependencies": {
+    "effect": "4.0.3"
+  }
 }
