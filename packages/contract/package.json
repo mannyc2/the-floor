@@ -5,6 +5,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./health": "./src/health.ts",
+    "./auth": "./src/auth.ts",
     "./identifiers": "./src/identifiers.ts",
     "./agents": "./src/agents.ts",
     "./economics": "./src/economics.ts",

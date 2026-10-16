@@ -1,4 +1,5 @@
 export * from "./agents.ts";
+export * from "./auth.ts";
 export * from "./community.ts";
 export * from "./economics.ts";
 export * from "./health.ts";
