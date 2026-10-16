@@ -7,20 +7,20 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 | Area | Implemented |
 | --- | --- |
 | Toolchain and fences | Strict TypeScript project references with Effect diagnostics, type-aware Oxlint, import and artifact boundaries, reasoned suppressions, and pinned dependencies |
-| Floor runtime | Yielded agent and mailbox Durable Objects on Alchemy, SQL admissions, typed snapshots, an OpenAI model Layer and a predicate-only Decisions adapter; scripted Layers live only in tests |
-| Web and renderer | Foldkit shell, typed health RPC, scoped renderer lifetime, synthetic desk scene, ID-image picking, camera gestures and quarter turns, cutaway, fixed-ID snapshots and moving-target follow |
+| Floor runtime | Yielded agent and mailbox Durable Objects on Alchemy, SQL admissions, typed snapshots, an OpenAI model Layer, a predicate-only Decisions adapter and the bounded first-trade loop; scripted Layers live only in tests |
+| Web and renderer | Foldkit shell, typed health RPC, scoped renderer lifetime, synthetic desk scene, ID-image picking, camera gestures and quarter turns, cutaway, fixed-ID snapshots, moving-target follow and the live first-trade desk/receipt viewer |
 | Live world | One Durable Object per world identity, atomic SQL event/snapshot history, internal publishing and a public read-only RPC stream with sequence-based reconnects |
 | Chains and fork signer | Solana launch/swap construction and pool reads, EVM construction, and a separate local signer Worker that journals real fork outcomes and refuses a foreign genesis |
 | Wallets | The native Privy client and its offline oracle tests; the [wallet record](../packages/wallets/README.md) retains the test-transport incident and administration blocker |
 | Atlas and references | Plain drawing values and a value snapshot, sixteen preserved owner-picked frames, and render-only scene briefs; approval history stays in the decision log and git |
-| Verification and CI | Serial shell/renderer browser projects, native Worker and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
+| Verification and CI | Serial shell/first-trade/renderer browser projects, native Worker, agent and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
 
 These are implemented surfaces with the evidence described by their commits. They do not establish the open product, art, hosted or provider promises below.
 
 ## Left
 
-- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K and W are on local `main`. The asset, shading, hosted-flow and world-layout branches still follow their existing plans and owner gates. Final combined verification and the cleanup's final size accounting remain open.
-- [ ] **Complete renderer acceptance.** Hosted production-entry camera/RPC checks and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. Dynamic world rendering and the first-trade viewer flow remain pending integration; snapshot replay through the Model is also open.
+- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K and W are on local `main`. The asset, shading, hosted-flow and world-layout branches still follow their existing plans and owner gates. Those remaining merges still need combined verification and the cleanup's final size accounting.
+- [ ] **Complete renderer acceptance.** Hosted production-entry camera/RPC checks and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
 - [ ] **Finish the Stage 0 look.** One post with its stations, one figure and one token screen must be built through the generator and SVG-profile routes, shortlisted and picked in day and night at all four quarter turns. The first asset sheet was returned without a pick. Every corner must satisfy the visible-body rules, with the seven picked renderer frames unchanged; the all-corner shading correction still needs the owner's choice. Paper-contact and line-ending measurements belong to the real assets.
 - [ ] **Run the newcomer test, or record it as not run.** This requires a person who has not seen the Floor.
 - [ ] **Owner review.** The decisions, integrated flow and picked frames must be reviewed before Stage 0 closes. The first-trade exception does not waive this gate.
@@ -53,7 +53,9 @@ The sustained snapshot checks retain every revision, deterministic draw/triangle
 
 A world's physical floors share one allocation authority. Its SQL journal commits each join, state or receipt event with its exact resulting snapshot. Readers receive a snapshot and ordered deliveries over HTTP NDJSON; the delivery sequence is separate from the evidence's chain checkpoint. Reconnects resume from the requested sequence. Journal identity deduplicates earlier receipt retries, and terminal receipt outcomes cannot be replaced or downgraded.
 
-The fork signer separately journals uncertainty before broadcasting once and resolves later retries from the chain. Its receipts identify their local fork authority and actual initiating intent. The native world test uses explicitly synthetic receipt evidence; the signer has real fork transaction evidence. The bounded agent integration and production viewer/end-to-end flow remain pending. Neither native slice alone closes that flow.
+The fork signer separately journals uncertainty before broadcasting once and resolves later retries from the chain. Its receipts identify their local fork authority and actual initiating intent. The isolated native world test uses explicitly synthetic receipt evidence. The combined first-trade flow uses the actual pool reader, signer and world: a labelled scripted model researches and trades, the production viewer shows its state through approved material values, and clicking its desk opens the receipt. The browser flow checks that receipt's transaction and checkpoint on the fork and recovers it after reload.
+
+The viewer preserves canonical station coordinates and stable desk IDs, ignores obsolete renderer commands and reconnects from its last delivery sequence. It explicitly refuses additional occupied floors or capacity beyond its fixed renderer allocation. The geometry remains labelled synthetic; this slice approves no art, interface or world-layout proposal.
 
 ## Picked references and approval scope
 

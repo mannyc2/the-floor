@@ -46,7 +46,7 @@ Chains don't agree on what an address, a token or a block is, so only chain adap
 | Mandate | The owner's instructions in plain words |
 | Policy | The owner's limits as structured fields. Each confirmed limit pairs its value with the Privy policy ID enforcing it; a draft has no enforcement claim |
 | Action intent | A swap (sell one asset for another, in dollars, with a slippage cap), a launch (a launchpad and a launch spec) or a withdrawal referencing an owner destination ID resolved by the signer |
-| Receipt | An action, its cause (notes, thesis, post), the policy outcome, and the transaction ref and checkpoint, or a refusal, or an outcome marked unknown until the chain settles it |
+| Receipt | An action, its cause (agent intent, notes, thesis, post or owner request), the policy outcome, and the transaction ref and checkpoint, or a refusal, or an outcome marked unknown until the chain settles it |
 | Note, Thesis, Tool, Dataset, Brief | The commons items in the product doc, each with an author, sources and a version |
 | Credit event | Who reused what: a citation, a tool run or a fork |
 | Channel, BoardPost | Board channels (topic, token or project) and their posts |
@@ -59,7 +59,11 @@ Chains don't agree on what an address, a token or a block is, so only chain adap
 
 ## Agents
 
-The agent loop is a [Yielded Agent](https://github.com/yielded-dev/agent/): `Agent.make` with input and output schemas, a toolkit, and a policy capping turns, tool calls and duration. It runs in the agent's Durable Object through Yielded's Alchemy platform, from the pinned build recorded in the decision log.
+The agent loop is a [Yielded Agent](https://github.com/yielded-dev/agent/): `Agent.make` with input and output schemas, a toolkit, and a policy capping turns, tool calls and duration. The foundational thread runtime uses Yielded's Alchemy platform from the pinned build recorded in the decision log. The first-trade runtime uses its own Alchemy Durable Object to serialize request-scoped `AgentRuntime` executions.
+
+The first-trade agent has two tools: read its configured pool and submit the mandate's exact swap intent. The reader checks the pool, assets and chain before submission; the agent cannot change the owner, amount or slippage cap. A run allows three turns, two serial tool calls and thirty seconds. Its output is the signer's receipt, never a model-authored claim of execution. It publishes researching, trading and the receipt to the world, then clears activity on completion or failure.
+
+One Durable Object serializes each agent's mandates. Each bounded run owns an in-memory conversation and request-scoped model and signer clients; conversation recovery is outside this slice. The signer journal preserves intent outcomes across retries, and the world journal preserves the visible states and receipts. The local acceptance Worker substitutes only a labelled scripted model; production has no scripted mode or public trade trigger.
 
 | Service | What it does | Notes |
 | --- | --- | --- |
@@ -192,7 +196,9 @@ Cheapest first, so most rejections are fast. Agents can run the same checks befo
 
 The public `watchWorld` RPC at `/api/world` sends a `WorldFrame.Snapshot`, then ordered `WorldFrame.Delivery` records carrying `WorldEventDelivery` and optional receipt evidence. `after` is a delivery sequence; the separate chain checkpoint retains the evidence's actual height, hash and time. Reconnection resumes from the snapshot at that sequence, and a fresh connection receives the current snapshot. The shared `@floor/world/stream` fold validates world state; journal identity deduplicates old receipt retries and protects terminal outcomes. The [decision log](decisions.md#live-world-stream-15-october-2026) records the installed transport constraints.
 
-World publishing is internal. Only the local test Worker exposes the first-trade trigger; production has no public mutation route. The bounded agent integration and production viewer/end-to-end flow remain pending. Journal retention, hosted verification and authentication remain open.
+World publishing is internal. Only the local test Worker exposes the first-trade trigger; production has no public mutation route. The production viewer subscribes through a model-owned Foldkit subscription, folds ordered deliveries and feeds the renderer's snapshot path. Canonical station slots determine desk IDs and positions; researching and trading use the approved active-screen material. The drawer shows the current state and actual last receipt, including its initiating cause, transaction and checkpoint. Missing state or evidence stays unreported.
+
+The first-trade viewer supports one occupied floor and explicitly refuses additional floors or capacity overflow. It ignores commands from an obsolete renderer generation or revision, while malformed current snapshots remain errors. Reconnects preserve the stream cursor, and a fresh page recovers the current snapshot and receipt. Synthetic geometry remains labelled; multi-floor navigation, moving-world events, full replay, journal retention, hosted verification and authentication remain open.
 
 ## Rendering and the look
 

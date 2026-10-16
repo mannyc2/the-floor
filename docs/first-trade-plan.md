@@ -4,6 +4,10 @@
 
 **Done when:** the technical design's [Trade with a receipt](technical-design.md#the-flows) flow passes locally: Worker, signer and fork start, the scripted agent trades, and the viewer shows the state change and a settled receipt whose transaction the flow confirms on the fork.
 
+**Implemented locally:** L, F, A and V are integrated with the cleanup and RPC dependencies. The combined browser flow enters through the production viewer, observes researching, trading and idle, picks the desk through the renderer, matches its receipt to the agent's actual result and confirms the transaction and checkpoint on the fork. Reloading recovers the receipt. Commands and results live in the implementation commit bodies; raw evidence stays in ignored `work/`.
+
+The slice uses a labelled scripted model, a disposable fork key and one occupied canonical floor. It does not provide conversation recovery, multi-floor navigation, live inference, Privy enforcement, hosted acceptance or approved asset geometry. Those limits preserve the separate Stage 0 and later-stage gates.
+
 ## Rules
 
 - The Stage 0 plan's [session rules](stage-0-plan.md#rules-for-every-session) apply: one browser suite at a time, no push, deploy or spend, and results in commit bodies.
@@ -27,7 +31,7 @@
 Branch `codex/live-world`. `apps/floor`, `packages/api`. Needs rpc-api on `main`.
 
 - A Durable Object per world identity holds `packages/world`'s `World`, including its physical floors. Agents arrive at stations, change state and land receipts as `WorldEvent`s (`AgentJoined`, `AgentStateChanged`, `ReceiptLanded`) with checkpoints.
-- Events are stored in the object's SQL, using R's Effect SQL pattern, so a reconnecting viewer resumes from its last checkpoint.
+- Events are stored in the object's SQL, using R's Effect SQL pattern, so a reconnecting viewer resumes from its last delivery sequence. Each event separately retains its chain checkpoint.
 - One RPC stream sends a snapshot and then deliveries (`WorldEventDelivery`).
 - A service the agent calls to publish its state and receipts.
 
