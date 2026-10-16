@@ -33,6 +33,17 @@ test("all artifact maps and emitted imports exclude workbench and the wallet SDK
       }
       yield* writeMap("entry.ts", "../../apps/web/workbench");
       expect(Result.isFailure(yield* inspectModules(directory).pipe(Effect.result))).toBe(true);
+      for (
+        const source of [
+          "packages/api/src/mcp.ts",
+          "node_modules/effect/src/ai/McpServer.ts",
+          "node_modules/effect/dist/cjs/ai/internal/mcpProtocol/v2026_07_28.js",
+        ]
+      ) {
+        yield* writeMap(source);
+        expect(Result.isFailure(yield* inspectModules(directory, "web").pipe(Effect.result))).toBe(true);
+        yield* inspectModules(directory, "worker");
+      }
       yield* writeMap("packages/wallets/src/privy/client.ts");
       for (const dependency of ["./workbench/entry.js", "@privy-io/node", "svix", "@hpke/core"]) {
         for (

@@ -42,7 +42,7 @@ const command = Command.make(
         return yield* new BundleBudgetError({ reason: "ExceededBudget", detail: `${group.name}: ${bytes}` });
       }
     }
-    yield* inspectModules(directory);
+    yield* inspectModules(directory, "web");
     return void 0;
   }),
 );
