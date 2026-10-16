@@ -2,6 +2,12 @@
   "name": "@floor/world",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
-  "dependencies": { "@floor/contract": "workspace:*", "effect": "4.0.3" }
+  "exports": {
+    ".": "./src/index.ts",
+    "./stream": "./src/stream.ts"
+  },
+  "dependencies": {
+    "@floor/contract": "workspace:*",
+    "effect": "4.0.3"
+  }
 }

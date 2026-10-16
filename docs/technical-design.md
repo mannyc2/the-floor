@@ -415,3 +415,8 @@ Two things can't be defaulted away: an audit of the signer and anything the Floo
 - [CAIP-2](https://chainagnostic.org/CAIPs/caip-2), [CAIP-10](https://chainagnostic.org/CAIPs/caip-10) and [CAIP-19](https://chainagnostic.org/CAIPs/caip-19)
 - [Surfpool](https://github.com/txtx/surfpool), a local Solana mainnet fork
 - [Codex](https://docs.codex.io/), market data
+
+
+### Live world delivery
+
+The first live-world implementation owns one native Durable Object per world identity. Its SQL journal stores each `AgentJoined`, `AgentStateChanged` or `ReceiptLanded` event and the exact resulting world snapshot in one transaction. The public `watchWorld` RPC at `/api/world` uses HTTP NDJSON. It sends a `WorldFrame.Snapshot`, then ordered `WorldFrame.Delivery` records carrying `WorldEventDelivery` and optional receipt evidence. `after` is a delivery sequence; the separate chain checkpoint retains the evidence's actual height, hash and time. Reconnection resumes from the snapshot at that sequence, and a fresh connection receives the current snapshot. The shared `@floor/world/stream` fold validates both server and viewer state; journal identity deduplicates old receipt retries and protects terminal outcomes. The [decision log](decisions.md#live-world-stream-15-october-2026) records the installed transport constraints and remaining work.
