@@ -59,7 +59,7 @@ Stop and ask the owner for:
 | --- | --- | --- |
 | First | The [cleanup plan](cleanup-plan.md): T; then D1, R and S; then K and W; then rebase and slim the remaining branches | Agreed 15 October; D1 moved ahead of K and W once A passed |
 | Before the cleanup | A, C, I, F's audit and proposal, E's draft, B's analysis | Local results above |
-| Integration | D1 inside the cleanup, then D2 after C, D3 after I, then D4 | The queued authentication task starts when D3 lands |
+| Integration | D1 inside the cleanup; D3 (rebase only) once R lands, for the [first trade plan](first-trade-plan.md); D2 after C; then D4 | The queued authentication task starts when D3 lands |
 | Owner picks | B's options, then F's proposal | B can render once C's tooling is available |
 | After the picks | B's production change, G, E's hosted run (with the owner's go-ahead), H | G uses single-post and desk views until F is adopted |
 | Close | The owner's Stage 0 review | |

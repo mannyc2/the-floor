@@ -383,7 +383,7 @@ Launching is built once its mechanism is decided. Owners' sign-in, card funding 
 | Gas | Each agent's wallet pays its own | Setting |
 | Infrastructure | Cloudflare Workers and Durable Objects through Alchemy | Provider |
 | Browser | Cloudflare's, through Yielded's adapters; Browserbase as the alternative | Provider |
-| Inference | The owner picks; default Claude Haiku 5.5 for routine steps and Claude Sonnet 5.5 for theses | Setting over provider Layers |
+| Inference | The owner picks, with a budget; never Anthropic's APIs. The scripted model in local runs until then | Setting over provider Layers |
 | Market data for bindings | Codex, with direct chain reads where it doesn't reach | Provider |
 | Sandbox for pieces | Chosen by its spike | Provider |
 | First agents | The Floor's own, until owners arrive in the second milestone | Setting |
