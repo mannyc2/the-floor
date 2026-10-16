@@ -1,10 +1,12 @@
 # Chain construction boundary
 
-This is unsigned construction, not a launch workflow: simulation, policy approval, signing, broadcast, vesting and pool quotation remain later work.
+The package owns unsigned construction, chain reads and the signer service edge. The isolated signer application owns local-fork simulation, signing, broadcast and settlement. Production launch orchestration, provider policy enforcement, vesting and complete pool quotation remain open.
 
 `@floor/chains/solana` provides `MeteoraLaunch` and its Layer. The caller supplies every identity, amount-bearing config, token metadata, recent blockhash, expiry height and RPC endpoint. Effect HttpClient reads the quote mint owner and preserves the returned slot; Kit owns address validation, PDAs, Codama codecs and serialization. The bounded path supports the tested legacy SPL base and quote token programs and fails on other owners. It orders decoded mint bytes before PDA derivation, so neither input order is a hidden precondition. Construction returns the unsigned transaction bytes, its required signers and the quote read's slot. `ConfigParametersArgs` is an explicit binary-program parameter input, not a substitute for the future venue configuration builder.
 
 `@floor/chains/solana/programs` holds the System, Token, Token-2022 and token-metadata program ids as plain strings, so wallet policy Schemas can name them without loading Kit or construction code.
+
+`@floor/chains/solana/read-pool` reads an active legacy SPL Meteora pool and preserves its chain checkpoint. `@floor/chains/solana/swap` constructs the bounded exact-input swap used by the fork signer. `@floor/chains/signer` defines that service boundary, and `@floor/chains/signer-client` calls the separate signer's typed RPC group. These edges do not import the signer application or grant the Floor custody of its key.
 
 `@floor/chains/evm` provides `DopplerLaunch` and its Layer for the tested Base multicurve path, default governance and Uniswap V2 migration. Base's chain id is part of the input type. Addresses, amounts, pool curves, metadata and salt are inputs. The only Doppler import is `/evm`; its client has no wallet and a transport that rejects every RPC request. Construction returns the calldata bytes and the intended sender and destination. New chains, migrations or governance choices require their own construction evidence.
 
@@ -20,8 +22,8 @@ Run leaf tests with `bun run test` from this package. Root formatting, typecheck
 
 ## Reproducible codecs
 
-`idl/source.json` pins Meteora's upstream Anchor IDL commit and SHA-256, and a leaf test checks the IDL against it. `METEORA-LICENSE` preserves its MIT license, including the ported arithmetic. Codama 1.11.0, its Anchor adapter 1.5.6 and JS renderer 2.5.0 generate Kit 8.4.0 codecs. `codama.json` deletes every node except the twelve types the two instructions take, and links each type to its own file instead of a barrel. `bun run generate` renders into ignored `work/chains-promotion/client/`, copies the twelve codecs to `src/solana/_generated/` and formats them with the root formatter. Verify the resulting diff before changing any pins; lint rejects casts, assertions and `any` in the generated codecs as anywhere else.
+`idl/source.json` pins Meteora's upstream Anchor IDL commit and SHA-256, and a leaf test checks the IDL against it. `METEORA-LICENSE` preserves its MIT license, including the ported arithmetic. Codama 1.11.0, its Anchor adapter 1.5.6 and JS renderer 2.5.0 generate Kit 8.4.0 codecs. `codama.json` retains the sixteen defined types used by construction and pool reads, and links each type to its own file instead of a barrel. `bun run generate` renders into ignored `work/chains-promotion/client/`, copies those codecs to `src/solana/_generated/` and formats them with the root formatter. Verify the resulting diff before changing any pins; lint rejects casts, assertions and `any` in the generated codecs as anywhere else.
 
-`src/solana/instructions.ts` holds the two unsigned instruction builders. They are kept by hand; the IDL test fails if an account position, role, fixed address or discriminator drifts from the pinned IDL.
+`src/solana/instructions.ts` holds the three unsigned instruction builders for configuration, pool initialization and swaps. They are kept by hand; the IDL test fails if an account position, role, fixed address or discriminator drifts from the pinned IDL.
 
 No Alchemy, Cloudflare binding or application runtime belongs here. The Solana edge supplies Effect's FetchHttpClient internally so its public service does not leak the unstable HTTP interface. The test Layer replaces the documented Fetch reference under that same HTTP/Schema path. The root bundle audit must inspect both production entry points so Doppler's unreachable Kit 6 transitive package cannot enter the signer or Floor graph.

@@ -6,7 +6,7 @@ How the Floor runs on Cloudflare, how preview CI works, what hosted work may spe
 
 Alchemy v2 is how the Floor is written for Cloudflare, not only how it is deployed. Its runtime is Effect-native, so Workers, Durable Objects and their bindings are Effect services and Layers. There is no Wrangler config and no `effect-cf`. If Alchemy can't do something, record it in the [decision log](decisions.md) rather than dropping down to Wrangler.
 
-- **Stacks.** `alchemy.run.ts` is the Floor: one Worker that serves the API, holds the agent and mailbox Durable Objects, and serves the built web app as its assets. `stacks/github.ts` is a separate stack that provisions CI credentials. The signer will be its own stack, deployed separately and reached through a typed cross-stack reference.
+- **Stacks.** `alchemy.run.ts` is the Floor: one Worker that serves the API, holds the agent, mailbox and world Durable Objects, and serves the built web app as its assets. `stacks/github.ts` is a separate stack that provisions CI credentials. The isolated signer application runs in a separate local Worker for the fork; its hosted stack and typed cross-stack reference remain open.
 - **Workers and Durable Objects** are `Cloudflare.Worker` and `Cloudflare.DurableObject`. Their outer Effect runs at plan time as well as at runtime, so it has no side effects. Bindings come in as Layers.
 - **Scheduled work** uses durable callbacks (`Alchemy.makeCallback`), scheduled inside a storage transaction so the write and the job commit together. Delivery is at least once, so side effects carry idempotency keys.
 - **The agent's Durable Object** is Yielded's Alchemy platform, from the pinned build in `vendor/yielded/`. It hosts Yielded's thread object in an Alchemy `DurableObject`.
@@ -17,10 +17,10 @@ Alchemy v2 is how the Floor is written for Cloudflare, not only how it is deploy
 ## Running it
 
 - **Locally.** `bun run dev` runs `alchemy dev --stage dev`. Workers run in local workerd, but state is remote, so it needs the owner's profile and can create hosted resources. `bun run dev:web` runs only the web shell.
-- **Tests.** Native tests use Alchemy's harness with local state (`Test.make({ dev: true })`) and a fetch guard that allows only loopback, so they need no profile and touch nothing hosted.
+- **Tests.** Native Workers use Alchemy's harness with local state (`Test.make({ dev: true })`) and a fetch guard that allows only loopback, so they need no profile or hosted Cloudflare resources. The first-trade runner prepares Surfpool and clones program accounts through public read-only Solana RPC before starting the local-only fork and signer; it then owns their teardown.
 - **Deploys** happen only through preview CI. There is no production deployment.
 
-The build checks reachable emitted Worker code against Cloudflare's **64 MiB uncompressed** size limit, separately from the web application's gzip budgets. Cloudflare [changed its Worker size limit on 4 September 2026](https://developers.cloudflare.com/changelog/post/2026-09-04-increased-worker-size-limit/): compressed size is no longer a deployment limit. `bun run build:floor` counts each reachable emitted module once, excluding source maps, and rejects a result above the platform limit. This numerical Worker gate was added with the RPC/MCP replacement; the earlier Worker checks enforced dependency boundaries without a numerical size budget.
+The build checks reachable emitted Worker code against Cloudflare's **64 MiB uncompressed** size limit, separately from the web application's gzip budgets. Cloudflare [changed its Worker size limit on 4 September 2026](https://developers.cloudflare.com/changelog/post/2026-09-04-increased-worker-size-limit/): compressed size is no longer a deployment limit. `bun run build` counts each reachable emitted module once, excluding source maps, and rejects a result above the platform limit. The same build inspects whole emitted artifacts and source-map provenance for the web, Floor, signer and chain entry points, enforcing their dependency boundaries.
 
 ## Credentials
 

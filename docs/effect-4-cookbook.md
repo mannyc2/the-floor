@@ -23,18 +23,19 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
    - `withDecodingDefaultKey` for defaults (`scripts/bundle-budget/model.ts`).
    - `Schema.toEquivalence` to compare decoded values.
    - `Schema.fromJsonString(Schema.toCodecJson(X))` to carry an `Option` through JSON.
-5. **One backend RPC group.**
-   - Define `Rpc.make(name, { payload, success, error })` with contract Schemas, then `RpcGroup.make(…)` (`packages/api/src/rpc.ts`). The Floor has no separate `HttpApi`.
+5. **RPC groups at service boundaries.**
+   - Define `Rpc.make(name, { payload, success, error })` with contract Schemas, then `RpcGroup.make(…)`. Health, the world stream and the isolated signer have separate groups in `packages/api/src/{rpc,world-rpc,signer}.ts`; none uses a separate `HttpApi`.
    - Implement the group with `FloorRpcs.toLayer({ … })`, and serve it with `RpcServer.layerHttp({ group: FloorRpcs, path: "/api/rpc", protocol: "http" })` plus a serialization Layer.
-   - Call it with scoped `RpcClient.make(FloorRpcs)`, providing `RpcClient.layerProtocolHttp({ url })`, the matching serialization Layer and an `HttpClient`.
+   - Call it with scoped `RpcClient.make(FloorRpcs)`, providing `RpcClient.layerProtocolHttp({ url })`, the matching serialization Layer and an `HttpClient`. Build the client in the scope that owns its calls. Alchemy's Durable Object initializer scope closes after initialization, so `apps/floor/src/agents/trade-runtime.ts` builds the first-agent dependencies inside each run.
 6. **RPC streams.**
-   - On the server, `RpcGroup.make(Rpc.make("watch", { success, stream: true }))` runs with `RpcServer.layerHttp({ group, path, protocol: "websocket" })` and `RpcSerialization.layerNdjson`.
-   - On the client, `RpcClient.layerProtocolSocket()` runs with `Socket.layerWebSocket(url)` and `Socket.layerWebSocketConstructorGlobal`.
+   - The live world uses `RpcGroup.make(Rpc.make("watchWorld", { payload, success, error, stream: true }))` with `RpcServer.layerHttp({ group, path, protocol: "http" })` and `RpcSerialization.layerNdjson`. Its scoped client uses `RpcClient.layerProtocolHttp({ url })` with the same serialization.
+   - Across a native Durable Object boundary, carry the RPC stream through `fetch`; Alchemy's native RPC stream adapter closes the peeled stream's scope too early for this long-lived subscription. Build the internal HTTP routes per request with `HttpRouter.toHttpEffect(routes).pipe(Effect.flatten)` (`apps/floor/src/world/runtime.ts`).
 7. **SQL.**
    - Models are `Model.Class` with `Model.BooleanSqlite` and `Model.Field`; repositories are `SqlModel.makeRepository`; queries use `SqlSchema.findOneOption` and `SqlSchema.void`.
    - On Workers, storage goes through Alchemy: Durable Object SQL with its migrations, and D1. Their transactions differ (see [the platform](platform.md#built-on-alchemy)).
+   - For a native Durable Object transaction, `SqliteClient.layer({ storage: state.raw.storage })` supplies the storage-backed SQL client. `apps/floor/src/world/runtime.ts` uses its `withTransaction` to commit an event and its snapshot together.
 8. **Streams, caches and fibres.**
-   - `PubSub.sliding({ capacity, replay: 1 })` with `Stream.fromPubSub` for a live feed with the latest value.
+   - `PubSub.sliding({ capacity, replay: 1 })` with `Stream.fromPubSub` carries replaceable latest values. A durable event feed must not drop deliveries: the world stream uses a sliding wakeup only, then reads every journal row after the subscriber's cursor.
    - `Cache.makeWith(lookup, { timeToLive: (exit) => Exit.isSuccess(exit) ? "15 seconds" : "0 seconds" })` keeps only successes.
    - `FiberMap.run(map, key, effect, { onlyIfMissing: true })` gives one run per key.
 9. **AI.**
