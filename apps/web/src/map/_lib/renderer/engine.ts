@@ -285,16 +285,16 @@ export const openEngine = (
         camera.right = -camera.left;
         camera.top = view.extent / 2;
         camera.bottom = -camera.top;
-        const target = new THREE.Vector3(view.x, cameraValues.targetHeight.value, view.z);
-        const corner = cameraCorners[view.rotation].value;
+        const target = new THREE.Vector3(view.x, cameraValues.targetHeight, view.z);
+        const corner = cameraCorners[view.rotation];
         const towardCamera = new THREE.Vector3(
-          cameraValues.horizontalOffset.value * corner.x,
-          cameraValues.verticalOffset.value,
-          cameraValues.horizontalOffset.value * corner.z,
+          cameraValues.horizontalOffset * corner.x,
+          cameraValues.verticalOffset,
+          cameraValues.horizontalOffset * corner.z,
         ).normalize();
         camera.position.set(target.x, target.y, target.z).addScaledVector(
           towardCamera,
-          cameraValues.distance.value,
+          cameraValues.distance,
         );
         data.cutaway(towardCamera);
         camera.lookAt(target);
@@ -362,8 +362,8 @@ export const openEngine = (
         sceneTarget.setSize(size.x, size.y);
         // Integer, asymmetric spans keep a one-CSS-pixel line at DPR 1, 2 and 3.
         screenUniforms.edgeSpan.value.set(
-          Math.floor(state.dpr * lineWidthCssPx.value / 2),
-          Math.ceil(state.dpr * lineWidthCssPx.value / 2),
+          Math.floor(state.dpr * lineWidthCssPx / 2),
+          Math.ceil(state.dpr * lineWidthCssPx / 2),
         );
         setCamera(state.camera);
       };

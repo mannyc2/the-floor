@@ -116,14 +116,14 @@ export const openCamera = (
     engine.draw();
     rest();
   };
-  const fly = (to: Camera, history = true, duration = cameraFlight.defaultMs.value) => {
+  const fly = (to: Camera, history = true, duration = cameraFlight.defaultMs) => {
     if (state.paused) return;
     stop();
     state.maybeFlight = Option.some({
       from: read(),
       to,
       start: nowMonotonicMs(),
-      duration: Math.max(cameraFlight.minimumMs.value, Math.min(cameraFlight.maximumMs.value, duration)),
+      duration: Math.max(cameraFlight.minimumMs, Math.min(cameraFlight.maximumMs, duration)),
       history,
     });
   };
@@ -353,7 +353,7 @@ export const openCamera = (
         x: lerp(flight.from.x, flight.to.x, ease),
         z: lerp(flight.from.z, flight.to.z, ease),
         extent: lerp(flight.from.extent, flight.to.extent, ease)
-          + Math.max(flight.from.extent, flight.to.extent) * cameraFlight.arc.value * Math.sin(Math.PI * t),
+          + Math.max(flight.from.extent, flight.to.extent) * cameraFlight.arc * Math.sin(Math.PI * t),
       });
       if (t === 1) {
         state.maybeFlight = Option.none();

@@ -30,46 +30,11 @@
       "image": "testing/reference/screen-day.png",
       "imageSha256": "04030aa040f625c94f0bf9c662e5e529d3b55ac192f36e1e108ffcd4ea5bebc9",
       "width": 1536,
-      "height": 1024,
-      "approval": {
-        "_tag": "OwnerApproved",
-        "owner": "The project owner, as recorded in the decision log",
-        "decisionReference": "docs/decisions.md#the-look"
-      },
-      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
-      "provenance": {
-        "kind": "generated-reference",
-        "sourceImage": "work/look/references/004/screen/candidate-06.png",
-        "generationRound": "004",
-        "candidate": "06",
-        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
-        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
-        "sourcePromptRecord": "work/look/references/004/screen/prompts.json",
-        "shortlistRecord": "work/look/references/004/shortlist/notes.md",
-        "copy": "byte-exact"
-      }
+      "height": 1024
     },
     "night": {
       "_tag": "Pending",
       "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
     }
-  },
-  "observed": [
-    "A crowded floor fills the view, with repeated posts, a long screen wall, the bell and podium, whiteboards and elevator doors.",
-    "Four groups of fine blank caption lines sit in the corners and a slim search field sits near the top centre.",
-    "A narrow drawer shape sits along the right side containing a picture, a note and a receipt.",
-    "The world dominates the image; the interface occupies the paper at its edges."
-  ],
-  "corrections": [
-    "The drawer is a flat paper interface panel beside the selected station, not the physical wooden drawer drawn here.",
-    "Show the selected agent's screen in the drawer rather than the image of a whole post; selection must be explicit without covering the station.",
-    "Vary neighbouring posts and stations instead of copying the near-identical repeated posts.",
-    "Replace quote-board tables with emblems and single brass price lines; words and readouts belong in the interface.",
-    "Do not adopt the image's search radius, typography, spacing, projection or decorative brass as Atlas values.",
-    "Colour audit 13 October: replace coloured numerical screen rows with brass line/scale instruments, correct decorative gold drawer hardware, and render the drawer as an interface paper surface. Placeholder caption strokes do not prove ink or muted-text contrast."
-  ],
-  "rules": [
-    "docs/atlas.md#the-laws",
-    "docs/decisions.md#the-look"
-  ]
+  }
 }

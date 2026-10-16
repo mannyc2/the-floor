@@ -15,7 +15,7 @@ bun run e2e
 
 Use Bun 1.4.0. The frozen install verifies the pinned tarballs against `bun.lock` and keeps the compiler/Oxlint patch in `prepare`. `typecheck` runs one `tsc -b` over the eleven project references with the strict options and all 91 Effect diagnostics. `test` runs the explicit leaf paths; native Worker tests and browser flows have their own commands so CI stops at the first failed acceptance step.
 
-Until the Atlas cleanup lands, intentional Atlas source edits require `bun scripts/build-atlas.ts` and review of the generated changes. Style lint and builds verify the committed source/output manifest without regenerating it. Never substitute a Bun server build for Workers: `build` uses Alchemy's local Worker harness, alongside the web and chain builds and their artifact fences.
+Atlas source edits must preserve the recorded value snapshot unless the owner changes a pick. Never substitute a Bun server build for Workers: `build` uses Alchemy's local Worker harness, alongside the web and chain builds and their artifact fences.
 
 ## Local checks
 

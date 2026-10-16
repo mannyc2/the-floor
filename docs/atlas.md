@@ -2,9 +2,9 @@
 
 The Atlas is the Floor's design system, written as code in `packages/atlas`. The renderer, the interface, the piece checks, plates and the look tests all read their visual values from it, and nothing copies them by hand. This doc is the plan for that code, and the home of what isn't code: the laws, the voice and the common failures.
 
-**Where it stands.** `packages/atlas` holds the recorded tokens, materials, look, proportions and camera values; the remaining modules below are planned. On 13 October the owner approved corrected day material A and then night B: the shown material values, with the night line classes and flat lit lamp/screen faces. The preserved [day](../testing/reference/materials-day.png) and [night](../testing/reference/materials-night.png) frames have separate [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) approval scopes. The owner then picked [Roomy proportions and the kit unit](#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine ratios. Brass and engraving, figure/asset design, skin/hair/clothing materials, newly exposed or hidden material bands, final clearances, counts, physical scale and the interface remain open. Stage 0 still needs those reviews and the asset generators (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
+**Where it stands.** `packages/atlas` holds plain tokens, materials, look, proportions and camera values. Approval history lives in the decision log and git; it is not part of runtime values. The remaining modules below are planned. On 13 October the owner approved corrected day material A and then night B: the shown material values, with the night line classes and flat lit lamp/screen faces. The preserved [day](../testing/reference/materials-day.png) and [night](../testing/reference/materials-night.png) frames have separate [day](../testing/look/scenes/materials-day.json) and [night](../testing/look/scenes/materials-night.json) approval scopes. The owner then picked [Roomy proportions and the kit unit](#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine ratios. Brass and engraving, figure/asset design, skin/hair/clothing materials, newly exposed or hidden material bands, final clearances, counts, physical scale and the interface remain open. Stage 0 still needs those reviews and the asset generators (see [the look](look.md) and [Stage 0](stage-0.md)). Anything marked *starting* remains a placeholder, not a decision.
 
-The nine image-generated reference PNGs are preserved in `testing/reference/`. Their staged briefs in `testing/look/scenes/` record each `frame`, image hash, owner decision and required corrections. Renderer-dependent fields remain tagged `Pending`; migrate the briefs to the executable `ReferenceScene` below when the picks and generators supply those fields. No placeholder camera or invented measurement stands in for missing evidence.
+The nine image-generated reference PNGs are preserved in `testing/reference/`. Their staged briefs in `testing/look/scenes/` hold the frame, image hash and available rendering inputs. Renderer-dependent fields remain tagged `Pending`; migrate the briefs to the executable `ReferenceScene` below when the picks and generators supply those fields. No placeholder camera or invented measurement stands in for missing evidence.
 
 ## Two layers
 
@@ -93,7 +93,6 @@ packages/atlas/src/
   sound.ts         the sound for each kind of change
   chrome.ts        the corners, search field, drawer, phone bottom sheet and plate frame
   schema/          AssetManifest and ReferenceScene (below)
-scripts/build-atlas.ts    writes atlas.css, the palette texture, a DTCG tokens.json and an output manifest
 assets/<kind>/<id>/       a manifest.json beside each generated model
 testing/look/scenes/      reference scene specs
 testing/reference/        the owner's picked frames, per scene and theme
@@ -104,7 +103,7 @@ apps/web/workbench/       a second Vite entry, built only for development and pr
 
 | Thing | Source | Read by |
 | --- | --- | --- |
-| Colours, type, spacing, radius | `tokens.ts` | The interface, only through the generated `atlas.css`. The renderer, through the RGBA8 palette texture (material × tone × theme, preserving authored sRGB bytes), so a theme change is one uniform |
+| Colours, type, spacing, radius | `tokens.ts` | The renderer writes the sRGB values directly into an RGBA8 palette texture; a theme change is one uniform. Interface CSS variables arrive with the interface |
 | Materials | `materials.ts` | The piece checks, which refuse any material a contributor may not assign. Brass and blueprint are set only by the world: brass when a part is bound to live data through the kit's instruments, blueprint while a piece waits on its checks. The renderer reads each part's palette slot |
 | Line and shading | `look.ts` | The renderer. The workbench tunes it and turns a tuned value into a patch |
 | Camera | `camera.ts` | The renderer, camera state in the URL, and the camera tests |
@@ -114,7 +113,7 @@ apps/web/workbench/       a second Vite entry, built only for development and pr
 | Reference scenes | `testing/look/scenes/` | The workbench and the look tests |
 | Reference frames | `testing/reference/` | The look tests, and the side-by-side image for the owner's pick |
 | Assets | The manifest beside each model | The budget and socket checks. The renderer attaches instruments, logos, name plates and desk pieces to sockets |
-| The screen | Foldkit components in `apps/web`, styled only by `atlas.css` | The workbench's screen scenes |
+| The screen | Foldkit components in `apps/web`, using Atlas values | The workbench's screen scenes |
 
 ## Starting values
 
@@ -375,22 +374,15 @@ The floor needs at least:
 | `placements` | Each asset, its variant and position, and any readings |
 | `source` | Always `synthetic`: scenes can never reach the live world |
 | `expect` | The brass parts, the labels, the smallest tick spacing in pixels, the tone-histogram limit and the silhouette-overlap minimum |
-| `reference` | The day and night frames, and their approval: `SyntheticUnapproved`, or `OwnerApproved` with the owner and the decision-log entry. This is the same shape as the look harness's target manifest |
+| `reference` | The day and night frame paths, image hashes and dimensions; absent captures stay pending |
 
-## Generated outputs and the fences
+## Plain values and the fences
 
-`bun scripts/build-atlas.ts` writes these files under `packages/atlas/generated/`:
-- **`atlas.css`:** the recorded colour tokens as custom properties per theme. Type, spacing and other unpicked interface values remain absent.
-- **`palette.ts`:** linear-space RGBA texture data in the renderer's exact palette-slot order, with separate material, proportion-study and synthetic palettes.
-- **`tokens.json`,** in the Design Tokens Format (DTCG 2025.10), with status and source metadata in the `org.the-floor.atlas` extension.
-- **`manifest.json`:** the exact source and output inventories with SHA-256 hashes, so hand edits and stale generation are detected.
+Five source modules export plain values. Palette names and decoding schemas remain alongside the material values; the renderer writes their sRGB bytes directly to its texture. There are no generated palettes, stylesheets, token exports or manifests. One snapshot pins the values and dimensions without carrying approval metadata into the application.
 
-The stylesheet ships in the web bundles. The renderer builds an RGBA8 palette directly from authored colour values; the generated linear-space rows remain a verified generator output pending cleanup and no longer enter the renderer bundle. The planned published Atlas page will be generated from the repository. It will show swatches and material spheres, each reference scene beside its frame in day and night, the screen at 1440×900 and 390×844, and the asset catalogue with 64-pixel thumbnails and budgets.
+`atlas-literals` in `scripts/lint/plugin.ts` rejects colour and pixel literals in production source outside `packages/atlas/src`. `scripts/lint/styles.ts` applies the same boundary to application HTML and CSS. Interface CSS variables will arrive with their first consumer.
 
-The fences already enforce one source:
-- **`atlas-literals`** (in `scripts/lint/plugin.ts`) fails any hex colour, `rgb()` or `hsl()` call, or `px` value in a string or template in production source outside `packages/atlas/src/`.
-- **`scripts/lint/styles.ts`** applies the same test to the CSS and HTML in `apps/web/src`, `packages/atlas/src` and `packages/atlas/generated`, and to `apps/web/index.html`. Authored literals belong in `packages/atlas/src/`; generated exemptions require the manifest check below.
-- **Generated CSS gets no exemption from its file name or a banner.** `bun scripts/lint/styles.ts` validates the manifest, source and output hashes, rejects unexpected generated files, and regenerates expected bytes in memory before exempting the declared stylesheet. See [lint](Codex/lint.md).
+The planned Atlas page shows swatches, material spheres, reference scenes beside their frames, and the asset catalogue. Asset and interface approval scopes remain in the decision log.
 
 ## The workbench
 
@@ -406,20 +398,9 @@ The workbench is a second, development-only Vite entry at `apps/web/workbench/`.
 
 ## Look tests
 
-The deterministic harness is in [`testing/look`](../testing/look/README.md). It drives a look route that the renderer exposes, and it:
-- reads the tracked material and proportion briefs during `bun test ./testing/look/test/atlas-approvals.test.ts`, matching every approved Atlas colour, opacity, kit unit and ratio to its exact source while preserving excluded uses;
-- runs Chrome on SwiftShader and asserts the renderer string, since a silent fallback would still produce a screenshot;
-- fixes the pixel ratio and canvas size, loads and hashes the fonts, fixes the wall clock and seeds the randomness;
-- compares every byte across repeated navigations, so any nondeterminism fails;
-- measures each capture against the CPU edge-projection target (exact and one-CSS-pixel F1, stroke width and cylinder interior density), and checks primitive silhouettes;
-- measures the phone profile, and whether lines survive in 64-pixel impostors.
+The development-only `/look/` adapter drives the real renderer with a fixed capture configuration. Browser suites retain the camera, picking, replay, ownership, streaming and phone-profile checks. Completed tone/proportion studies and the 360-capture matrix are retired. The asset branch supplies the seven picked renderer-frame guards through Playwright screenshots at zero tolerance; reference images require a new owner pick before they change.
 
-Once frames are picked, each scene, theme and pixel ratio also gets:
-- a tight pixel diff against the last approved render (*starting* tolerance: 0.1–0.5% of pixels);
-- metrics against the picked frame: the tone histogram, line density per tile, silhouette overlap, brass only inside instrument masks, and the smallest tick spacing;
-- the side-by-side image for the owner's pick. Changing an approved frame needs a new pick.
-
-The harness and renderer use `building`, `floor` and `desk`, with a desk count. The development-only `/look/` adapter exposes the capture protocol; web-owned edge projection and primitive silhouettes supply independent synthetic targets. Owner approval of reference frames remains a separate gate.
+`bun test ./packages/atlas/test` pins the plain values. Scene briefs contain rendering inputs, while the decision log records the owner’s picks and their scope. New asset comparisons still check tone structure, silhouettes, line density, instrument masks and tick spacing as applicable. Synthetic scenes cannot reach the live world.
 
 ## Common failures
 

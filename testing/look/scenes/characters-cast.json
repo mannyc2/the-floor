@@ -30,48 +30,11 @@
       "image": "testing/reference/characters-cast-day.png",
       "imageSha256": "2cfac94ef2b3f84f7d7162fb50350f1f5ed6f2f8563db93d6a56d59b43f52009",
       "width": 1536,
-      "height": 1024,
-      "approval": {
-        "_tag": "OwnerApproved",
-        "owner": "The project owner, as recorded in the decision log",
-        "decisionReference": "docs/decisions.md#the-look"
-      },
-      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
-      "provenance": {
-        "kind": "generated-reference",
-        "sourceImage": "work/look/references/005/characters-cast/candidate-03.png",
-        "generationRound": "005",
-        "candidate": "03",
-        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
-        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
-        "sourcePromptRecord": "work/look/references/005/characters-cast/prompts.json",
-        "shortlistRecord": "work/look/references/005/shortlist/notes.md",
-        "copy": "byte-exact"
-      }
+      "height": 1024
     },
     "night": {
       "_tag": "Pending",
       "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
     }
-  },
-  "observed": [
-    "Eight distinct traders appear from the front and back, with a small trading station and stool at one end.",
-    "A still veteran, raised-slip hustler, running trader, hunched phone caller, plane thrower, tired trader, paper-clutching newcomer and taller bell ringer have different lines of action.",
-    "Rolled sleeves, braces, ties, jackets and a jacket over the shoulder vary the clothing and silhouette.",
-    "Rounded heads and natural head tones replace the rejected cube-headed mannequin shape."
-  ],
-  "corrections": [
-    "The chest emblem is not gold; use the Atlas emblem material once picked.",
-    "No jacket colour sits near brass, which is reserved for live readings.",
-    "A paper-plane throw keeps a curled wrist so it never reads as a salute.",
-    "The shouting pose has no mouth; posture carries the mood.",
-    "Heads are a little larger than in the references so they read at 40 pixels; the exact ratio still needs a pick.",
-    "Remove the voice's gold lapel pin and the night-shift trader's mouth-marking goatee; retain personality through body and simple hair shapes.",
-    "Do not copy brass bell brackets or stands as decoration, or treat realistic head ratios and textured shading as final geometry or materials.",
-    "Colour audit 13 October: add timber support in the realized scene; the sheet only has page ground, not a sampled floor. Lift darkest jacket/timber faces for 3:1 near-black outlines, simplify gradients and remove station writing; retain the existing non-gold emblem and no-brass-like-jacket corrections."
-  ],
-  "rules": [
-    "docs/atlas.md#the-laws",
-    "docs/decisions.md#the-look"
-  ]
+  }
 }

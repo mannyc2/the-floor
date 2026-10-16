@@ -30,45 +30,11 @@
       "image": "testing/reference/floor-day.png",
       "imageSha256": "3a163a5c400c65b88638d7c12ad578853c377fa6713078239d702f026320d512",
       "width": 1536,
-      "height": 1024,
-      "approval": {
-        "_tag": "OwnerApproved",
-        "owner": "The project owner, as recorded in the decision log",
-        "decisionReference": "docs/decisions.md#the-look"
-      },
-      "approvalScope": "Reference image only: composition, density, silhouettes and mood. Not geometry, tones, material values, a renderer baseline or measured acceptance.",
-      "provenance": {
-        "kind": "generated-reference",
-        "sourceImage": "work/look/references/004/floor/candidate-02.png",
-        "generationRound": "004",
-        "candidate": "02",
-        "decisionCommit": "de9ec68711d6e6f245edfe4f2c504d48c8aaee03",
-        "decisionEntry": "12 Oct 2026 — The reference frames and characters are picked.",
-        "sourcePromptRecord": "work/look/references/004/floor/prompts.json",
-        "shortlistRecord": "work/look/references/004/shortlist/notes.md",
-        "copy": "byte-exact"
-      }
+      "height": 1024
     },
     "night": {
       "_tag": "Pending",
       "reason": "No generated night reference exists. Night comes from the Floor renderer's tone options and a later owner pick, not another image round."
     }
-  },
-  "observed": [
-    "Six monitor-crowned posts fill a cutaway floor; dense rings of traders surround the counters and spill into the aisles.",
-    "Raised arms, order slips, paper planes and scattered papers make the crowd read as a session in progress.",
-    "The back wall carries token screens, a bell and podium; whiteboards and a file-room opening occupy the right side, with an elevator landing on the left.",
-    "Warm timber flooring sits beneath dark monitor housings and varied jackets."
-  ],
-  "corrections": [
-    "Keep the composition and crowd density, but derive dimensions and station counts in the proportions round rather than tracing this image as geometry.",
-    "Do not carry over faint facial features, decorative brass, orange accents or the formal turned-baluster rails.",
-    "Token screens need only an emblem and one brass price line with a faint scale; generated coloured emblems are not a picked palette.",
-    "Use the actual orthographic camera, flat four-tone materials and quieter floor-joint lines instead of the image's texture and soft shading.",
-    "Colour audit 13 October: lift dark glass and deep jacket faces for near-black outlines at 3:1; separate brass-like jacket colours; replace white price lines with brass and remove decorative gold on rails or bell supports."
-  ],
-  "rules": [
-    "docs/atlas.md#the-laws",
-    "docs/decisions.md#the-look"
-  ]
+  }
 }
