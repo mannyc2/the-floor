@@ -396,6 +396,7 @@
         "testing/look/run.ts",
         "apps/web/src/entry.ts",
         "apps/web/workbench/entry.ts",
+        "apps/web/workbench/asset-preflight.ts",
         "scripts/ci/admin.ts",
         "scripts/ci/deploy.ts",
         "scripts/ci/cleanup.ts"

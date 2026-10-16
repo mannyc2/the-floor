@@ -208,7 +208,7 @@ The first-trade viewer supports one occupied floor and explicitly refuses additi
 
 Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource. One Effect semaphore permit spans acquisition, use and retirement; a Ref holds the mounted renderer, and a Deferred carries native failure. Effect scopes release native resources in reverse acquisition order. A failed or timed-out release quarantines further acquisition. Three.js and the camera load only when the map mounts. Upload, listener and frame accounting, diagnostic controls and the DevTools replay bridge live in the development workbench; production does not preserve its drawing buffer.
 - **Lines.** Technique B: a surface-id and depth edge pass at a fixed one CSS pixel, on WebGL.
-- **Shading.** Four tones by face direction. The current application palette and desk geometry remain explicitly synthetic. `packages/atlas` owns that palette alongside the separately scoped material picks. The renderer builds unconverted RGBA8 day/night rows from authored sRGB values; theme changes select a row through one uniform. No activity accent exists.
+- **Shading.** Four tones by face direction. Tops and undersides follow world Y; side tones follow the camera, so the dark side stays on the same screen side at every quarter turn. The current application palette and desk geometry remain explicitly synthetic. `packages/atlas` owns that palette alongside the separately scoped material picks. The renderer builds unconverted RGBA8 day/night rows from authored sRGB values; theme changes select a row through one uniform. No activity accent exists.
 - **Geometry.** Pieces are instanced geometry wherever they share parts. Panning never rebuilds the scene.
 
 ### The look, as acceptance
@@ -216,7 +216,7 @@ Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource
 - **The design system is code.** `packages/atlas` holds plain recorded tokens, four-tone materials, line and shading settings, camera controls and proportions. Their approval scopes live in the decision log. Motion, reading scales and screen dimensions remain planned until their values are established. The renderer writes palette bytes directly from those values; lint bans colour and pixel literals elsewhere.
 - **Reference frames.** The owner's picks from the floor's reference round become the reference frames, committed under `testing/reference/` with a scene spec each. The tones and proportions come from them.
 - **Owner approval.** Art is approved by the owner picking between options another agent shortlisted. No agent approves its own output.
-- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. The completed material/proportion rounds and large capture matrix are retired; the capture adapter remains for asset work. The asset branch will guard approved renderer frames with zero-tolerance screenshots. A material-only pick preserves its exact frame and approved colours without approving study geometry or a full scene baseline.
+- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. The completed material/proportion rounds and large capture matrix are retired; the capture adapter remains for asset work. The `approved` browser project guards the seven picked renderer frames with zero-tolerance screenshots. A material-only pick preserves its exact frame and approved colours without approving study geometry or a full scene baseline.
 
 ### The camera
 

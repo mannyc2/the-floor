@@ -37,6 +37,8 @@ export default defineConfig({
   retries: 0,
   // A hosted run spends a bounded request budget once; stop at its first failure.
   maxFailures: settings.remote ? 1 : 0,
+  // The approved frames are owner picks: a run never writes a reference.
+  updateSnapshots: "none",
   use: { trace: "retain-on-failure", video: "on" },
   projects: [
     {
@@ -60,6 +62,21 @@ export default defineConfig({
       timeout: 90000,
       outputDir: "../../work/flows/renderer",
       use: { baseURL: rendererURL, viewport: { width: 900, height: 700 }, launchOptions: swiftShader },
+    },
+    {
+      name: "approved",
+      testMatch: "approved/*.spec.ts",
+      timeout: 90000,
+      outputDir: "../../work/flows/approved",
+      snapshotPathTemplate: "{testDir}/../reference/{arg}{ext}",
+      use: { baseURL: rendererURL, launchOptions: swiftShader },
+    },
+    {
+      name: "assets",
+      testMatch: "assets/*.spec.ts",
+      timeout: 180000,
+      outputDir: "../../work/flows/assets",
+      use: { baseURL: rendererURL, viewport: { width: 1200, height: 900 }, launchOptions: swiftShader },
     },
   ],
   webServer: [

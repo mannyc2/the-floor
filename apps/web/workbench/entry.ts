@@ -6,9 +6,11 @@ import type { HtmlBuilder } from "foldkit/html";
 import { AdapterState } from "../../../testing/look/protocol";
 import { MapCommands } from "../src/map/_lib/renderer/service";
 import { cameraFromQuery } from "../src/map/model";
+import { readAssetReview } from "./_lib/asset-review-model";
+import { readReferenceScene } from "./_lib/reference-scene";
 import { makeWorkbenchApi } from "./api";
 import { ComparisonMessage, comparisonPorts, comparisonSubscriptions, makeCameraComparison } from "./camera-comparison";
-import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
+import { lookCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
 import { initialModel, makeView, Model } from "./model";
 import { installNativeProbes } from "./native-probes";
 import { instrumentMounted } from "./renderer-probe";
@@ -21,6 +23,8 @@ const run = Effect.gen(function*() {
   const query = new URL(location.href).searchParams;
   const look = document.body.hasAttribute("data-look");
   const config = look ? Option.some(yield* readCaptureConfiguration(query)) : Option.none();
+  const reference = look ? yield* readReferenceScene(query) : Option.none();
+  const assets = look ? yield* readAssetReview(query) : Option.none();
   const context = yield* Effect.context<MapCommands | SceneDigest>();
   const commands = Context.get(context, MapCommands);
   const runPromise = Effect.runPromiseWith(context);
@@ -48,7 +52,7 @@ const run = Effect.gen(function*() {
   const initial = initialModel(
     desks,
     Number.isFinite(delay) ? Math.max(0, Math.min(5000, delay)) : 0,
-    Option.isSome(config) ? Option.some(captureCamera(config.value)) : requestedCamera,
+    Option.isSome(config) ? Option.some(lookCamera(config.value, reference, assets)) : requestedCamera,
   );
   const model: Model = Option.isSome(config)
     ? {
@@ -97,7 +101,7 @@ const run = Effect.gen(function*() {
       mask: (enabled) => runPromise(ready().mask(enabled)),
       bench: (frames, warmupFrames) => runPromise(ready().bench(frames, warmupFrames)),
     };
-    yield* prepareLookAdapter(commands, config.value).pipe(
+    yield* prepareLookAdapter(commands, config.value, reference, assets).pipe(
       Effect.timeout("15 seconds"),
       Effect.tap((adapter) =>
         Effect.sync(() => {

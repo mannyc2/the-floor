@@ -58,7 +58,7 @@ A rulebook says what the drawing means. A renderer also needs numbers and shapes
 | --- | --- |
 | Scale | The kit unit and the figure ratio. Envelopes for the trading post and its stations, the figures, the wall of screens, the bell, the podium, the whiteboards, the file room's cabinets, and the lobby's reception and plinths. Station spacing, posts per floor and floor density |
 | Materials | Each material's four-tone ramp per theme, its line colour, how glass is drawn, and which materials a contributor may assign |
-| Shading | Which face takes which tone, how cylinders are banded, the floor's tone, and what lights up at night (desk lamps and screens; an asleep agent's lamp is off). With quarter turns it must also say whether the light turns with the camera or stays with the room |
+| Shading | Which face takes which tone, how cylinders are banded, the floor's tone, and what lights up at night (desk lamps and screens; an asleep agent's lamp is off). With quarter turns, side tones turn with the camera while tops and undersides follow world Y ([16 Oct pick](decisions.md#the-look)) |
 | Line | The line classes (silhouette, crease, material boundary) as surface ids, the tone of each class (floor joints lighter than furniture), and what replaces thin lines at distant rungs, since they don't survive 64-pixel impostors |
 | Camera | Pitch, the quarter-turn yaw, the cutaway for each turn, the zoom rungs in world units per CSS pixel with each rung's labels and level of detail, and the flight curve. The interaction rules are in the [technical design](technical-design.md#the-camera) |
 | Composition | What each rung draws (building, floor, desk), and how impostors look. See [level of detail](technical-design.md#level-of-detail-and-targets) |
@@ -321,7 +321,7 @@ Sound is off by default and is never needed to understand anything. Under reduce
 
 There is no Blender for the MVP. Every asset is made as code, following the same conventions a Blender asset would, so modelled assets can join later without changes.
 - **Code makes it.** three.js generators, and SVG profiles that are lathed, extruded or swept. Generators live in the web asset kit, because three.js may only be imported in `apps/web`.
-- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. Generators that only make variety (desk variants, cabinets, rows) run at build time and write a model and its manifest to `assets/<kind>/<id>/`. That way their output is cached, budget-checked and shown in the workbench like any other asset.
+- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. The post and station generators live in `apps/web/src/map/_lib/assets/`, and the workbench builds them directly. Models and manifests under `assets/<kind>/<id>/` arrive with the first modelled asset ([decision](decisions.md#the-look)).
 - **The desk gets the most care.** Most of what people see is desks, so the desk has variants, and neighbouring desks differ.
 - **The conventions:**
   - `_SURFACE` holds per-vertex surface ids. Technique B draws a line where the surface id or the depth changes, so where lines fall is authored, and a cylinder is one surface with no stripes.
@@ -398,7 +398,7 @@ The workbench is a second, development-only Vite entry at `apps/web/workbench/`.
 
 ## Look tests
 
-The development-only `/look/` adapter drives the real renderer with a fixed capture configuration. Browser suites retain the camera, picking, replay, ownership, streaming and phone-profile checks. Completed tone/proportion studies and the 360-capture matrix are retired. The asset branch supplies the seven picked renderer-frame guards through Playwright screenshots at zero tolerance; reference images require a new owner pick before they change.
+The development-only `/look/` adapter drives the real renderer with a fixed capture configuration. Browser suites retain the camera, picking, replay, ownership, streaming and phone-profile checks. Completed tone/proportion studies and the 360-capture matrix are retired. The `approved` Playwright project reproduces the seven picked renderer frames through screenshots at zero tolerance and reads the top, dark-side and light-side pixels of the material scene at all four corners; reference images require a new owner pick before they change. `bun run preflight:assets` checks the generated post and stations against the face rules at every corner by day and night, and the `assets` project renders their post, floor and desk views.
 
 `bun test ./packages/atlas/test` pins the plain values. Scene briefs contain rendering inputs, while the decision log records the owner’s picks and their scope. New asset comparisons still check tone structure, silhouettes, line density, instrument masks and tick spacing as applicable. Synthetic scenes cannot reach the live world.
 

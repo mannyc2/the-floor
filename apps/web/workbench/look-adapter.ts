@@ -1,3 +1,4 @@
+import { proportionPalette } from "@floor/atlas/materials";
 import { Clock, Effect, Option, Schema } from "effect";
 import {
   AdapterState,
@@ -10,7 +11,10 @@ import {
 import { syntheticPalette } from "../src/map/_lib/renderer/scene";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera } from "../src/map/model";
-import { mountedProbe } from "./renderer-probe";
+import { installAssetReview } from "./_lib/asset-review";
+import { assetCamera, type AssetReview } from "./_lib/asset-review-model";
+import { installReferenceScene, referenceCamera, referencePalette, type ReferenceScene } from "./_lib/reference-scene";
+import { type Engine, mountedProbe } from "./renderer-probe";
 import { browserCall, nextFrame, settled, WorkbenchFailure } from "./runtime";
 import { digestJson, sceneDigest } from "./scene-evidence";
 
@@ -32,16 +36,55 @@ export const readCaptureConfiguration = Effect.fn("Workbench.readCaptureConfigur
   },
 );
 
-export const captureCamera = (config: CaptureConfiguration): Camera => ({
+const captureCamera = (config: CaptureConfiguration): Camera => ({
   x: 0,
   z: 0,
   rotation: 0,
   extent: config.rung === "building" ? config.desks > 12 ? 380 : 21 : config.rung === "floor" ? 12 : 7,
 });
 
+// A reference scene or asset review replaces the synthetic desks, so its
+// camera is chosen before the first Model presentation can apply another.
+export const lookCamera = (
+  config: CaptureConfiguration,
+  reference: Option.Option<ReferenceScene>,
+  assets: Option.Option<AssetReview>,
+): Camera =>
+  Option.isSome(reference)
+    ? referenceCamera(reference.value, config.height)
+    : Option.isSome(assets)
+    ? assetCamera(assets.value)
+    : captureCamera(config);
+
+const installScene = Effect.fn("Workbench.installScene")(function*(
+  engine: Engine,
+  config: CaptureConfiguration,
+  reference: Option.Option<ReferenceScene>,
+  assets: Option.Option<AssetReview>,
+) {
+  if (Option.isNone(reference) && Option.isNone(assets)) return yield* Effect.void;
+  if (
+    (Option.isSome(reference) && Option.isSome(assets)) || config.asset !== "scene" || config.rung !== "building"
+    || config.desks !== 12
+  ) {
+    return yield* new WorkbenchFailure({
+      operation: "look-scene",
+      cause: "A reference scene or asset review replaces the fixed whole scene on its own",
+    });
+  }
+  const night = config.theme === "night";
+  if (Option.isSome(assets)) return yield* installAssetReview(engine, assets.value, night);
+  if (Option.isSome(reference) && !(yield* installReferenceScene(engine, reference.value, night))) {
+    return yield* new WorkbenchFailure({ operation: "reference-scene", cause: "The surface material is absent" });
+  }
+  return yield* Effect.void;
+});
+
 export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(function*(
   commands: MapCommands["Service"],
   config: CaptureConfiguration,
+  reference: Option.Option<ReferenceScene>,
+  assets: Option.Option<AssetReview>,
 ) {
   if (config.seed !== fixedSeed || config.fixedTimeEpochMs !== fixedTimeEpochMs) {
     return yield* new WorkbenchFailure({
@@ -56,7 +99,8 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
   }
   const engine = mountedProbe(mounted.value).engine;
   engine.canvas.dataset["floorLook"] = "";
-  engine.setCamera(captureCamera(config));
+  engine.setCamera(lookCamera(config, reference, assets));
+  yield* installScene(engine, config, reference, assets);
   if (config.asset === "rack") {
     const scene = engine.diagnosticScene();
     const gauge = Option.fromUndefinedOr(scene.entities.find((entity) => entity.id === scene.gaugeId));
@@ -85,7 +129,13 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
     renderer: observed.renderer,
     sourceSceneSha256,
     fontManifestSha256,
-    paletteSha256: yield* digestJson(syntheticPalette),
+    paletteSha256: yield* digestJson(
+      Option.isSome(reference)
+        ? referencePalette(reference.value)
+        : Option.isSome(assets)
+        ? proportionPalette
+        : syntheticPalette,
+    ),
   });
   const mask = Effect.fn("Workbench.mask")(function*(enabled: boolean) {
     engine.setMask(enabled);
