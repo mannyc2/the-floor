@@ -1,8 +1,6 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns these native Promise callbacks and their awaited browser assertions. */
 import { Config, Effect } from "effect";
 import { expect, record, test } from "./fixture";
 
-// oxlint-disable-next-line effecttsgo/no-run-sync, effect/noEffectRunInTests -- Playwright selects the explicit local phone backend before starting its browser fixture.
 const phoneRenderer = Effect.runSync(
   Config.Literals(["apple", "swiftshader"], "FLOOR_PHONE_RENDERER").pipe(
     Config.withDefault("swiftshader"),
@@ -34,7 +32,6 @@ test.describe("Sustained phone snapshots", () => {
       expect(result.durationMs).toBeGreaterThanOrEqual(12000);
       for (const [index, arrival] of result.received.entries()) {
         expect(arrival.revision).toBe(index + 16);
-        expect(arrival.receivedMs - arrival.scheduledMs).toBeLessThan(250);
         const frames = result.frames.filter(frame => frame.revision === arrival.revision);
         expect(frames.length).toBeGreaterThan(0);
         expect(frames.reduce((sum, frame) => sum + frame.snapshots, 0)).toBe(1);

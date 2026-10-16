@@ -104,7 +104,7 @@ apps/web/workbench/       a second Vite entry, built only for development and pr
 
 | Thing | Source | Read by |
 | --- | --- | --- |
-| Colours, type, spacing, radius | `tokens.ts` | The interface, only through the generated `atlas.css`. The renderer, through the palette texture (material × tone × theme, in linear space), so a theme change is one uniform |
+| Colours, type, spacing, radius | `tokens.ts` | The interface, only through the generated `atlas.css`. The renderer, through the RGBA8 palette texture (material × tone × theme, preserving authored sRGB bytes), so a theme change is one uniform |
 | Materials | `materials.ts` | The piece checks, which refuse any material a contributor may not assign. Brass and blueprint are set only by the world: brass when a part is bound to live data through the kit's instruments, blueprint while a piece waits on its checks. The renderer reads each part's palette slot |
 | Line and shading | `look.ts` | The renderer. The workbench tunes it and turns a tuned value into a patch |
 | Camera | `camera.ts` | The renderer, camera state in the URL, and the camera tests |

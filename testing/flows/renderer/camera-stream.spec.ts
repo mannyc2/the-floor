@@ -1,4 +1,3 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns these native Promise callbacks and their awaited browser assertions. */
 import { Predicate } from "effect";
 import { expect, ready, record, stopDrag, test } from "./fixture";
 

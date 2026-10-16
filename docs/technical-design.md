@@ -186,7 +186,7 @@ Cheapest first, so most rejections are fast. Agents can run the same checks befo
 
 Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource. The map host owns an application-scoped command service and serial retirement policy. A failed release quarantines further acquisition. Three.js and the camera load only when the map mounts.
 - **Lines.** Technique B: a surface-id and depth edge pass at a fixed one CSS pixel, on WebGL.
-- **Shading.** Four tones by face direction. The current application palette and desk geometry remain explicitly synthetic. `packages/atlas` owns that palette alongside the separately scoped material picks and generates linear day/night texture rows; theme changes select a row through one uniform. No activity accent exists.
+- **Shading.** Four tones by face direction. The current application palette and desk geometry remain explicitly synthetic. `packages/atlas` owns that palette alongside the separately scoped material picks. The renderer builds unconverted RGBA8 day/night rows from authored sRGB values; theme changes select a row through one uniform. No activity accent exists.
 - **Geometry.** Pieces are instanced geometry wherever they share parts. Panning never rebuilds the scene.
 
 ### The look, as acceptance
@@ -210,7 +210,7 @@ Orthographic, isometric from one corner, about 30° down, with quarter-turn rota
 
 The synthetic renderer supports four discrete corners, buttons and Q/E on the focused canvas, and rotation in the resting Model and URL. Camera layer masks remove the near pair of walls and ceiling in both colour and picking passes while preserving scene isolation. Accepted frames carry the camera's commit revision so stale queued data cannot undo a newer turn; data-only controls retain the view, while historical replay restores it.
 
-Moving-target follow and the comparison with drag through the Model passed local verification on 14 October 2026. Follow reads the reconciled target's interpolated position. After the initial flight, motion stays in the renderer and the settled or interrupted view commits to the Model and URL. The comparison measures serial small-drag submission latency through the real Model against local input; it does not establish compositor latency, general event throughput or real-phone performance. The [local evidence](stage-0.md#local-stream-and-camera-verification--14-october-2026) records the scope and retained failures. Hosted renderer verification and owner review of Stage 0 remain open; see the [open items](decisions.md#open-items).
+Moving-target follow and the comparison with drag through the Model passed local verification on 14 October 2026. Follow reads the reconciled target's interpolated position. After the initial flight, motion stays in the renderer and the settled or interrupted view commits to the Model and URL. The comparison measures serial small-drag submission latency through the real Model against local input; it does not establish compositor latency, general event throughput or real-phone performance. The [renderer description](stage-0.md#renderer-stream) records the scope. Hosted renderer verification and owner review of Stage 0 remain open; see the [open items](decisions.md#open-items).
 
 ### Level of detail and targets
 

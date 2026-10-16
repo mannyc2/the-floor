@@ -1,4 +1,4 @@
-import { Clock, Effect, Option } from "effect";
+import { Clock, Effect, Option, Queue } from "effect";
 import type { InstanceSnapshot } from "../src/map/_lib/renderer/instances";
 import type { Mounted, RendererFrame } from "../src/map/_lib/renderer/service";
 import { nextFrame } from "./runtime";
@@ -35,6 +35,7 @@ export const snapshotStream = Effect.fn("Workbench.snapshotStream")(function*(mo
   engine.finishFrame();
   const uploads = makeUploadOracle(engine);
   const frames: Array<RendererFrame> = [];
+  const renderedRevisions = yield* Queue.sliding<number>(1);
   const received: Array<{
     revision: number;
     scheduledMs: number;
@@ -60,6 +61,7 @@ export const snapshotStream = Effect.fn("Workbench.snapshotStream")(function*(mo
     Effect.sync(() =>
       mounted.observeFrames(sample => {
         frames.push({ ...sample, atMs: sample.atMs - started });
+        Queue.offerUnsafe(renderedRevisions, sample.revision);
         if (pendingUpload && sample.draws > 0) {
           uploads.acknowledge();
           pendingUpload = false;
@@ -99,6 +101,11 @@ export const snapshotStream = Effect.fn("Workbench.snapshotStream")(function*(mo
         expected,
         targetsMatch,
       });
+      // A late producer must not overwrite a revision before the animation
+      // frame observes it. Keep the original deadlines so the report still
+      // exposes lateness rather than silently changing the requested cadence.
+      let rendered = yield* Queue.take(renderedRevisions);
+      while (rendered < snapshot.revision) rendered = yield* Queue.take(renderedRevisions);
     }),
     { concurrency: 1 },
   );

@@ -1,4 +1,3 @@
-/* oxlint-disable effecttsgo/async-function, effect/noAsyncFunction -- Playwright owns this native Promise callback and its awaited browser assertions. */
 import { expect, ready, record, test } from "./fixture";
 
 const readWitness = (elapsedMs: number | "restored-real-clock") => {
