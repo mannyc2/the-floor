@@ -79,14 +79,20 @@ export const ActionIntent = Schema.Union([SwapIntent, LaunchIntent, WithdrawalIn
 export type ActionIntent = typeof ActionIntent.Type;
 
 export const ReceiptCause = Schema.TaggedUnion({
+  AgentIntent: { agent: AgentId, intent: IntentId },
   Note: { item: CommonsId, version: VersionId },
   Thesis: { item: CommonsId, version: VersionId },
   BoardPost: { post: BoardPostId },
   OwnerRequest: { owner: OwnerId, request: Digest },
 });
 export type ReceiptCause = typeof ReceiptCause.Type;
+// Fork receipts carry their actual authority; they never assert a Privy policy was installed.
+export const ForkPolicy = Schema.TaggedStruct("ForkPolicy", { owner: OwnerId, genesisHash: Digest });
+export type ForkPolicy = typeof ForkPolicy.Type;
+export const ExecutionPolicy = Schema.Union([ConfirmedPolicy, ForkPolicy]);
+export type ExecutionPolicy = typeof ExecutionPolicy.Type;
 export const PolicyDecision = Schema.TaggedUnion({
-  Allowed: { policy: ConfirmedPolicy },
+  Allowed: { policy: ExecutionPolicy },
   Denied: { policy: ConfirmedPolicy, reasons: Schema.NonEmptyArray(Label) },
   Unconfirmed: { policy: PolicyId },
 });
@@ -114,7 +120,7 @@ const receiptFields = {
 export const Receipt = Schema.TaggedUnion({
   SettledReceipt: {
     ...receiptFields,
-    policy: ConfirmedPolicy,
+    policy: ExecutionPolicy,
     transaction: TransactionRef,
     checkpoint: Checkpoint,
     result: Schema.Literals(["succeeded", "failed"]),
@@ -122,13 +128,20 @@ export const Receipt = Schema.TaggedUnion({
   RefusedReceipt: { ...receiptFields, policy: PolicyDecision, refusal: Refusal },
   UnknownReceipt: {
     ...receiptFields,
-    policy: ConfirmedPolicy,
+    policy: ExecutionPolicy,
     submission: Digest,
     transaction: Schema.OptionFromNullOr(TransactionRef),
     lastCheckedAt: Schema.OptionFromNullOr(Timestamp),
     reason: Label,
   },
 }).check(
+  Schema.makeFilter(
+    receipt =>
+      receipt.causes.every(cause =>
+        cause._tag !== "AgentIntent" || (cause.agent === receipt.action.agent && cause.intent === receipt.action.id)
+      ),
+    { message: "An agent intent cause must name the receipt action and agent" },
+  ),
   Schema.makeFilter(
     (receipt) => !receipt.causes.some((cause) => cause._tag === "OwnerRequest" && cause.owner !== receipt.action.owner),
     { message: "An owner request must come from the action's owner" },
@@ -143,6 +156,13 @@ export const Receipt = Schema.TaggedUnion({
     if (receipt.policy._tag === "Denied") return receipt.refusal.code === "policyDenied";
     return receipt.refusal.code !== "policyDenied" && receipt.refusal.code !== "policyUnconfirmed";
   }, { message: "A refusal must retain its policy outcome" }),
+  Schema.makeFilter(receipt => {
+    const policy = receipt._tag === "RefusedReceipt"
+      ? receipt.policy._tag === "Unconfirmed" ? Option.none() : Option.some(receipt.policy.policy)
+      : Option.some(receipt.policy);
+    return Option.isNone(policy) || policy.value._tag !== "ForkPolicy"
+      || receipt.action.chain === `solana:${policy.value.genesisHash.slice(0, 32)}`;
+  }, { message: "A fork receipt must belong to its declared local genesis" }),
   Schema.makeFilter((receipt) => {
     if (receipt._tag === "RefusedReceipt") return true;
     if (receipt._tag === "SettledReceipt") {

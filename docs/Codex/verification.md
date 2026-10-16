@@ -13,9 +13,9 @@ bun run test:native
 bun run e2e
 ```
 
-Use Bun 1.4.0. The frozen install verifies the pinned tarballs against `bun.lock` and keeps the compiler/Oxlint patch in `prepare`. `typecheck` runs one `tsc -b` over the eleven project references with the strict options and all 91 Effect diagnostics. `test` runs the explicit leaf paths; native Worker tests and browser flows have their own commands so CI stops at the first failed acceptance step.
+Use Bun 1.4.0. The frozen install verifies the pinned tarballs against `bun.lock` and keeps the compiler/Oxlint patch in `prepare`. `typecheck` runs one `tsc -b` over the workspace project references with the strict options and all 91 Effect diagnostics. `test` runs the explicit leaf paths; native Worker tests and browser flows have their own commands so CI stops at the first failed acceptance step.
 
-Atlas source edits must preserve the recorded value snapshot unless the owner changes a pick. Never substitute a Bun server build for Workers: `build` uses Alchemy's local Worker harness, alongside the web and chain builds and their artifact fences.
+Atlas source edits must preserve the recorded value snapshot unless the owner changes a pick. Never substitute a Bun server build for Workers: `build` uses Alchemy's local Worker harness, alongside the web and chain builds and their artifact fences. The signer build starts its separate Worker and checks emitted source maps for model, provider and Floor application modules.
 
 ## Local checks
 
@@ -26,6 +26,8 @@ The renderer project runs the separately built development workbench. Its behavi
 Only one browser suite may run on the machine at a time. If another checkout owns the renderer port, select a free port with `FLOOR_RENDERER_PORT`, for example `FLOOR_RENDERER_PORT=5185 bun run e2e`. The validated port controls the browser, server and readiness probe together; the default is 5180 and an occupied listener is never reused. A project can be selected with `bun run e2e --project renderer` or `--project shell`.
 
 The default renderer is SwiftShader. The phone profile is 390×844 at DPR 3 with 4× CPU throttling and keeps its 16.7 ms renderer CPU budget. It is a desktop profile, not evidence from a real phone. `FLOOR_PHONE_RENDERER=apple bun run e2e --project renderer --grep "configured phone profile"` is a separate local measurement and cannot replace the default check. Sustained streams record wall-clock arrival lateness as a measurement; every revision, deterministic upload budgets and the 16.7 ms per-frame CPU limit remain asserted.
+
+`bun run test:native` also runs the fork signer suite. Its installer verifies the pinned Surfpool archive, clones program accounts through public read-only RPC, and runs the fork offline. Native tests submit real fork transactions, check settled token balances, refuse an excessive-slippage trade, reject a mismatched genesis, and settle a deliberately discarded submission response without rebroadcasting. `bun run test:signer` selects only this suite.
 
 Native agent tests use a labelled scripted model. Decisions and wallet leaf tests use fake HTTP transports; the wallet test preload blocks external Fetch and off-host redirects. Recorded data remains labelled replay data. Each flow must enter through production, avoid arranging the state it asserts, assert the named product promise, label stubs and recordings, and receive a second reviewer. Use request-hashed recorded model responses that fail on unknown requests. Evidence comes from this repository's own runs, and full-day flow claims require fresh full-day data for its chain.
 

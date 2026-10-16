@@ -2,6 +2,13 @@
   "name": "@floor/api",
   "private": true,
   "type": "module",
-  "exports": { "./rpc": "./src/rpc.ts", "./mcp": "./src/mcp.ts" },
-  "dependencies": { "@floor/contract": "workspace:*", "effect": "4.0.3" }
+  "exports": {
+    "./rpc": "./src/rpc.ts",
+    "./mcp": "./src/mcp.ts",
+    "./signer": "./src/signer.ts"
+  },
+  "dependencies": {
+    "@floor/contract": "workspace:*",
+    "effect": "4.0.3"
+  }
 }

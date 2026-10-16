@@ -1,13 +1,14 @@
 import { BunServices } from "@effect/platform-bun";
 import { getAddressDecoder } from "@solana/kit";
 import { expect, test } from "bun:test";
-import { Array, Crypto, Effect, FileSystem, Path, Schema } from "effect";
+import { Array, Crypto, Effect, FileSystem, Option, Path, Schema } from "effect";
 import { Hex } from "effect/encoding";
 import idl from "../idl/meteora.json";
 import source from "../idl/source.json";
 import {
   getCreateConfigInstruction,
   getInitializeVirtualPoolWithSplTokenInstruction,
+  getSwapInstruction,
   programAddress,
 } from "../src/solana/instructions";
 import { config } from "./_inputs";
@@ -21,8 +22,23 @@ const IdlInstructions = Schema.Array(Schema.Struct({
     address: Schema.optionalKey(Schema.String),
     writable: Schema.optionalKey(Schema.Boolean),
     signer: Schema.optionalKey(Schema.Boolean),
+    optional: Schema.optionalKey(Schema.Boolean),
   })),
 }));
+const expectedAccountAddress = (
+  instruction: string,
+  account: typeof IdlInstructions.Type[number]["accounts"][number],
+  addressByName: ReadonlyMap<string, string>,
+) => {
+  const constant = Option.fromNullishOr(account.address);
+  if (Option.isSome(constant)) return constant.value;
+  if (account.name === "program" || account.optional === true) return programAddress;
+  if (instruction === "swap" && (account.name === "token_base_program" || account.name === "token_quote_program")) {
+    return "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
+  }
+  const name = account.name.replace(/_([a-z])/g, (_whole: string, letter: string) => letter.toUpperCase());
+  return addressByName.get(name);
+};
 const identity = (value: number) => getAddressDecoder().decode(new Uint8Array(32).fill(value));
 
 // The codecs and instruction builders derive from this exact upstream IDL.
@@ -54,9 +70,12 @@ test("every generated account position, role, constant and discriminator matches
       quoteVault: identity(27),
       mintMetadata: identity(28),
       tokenQuoteProgram: identity(29),
+      inputTokenAccount: identity(30),
+      outputTokenAccount: identity(31),
     };
     const addressByName = new Map(Object.entries(accounts));
     const cases = [
+      { name: "swap", actual: getSwapInstruction(accounts, { amountIn: 123n, minimumAmountOut: 456n }) },
       { name: "create_config", actual: getCreateConfigInstruction(accounts, config) },
       {
         name: "initialize_virtual_pool_with_spl_token",
@@ -75,13 +94,11 @@ test("every generated account position, role, constant and discriminator matches
       expect(item.actual.accounts).toHaveLength(description.accounts.length);
       expectEqual([...new Uint8Array(item.actual.data ?? []).slice(0, 8)], description.discriminator);
       for (const [index, account] of description.accounts.entries()) {
-        const name = account.name.replace(/_([a-z])/g, (_whole: string, letter: string) => letter.toUpperCase());
-        const expectedAddress = account.address
-          ?? (account.name === "program" ? programAddress : addressByName.get(name));
+        const expectedAddress = expectedAccountAddress(item.name, account, addressByName);
         expect(expectedAddress).toBeDefined();
         expectEqual(item.actual.accounts?.[index], {
           address: expectedAddress,
-          role: (account.writable === true ? 1 : 0) + (account.signer === true ? 2 : 0),
+          role: account.optional === true ? 0 : (account.writable === true ? 1 : 0) + (account.signer === true ? 2 : 0),
         });
       }
     }

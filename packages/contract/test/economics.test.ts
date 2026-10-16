@@ -13,6 +13,7 @@ import {
 } from "../src/agents.ts";
 import {
   ActionIntent,
+  ForkPolicy,
   LaunchIntent,
   PolicyDecision,
   Receipt,
@@ -28,6 +29,7 @@ import {
   Checkpoint,
   DestinationId,
   Digest,
+  IntentId,
   OwnerId,
   ReceiptId,
   Timestamp,
@@ -478,4 +480,34 @@ test("owners cannot repeat withdrawal destinations or wallet authority reference
           wallets: [wallet, { ...wallet, account: AccountRef.make("other:chain:owner") }],
         });
     }, propertyOptions).pipe(Effect.tap(expectPassed)),
+  ));
+
+test("fork receipts retain their genesis and actual agent intent without asserting Privy confirmation", () =>
+  runTest(
+    Arbitrary.checkEffect(settledArbitrary, receipt =>
+      Effect.sync(() => {
+        const genesisHash = Digest.make("BomUv8wLeKriUzn7nzpWnFNN3TShtT47t4vWBVAAoVRR");
+        const chain = ChainRef.make(`solana:${genesisHash.slice(0, 32)}`);
+        const action = { ...receipt.action, chain };
+        const policy = ForkPolicy.make({ owner: action.owner, genesisHash });
+        const fork = {
+          ...receipt,
+          action,
+          policy,
+          transaction: { ...receipt.transaction, chain },
+          checkpoint: { ...receipt.checkpoint, chain },
+          causes: [ReceiptCause.cases.AgentIntent.make({ agent: action.agent, intent: action.id })],
+        };
+        return Schema.is(Receipt)(fork)
+          && !Schema.is(Receipt)({ ...fork, policy: { ...policy, genesisHash: Digest.make("another-fork") } })
+          && !Schema.is(Receipt)({
+            ...fork,
+            causes: [
+              ReceiptCause.cases.AgentIntent.make({
+                agent: action.agent,
+                intent: IntentId.make(`${action.id.slice(0, 120)}-other`),
+              }),
+            ],
+          });
+      }), propertyOptions).pipe(Effect.map(expectPassed)),
   ));

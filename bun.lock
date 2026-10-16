@@ -57,6 +57,18 @@
         "@yielded/agent-testing": "0.1.0-beta.166-floor.0adbcff.403.2",
       },
     },
+    "apps/signer": {
+      "name": "@floor/app-signer",
+      "dependencies": {
+        "@effect/sql-sqlite-do": "4.0.3",
+        "@floor/api": "workspace:*",
+        "@floor/chains": "workspace:*",
+        "@floor/contract": "workspace:*",
+        "@solana/kit": "8.4.0",
+        "alchemy": "2.0.0-beta.80",
+        "effect": "4.0.3",
+      },
+    },
     "apps/web": {
       "name": "@floor/web",
       "dependencies": {
@@ -90,6 +102,8 @@
     "packages/chains": {
       "name": "@floor/chains",
       "dependencies": {
+        "@floor/api": "workspace:*",
+        "@floor/contract": "workspace:*",
         "@solana/kit": "8.4.0",
         "@whetstone-research/doppler-sdk": "1.0.43",
         "effect": "4.0.3",
@@ -314,6 +328,8 @@
     "@floor/api": ["@floor/api@workspace:packages/api"],
 
     "@floor/app-floor": ["@floor/app-floor@workspace:apps/floor"],
+
+    "@floor/app-signer": ["@floor/app-signer@workspace:apps/signer"],
 
     "@floor/atlas": ["@floor/atlas@workspace:packages/atlas"],
 
