@@ -1,4 +1,4 @@
-import { WorldPublisher } from "@floor/api/world";
+import { WorldPublisher, WorldPublishError } from "@floor/api/world";
 import { Signer } from "@floor/chains/signer";
 import { PoolReading, SolanaReader } from "@floor/chains/solana/reader";
 import { PositiveUsd } from "@floor/contract/agents";
@@ -102,6 +102,7 @@ export const tradeModel = (
 export const makeTradeHarness = Effect.fn("makeTradeHarness")(function*(options: {
   readonly reading?: PoolReading;
   readonly receipt?: Receipt;
+  readonly idleFailure?: WorldPublishError;
 } = {}) {
   const events = yield* Ref.make<ReadonlyArray<WorldEvent>>([]);
   const submissions = yield* Ref.make<ReadonlyArray<SwapIntent>>([]);
@@ -146,6 +147,7 @@ export const makeTradeHarness = Effect.fn("makeTradeHarness")(function*(options:
           );
         }),
         state: Effect.fnUntraced(function*(input) {
+          if (input.state === "idle" && options.idleFailure) return yield* options.idleFailure;
           return yield* record(
             WorldEvent.cases.AgentStateChanged.make({ ...yield* stamp(input), agent: input.agent, state: input.state }),
           );

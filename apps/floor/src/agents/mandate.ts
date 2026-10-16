@@ -139,17 +139,18 @@ export class FirstAgent extends Context.Service<FirstAgent, {
             ),
           ),
         );
-        return yield* Effect.uninterruptibleMask((restore) =>
-          Effect.gen(function*() {
-            const result = yield* restore(execute).pipe(Effect.exit);
-            // Cancellation must clear the visible activity too; publication remains bounded if the world is unavailable.
-            yield* world.state({ ...publication, checkpoint: yield* Ref.get(checkpoint), state: "idle" }).pipe(
-              Effect.timeout("5 seconds"),
-              Effect.mapError(fail("publish")),
-            );
-            return (yield* result).output;
-          })
+        const result = yield* execute.pipe(
+          // Exit cleanup clears activity on cancellation and retains both causes if execution and cleanup fail.
+          Effect.onExit(() =>
+            Effect.gen(function*() {
+              yield* world.state({ ...publication, checkpoint: yield* Ref.get(checkpoint), state: "idle" }).pipe(
+                Effect.timeout("5 seconds"),
+                Effect.mapError(fail("publish")),
+              );
+            })
+          ),
         );
+        return result.output;
       });
       return FirstAgent.of({ run });
     }),

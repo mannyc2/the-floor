@@ -16,29 +16,33 @@ interface TraderRpc {
 class FloorTraders extends DurableObject<FloorTraders, TraderRpc>()("FLOOR_TRADERS", { errors: [AgentTradeError] }) {}
 
 /** One object serializes a Floor agent's mandates; the signer's journal owns transaction recovery. */
-export const makeFirstAgentRuntime = <E>(models: Layer.Layer<AgentModel, E>) => {
+export const makeFirstAgentRuntime = <E>(dependencies: Layer.Layer<AgentModel | Signer | SolanaReader, E>) => {
   const objects = FloorTraders.make(Effect.gen(function*() {
-    const edges = yield* Effect.context<WorldPublisher | Signer | SolanaReader>();
+    const publisher = yield* WorldPublisher;
     return yield* Effect.succeed(
       Effect.gen(function*() {
-        const agent = yield* FirstAgent;
         const turns = yield* Semaphore.make(1);
         return {
           run: (intent: IntentId, encoded: Schema.Json) =>
             turns.withPermit(
-              Schema.decodeEffect(MandateJson)(encoded).pipe(
-                Effect.flatMap((input) => agent.run(input)),
+              Effect.gen(function*() {
+                const agent = yield* FirstAgent;
+                const input = yield* Schema.decodeEffect(MandateJson)(encoded);
+                return yield* agent.run(input);
+              }).pipe(
                 Effect.flatMap(Schema.encodeEffect(ReceiptJson)),
                 Effect.mapError((cause) => new AgentTradeError({ intent, operation: "run", cause })),
+                // oxlint-disable-next-line effecttsgo/strict-effect-provide -- Each RPC owns its client and model resources; Alchemy closes the initializer scope before invoking handlers.
+                Effect.provide(
+                  FirstAgent.layer.pipe(
+                    Layer.provide(Layer.merge(dependencies, Layer.succeed(WorldPublisher, publisher))),
+                    Layer.orDie,
+                  ),
+                ),
               ),
             ),
         };
-      }).pipe(
-        // oxlint-disable-next-line effect/noInlineProvide, effecttsgo/strict-effect-provide -- Alchemy invokes this scoped object initializer only when the agent's object activates.
-        Effect.provide(
-          FirstAgent.layer.pipe(Layer.provide(Layer.merge(models, Layer.succeedContext(edges))), Layer.orDie),
-        ),
-      ),
+      }),
     );
   }));
   return Layer.effect(

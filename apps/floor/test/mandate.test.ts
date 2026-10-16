@@ -186,6 +186,30 @@ test(
 );
 
 test(
+  "a cleanup failure preserves the original execution failure",
+  Effect.gen(function*() {
+    const harness = yield* makeTradeHarness({
+      idleFailure: new WorldPublishError({
+        world: tradeInput.world,
+        operation: "state",
+        cause: "Synthetic cleanup unavailable",
+      }),
+    });
+    const result = yield* FirstAgent.use((agent) => agent.run(tradeInput)).pipe(
+      Effect.provide(FirstAgent.layer.pipe(Layer.provide(Layer.merge(
+        harness.layer,
+        tradeModel([toolTurn("submit_intent", { intent: yield* encodedIntent })]),
+      )))),
+      Effect.exit,
+    );
+    expect(Exit.isFailure(result)).toBe(true);
+    const failure = Exit.isFailure(result) ? Cause.pretty(result.cause) : "";
+    expect(failure).toContain("The pool must be read before submitting an intent");
+    expect(failure).toContain("Synthetic cleanup unavailable");
+  }),
+);
+
+test(
   "a mandate without trade capability never starts a model or publishes activity",
   Effect.gen(function*() {
     const harness = yield* makeTradeHarness();
@@ -203,3 +227,4 @@ test(
     expect(yield* Ref.get(harness.submissions)).toHaveLength(0);
   }),
 );
+import { WorldPublishError } from "@floor/api/world";
