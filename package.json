@@ -64,7 +64,6 @@
     "@effect/platform-node-shared": "4.0.3",
     "@effect/sql-d1": "4.0.3",
     "@effect/sql-sqlite-do": "4.0.3",
-    "@effect/ai-anthropic": "4.0.3",
     "@effect/ai-openai": "4.0.3",
     "@yielded/agent": "file:vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-0.1.0-beta.166-floor.0adbcff.403.2.tgz",
     "@yielded/agent-storage-sql": "file:vendor/yielded/0adbcff-effect-4.0.3/yielded-agent-storage-sql-0.1.0-beta.166-floor.0adbcff.403.2.tgz",

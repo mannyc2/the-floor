@@ -7,7 +7,7 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 | Area | What's there | Verified by |
 | --- | --- | --- |
 | Toolchain and fences | Strict TypeScript with all 91 Effect diagnostics as errors, type-aware Oxlint with the Effect presets, custom import and file-read fences, emitted-bundle and source-map checks, a reasoned suppression budget, and pinned packages | The local checks, and Linux CI on 12 October |
-| The Floor's Worker | Yielded agent and mailbox Durable Objects on Alchemy, Anthropic and OpenAI Layers, and a predicate-only Decisions adapter | Native tests (admission, restart, Durable Object and D1 storage) and a bounded hosted run |
+| The Floor's Worker | Yielded agent and mailbox Durable Objects on Alchemy, an OpenAI model Layer, and a predicate-only Decisions adapter | Native tests (admission, restart, Durable Object and D1 storage) and a bounded hosted run |
 | Web | A Foldkit shell over the contract Schemas and `@floor/api`, with a typed health check and a scoped map host over labelled synthetic desks | The health flow has local and hosted evidence; the renderer has local browser evidence only |
 | Chains | Solana construction (Kit, generated Meteora codecs, `bigint` maths) and EVM construction (Doppler on Base). Nothing signs or broadcasts | 940 SDK oracle cases and exact-byte parity tests |
 | Wallets | A native Privy client in `packages/wallets`, with the owner's limited approval for additional operations before Stage 0 review | [Oracle and leaf evidence, including the test-transport incident](../packages/wallets/README.md). Sandbox proof remains unrun |

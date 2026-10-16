@@ -41,7 +41,6 @@
     "apps/floor": {
       "name": "@floor/app-floor",
       "dependencies": {
-        "@effect/ai-anthropic": "4.0.3",
         "@effect/ai-openai": "4.0.3",
         "@effect/sql-sqlite-do": "4.0.3",
         "@floor/api": "workspace:*",
@@ -131,7 +130,6 @@
     "alchemy@2.0.0-beta.80": "patches/alchemy@2.0.0-beta.80.patch",
   },
   "overrides": {
-    "@effect/ai-anthropic": "4.0.3",
     "@effect/ai-openai": "4.0.3",
     "@effect/platform-browser": "4.0.3",
     "@effect/platform-bun": "4.0.3",
@@ -273,8 +271,6 @@
     "@dprint/win32-arm64": ["@dprint/win32-arm64@0.63.0", "", { "os": "win32", "cpu": "arm64" }, "sha512-1Fj/9fMJ3LoTj52x1bzVK4eWzeOgGPm20xSvHigtsZvHtHIFJ9cEQ2UEh0C/8uf0SbNcS1mcCjCmPSMrJgkcUg=="],
 
     "@dprint/win32-x64": ["@dprint/win32-x64@0.63.0", "", { "os": "win32", "cpu": "x64" }, "sha512-EgGyceAWFh0vsjLoMRXCWpOV2Tmg2FZdKHa9eYJAGEtUqZD3gYTPPRkIHzCGutknlb8yS/TAKPM94EE2kC0atQ=="],
-
-    "@effect/ai-anthropic": ["@effect/ai-anthropic@4.0.3", "", { "peerDependencies": { "effect": "^4.0.3" } }, "sha512-c0rKev8Bg9iwBTiuANlq+2DV3XUnLeNbb8ZPzU5KPpzvuNOBpc2yZpFqjlxZa3V7azE4iKT+YeSGJ62fQNk6Fw=="],
 
     "@effect/ai-openai": ["@effect/ai-openai@4.0.3", "", { "peerDependencies": { "effect": "^4.0.3" } }, "sha512-jdD/5uryLdlnf2XEUe1yAPSKzsYGpgBX65azWAaLtcMPk4FlP5xq3JnLfVOtOLAgiRMJ9RaMmd/7GVUeW5q3hA=="],
 

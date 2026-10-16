@@ -99,7 +99,7 @@ Second-milestone signing with a logged-in owner's session remains out of scope. 
 
 ### Live inference
 
-Call the selected Anthropic and OpenAI models through their Layers, including the Decisions adapter, within a budget the owner sets. Inference never enters the signer.
+Call the selected OpenAI model through its Layer, including the Decisions adapter, within a budget the owner sets. Inference never enters the signer.
 
 ### Plates
 

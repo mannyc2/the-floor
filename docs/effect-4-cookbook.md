@@ -41,7 +41,7 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
    - Tools are `Tool.make(name, { parameters, success, failure, failureMode: "return" })`, then `Toolkit.make(…)` and `toolkit.toLayer(…)`.
    - MCP is `McpServer.layerHttp({ path, protocols: [McpProtocol.v2026_07_28] })`.
    - Decisions use `Decision.make({ decisions: { key: Decision.probability(…) } })` with `model.decide(…)`. Stub a model with `DecisionModel.make({ decide })`.
-   - `@effect/ai-openai` has no Decisions provider, so the Floor has its own predicate-only adapter (`apps/floor/src/agents/decisions.ts`). The Anthropic and OpenAI Layers are in `apps/floor/src/agents/models.ts`.
+   - `@effect/ai-openai` has no Decisions provider, so the Floor has its own predicate-only adapter (`apps/floor/src/agents/decisions.ts`). The OpenAI model Layer is in `apps/floor/src/agents/models.ts`.
 10. **Yielded Agent.**
     - Write `Agent.make(id, { input, output, toolkit, instructions, policy: { maxTurns, maxToolCalls, maxDuration, tokenBudget, costBudgetMicrousd, onExhaustion } })` and run it with `AgentRuntime.run` (`apps/floor/src/agents/runtime.ts`).
     - The agent's Durable Object uses Yielded's Alchemy platform, from the pinned build in `vendor/yielded/`.

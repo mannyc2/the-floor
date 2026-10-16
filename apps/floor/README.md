@@ -10,16 +10,14 @@ The agent reads these explicit Worker environment bindings when its Durable Obje
 
 | Binding | Meaning |
 | --- | --- |
-| `FLOOR_MODEL_PROVIDER` | `anthropic` or `openai` |
-| `FLOOR_MODEL_NAME` | Exact owner-selected provider model identifier |
-| `ANTHROPIC_API_KEY` | Required for Anthropic |
+| `FLOOR_MODEL_NAME` | Exact owner-selected OpenAI model identifier |
 | `OPENAI_API_KEY` | Required for OpenAI inference and the Decisions API |
 
-Bind credentials as Alchemy `Redacted` environment values. There is no inferred model alias, provider fallback or production scripted mode. The actual `AnthropicClient`/`AnthropicLanguageModel` and `OpenAiClient`/`OpenAiLanguageModel` Layers come from the installed 4.0.3 packages. Request defaults bound output to 3000 tokens; the agent policy bounds a run to one turn and 20 seconds. Provider access, spend and successful live inference remain unverified.
+Bind credentials as Alchemy `Redacted` environment values. There is no inferred model alias, provider fallback or production scripted mode. The Floor infers through OpenAI only; the `OpenAiClient`/`OpenAiLanguageModel` Layer comes from the installed 4.0.3 package, and another provider would be a separate `AgentModel` Layer. Request defaults bound output to 3000 tokens; the agent policy bounds a run to one turn and 20 seconds. Provider access, spend and successful live inference remain unverified.
 
 The dedicated Decisions adapter uses `POST https://api.openai.com/v1/decisions`, model `gpt-6-luna`, through Effect HttpClient and the provider-neutral `DecisionModel`. It implements named predicate probabilities only: 1–16 questions, at most two inline base64 PNG/JPEG/WebP images, bounded evidence and instruction sizes, exact answer-name matching, and refusal/error handling. It rejects other decision kinds and custom outcome criteria. Choice/rating support and live calibration are still open. It never substitutes Responses structured output for Decisions. Unreported token usage remains unknown.
 
-Sources checked: [OpenAI Decisions documentation](https://developers.openai.com/api/docs/guides/decisions), installed Effect 4.0.3 `DecisionModel`, and installed Anthropic/OpenAI provider source. The first build's Responses-based probability adapter was inspected but was not promoted as the Decisions implementation.
+Sources checked: [OpenAI Decisions documentation](https://developers.openai.com/api/docs/guides/decisions), installed Effect 4.0.3 `DecisionModel`, and the installed OpenAI provider source. The first build's Responses-based probability adapter was inspected but was not promoted as the Decisions implementation.
 
 ## Local checks
 
