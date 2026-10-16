@@ -1,12 +1,14 @@
 import { defineConfig } from "@playwright/test";
 import type { PlaywrightTestConfig } from "@playwright/test";
-import { Config, Effect } from "effect";
+import { Config, Effect, Option } from "effect";
 const settings = Effect.runSync(Effect.all({
-  baseURL: Config.String("FLOOR_FLOW_URL").pipe(Config.withDefault("http://127.0.0.1:19740")),
+  baseURL: Config.String("FLOOR_FLOW_URL").pipe(Config.option),
   remote: Config.Boolean("FLOOR_FLOW_REMOTE").pipe(Config.withDefault(false)),
   port: Config.Port("FLOOR_RENDERER_PORT").pipe(Config.withDefault(5180)),
+  workerPort: Config.Port("FLOOR_WORKER_PORT").pipe(Config.withDefault(19740)),
 }));
 const rendererURL = `http://127.0.0.1:${settings.port}`;
+const workerURL = `http://127.0.0.1:${settings.workerPort}`;
 
 export default defineConfig({
   testDir: ".",
@@ -18,7 +20,7 @@ export default defineConfig({
     name: "shell",
     testMatch: "shell.spec.ts",
     outputDir: "../../work/flows/results",
-    use: { baseURL: settings.baseURL, viewport: { width: 1280, height: 900 } },
+    use: { baseURL: Option.getOrElse(settings.baseURL, () => workerURL), viewport: { width: 1280, height: 900 } },
   }, {
     name: "renderer",
     testMatch: "renderer/*.spec.ts",
@@ -34,9 +36,9 @@ export default defineConfig({
     ...(settings.remote ? [] : [
       {
         command: "bun --preload ./apps/floor/test/local-only.ts apps/floor/test/serve-local.ts",
-        env: { CI: "true", ALCHEMY_TELEMETRY_DISABLED: "1" },
+        env: { CI: "true", ALCHEMY_TELEMETRY_DISABLED: "1", FLOOR_WORKER_PORT: String(settings.workerPort) },
         cwd: "../..",
-        url: "http://127.0.0.1:19740/",
+        url: `${workerURL}/`,
         reuseExistingServer: false,
         gracefulShutdown: { signal: "SIGTERM", timeout: 10000 },
         timeout: 120000,

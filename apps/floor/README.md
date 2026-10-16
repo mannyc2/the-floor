@@ -1,6 +1,6 @@
 # Floor Worker
 
-`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves the one backend RPC group, and `/mcp` exposes its non-streaming calls as read-only MCP tools. Only health is public; no model, submission or inspection endpoint is exposed. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. There are no writes or authentication yet: authentication waits for the Privy device-token check. Health, MCP and static assets start without provider credentials.
+`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env?, devPort? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves the one backend RPC group, and `/mcp` exposes its non-streaming calls as read-only MCP tools. Only health is public; no model, submission or inspection endpoint is exposed. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. There are no writes or authentication yet: authentication waits for the Privy device-token check. Health, MCP and static assets start without provider credentials.
 
 The native Alchemy Worker binds `FLOOR_THREADS` and `FLOOR_MAILBOXES`. The agent, definition digest, submission ledger, alarm execution and record storage use the pinned Yielded packages. A mailbox schedules admission through Alchemy's native callback, then the Yielded alarm completes the agent without a polling request. The internal agent currently answers a supplied question with a schema-checked answer and has no tools. This is the Stage 0 runtime foundation, not the later trading agent or design gate.
 
@@ -41,7 +41,7 @@ For the production shell flow, run:
 CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun --preload ./apps/floor/test/local-only.ts ./apps/floor/test/serve-local.ts
 ```
 
-This serves the actual Worker and `apps/web/dist` on port 19740, holds the Alchemy scope open, and destroys its local resources on SIGTERM. No authentication or model service is stubbed for shell health.
+This serves the actual Worker and `apps/web/dist` on port 19740 by default; `FLOOR_WORKER_PORT` selects another validated local port when a checkout already owns it. The process holds the Alchemy scope open and destroys its local resources on SIGTERM. The shared Playwright config uses the same override for readiness and its default shell target, alongside `FLOOR_RENDERER_PORT` for the workbench. No authentication or model service is stubbed for shell health.
 
 The private Yielded build and its four Effect Crypto call adaptations retain their [package provenance](../../vendor/yielded/0adbcff-effect-4.0.3/provenance.json). The promoted application is checked against those compiled package exports, with no source clone, replay or TypeScript path aliases.
 
