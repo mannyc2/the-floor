@@ -1,10 +1,10 @@
+import { cameraValues } from "@floor/atlas/camera";
 import type { Locator, Page, TestInfo } from "@playwright/test";
 import { PNG } from "pngjs";
 import { expect, retainJson, test } from "./production";
 
-// Production exposes its camera only through the URL and its pixels. A pick is
-// visible only as a live world's desk drawer, which the local first-trade flow
-// opens; this flow has no world to select from.
+// Production exposes its camera only through the URL and its pixels, and a pick
+// only through a live world's desk drawer.
 const urlCamera = (url: string) => {
   const query = new URL(url).searchParams;
   return {
@@ -152,4 +152,61 @@ test.describe("phone production renderer", () => {
     await retainJson(info, "production-touch-result", { beforeUrl, afterUrl: page.url(), beforeScroll });
     await cdp.detach();
   });
+});
+
+// A preview stage's seed Worker, or the locally served pair, writes the native world
+// test's synthetic fixture before this flow runs. The flow only opens the page and clicks.
+const seeded = {
+  world: "synthetic-world",
+  chain: "solana:synthetic-fork",
+  agent: "synthetic-agent",
+  receipt: "synthetic-receipt",
+};
+
+// @effect-diagnostics-next-line asyncFunction:off -- Playwright owns the real click and drawer observations.
+test("a click picks the seeded synthetic desk and opens its labelled drawer", async ({ page }, info) => {
+  await page.goto(`/?${new URLSearchParams({ world: seeded.world, chain: seeded.chain })}`);
+  await expect(page.getByText("World connected", { exact: true })).toBeVisible();
+  await expect(page.getByText("Rendering live world", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: `Open desk for ${seeded.agent}`, exact: true })).toBeVisible();
+  const drawer = page.getByRole("complementary", { name: "Agent desk" });
+  await expect(drawer).toHaveCount(0);
+  const canvas = page.locator("#map canvas");
+  const box = await canvas.boundingBox();
+  expect(box).not.toBeNull();
+  if (!box) return;
+  const entries = await historyLength(page);
+  const beforeUrl = page.url();
+  // The first canonical desk's tabletop, projected with the production camera
+  // basis as the first-trade flow does. The click goes through GPU picking.
+  const distance = Math.hypot(
+    cameraValues.horizontalOffset,
+    cameraValues.horizontalOffset,
+    cameraValues.verticalOffset,
+  );
+  const upHorizontal = -cameraValues.verticalOffset / distance / Math.SQRT2;
+  const upVertical = Math.SQRT2 * cameraValues.horizontalOffset / distance;
+  const position = {
+    x: box.width / 2 + Math.SQRT2 * box.height / 21,
+    y: box.height / 2 - (2 * upHorizontal + .33 * upVertical) * box.height / 21,
+  };
+  // A pick before the world's first frame is drawn is ignored, so repeat the same click until one lands.
+  // @effect-diagnostics-next-line asyncFunction:off -- Playwright retries this native click and observation.
+  await expect(async () => {
+    await canvas.click({ position });
+    await expect(drawer).toBeVisible({ timeout: 1000 });
+  }).toPass({ timeout: 15000 });
+  await expect(drawer.getByRole("heading", { name: seeded.agent, exact: true })).toBeVisible();
+  await expect(drawer.locator("[data-receipt-outcome]")).toHaveText("Refused");
+  await expect(drawer.getByText(seeded.receipt, { exact: true })).toBeVisible();
+  await expect(drawer.getByText("Synthetic world-delivery fixture; no transaction was executed", { exact: true }))
+    .toBeVisible();
+  await expect(drawer.getByText("Policy unconfirmed", { exact: true })).toBeVisible();
+  await expect(drawer.getByText("Owner synthetic-owner · request synthetic-request", { exact: true })).toBeVisible();
+  await expect(drawer.locator("[data-transaction]")).toHaveText("No transaction reported");
+  // A pick selects; it is not a camera commit.
+  expect(page.url()).toBe(beforeUrl);
+  expect(await historyLength(page)).toBe(entries);
+  await page.screenshot({ path: info.outputPath("production-pick.png") });
+  await retainJson(info, "production-pick-result", { url: page.url(), position, ...seeded });
 });

@@ -1,6 +1,6 @@
 # Floor Worker
 
-`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env?, devPort? })`. The root stack binds the web assets to this Worker. `POST /api/rpc` serves public health, `/mcp` exposes it as a read-only tool, and `/api/world` streams public world snapshots and deliveries through HTTP NDJSON RPC. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. Production exposes no model, submission, mutation or owner endpoint. Health, world reads, MCP and static assets start without provider credentials.
+`@floor/app-floor/worker` exports `makeFloorWorker({ assets?, env?, devPort?, name? })`. The root stack binds the web assets to this Worker and names it `floor-pr-<n>` on preview stages. `POST /api/rpc` serves public health, `/mcp` exposes it as a read-only tool, and `/api/world` streams public world snapshots and deliveries through HTTP NDJSON RPC. The MCP transport uses stateless `McpProtocol.v2026_07_28`; streaming RPCs receive no tool. Production exposes no model, submission, mutation or owner endpoint. Health, world reads, MCP and static assets start without provider credentials.
 
 ## Owner authentication
 
@@ -64,7 +64,7 @@ For the production shell flow, run:
 CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun --preload ./apps/floor/test/local-only.ts ./apps/floor/test/serve-local.ts
 ```
 
-This serves the actual Worker and `apps/web/dist` on port 19740 by default; `FLOOR_WORKER_PORT` selects another validated local port when a checkout already owns it. The process holds the Alchemy scope open and destroys its local resources on SIGTERM. The shared Playwright config uses the same override for readiness and its default shell target, alongside `FLOOR_RENDERER_PORT` for the workbench. No authentication or model service is stubbed for shell health.
+This serves the actual Worker and `apps/web/dist` on port 19740 by default; `FLOOR_WORKER_PORT` selects another validated local port when a checkout already owns it. With `FLOOR_PREVIEW_SEED_SECRET` set, it also serves the test-built preview seed Worker on the next port and seeds the synthetic world the way CI seeds a `pr-<n>` stage; the Playwright config supplies a fresh secret. The process holds the Alchemy scope open and destroys its local resources on SIGTERM. The shared Playwright config uses the same override for readiness and its default shell target, alongside `FLOOR_RENDERER_PORT` for the workbench. No authentication or model service is stubbed for shell health.
 
 The private Yielded build and its four Effect Crypto call adaptations retain their [package provenance](../../vendor/yielded/0adbcff-effect-4.0.3/provenance.json). The promoted application is checked against those compiled package exports, with no source clone, replay or TypeScript path aliases.
 

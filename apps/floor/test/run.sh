@@ -5,3 +5,4 @@ CI=true ALCHEMY_TELEMETRY_DISABLED=1 FLOOR_RETAIN_LOCAL_STATE=1 bun test --prelo
 CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/restart.test.ts
 CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/gate.test.ts
 CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/world.native.test.ts
+FLOOR_PREVIEW_SEED_SECRET="$(openssl rand -hex 32)" CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-only.ts ./apps/floor/test/preview-seed.native.test.ts
