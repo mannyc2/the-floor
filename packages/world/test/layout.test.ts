@@ -65,7 +65,10 @@ test("plans place every floor, post and station from the canonical rules", () =>
   for (const [index, area] of areas.entries()) {
     expect(areas.slice(index + 1).some(other => overlaps(area, other))).toBe(false);
   }
-  expect(plan.lobby).toEqual([]);
+  // The square spiral declares no doors, post envelopes or lobby.
+  expect(plan.floors.every(floor => floor.doors.length === 0)).toBe(true);
+  expect(plan.floors.every(floor => floor.posts.every(post => Option.isNone(post.envelope)))).toBe(true);
+  expect(plan.lobby).toEqual({ areas: [], plots: [], places: [] });
 });
 
 test("locations resolve only where the layout positions them", () => {

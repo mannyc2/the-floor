@@ -42,8 +42,15 @@ const cases = [
   },
   {
     owner: "packages/world/src",
-    blocked: ["three", "three/webgpu", "three-mesh-bvh", "three-edge-projection"],
-    allowed: ["effect", "@floor/contract"],
+    blocked: [
+      "three",
+      "three/webgpu",
+      "three-mesh-bvh",
+      "three-edge-projection",
+      "@floor/world/proposal",
+      "./proposal",
+    ],
+    allowed: ["effect", "@floor/contract", "@floor/world/layout", "./proposal-notes"],
   },
   {
     owner: "apps/web/src",
@@ -53,9 +60,13 @@ const cases = [
       "./action.test",
       "./fixtures/input",
       "@yielded/agent-testing",
+      "@floor/world/proposal",
+      "../../dev-world/layout",
     ],
-    allowed: ["three", "three/webgpu", "@floor/atlas"],
+    allowed: ["three", "three/webgpu", "@floor/atlas", "@floor/world/layout"],
   },
+  { owner: "apps/floor/src", blocked: ["@floor/world/proposal"], allowed: ["@floor/world", "@floor/world/stream"] },
+  { owner: "apps/web/dev-world", blocked: [], allowed: ["@floor/world/proposal", "@floor/world/layout"] },
   {
     owner: "packages/wallets/src",
     blocked: [

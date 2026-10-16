@@ -5,7 +5,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./stream": "./src/stream.ts",
-    "./layout": "./src/layout.ts"
+    "./layout": "./src/layout.ts",
+    "./proposal": "./src/proposal.ts"
   },
   "dependencies": {
     "@floor/contract": "workspace:*",

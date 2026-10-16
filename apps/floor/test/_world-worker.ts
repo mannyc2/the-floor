@@ -3,19 +3,24 @@ import { WorldRoutes } from "@floor/api/world-rpc";
 import { WorldEvent } from "@floor/contract/world-events";
 import type { Providers } from "alchemy/Cloudflare";
 import { Request } from "alchemy/Cloudflare/Workers/Request";
-import { Worker } from "alchemy/Cloudflare/Workers/Worker";
+import { Worker, type WorkerAssetsConfig } from "alchemy/Cloudflare/Workers/Worker";
 import { Effect, Layer, Schema } from "effect";
 import { HttpRouter, HttpServer, HttpServerResponse } from "effect/http";
 import { WorldRuntimeLive } from "../src/world/runtime";
 
+// The development world serves the viewer's assets beside these publication
+// routes on its own port; the native test uses the Worker alone.
 export const makeWorldTestWorker = Effect.fn("makeWorldTestWorker")(
-  function*(): Effect.fn.Return<Worker<{}>, never, Providers> {
+  function*(
+    { devPort = 19742, ...props }: { readonly devPort?: number; readonly assets?: WorkerAssetsConfig } = {},
+  ): Effect.fn.Return<Worker<{}>, never, Providers> {
     return yield* Worker(
       "FloorWorldLocal",
       {
         main: import.meta.url,
         compatibility: { date: "2026-08-18", flags: [] },
-        dev: { host: "127.0.0.1", port: 19742 },
+        dev: { host: "127.0.0.1", port: devPort },
+        ...props,
       },
       Effect.gen(function*() {
         const publisher = yield* WorldPublisher;

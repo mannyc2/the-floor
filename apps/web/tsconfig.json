@@ -15,6 +15,7 @@
     "src/**/*.ts",
     "vite.config.ts",
     "workbench/**/*.ts",
+    "dev-world/**/*.ts",
     "test/**/*.ts"
   ],
   "exclude": [

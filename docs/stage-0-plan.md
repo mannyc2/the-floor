@@ -15,10 +15,10 @@ Local `main` includes the cleanup's T, R, S, K and W, D1's fixed-ID renderer str
 | I / D3 | Health RPC, scoped clients and the read-only MCP adapter are integrated. The obsolete HTTP-API allowance is removed | The existing authentication task; do not create a duplicate |
 | B | Integrated: the owner picked camera-relative side tones on 16 Oct; production uses them, every corner passes, and the seven picked frames are unchanged | Nothing |
 | E | The production-entry camera flow is in the `shell` project with the RPC/MCP shell flow, under one request budget; the run sheet is in the platform doc | The hosted run itself. Push, admission, preview and allowance remain owner gates |
-| F | `codex/world-layout-proposal` holds the isolated seeded-layout proposal and cross-engine property checks | Owner adoption, including the minimum-spacing interpretation and fixed lobby. Production layout and Atlas values stay unchanged |
+| F | `@floor/world/proposal` holds the unadopted seeded layout and its property checks; `bun run dev:world` draws it in the production viewer | Owner adoption, including the minimum-spacing interpretation and fixed lobby. Production layout and Atlas values stay unchanged |
 | G / H | Asset picks and newcomer observations remain open | G can start now that B and D2 have landed; the owner arranges H's new viewer |
 
-Commands, results and failed evidence belong in commit or pull request bodies; raw logs and captures stay under ignored `work/` directories. F's proposal remains in its branch's `docs/world-layout-proposal.md` and its visual candidates under `work/world-layout-proposal/`. The rejected `codex/exchange-view` stays unmerged; its harness can inform F without adopting either composition.
+Commands, results and failed evidence belong in commit or pull request bodies; raw logs and captures stay under ignored `work/` directories. F's proposal is [the layout proposal](world-layout-proposal.md); the owner reviews it by flying the development world. The rejected `codex/exchange-view` stays unmerged; its harness can inform F without adopting either composition.
 
 ## Rules for every session
 
@@ -88,7 +88,7 @@ Branch from `main`. It edits `packages/contract` world layout and `packages/worl
 1. Start from the [audit](#world-layout-audit) below and finish it for every rule.
 2. Propose seeded integer rules: rooms of varied size and outline with side rooms, and posts off a lattice with a minimum clearance. Keep never-move, no overlap, reachability from the lobby, room-to-floor/chain mapping, fixed-point coordinates and bounded state.
 3. Add property tests for those invariants, and a cross-engine coordinate comparison like the one in [Stage 1](stage-1.md).
-4. Render one floor and 4, 8 and 12 floors at fixed cameras for the owner. Reuse the exchange-view harness if it helps.
+4. Let the owner fly 1 to 10 floors of it beside the grid in the production viewer: `bun run dev:world`.
 5. Get an independent review. Adopt nothing before the owner reviews it.
 
 **Done when:** the owner has reviewed the proposal. On adoption, update [Stage 1](stage-1.md), the technical design's defaults and the decision log.

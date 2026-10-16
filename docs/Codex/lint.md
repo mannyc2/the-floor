@@ -13,7 +13,7 @@ Native `no-restricted-imports` overrides cover production TypeScript and JavaScr
 - Contract imports only Effect and its own modules.
 - Three.js stays in `apps/web`.
 - Signer imports exclude models, providers, agents and Floor application code.
-- Production excludes testing exports, fixtures, recordings and the workbench.
+- Production excludes testing exports, fixtures, recordings, the workbench, the development world and the unadopted layout proposal.
 - Retired effect-cf, web3.js, Anchor, BN and full Meteora/Doppler SDK entry points stay out of production; the approved Doppler `/evm` edge remains allowed.
 - Privy's SDK, `svix` and `@hpke/*` are development-only oracles. Privy's `/solana-kit` helper is forbidden even in tests.
 
@@ -29,7 +29,7 @@ Worker bundles keep the existing RPC branch's 64 MiB uncompressed code limit. We
 
 Web bundles keep the 200 KiB initial and 180 KiB deferred gzip budgets; the deferred renderer entry remains required. Each entry's initial imports are counted once, and shared initial code is excluded from its deferred total.
 
-Artifact checks inspect emitted JavaScript and source maps for the workbench and Privy SDK families across the web, Floor and chain builds. Emitted text catches external SDK imports; source maps identify bundled code. The general AST dependency walker, unrelated artifact policies and pinned bundler-helper hash are retired. Local source boundaries still enforce the other capability rules.
+Artifact checks inspect emitted JavaScript and source maps for the workbench, the development world, the unadopted layout proposal and the Privy SDK families across the web, Floor and chain builds. Emitted text catches external SDK imports; source maps identify bundled code. The general AST dependency walker, unrelated artifact policies and pinned bundler-helper hash are retired. Local source boundaries still enforce the other capability rules.
 
 HTML/CSS checks reject visual literals outside Atlas. Atlas exports plain values and has no generated-output exemption. Its value snapshot pins colours and dimensions.
 

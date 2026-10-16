@@ -8,7 +8,7 @@ import { Array, Effect, Layer, Option, Queue, Ref, Result, Schema, Stream } from
 import { RpcClient, RpcSerialization } from "effect/rpc";
 import { Http } from "foldkit";
 import { Message } from "../message";
-import type { Camera, GroundArea, LiveScene } from "../model";
+import type { Camera, GroundArea, GroundMark, LiveScene } from "../model";
 
 export const WorldSelection = Schema.Struct({ world: WorldId, chain: ChainRef });
 export type WorldSelection = typeof WorldSelection.Type;
@@ -95,12 +95,32 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
       desks: desks.filter(desk => desk.floor === floor.index).length,
     };
   });
+  const lobby = plan.lobby.areas.map(area);
+  const envelope = (anchor: PlanPoint, radius: number): GroundArea => {
+    const centre = point(anchor);
+    return { x0: centre.x - radius, z0: centre.z - radius, x1: centre.x + radius, z1: centre.z + radius };
+  };
+  const marks: ReadonlyArray<GroundMark> = [
+    ...plan.floors.flatMap(floor => [
+      ...floor.doors.map(door => ({ kind: "door" as const, area: area(door) })),
+      ...floor.posts.flatMap(post =>
+        Option.toArray(Option.map(post.envelope, radius => ({
+          kind: post.open ? "post" as const : "blueprintPost" as const,
+          area: envelope(post.anchor, radius),
+        })))
+      ),
+      ...floor.places.map(place => ({ kind: "place" as const, area: area(place.area) })),
+    ]),
+    ...plan.lobby.plots.map(plot => ({ kind: "plot" as const, area: area(plot) })),
+  ];
   const anchors = plan.floors.flatMap(floor => [floor.origin, ...floor.posts.map(post => post.anchor)]).map(point);
   return {
     desks,
     floors,
+    lobby,
+    marks,
     // Static for a mount: floors and posts never move, and markers stay among them.
-    bounds: bounding(floors.flatMap(floor => floor.areas), [...anchors, ...desks]),
+    bounds: bounding([...floors.flatMap(floor => floor.areas), ...lobby], [...anchors, ...desks]),
   };
 };
 export type WorldView = ReturnType<typeof planView>;
@@ -138,6 +158,8 @@ export const liveScene = (snapshot: Snapshot, revision: number): LiveScene => {
   const view = worldView(snapshot);
   const scene = {
     floors: view.floors.flatMap(floor => floor.areas),
+    lobby: view.lobby,
+    marks: view.marks,
     bounds: view.bounds,
     snapshot: rendererSnapshot(snapshot, revision),
   };
@@ -167,8 +189,8 @@ export const locationText = (desk: WorldView["desks"][number]) =>
         AtPlace: target => `At the ${placeNames[target.place]} on ${target.floorId}`,
         InLobby: target => target.place === "entrance" ? "At the lobby entrance" : "Among the lobby plots",
       });
-      // The current layout positions no named places; the viewer says so
-      // instead of drawing the agent somewhere it is not.
+      // Where the layout positions no such place, the viewer says so instead
+      // of drawing the agent somewhere it is not.
       return Option.isSome(desk.marker) ? text : `${text} · not positioned by the current layout`;
     },
   });

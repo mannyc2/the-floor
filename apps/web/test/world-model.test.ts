@@ -15,6 +15,7 @@ import { WorldEvent, WorldEventDelivery } from "@floor/contract/world-events";
 import { WorldFrame, WorldSnapshot } from "@floor/contract/world-stream";
 import { allStations, assignAgent, createWorld, defaultLayout } from "@floor/world";
 import { canonicalLayout, type WorldLayout } from "@floor/world/layout";
+import { proposalLayout } from "@floor/world/proposal";
 import { foldWorld } from "@floor/world/stream";
 import { expect } from "bun:test";
 import { Array, DateTime, Effect, Option, Result, Schema } from "effect";
@@ -132,6 +133,9 @@ effectTest("every occupied floor and the blueprint render from the canonical lay
     });
     const scene = liveScene(snapshot, 1);
     expect(scene.floors).toHaveLength(3);
+    // The square spiral declares no lobby or markings, so its scene adds none.
+    expect(scene.lobby).toEqual([]);
+    expect(scene.marks).toEqual([]);
     for (const area of scene.floors) {
       expect(scene.bounds.x0 <= area.x0 && scene.bounds.x1 >= area.x1).toBe(true);
       expect(scene.bounds.z0 <= area.z0 && scene.bounds.z1 >= area.z1).toBe(true);
@@ -251,7 +255,11 @@ const notchedLayout: WorldLayout = {
           { ...area, x0: (area.x0 + area.x1) / 2, z1: (area.z0 + area.z1) / 2 },
         ]),
         posts: floor.posts.map(post => ({ ...post, anchor: shift(post.anchor) })),
-        places: [{ place: "board" as const, position: { x: floor.origin.x - 5, z: floor.origin.z + 4 } }],
+        places: [{
+          place: "board" as const,
+          position: { x: floor.origin.x - 5, z: floor.origin.z + 4 },
+          area: { x0: floor.origin.x - 6, z0: floor.origin.z + 3, x1: floor.origin.x - 4, z1: floor.origin.z + 5 },
+        }],
       })),
       stations: plan.stations.map(station => ({ ...station, position: shift(station.position) })),
     };
@@ -284,3 +292,47 @@ effectTest("another layout plugs into the viewer through the plan alone", () =>
       expect(notched.bounds.z0 <= area.z0 && notched.bounds.z1 >= area.z1).toBe(true);
     }
   }));
+
+effectTest(
+  "the unadopted proposal draws its rooms, doors, posts, places and lobby through the same viewer",
+  () =>
+    Effect.sync(() => {
+      const snapshot = at(12);
+      const canonical = worldView(snapshot);
+      const proposed = planView(snapshot, proposalLayout({ seed: 20261014, unitsPerH: 2 }));
+      // Identities and floor counts are topology, so the renderer's slots match.
+      expect(proposed.desks.map(desk => desk.id)).toEqual(canonical.desks.map(desk => desk.id));
+      expect(proposed.floors.map(floor => [floor.index, floor.blueprint, floor.desks])).toEqual(
+        canonical.floors.map(floor => [floor.index, floor.blueprint, floor.desks]),
+      );
+      // Each room is a hall and a wing; the lobby is a hall and a wing too.
+      expect(proposed.floors.map(floor => floor.areas.length)).toEqual([2, 2, 2]);
+      expect(proposed.lobby).toHaveLength(2);
+      const kinds = Array.groupBy(proposed.marks, mark => mark.kind);
+      expect(Object.fromEntries(Object.entries(kinds).map(([kind, marks]) => [kind, marks.length]))).toEqual({
+        door: 6,
+        post: 2,
+        blueprintPost: 1,
+        place: 15,
+        plot: layout.lobbyPlots,
+      });
+      for (const area of [...proposed.lobby, ...proposed.marks.map(mark => mark.area)]) {
+        expect(proposed.bounds.x0 <= area.x0 && proposed.bounds.x1 >= area.x1).toBe(true);
+        expect(proposed.bounds.z0 <= area.z0 && proposed.bounds.z1 >= area.z1).toBe(true);
+      }
+      // The traveller stands at the board the proposal reserves on the second floor.
+      const walker = Option.getOrThrow(Array.findFirst(proposed.desks, desk => desk.agent === traveller));
+      const board = Option.getOrThrow(
+        Array.findFirst(proposed.marks, mark =>
+          mark.kind === "place"
+          && Option.exists(
+            walker.marker,
+            marker =>
+              marker.x > mark.area.x0 && marker.x < mark.area.x1 && marker.z > mark.area.z0 && marker.z < mark.area.z1,
+          )),
+      );
+      expect(board.kind).toBe("place");
+      expect(locationText(walker)).toBe("At the board on floor_1");
+      expect(Option.isNone(traveller9(snapshot).marker)).toBe(true);
+    }),
+);

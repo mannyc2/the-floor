@@ -235,6 +235,10 @@
                 "message": "Production cannot import test material or the workbench."
               },
               {
+                "regex": "^@floor/world/proposal(?:/|$)|(?:^|/)proposal(?:\\.[cm]?[jt]sx?)?$|(?:^|/)dev-world(?:/|$)",
+                "message": "The unadopted layout proposal and the development world stay out of production."
+              },
+              {
                 "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
                 "message": "Privy SDK dependencies are development oracles only."
               },
@@ -263,6 +267,10 @@
               {
                 "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
                 "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "^@floor/world/proposal(?:/|$)|(?:^|/)proposal(?:\\.[cm]?[jt]sx?)?$|(?:^|/)dev-world(?:/|$)",
+                "message": "The unadopted layout proposal and the development world stay out of production."
               },
               {
                 "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
@@ -297,6 +305,10 @@
               {
                 "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
                 "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "^@floor/world/proposal(?:/|$)|(?:^|/)proposal(?:\\.[cm]?[jt]sx?)?$|(?:^|/)dev-world(?:/|$)",
+                "message": "The unadopted layout proposal and the development world stay out of production."
               },
               {
                 "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",
@@ -342,6 +354,10 @@
               {
                 "regex": "(?:^|/)(?:[^/]+-testing|test|testing|__tests__|_fixtures|fixtures|recordings|workbench)(?:/|$)|\\.(?:test|spec)(?:\\.[cm]?[jt]sx?)?$",
                 "message": "Production cannot import test material or the workbench."
+              },
+              {
+                "regex": "^@floor/world/proposal(?:/|$)|(?:^|/)proposal(?:\\.[cm]?[jt]sx?)?$|(?:^|/)dev-world(?:/|$)",
+                "message": "The unadopted layout proposal and the development world stay out of production."
               },
               {
                 "regex": "(?:^|/)(?:@privy-io/node|svix|@hpke/[^/@]+)(?:@[^/]+)?(?:/|$)",

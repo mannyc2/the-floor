@@ -5,7 +5,7 @@ import { inspectModules } from "../graph";
 import { SourceMap } from "../model";
 import { runTest } from "./_runtime";
 
-test("all artifact maps and emitted imports exclude workbench and the wallet SDK", () =>
+test("all artifact maps and emitted imports exclude workbench, the development world, the layout proposal and the wallet SDK", () =>
   runTest(
     Effect.gen(function*() {
       const fs = yield* FileSystem.FileSystem;
@@ -22,6 +22,10 @@ test("all artifact maps and emitted imports exclude workbench and the wallet SDK
       for (
         const source of [
           "apps/web/workbench/entry.ts",
+          "apps/web/dev-world/layout.ts",
+          "../../../../apps/web/dev-world/banner.ts",
+          "packages/world/src/proposal.ts",
+          "../../../../packages/world/src/proposal.ts",
           "node_modules/@privy-io/node/index.mjs",
           "node_modules/@privy-io/node@0.35.0/index.mjs",
           "node_modules/svix/dist/index.js",
@@ -33,6 +37,13 @@ test("all artifact maps and emitted imports exclude workbench and the wallet SDK
       }
       yield* writeMap("entry.ts", "../../apps/web/workbench");
       expect(Result.isFailure(yield* inspectModules(directory).pipe(Effect.result))).toBe(true);
+      yield* writeMap("proposal.ts", "../../packages/world/src");
+      expect(Result.isFailure(yield* inspectModules(directory).pipe(Effect.result))).toBe(true);
+      // The adopted layout seam and other world modules remain allowed.
+      for (const source of ["packages/world/src/layout.ts", "packages/world/src/proposals-index.ts"]) {
+        yield* writeMap(source);
+        yield* inspectModules(directory);
+      }
       for (
         const source of [
           "packages/api/src/mcp.ts",
@@ -45,7 +56,9 @@ test("all artifact maps and emitted imports exclude workbench and the wallet SDK
         yield* inspectModules(directory, "worker");
       }
       yield* writeMap("packages/wallets/src/privy/client.ts");
-      for (const dependency of ["./workbench/entry.js", "@privy-io/node", "svix", "@hpke/core"]) {
+      for (
+        const dependency of ["./workbench/entry.js", "./dev-world/banner.js", "@privy-io/node", "svix", "@hpke/core"]
+      ) {
         for (
           const code of [
             `import '${dependency}';`,

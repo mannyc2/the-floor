@@ -2,7 +2,7 @@ import { PaletteName, syntheticPalette } from "@floor/atlas/materials";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import type { GroundArea, Theme } from "../../model";
+import type { GroundArea, GroundMark, Theme } from "../../model";
 export { syntheticPalette } from "@floor/atlas/materials";
 
 export const names = PaletteName.literals;
@@ -15,8 +15,13 @@ export interface SceneConfig {
   readonly width: number;
   readonly height: number;
   readonly desks: number;
-  // A live scene draws the world's floors instead of the synthetic test room.
-  readonly live?: { readonly floors: ReadonlyArray<GroundArea> };
+  // A live scene draws the world's floors, lobby and layout markings instead of
+  // the synthetic test room.
+  readonly live?: {
+    readonly floors: ReadonlyArray<GroundArea>;
+    readonly lobby: ReadonlyArray<GroundArea>;
+    readonly marks: ReadonlyArray<GroundMark>;
+  };
 }
 export interface Entity {
   readonly id: number;
@@ -132,18 +137,38 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   const depth = config.desks > 12
     ? Math.max(15, 2 * (Math.max(15 * 2.7 + .9, (rows - 16) * 2.7 + 1.46) + .5))
     : 15;
+  // The ground slab's top face, which every marking stands on.
+  const slabTop = -.025;
+  const steel = names.indexOf("steel-0");
+  const slab = (area: GroundArea) =>
+    box(area.x1 - area.x0, .25, area.z1 - area.z0, (area.x0 + area.x1) / 2, -.15, (area.z0 + area.z1) / 2, 4);
+  // Markings stand on the slab's top face with the existing primitives and
+  // palette slots: flat paper door passages and blueprint posts, steel post
+  // envelopes, and low synthetic blocks for reserved places and plots.
+  const mark = ({ kind, area }: GroundMark) => {
+    const x = (area.x0 + area.x1) / 2, z = (area.z0 + area.z1) / 2;
+    const spanX = area.x1 - area.x0, spanZ = area.z1 - area.z0;
+    const raised = (height: number, materialSlot: number) =>
+      box(spanX, height, spanZ, x, slabTop + height / 2, z, materialSlot);
+    const disc = (materialSlot: number) => cylinder(spanX / 2, .04, x, slabTop + .02, z, materialSlot);
+    const drawn = {
+      door: () => raised(.04, 3),
+      post: () => disc(steel),
+      blueprintPost: () => disc(3),
+      place: () => raised(.4, 5),
+      plot: () => raised(.25, 5),
+    } satisfies Record<GroundMark["kind"], () => THREE.BufferGeometry>;
+    return drawn[kind]();
+  };
   if (!config.live) add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
-  else if (config.live.floors.length > 0) {
-    // Every floor's ground in one mesh: floors never move while a mount lives,
-    // and a new floor changes renderer capacity, which remounts.
+  else if (config.live.floors.length + config.live.lobby.length > 0) {
+    // All ground in one mesh: floors never move while a mount lives, and a new
+    // floor changes renderer capacity, which remounts. Markings share the
+    // ground's identity, so picking one selects no desk.
     add(
       "synthetic-floor",
       1,
-      joined(
-        config.live.floors.map(area =>
-          box(area.x1 - area.x0, .25, area.z1 - area.z0, (area.x0 + area.x1) / 2, -.15, (area.z0 + area.z1) / 2, 4)
-        ),
-      ),
+      joined([...config.live.floors, ...config.live.lobby].map(slab).concat(config.live.marks.map(mark))),
     );
   }
   Array.from({ length: 3 }, (_variantValue, variant) => {

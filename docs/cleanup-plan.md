@@ -12,7 +12,7 @@ The owner's 15 October decisions in the [decision log](decisions.md#repository-c
 | D1 and RPC | Merged. Renderer snapshots retain deterministic/CPU gates; health RPC and the server-only read-only MCP adapter share Schemas |
 | K: Atlas | Merged. Plain values and one value snapshot replace approval wrappers, generated outputs and their generators |
 | W: map | Merged. Effect scopes own renderer lifetime; diagnostics and replay controls are workbench-only; camera motion has one tagged state |
-| Remaining Stage 0 branches | Hosted-renderer-flow, asset-kit and the picked shading rule are merged. World-layout-proposal still follows the branch requirements below and its owner gate |
+| Remaining Stage 0 branches | Hosted-renderer-flow, asset-kit and the picked shading rule are merged. The world-layout proposal's slimmed generator is an unadopted layout behind the development world, awaiting its owner gate |
 | Documentation | Stage 0 status, README and current architecture are reconciled; the wider Atlas/look/Stage 1/plan and decision-log cleanup remains open |
 | Closing checks | Combined verification on the final integrated `main` and final size accounting remain open |
 
@@ -145,7 +145,7 @@ The renderer-stream and RPC branches are integrated. Rebase and slim each remain
 - **`codex/shading-options`:** the owner picked camera-relative side tones, so `shaders.ts` has that one rule and no mode switch. The study toggle, the axis mode and the room-fixed rule were not carried over; git keeps them.
 - **`codex/rpc-api`:** integrated after its rebase. The MCP adapter remains.
 - **`codex/hosted-renderer-flow`:** merged after its rebase onto the single Playwright config; its camera flow runs in the `shell` project.
-- **`codex/world-layout-proposal`:** rebase. It stays unchanged until the owner adopts it.
+- **`codex/world-layout-proposal`:** its generator came over slimmed as `@floor/world/proposal`, a `WorldLayout` the development world draws. The study contract, workbench drawing and evidence records were not carried over; git keeps them. It stays unadopted until the owner picks it.
 
 ## Docs
 

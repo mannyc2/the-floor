@@ -19,6 +19,14 @@ export interface PostPlan {
   readonly index: number;
   readonly anchor: PlanPoint;
   readonly open: boolean;
+  // The radius a layout reserves around the anchor for the post and its
+  // stations. None where the layout declares no envelope.
+  readonly envelope: Option.Option<number>;
+}
+export interface PlacePlan {
+  readonly place: typeof FloorPlace.Type;
+  readonly position: PlanPoint;
+  readonly area: PlanArea;
 }
 export interface FloorPlan {
   readonly id: FloorId;
@@ -29,9 +37,12 @@ export interface FloorPlan {
   // A floor's ground. A layout without a footprint rule leaves it empty rather
   // than inventing one.
   readonly areas: ReadonlyArray<PlanArea>;
+  // Passages through the wall this floor shares with the lobby or an earlier
+  // floor. Floors that meet edge to edge, with no wall, have none.
+  readonly doors: ReadonlyArray<PlanArea>;
   readonly posts: ReadonlyArray<PostPlan>;
-  // Only places a layout actually positions appear; an absent place has no point.
-  readonly places: ReadonlyArray<{ readonly place: typeof FloorPlace.Type; readonly position: PlanPoint }>;
+  // Only places a layout actually reserves appear; an absent place has no point.
+  readonly places: ReadonlyArray<PlacePlan>;
 }
 export interface StationPlan {
   readonly floor: number;
@@ -41,10 +52,17 @@ export interface StationPlan {
   readonly agent: AgentId;
   readonly position: PlanPoint;
 }
+export interface LobbyPlan {
+  // The lobby's ground and the footprints of the plots the world has. A layout
+  // without a lobby rule leaves both empty.
+  readonly areas: ReadonlyArray<PlanArea>;
+  readonly plots: ReadonlyArray<PlanArea>;
+  readonly places: ReadonlyArray<{ readonly place: "entrance" | "plots"; readonly position: PlanPoint }>;
+}
 export interface WorldPlan {
   readonly floors: Array.NonEmptyReadonlyArray<FloorPlan>;
   readonly stations: ReadonlyArray<StationPlan>;
-  readonly lobby: ReadonlyArray<{ readonly place: "entrance" | "plots"; readonly position: PlanPoint }>;
+  readonly lobby: LobbyPlan;
 }
 
 // The one seam through which viewers read where floors, posts, stations and
@@ -60,8 +78,8 @@ const offset = (origin: PlanPoint, point: PlanPoint): PlanPoint => ({ x: origin.
 // The square spiral of post anchors and the grid of floor origins around the
 // lobby. A validated World already carries these coordinates (its Schema checks
 // them against the contract's canonical functions); this reads them and adds
-// the matching square footprint. The rule positions no named places or lobby
-// destinations, so the plan has none.
+// the matching square footprint. The rule positions no named places, post
+// envelopes, doors or lobby, so the plan has none.
 export const squareSpiralLayout: WorldLayout = {
   plan: world => {
     const span = canonicalFloorSpan(world.layout.postsPerFloor);
@@ -80,11 +98,13 @@ export const squareSpiralLayout: WorldLayout = {
           z1: floor.origin.z + side / 2,
         }],
       }),
+      doors: [],
       posts: floor.posts.map(post => ({
         id: post.id,
         index: post.index,
         anchor: offset(floor.origin, post.anchor),
         open: post._tag === "OpenTradingPost",
+        envelope: Option.none(),
       })),
       places: [],
     }));
@@ -102,7 +122,7 @@ export const squareSpiralLayout: WorldLayout = {
           }))
         )
       ),
-      lobby: [],
+      lobby: { areas: [], plots: [], places: [] },
     };
   },
 };
@@ -126,5 +146,5 @@ export const locate = (plan: WorldPlan, location: typeof AgentLocation.Type): Op
         Option.map(item => item.position),
       ),
     InLobby: target =>
-      Option.map(Array.findFirst(plan.lobby, item => item.place === target.place), item => item.position),
+      Option.map(Array.findFirst(plan.lobby.places, item => item.place === target.place), item => item.position),
   });

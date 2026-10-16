@@ -3,7 +3,10 @@ import { BundleBudgetError, SourceMap } from "./model";
 
 // Inspect every artifact, including lazy chunks. Maps identify bundled code;
 // emitted text also catches SDK imports deliberately left external by a bundler.
-const forbidden = /(?:^|[/\\'"`])(?:workbench|@privy-io\/node|svix|@hpke\/[^/@'"`\s]+)(?:@[^/'"`\s]+)?(?:[/\\'"`]|$)/;
+// The development world and the unadopted layout proposal never ship.
+const forbidden =
+  /(?:^|[/\\'"`])(?:workbench|dev-world|@privy-io\/node|svix|@hpke\/[^/@'"`\s]+)(?:@[^/'"`\s]+)?(?:[/\\'"`]|$)/;
+const proposal = /(?:^|\/)packages\/world\/src\/proposal(?:\/|\.)/;
 
 export const inspectModules = Effect.fn("BundleModules.inspect")(
   function*(directory: string, target: "web" | "worker" = "worker") {
@@ -33,7 +36,7 @@ export const inspectModules = Effect.fn("BundleModules.inspect")(
         const mcp =
           /(?:^|\/)effect(?:@[^/]+)?\/(?:[^/]+\/)*ai\/(?:Mcp[^/]*$|internal\/mcp[^/]*(?:\/|$))/.test(normalized)
           || /(?:^|\/)packages\/api\/src\/mcp(?:\/|\.)/.test(normalized);
-        if (forbidden.test(normalized) || (target === "web" && mcp)) {
+        if (forbidden.test(normalized) || proposal.test(normalized) || (target === "web" && mcp)) {
           return yield* new BundleBudgetError({ reason: "ForbiddenSource", detail: `${file}: ${source}` });
         }
       }

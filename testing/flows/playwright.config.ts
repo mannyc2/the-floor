@@ -22,7 +22,8 @@ const seedSecret = Effect.runSync(
 const swiftShader = { args: ["--use-angle=swiftshader-webgl", "--enable-unsafe-swiftshader"] };
 // The first-trade flow owns a local fork and signer; it never targets a hosted stage.
 // The world flow shares that harness Worker, which serves the production viewer,
-// and watches its own labelled synthetic multi-floor world.
+// and watches its own labelled synthetic multi-floor world. The development
+// world flow runs `bun run dev:world` with two floors and checks its layout switch.
 const firstTrade = settings.remote ? [] : [{
   name: "first-trade",
   testMatch: "first-trade.spec.ts",
@@ -35,7 +36,16 @@ const firstTrade = settings.remote ? [] : [{
   timeout: 240000,
   outputDir: "../../work/flows/world/results",
   use: { viewport: { width: 1280, height: 900 }, launchOptions: swiftShader },
+}, {
+  name: "dev-world",
+  testMatch: "dev-world.spec.ts",
+  timeout: 240000,
+  outputDir: "../../work/flows/dev-world/results",
+  use: { viewport: { width: 1280, height: 900 }, launchOptions: swiftShader },
 }];
+// The development world serves its own viewer build beside the shell's Floor
+// Worker and seed, two ports above them.
+const devWorldURL = `http://127.0.0.1:${settings.workerPort + 2}`;
 
 export default defineConfig({
   testDir: ".",
@@ -93,6 +103,17 @@ export default defineConfig({
         command: "bun scripts/first-trade.ts serve",
         cwd: "../..",
         url: "http://127.0.0.1:19743/",
+        reuseExistingServer: false,
+        gracefulShutdown: { signal: "SIGTERM", timeout: 30000 },
+        timeout: 180000,
+        stdout: "pipe",
+        stderr: "pipe",
+      } satisfies NonNullable<PlaywrightTestConfig["webServer"]>,
+      {
+        command: "bun scripts/dev-world.ts --floors 2",
+        env: { FLOOR_WORKER_PORT: String(settings.workerPort + 2) },
+        cwd: "../..",
+        url: `${devWorldURL}/`,
         reuseExistingServer: false,
         gracefulShutdown: { signal: "SIGTERM", timeout: 30000 },
         timeout: 180000,

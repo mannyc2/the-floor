@@ -25,10 +25,21 @@ export const cameraFromQuery = (query: URLSearchParams) =>
 // so the first floor's origin sits at zero.
 export const GroundArea = Schema.Struct({ x0: Schema.Finite, z0: Schema.Finite, x1: Schema.Finite, z1: Schema.Finite });
 export type GroundArea = typeof GroundArea.Type;
-// What a live mount needs that a synthetic one does not: each floor's ground,
-// the reachable extent of the world and its first reconciled instances.
+// Markings a layout declares on the ground: door passages, the envelopes of
+// open and blueprint posts, named-place reservations and lobby plots.
+export const GroundMark = Schema.Struct({
+  kind: Schema.Literals(["door", "post", "blueprintPost", "place", "plot"]),
+  area: GroundArea,
+});
+export type GroundMark = typeof GroundMark.Type;
+// What a live mount needs that a synthetic one does not: each floor's ground
+// and any lobby ground, the layout's markings, the reachable extent of the
+// world and its first reconciled instances. A layout that declares no lobby or
+// markings leaves those lists empty.
 export const LiveScene = Schema.Struct({
   floors: Schema.Array(GroundArea),
+  lobby: Schema.Array(GroundArea),
+  marks: Schema.Array(GroundMark),
   bounds: GroundArea,
   snapshot: Schema.Json,
 });

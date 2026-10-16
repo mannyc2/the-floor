@@ -23,6 +23,7 @@
         "@effect/tsgo": "0.51.1",
         "@floor/atlas": "workspace:*",
         "@floor/contract": "workspace:*",
+        "@floor/world": "workspace:*",
         "@foldkit/oxlint-plugin": "0.15.3",
         "@foldkit/vite-plugin": "0.27.1",
         "@playwright/test": "1.64.0",

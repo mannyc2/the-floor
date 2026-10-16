@@ -149,7 +149,10 @@ export const openEngine = (
       width: element.clientWidth,
       height: element.clientHeight,
       desks,
-      ...Option.match(options.live, { onNone: () => ({}), onSome: live => ({ live: { floors: live.floors } }) }),
+      ...Option.match(options.live, {
+        onNone: () => ({}),
+        onSome: live => ({ live: { floors: live.floors, lobby: live.lobby, marks: live.marks } }),
+      }),
     }, material);
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
