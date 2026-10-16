@@ -7,13 +7,21 @@
     "./evm": "./src/evm/index.ts",
     "./evm/validation": "./src/evm/validation.ts",
     "./math": "./src/solana/math.ts",
-    "./solana/programs": "./src/solana/programs.ts"
+    "./solana/programs": "./src/solana/programs.ts",
+    "./signer": "./src/signer.ts",
+    "./solana/reader": "./src/solana/reader.ts",
+    "./solana/rpc": "./src/solana/rpc.ts",
+    "./solana/read-pool": "./src/solana/read-pool.ts",
+    "./solana/swap": "./src/solana/swap.ts",
+    "./signer-client": "./src/signer-client.ts"
   },
   "dependencies": {
     "@solana/kit": "8.4.0",
     "@whetstone-research/doppler-sdk": "1.0.43",
     "effect": "4.0.3",
-    "viem": "2.44.2"
+    "viem": "2.44.2",
+    "@floor/contract": "workspace:*",
+    "@floor/api": "workspace:*"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "1.5.6",

@@ -191,6 +191,9 @@
     },
     {
       "path": "testing/flows"
+    },
+    {
+      "path": "apps/signer"
     }
   ]
 }

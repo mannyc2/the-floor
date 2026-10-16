@@ -73,7 +73,13 @@ The agent loop is a [Yielded Agent](https://github.com/yielded-dev/agent/): `Age
 
 ### The signer
 
-The planned signer is a separate Worker with no model in it, and it is the only way an agent's action gets signed. The following are requirements for Stage 3, not claims about the current wallet client.
+`apps/signer` is a separate Worker with no model or Floor application imports. The first-trade slice accepts the configured fork agent's `SwapIntent`, builds a Meteora DBC swap, simulates its slippage limit, signs with a disposable fork key and journals its receipt in a Durable Object. `ForkPolicy` records the local genesis and owner; it is not Privy policy confirmation. Each receipt's `AgentIntent` cause identifies the actual initiating agent and intent.
+
+The fork runner pins Surfpool 1.6.1, clones the DBC, metadata and memo programs through public mainnet reads, then starts offline with its own genesis. A test fixture creates the pool and a synthetic six-decimal quote mint through real transactions. Fork dollars name that disposable mint's units; they are not a measured live USD price. The key Layer accepts only loopback HTTP with the configured non-public genesis, checks it before key import and every signature, and rejects public genesis hashes. `bun run dev:fork` starts this local signer and leaves public fixture metadata under `work/first-trade/`.
+
+Before its only broadcast, the signer stores an `UnknownReceipt` with the signed transaction's signature. Repeating an intent reads the journal and checks the chain; it never broadcasts that intent again. A confirmed signature produces a `SettledReceipt` with its actual block checkpoint. Simulation failures produce a `RefusedReceipt` before signing. Lost responses remain unknown until a later chain check resolves them.
+
+The following remain Stage 3 requirements for real-money signing, not capabilities of the fork key or current wallet client.
 
 1. **Owner's limits.** The owner's confirmed policy must compile to Privy's policy rules: allowed programs, caps, and allowed destinations. Privy enforces them on every signature, so they hold even if the signer is compromised. The limits are exactly what Privy enforces; the Floor adds none of its own.
 2. **Building the transaction.** For withdrawals, the signer resolves the destination ID from its trusted registry and checks the owner and chain; the intent supplies no account or verification evidence. The signer builds the transaction through the chain adapter, simulates it, obtains the required request-authorization signatures, and asks Privy to sign the transaction.
@@ -239,9 +245,9 @@ Every promise is checked by running the flow that keeps it, through the real com
 
 | Edge | Stand-in during a flow | Checked against the real thing |
 | --- | --- | --- |
-| Chain | A fork of Solana mainnet at a pinned checkpoint (Surfpool) | Nightly against mainnet reads |
+| Chain | Surfpool 1.6.1 offline with cloned mainnet programs, recorded clone slots and a locally created pool | Real local transactions and block checkpoints; nightly mainnet reads remain planned |
 | Market data | Recorded provider streams, replayed through the real adapter | Recordings keep their checkpoints |
-| Privy | Privy's sandbox, or a local signer enforcing the same compiled policies | Nightly against the sandbox |
+| Privy | The first-trade local key is labelled `ForkPolicy`; it makes no Privy-enforcement claim | Sandbox and quorum-administration proof remain blocked; no Privy calls in the fork flow |
 | Models | Recorded responses keyed by request hash; an unrecorded request fails | Nightly, re-recorded on purpose |
 | Web pages | A fixture site, including pages written to manipulate agents, browsed with local Chromium | Nightly through the production browser Layer |
 | Time | TestClock, advanced by checkpoint times | Not needed |
@@ -314,7 +320,7 @@ packages/
 testing/           flows, look, bench, recordings, fixtures, reference frames
 ```
 
-Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. Today `apps/signer` and the `policy` package are planned; each is created with its first real code. `packages/atlas` holds the recorded drawing values and their approval scopes; its remaining design-system modules await their own values. `packages/world` now holds the deterministic model, isolated from the renderer by its package boundary.
+Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. The fork-only `apps/signer` is implemented; the `policy` package remains planned until its first real code. `packages/atlas` holds the recorded drawing values and their approval scopes; its remaining design-system modules await their own values. `packages/world` now holds the deterministic model, isolated from the renderer by its package boundary.
 
 ### Fences
 

@@ -51,10 +51,7 @@
           "[definedTypeNode]PoolConfig",
           "[definedTypeNode]PoolFees",
           "[definedTypeNode]PoolFeesConfig",
-          "[definedTypeNode]PoolMetrics",
-          "[definedTypeNode]PoolState",
           "[definedTypeNode]RemainingAccountsSlice",
-          "[definedTypeNode]SwapParameters",
           "[definedTypeNode]SwapParameters2",
           "[definedTypeNode]SwapResult",
           "[definedTypeNode]SwapResult2",
@@ -62,8 +59,7 @@
           "[definedTypeNode]TransferHookAccountsInfo",
           "[definedTypeNode]TransferHookPool",
           "[definedTypeNode]VirtualPool",
-          "[definedTypeNode]VirtualPoolMetadata",
-          "[definedTypeNode]VolatilityTracker"
+          "[definedTypeNode]VirtualPoolMetadata"
         ]
       ]
     }
@@ -75,7 +71,9 @@
         "../../work/chains-promotion/client",
         {
           "kitImportStrategy": "rootOnly",
-          "dependencyVersions": { "@solana/kit": "8.4.0" },
+          "dependencyVersions": {
+            "@solana/kit": "8.4.0"
+          },
           "erasableSyntax": true,
           "linkOverrides": {
             "definedTypes": {
@@ -90,7 +88,11 @@
               "migratedPoolMarketCapFeeSchedulerParams": "./migratedPoolMarketCapFeeSchedulerParams",
               "migrationFee": "./migrationFee",
               "poolFeeParameters": "./poolFeeParameters",
-              "tokenSupplyParams": "./tokenSupplyParams"
+              "tokenSupplyParams": "./tokenSupplyParams",
+              "poolState": "./poolState",
+              "poolMetrics": "./poolMetrics",
+              "volatilityTracker": "./volatilityTracker",
+              "swapParameters": "./swapParameters"
             }
           }
         }

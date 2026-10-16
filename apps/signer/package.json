@@ -1,0 +1,17 @@
+{
+  "name": "@floor/app-signer",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./worker": "./src/worker.ts"
+  },
+  "dependencies": {
+    "@floor/chains": "workspace:*",
+    "@floor/contract": "workspace:*",
+    "@solana/kit": "8.4.0",
+    "alchemy": "2.0.0-beta.80",
+    "effect": "4.0.3",
+    "@floor/api": "workspace:*",
+    "@effect/sql-sqlite-do": "4.0.3"
+  }
+}
