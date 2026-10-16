@@ -4,7 +4,7 @@ This orders the work left before Stage 0 can close. The [cleanup plan](cleanup-p
 
 ## Where things stand
 
-Local `main` includes the cleanup's T, R, S, K and W, D1's fixed-ID renderer stream, and D3's RPC/MCP boundary. It also includes the separate first-trade slice's durable world journal, isolated fork signer and bounded agent. These integrations approve neither art nor Stage 0. The live viewer's browser proof remains separate from its source review.
+Local `main` includes the cleanup's T, R, S, K and W, D1's fixed-ID renderer stream, D3's RPC/MCP boundary, the unattached Privy owner middleware and E's production-entry camera flow. It also includes the separate first-trade slice's durable world journal, isolated fork signer and bounded agent. These integrations approve neither art nor Stage 0. The live viewer's browser proof remains separate from its source review.
 
 ### Local execution — 14–15 October 2026
 
@@ -14,7 +14,7 @@ Local `main` includes the cleanup's T, R, S, K and W, D1's fixed-ID renderer str
 | C / D2 | `codex/asset-kit` holds the unmerged generators, preflight and approved-frame suites | Rebase and slim after cleanup, preserve deterministic generation, then integrate. The returned sheet remains unpicked |
 | I / D3 | Health RPC, scoped clients and the read-only MCP adapter are integrated. The obsolete HTTP-API allowance is removed | The existing authentication task; do not create a duplicate |
 | B | `codex/shading-options` holds the independently filtered option study and blind sheets | Owner shading pick, then the chosen rule and its checks on the integrated implementation |
-| E | `codex/hosted-renderer-flow` holds the production-entry camera flow and hosted run sheet | Rebase, include the RPC shell's requests in the budget, and repeat combined local verification. Push, admission, preview and allowance remain owner gates |
+| E | The production-entry camera flow is in the `shell` project with the RPC/MCP shell flow, under one request budget; the run sheet is in the platform doc | The hosted run itself. Push, admission, preview and allowance remain owner gates |
 | F | `codex/world-layout-proposal` holds the isolated seeded-layout proposal and cross-engine property checks | Owner adoption, including the minimum-spacing interpretation and fixed lobby. Production layout and Atlas values stay unchanged |
 | G / H | Asset picks and newcomer observations remain open | G waits for B's pick and D2; the owner arranges H's new viewer |
 
@@ -111,19 +111,9 @@ Only the orchestrator assembles local `main`. D1, D3 and the cleanup's T, R, S, 
 
 ### E. Hosted check
 
-Branch from `main`; rebase after D3.
+The production-entry camera flow, `testing/flows/production-renderer.spec.ts`, runs in the `shell` project against `FLOOR_FLOW_URL`: the local Worker by default, the preview in CI's preview step. It records the renderer string, and checks that a drag moves the world and settles one URL/history commit, that a quarter turn persists through the URL and a reload with identical pixels, that Escape goes up a rung, and that phone touch moves the world without scrolling. Production shows a pick only in a live world's drawer, which a preview has no world for, so picking stays with the local first-trade flow. The [run sheet](platform.md#hosted-renderer-run-sheet) gives the resources, budget, 30-minute cap and teardown.
 
-1. Write a production-entry renderer flow in `testing/flows` that runs against `FLOOR_FLOW_URL`: the local Worker by default, the preview when remote. It checks that:
-   - the map canvas mounts, with the renderer string recorded;
-   - a drag moves the world and settles one Model/URL commit;
-   - a quarter turn persists through the URL and a reload;
-   - a click picks;
-   - Escape goes up a rung;
-   - on the phone viewport, touch moves the world without scrolling the page.
-2. Add the flow to CI's preview step next to the shell flow, which now runs over RPC.
-3. Prepare the run sheet from [the platform](platform.md#spending): allowance check, stage resource list, request budget, 30-minute cap, and teardown with inventory proof.
-
-**Done when:** the flow passes locally against the local Worker and the run sheet is in `docs/platform.md`. Then stop at the owner gate for the push, admission and preview. After the hosted run, record the CI run links and the teardown proof.
+**Left:** the owner gate for the push, admission and preview, then the hosted run, with its CI run links and teardown proof in the run's commit or pull request.
 
 ### F. World layout
 

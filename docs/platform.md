@@ -61,6 +61,21 @@ For each hosted run:
 
 On 12 October the account was far inside its allowance: about 41,000 of 10 million Worker requests and 42 of 1 million Durable Object requests for the cycle. The two hosted runs so far (the native agent check and the `pr-1` preview) made no Browser Run, R2 or paid-provider calls.
 
+### Hosted renderer run sheet
+
+The prepared procedure for the first hosted renderer run. It is not a result, and it needs the owner's go-ahead to push, admit one PR and enable previews.
+
+1. **Before.** Under `work/hosted-renderer/<run>/`, record the commit, PR, account, billing-cycle dates and the remaining Workers requests, Durable Object requests, duration and storage, and GitHub artifact storage. Save the account's Worker and Durable Object inventory and the `alchemy-state-store` version. Keep artifact upload off unless its allowance is confirmed. Use no Browser Run, R2, inference, wallet or market-data provider.
+2. **Stage resources.** `pr-<n>` creates exactly the resources in `alchemy.run.ts`; compare the deployment's state against this list before the flow:
+   - the Worker script `floor-floorworker-pr-<n>-<suffix>` on the account's `workers.dev` subdomain, carrying the `apps/web/dist` assets;
+   - its three SQLite-backed Durable Object namespaces, `FLOOR_THREADS`, `FLOOR_MAILBOXES` and `FLOOR_WORLDS`, created by the script's migrations;
+   - Alchemy's state records for `Floor`/`pr-<n>` in the shared `alchemy-state-store`, which is baseline infrastructure and never teardown scope.
+
+   There is no D1, KV, R2, Queue, secret, route, cron or Browser binding.
+3. **Budget.** At most 30 minutes from the first deployment attempt; the CI job's 20-minute timeout does not destroy a successful stage. At most 500 browser requests to the stage and 100 non-browser requests (deployment readiness, inventory and the flows' direct MCP calls, eight today and capped at 20), 600 in all. No agent submission or Durable Object request is needed. The fixture forwards real same-origin requests one hop at a time without retries, refuses other origins, redirects and excess, and retains its receipts even on failure. A repeat needs a new allowance and budget decision.
+4. **Run.** Set `FLOOR_PREVIEW_PR`, then enable the gate. CI's "Verify production entry on preview" step runs `bun run e2e` with `FLOOR_FLOW_URL` and `FLOOR_FLOW_REMOTE=true`: the `shell` project's connection, MCP and camera flows target the stage once and stop at the first failure, first-trade is omitted, and the renderer project runs locally on the runner. Its touch check at 390×844/DPR 3 is not the throttled phone budget or a real-phone result.
+5. **Teardown, even after success.** Disable the gate, drain queued runs and destroy exactly `pr-<n>` with the cleanup workflow (or `bun run preview:destroy --stage pr-<n>`) inside the 30 minutes. Compare a post-run inventory with the saved one: every stage resource gone, everything else and the state-store version unchanged. Clear the admission only after that comparison; a successful destroy alone is not teardown proof.
+
 ## Proved on Cloudflare
 
 - **The agent's Durable Object:** durable callback admission, an agent turn with a scripted model, restart and duplicate admission, locally and on a hosted stage.

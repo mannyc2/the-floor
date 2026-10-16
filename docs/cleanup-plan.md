@@ -12,7 +12,7 @@ The owner's 15 October decisions in the [decision log](decisions.md#repository-c
 | D1 and RPC | Merged. Renderer snapshots retain deterministic/CPU gates; health RPC and the server-only read-only MCP adapter share Schemas |
 | K: Atlas | Merged. Plain values and one value snapshot replace approval wrappers, generated outputs and their generators |
 | W: map | Merged. Effect scopes own renderer lifetime; diagnostics and replay controls are workbench-only; camera motion has one tagged state |
-| Remaining Stage 0 branches | Asset-kit, shading-options, hosted-renderer-flow and world-layout-proposal still follow the branch requirements below and their owner gates |
+| Remaining Stage 0 branches | Hosted-renderer-flow is merged. Asset-kit, shading-options and world-layout-proposal still follow the branch requirements below and their owner gates |
 | Documentation | Stage 0 status, README and current architecture are reconciled; the wider Atlas/look/Stage 1/plan and decision-log cleanup remains open |
 | Closing checks | Combined verification on the final integrated `main` and final size accounting remain open |
 
@@ -144,7 +144,7 @@ The renderer-stream and RPC branches are integrated. Rebase and slim each remain
 - **`codex/asset-kit`:** the workbench calls `makePost` and `makeStation` directly. The committed GLB models, manifests, codec, pipeline and their checks go until a modelled asset exists, and so does the JSON scene that mirrors code. Preflight keeps only the rule run. Approved frames use Playwright's `toHaveScreenshot` with zero tolerance. No approval labels remain in models or code, and the branch's committed-models decision row goes.
 - **`codex/shading-options`:** a `SIDE_MODE` define in `shaders.ts` replaces patching GLSL text, and a contact sheet for the owner's pick replaces the 48-case suite. After the pick, the losing mode is deleted.
 - **`codex/rpc-api`:** integrated after its rebase. The MCP adapter remains.
-- **`codex/hosted-renderer-flow`:** rebase after rpc-api, onto the single Playwright config.
+- **`codex/hosted-renderer-flow`:** merged after its rebase onto the single Playwright config; its camera flow runs in the `shell` project.
 - **`codex/world-layout-proposal`:** rebase. It stays unchanged until the owner adopts it.
 
 ## Docs

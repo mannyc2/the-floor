@@ -13,14 +13,14 @@ Stage 0 builds what the first milestone grows on: the toolchain and its fences, 
 | Chains and fork signer | Solana launch/swap construction and pool reads, EVM construction, and a separate local signer Worker that journals real fork outcomes and refuses a foreign genesis |
 | Wallets | The native Privy client and its offline oracle tests; the [wallet record](../packages/wallets/README.md) retains the test-transport incident and administration blocker |
 | Atlas and references | Plain drawing values and a value snapshot, sixteen preserved owner-picked frames, and render-only scene briefs; approval history stays in the decision log and git |
-| Verification and CI | Serial shell/first-trade/renderer browser projects, native Worker, agent and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
+| Verification and CI | Serial shell/first-trade/renderer browser projects, a production-entry camera flow under a stage request budget, native Worker, agent and fork checks, development capture tools, artifact fences, and gated per-PR preview deployment and teardown |
 
 These are implemented surfaces with the evidence described by their commits. They do not establish the open product, art, hosted or provider promises below.
 
 ## Left
 
-- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K and W are on local `main`. The asset, shading, hosted-flow and world-layout branches still follow their existing plans and owner gates. Those remaining merges still need combined verification and the cleanup's final size accounting.
-- [ ] **Complete renderer acceptance.** Hosted production-entry camera/RPC checks and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
+- [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K, W, the owner middleware and the hosted-flow branch are on local `main`. The asset, shading and world-layout branches still follow their existing plans and owner gates. Those remaining merges still need combined verification and the cleanup's final size accounting.
+- [ ] **Complete renderer acceptance.** The production-entry camera and RPC/MCP flows pass locally but have not run against a deployed stage; that run and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
 - [ ] **Finish the Stage 0 look.** One post with its stations, one figure and one token screen must be built through the generator and SVG-profile routes, shortlisted and picked in day and night at all four quarter turns. The first asset sheet was returned without a pick. Every corner must satisfy the visible-body rules, with the seven picked renderer frames unchanged; the all-corner shading correction still needs the owner's choice. Paper-contact and line-ending measurements belong to the real assets.
 - [ ] **Run the newcomer test, or record it as not run.** This requires a person who has not seen the Floor.
 - [ ] **Owner review.** The decisions, integrated flow and picked frames must be reviewed before Stage 0 closes. The first-trade exception does not waive this gate.
