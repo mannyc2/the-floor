@@ -33,14 +33,16 @@ const Routes = Layer.mergeAll(RpcRoutes, McpRoutes, WorldRoutes).pipe(
 export const makeFloorWorker = Effect.fn("makeFloorWorker")(function*(options: {
   readonly assets?: WorkerAssetsConfig;
   readonly env?: WorkerEnv;
+  readonly devPort?: number;
 } = {}): Effect.fn.Return<Worker<{}>, never, Providers> {
+  const { devPort = 19740, ...workerOptions } = options;
   return yield* Worker(
     "FloorWorker",
     {
       main: import.meta.url,
       compatibility: { date: "2026-08-18", flags: [] },
-      dev: { host: "127.0.0.1", port: 19740 },
-      ...options,
+      dev: { host: "127.0.0.1", port: devPort },
+      ...workerOptions,
     },
     Effect.gen(function*() {
       yield* Agents;
