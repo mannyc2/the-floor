@@ -53,7 +53,7 @@ export const partialAcquisitionProbe = Effect.fn("Workbench.partialAcquisition")
     () => 0,
     {
       preserveDrawingBuffer: true,
-      initialSnapshot: Option.none(),
+      live: Option.none(),
       active: () => true,
       failed: error => {
         // oxlint-disable-next-line effect/noThrowStatement -- The acquisition probe routes any unexpected asynchronous failure into the test error boundary.

@@ -3,6 +3,7 @@ import {
   ChangeWorldState,
   JoinWorld,
   LandWorldReceipt,
+  MoveInWorld,
   WorldFrame,
   WorldPublisher,
   WorldPublishError,
@@ -15,7 +16,7 @@ import { Receipt } from "@floor/contract/economics";
 import { WorldEventId } from "@floor/contract/identifiers";
 import { WorldChangeError } from "@floor/contract/world";
 import { WorldEvent, WorldEventDelivery } from "@floor/contract/world-events";
-import { allStations, assignAgent, createWorld } from "@floor/world";
+import { agentLocation, allStations, assignAgent, createWorld } from "@floor/world";
 import { assertReceiptEvolution, foldWorldEvent } from "@floor/world/stream";
 import { DurableObject } from "alchemy/Cloudflare/Workers/DurableObject";
 import { DurableObjectState } from "alchemy/Cloudflare/Workers/DurableObjectState";
@@ -38,6 +39,7 @@ const Publication = Schema.TaggedUnion({
   Join: JoinWorld.fields,
   State: ChangeWorldState.fields,
   Receipt: LandWorldReceipt.fields,
+  Move: MoveInWorld.fields,
 });
 const PublicationJson = Schema.toCodecJson(Publication);
 const EventJson = Schema.toCodecJson(WorldEvent);
@@ -112,7 +114,13 @@ const WorldsLive = FloorWorlds.make(Effect.map(
       const handlers = {
         publish: Effect.fn("FloorWorlds.publish")(function*(encoded: Schema.Json) {
           const input = yield* Schema.decodeEffect(PublicationJson)(encoded).pipe(Effect.orDie);
-          const operation = input._tag === "Join" ? "join" : input._tag === "State" ? "state" : "receipt";
+          const operation = input._tag === "Join"
+            ? "join"
+            : input._tag === "State"
+            ? "state"
+            : input._tag === "Move"
+            ? "move"
+            : "receipt";
           return yield* writes.withPermit(
             sql.withTransaction(Effect.gen(function*() {
               const snapshot = yield* latest({
@@ -152,6 +160,14 @@ const WorldsLive = FloorWorlds.make(Effect.map(
                 event = WorldEvent.cases.AgentJoined.make({ ...fields, desk: station.desk.id });
               } else if (input._tag === "State") {
                 event = WorldEvent.cases.AgentStateChanged.make({ ...fields, state: input.state });
+              } else if (input._tag === "Move") {
+                // The origin comes from this world's own journal; the fold rejects
+                // any move whose recorded origin differs from the agent's location.
+                event = WorldEvent.cases.AgentMoved.make({
+                  ...fields,
+                  from: agentLocation(snapshot.model, input.agent),
+                  to: input.location,
+                });
               } else {
                 event = WorldEvent.cases.ReceiptLanded.make({ ...fields, receipt: input.receipt.id });
               }
@@ -253,6 +269,10 @@ const publisherFor = (worlds: Worlds) => {
     receipt: input =>
       publish(Publication.cases.Receipt.make(input)).pipe(
         Effect.mapError(cause => new WorldPublishError({ operation: "receipt", world: input.world, cause })),
+      ),
+    move: input =>
+      publish(Publication.cases.Move.make(input)).pipe(
+        Effect.mapError(cause => new WorldPublishError({ operation: "move", world: input.world, cause })),
       ),
   });
 };

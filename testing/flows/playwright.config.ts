@@ -21,11 +21,19 @@ const seedSecret = Effect.runSync(
 );
 const swiftShader = { args: ["--use-angle=swiftshader-webgl", "--enable-unsafe-swiftshader"] };
 // The first-trade flow owns a local fork and signer; it never targets a hosted stage.
+// The world flow shares that harness Worker, which serves the production viewer,
+// and watches its own labelled synthetic multi-floor world.
 const firstTrade = settings.remote ? [] : [{
   name: "first-trade",
   testMatch: "first-trade.spec.ts",
   timeout: 90000,
   outputDir: "../../work/flows/first-trade/results",
+  use: { viewport: { width: 1280, height: 900 }, launchOptions: swiftShader },
+}, {
+  name: "world",
+  testMatch: "world.spec.ts",
+  timeout: 240000,
+  outputDir: "../../work/flows/world/results",
   use: { viewport: { width: 1280, height: 900 }, launchOptions: swiftShader },
 }];
 

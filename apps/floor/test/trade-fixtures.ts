@@ -20,7 +20,7 @@ import {
 } from "@floor/contract/identifiers";
 import { WorldEvent } from "@floor/contract/world-events";
 import { ScriptedModel, ScriptedStreamTurn } from "@yielded/agent-testing/scripted-model";
-import { BigDecimal, DateTime, Effect, Layer, Ref, Schema } from "effect";
+import { BigDecimal, DateTime, Effect, Layer, Option, Ref, Schema } from "effect";
 import { TradeMandate } from "../src/agents/mandate";
 import { AgentModel } from "../src/agents/models";
 
@@ -158,6 +158,16 @@ export const makeTradeHarness = Effect.fn("makeTradeHarness")(function*(options:
               ...yield* stamp(input),
               agent: input.agent,
               receipt: input.receipt.id,
+            }),
+          );
+        }),
+        move: Effect.fnUntraced(function*(input) {
+          return yield* record(
+            WorldEvent.cases.AgentMoved.make({
+              ...yield* stamp(input),
+              agent: input.agent,
+              from: Option.none(),
+              to: input.location,
             }),
           );
         }),

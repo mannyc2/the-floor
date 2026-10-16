@@ -3,6 +3,7 @@ import {
   ChangeWorldState,
   JoinWorld,
   LandWorldReceipt,
+  MoveInWorld,
   WorldFrame,
   WorldPublishError,
   WorldQuery,
@@ -13,6 +14,7 @@ export {
   ChangeWorldState,
   JoinWorld,
   LandWorldReceipt,
+  MoveInWorld,
   WorldFrame,
   WorldPublishError,
   WorldQuery,
@@ -23,6 +25,7 @@ export class WorldPublisher extends Context.Service<WorldPublisher, {
   readonly join: (input: typeof JoinWorld.Type) => Effect.Effect<WorldEvent, WorldPublishError>;
   readonly state: (input: typeof ChangeWorldState.Type) => Effect.Effect<WorldEvent, WorldPublishError>;
   readonly receipt: (input: typeof LandWorldReceipt.Type) => Effect.Effect<WorldEvent, WorldPublishError>;
+  readonly move: (input: typeof MoveInWorld.Type) => Effect.Effect<WorldEvent, WorldPublishError>;
 }>()("floor/WorldPublisher") {}
 
 export class WorldReader extends Context.Service<WorldReader, {

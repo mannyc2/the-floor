@@ -1,4 +1,4 @@
-import { WorldSnapshot } from "@floor/contract/world-stream";
+import { WorldFrame } from "@floor/contract/world-stream";
 import { Schema } from "effect";
 import { defineMessageUnion } from "foldkit/message";
 import { Camera, EntityId, Turn } from "./model";
@@ -14,7 +14,9 @@ export const Message = defineMessageUnion({
   SelectedEntity: { entity: Schema.Option(EntityId) },
   RestedCamera: { camera: Camera, history: Schema.Boolean },
   ClickedRotate: { direction: Turn },
-  ReceivedWorldSnapshot: { snapshot: WorldSnapshot },
+  ClickedFloor: { floor: Schema.Int },
+  ClickedFollow: { entity: EntityId },
+  ReceivedWorldFrame: { frame: WorldFrame },
   ChangedWorldConnection: { connection: WorldConnection },
   AppliedWorldSnapshot: { revision: Schema.Natural },
   CompletedPresent: {},

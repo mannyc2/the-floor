@@ -75,13 +75,29 @@ const receiptView = (receipt: Receipt, h: HtmlBuilder<Message>) => {
   ]);
 };
 
-export const deskDrawer = (agent: Agent, h: HtmlBuilder<Message>) =>
+export const deskDrawer = (
+  { agent, location, follow }: {
+    readonly agent: Agent;
+    readonly location: string;
+    // Absent while the agent stands nowhere the layout positions.
+    readonly follow: Option.Option<Message>;
+  },
+  h: HtmlBuilder<Message>,
+) =>
   h.aside([h.Class("desk-drawer"), h.AriaLabel("Agent desk")], [
     h.button([h.OnClick(Message.SelectedEntity({ entity: Option.none() }))], ["Close desk"]),
     h.h2([], [agent.agent]),
     h.p([h.DataAttribute("agent-state", Option.getOrElse(agent.state, () => "unreported"))], [
       Option.getOrElse(agent.state, () => "State not reported"),
     ]),
+    h.p([h.DataAttribute("agent-location", location)], [location]),
+    h.button(
+      Option.match(follow, {
+        onNone: () => [h.Disabled(true)],
+        onSome: message => [h.OnClick(message)],
+      }),
+      ["Follow agent"],
+    ),
     Option.match(agent.receipt, {
       onNone: () => h.p([], ["No receipt recorded yet."]),
       onSome: receipt => receiptView(receipt, h),

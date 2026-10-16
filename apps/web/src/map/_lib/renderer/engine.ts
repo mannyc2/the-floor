@@ -3,7 +3,7 @@ import { lineWidthCssPx } from "@floor/atlas/look";
 import { materialPalette } from "@floor/atlas/materials";
 import { Effect, Option, Result, Schema, Scope } from "effect";
 import * as THREE from "three";
-import type { Camera, Presentation, Theme } from "../../model";
+import type { Camera, LiveScene, Presentation, Theme } from "../../model";
 import { makeInstanceSnapshots } from "./instances";
 import type { Palette } from "./palette";
 import { createScene, names, syntheticPalette } from "./scene";
@@ -50,7 +50,7 @@ export const openEngine = (
     readonly preserveDrawingBuffer: boolean;
     readonly active: () => boolean;
     readonly failed: (error: RendererFailure) => void;
-    readonly initialSnapshot: Option.Option<Schema.Json>;
+    readonly live: Option.Option<LiveScene>;
   },
 ) =>
   Effect.gen(function*() {
@@ -109,7 +109,7 @@ export const openEngine = (
         "screen-light-3": materialPalette.colors["screen-light-3"],
       },
     };
-    const initialPalette = Option.isNone(options.initialSnapshot) ? syntheticPalette : livePalette;
+    const initialPalette = Option.isNone(options.live) ? syntheticPalette : livePalette;
     writePaletteBytes(initialPalette);
     const palette = yield* own(() =>
       new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.UnsignedByteType)
@@ -149,7 +149,7 @@ export const openEngine = (
       width: element.clientWidth,
       height: element.clientHeight,
       desks,
-      live: Option.isSome(options.initialSnapshot),
+      ...Option.match(options.live, { onNone: () => ({}), onSome: live => ({ live: { floors: live.floors } }) }),
     }, material);
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
@@ -216,9 +216,9 @@ export const openEngine = (
       },
       surfaceUniforms.instanceInterpolation,
       surfaceUniforms.interpolation,
-      Option.isSome(options.initialSnapshot),
+      Option.isSome(options.live),
     );
-    if (Option.isSome(options.initialSnapshot)) yield* instances.snapshot(options.initialSnapshot.value);
+    if (Option.isSome(options.live)) yield* instances.snapshot(options.live.value.snapshot);
     const setCamera = (view: Camera) => {
       state.camera = view;
       camera.left = -view.extent * state.width / state.height / 2;

@@ -1,7 +1,7 @@
 import { cameraFlight, cameraRungs } from "@floor/atlas/camera";
 export { cameraRungs } from "@floor/atlas/camera";
 import { Data, Option, Result } from "effect";
-import { type Camera, cameraFromQuery, type Rotation, type Turn } from "../../model";
+import { type Camera, cameraFromQuery, type GroundArea, type Rotation, type Turn } from "../../model";
 import { type Engine, RendererFailure } from "./engine";
 
 type Point = { readonly x: number; readonly y: number };
@@ -38,12 +38,24 @@ interface CameraState {
 const Motion = Data.taggedEnum<Motion>();
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const limitedExtent = (extent: number) => Math.max(4, Math.min(1200, extent));
+// The synthetic test room keeps its original symmetric reach.
+export const syntheticBounds = (desks: number): GroundArea => {
+  const bound = desks > 12 ? 80 : 25;
+  return { x0: -bound, z0: -bound, x1: bound, z1: bound };
+};
+// Past an edge, panning resists asymptotically instead of stopping dead.
+const soft = (value: number, low: number, high: number) =>
+  value > high
+    ? high + 12 * Math.tanh((value - high) / 12)
+    : value < low
+    ? low - 12 * Math.tanh((low - value) / 12)
+    : value;
 const rightTurn: Readonly<Record<Rotation, Rotation>> = { 0: 1, 1: 2, 2: 3, 3: 0 };
 const leftTurn: Readonly<Record<Rotation, Rotation>> = { 0: 3, 1: 0, 2: 1, 3: 2 };
 
 export const openCamera = (
   engine: Engine,
-  desks: number,
+  bounds: GroundArea,
   nowMonotonicMs: () => number,
   onRest: (camera: Camera, history: boolean) => void,
   onSelect: (x: number, y: number) => void,
@@ -88,13 +100,13 @@ export const openCamera = (
     const rect = canvas.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   };
-  const soft = (value: number) => {
-    const bound = desks > 12 ? 80 : 25;
-    const excess = Math.max(0, Math.abs(value) - bound);
-    return excess === 0 ? value : Math.sign(value) * (bound + 12 * Math.tanh(excess / 12));
-  };
   const place = (view: Camera) =>
-    set({ ...view, x: soft(view.x), z: soft(view.z), extent: limitedExtent(view.extent) });
+    set({
+      ...view,
+      x: soft(view.x, bounds.x0, bounds.x1),
+      z: soft(view.z, bounds.z0, bounds.z1),
+      extent: limitedExtent(view.extent),
+    });
   const anchor = (point: Point, ground: Ground, extent: number) => {
     const view = read();
     set({ ...view, extent: limitedExtent(extent) });

@@ -29,7 +29,11 @@ const serve = Effect.gen(function*() {
     "FloorFirstAgentBrowser",
     { providers: providers(), state: localState() },
     makeTradeTestWorker({
-      assets: { directory, runWorkerFirst: ["/api/*", "/trade"], notFoundHandling: "single-page-application" },
+      assets: {
+        directory,
+        runWorkerFirst: ["/api/*", "/trade", "/world/*"],
+        notFoundHandling: "single-page-application",
+      },
       env: { FLOOR_TRADE_CONFIGURATION: yield* Schema.encodeEffect(TradeConfiguration)(configuration) },
     }),
   );

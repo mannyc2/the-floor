@@ -2,15 +2,18 @@ import { Schema } from "effect";
 import { AgentState } from "./agents";
 import { Receipt } from "./economics";
 import { AgentId, ChainRef, Checkpoint, WorldId } from "./identifiers";
-import { World } from "./world";
+import { AgentLocation, World } from "./world";
 import { WorldEventDelivery } from "./world-events";
 
 const publication = { world: WorldId, checkpoint: Checkpoint, agent: AgentId };
 export const JoinWorld = Schema.Struct(publication);
 export const ChangeWorldState = Schema.Struct({ ...publication, state: AgentState });
 export const LandWorldReceipt = Schema.Struct({ ...publication, receipt: Receipt });
+// The publisher names only the destination. The world fills the event's origin
+// from its own journal, so a stale publisher cannot rewrite where an agent was.
+export const MoveInWorld = Schema.Struct({ ...publication, location: AgentLocation });
 export class WorldPublishError extends Schema.TaggedError<WorldPublishError>()("WorldPublishError", {
-  operation: Schema.Literals(["join", "state", "receipt", "read"]),
+  operation: Schema.Literals(["join", "state", "receipt", "move", "read"]),
   world: WorldId,
   cause: Schema.Defect(),
 }) {}

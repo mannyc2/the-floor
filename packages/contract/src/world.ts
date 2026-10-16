@@ -62,8 +62,9 @@ const ringCell = (ring: number, position: number): typeof WorldPoint.Type => {
 // Each floor's square footprint holds its whole spiral of posts plus one post
 // spacing on every side for aisles and fixed places, so full neighbours never
 // overlap. The lobby is the centre cell of the same grid.
+const floorSpan = (postsPerFloor: typeof PostsPerFloor.Type) => (2 * ringOf(postsPerFloor - 1) + 3) * postSpacing;
 const floorOrigin = (index: number, postsPerFloor: typeof PostsPerFloor.Type): typeof WorldPoint.Type => {
-  const pitch = (2 * ringOf(postsPerFloor - 1) + 3) * postSpacing;
+  const pitch = floorSpan(postsPerFloor);
   const cell = index + 1;
   const ring = ringOf(cell);
   const offset = ringCell(ring, cell - (2 * ring - 1) ** 2);
@@ -76,6 +77,11 @@ const FloorIndex = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 
 export const canonicalPostAnchor = (index: number): Option.Option<typeof WorldPoint.Type> =>
   Schema.is(PostIndex)(index) ? Option.some(postAnchor(index)) : Option.none();
+
+// The side of the square footprint centred on each floor origin, and of the
+// lobby cell at the plan's centre. Neighbouring footprints share edges.
+export const canonicalFloorSpan = (postsPerFloor: number): Option.Option<number> =>
+  Schema.is(PostsPerFloor)(postsPerFloor) ? Option.some(floorSpan(postsPerFloor)) : Option.none();
 
 export const canonicalFloorOrigin = (
   index: number,

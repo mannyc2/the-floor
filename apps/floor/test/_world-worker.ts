@@ -1,4 +1,4 @@
-import { ChangeWorldState, JoinWorld, LandWorldReceipt, WorldPublisher } from "@floor/api/world";
+import { ChangeWorldState, JoinWorld, LandWorldReceipt, MoveInWorld, WorldPublisher } from "@floor/api/world";
 import { WorldRoutes } from "@floor/api/world-rpc";
 import { WorldEvent } from "@floor/contract/world-events";
 import type { Providers } from "alchemy/Cloudflare";
@@ -24,7 +24,7 @@ export const makeWorldTestWorker = Effect.fn("makeWorldTestWorker")(
           fetch: Effect.gen(function*() {
             const request = yield* Request;
             const path = new URL(request.url).pathname;
-            if (!["/join", "/state", "/receipt"].includes(path) && !path.startsWith("/api/world")) {
+            if (!["/join", "/state", "/receipt", "/move"].includes(path) && !path.startsWith("/api/world")) {
               return HttpServerResponse.text("ready");
             }
             if (path.startsWith("/api/world")) return yield* rpc;
@@ -36,6 +36,10 @@ export const makeWorldTestWorker = Effect.fn("makeWorldTestWorker")(
               : path === "/state"
               ? yield* Schema.decodeUnknownEffect(Schema.toCodecJson(ChangeWorldState))(body).pipe(
                 Effect.flatMap(publisher.state),
+              )
+              : path === "/move"
+              ? yield* Schema.decodeUnknownEffect(Schema.toCodecJson(MoveInWorld))(body).pipe(
+                Effect.flatMap(publisher.move),
               )
               : yield* Schema.decodeUnknownEffect(Schema.toCodecJson(LandWorldReceipt))(body).pipe(
                 Effect.flatMap(publisher.receipt),

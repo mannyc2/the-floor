@@ -1,7 +1,18 @@
-import { ChainRef, Checkpoint, DeskId, Digest, ReceiptId, WorldEventId, WorldId } from "@floor/contract/identifiers";
+import {
+  AgentId,
+  ChainRef,
+  Checkpoint,
+  DeskId,
+  Digest,
+  ReceiptId,
+  TradingPostId,
+  WorldEventId,
+  WorldId,
+} from "@floor/contract/identifiers";
+import { AgentLocation } from "@floor/contract/world";
 import { WorldEvent } from "@floor/contract/world-events";
-import { allStations, assignAgent } from "@floor/world";
-import { assertReceiptEvolution, foldWorldEvent } from "@floor/world/stream";
+import { agentLocation, allStations, assignAgent } from "@floor/world";
+import { assertReceiptEvolution, foldWorld, foldWorldEvent } from "@floor/world/stream";
 import { expect, test } from "bun:test";
 import { Effect, Option, Result } from "effect";
 import { agent, checkpoint, emptySnapshot, receipt, settledReceipt, unknownReceipt, world } from "./_world-fixture";
@@ -118,4 +129,40 @@ test("receipt rechecks preserve evidence and cannot undo a terminal result", () 
     expect(
       Result.isFailure(yield* foldWorldEvent(joinedSnapshot, event, Option.some(settledReceipt)).pipe(Effect.result)),
     ).toBe(true);
+  })));
+
+test("movement folds from the journal's own origin and never moves the station", () =>
+  Effect.runPromise(Effect.gen(function*() {
+    const first = yield* foldWorldEvent(emptySnapshot, joined);
+    const atDesk = AgentLocation.cases.AtDesk.make({ deskId: station.desk.id });
+    const atPost = AgentLocation.cases.AtPost.make({ postId: TradingPostId.make("floor_0_post_0") });
+    const moved = WorldEvent.cases.AgentMoved.make({
+      id: WorldEventId.make("move"),
+      world,
+      checkpoint,
+      agent,
+      from: Option.some(atDesk),
+      to: atPost,
+    });
+    const second = yield* foldWorldEvent(first, moved);
+    expect(second.sequence).toBe(2);
+    expect(agentLocation(second.model, agent)).toEqual(Option.some(atPost));
+    expect(allStations(second.model)).toEqual(allStations(first.model));
+    expect(foldWorld(first, moved)).toEqual(Result.succeed(second));
+    for (
+      const invalid of [
+        // A stale origin disagrees with the journal.
+        WorldEvent.cases.AgentMoved.make({ ...moved, from: Option.some(atPost) }),
+        WorldEvent.cases.AgentMoved.make({ ...moved, from: Option.none() }),
+        WorldEvent.cases.AgentMoved.make({
+          ...moved,
+          to: AgentLocation.cases.AtPost.make({ postId: TradingPostId.make("floor_0_post_9") }),
+        }),
+        WorldEvent.cases.AgentMoved.make({ ...moved, agent: AgentId.make("synthetic-absent-agent") }),
+      ]
+    ) {
+      expect(Result.isFailure(foldWorld(first, invalid))).toBe(true);
+    }
+    expect(Result.isFailure(foldWorld(emptySnapshot, moved))).toBe(true);
+    expect(agentLocation(first.model, agent)).toEqual(Option.some(atDesk));
   })));

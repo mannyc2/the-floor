@@ -1,7 +1,15 @@
-import { ChangeWorldState, JoinWorld, LandWorldReceipt, WorldFrame, WorldPublishError } from "@floor/api/world";
+import {
+  ChangeWorldState,
+  JoinWorld,
+  LandWorldReceipt,
+  MoveInWorld,
+  WorldFrame,
+  WorldPublishError,
+} from "@floor/api/world";
 import { WorldRpcs } from "@floor/api/world-rpc";
 import { Receipt } from "@floor/contract/economics";
-import { ChainRef, ReceiptId } from "@floor/contract/identifiers";
+import { ChainRef, DeskId, ReceiptId, TradingPostId } from "@floor/contract/identifiers";
+import { AgentLocation } from "@floor/contract/world";
 import { WorldEvent, WorldEventDelivery } from "@floor/contract/world-events";
 import { localState, Stack } from "alchemy";
 import { providers } from "alchemy/Cloudflare";
@@ -26,7 +34,7 @@ const deployed = beforeAll(deploy(stack));
 afterAll(destroy(stack));
 
 test(
-  "native world stream retains ordered join, state and receipt across reconnect",
+  "native world stream retains ordered join, state, receipt and movement across reconnect",
   Effect.gen(function*() {
     const output = yield* deployed;
     const url = yield* Schema.decodeUnknownEffect(Schema.NonEmptyString)(output.url);
@@ -131,7 +139,41 @@ test(
       if (finalSnapshot?._tag !== "Snapshot") return yield* Effect.die("Expected snapshot after receipt retry");
       expect(finalSnapshot.snapshot.sequence).toBe(4);
       expect(finalSnapshot.snapshot.agents[0]?.receipt).toEqual(Option.some(newerReceipt));
-      const future = yield* client.watchWorld({ world, chain, after: Option.some(5) }).pipe(
+      const postId = TradingPostId.make("floor_0_post_0");
+      const moved = yield* post(
+        "/move",
+        yield* Schema.encodeEffect(Schema.toCodecJson(MoveInWorld))({
+          ...join,
+          location: AgentLocation.cases.AtPost.make({ postId }),
+        }),
+      );
+      expect(moved._tag).toBe("AgentMoved");
+      if (moved._tag !== "AgentMoved") return yield* Effect.die("Expected a movement event");
+      // The world records the origin from its own journal, not from the publisher.
+      expect(moved.from).toEqual(
+        Option.some(AgentLocation.cases.AtDesk.make({ deskId: DeskId.make("floor_0_post_0_station_0_desk") })),
+      );
+      const movedFrames = yield* client.watchWorld({ world, chain, after: Option.some(4) }).pipe(
+        Stream.take(2),
+        Stream.runCollect,
+        Effect.timeout("10 seconds"),
+      );
+      expect(movedFrames.map(frame => frame._tag === "Snapshot" ? frame.snapshot.sequence : frame.sequence)).toEqual([
+        4,
+        5,
+      ]);
+      const movement = movedFrames[1];
+      if (movement?._tag !== "Delivery") return yield* Effect.die("Expected the movement delivery");
+      expect(movement.delivery.event).toEqual(moved);
+      const nowhere = yield* post(
+        "/move",
+        yield* Schema.encodeEffect(Schema.toCodecJson(MoveInWorld))({
+          ...join,
+          location: AgentLocation.cases.AtPost.make({ postId: TradingPostId.make("floor_0_post_9") }),
+        }),
+      ).pipe(Effect.result);
+      expect(Result.isFailure(nowhere)).toBe(true);
+      const future = yield* client.watchWorld({ world, chain, after: Option.some(6) }).pipe(
         Stream.runDrain,
         Effect.result,
       );
