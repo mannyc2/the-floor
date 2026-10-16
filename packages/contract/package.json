@@ -12,7 +12,8 @@
     "./settings": "./src/settings.ts",
     "./world": "./src/world.ts",
     "./pieces": "./src/pieces.ts",
-    "./world-events": "./src/world-events.ts"
+    "./world-events": "./src/world-events.ts",
+    "./world-stream": "./src/world-stream.ts"
   },
   "dependencies": {
     "effect": "4.0.3"

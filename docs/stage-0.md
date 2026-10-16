@@ -232,3 +232,10 @@ Moving follow retains its initial flight clock, commits one settled camera to th
 ### RPC and MCP
 
 The shared `FloorRpcs` group serves health at `POST /api/rpc`; the server-only MCP adapter exposes its unary read-only operations at `/mcp`. The web client imports only the RPC definition. Browser authentication and hosted RPC verification remain open.
+
+
+### Live world
+
+The Floor Worker now stores each world's join, agent-state and receipt events with exact checkpoint snapshots in its Durable Object's SQL. Internal `WorldPublisher` methods feed a public read-only Effect RPC stream at `/api/world`. Reconnecting readers request their last delivery sequence and receive its snapshot followed by later `WorldEventDelivery` records. Chain checkpoints remain evidence supplied by the agent or receipt, separate from delivery sequencing.
+
+The native reconnect test exercises the same publisher, storage and RPC routes. Its receipt fixture is explicitly synthetic and refused; it makes no claim of a settled transaction. The real fork/signer/agent/viewer flow and hosted checks remain separate work.

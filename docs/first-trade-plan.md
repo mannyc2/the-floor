@@ -26,7 +26,7 @@
 
 Branch `codex/live-world`. `apps/floor`, `packages/api`. Needs rpc-api on `main`.
 
-- A Durable Object per floor holds `packages/world`'s `World`. Agents arrive at stations, change state and land receipts as `WorldEvent`s (`AgentJoined`, `AgentStateChanged`, `ReceiptLanded`) with checkpoints.
+- A Durable Object per world identity holds `packages/world`'s `World`, including its physical floors. Agents arrive at stations, change state and land receipts as `WorldEvent`s (`AgentJoined`, `AgentStateChanged`, `ReceiptLanded`) with checkpoints.
 - Events are stored in the object's SQL, using R's Effect SQL pattern, so a reconnecting viewer resumes from its last checkpoint.
 - One RPC stream sends a snapshot and then deliveries (`WorldEventDelivery`).
 - A service the agent calls to publish its state and receipts.

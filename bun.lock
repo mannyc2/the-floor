@@ -45,6 +45,7 @@
         "@effect/sql-sqlite-do": "4.0.3",
         "@floor/api": "workspace:*",
         "@floor/contract": "workspace:*",
+        "@floor/world": "workspace:*",
         "@yielded/agent": "0.1.0-beta.166-floor.0adbcff.403.2",
         "@yielded/agent-platform-alchemy-cloudflare": "0.1.0-beta.166-floor.0adbcff.403.2",
         "@yielded/agent-platform-cloudflare": "0.1.0-beta.166-floor.0adbcff.403.2",
