@@ -2,6 +2,7 @@ import { BunServices } from "@effect/platform-bun";
 import { expect, test as base } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { Effect, FileSystem, Schema } from "effect";
+import { installNativeProbes } from "../../../apps/web/workbench/native-probes";
 import type { LookAdapter } from "../../look/protocol";
 
 declare global {
@@ -43,6 +44,7 @@ export const test = base.extend<{ audit: void }>({
     page.on("console", message => {
       if (message.type() === "error") errors.push(message.text());
     });
+    await page.addInitScript(installNativeProbes);
     await use();
     // oxlint-disable-next-line effect/noTryCatch -- Playwright teardown must retain the report even when a native assertion throws.
     try {

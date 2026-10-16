@@ -39,12 +39,49 @@ const write = (attribute: THREE.InstancedBufferAttribute, index: number, x: numb
   return 1;
 };
 
+// Each independently animated channel owns its interval, while all channels use
+// this one clock implementation. A camera or theme presentation cannot rewind a
+// live position packet, and recorded negative playback still reaches its start.
+const interpolationClock = (now: () => number, dirty: () => void, uniform: { value: number }) => {
+  const state = { anchor: now(), offset: uniform.value * 250, rate: 0 };
+  const read = () => Math.max(0, Math.min(1, (state.offset + (now() - state.anchor) * state.rate) / 250));
+  const setUniform = (value: number) => {
+    if (value !== uniform.value) {
+      uniform.value = value;
+      dirty();
+    }
+  };
+  const start = (offset: number, rate: number) => {
+    state.anchor = now();
+    state.offset = offset;
+    state.rate = rate;
+    setUniform(read());
+  };
+  return {
+    read,
+    start,
+    restart: (moving: boolean) => start(moving ? 0 : 250, moving ? 1 : 0),
+    advance: () => {
+      if (state.rate === 0) return;
+      const value = read();
+      setUniform(value);
+      if ((state.rate > 0 && value === 1) || (state.rate < 0 && value === 0)) {
+        state.offset = value * 250;
+        state.rate = 0;
+      }
+    },
+  };
+};
+
 export const makeInstanceSnapshots = (
   entities: ReadonlyArray<Entity>,
   now: () => number,
   dirty: () => void,
   interpolation: { value: number },
+  recordedInterpolation = { value: 0 },
 ) => {
+  const positions = interpolationClock(now, dirty, interpolation);
+  const recorded = interpolationClock(now, dirty, recordedInterpolation);
   const buffers = new Map<number, {
     from: THREE.InstancedBufferAttribute;
     to: THREE.InstancedBufferAttribute;
@@ -86,8 +123,7 @@ export const makeInstanceSnapshots = (
   // Staging is reusable and invisible to rendering. Validation can reject a
   // complete packet without changing accepted buffers, while avoiding thousands
   // of short-lived plans and Option wrappers on every 4 Hz arrival.
-  const state = { revision: -1, anchor: now(), moving: false };
-  const progress = () => Math.min(1, Math.max(0, (now() - state.anchor) / 250));
+  const state = { revision: -1 };
   const stageSnapshot = (next: InstanceSnapshot): Result.Result<void, InstanceSnapshotFailure> => {
     // Validate the whole snapshot before writing. Identity is independent of
     // incoming order; omitted slots disappear and can return without allocating
@@ -115,10 +151,10 @@ export const makeInstanceSnapshots = (
     return Result.void;
   };
   const commitSnapshot = (next: InstanceSnapshot) => {
-    const amount = progress();
+    const amount = positions.read();
     let changedInstances = 0;
     let changedAttributes = 0;
-    state.moving = false;
+    let moving = false;
     for (const member of members) {
       const visible = member.staged.present;
       let changes = 0;
@@ -134,7 +170,7 @@ export const makeInstanceSnapshots = (
         member.to.z = z;
         changes += write(member.attributes.from, member.index, member.from.x, member.from.y, member.from.z);
         changes += write(member.attributes.to, member.index, x, y, z);
-        state.moving ||= !same(member.from, member.to);
+        moving ||= !same(member.from, member.to);
       }
       if (member.visible !== visible) {
         member.attributes.from.setW(member.index, visible ? 1 : 0);
@@ -150,8 +186,7 @@ export const makeInstanceSnapshots = (
       if (changes > 0) changedInstances++;
     }
     state.revision = next.revision;
-    state.anchor = now();
-    interpolation.value = state.moving ? 0 : 1;
+    positions.restart(moving);
     if (changedAttributes > 0) dirty();
     return { revision: state.revision, changedInstances, changedAttributes };
   };
@@ -178,16 +213,13 @@ export const makeInstanceSnapshots = (
   });
   return {
     snapshot,
+    present: (sampleTime: number, intervalStart: number, rate: number) =>
+      recorded.start(sampleTime - intervalStart, rate),
     interpolation,
     revision: () => state.revision,
     advance: () => {
-      if (!state.moving) return;
-      const value = progress();
-      if (value !== interpolation.value) {
-        interpolation.value = value;
-        dirty();
-      }
-      if (value === 1) state.moving = false;
+      positions.advance();
+      recorded.advance();
     },
     positions: () =>
       members.map(member => {

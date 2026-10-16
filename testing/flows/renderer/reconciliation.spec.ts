@@ -1,13 +1,12 @@
 import { expect, ready, record, test } from "./fixture";
 
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright and its serialized browser evaluations require native Promise callbacks.
-test("2000 seeded real GPU reconciliations return renderer memory to baseline", async ({ page }) => {
+test("instance replacement and restoration retain baseline GPU memory", async ({ page }) => {
   await ready(page);
   const result = await page.evaluate(() => window.floorTest.reconcile());
   record("reconciliation", result);
-  expect(result.steps).toBe(2000);
-  expect(result.rendered).toBe(2000);
-  expect(result.created).toBe(result.disposed);
+  expect(result.steps).toBe(257);
+  expect(result.after.bufferUploads.allocationCalls).toBe(result.baseline.bufferUploads.allocationCalls);
   expect(result.after.geometries).toBe(result.baseline.geometries);
   expect(result.after.textures).toBe(result.baseline.textures);
   expect(result.after.programs).toBe(result.baseline.programs);

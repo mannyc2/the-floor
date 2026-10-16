@@ -2,7 +2,7 @@
 import { Effect, Option } from "effect";
 import * as THREE from "three";
 import { MeshBVH } from "three-mesh-bvh";
-import type { Engine } from "../src/map/_lib/renderer/engine";
+import type { Engine } from "./renderer-probe";
 import { WorkbenchFailure } from "./runtime";
 
 const probes = new WeakMap<Engine, ReturnType<typeof createDiagnostics>>();

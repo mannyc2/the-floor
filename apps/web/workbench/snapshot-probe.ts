@@ -1,6 +1,6 @@
 import { Clock, Effect, Option, Queue } from "effect";
 import type { InstanceSnapshot } from "../src/map/_lib/renderer/instances";
-import type { Mounted, RendererFrame } from "../src/map/_lib/renderer/service";
+import type { Mounted, RendererFrame } from "./renderer-probe";
 import { nextFrame } from "./runtime";
 import { makeUploadOracle } from "./upload-oracle";
 

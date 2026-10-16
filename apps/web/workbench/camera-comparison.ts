@@ -1,14 +1,14 @@
 import { Clock, Effect, Exit, Option, Schema } from "effect";
 import { Command, Port, Subscription, type Update } from "foldkit";
-import type { DrawSample } from "../src/map/_lib/renderer/engine";
 import { MapCommands } from "../src/map/_lib/renderer/service";
-import { Model, update } from "../src/map/main";
 import { Message } from "../src/map/message";
 import { Camera, Presentation } from "../src/map/model";
+import { Message as WorkbenchMessage, Model, update } from "./model";
+import { type DrawSample, mountedProbe } from "./renderer-probe";
 import { WorkbenchFailure } from "./runtime";
 
 const MovedComparisonCamera = Schema.TaggedStruct("MovedComparisonCamera", { camera: Camera });
-export const ComparisonMessage = Schema.Union([Message, MovedComparisonCamera]);
+export const ComparisonMessage = Schema.Union([WorkbenchMessage, MovedComparisonCamera]);
 export type ComparisonMessage = typeof ComparisonMessage.Type;
 const ComparisonInput = Schema.Struct({ camera: Camera, phase: Schema.Literals(["move", "rest"]) });
 export type ComparisonInput = typeof ComparisonInput.Type;
@@ -64,7 +64,7 @@ export const makeCameraComparison = Effect.fn("Workbench.cameraComparison")(
     };
     const current = () =>
       Option.getOrThrowWith(
-        commands.inspect(),
+        Option.map(commands.inspect(), mountedProbe),
         () => new WorkbenchFailure({ operation: "camera-comparison", cause: "Map is not mounted" }),
       );
     const observe = (rendered: DrawSample) => {

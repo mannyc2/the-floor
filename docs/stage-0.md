@@ -223,9 +223,9 @@ Indexed scene geometry writes colour and identity attachments in one pass with s
 
 The scene constructor restricts instances to translations, allowing shaders to use their translation components. Identity bytes are encoded per vertex and passed flat. Complete snapshots reconcile fixed known IDs; interpolation changes uniforms between arrivals. Completed fixed follows release camera ownership, while moving-target subscriptions retain it until interrupted or removed.
 
-Buffer-call accounting describes native calls, supplied source bytes and allocations. Cleanup moves its wrappers and frame observers into the test page or workbench. Live-world subscriptions, instance growth and snapshot replay through the Model remain open.
+Buffer-call accounting describes native calls, supplied source bytes and allocations. Its wrappers, listener accounting and frame observers now live in the test page and workbench. Live-world subscriptions, instance growth and snapshot replay through the Model remain open.
 
-D1 integrates this renderer after tooling cleanup T; W owns its later slimming. Atlas cleanup K retains the byte-preserving palette representation. Combined integration verification, hosted renderer verification and owner review remain required.
+D1 is integrated after tooling cleanup T. The map uses Effect scopes and one lifetime semaphore; diagnostics and replay controls are workbench-only. Atlas cleanup K retains the byte-preserving palette representation. Combined integration verification, hosted renderer verification and owner review remain required.
 
 Complete revisioned snapshots are decoded and validated before one atomic commit. Unknown or duplicate IDs, stale revisions and Float32 overflow leave the accepted scene unchanged. Known slots reconcile independently of wire order, and omitted instances can return without new geometry. The development workbench alone supplies the periodic source. Its sustained check requires every one of 48 revisions at four per second to appear in a frame, every measured renderer CPU sample to stay at or below 16.7 ms, and submitted buffer bytes and calls to match an independent oracle. These are desktop SwiftShader submission measurements, not GPU duration, physical bus traffic or real-phone evidence.
 

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import type { Engine } from "../src/map/_lib/renderer/engine";
+import type { Engine } from "./renderer-probe";
 
 type Attribute = THREE.BufferAttribute | THREE.InterleavedBuffer;
 interface Range {

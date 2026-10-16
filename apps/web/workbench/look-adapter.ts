@@ -10,6 +10,7 @@ import {
 import { syntheticPalette } from "../src/map/_lib/renderer/scene";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
 import type { Camera } from "../src/map/model";
+import { mountedProbe } from "./renderer-probe";
 import { browserCall, nextFrame, settled, WorkbenchFailure } from "./runtime";
 import { digestJson, sceneDigest } from "./scene-evidence";
 
@@ -53,7 +54,7 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
     yield* nextFrame;
     mounted = commands.inspect();
   }
-  const engine = mounted.value.engine;
+  const engine = mountedProbe(mounted.value).engine;
   engine.canvas.dataset["floorLook"] = "";
   engine.setCamera(captureCamera(config));
   if (config.asset === "rack") {

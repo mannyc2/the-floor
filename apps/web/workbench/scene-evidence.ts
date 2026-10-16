@@ -2,7 +2,7 @@ import { BrowserCrypto } from "@effect/platform-browser";
 import { Context, Crypto, Effect, Layer, Option, Order, Schema } from "effect";
 import { Hex } from "effect/encoding";
 import * as THREE from "three";
-import type { Engine } from "../src/map/_lib/renderer/engine";
+import type { Engine } from "./renderer-probe";
 import { WorkbenchFailure } from "./runtime";
 
 // Theme and raster settings are separate evidence. Hash authored geometry,
