@@ -159,6 +159,7 @@ export const Emblem = Schema.Struct({
 });
 export type Emblem = typeof Emblem.Type;
 export const AgentState = Schema.Literals([
+  "idle",
   "working",
   "researching",
   "talking",

@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@floor/chains": "workspace:*",
     "alchemy": "2.0.0-beta.80",
     "effect": "4.0.3",
     "@effect/ai-openai": "4.0.3",
