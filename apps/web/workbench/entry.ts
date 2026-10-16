@@ -4,14 +4,19 @@ import { Runtime } from "foldkit";
 import { __setDevToolsOverlay as setDevToolsOverlay, type DevToolsStore } from "foldkit/devtools-host";
 import type { HtmlBuilder } from "foldkit/html";
 import { AdapterState } from "../../../testing/look/protocol";
-import { initialModel, makeView, MapCommands, Model } from "../src/map/main";
+import { MapCommands } from "../src/map/_lib/renderer/service";
 import { cameraFromQuery } from "../src/map/model";
 import { makeWorkbenchApi } from "./api";
 import { ComparisonMessage, comparisonPorts, comparisonSubscriptions, makeCameraComparison } from "./camera-comparison";
 import { captureCamera, prepareLookAdapter, readCaptureConfiguration } from "./look-adapter";
+import { initialModel, makeView, Model } from "./model";
+import { installNativeProbes } from "./native-probes";
+import { instrumentMounted } from "./renderer-probe";
+import { installReplay } from "./replay-bridge";
 import { WorkbenchFailure } from "./runtime";
 import { SceneDigest } from "./scene-evidence";
 
+installNativeProbes();
 const run = Effect.gen(function*() {
   const query = new URL(location.href).searchParams;
   const look = document.body.hasAttribute("data-look");
@@ -110,4 +115,13 @@ const run = Effect.gen(function*() {
   yield* Effect.logInfo("Synthetic renderer workbench mounted");
   return yield* Effect.never;
 });
-BrowserRuntime.runMain(run.pipe(Effect.scoped, Effect.provide(Layer.merge(MapCommands.layer, SceneDigest.layer))));
+BrowserRuntime.runMain(run.pipe(
+  Effect.scoped,
+  Effect.provide(Layer.merge(
+    MapCommands.makeLayer({
+      preserveDrawingBuffer: true,
+      mounted: (mounted, options) => instrumentMounted(mounted).pipe(Effect.andThen(installReplay(mounted, options))),
+    }),
+    SceneDigest.layer,
+  )),
+));

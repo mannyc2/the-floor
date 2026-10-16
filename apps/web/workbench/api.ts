@@ -1,13 +1,13 @@
 import { Effect, Option, Schema, SubscriptionRef } from "effect";
 import type { DevToolsStore } from "foldkit/devtools-host";
-import { createLedger } from "../src/map/_lib/renderer/engine";
 import type { MapCommands } from "../src/map/_lib/renderer/service";
-import { Model } from "../src/map/main";
 import type { Camera, Presentation } from "../src/map/model";
 import type { CameraComparison } from "./camera-comparison";
 import { followInstance, interruptFollow, moveFollowInstance } from "./camera-follow-probe";
+import { instanceMemoryProbe, partialAcquisitionProbe } from "./instance-probe";
+import { Model } from "./model";
 import { diagnostics } from "./probes";
-import { partialAcquisitionProbe, reconciliationProbe } from "./reconciliation-probe";
+import { mountedProbe } from "./renderer-probe";
 import { replayProbe } from "./replay-probe";
 import { WorkbenchFailure } from "./runtime";
 import { digestBytes, SceneDigest } from "./scene-evidence";
@@ -23,10 +23,10 @@ export const makeWorkbenchApi = (
   comparison: CameraComparison,
 ) => {
   const current = () =>
-    Option.getOrThrowWith(
+    mountedProbe(Option.getOrThrowWith(
       commands.inspect(),
       () => new WorkbenchFailure({ operation: "current-renderer", cause: "Map is not mounted" }),
-    );
+    ));
   const hash = () => run(digestBytes(current().engine.frameBytes()));
   const entries = () =>
     Effect.runSync(SubscriptionRef.get(store().stateRef)).entries
@@ -63,7 +63,7 @@ export const makeWorkbenchApi = (
     startCameraComparison: comparison.start,
     cameraComparison: comparison.inspect,
     finishCameraComparison: comparison.finish,
-    ledger: () => structuredClone(Option.getOrElse(commands.inspectLedger(), createLedger)),
+    ledger: () => window.floorNativeProbes.ledger(),
     draw: () => current().engine.draw(true),
     hash,
     frame: () => Array.from(current().engine.frameBytes()),
@@ -109,7 +109,7 @@ export const makeWorkbenchApi = (
     restore: () => current().engine.restoreContext(),
     line: () => run(diagnostics(current().engine).line()),
     picking: (count: number) => diagnostics(current().engine).picking(count),
-    reconcile: () => run(reconciliationProbe(current().engine)),
+    reconcile: () => run(instanceMemoryProbe(current().engine)),
     partialAcquisition: () => run(partialAcquisitionProbe()),
     replay: () => run(replayProbe(store(), entries, hash, () => current().engine.inspect())),
     entries,

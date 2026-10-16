@@ -13,7 +13,7 @@ const main = Effect.gen(function*() {
   const camera = cameraFromQuery(query);
   const application = Runtime.makeApplication({
     Model,
-    init: makeInit(initialModel(12, 0, camera)),
+    init: makeInit(initialModel(12, camera)),
     update,
     view: makeView(commands),
     container: document.getElementById("root"),

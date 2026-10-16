@@ -11,17 +11,16 @@ export { Message } from "./message";
 export const Model = Schema.Struct({
   presentation: Presentation,
   desks: Schema.Int,
-  acquireDelay: Schema.Int,
-  visible: Schema.Boolean,
-  order: Schema.Array(Schema.String),
-  status: Schema.String,
+  status: Schema.Union([
+    Schema.TaggedStruct("Opening", {}),
+    Schema.TaggedStruct("Ready", {}),
+    Schema.TaggedStruct("Failed", { reason: Schema.String }),
+  ]),
   generation: Schema.Int,
-  applied: Schema.Int,
   selected: Schema.Option(EntityId),
-  cameraCommits: Schema.Int,
 });
 export type Model = typeof Model.Type;
-export const initialModel = (desks: number, acquireDelay = 0, camera = Option.none<Camera>()): Model => ({
+export const initialModel = (desks: number, camera = Option.none<Camera>()): Model => ({
   presentation: {
     revision: 1,
     theme: "day",
@@ -33,36 +32,11 @@ export const initialModel = (desks: number, acquireDelay = 0, camera = Option.no
     intervalStart: 0,
   },
   desks,
-  acquireDelay,
-  visible: true,
-  order: ["map", "anchor"],
-  status: "opening",
+  status: Model.fields.status.members[0].make({}),
   generation: 0,
-  applied: 0,
   selected: Option.none(),
-  cameraCommits: 0,
 });
 
-const Present = Command.define("Present", {
-  args: { presentation: Presentation },
-  messages: [Message.CompletedPresent, Message.FailedMap],
-  execute: ({ presentation }) =>
-    Effect.gen(function*() {
-      const commands = yield* MapCommands;
-      yield* commands.present(presentation, false, true);
-      return Message.CompletedPresent();
-    }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
-});
-const Fly = Command.define("Fly", {
-  args: { camera: Camera, follow: Schema.Boolean },
-  messages: [Message.CompletedFlight, Message.FailedMap],
-  execute: ({ camera, follow }) =>
-    Effect.gen(function*() {
-      const commands = yield* MapCommands;
-      yield* commands.fly(camera, follow);
-      return Message.CompletedFlight();
-    }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
-});
 const SyncUrl = Command.define("SyncUrl", {
   args: { camera: Camera, push: Schema.Boolean },
   messages: [Message.CompletedUrl, Message.FailedMap],
@@ -91,57 +65,25 @@ const Rotate = Command.define("Rotate", {
       return Message.CompletedFlight();
     }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
 });
-const display = (model: Model, presentation: Presentation): Update.Return<Model, Message, MapCommands> => ({
-  model: modifyFields(model, { presentation: () => presentation }),
-  commands: [Present({ presentation })],
-});
 export const update = (model: Model, message: Message) =>
   Message.match<Update.Return<Model, Message, MapCommands>>(message, {
-    SucceededMountMap: ({ generation, renderer }) => ({
-      model: modifyFields(model, { generation: () => generation, status: () => renderer }),
+    SucceededMountMap: ({ generation }) => ({
+      model: modifyFields(model, {
+        generation: () => generation,
+        status: () => Model.fields.status.members[1].make({}),
+      }),
       commands: [SyncUrl({ camera: model.presentation.camera, push: false })],
     }),
-    AppliedFrame: ({ generation, sequence }) => ({
-      model: generation === model.generation ? modifyFields(model, { applied: () => sequence }) : model,
-    }),
+    AppliedFrame: () => ({ model }),
     SelectedEntity: ({ entity }) => ({ model: modifyFields(model, { selected: () => entity }) }),
     RestedCamera: ({ camera, history }) => ({
       model: modifyFields(model, {
         presentation: frame => modifyFields(frame, { camera: () => camera }),
-        cameraCommits: n => n + 1,
       }),
       commands: [SyncUrl({ camera, push: history })],
     }),
-    FailedMap: ({ reason }) => ({ model: modifyFields(model, { status: () => `failed: ${reason}` }) }),
-    ClickedVisibility: () => ({ model: modifyFields(model, { visible: value => !value }) }),
-    ClickedReorder: () => ({ model: modifyFields(model, { order: order => order.toReversed() }) }),
-    ClickedTheme: () =>
-      display(
-        model,
-        modifyFields(model.presentation, {
-          theme: theme => theme === "day" ? "night" : "day",
-          revision: n => n + 1,
-        }),
-      ),
-    ClickedFrameA: () =>
-      display(model, { ...initialModel(model.desks).presentation, camera: model.presentation.camera }),
-    ClickedFrameB: () =>
-      display(
-        model,
-        modifyFields(model.presentation, {
-          revision: () => 2,
-          theme: () => "night",
-          sampleTime: () => 250,
-          nextValue: () => .6,
-        }),
-      ),
-    ClickedFlight: () => ({
-      model,
-      commands: [Fly({ camera: { ...model.presentation.camera, x: 4, z: -4, extent: 12 }, follow: false })],
-    }),
-    ClickedFollow: () => ({
-      model,
-      commands: [Fly({ camera: { ...model.presentation.camera, x: -4, z: -3, extent: 12 }, follow: true })],
+    FailedMap: ({ reason }) => ({
+      model: modifyFields(model, { status: () => Model.fields.status.members[2].make({ reason }) }),
     }),
     ClickedRotate: ({ direction }) => ({ model, commands: [Rotate({ direction })] }),
     CompletedPresent: () => ({ model }),
@@ -149,11 +91,7 @@ export const update = (model: Model, message: Message) =>
     CompletedUrl: () => ({ model }),
   });
 
-// A native DOM attribute is the replay bridge: Foldkit's historical view carries
-// the historical presentation without sending a Command to the live Model.
-// @effect-diagnostics-next-line schemaSync:off -- Foldkit view construction cannot await the Schema encoder.
-const encodeFrame = Schema.encodeSync(Schema.fromJsonString(Presentation));
-export const makeView = (commands: MapCommands["Service"], diagnostics = false) => {
+export const makeView = (commands: MapCommands["Service"]) => {
   const MountMap = makeMountMap(commands);
   return defineView<Model, Message>((model, h) =>
     h.section([h.Class("map-shell"), h.AriaLabel("Trading floor")], [
@@ -161,52 +99,24 @@ export const makeView = (commands: MapCommands["Service"], diagnostics = false) 
       h.div([h.Class("camera-rotation"), h.AriaLabel("Camera rotation")], [
         h.button([
           h.Id("rotate-left"),
-          h.Disabled(model.generation === 0 || !model.visible),
+          h.Disabled(model.status._tag !== "Ready"),
           h.OnClick(Message.ClickedRotate({ direction: "left" })),
         ], ["Rotate left"]),
         h.button([
           h.Id("rotate-right"),
-          h.Disabled(model.generation === 0 || !model.visible),
+          h.Disabled(model.status._tag !== "Ready"),
           h.OnClick(Message.ClickedRotate({ direction: "right" })),
         ], ["Rotate right"]),
       ]),
-      ...model.order.filter(key => key !== "map" || model.visible).map(key =>
-        key === "map"
-          ? h.keyed("div")(key, [
-            h.Id("map"),
-            h.Class("map"),
-            h.DataAttribute("frame", encodeFrame(model.presentation)),
-            h.OnMount(
-              MountMap({
-                initialPresentation: model.presentation,
-                initialDesks: model.desks,
-                acquireDelay: model.acquireDelay,
-              }),
-            ),
-          ])
-          : h.keyed("div")(key, [h.Id("anchor")])
-      ),
-      diagnostics
-        ? h.div([h.Id("controls")], [
-          h.button([h.Id("visibility"), h.OnClick(Message.ClickedVisibility())], ["Mount / unmount"]),
-          h.button([h.Id("reorder"), h.OnClick(Message.ClickedReorder())], ["Move keyed host"]),
-          h.button([h.Id("theme"), h.OnClick(Message.ClickedTheme())], ["Theme"]),
-          h.button([h.Id("frame-a"), h.OnClick(Message.ClickedFrameA())], ["A"]),
-          h.button([h.Id("frame-b"), h.OnClick(Message.ClickedFrameB())], ["B"]),
-          h.button([h.Id("fly"), h.OnClick(Message.ClickedFlight())], ["Fly"]),
-          h.button([h.Id("follow"), h.OnClick(Message.ClickedFollow())], ["Follow"]),
-        ])
-        : h.empty,
-      (diagnostics ? h.output : h.p)([
-        h.Id("status"),
-        h.DataAttribute("generation", String(model.generation)),
-        h.DataAttribute("applied", String(model.applied)),
-        h.DataAttribute("selection", Option.match(model.selected, { onNone: () => "", onSome: String })),
-        h.DataAttribute("commits", String(model.cameraCommits)),
-      ], [
-        diagnostics || model.status.startsWith("failed:")
-          ? model.status
-          : model.generation > 0
+      h.div([
+        h.Id("map"),
+        h.Class("map"),
+        h.OnMount(MountMap({ initialPresentation: model.presentation, initialDesks: model.desks })),
+      ]),
+      h.p([], [
+        model.status._tag === "Failed"
+          ? model.status.reason
+          : model.status._tag === "Ready"
           ? "Synthetic desks"
           : "Preparing synthetic desks…",
       ]),

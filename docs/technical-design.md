@@ -192,14 +192,14 @@ Cheapest first, so most rejections are fast. Agents can run the same checks befo
 
 ### The renderer
 
-Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource. The map host owns an application-scoped command service and serial retirement policy. A failed release quarantines further acquisition. Three.js and the camera load only when the map mounts.
+Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource. One Effect semaphore permit spans acquisition, use and retirement; a Ref holds the mounted renderer, and a Deferred carries native failure. Effect scopes release native resources in reverse acquisition order. A failed or timed-out release quarantines further acquisition. Three.js and the camera load only when the map mounts. Upload, listener and frame accounting, diagnostic controls and the DevTools replay bridge live in the development workbench; production does not preserve its drawing buffer.
 - **Lines.** Technique B: a surface-id and depth edge pass at a fixed one CSS pixel, on WebGL.
 - **Shading.** Four tones by face direction. The current application palette and desk geometry remain explicitly synthetic. `packages/atlas` owns that palette alongside the separately scoped material picks. The renderer builds unconverted RGBA8 day/night rows from authored sRGB values; theme changes select a row through one uniform. No activity accent exists.
 - **Geometry.** Pieces are instanced geometry wherever they share parts. Panning never rebuilds the scene.
 
 ### The look, as acceptance
 
-- **The design system is code.** `packages/atlas` holds recorded tokens, four-tone materials, line and shading settings, camera controls and proportions, with approval status on each value. Motion, reading scales and screen dimensions remain planned until their values are established. The build step generates the stylesheet and palette texture, and lint checks their source/output manifest and bans colour and pixel literals elsewhere.
+- **The design system is code.** `packages/atlas` holds plain recorded tokens, four-tone materials, line and shading settings, camera controls and proportions. Their approval scopes live in the decision log. Motion, reading scales and screen dimensions remain planned until their values are established. The renderer writes palette bytes directly from those values; lint bans colour and pixel literals elsewhere.
 - **Reference frames.** The owner's picks from the floor's reference round become the reference frames, committed under `testing/reference/` with a scene spec each. The tones and proportions come from them.
 - **Owner approval.** Art is approved by the owner picking between options another agent shortlisted. No agent approves its own output.
 - **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. Line accuracy is measured against the edge-projection target. An executable scene baseline becomes a screenshot regression after the owner approves that scope. A material-only pick preserves its exact frame and approved colours without approving the study geometry or a full scene baseline.
@@ -217,6 +217,8 @@ Orthographic, isometric from one corner, about 30° down, with quarter-turn rota
 - on a phone, touch moves the world and never scrolls the page.
 
 The synthetic renderer supports four discrete corners, buttons and Q/E on the focused canvas, and rotation in the resting Model and URL. Camera layer masks remove the near pair of walls and ceiling in both colour and picking passes while preserving scene isolation. Accepted frames carry the camera's commit revision so stale queued data cannot undo a newer turn; data-only controls retain the view, while historical replay restores it.
+
+The mounted engine owns the current camera. Gestures use one tagged motion state, including a persistent Follow state for moving targets. Position packets and recorded gauge playback share one interpolation-clock implementation but own separate intervals: a camera or theme presentation cannot rewind live positions, and recorded playback can run backwards without changing the position stream.
 
 Moving-target follow and the comparison with drag through the Model passed local verification on 14 October 2026. Follow reads the reconciled target's interpolated position. After the initial flight, motion stays in the renderer and the settled or interrupted view commits to the Model and URL. The comparison measures serial small-drag submission latency through the real Model against local input; it does not establish compositor latency, general event throughput or real-phone performance. The [renderer description](stage-0.md#renderer-stream) records the scope. Hosted renderer verification and owner review of Stage 0 remain open; see the [open items](decisions.md#open-items).
 
