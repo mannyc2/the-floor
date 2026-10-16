@@ -80,8 +80,8 @@ const cases = [
   },
   {
     owner: "apps/floor/src/testing",
-    blocked: ["@privy-io/node/solana-kit", "three"],
-    allowed: ["@yielded/agent-testing", "./fixtures/input"],
+    blocked: ["@privy-io/node/solana-kit", "three", "@yielded/agent-testing", "./fixtures/input"],
+    allowed: [],
   },
   {
     owner: "apps/web/src/testing",

@@ -10,12 +10,46 @@ import type { RuntimeContext } from "alchemy/RuntimeContext";
 import { D1 } from "alchemy/SQL/D1";
 import { Cause, Config, Effect, Exit, Layer, Option, Redacted, Schema } from "effect";
 import { HttpServerResponse } from "effect/http";
-import { AgentModel } from "../agents/models";
-import { Agents, makeAgentRuntime } from "../agents/runtime";
-import { StorageRun, StorageSnapshot } from "./contract";
+import { AgentModel } from "../src/agents/models";
+import { Agents, AgentSnapshot, makeAgentRuntime } from "../src/agents/runtime";
 
-export { Decisions, PredicateRequest } from "../agents/decisions";
-export * from "./contract";
+const StorageSnapshot = Schema.Struct({
+  rows: Schema.Array(Schema.Struct({
+    id: Schema.String,
+    version: Schema.Natural,
+    value: Schema.String,
+    marker: Schema.String,
+  })),
+  migrations: Schema.Array(Schema.Struct({ name: Schema.String, hash: Schema.String })),
+});
+const StorageRun = Schema.Struct({
+  rollbackFailed: Schema.Boolean,
+  rollbackError: Schema.String,
+  beforeRollback: StorageSnapshot,
+  afterRollback: StorageSnapshot,
+  casAttempts: Schema.Natural,
+  casWinners: Schema.Natural,
+  final: StorageSnapshot,
+});
+export const StorageReport = Schema.Struct({ durable: StorageRun, d1: StorageRun });
+export const StorageRestart = Schema.Struct({ durable: StorageSnapshot, d1: StorageSnapshot });
+// Snapshots hold Option and DateTime values, so the saved reports use their canonical JSON codecs.
+export const AdmissionReport = Schema.fromJsonString(Schema.toCodecJson(Schema.Struct({
+  ...AgentSnapshot.fields,
+  quietStartedAt: Schema.Finite,
+  observedAt: Schema.Finite,
+  localUrl: Schema.String,
+  threadName: Schema.String,
+  storage: StorageReport,
+})));
+export const RestartReport = Schema.fromJsonString(Schema.toCodecJson(Schema.Struct({
+  threadName: Schema.String,
+  afterRestart: AgentSnapshot,
+  afterDuplicate: AgentSnapshot,
+  quietStartedAt: Schema.Finite,
+  observedAt: Schema.Finite,
+  storage: StorageRestart,
+})));
 
 const ScriptedAgent = Layer.succeed(
   AgentModel,
@@ -174,22 +208,16 @@ export const makeTestWorker = Effect.fn("makeTestWorker")(function*(
             });
           }
           if (pathname === "/enqueue") {
-            return HttpServerResponse.jsonUnsafe({
-              acceptedAt: yield* agents.enqueue(threadName, "first", "synthetic probe"),
-            });
+            yield* agents.enqueue(threadName, "first", "synthetic probe");
+            return HttpServerResponse.empty();
           }
           if (pathname === "/snapshot") {
-            return HttpServerResponse.jsonUnsafe({
-              ...yield* agents.snapshot(threadName, "first"),
-            });
+            return yield* HttpServerResponse.schemaJson(AgentSnapshot)(yield* agents.snapshot(threadName, "first"));
           }
           return HttpServerResponse.text("ready");
         }).pipe(Effect.orDie),
       };
-    }).pipe(
-      // oxlint-disable-next-line effecttsgo/strict-effect-provide, effect/noInlineProvide -- This is the native Alchemy Worker application boundary.
-      Effect.provide(Layer.mergeAll(makeAgentRuntime(ScriptedAgent), StorageLive, QueryDatabaseBinding)),
-    ),
+    }).pipe(Effect.provide(Layer.mergeAll(makeAgentRuntime(ScriptedAgent), StorageLive, QueryDatabaseBinding))),
   );
 });
 

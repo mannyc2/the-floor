@@ -1,11 +1,11 @@
-import { AdmissionReport, Snapshot, StorageReport } from "@floor/app-floor/testing";
-import { makeTestWorker } from "@floor/app-floor/testing";
 import { localState, Stack } from "alchemy";
 import { providers } from "alchemy/Cloudflare";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
-import { Clock, Config, Effect, FileSystem, Option, Path, Schema } from "effect";
+import { Array as Arr, Clock, Config, DateTime, Effect, FileSystem, Option, Path, Schema } from "effect";
 import { HttpClient, HttpClientResponse } from "effect/http";
+import { AgentSnapshot } from "../src/agents/runtime";
+import { AdmissionReport, makeTestWorker, StorageReport } from "./_worker";
 const worker = makeTestWorker();
 
 const stack = Stack("floor-local-agent", { providers: providers(), state: localState() }, worker);
@@ -37,17 +37,20 @@ test(
     const observedAt = yield* Clock.currentTimeMillis;
     const snapshot = yield* client.get(`${url}/snapshot?thread=${threadName}`).pipe(
       Effect.flatMap(HttpClientResponse.filterStatusOk),
-      Effect.flatMap(HttpClientResponse.schemaBodyJson(Snapshot)),
+      Effect.flatMap(HttpClientResponse.schemaBodyJson(AgentSnapshot)),
     );
-    expect(snapshot.callback.completedAt).toBeGreaterThan(quietStartedAt);
-    expect(snapshot.callback.completedAt).toBeLessThan(observedAt);
-    const settled = snapshot.records.find((record) => record.kind === "SubmissionSettled");
-    expect(settled?.settlement).toBe("completed");
-    expect(settled?.createdAt).toBeLessThan(observedAt);
-    expect(settled?.createdAt).toBeGreaterThan(quietStartedAt);
-    expect(snapshot.records.find((record) => record.kind === "RunCompleted")?.output).toEqual({
-      answer: "synthetic-done-v1",
-    });
+    const completedAt = DateTime.toEpochMillis(yield* Effect.fromOption(snapshot.callback.completedAt));
+    expect(completedAt).toBeGreaterThan(quietStartedAt);
+    expect(completedAt).toBeLessThan(observedAt);
+    const settled = yield* Effect.fromOption(
+      Arr.findFirst(snapshot.records, (record) => record.kind === "SubmissionSettled"),
+    );
+    expect(settled.settlement).toEqual(Option.some("completed"));
+    expect(DateTime.toEpochMillis(settled.createdAt)).toBeLessThan(observedAt);
+    expect(DateTime.toEpochMillis(settled.createdAt)).toBeGreaterThan(quietStartedAt);
+    expect(snapshot.records.find((record) => record.kind === "RunCompleted")?.output).toEqual(
+      Option.some({ answer: "synthetic-done-v1" }),
+    );
     const storage = yield* client.get(`${url}/storage-run?thread=${threadName}`).pipe(
       Effect.flatMap(HttpClientResponse.filterStatusOk),
       Effect.flatMap(HttpClientResponse.schemaBodyJson(StorageReport)),
@@ -65,7 +68,7 @@ test(
     }
     expect(storage.durable.rollbackError).toContain("RollbackProbe");
     expect(storage.d1.rollbackError).toContain("UNIQUE constraint failed");
-    const report = yield* Schema.encodeEffect(Schema.fromJsonString(AdmissionReport))({
+    const report = yield* Schema.encodeEffect(AdmissionReport)({
       ...snapshot,
       quietStartedAt,
       observedAt,

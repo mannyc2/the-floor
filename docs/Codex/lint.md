@@ -21,7 +21,7 @@ Static imports, re-exports, literal dynamic imports and import-equals forms are 
 
 The custom plugin contains only application isolation, feature isolation and Atlas visual literals. Application/feature checks resolve relative paths and workspace names to their owner. Production colour and pixel literals belong to Atlas. The former file-read and chain-neutral Schema scanners are retired; contract's branded CAIP Schemas carry the chain-neutral boundary.
 
-Until their dedicated cleanup workstreams land, existing package-local `src/testing` helpers keep their narrow test-source carve-outs. Production importers still cannot reach them. Runtime and wallet cleanup move those helpers to `test/` and remove the exports.
+Until the chains and wallets cleanup lands, their `packages/*/src/testing` helpers keep a narrow test-source carve-out; production importers still cannot reach them. Application source has none: the Floor's test Worker, scripted model and storage probe live in `apps/floor/test/`.
 
 ## Build and visual checks
 

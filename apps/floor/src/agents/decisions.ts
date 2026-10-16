@@ -13,13 +13,24 @@ export class PredicateRequest extends Schema.Class<PredicateRequest>("PredicateR
   questions: Schema.Array(Schema.Struct({
     name: QuestionName,
     instructions: Schema.NonEmptyString.check(Schema.isMaxLength(4000)),
-  })).check(Schema.isMinLength(1), Schema.isMaxLength(16)),
+  })).check(
+    Schema.isMinLength(1),
+    Schema.isMaxLength(16),
+    // Decisions are keyed by name, so a repeated name would silently drop a question.
+    Schema.makeFilter(
+      (questions: ReadonlyArray<{ readonly name: string }>) =>
+        new Set(questions.map((question) => question.name)).size === questions.length,
+      {
+        expected: "unique question names",
+      },
+    ),
+  ),
   images: Schema.Array(Image).check(Schema.isMaxLength(2)),
 }) {}
 export class DecisionFailure extends Schema.TaggedError<DecisionFailure>()("DecisionFailure", {
   reason: Schema.Literals(["input", "provider"]),
   message: Schema.String,
-  cause: Schema.optional(Schema.Defect()),
+  cause: Schema.Defect(),
 }) {}
 
 const RequestBody = Schema.Struct({
@@ -33,14 +44,14 @@ const RequestBody = Schema.Struct({
   })),
   questions: Schema.Array(Schema.Struct({
     type: Schema.Literal("predicate"),
-    name: QuestionName,
+    name: Schema.String,
     instructions: Schema.String,
   })),
 });
 const ResponseBody = Schema.Struct({
   answers: Schema.Array(Schema.Union([
-    Schema.Struct({ type: Schema.Literal("predicate"), name: QuestionName, probability: Probability }),
-    Schema.Struct({ type: Schema.Literal("refusal"), name: QuestionName }),
+    Schema.Struct({ type: Schema.Literal("predicate"), name: Schema.String, probability: Probability }),
+    Schema.Struct({ type: Schema.Literal("refusal"), name: Schema.String }),
   ])),
 });
 // Provider-neutral reasons retain their classification while preserving the original failure for diagnosis.
@@ -50,6 +61,11 @@ class DecisionInputError extends AiError.InvalidUserInputError.extend<DecisionIn
 class DecisionOutputError extends AiError.InvalidOutputError.extend<DecisionOutputError>("DecisionOutputError")({
   cause: Schema.optional(Schema.Defect()),
 }) {}
+class DecisionCredentialError
+  extends AiError.AuthenticationError.extend<DecisionCredentialError>("DecisionCredentialError")({
+    cause: Schema.Defect(),
+  })
+{}
 const invalidInput = (description: string, cause?: unknown) =>
   AiError.make({
     module: "FloorDecisions",
@@ -96,7 +112,13 @@ const DecisionsAdapter = Layer.effect(
             ),
         );
         const key = yield* Config.Redacted("OPENAI_API_KEY").pipe(
-          Effect.mapError(cause => invalidInput("The Decisions provider credential is not configured.", cause)),
+          Effect.mapError(cause =>
+            AiError.make({
+              module: "FloorDecisions",
+              method: "decide",
+              reason: new DecisionCredentialError({ kind: "MissingKey", cause }),
+            })
+          ),
         );
         const request = yield* HttpClientRequest.schemaBodyJson(RequestBody)(
           HttpClientRequest.post("https://api.openai.com/v1/decisions").pipe(HttpClientRequest.bearerToken(key)),
@@ -127,10 +149,8 @@ const DecisionsAdapter = Layer.effect(
           ),
         );
         const names = response.answers.map((item) => item.name);
-        if (
-          new Set(names).size !== names.length || names.length !== Object.keys(options.decisions).length
-          || names.some((name) => !Object.hasOwn(options.decisions, name))
-        ) {
+        // DecisionModel.make rejects missing answers but ignores repeated and unrequested ones.
+        if (new Set(names).size !== names.length || names.some((name) => !Object.hasOwn(options.decisions, name))) {
           return yield* invalidOutput("Decision answers must match the requested names exactly once.");
         }
         const entries = yield* Effect.forEach(response.answers, (item) =>
@@ -154,29 +174,21 @@ export class Decisions extends Context.Service<Decisions, {
       const model = yield* DecisionModel.DecisionModel;
       return Decisions.of({
         evaluate: Effect.fn("Decisions.evaluate")(function*(request) {
-          const input = yield* Schema.decodeEffect(PredicateRequest)(request).pipe(
-            Effect.mapError(cause =>
-              new DecisionFailure({ reason: "input", message: "Invalid predicate request.", cause })
-            ),
-          );
-          if (new Set(input.questions.map((question) => question.name)).size !== input.questions.length) {
-            return yield* new DecisionFailure({ reason: "input", message: "Predicate names must be unique." });
-          }
           const definition = Decision.make({
             input: Schema.String,
             decisions: Record.fromEntries(
-              input.questions.map((
+              request.questions.map((
                 question,
               ) => [question.name, Decision.probability({ instructions: question.instructions })]),
             ),
           });
           const response = yield* model.decide(definition, {
-            input: input.evidence,
-            images: input.images.map((image) => ({ mediaType: image.mediaType, data: image.base64 })),
+            input: request.evidence,
+            images: request.images.map((image) => ({ mediaType: image.mediaType, data: image.base64 })),
           }).pipe(Effect.mapError(cause =>
             new DecisionFailure({
-              reason: "provider",
-              message: "The Decisions provider could not answer every predicate.",
+              reason: cause.reason._tag === "InvalidUserInputError" ? "input" : "provider",
+              message: cause.message,
               cause,
             })
           ));

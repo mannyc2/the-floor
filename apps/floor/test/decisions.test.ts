@@ -1,9 +1,9 @@
-import { Decisions, PredicateRequest } from "@floor/app-floor/testing";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
 import { ConfigProvider, Effect, Exit, Layer, Schema } from "effect";
 import { AiError } from "effect/ai";
 import { FetchHttpClient, HttpClientError } from "effect/http";
+import { Decisions, PredicateRequest } from "../src/agents/decisions";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
 const WireRequest = Schema.Struct({
@@ -98,11 +98,12 @@ testWithHarness(
   "duplicate question names are rejected before transport",
   duplicate,
   Effect.gen(function*() {
-    const result = yield* (yield* Decisions).evaluate(PredicateRequest.make({
+    const decisions = yield* Decisions;
+    const result = yield* PredicateRequest.makeEffect({
       evidence: input.evidence,
       images: input.images,
       questions: [...input.questions, ...input.questions],
-    })).pipe(Effect.exit);
+    }).pipe(Effect.flatMap(decisions.evaluate), Effect.exit);
     expect(Exit.isFailure(result)).toBe(true);
     expect(duplicate.calls).toHaveLength(0);
   }),

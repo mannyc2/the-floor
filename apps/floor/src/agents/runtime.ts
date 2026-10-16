@@ -1,20 +1,51 @@
+import { SqliteClient } from "@effect/sql-sqlite-do";
 import { Agent } from "@yielded/agent";
 import * as ThreadObject from "@yielded/agent-platform-alchemy-cloudflare/thread-object";
 import { ThreadObjectIdentity } from "@yielded/agent-platform-cloudflare/cloudflare-host-bindings";
 import { encodeReceipt, SubmitRequest } from "@yielded/agent-platform-cloudflare/cloudflare-thread-client-host";
 import { digestDefinitions } from "@yielded/agent/digest";
-import { DefinitionDigestInput, PersistedJson } from "@yielded/agent/records";
+import {
+  CanonicalRecordPayload,
+  DefinitionDigestInput,
+  PersistedJson,
+  SettlementOutcome,
+} from "@yielded/agent/records";
 import { IdempotencyKey, Principal } from "@yielded/agent/submission-ledger";
 import { ThreadRead, ThreadStore } from "@yielded/agent/thread-store";
 import { makeCallback } from "alchemy/Callback";
 import { DurableObject } from "alchemy/Cloudflare/Workers/DurableObject";
 import { DurableObjectState } from "alchemy/Cloudflare/Workers/DurableObjectState";
+import { SqlMigrations } from "alchemy/Cloudflare/Workers/SqlMigrations";
 import type { Worker } from "alchemy/Cloudflare/Workers/Worker";
 import type { RuntimeContext } from "alchemy/RuntimeContext";
-import { Clock, Context, DateTime, Effect, Layer, Schema, Stream } from "effect";
+import { Clock, Context, Effect, Layer, Option, Schema, Stream } from "effect";
 import { Model, Toolkit } from "effect/ai";
+import { SqlSchema } from "effect/sql";
 import { Decisions, type PredicateRequest } from "./decisions";
 import { AgentModel } from "./models";
+
+export class AgentStorageError extends Schema.TaggedError<AgentStorageError>()("AgentStorageError", {
+  operation: Schema.Literals(["admit", "read"]),
+  cause: Schema.Defect(),
+}) {}
+
+const CallbackStatus = Schema.Struct({
+  acceptedAt: Schema.DateTimeUtcFromMillis,
+  completedAt: Schema.OptionFromNullOr(Schema.DateTimeUtcFromMillis),
+});
+const AgentRecords = Schema.Array(Schema.Struct({
+  sequence: Schema.Natural,
+  // Follows Yielded's installed payload union; toTaggedUnion annotates its input in place, so it gets a copy.
+  kind: Schema.Literals(Schema.Union(CanonicalRecordPayload.members).pipe(Schema.toTaggedUnion("_tag")).discriminants),
+  createdAt: Schema.DateTimeUtc,
+  output: Schema.Option(Schema.Json),
+  settlement: Schema.Option(SettlementOutcome),
+}));
+export const AgentSnapshot = Schema.Struct({ callback: CallbackStatus, records: AgentRecords });
+// Durable Object RPC does not carry Option or DateTime prototypes, so those values cross it as canonical JSON.
+const CallbackJson = Schema.toCodecJson(CallbackStatus);
+const RecordsJson = Schema.toCodecJson(AgentRecords);
+const SnapshotJson = Schema.toCodecJson(AgentSnapshot);
 
 const agent = Agent.make("floor-agent", {
   input: Schema.Struct({ question: Schema.NonEmptyString }),
@@ -54,13 +85,13 @@ const handlers = {
     const { threadId } = yield* ThreadObjectIdentity;
     const store = yield* ThreadStore;
     const records = yield* Stream.runCollect(store.read(ThreadRead.make({ threadId, limit: 100 })));
-    return records.map(({ record, sequence }) => ({
+    return yield* Schema.encodeEffect(RecordsJson)(records.map(({ record, sequence }) => ({
       sequence,
       kind: record.payload._tag,
-      createdAt: DateTime.toEpochMillis(record.createdAt),
-      output: record.payload._tag === "RunCompleted" ? record.payload.output : { absent: true },
-      settlement: record.payload._tag === "SubmissionSettled" ? record.payload.outcome : "none",
-    }));
+      createdAt: record.createdAt,
+      output: record.payload._tag === "RunCompleted" ? Option.some(record.payload.output) : Option.none(),
+      settlement: record.payload._tag === "SubmissionSettled" ? Option.some(record.payload.outcome) : Option.none(),
+    })));
   }),
 };
 
@@ -80,68 +111,73 @@ const makeThreadsLayer = <E>(models: Layer.Layer<AgentModel, E>) =>
     handlers,
   ));
 
-export const CallbackStatus = Schema.Struct({ acceptedAt: Schema.Finite, completedAt: Schema.Finite });
 interface MailboxRpc {
-  readonly enqueue: (key: string, threadName: string, question: string) => Effect.Effect<number, never, RuntimeContext>;
-  readonly snapshot: (key: string) => Effect.Effect<typeof CallbackStatus.Type>;
+  readonly enqueue: (
+    key: string,
+    threadName: string,
+    question: string,
+  ) => Effect.Effect<void, AgentStorageError, RuntimeContext>;
+  readonly snapshot: (key: string) => Effect.Effect<Schema.Json, AgentStorageError>;
 }
-class FloorMailboxes extends DurableObject<FloorMailboxes, MailboxRpc>()("FLOOR_MAILBOXES") {}
-const MailboxesLive = FloorMailboxes.make(Effect.map(FloorThreads, (threads) =>
-  Effect.gen(function*() {
-    const state = yield* DurableObjectState;
-    const complete = yield* makeCallback("floor-agent-admission", (payload: {
-      readonly key: string;
-      readonly threadName: string;
-      readonly question: string;
-    }) =>
-      Effect.gen(function*() {
-        yield* threads.getByName(payload.threadName).submitQuestion(payload.key, payload.question);
-        const completedAt = yield* Clock.currentTimeMillis;
-        state.raw.storage.sql.exec("UPDATE admissions SET completed_at = ? WHERE id = ?", completedAt, payload.key);
-      }));
-    state.raw.storage.sql.exec(
-      "CREATE TABLE IF NOT EXISTS admissions (id TEXT PRIMARY KEY, accepted_at INTEGER NOT NULL, completed_at INTEGER NOT NULL)",
-    );
-    return {
-      enqueue: (key: string, threadName: string, question: string) =>
-        state.storage.transaction(Effect.gen(function*() {
-          const acceptedAt = yield* Clock.currentTimeMillis;
-          state.raw.storage.sql.exec(
-            "INSERT INTO admissions VALUES (?, ?, 0) ON CONFLICT(id) DO UPDATE SET accepted_at = excluded.accepted_at, completed_at = 0",
-            key,
-            acceptedAt,
-          );
-          yield* complete.schedule(key, { after: "250 millis", payload: { key, threadName, question } });
-          return acceptedAt;
-        })).pipe(Effect.orDie),
-      snapshot: (key: string) =>
-        Schema.decodeUnknownEffect(CallbackStatus)(
-          state.raw.storage.sql.exec(
-            "SELECT accepted_at AS acceptedAt, completed_at AS completedAt FROM admissions WHERE id = ?",
-            key,
-          ).one(),
-        ).pipe(Effect.orDie),
-    };
-  })));
+class FloorMailboxes
+  extends DurableObject<FloorMailboxes, MailboxRpc>()("FLOOR_MAILBOXES", { errors: [AgentStorageError] })
+{}
+const MailboxesLive = FloorMailboxes.make(Effect.map(
+  // The directory is read from where Alchemy runs, the repository root, and embedded in the Worker bundle.
+  Effect.all({ threads: FloorThreads, migrations: SqlMigrations("./apps/floor/src/agents/_migrations") }),
+  ({ threads, migrations }) =>
+    Effect.gen(function*() {
+      const state = yield* DurableObjectState;
+      yield* migrations.apply().pipe(Effect.orDie);
+      // Queries only: Alchemy's storage transaction is the one boundary that commits an admission with its callback.
+      const sql = Context.get(
+        yield* Layer.build(SqliteClient.layer({ db: state.raw.storage.sql })),
+        SqliteClient.SqliteClient,
+      );
+      const complete = yield* makeCallback("floor-agent-admission", (payload: {
+        readonly key: string;
+        readonly threadName: string;
+        readonly question: string;
+      }) =>
+        Effect.gen(function*() {
+          yield* threads.getByName(payload.threadName).submitQuestion(payload.key, payload.question);
+          const completedAt = yield* Clock.currentTimeMillis;
+          yield* sql`UPDATE admissions SET completed_at = ${completedAt} WHERE id = ${payload.key}`;
+        }));
+      const findAdmission = SqlSchema.findOne({
+        Request: Schema.String,
+        Result: CallbackStatus,
+        execute: (key) =>
+          sql`SELECT accepted_at AS acceptedAt, completed_at AS completedAt FROM admissions WHERE id = ${key}`,
+      });
+      return {
+        enqueue: (key: string, threadName: string, question: string) =>
+          state.storage.transaction(Effect.gen(function*() {
+            const acceptedAt = yield* Clock.currentTimeMillis;
+            yield* sql`INSERT INTO admissions (id, accepted_at) VALUES (${key}, ${acceptedAt})
+              ON CONFLICT(id) DO UPDATE SET accepted_at = excluded.accepted_at, completed_at = NULL`;
+            yield* complete.schedule(key, { after: "250 millis", payload: { key, threadName, question } });
+          })).pipe(Effect.mapError((cause) => new AgentStorageError({ operation: "admit", cause }))),
+        snapshot: (key: string) =>
+          findAdmission(key).pipe(
+            Effect.flatMap(Schema.encodeEffect(CallbackJson)),
+            Effect.mapError((cause) => new AgentStorageError({ operation: "read", cause })),
+          ),
+      };
+    }),
+));
 
-export const AgentRecord = Schema.Struct({
-  sequence: Schema.Natural,
-  kind: Schema.String,
-  createdAt: Schema.Finite,
-  output: Schema.Json,
-  settlement: Schema.String,
-});
 /** @effect-expect-leaking RuntimeContext The callback must schedule against the current native invocation. */
 export class Agents extends Context.Service<Agents, {
-  readonly enqueue: (thread: string, key: string, question: string) => Effect.Effect<number, never, RuntimeContext>;
-  readonly snapshot: (thread: string, key: string) => Effect.Effect<
-    {
-      readonly callback: typeof CallbackStatus.Type;
-      readonly records: ReadonlyArray<typeof AgentRecord.Type>;
-    },
-    never,
-    RuntimeContext
-  >;
+  readonly enqueue: (
+    thread: string,
+    key: string,
+    question: string,
+  ) => Effect.Effect<void, AgentStorageError, RuntimeContext>;
+  readonly snapshot: (
+    thread: string,
+    key: string,
+  ) => Effect.Effect<typeof AgentSnapshot.Type, AgentStorageError, RuntimeContext>;
 }>()("@floor/app-floor/agents/Agents") {}
 
 export const makeAgentRuntime = <E>(models: Layer.Layer<AgentModel, E>): Layer.Layer<Agents, never, Worker> =>
@@ -153,13 +189,14 @@ export const makeAgentRuntime = <E>(models: Layer.Layer<AgentModel, E>): Layer.L
       return Agents.of({
         enqueue: (thread, key, question) => mailboxes.getByName(thread).enqueue(key, thread, question),
         snapshot: Effect.fn("Agents.snapshot")(function*(thread, key) {
-          return {
-            callback: yield* mailboxes.getByName(thread).snapshot(key),
-            records: yield* threads.getByName(thread).snapshot(),
-          };
+          const callback = yield* mailboxes.getByName(thread).snapshot(key);
+          const records = yield* threads.getByName(thread).snapshot();
+          return yield* Schema.decodeEffect(SnapshotJson)({ callback, records }).pipe(
+            Effect.mapError((cause) => new AgentStorageError({ operation: "read", cause })),
+          );
         }, Effect.scoped),
       });
     }),
-  ).pipe(Layer.provide(Layer.provideMerge(MailboxesLive, makeThreadsLayer(models))), Layer.orDie);
+  ).pipe(Layer.provide(Layer.provideMerge(MailboxesLive, makeThreadsLayer(models))));
 
 export const AgentRuntimeLive: Layer.Layer<Agents, never, Worker> = makeAgentRuntime(AgentModel.layer);

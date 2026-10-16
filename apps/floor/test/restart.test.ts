@@ -1,11 +1,11 @@
-import { AdmissionReport, RestartReport, Snapshot, StorageRestart } from "@floor/app-floor/testing";
-import { makeTestWorker } from "@floor/app-floor/testing";
 import { localState, Stack } from "alchemy";
 import { providers } from "alchemy/Cloudflare";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
-import { Clock, Effect, FileSystem, Option, Path, Schema } from "effect";
+import { Clock, DateTime, Effect, FileSystem, Option, Path, Schema } from "effect";
 import { HttpClient, HttpClientResponse } from "effect/http";
+import { AgentSnapshot } from "../src/agents/runtime";
+import { AdmissionReport, makeTestWorker, RestartReport, StorageRestart } from "./_worker";
 const worker = makeTestWorker();
 
 const stack = Stack("floor-local-agent", { providers: providers(), state: localState() }, worker);
@@ -29,7 +29,7 @@ test(
       new URL("../../../work/stage-0-checks/floor-admission-result.json", import.meta.url),
     );
     const saved = yield* fs.readFileString(savedPath).pipe(
-      Effect.flatMap(Schema.decodeUnknownEffect(Schema.fromJsonString(AdmissionReport))),
+      Effect.flatMap(Schema.decodeUnknownEffect(AdmissionReport)),
     );
     const output = yield* deployed;
     const url = yield* Effect.fromOption(Option.fromNullishOr(output.url));
@@ -37,7 +37,7 @@ test(
     const read = Effect.fn("probe.readSnapshot")(() =>
       client.get(`${url}/snapshot?thread=${saved.threadName}`).pipe(
         Effect.flatMap(HttpClientResponse.filterStatusOk),
-        Effect.flatMap(HttpClientResponse.schemaBodyJson(Snapshot)),
+        Effect.flatMap(HttpClientResponse.schemaBodyJson(AgentSnapshot)),
       )
     );
     const afterRestart = yield* read();
@@ -57,10 +57,11 @@ test(
     yield* Effect.sleep("1500 millis");
     const observedAt = yield* Clock.currentTimeMillis;
     const afterDuplicate = yield* read();
-    expect(afterDuplicate.callback.completedAt).toBeGreaterThan(quietStartedAt);
-    expect(afterDuplicate.callback.completedAt).toBeLessThan(observedAt);
+    const completedAt = DateTime.toEpochMillis(yield* Effect.fromOption(afterDuplicate.callback.completedAt));
+    expect(completedAt).toBeGreaterThan(quietStartedAt);
+    expect(completedAt).toBeLessThan(observedAt);
     expect(afterDuplicate.records).toEqual(saved.records);
-    const report = yield* Schema.encodeEffect(Schema.fromJsonString(RestartReport))({
+    const report = yield* Schema.encodeEffect(RestartReport)({
       threadName: saved.threadName,
       afterRestart,
       afterDuplicate,

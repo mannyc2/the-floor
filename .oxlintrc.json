@@ -358,9 +358,7 @@
     },
     {
       "files": [
-        "apps/*/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
         "packages/*/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
-        "apps/*/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}",
         "packages/*/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
       ],
       "rules": {

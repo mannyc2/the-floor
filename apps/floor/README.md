@@ -33,7 +33,7 @@ CI=true ALCHEMY_TELEMETRY_DISABLED=1 bun test --preload ./apps/floor/test/local-
 sh apps/floor/test/run.sh
 ```
 
-`@floor/app-floor/testing` is the only application export that includes `@yielded/agent-testing`. Its ScriptedModel replaces the production model at the native agent's injection boundary. Admission and restart tests still execute the production `Agents`, mailbox and ThreadObject services. Their DO/D1 rollback, compare-and-swap and migration probes are test-only infrastructure fixtures. They do not claim a production D1 application repository exists.
+The test Worker in `test/_worker.ts` is the only Floor code that includes `@yielded/agent-testing`. Its ScriptedModel replaces the production model at the native agent's injection boundary. Admission and restart tests still execute the production `Agents`, mailbox and ThreadObject services. Their DO/D1 rollback, compare-and-swap and migration probes are test-only infrastructure fixtures. They do not claim a production D1 application repository exists.
 
 The local transport preload denies all non-loopback requests. The Decisions tests replace Fetch at the Effect transport boundary, validate the wire request, and never contact OpenAI. The production build test uses the real Worker and assets, checks typed health, rejects undeclared API routes and verifies private source maps/manifest content is not served. Admission and restart run in separate processes on port 19732, retaining then destroying their local state. Reports are written under `work/stage-0-checks`.
 
@@ -50,7 +50,3 @@ The private Yielded build and its four Effect Crypto call adaptations retain the
 ## Bounded hosted check
 
 A bounded hosted run on 12 October 2026 proved native alarm execution with the testing model, DO/D1 rollback and conditional updates, storage persistence after a forced storage-object reset, Web Crypto and verified stage cleanup. It does not prove live model calls or hosted agent eviction. `test/run.sh` also checks the secret gate locally, bringing the native suite to 36 assertions.
-
-`test/hosted.run.ts` is an explicit manual probe, excluded from routine test commands. It requires `FLOOR_EXECUTE_HOSTED_PROBE=true`, the owner-selected account and the saved Alchemy profile. It uses `CI=false` because Alchemy's CI mode selects environment credentials. Test/Core still refuses interactive confirmations and leaves automatic state-store upgrades disabled. Probe requests require an ephemeral secret, CPU is capped at 10,000 ms per request, the driver is capped at 80 requests, and cleanup is installed before deployment. An existing result prevents accidental evidence overwrite; a repeat needs a fresh output directory and an allowance check under the [spending limits](../../docs/platform.md#spending).
-
-The hosted probe adds four reasoned boundary suppressions: one at its Alchemy process boundary, one at the crypto Worker's Layer composition, and two lifecycle hooks in the local gate test. Production runtime code receives no additional suppression.

@@ -1,10 +1,10 @@
-import { makeTestWorker } from "@floor/app-floor/testing";
 import { localState, Stack } from "alchemy";
 import { providers } from "alchemy/Cloudflare";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
 import { Effect, Redacted, Schema } from "effect";
 import { HttpClient, HttpClientRequest } from "effect/http";
+import { makeTestWorker } from "./_worker";
 
 const stack = Stack(
   "floor-probe-gate-local",
