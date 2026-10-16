@@ -8,8 +8,9 @@ attribute float _ENTITY;
 attribute float _PALETTE;
 #ifdef USE_INSTANCING
 attribute vec4 _INSTANCE_FROM;
-attribute vec3 _INSTANCE_TO;
+attribute vec4 _INSTANCE_TO;
 uniform float instanceInterpolation;
+uniform vec2 screenSlots;
 #else
 attribute float _ANIMATED;
 attribute float _PREVIOUS;
@@ -32,10 +33,13 @@ void main() {
   lineClass = _LINE;
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
   #ifdef USE_INSTANCING
+    // A negative authored material marks the monitor face. Its activity shares
+    // the target-position lane, preserving WebGL's sixteen-attribute ceiling.
+    if (_MAT < 0.0) materialSlot = mix(screenSlots.x, screenSlots.y, _INSTANCE_TO.w);
     // Instances translate authored geometry; shape transforms are baked into
     // its vertices and normals, so a general matrix transform adds no information.
     point.xyz += instanceMatrix[3].xyz;
-    point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO, instanceInterpolation);
+    point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO.xyz, instanceInterpolation);
     point.xyz *= _INSTANCE_FROM.w;
   #endif
   // Inverse view rotation keeps the face tones in the room when the camera turns.

@@ -87,7 +87,10 @@ const execute = Effect.fn("FirstTradeFlow.execute")(function*(mode: "test" | "se
         "apps/floor/test/serve-first-trade.ts",
       ], env);
       yield* waitReady(child, "work/first-trade/agent.json", "http://127.0.0.1:19743");
-      yield* Effect.log("First-trade browser fixture ready at http://127.0.0.1:19743");
+      const metadata = yield* Schema.decodeEffect(Schema.fromJsonString(Schema.Struct({ url: Schema.NonEmptyString })))(
+        yield* fs.readFileString("work/first-trade/agent.json"),
+      );
+      yield* Effect.log(`First-trade browser fixture ready at ${metadata.url}`);
       return yield* unexpectedExit(child, "agent");
     });
   yield* Option.match(fork, {

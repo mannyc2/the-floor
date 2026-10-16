@@ -1,5 +1,6 @@
 import { cameraCorners, cameraValues } from "@floor/atlas/camera";
 import { lineWidthCssPx } from "@floor/atlas/look";
+import { materialPalette } from "@floor/atlas/materials";
 import { Effect, Option, Result, Schema, Scope } from "effect";
 import * as THREE from "three";
 import type { Camera, Presentation, Theme } from "../../model";
@@ -49,6 +50,7 @@ export const openEngine = (
     readonly preserveDrawingBuffer: boolean;
     readonly active: () => boolean;
     readonly failed: (error: RendererFailure) => void;
+    readonly initialSnapshot: Option.Option<Schema.Json>;
   },
 ) =>
   Effect.gen(function*() {
@@ -93,7 +95,22 @@ export const openEngine = (
         });
       }
     };
-    writePaletteBytes(syntheticPalette);
+    const livePalette: Palette = {
+      ...syntheticPalette,
+      colors: {
+        ...syntheticPalette.colors,
+        "steel-0": materialPalette.colors["steel-0"],
+        "steel-1": materialPalette.colors["steel-1"],
+        "steel-2": materialPalette.colors["steel-2"],
+        "steel-3": materialPalette.colors["steel-3"],
+        "screen-light-0": materialPalette.colors["screen-light-0"],
+        "screen-light-1": materialPalette.colors["screen-light-1"],
+        "screen-light-2": materialPalette.colors["screen-light-2"],
+        "screen-light-3": materialPalette.colors["screen-light-3"],
+      },
+    };
+    const initialPalette = Option.isNone(options.initialSnapshot) ? syntheticPalette : livePalette;
+    writePaletteBytes(initialPalette);
     const palette = yield* own(() =>
       new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.UnsignedByteType)
     );
@@ -119,6 +136,7 @@ export const openEngine = (
       paletteTheme: { value: .25 },
       interpolation: { value: 0 },
       instanceInterpolation: { value: 1 },
+      screenSlots: { value: new THREE.Vector2(names.indexOf("steel-0"), names.indexOf("screen-light-0")) },
     };
     const material = yield* own(() =>
       new THREE.ShaderMaterial({
@@ -127,7 +145,12 @@ export const openEngine = (
         uniforms: surfaceUniforms,
       })
     );
-    const data = createScene({ width: element.clientWidth, height: element.clientHeight, desks }, material);
+    const data = createScene({
+      width: element.clientWidth,
+      height: element.clientHeight,
+      desks,
+      live: Option.isSome(options.initialSnapshot),
+    }, material);
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 500);
@@ -175,7 +198,7 @@ export const openEngine = (
     const screenCamera = new THREE.Camera();
     const state = {
       camera: initial.camera,
-      palette: syntheticPalette,
+      palette: initialPalette,
       theme: initial.theme,
       revision: initial.revision,
       width: 1,
@@ -193,7 +216,9 @@ export const openEngine = (
       },
       surfaceUniforms.instanceInterpolation,
       surfaceUniforms.interpolation,
+      Option.isSome(options.initialSnapshot),
     );
+    if (Option.isSome(options.initialSnapshot)) yield* instances.snapshot(options.initialSnapshot.value);
     const setCamera = (view: Camera) => {
       state.camera = view;
       camera.left = -view.extent * state.width / state.height / 2;

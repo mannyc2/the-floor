@@ -30,6 +30,7 @@ interface RendererService {
   snapshot: (
     input: Schema.Json,
   ) => Effect.Effect<Effect.Success<ReturnType<Engine["internals"]["instances"]["snapshot"]>>, MapFault>;
+  snapshotLatest: (input: Schema.Json, current: () => boolean) => Effect.Effect<void, MapFault>;
   readonly present: (
     presentation: Presentation,
     fromHistory?: boolean,
@@ -59,6 +60,7 @@ interface MountOptions {
   readonly element: HTMLElement;
   readonly desks: number;
   readonly initial: Presentation;
+  readonly initialSnapshot: Option.Option<Schema.Json>;
   readonly queue: Queue.Enqueue<MountMessage>;
   readonly viewStateChanges: Stream.Stream<Mount.ViewState>;
 }
@@ -103,6 +105,7 @@ const acquire = Effect.fn("Renderer.acquire")(
       preserveDrawingBuffer: configuration.preserveDrawingBuffer ?? false,
       active: live,
       failed: error => failedNative(fault("renderer-callback", error)),
+      initialSnapshot: options.initialSnapshot,
     }).pipe(Effect.catchCause(cause => Effect.fail(fault("webgl-open", cause))));
     const frame: FrameState = {
       sequence: 0,
@@ -176,6 +179,13 @@ const acquire = Effect.fn("Renderer.acquire")(
       });
     });
     const service: RendererService = {
+      snapshotLatest: (input, current) =>
+        available(() =>
+          engine.internals.instances.snapshotLatest(input, current).pipe(
+            Effect.asVoid,
+            Effect.mapError(cause => fault("instance-snapshot", cause)),
+          )
+        ),
       snapshot: input =>
         available(() =>
           frame.mode === "Paused"
@@ -210,12 +220,13 @@ const acquire = Effect.fn("Renderer.acquire")(
     const renderer = Schema.decodeUnknownOption(Schema.String)(
       extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER),
     );
-    Queue.offerUnsafe(
-      queue,
-      Message.SucceededMountMap({ generation, renderer: Option.getOrElse(renderer, () => "unreported") }),
-    );
     return {
       mounted,
+      ready: Message.SucceededMountMap({
+        generation,
+        renderer: Option.getOrElse(renderer, () => "unreported"),
+        snapshotRevision: engine.internals.instances.revision(),
+      }),
       wait: Deferred.await(failure).pipe(
         Effect.catch(error =>
           nativeCall("camera-pause", () => camera.pause(true)).pipe(
@@ -230,6 +241,7 @@ const acquire = Effect.fn("Renderer.acquire")(
 
 interface CommandService {
   snapshot: RendererService["snapshot"];
+  snapshotWorld: (input: Schema.Json, generation: number) => Effect.Effect<void, MapFault>;
   readonly present: RendererService["present"];
   readonly fly: RendererService["fly"];
   readonly followTarget: RendererService["followTarget"];
@@ -267,6 +279,7 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
                     Effect.provideService(Scope.Scope, child),
                   );
                   yield* Ref.set(current, Option.some(owned.mounted));
+                  Queue.offerUnsafe(options.queue, owned.ready);
                   return yield* owned.wait;
                 }),
               child =>
@@ -283,7 +296,14 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
             );
           }));
         return MapCommands.of({
-          snapshot: input => use(service => service.snapshot(input)),
+          snapshotWorld: Effect.fn("Renderer.worldSnapshot")(function*(input, expectedGeneration) {
+            const mounted = yield* Ref.get(current);
+            if (Option.isNone(mounted) || mounted.value.generation !== expectedGeneration) return;
+            yield* mounted.value.service.snapshotLatest(input, () =>
+              Option.exists(Ref.getUnsafe(current), value => value.generation === expectedGeneration));
+          }),
+          snapshot: input =>
+            use(service => service.snapshot(input)),
           present: (presentation, fromHistory, retainCamera) =>
             use(service => service.present(presentation, fromHistory, retainCamera)),
           fly: (view, follow) => use(service => service.fly(view, follow)),
@@ -298,7 +318,11 @@ export class MapCommands extends Context.Service<MapCommands, CommandService>()(
 }
 export const makeMountMap = (commands: MapCommands["Service"]) =>
   Mount.defineStream("MountMap", {
-    args: { initialPresentation: Presentation, initialDesks: Schema.Int },
+    args: {
+      initialPresentation: Presentation,
+      initialDesks: Schema.Int,
+      initialSnapshot: Schema.Option(Schema.Json),
+    },
     messages: [
       Message.SucceededMountMap,
       Message.FailedMap,
@@ -306,7 +330,7 @@ export const makeMountMap = (commands: MapCommands["Service"]) =>
       Message.SelectedEntity,
       Message.RestedCamera,
     ],
-    execute: ({ element, initialPresentation, initialDesks, viewStateChanges }) =>
+    execute: ({ element, initialPresentation, initialDesks, initialSnapshot, viewStateChanges }) =>
       Stream.callback<MountMessage>(queue =>
         Effect.gen(function*() {
           if (!(element instanceof HTMLElement)) return yield* fault("host", "Expected an HTMLElement");
@@ -314,6 +338,7 @@ export const makeMountMap = (commands: MapCommands["Service"]) =>
             element,
             desks: initialDesks,
             initial: initialPresentation,
+            initialSnapshot,
             queue,
             viewStateChanges,
           });

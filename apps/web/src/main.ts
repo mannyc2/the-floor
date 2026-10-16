@@ -2,7 +2,7 @@ import { FloorRpcs } from "@floor/api/rpc";
 import { Health } from "@floor/contract/health";
 import { Effect, Layer, Option, Schema } from "effect";
 import { RpcClient, RpcSerialization } from "effect/rpc";
-import { Command, Http, Runtime, Update } from "foldkit";
+import { Command, Http, Runtime, Subscription, Update } from "foldkit";
 import type { Document, HtmlBuilder } from "foldkit/html";
 import { defineMessageUnion } from "foldkit/message";
 import { modifyFields } from "foldkit/struct";
@@ -50,6 +50,10 @@ export const makeInit = (map: Map.Model): Runtime.ApplicationInit<Model, Message
 });
 
 const toGotMapMessage = (message: MapMessage): Message => Message.GotMapMessage({ message });
+export const subscriptions = Subscription.lift(Map.subscriptions)({
+  read: (model: Model) => Option.some(model.map),
+  toParentMessage: toGotMapMessage,
+});
 const foldMap = Update.foldChild({
   update: Map.update,
   read: (model: Model) => Option.some(model.map),

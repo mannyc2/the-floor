@@ -15,6 +15,7 @@ export interface SceneConfig {
   readonly width: number;
   readonly height: number;
   readonly desks: number;
+  readonly live?: boolean;
 }
 export interface Entity {
   readonly id: number;
@@ -97,11 +98,22 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     scene.add(mesh);
     return mesh;
   };
+  const monitor = (variant: number) => {
+    const geometry = box(.75 + variant * .1, .52, .1, 0, 1.7, -.48, 2);
+    if (config.live === true) {
+      const normals = geometry.getAttribute("normal");
+      const materials = geometry.getAttribute("_MAT");
+      for (let index = 0; index < normals.count; index++) {
+        if (normals.getZ(index) > 0) materials.setX(index, -1);
+      }
+    }
+    return geometry;
+  };
   const desk = (variant: number) =>
     joined([
       box(2.4, .16, 1.8, 0, 1.2, 0),
       ...[-1, 1].flatMap(x => [-.7, .7].map(z => box(.12, 1.1, .12, x, .6, z, 2))),
-      box(.75 + variant * .1, .52, .1, 0, 1.7, -.48, 2),
+      monitor(variant),
       box(.12, .24, .12, 0, 1.38, -.48, 2),
       box(.5, .04, .3, -.58 + variant * .08, 1.31, .25, 3),
       box(.65, .13, .65, .3, .65, 1.1),
@@ -166,6 +178,14 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   boundary("wall-south", gaugeId + 6, box(width, 7, .2, 0, 3.5, depth / 2, 6), new THREE.Vector3(0, 0, 1));
   boundary("wall-north", gaugeId + 7, box(width, 7, .2, 0, 3.5, -depth / 2, 6), new THREE.Vector3(0, 0, -1));
   boundary("ceiling", gaugeId + 8, box(width, .2, depth, 0, 7, 0, 7), new THREE.Vector3(0, 1, 0));
+
+  // Measurement props and the synthetic room cannot obscure canonical desks
+  // that arrive outside the renderer workbench's original rectangular field.
+  if (config.live === true) {
+    entities.filter(entity => entity.id >= gaugeId).forEach(entity => {
+      entity.mesh.visible = false;
+    });
+  }
 
   meshes.forEach(mesh => {
     const instanceCount = mesh instanceof THREE.InstancedMesh

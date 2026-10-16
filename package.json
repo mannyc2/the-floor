@@ -43,7 +43,8 @@
     "pngjs": "7.0.0",
     "typescript": "7.0.2",
     "vite": "8.3.4",
-    "@floor/atlas": "workspace:*"
+    "@floor/atlas": "workspace:*",
+    "@floor/contract": "workspace:*"
   },
   "dependencies": {
     "alchemy": "2.0.0-beta.80",

@@ -35,16 +35,19 @@ const serve = Effect.gen(function*() {
   );
   yield* Test.deploy(options, stack, { scope });
   yield* Effect.addFinalizer(() => Test.destroy(options, stack).pipe(Effect.orDie));
+  const viewer = new URL("http://127.0.0.1:19743");
+  viewer.searchParams.set("world", configuration.mandate.world);
+  viewer.searchParams.set("chain", configuration.mandate.intent.chain);
   yield* fs.makeDirectory("work/first-trade", { recursive: true });
   yield* fs.writeFileString(
     "work/first-trade/agent.json",
     yield* Schema.encodeEffect(Schema.fromJsonString(Schema.Struct({
       url: Schema.String,
       mandate: Schema.toCodecJson(TradeMandate),
-    })))({ url: "http://127.0.0.1:19743", mandate: configuration.mandate }),
+    })))({ url: viewer.href, mandate: configuration.mandate }),
   );
   yield* Effect.addFinalizer(() => fs.remove("work/first-trade/agent.json").pipe(Effect.orDie));
-  yield* Effect.log("First agent and world ready; public mandate metadata is in work/first-trade/agent.json");
+  yield* Effect.log(`First agent and world ready at ${viewer.href}; public metadata is in work/first-trade/agent.json`);
   return yield* Effect.never;
 });
 // oxlint-disable-next-line effecttsgo/any-unknown-in-error-context -- Alchemy erases its harness error type; this executable contains it at the runtime boundary.
