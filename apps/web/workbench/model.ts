@@ -130,6 +130,7 @@ export const makeView = (commands: MapCommands["Service"], controls: boolean) =>
             element,
             desks: initialDesks,
             initial: initialPresentation,
+            initialSnapshot: Option.none(),
             queue,
             viewStateChanges,
           });

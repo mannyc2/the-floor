@@ -22,6 +22,15 @@ export default defineConfig({
     outputDir: "../../work/flows/results",
     use: { baseURL: Option.getOrElse(settings.baseURL, () => workerURL), viewport: { width: 1280, height: 900 } },
   }, {
+    name: "first-trade",
+    testMatch: "first-trade.spec.ts",
+    timeout: 90000,
+    outputDir: "../../work/flows/first-trade/results",
+    use: {
+      viewport: { width: 1280, height: 900 },
+      launchOptions: { args: ["--use-angle=swiftshader-webgl", "--enable-unsafe-swiftshader"] },
+    },
+  }, {
     name: "renderer",
     testMatch: "renderer/*.spec.ts",
     timeout: 90000,
@@ -33,6 +42,16 @@ export default defineConfig({
     },
   }],
   webServer: [
+    {
+      command: "bun scripts/first-trade.ts serve",
+      cwd: "../..",
+      url: "http://127.0.0.1:19743/",
+      reuseExistingServer: false,
+      gracefulShutdown: { signal: "SIGTERM", timeout: 30000 },
+      timeout: 180000,
+      stdout: "pipe",
+      stderr: "pipe",
+    },
     ...(settings.remote ? [] : [
       {
         command: "bun --preload ./apps/floor/test/local-only.ts apps/floor/test/serve-local.ts",
