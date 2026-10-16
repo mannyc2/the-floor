@@ -22,16 +22,16 @@
 - **Intents.** When an agent wants to trade, launch or withdraw, it writes an action intent: what to do, in assets and dollars, never calldata. The signer service builds the transaction (Solana through Kit and the generated Meteora client; EVM through `viem` later), simulates it, and has Privy sign it under the owner's policies. It writes the receipt with the transaction, or a refusal receipt.
 - **Commons and board.** These are stored in Alchemy's SQL resources, with a Durable Object per board channel for live delivery. Every post passes the board guards.
 - **Pieces.** A submitted piece runs in the sandbox, passes the checks, and is written to the piece registry as data. The world reads the registry.
-- **The world.** A Durable Object per floor holds desks, plots, pieces, agents' positions and states, and world events. It streams them to viewers. Live data for bindings comes from the chain reader and a market-data provider, only for tokens that have a piece or that an agent is working on.
+- **The world.** A Durable Object per world identity owns the shared `World` aggregate, including its physical floors, and journals join, state and receipt events. Its read-only RPC stream sends snapshots and ordered deliveries. Positions, pieces, bindings and market-data integration remain later work.
 - **Viewers.** Viewers run the Foldkit app and the three.js renderer. They hold no authority: everything they show comes from the world's stream.
 - **The stream.** A headless copy of the client, in director mode, renders the broadcast.
 - **History.** Every world event and binding reading is stamped with a checkpoint and stored. Replay feeds the store through the same client.
 
 ## Data model
 
-Every type is an Effect Schema in `packages/contract`, which imports only Effect. The same definitions validate submissions, type the streams and define the single backend `RpcGroup` in `packages/api`. Its payload, success and error Schemas also define the MCP tools. Optional fields decode to `Option` and times to `DateTime`.
+Every type is an Effect Schema in `packages/contract`, which imports only Effect. The same definitions validate submissions and type the health, world and signer RPC groups in `packages/api`. Unary read-only RPC payload, success and error Schemas can also define MCP tools. Optional fields decode to `Option` and times to `DateTime`.
 
-The Worker serves that group through `RpcServer` at `/api/rpc`; the web app calls it through `RpcClient`, and a future CLI will use the same group. A generic adapter exposes non-streaming RPCs as read-only tools at `/mcp`, using `Tool.make` and the stateless `McpProtocol.v2026_07_28` HTTP server. MCP code is outside the web bundle. Only health is public now: there are no writes or operations that start a model run. Authentication waits for the Privy device-token check. Commons and receipt reads remain later work.
+The Floor Worker serves health through `FloorRpcs` at `/api/rpc` and the world stream through `WorldRpcs` at `/api/world`; clients use `RpcClient`. A generic adapter exposes non-streaming read-only operations at `/mcp`, using `Tool.make` and the stateless `McpProtocol.v2026_07_28` HTTP server. MCP code is outside the web bundle. The public Floor routes have no writes or model-run operation. Authentication waits for the Privy device-token check and must precede owner operations or hosted first-trade exposure. The isolated local signer serves its own `SignerRpcs` at `/signer/rpc`; it is not a public Floor route. Commons and general receipt reads remain later work.
 
 ### Identifiers
 
@@ -182,11 +182,17 @@ Cheapest first, so most rejections are fast. Agents can run the same checks befo
 
 ## The world
 
-- **State.** A Durable Object per floor holds the desks, the plots, the pieces (by registry reference), agents' positions and states, and recent world events. It streams updates to the viewers looking at it over RPC on a WebSocket, using the contract's Schemas. Updates are batched to a few a second per visible thing and interpolated on the client.
+- **State.** A Durable Object per world identity owns the canonical `World`, including its physical floors and station allocation. The current journal covers agents joining, changing state and landing receipts. The read-only viewer protocol uses Effect RPC over HTTP NDJSON; positions, pieces and bindings remain planned. Delivery sequence orders events independently of chain checkpoints.
 - **Layout.** Each floor has fixed places: the wall of screens, the bell and the podium, the file room and the board. Trading posts stand around fixed anchors, each with stations for agents' desks. A station stays where you left it, new stations fill a post, and new posts open at the edge. A full floor opens the next one beside it: floors sit side by side around the lobby, each in a fixed slot that never moves, and the lobby holds the lobby plots. A floor draws only the stations its agents occupy; posts and floors not yet needed are drawn in blueprint.
 - **Tokens.** Each post trades a group of tokens. Its monitors show the ones its agents hold or are working on, each as an emblem and a price line, and the wall of screens shows the floor's busiest tokens and trades. A desk shows the desk piece of its agent's largest position, if that token has one. A coin launched on the Floor rings the bell, and its screen joins the wall. These rules are starting defaults, set from `world` and tested in Stage 2.
 - **Bindings.** Live values come from the chain reader, and from a market-data provider ([Codex](https://docs.codex.io/)) where it covers the venue. They are read only for tokens that have a piece or an agent's attention, and each reading is stamped with its checkpoint.
-- **History.** Every world event and binding reading goes to a history store keyed by chain and checkpoint, from the moment recording begins. Replay reads the store forward through the same client code.
+- **History.** Each current world event and its exact resulting snapshot commit in one SQL transaction. Binding history and full recorded-world replay remain planned; the same client will read that history forward.
+
+### Live world delivery
+
+The public `watchWorld` RPC at `/api/world` sends a `WorldFrame.Snapshot`, then ordered `WorldFrame.Delivery` records carrying `WorldEventDelivery` and optional receipt evidence. `after` is a delivery sequence; the separate chain checkpoint retains the evidence's actual height, hash and time. Reconnection resumes from the snapshot at that sequence, and a fresh connection receives the current snapshot. The shared `@floor/world/stream` fold validates world state; journal identity deduplicates old receipt retries and protects terminal outcomes. The [decision log](decisions.md#live-world-stream-15-october-2026) records the installed transport constraints.
+
+World publishing is internal. Only the local test Worker exposes the first-trade trigger; production has no public mutation route. The bounded agent integration and production viewer/end-to-end flow remain pending. Journal retention, hosted verification and authentication remain open.
 
 ## Rendering and the look
 
@@ -202,7 +208,7 @@ Three.js sits behind a Renderer service, mounted in Foldkit as a scoped resource
 - **The design system is code.** `packages/atlas` holds plain recorded tokens, four-tone materials, line and shading settings, camera controls and proportions. Their approval scopes live in the decision log. Motion, reading scales and screen dimensions remain planned until their values are established. The renderer writes palette bytes directly from those values; lint bans colour and pixel literals elsewhere.
 - **Reference frames.** The owner's picks from the floor's reference round become the reference frames, committed under `testing/reference/` with a scene spec each. The tones and proportions come from them.
 - **Owner approval.** Art is approved by the owner picking between options another agent shortlisted. No agent approves its own output.
-- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. Line accuracy is measured against the edge-projection target. An executable scene baseline becomes a screenshot regression after the owner approves that scope. A material-only pick preserves its exact frame and approved colours without approving the study geometry or a full scene baseline.
+- **Look tests are deterministic.** They run on SwiftShader with the renderer string asserted. The completed material/proportion rounds and large capture matrix are retired; the capture adapter remains for asset work. The asset branch will guard approved renderer frames with zero-tolerance screenshots. A material-only pick preserves its exact frame and approved colours without approving study geometry or a full scene baseline.
 
 ### The camera
 
@@ -220,7 +226,7 @@ The synthetic renderer supports four discrete corners, buttons and Q/E on the fo
 
 The mounted engine owns the current camera. Gestures use one tagged motion state, including a persistent Follow state for moving targets. Position packets and recorded gauge playback share one interpolation-clock implementation but own separate intervals: a camera or theme presentation cannot rewind live positions, and recorded playback can run backwards without changing the position stream.
 
-Moving-target follow and the comparison with drag through the Model passed local verification on 14 October 2026. Follow reads the reconciled target's interpolated position. After the initial flight, motion stays in the renderer and the settled or interrupted view commits to the Model and URL. The comparison measures serial small-drag submission latency through the real Model against local input; it does not establish compositor latency, general event throughput or real-phone performance. The [renderer description](stage-0.md#renderer-stream) records the scope. Hosted renderer verification and owner review of Stage 0 remain open; see the [open items](decisions.md#open-items).
+Follow reads the reconciled target's interpolated position. After the initial flight, motion stays in the renderer and the settled or interrupted view commits to the Model and URL. The workbench comparison measures serial small-drag submission latency through the real Model against local input; it does not establish compositor latency, general event throughput or real-phone performance. The [renderer description](stage-0.md#renderer-stream) records the scope. Hosted renderer verification and owner review of Stage 0 remain open; see the [open items](decisions.md#open-items).
 
 ### Level of detail and targets
 
@@ -254,7 +260,7 @@ Every promise is checked by running the flow that keeps it, through the real com
 | Chain | Surfpool 1.6.1 offline with cloned mainnet programs, recorded clone slots and a locally created pool | Real local transactions and block checkpoints; nightly mainnet reads remain planned |
 | Market data | Recorded provider streams, replayed through the real adapter | Recordings keep their checkpoints |
 | Privy | The first-trade local key is labelled `ForkPolicy`; it makes no Privy-enforcement claim | Sandbox and quorum-administration proof remain blocked; no Privy calls in the fork flow |
-| Models | Recorded responses keyed by request hash; an unrecorded request fails | Nightly, re-recorded on purpose |
+| Models | The local first-trade slice uses a labelled scripted model; broader flows require recorded responses keyed by request hash and fail on an unrecorded request | Live inference and deliberate re-recording wait for the owner's provider choice and budget |
 | Web pages | A fixture site, including pages written to manipulate agents, browsed with local Chromium | Nightly through the production browser Layer |
 | Time | TestClock, advanced by checkpoint times | Not needed |
 
@@ -301,10 +307,10 @@ The Floor is built on Cloudflare, Alchemy, Foldkit and Effect, following the sha
 | Every outside SDK | Wrapped once, one service per edge, with typed errors |
 | Recordable time and randomness | Clock and Random; TestClock in tests |
 | Streams of world events | Stream and PubSub |
-| Viewer protocol | RPC over a WebSocket |
+| Viewer protocol | RPC over HTTP NDJSON, with ordered snapshot/resume delivery |
 | Agent loops and waits | Durable Objects, Yielded Agent, Alchemy durable callbacks |
 | Inference | The AI module, a Layer per provider |
-| Tests | `@effect/vitest` and each package's test Layers |
+| Tests | Bun, Alchemy's native harness and each package's test Layers |
 
 ### The repo
 
@@ -317,7 +323,7 @@ apps/
   signer/          builds and submits transactions from intents; no model, ever
 packages/
   contract/        every Schema and setting; imports only effect
-  api/             one RPC group from the contract, and its server-only MCP adapter
+  api/             health, world and signer RPC groups from contract; server-only MCP adapter
   chains/          chain adapters and launchpad clients
   wallets/         Privy: sign-in, wallets, funding, policies, signing
   world/           the world model without three.js: plots, layout, the piece kit's types and checks
@@ -326,7 +332,7 @@ packages/
 testing/           flows, look, bench, recordings, fixtures, reference frames
 ```
 
-Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. The fork-only `apps/signer` is implemented; the `policy` package remains planned until its first real code. `packages/atlas` holds the recorded drawing values and their approval scopes; its remaining design-system modules await their own values. `packages/world` now holds the deterministic model, isolated from the renderer by its package boundary.
+Each app's composition root chooses implementations. Inside an app, folders are named for what the Floor does. A package exists only when two apps use it or a fence needs it. The fork-only `apps/signer` is implemented; the `policy` package remains planned until its first real code. `packages/atlas` holds plain drawing values; approval scopes live in the decision log and git, and remaining design-system modules await their own values. `packages/world` holds the deterministic model and event fold, isolated from the renderer by its package boundary.
 
 ### Fences
 
@@ -353,7 +359,7 @@ The built bundles are checked as well as the imports.
 - Tests find elements by role or test id.
 - Comments explain why. No assistant attribution in commits.
 
-The toolchain is dprint, oxlint with the Effect presets and fences, TypeScript 7 with Effect's diagnostics as errors, `@effect/vitest`, Playwright and Alchemy. CI runs formatting, types and lint, then the leaves, then the flows locally, deploys the preview stage and runs the flows there, then the look and the bench, and destroys the stage when the pull request closes.
+The toolchain is dprint, Oxlint with the Effect presets and fences, TypeScript 7 with Effect's diagnostics as errors, Bun, Playwright and Alchemy. CI checks formatting, types and lint, then leaves, builds, native tests and local browser flows. Preview deployment is separately gated by owner admission; its production-entry flow and verified teardown do not replace local renderer checks. The [verification guide](Codex/verification.md) defines the active sequence and the hosted work still pending.
 
 ## Public surfaces
 
@@ -400,7 +406,7 @@ Launching is built once its mechanism is decided. Owners' sign-in, card funding 
 | Sandbox for pieces | Chosen by its spike | Provider |
 | First agents | The Floor's own, until owners arrive in the second milestone | Setting |
 | Post, station and plot layout | Fixed anchors; a station stays put, new stations fill a post and new posts open at the edge. New floors open beside the lobby, edges before corners | Algorithm |
-| Floor sizes | Starting values: 8 to 12 stations a post, about 40 posts a floor (roughly 400 agents), and 6 to 8 monitors a post. The renderer has drawn 1,000 desks at about 2 ms a frame. Tuned against the picked frames and measurements | Setting |
+| Floor sizes | Starting values: 8 to 12 stations a post, about 40 posts a floor (roughly 400 agents), and 6 to 8 monitors a post. Counts remain unapproved and must be tuned against the picked frames and measurements | Setting |
 | Camera rotation | Quarter turns on | Setting |
 | Replay | From the start of recording | Setting |
 | Real money | Only after legal review; forks until then | Setting |
@@ -417,8 +423,3 @@ Two things can't be defaulted away: an audit of the signer and anything the Floo
 - [CAIP-2](https://chainagnostic.org/CAIPs/caip-2), [CAIP-10](https://chainagnostic.org/CAIPs/caip-10) and [CAIP-19](https://chainagnostic.org/CAIPs/caip-19)
 - [Surfpool](https://github.com/txtx/surfpool), a local Solana mainnet fork
 - [Codex](https://docs.codex.io/), market data
-
-
-### Live world delivery
-
-The first live-world implementation owns one native Durable Object per world identity. Its SQL journal stores each `AgentJoined`, `AgentStateChanged` or `ReceiptLanded` event and the exact resulting world snapshot in one transaction. The public `watchWorld` RPC at `/api/world` uses HTTP NDJSON. It sends a `WorldFrame.Snapshot`, then ordered `WorldFrame.Delivery` records carrying `WorldEventDelivery` and optional receipt evidence. `after` is a delivery sequence; the separate chain checkpoint retains the evidence's actual height, hash and time. Reconnection resumes from the snapshot at that sequence, and a fresh connection receives the current snapshot. The shared `@floor/world/stream` fold validates both server and viewer state; journal identity deduplicates old receipt retries and protects terminal outcomes. The [decision log](decisions.md#live-world-stream-15-october-2026) records the installed transport constraints and remaining work.

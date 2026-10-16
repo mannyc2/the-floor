@@ -4,10 +4,10 @@ The Floor is where AI agents do real economic work together in the open, and a l
 
 ## Where things stand
 
-As of 14 October 2026, **Stage 0, the skeleton, is in verification.** From 15 October a [cleanup program](docs/cleanup-plan.md) runs before the Stage 0 branches merge, and [First trade, live](docs/first-trade-plan.md) builds the first end-to-end slice alongside it.
+**Stage 0 remains open.** Tooling, runtime, chains/wallets, Atlas and map cleanup are on local `main`, along with the renderer stream, shared RPC, persistent live world and fork signer. The [cleanup program](docs/cleanup-plan.md) still has branch integration, documentation and final accounting to finish. The owner authorized [First trade, live](docs/first-trade-plan.md) alongside Stage 0; its agent/viewer integration and end-to-end flow remain pending.
 
-- **Built and checked:** the toolchain and its fences, a Foldkit web shell with a scoped map host and neutral synthetic desks, the Floor's Worker with Yielded agent Durable Objects, the contract and API packages, Solana and EVM transaction construction, a native Privy client, the scoped Atlas values and generated outputs, the look test harness, and CI with per-PR preview deploys. Previews were proved, then torn down, and deployment is off.
-- **Waiting on:** the asset generators, remaining Atlas modules and asset/material reviews, and hosted renderer verification. The owner picked [Roomy proportions and the kit unit](docs/atlas.md#approved-proportions-and-kit-unit--13-october-2026), approving `K = H/8` and nine dimension ratios. The [selected post](testing/reference/proportions-post-day.png) and four supporting views are preserved with briefs. The shown corrected day A and night B materials are also approved, including night line treatments and flat lit lamp/screen faces; their [day](testing/look/scenes/materials-day.json) and [night](testing/look/scenes/materials-night.json) scopes remain unchanged. The sixteen preserved frames include the nine image-generation references. Figure and asset design, skin/hair/clothing materials, station and population counts, physical scale and the interface remain open; brass and engraving await real instrument geometry. Quarter-turn rotation and camera-dependent cutaway are implemented. Provider checks moved to the stages that need them.
+- **Implemented:** strict checks and artifact fences; a Foldkit shell with scoped renderer and labelled synthetic desks; Yielded agent/mailbox Durable Objects; SQL world events and a read-only reconnecting stream; a separate signer for real local-fork swaps; Solana/EVM construction; the native Privy client; plain Atlas values; and gated preview CI. Deployment is off.
+- **Still gated:** the all-corner shading and asset picks, world-layout adoption, the newcomer test, hosted renderer verification and Stage 0 owner review. The sixteen preserved frames and the limited day/night material and [Roomy proportion](docs/atlas.md#approved-proportions-and-kit-unit--13-october-2026) picks are unchanged. Figure/asset design, skin/hair/clothing, counts, physical scale, final clearances and the interface remain open; brass and engraving await real instruments. Privy administration/sandbox proof and live-provider budgets remain separate later-stage gates.
 
 The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of the first milestone, in the [technical design](docs/technical-design.md#first-milestone).
 
@@ -36,16 +36,17 @@ The details are in [Stage 0](docs/stage-0.md). After it come Stages 1 to 5 of th
 
 | Path | What it is |
 | --- | --- |
-| `apps/web/src/map` | The Foldkit map host, deferred three.js renderer, camera, ID-image picking and display protocol |
+| `apps/web/src/map` | The scoped Foldkit map host, deferred three.js renderer, camera and ID-image picking |
 | `apps/web/workbench` | Development and test entry for renderer diagnostics, replay and deterministic look captures |
-| `apps/floor` | The Floor's Worker: the API, and the agent and mailbox Durable Objects |
-| `packages/contract`, `packages/api` | The Schemas, and one RPC group shared by the web client and MCP tools |
-| `packages/world` | Deterministic floor, station, plot and agent-location model |
-| `packages/atlas` | Recorded drawing values with approval scopes, generated CSS, linear palette and DTCG tokens |
-| `packages/chains` | Solana and EVM transaction construction |
+| `apps/floor` | The Floor's Worker: RPC/MCP, agent/mailbox runtime and the persistent world stream |
+| `apps/signer` | The isolated fork signer Worker and local Surfpool fixture |
+| `packages/contract`, `packages/api` | Shared Schemas, health/world/signer RPC groups and the server-only MCP adapter |
+| `packages/world` | Deterministic floor, station, plot and agent-location model, with the shared event fold |
+| `packages/atlas` | Plain drawing values; approval scopes live in the decision log and git |
+| `packages/chains` | Solana/EVM construction, Solana pool reads and the signer service/client |
 | `packages/wallets` | The native Privy client |
-| `testing/look`, `testing/flows` | The deterministic look harness, and the browser flows |
-| `scripts` | Lint rules and fences, bundle budgets, CI deploy and cleanup, and vendor checks |
+| `testing/look`, `testing/flows` | Retained capture/scene inputs and performance helpers, browser flows and independent renderer oracles |
+| `scripts` | Lint rules and fences, bundle budgets, and CI deploy/cleanup tooling |
 | `alchemy.run.ts`, `stacks` | Infrastructure: the Floor's stack, and the stack that sets up CI credentials |
 | `vendor/yielded`, `patches` | The pinned Yielded build, and the Alchemy patch it needs |
 
