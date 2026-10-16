@@ -20,7 +20,7 @@ These are implemented surfaces with the evidence described by their commits. The
 ## Left
 
 - [ ] **Finish cleanup and branch integration.** T, R, S, D1, RPC, K, W, the owner middleware, the hosted-flow branch, the slimmed asset kit and the picked side-tone rule are on local `main`. The world-layout branch still follows its plan and owner gate. Its merge still needs combined verification and the cleanup's final size accounting.
-- [ ] **Complete renderer acceptance.** The production-entry camera, seeded-desk pick and RPC/MCP flows pass locally but have not run against a deployed stage; that run and owner review remain open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
+- [ ] **Complete renderer acceptance.** The production-entry camera, seeded-desk pick and RPC/MCP flows passed against [PR #2](https://github.com/mannyc2/the-floor/pull/2)'s preview, with teardown proof; owner review remains open. Current desktop phone-profile checks do not establish real-phone performance. The live viewer handles one occupied canonical floor; multi-floor navigation, moving-world events and snapshot replay through the Model remain open.
 - [ ] **Finish the Stage 0 look.** One post with its stations, one figure and one token screen must be built through the generator and SVG-profile routes, shortlisted and picked in day and night at all four quarter turns. The first asset sheet was returned without a pick. Side tones now follow the camera (16 Oct pick), so the generated post and stations pass the visible-body rules at every corner in day and night, and the seven picked renderer frames are unchanged. Paper-contact and line-ending measurements belong to the real assets.
 - [ ] **Run the newcomer test, or record it as not run.** This requires a person who has not seen the Floor.
 - [ ] **Owner review.** The decisions, integrated flow and picked frames must be reviewed before Stage 0 closes. The first-trade exception does not waive this gate.
@@ -47,7 +47,7 @@ The sustained snapshot checks retain every revision, deterministic draw/triangle
 
 ### RPC and MCP
 
-`FloorRpcs` serves health at `/api/rpc`; its server-only MCP adapter exposes unary read-only operations at `/mcp`. `WorldRpcs` serves the separate stream at `/api/world`. The production Floor Worker has no public mutation or model-run route, and all three routes are credential-free. The `AuthenticateOwner` RPC middleware and its `PrivyTokens` verifier exist for a future owner RPC group, but no RPC uses them and there is no browser sign-in or CLI login. Owner operations or hosted first-trade exposure must wait for that protected group, and the current RPC surface still needs hosted verification.
+`FloorRpcs` serves health at `/api/rpc`; its server-only MCP adapter exposes unary read-only operations at `/mcp`. `WorldRpcs` serves the separate stream at `/api/world`. The production Floor Worker has no public mutation or model-run route, and all three routes are credential-free. The `AuthenticateOwner` RPC middleware and its `PrivyTokens` verifier exist for a future owner RPC group, but no RPC uses them and there is no browser sign-in or CLI login. Owner operations or hosted first-trade exposure must wait for that protected group,. The RPC/MCP health surface passed on [PR #2](https://github.com/mannyc2/the-floor/pull/2)'s preview.
 
 ### Live world
 

@@ -83,6 +83,7 @@ The prepared procedure for the first hosted renderer run. It is not a result, an
 - **Storage:** Durable Object and D1 initialisation, rollback, conditional writes and persistence, locally and hosted.
 - **Web Crypto** for the operations the Floor uses, on a hosted stage.
 - **Deploy and destroy** through preview CI.
+- **The production entry:** RPC/MCP health, camera, phone touch and a seeded-desk pick against [PR #2](https://github.com/mannyc2/the-floor/pull/2)'s preview, then teardown with inventory proof.
 
 Not yet proved: live model calls, hosted agent eviction, browsers, wallets and plates. Those are the checks below.
 

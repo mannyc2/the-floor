@@ -51,7 +51,7 @@ Stop and ask the owner for:
 | Prepared | F's audit and proposal, E's draft | Their branch records do not approve art or prove current integration |
 | Integration | D4; D2 has landed | D3 has landed; the existing authentication task can proceed |
 | Owner picks | F's proposal | B's shading pick is in production |
-| After the picks | G, E's hosted run (with the owner's go-ahead), H | G uses single-post and desk views until F is adopted |
+| After the picks | G, H | G uses single-post and desk views until F is adopted |
 | Close | The owner's Stage 0 review | |
 
 Browser slot priority: D, then A, E, F, G.
@@ -79,7 +79,7 @@ Only the orchestrator assembles local `main`. D1, D3 and the cleanup's T, R, S, 
 
 The production-entry camera flow, `testing/flows/production-renderer.spec.ts`, runs in the `shell` project against `FLOOR_FLOW_URL`: the local Worker by default, the preview in CI's preview step. It records the renderer string, and checks that a drag moves the world and settles one URL/history commit, that a quarter turn persists through the URL and a reload with identical pixels, that Escape goes up a rung, that phone touch moves the world without scrolling, and that a click picks the seeded synthetic desk and opens its labelled drawer. A `pr-<n>` stage seeds that world through its test-built seed Worker before the flow. The [run sheet](platform.md#hosted-renderer-run-sheet) gives the resources, budget, 30-minute cap and teardown.
 
-**Left:** the owner gate for the push, admission and preview, then the hosted run, with its CI run links and teardown proof in the run's commit or pull request.
+**Done:** [PR #2](https://github.com/mannyc2/the-floor/pull/2)'s preview passed these flows and its teardown was verified; the run links and inventory are in the pull request.
 
 ### F. World layout
 
