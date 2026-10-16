@@ -1,29 +1,9 @@
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
-import { Effect, Exit, Layer, Redacted, Result } from "effect";
+import { Effect, Layer, Redacted, Result } from "effect";
 import { P256, signatureDer } from "../src/privy/authorization";
-import { canonicalize } from "../src/privy/canonical";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
-test(
-  "JCS orders UTF-16 keys and retains numeric-key order, number formatting and arrays",
-  Effect.gen(function*() {
-    expect(yield* canonicalize({ "2": "b", "10": "a", z: [1e30, 4.5, 0.002, -0], a: "\n\u000f😀" })).toBe(
-      "{\"10\":\"a\",\"2\":\"b\",\"a\":\"\\n\\u000f😀\",\"z\":[1e+30,4.5,0.002,0]}",
-    );
-    expect(yield* canonicalize({ "€": 3, "\r": 1, "😀": 6, "ö": 2, "דּ": 7, "1": 0, "\u0080": 4 })).toBe(
-      "{\"\\r\":1,\"1\":0,\"\u0080\":4,\"ö\":2,\"€\":3,\"😀\":6,\"דּ\":7}",
-    );
-  }),
-);
-test(
-  "JCS rejects invalid Unicode and non-finite values instead of silently changing signed data",
-  Effect.gen(function*() {
-    for (const input of ["\ud800", "\udfff", Number.NaN, Number.POSITIVE_INFINITY, { "\ud800": "bad-key" }]) {
-      expect(Exit.isFailure(yield* canonicalize(input).pipe(Effect.exit))).toBe(true);
-    }
-  }),
-);
 test(
   "DER encoding uses positive minimal integers and rejects malformed raw lengths",
   Effect.sync(() => {

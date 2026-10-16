@@ -7,7 +7,7 @@
     "./evm": "./src/evm/index.ts",
     "./evm/validation": "./src/evm/validation.ts",
     "./math": "./src/solana/math.ts",
-    "./testing": "./src/testing/index.ts"
+    "./solana/programs": "./src/solana/programs.ts"
   },
   "dependencies": {
     "@solana/kit": "8.4.0",
@@ -23,6 +23,6 @@
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "bun test ./test",
-    "generate": "codama run js && bun scripts/bounded-client.ts"
+    "generate": "codama run js && rm -rf src/solana/_generated && cp -R ../../work/chains-promotion/client/src/generated/types src/solana/_generated && rm src/solana/_generated/index.ts && dprint fmt 'src/solana/_generated/*.ts'"
   }
 }

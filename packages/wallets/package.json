@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./testing": "./src/testing/index.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@floor/chains": "workspace:*",
+    "@floor/contract": "workspace:*",
     "effect": "4.0.3"
   },
   "devDependencies": {

@@ -1,11 +1,99 @@
 {
   "idl": "idl/meteora.json",
+  "before": [
+    {
+      "from": "codama#deleteNodesVisitor",
+      "args": [
+        [
+          "[accountNode|errorNode|eventNode|instructionNode|pdaNode]",
+          "[definedTypeNode]AccountsType",
+          "[definedTypeNode]BaseFeeConfig",
+          "[definedTypeNode]ClaimFeeOperator",
+          "[definedTypeNode]Config",
+          "[definedTypeNode]ConfigWithTransferHook",
+          "[definedTypeNode]CreatePartnerMetadataParameters",
+          "[definedTypeNode]CreateVirtualPoolMetadataParameters",
+          "[definedTypeNode]DynamicFeeConfig",
+          "[definedTypeNode]EvtClaimCreatorTradingFee",
+          "[definedTypeNode]EvtClaimPoolCreationFee",
+          "[definedTypeNode]EvtClaimProtocolFee2",
+          "[definedTypeNode]EvtClaimTradingFee",
+          "[definedTypeNode]EvtCloseClaimFeeOperator",
+          "[definedTypeNode]EvtCloseTokenBadge",
+          "[definedTypeNode]EvtCreateClaimFeeOperator",
+          "[definedTypeNode]EvtCreateConfig",
+          "[definedTypeNode]EvtCreateConfigV2",
+          "[definedTypeNode]EvtCreateConfigV2WithTransferHook",
+          "[definedTypeNode]EvtCreateMeteoraMigrationMetadata",
+          "[definedTypeNode]EvtCreateTokenBadge",
+          "[definedTypeNode]EvtCreatorWithdrawSurplus",
+          "[definedTypeNode]EvtCurveComplete",
+          "[definedTypeNode]EvtCurveCompleteWithTransferHook",
+          "[definedTypeNode]EvtInitializePool",
+          "[definedTypeNode]EvtInitializePoolWithTransferHook",
+          "[definedTypeNode]EvtPartnerClaimPoolCreationFee",
+          "[definedTypeNode]EvtPartnerMetadata",
+          "[definedTypeNode]EvtPartnerWithdrawSurplus",
+          "[definedTypeNode]EvtSwap",
+          "[definedTypeNode]EvtSwap2",
+          "[definedTypeNode]EvtSwap2WithTransferHook",
+          "[definedTypeNode]EvtUpdatePoolCreator",
+          "[definedTypeNode]EvtVirtualPoolMetadata",
+          "[definedTypeNode]EvtWithdrawLeftover",
+          "[definedTypeNode]EvtWithdrawMigrationFee",
+          "[definedTypeNode]LiquidityDistributionConfig",
+          "[definedTypeNode]LiquidityVestingInfo",
+          "[definedTypeNode]LockEscrow",
+          "[definedTypeNode]LockedVestingConfig",
+          "[definedTypeNode]MeteoraDammMigrationMetadata",
+          "[definedTypeNode]Operator",
+          "[definedTypeNode]PartnerMetadata",
+          "[definedTypeNode]PoolConfig",
+          "[definedTypeNode]PoolFees",
+          "[definedTypeNode]PoolFeesConfig",
+          "[definedTypeNode]PoolMetrics",
+          "[definedTypeNode]PoolState",
+          "[definedTypeNode]RemainingAccountsSlice",
+          "[definedTypeNode]SwapParameters",
+          "[definedTypeNode]SwapParameters2",
+          "[definedTypeNode]SwapResult",
+          "[definedTypeNode]SwapResult2",
+          "[definedTypeNode]TokenBadge",
+          "[definedTypeNode]TransferHookAccountsInfo",
+          "[definedTypeNode]TransferHookPool",
+          "[definedTypeNode]VirtualPool",
+          "[definedTypeNode]VirtualPoolMetadata",
+          "[definedTypeNode]VolatilityTracker"
+        ]
+      ]
+    }
+  ],
   "scripts": {
     "js": {
       "from": "@codama/renderers-js",
       "args": [
         "../../work/chains-promotion/client",
-        { "kitImportStrategy": "rootOnly", "dependencyVersions": { "@solana/kit": "8.4.0" }, "erasableSyntax": true }
+        {
+          "kitImportStrategy": "rootOnly",
+          "dependencyVersions": { "@solana/kit": "8.4.0" },
+          "erasableSyntax": true,
+          "linkOverrides": {
+            "definedTypes": {
+              "baseFeeParameters": "./baseFeeParameters",
+              "configParameters": "./configParameters",
+              "dynamicFeeParameters": "./dynamicFeeParameters",
+              "initializePoolParameters": "./initializePoolParameters",
+              "liquidityDistributionParameters": "./liquidityDistributionParameters",
+              "liquidityVestingInfoParams": "./liquidityVestingInfoParams",
+              "lockedVestingParams": "./lockedVestingParams",
+              "migratedPoolFee": "./migratedPoolFee",
+              "migratedPoolMarketCapFeeSchedulerParams": "./migratedPoolMarketCapFeeSchedulerParams",
+              "migrationFee": "./migrationFee",
+              "poolFeeParameters": "./poolFeeParameters",
+              "tokenSupplyParams": "./tokenSupplyParams"
+            }
+          }
+        }
       ]
     }
   }

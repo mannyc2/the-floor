@@ -90,8 +90,8 @@ const cases = [
   },
   {
     owner: "packages/contract/src/testing",
-    blocked: ["@privy-io/node/solana-kit", "three"],
-    allowed: ["bun:test", "@floor/contract", "./fixtures/input"],
+    blocked: ["@privy-io/node/solana-kit", "three", "bun:test"],
+    allowed: ["@floor/contract", "./fixtures/input"],
   },
   { owner: "apps/web/workbench", blocked: ["@privy-io/node/solana-kit"], allowed: ["three", "three-edge-projection"] },
 ];

@@ -1,4 +1,5 @@
-// Generated from the pinned IDL and Codama binary codecs; regenerate, do not hand-edit.
+// Account order, roles, fixed addresses and discriminators follow the pinned IDL;
+// instructions.test.ts checks each of them against it.
 import { AccountRole, address, fixEncoderSize, getBytesEncoder, getStructEncoder, transformEncoder } from "@solana/kit";
 import type { Address, Instruction } from "@solana/kit";
 import { getConfigParametersEncoder } from "./_generated/configParameters";

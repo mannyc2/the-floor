@@ -1,7 +1,7 @@
 import { formatRequestForAuthorizationSignature } from "@privy-io/node";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
-import { Arbitrary, Effect, FileSystem, Layer, Path, Schema } from "effect";
+import { Arbitrary, Effect, Exit, FileSystem, Layer, Path, Predicate, Redacted, Schema } from "effect";
 import { canonicalize } from "../src/privy/canonical";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
@@ -13,6 +13,12 @@ const Unicode = Schema.String.check(
     new TextDecoder("utf-8", { ignoreBOM: true }).decode(new TextEncoder().encode(value)) === value
   ),
 );
+// A rejected lone surrogate leaves the offending string as the redacted cause.
+const loneSurrogate = (cause: unknown) => {
+  if (!Redacted.isRedacted(cause)) return false;
+  const value = Redacted.value(cause);
+  return Predicate.isString(value) && !value.isWellFormed();
+};
 const CanonicalJson: Schema.Codec<Schema.Json> = Schema.suspend(() =>
   Schema.Union([
     Schema.Null,
@@ -115,7 +121,7 @@ for (const seed of [8785, 256, 20261013]) {
         } else {
           const error = yield* canonicalize(value).pipe(Effect.flip);
           expect(error.operation).toBe("canonicalize");
-          expect(error.detail).toBe("Lone surrogate");
+          expect(loneSurrogate(error.cause)).toBe(true);
           rejected++;
         }
       }
@@ -138,7 +144,16 @@ test(
       });
       expect(sdk.byteLength).toBeGreaterThan(0);
       const error = yield* canonicalize(value).pipe(Effect.flip);
-      expect(error.detail).toBe("Lone surrogate");
+      expect(loneSurrogate(error.cause)).toBe(true);
+    }
+  }),
+);
+
+test(
+  "JCS rejects non-finite numbers instead of silently changing signed data",
+  Effect.gen(function*() {
+    for (const input of [Number.NaN, Number.POSITIVE_INFINITY]) {
+      expect(Exit.isFailure(yield* canonicalize(input).pipe(Effect.exit))).toBe(true);
     }
   }),
 );

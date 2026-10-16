@@ -1,13 +1,16 @@
+import { WalletId } from "@floor/contract/identifiers";
 import * as Test from "alchemy/Test/Bun";
 import { inspect } from "bun";
 import { expect } from "bun:test";
 import { Effect, Layer, Option, Redacted, Schema } from "effect";
 import { Base64 } from "effect/encoding";
-import { FetchHttpClient, HttpClientError } from "effect/http";
-import { P256 } from "../src/privy/authorization";
-import { PrivySettings, PrivyWallets, SolanaPolicyInput } from "../src/privy/client";
-import { classifyFailure, PrivyFailure, PrivyPolicyRefusal } from "../src/privy/error";
-import { appId, appSecret, capture } from "./_oracle";
+import { HttpClientError } from "effect/http";
+import type { P256 } from "../src/privy/authorization";
+import { type Authorization, PrivyWallets } from "../src/privy/client";
+import { classify, PrivyFailure, PrivyPolicyRefusal } from "../src/privy/error";
+import { IdempotencyKey, PolicyId, SolanaPolicyInput } from "../src/privy/schema";
+import { appId, appSecret, capture } from "./_fixture";
+import { generate } from "./_p256";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
 const withFixture = <E>(
@@ -22,6 +25,14 @@ const logged = (error: PrivyFailure | PrivyPolicyRefusal) => {
   return [json, inspect(error), String(error)];
 };
 const basicCredentials = Base64.encode(`${appId}:${appSecret}`);
+const walletId = WalletId.make("synthetic-wallet");
+// A failure with no status never reached Privy, and its cause says why.
+const unanswered = (error: PrivyFailure | PrivyPolicyRefusal) => Option.isNone(Option.fromUndefinedOr(error.status));
+const authorize = (key: CryptoKey, idempotencyKey: string): Authorization => ({
+  keys: [key],
+  coSignatures: [],
+  idempotencyKey: IdempotencyKey.make(idempotencyKey),
+});
 
 const validPolicy = SolanaPolicyInput.make({
   version: "1.0",
@@ -51,16 +62,18 @@ const validPolicy = SolanaPolicyInput.make({
   }],
 });
 
+// The status and documented code are the whole classification: a 4xx with
+// Privy's policy code is a refusal, and anything else stays a failure.
 for (
-  const [name, status, code, expectedKind, exposeCode] of [
-    ["policy violation", 403, "policy_violation", "policy", true],
-    ["missing signature", 400, "insufficient_correct_authorization_signatures", "authorization", true],
-    ["expired request", 400, "request_expired", "authorization", true],
-    ["app authentication", 401, "invalid_app_secret", "authorization", false],
-    ["forbidden without policy evidence", 403, "forbidden", "authorization", false],
-    ["invalid request", 422, "invalid_request", "validation", false],
-    ["provider failure", 500, "server_error", "response", false],
-    ["policy-looking provider failure", 500, "policy_violation", "response", true],
+  const [name, status, code, policy, exposeCode] of [
+    ["policy violation", 403, "policy_violation", true, true],
+    ["missing signature", 400, "insufficient_correct_authorization_signatures", false, true],
+    ["expired request", 400, "request_expired", false, true],
+    ["app authentication", 401, "invalid_app_secret", false, false],
+    ["forbidden without policy evidence", 403, "forbidden", false, false],
+    ["invalid request", 422, "invalid_request", false, false],
+    ["provider failure", 500, "server_error", false, false],
+    ["policy-looking provider failure", 500, "policy_violation", false, true],
   ] as const
 ) {
   const fixture = capture({ code, message: "Synthetic refusal", reflectedSecret: "never-log-this" }, status);
@@ -68,34 +81,30 @@ for (
     `classifies ${name} without retrying or losing the redacted HTTP cause`,
     fixture,
     Effect.gen(function*() {
-      const pair = yield* (yield* P256).generate;
+      const pair = yield* generate;
       const result = yield* (yield* PrivyWallets).signTransaction(
-        { walletId: "synthetic-wallet", transaction: "AQID" },
-        {
-          keys: [pair.privateKey],
-          coSignatures: [],
-          idempotencyKey: "synthetic-operation",
-        },
+        { walletId, transaction: "AQID" },
+        authorize(pair.privateKey, "synthetic-operation"),
       ).pipe(Effect.flip);
       expect(fixture.calls).toHaveLength(1);
       expect(result.status).toBe(status);
       if (exposeCode) expect(result.code).toBe(code);
       else expect(Option.isNone(Option.fromUndefinedOr(result.code))).toBe(true);
       expect(Redacted.isRedacted(result.cause)).toBe(true);
-      if (expectedKind === "policy") {
-        expect(Schema.is(PrivyPolicyRefusal)(result)).toBe(true);
-      } else {
-        expect(Schema.is(PrivyFailure)(result)).toBe(true);
-        if (Schema.is(PrivyFailure)(result)) expect(result.kind).toBe(expectedKind);
-      }
-      if (Redacted.isRedacted(result.cause)) {
-        const cause = Redacted.value(result.cause);
-        expect(HttpClientError.isHttpClientError(cause)).toBe(true);
-      }
+      expect(Schema.is(PrivyPolicyRefusal)(result)).toBe(policy);
+      expect(Schema.is(PrivyFailure)(result)).toBe(!policy);
       const signatures = fixture.calls.flatMap(call =>
         Option.toArray(Option.fromNullOr(call.request.headers.get("privy-authorization-signature")))
       );
       expect(signatures).toHaveLength(1);
+      if (Redacted.isRedacted(result.cause)) {
+        const cause = Redacted.value(result.cause);
+        expect(HttpClientError.isHttpClientError(cause)).toBe(true);
+        // The redacted cause keeps the signed request for explicit inspection.
+        if (HttpClientError.isHttpClientError(cause)) {
+          expect(cause.request.headers["privy-authorization-signature"]).toBe(signatures[0]);
+        }
+      }
       for (const output of logged(result)) {
         for (const secret of ["never-log-this", appSecret, basicCredentials, ...signatures]) {
           expect(output).not.toContain(secret);
@@ -113,7 +122,6 @@ for (const reflectedCode of [appSecret, basicCredentials]) {
     Effect.gen(function*() {
       const result = yield* (yield* PrivyWallets).getWallet("synthetic-wallet").pipe(Effect.flip);
       expect(Schema.is(PrivyFailure)(result)).toBe(true);
-      if (Schema.is(PrivyFailure)(result)) expect(result.kind).toBe("validation");
       expect(result.status).toBe(400);
       expect(Option.isNone(Option.fromUndefinedOr(result.code))).toBe(true);
       for (const output of logged(result)) {
@@ -135,37 +143,20 @@ for (const reflectedCode of [appSecret, basicCredentials]) {
   );
 }
 
-const rawResponse = (body: string) => {
-  const calls: Request[] = [];
-  const fetch = FetchHttpClient.Fetch.of(Object.assign(
-    (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      Effect.runPromise(Effect.sync(() => {
-        calls.push(input instanceof Request ? new Request(input, init) : new Request(String(input), init));
-        return new Response(body, { headers: { "content-type": "application/json" } });
-      })),
-    { preconnect: () => {} },
-  ));
-  return {
-    calls,
-    layer: PrivyWallets.layer.pipe(Layer.provideMerge(Layer.mergeAll(
-      P256.layer,
-      Layer.succeed(PrivySettings, PrivySettings.of({ appId, appSecret: Redacted.make(appSecret) })),
-      Layer.succeed(FetchHttpClient.Fetch, fetch),
-    ))),
-  };
-};
-
 for (const malformed of ["{", "{}"]) {
-  const invalidResponse = rawResponse(malformed);
+  const invalidResponse = capture(new Blob([malformed]));
   withFixture(
     "malformed provider JSON and response schemas are response failures, not caller validation",
     invalidResponse,
     Effect.gen(function*() {
-      const error = yield* (yield* PrivyWallets).getWallet("synthetic-wallet").pipe(Effect.flip);
+      const pair = yield* generate;
+      const error = yield* (yield* PrivyWallets).signMessage(
+        { walletId, message: "Synthetic message" },
+        authorize(pair.privateKey, "synthetic-message"),
+      ).pipe(Effect.flip);
       expect(Schema.is(PrivyFailure)(error)).toBe(true);
-      if (Schema.is(PrivyFailure)(error)) expect(error.kind).toBe("response");
       expect(error.status).toBe(200);
-      expect(error.operation).toBe("get-wallet");
+      expect(error.operation).toBe("sign-message");
       expect(invalidResponse.calls).toHaveLength(1);
       expect(Redacted.isRedacted(error.cause)).toBe(true);
       if (Redacted.isRedacted(error.cause)) {
@@ -175,9 +166,12 @@ for (const malformed of ["{", "{}"]) {
           if (HttpClientError.isHttpClientError(cause)) expect(cause.reason._tag).toBe("DecodeError");
         } else expect(Schema.isSchemaError(cause)).toBe(true);
       }
+      const signatures = invalidResponse.calls.flatMap(call =>
+        Option.toArray(Option.fromNullOr(call.request.headers.get("privy-authorization-signature")))
+      );
+      expect(signatures).toHaveLength(1);
       for (const output of logged(error)) {
-        expect(output).not.toContain(appSecret);
-        expect(output).not.toContain(basicCredentials);
+        for (const secret of [appSecret, basicCredentials, ...signatures]) expect(output).not.toContain(secret);
       }
     }),
   );
@@ -195,7 +189,7 @@ withFixture(
     const first = validPolicy.rules[0];
 
     if (first.conditions.length !== 3) {
-      return yield* new PrivyFailure({ operation: "test", detail: "Wrong synthetic rule" });
+      return yield* new PrivyFailure({ operation: "test" });
     }
     const unknownRule: typeof SolanaPolicyInput.Type = {
       ...validPolicy,
@@ -213,11 +207,10 @@ withFixture(
       }],
     };
     for (const input of [unknownRoot, unknownRule, unknownCondition]) {
-      const error = yield* client.createPolicy(input, "synthetic-create").pipe(Effect.flip);
+      const error = yield* client.createPolicy(input, IdempotencyKey.make("synthetic-create")).pipe(Effect.flip);
       expect(Schema.is(PrivyFailure)(error)).toBe(true);
-      if (Schema.is(PrivyFailure)(error)) {
-        expect(error.kind).toBe("validation");
-      }
+      expect(unanswered(error)).toBe(true);
+      expect(Redacted.isRedacted(error.cause) && Schema.isSchemaError(Redacted.value(error.cause))).toBe(true);
     }
     expect(fixture.calls).toHaveLength(0);
     return yield* Effect.void;
@@ -229,8 +222,7 @@ withFixture(
   fixture,
   Effect.gen(function*() {
     const client = yield* PrivyWallets;
-    const pair = yield* (yield* P256).generate;
-    const authorization = { keys: [pair.privateKey], coSignatures: [], idempotencyKey: "synthetic-update" };
+    const authorization = authorize((yield* generate).privateKey, "synthetic-update");
     for (
       const program of [
         "11111111111111111111111111111111",
@@ -252,20 +244,20 @@ withFixture(
           }],
         }],
       };
-      const error = yield* client.createPolicy(input, "synthetic-create").pipe(Effect.flip);
+      const error = yield* client.createPolicy(input, IdempotencyKey.make("synthetic-create")).pipe(Effect.flip);
       expect(Schema.is(PrivyFailure)(error)).toBe(true);
     }
     for (
       const effect of [
-        client.updatePolicy("synthetic-policy", {}, authorization).pipe(Effect.asVoid),
-        client.updateWallet("synthetic-wallet", {}, authorization).pipe(Effect.asVoid),
+        client.updatePolicy(PolicyId.make("synthetic-policy"), {}, authorization).pipe(Effect.asVoid),
+        client.updateWallet(walletId, {}, authorization).pipe(Effect.asVoid),
       ]
     ) {
       const error = yield* effect.pipe(Effect.flip);
       expect(Schema.is(PrivyFailure)(error)).toBe(true);
     }
     const badTransaction = yield* client.signTransaction(
-      { walletId: "synthetic-wallet", transaction: "not base64!" },
+      { walletId, transaction: "not base64!" },
       authorization,
     ).pipe(Effect.flip);
     expect(Schema.is(PrivyFailure)(badTransaction)).toBe(true);
@@ -273,14 +265,13 @@ withFixture(
   }),
 );
 
-const { test: leaf } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
-leaf(
+test(
   "transport classification preserves foreign failures without inventing a policy refusal",
   Effect.gen(function*() {
     const original = { message: "synthetic disconnected transport" };
-    const error = yield* classifyFailure("get-wallet", original);
+    const error = yield* classify("get-wallet")(original).pipe(Effect.flip);
     expect(Schema.is(PrivyFailure)(error)).toBe(true);
-    if (Schema.is(PrivyFailure)(error)) expect(error.kind).toBe("transport");
+    expect(unanswered(error)).toBe(true);
     expect(Redacted.isRedacted(error.cause)).toBe(true);
     if (Redacted.isRedacted(error.cause)) expect(Redacted.value(error.cause)).toBe(original);
   }),

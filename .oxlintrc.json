@@ -358,29 +358,6 @@
     },
     {
       "files": [
-        "packages/*/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
-        "packages/*/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
-      ],
-      "rules": {
-        "no-restricted-imports": [
-          "error",
-          {
-            "patterns": [
-              {
-                "regex": "(?:^|/)@privy-io/node(?:@[^/]+)?/(?:.*/)?solana-kit(?:[./]|$)",
-                "message": "The native Solana adapter owns transaction construction, including in tests."
-              },
-              {
-                "regex": "^(?:three|three-mesh-bvh|three-edge-projection)(?:/|$)",
-                "message": "Three.js belongs only in apps/web."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": [
         "apps/web/src/**/{test,testing,__tests__,_fixtures,fixtures,recordings,*-testing}/**",
         "apps/web/src/**/*.{test,spec}.{ts,tsx,js,jsx,mts,cts,mjs,cjs}"
       ],
@@ -421,8 +398,7 @@
         "apps/web/workbench/entry.ts",
         "scripts/ci/admin.ts",
         "scripts/ci/deploy.ts",
-        "scripts/ci/cleanup.ts",
-        "packages/chains/scripts/bounded-client.ts"
+        "scripts/ci/cleanup.ts"
       ],
       "rules": {
         "effecttsgo/strict-effect-provide": "off"

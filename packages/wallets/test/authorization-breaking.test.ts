@@ -1,15 +1,19 @@
+import { WalletId } from "@floor/contract/identifiers";
 import { formatRequestForAuthorizationSignature, generateAuthorizationSignature } from "@privy-io/node";
 import * as Test from "alchemy/Test/Bun";
 import { expect } from "bun:test";
 import { DateTime, Effect, Layer } from "effect";
 import { P256 } from "../src/privy/authorization";
 import { type Authorization, PrivyWallets } from "../src/privy/client";
-import { appId, capture, type Captured, fromDer, privateKey, signingInput } from "./_oracle";
+import { IdempotencyKey } from "../src/privy/schema";
+import { appId, capture, type Captured } from "./_fixture";
+import { privateKey, signingInput } from "./_oracle";
+import { fromDer, generate, verify } from "./_p256";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
-const walletId = "synthetic-wallet";
+const walletId = WalletId.make("synthetic-wallet");
 const message = "Synthetic authorization probe";
-const idempotencyKey = "synthetic-request";
+const idempotencyKey = IdempotencyKey.make("synthetic-request");
 const requestExpiry = DateTime.makeUnsafe(1800000000000);
 const body = { chain_type: "ethereum", method: "personal_sign", params: { message, encoding: "utf-8" } };
 const reply = { method: "personal_sign", data: { signature: `0x${"ab".repeat(65)}`, encoding: "hex" } };
@@ -28,22 +32,19 @@ const input = {
 // This is an offline cryptographic verifier, not a substitute for a Privy sandbox
 // acceptance run. It independently uses the SDK's payload and counts identities,
 // so two valid signatures from one key cannot satisfy a two-owner quorum.
-const verifyQuorum = (
-  p256: P256["Service"],
-  publicKeys: readonly CryptoKey[],
-  required: number,
-) =>
+const verifyQuorum = (publicKeys: readonly CryptoKey[], required: number) =>
   Effect.fn("Privy.breaking.verifyQuorum")(function*(call: Captured) {
     const actual = yield* signingInput(call);
     const payload = new TextDecoder().decode(formatRequestForAuthorizationSignature(actual));
     const signatures = (call.request.headers.get("privy-authorization-signature") ?? "").split(",");
-    const identities = yield* Effect.forEach(publicKeys, key =>
-      Effect.forEach(signatures, encoded =>
-        fromDer(encoded).pipe(Effect.flatMap(raw =>
-          p256.verifyRaw(key, payload, raw)
-        ))).pipe(
-          Effect.map(results => results.some(Boolean)),
-        ));
+    const identities = yield* Effect.forEach(
+      publicKeys,
+      key =>
+        Effect.forEach(signatures, encoded => fromDer(encoded).pipe(Effect.flatMap(raw => verify(key, payload, raw))))
+          .pipe(
+            Effect.map(results => results.some(Boolean)),
+          ),
+    );
     return identities.filter(Boolean).length >= required;
   });
 
@@ -73,20 +74,18 @@ for (const { name, changed } of variations) {
   test(
     `a signature over a different ${name} is refused by the independent verifier`,
     Effect.gen(function*() {
-      const p256 = yield* P256;
-      const key = yield* p256.generate;
+      const key = yield* generate;
       const encoded = yield* privateKey(key.privateKey);
-      const fixture = capture(reply, 200, verifyQuorum(p256, [key.publicKey], 1));
+      const fixture = capture(reply, 200, verifyQuorum([key.publicKey], 1));
       const correct = generateAuthorizationSignature({ authorizationPrivateKey: encoded, input });
       const wrong = generateAuthorizationSignature({ authorizationPrivateKey: encoded, input: changed });
       yield* submit(fixture, { keys: [], coSignatures: [correct], idempotencyKey });
       const error = yield* submit(fixture, { keys: [], coSignatures: [wrong], idempotencyKey }).pipe(Effect.flip);
       expect(error._tag).toBe("PrivyFailure");
-      if (error._tag === "PrivyFailure") expect(error.kind).toBe("authorization");
+      expect(error.status).toBe(401);
+      expect(error.code).toBe("insufficient_correct_authorization_signatures");
       expect(fixture.calls).toHaveLength(2);
-    }).pipe(
-      Effect.provide(P256.layer),
-    ),
+    }),
   );
 }
 
@@ -94,9 +93,9 @@ test(
   "a missing quorum co-signature fails although the one supplied signature is valid",
   Effect.gen(function*() {
     const p256 = yield* P256;
-    const user = yield* p256.generate;
-    const server = yield* p256.generate;
-    const fixture = capture(reply, 200, verifyQuorum(p256, [user.publicKey, server.publicKey], 2));
+    const user = yield* generate;
+    const server = yield* generate;
+    const fixture = capture(reply, 200, verifyQuorum([user.publicKey, server.publicKey], 2));
     const supplied = yield* p256.sign(user.privateKey, input);
     yield* submit(fixture, { keys: [server.privateKey], coSignatures: [supplied], idempotencyKey });
     const error = yield* submit(fixture, { keys: [], coSignatures: [supplied], idempotencyKey }).pipe(Effect.flip);
@@ -112,7 +111,7 @@ test(
   "duplicate local keys and supplied signatures fail before transport",
   Effect.gen(function*() {
     const p256 = yield* P256;
-    const key = yield* p256.generate;
+    const key = yield* generate;
     const signature = yield* p256.sign(key.privateKey, input);
     const fixture = capture(reply);
     for (
@@ -123,7 +122,9 @@ test(
     ) {
       const error = yield* submit(fixture, authorization).pipe(Effect.flip);
       expect(error._tag).toBe("PrivyFailure");
-      if (error._tag === "PrivyFailure") expect(error.kind).toBe("authorization");
+      // The client's own authorization step refused it; Privy never answered.
+      expect(error.operation).toBe("authorize");
+      expect(error.status).toBeUndefined();
     }
     expect(fixture.calls).toHaveLength(0);
   }).pipe(
@@ -135,9 +136,9 @@ test(
   "two signatures by one cryptographic identity cannot fill a two-owner quorum",
   Effect.gen(function*() {
     const p256 = yield* P256;
-    const user = yield* p256.generate;
-    const other = yield* p256.generate;
-    const fixture = capture(reply, 200, verifyQuorum(p256, [user.publicKey, other.publicKey], 2));
+    const user = yield* generate;
+    const other = yield* generate;
+    const fixture = capture(reply, 200, verifyQuorum([user.publicKey, other.publicKey], 2));
     // Separate signature bytes bypass the superficial duplicate-string check.
     const first = yield* p256.sign(user.privateKey, input);
     const second = yield* p256.sign(user.privateKey, input);

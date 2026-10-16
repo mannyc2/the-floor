@@ -1,13 +1,16 @@
-import { config } from "@floor/chains/testing";
+import { BunServices } from "@effect/platform-bun";
 import { getAddressDecoder } from "@solana/kit";
 import { expect, test } from "bun:test";
-import { Array, Effect, Schema } from "effect";
+import { Array, Crypto, Effect, FileSystem, Path, Schema } from "effect";
+import { Hex } from "effect/encoding";
 import idl from "../idl/meteora.json";
+import source from "../idl/source.json";
 import {
   getCreateConfigInstruction,
   getInitializeVirtualPoolWithSplTokenInstruction,
   programAddress,
 } from "../src/solana/instructions";
+import { config } from "./_inputs";
 import { expectEqual, runTest } from "./_runtime";
 
 const IdlInstructions = Schema.Array(Schema.Struct({
@@ -21,6 +24,16 @@ const IdlInstructions = Schema.Array(Schema.Struct({
   })),
 }));
 const identity = (value: number) => getAddressDecoder().decode(new Uint8Array(32).fill(value));
+
+// The codecs and instruction builders derive from this exact upstream IDL.
+test("the pinned Meteora IDL matches its recorded upstream checksum", () =>
+  runTest(
+    Effect.gen(function*() {
+      const file = yield* (yield* Path.Path).fromFileUrl(new URL("../idl/meteora.json", import.meta.url));
+      const bytes = yield* (yield* FileSystem.FileSystem).readFile(file);
+      expect(Hex.encode(yield* (yield* Crypto.Crypto).digest("SHA-256", bytes))).toBe(source.sha256);
+    }).pipe(Effect.provide(BunServices.layer)),
+  ));
 
 test("every generated account position, role, constant and discriminator matches the pinned IDL", () =>
   runTest(Effect.gen(function*() {

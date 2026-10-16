@@ -1,3 +1,4 @@
+import { WalletId } from "@floor/contract/identifiers";
 import {
   formatRequestForAuthorizationSignature,
   generateAuthorizationSignature,
@@ -13,7 +14,10 @@ import { prepareRequest } from "../node_modules/@privy-io/node/lib/authorization
 import { P256 } from "../src/privy/authorization";
 import { canonicalize } from "../src/privy/canonical";
 import { type Authorization, PrivyWallets } from "../src/privy/client";
-import { appId, capture, compareSignatures, compareWire, privateKey } from "./_oracle";
+import { IdempotencyKey, PolicyId } from "../src/privy/schema";
+import { appId, capture } from "./_fixture";
+import { compareSignatures, compareWire, oracleClient, privateKey } from "./_oracle";
+import { generate } from "./_p256";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
 const messageReply = { method: "personal_sign", data: { signature: `0x${"ab".repeat(65)}`, encoding: "hex" } };
@@ -29,7 +33,7 @@ const check = Effect.fn("Privy.oracle.check")(function*<A, B, E>(
   yield* PrivyWallets.use(nativeCall).pipe(
     Effect.provide(fixture.layer),
   );
-  const sdkResult = sdkCall(fixture.sdk);
+  const sdkResult = sdkCall(oracleClient(fixture.fetch));
   yield* Effect.isEffect(sdkResult) ? sdkResult : Effect.promise(() => sdkResult);
   expect(fixture.calls).toHaveLength(2);
   const [native, sdk] = fixture.calls;
@@ -44,7 +48,7 @@ const check = Effect.fn("Privy.oracle.check")(function*<A, B, E>(
 
 const generatedCases = Effect.gen(function*() {
   const p256 = yield* P256;
-  const keys = yield* Effect.all([p256.generate, p256.generate, p256.generate]);
+  const keys = yield* Effect.all([generate, generate, generate]);
   const exported = yield* Effect.forEach(keys, key => privateKey(key.privateKey));
   const publicKeys = keys.map(key => key.publicKey);
   const sdkPrivateKeys = exported.slice(1);
@@ -58,8 +62,10 @@ const generatedCases = Effect.gen(function*() {
   for (let index = 0; index < 12; index++) {
     const token = String(yield* Random.nextIntBetween(100000, 999999));
     const id = `synthetic-${token}`;
+    const walletId = WalletId.make(id);
+    const policyId = PolicyId.make(id);
     const owner = `owner-${token}`;
-    const idempotencyKey = `request-${token}`;
+    const idempotencyKey = IdempotencyKey.make(`request-${token}`);
     const requestExpiry = index % 2 === 0
       ? Option.some(DateTime.makeUnsafe(1800000000000 + index * 1000))
       : Option.none();
@@ -206,8 +212,8 @@ const generatedCases = Effect.gen(function*() {
     }
     yield* check(walletReply, client => client.getWallet(id), sdk => sdk.wallets().get(id));
     yield* check(ethereumWallet, client => client.getWallet(id), sdk => sdk.wallets().get(id));
-    yield* check(policyReply, client => client.getPolicy(id), sdk => sdk.policies().get(id));
-    yield* check(solanaPolicyReply, client => client.getPolicy(id), sdk => sdk.policies().get(id));
+    yield* check(policyReply, client => client.getPolicy(policyId), sdk => sdk.policies().get(id));
+    yield* check(solanaPolicyReply, client => client.getPolicy(policyId), sdk => sdk.policies().get(id));
 
     const authorize = (method: "POST" | "PATCH", path: string, body: Schema.Json) => {
       const input = {
@@ -248,7 +254,7 @@ const generatedCases = Effect.gen(function*() {
     const messageAuth = authorize("POST", `wallets/${id}/rpc`, messageBody);
     yield* check(
       messageReply,
-      client => client.signMessage({ walletId: id, message }, messageAuth.native),
+      client => client.signMessage({ walletId, message }, messageAuth.native),
       sdk => sdk.wallets().rpc(id, { ...messageBody, ...messageAuth.sdk }),
       publicKeys,
     );
@@ -260,7 +266,7 @@ const generatedCases = Effect.gen(function*() {
     const transactionAuth = authorize("POST", `wallets/${id}/rpc`, transactionBody);
     yield* check(
       transactionReply,
-      client => client.signTransaction({ walletId: id, transaction }, transactionAuth.native),
+      client => client.signTransaction({ walletId, transaction }, transactionAuth.native),
       sdk => sdk.wallets().rpc(id, { ...transactionBody, ...transactionAuth.sdk }),
       publicKeys,
     );
@@ -271,7 +277,7 @@ const generatedCases = Effect.gen(function*() {
     const walletAuth = authorize("PATCH", `wallets/${id}`, walletUpdate);
     yield* check(
       walletReply,
-      client => client.updateWallet(id, walletUpdate, walletAuth.native),
+      client => client.updateWallet(walletId, walletUpdate, walletAuth.native),
       sdk =>
         Effect.gen(function*() {
           const prepared = yield* Effect.promise(() =>
@@ -293,7 +299,7 @@ const generatedCases = Effect.gen(function*() {
     const policyAuth = authorize("PATCH", `policies/${id}`, policyUpdate);
     yield* check(
       solanaPolicyReply,
-      client => client.updatePolicy(id, policyUpdate, policyAuth.native),
+      client => client.updatePolicy(policyId, policyUpdate, policyAuth.native),
       sdk =>
         Effect.gen(function*() {
           const prepared = yield* Effect.promise(() =>
@@ -332,7 +338,7 @@ test(
       chain_type: "ethereum",
     } satisfies Parameters<ReturnType<PrivyClient["wallets"]>["create"]>[0];
     const fixture = capture({ id: "synthetic-wallet" });
-    yield* Effect.promise(() => fixture.sdk.wallets().create(body));
+    yield* Effect.promise(() => oracleClient(fixture.fetch).wallets().create(body));
     expect(fixture.calls).toHaveLength(1);
     const call = fixture.calls[0];
     if (!call) return;

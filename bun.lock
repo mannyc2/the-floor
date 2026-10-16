@@ -111,6 +111,7 @@
       "name": "@floor/wallets",
       "dependencies": {
         "@floor/chains": "workspace:*",
+        "@floor/contract": "workspace:*",
         "effect": "4.0.3",
       },
       "devDependencies": {

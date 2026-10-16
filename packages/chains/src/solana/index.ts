@@ -10,8 +10,8 @@ import {
   setTransactionMessageFeePayer,
   setTransactionMessageLifetimeUsingBlockhash,
 } from "@solana/kit";
-import type { Address, Instruction, ReadonlyUint8Array } from "@solana/kit";
-import { Context, Effect, Layer, Option, Schema } from "effect";
+import type { Address, ReadonlyUint8Array } from "@solana/kit";
+import { Context, Effect, Layer, Schema } from "effect";
 import { Hex } from "effect/encoding";
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http";
 import { ConstructionError, UnsupportedConstruction } from "../error";
@@ -22,6 +22,7 @@ import {
   getInitializeVirtualPoolWithSplTokenInstruction,
   programAddress,
 } from "./instructions";
+import { metadataProgram, tokenProgram } from "./programs";
 
 export { ConstructionError, UnsupportedConstruction } from "../error";
 export type { ConfigParametersArgs } from "./_generated/configParameters";
@@ -43,26 +44,12 @@ export interface MeteoraLaunchInput {
 
 export interface UnsignedSolanaLaunch {
   readonly bytes: Uint8Array;
-  readonly instructions: ReadonlyArray<{
-    readonly programAddress: string;
-    readonly accounts: ReadonlyArray<{ readonly address: string; readonly role: number }>;
-    readonly dataHex: string;
-  }>;
   readonly requiredSigners: ReadonlyArray<string>;
-  readonly attachedSignatures: number;
-  readonly quoteOwner: string;
   readonly quoteReadSlot: number;
-  readonly pdas: {
-    readonly eventAuthority: string;
-    readonly pool: string;
-    readonly baseVault: string;
-    readonly quoteVault: string;
-    readonly mintMetadata: string;
-  };
 }
 
-const tokenProgram = address("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
-const mintMetadataProgram = address("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
+const tokenProgramAddress = address(tokenProgram);
+const metadataProgramAddress = address(metadataProgram);
 const encoder = getAddressEncoder();
 const utf8 = new TextEncoder();
 // The wire shape belongs to this adapter; keeping acceptance policy separate
@@ -99,12 +86,6 @@ const derive = Effect.fn("Meteora.deriveAddress")(function*(
     catch: (cause) => new ConstructionError({ operation: "Kit.getProgramDerivedAddress", cause }),
   });
   return result[0];
-});
-
-const instructionRecord = (instruction: Instruction) => ({
-  programAddress: instruction.programAddress,
-  accounts: instruction.accounts ?? [],
-  dataHex: Hex.encode(new Uint8Array(instruction.data ?? [])),
 });
 
 export class MeteoraLaunch extends Context.Service<MeteoraLaunch, {
@@ -165,27 +146,26 @@ export class MeteoraLaunch extends Context.Service<MeteoraLaunch, {
           quoteBytes,
           encoder.encode(pool),
         ]);
-        const mintMetadata = yield* derive(mintMetadataProgram, [
+        const mintMetadata = yield* derive(metadataProgramAddress, [
           utf8.encode("metadata"),
-          encoder.encode(mintMetadataProgram),
+          encoder.encode(metadataProgramAddress),
           baseBytes,
         ]);
         return yield* Effect.try({
-          try: () => {
-            const instructions = [
-              getCreateConfigInstruction({ ...identities, eventAuthority }, input.config),
-              getInitializeVirtualPoolWithSplTokenInstruction({
-                ...identities,
-                pool,
-                baseVault,
-                quoteVault,
-                mintMetadata,
-                tokenQuoteProgram: tokenProgram,
-                eventAuthority,
-              }, input.metadata),
-            ];
+          try: (): UnsignedSolanaLaunch => {
             const message = appendTransactionMessageInstructions(
-              instructions,
+              [
+                getCreateConfigInstruction({ ...identities, eventAuthority }, input.config),
+                getInitializeVirtualPoolWithSplTokenInstruction({
+                  ...identities,
+                  pool,
+                  baseVault,
+                  quoteVault,
+                  mintMetadata,
+                  tokenQuoteProgram: tokenProgramAddress,
+                  eventAuthority,
+                }, input.metadata),
+              ],
               setTransactionMessageLifetimeUsingBlockhash({
                 blockhash: identities.recentBlockhash,
                 lastValidBlockHeight: input.lastValidBlockHeight,
@@ -194,14 +174,8 @@ export class MeteoraLaunch extends Context.Service<MeteoraLaunch, {
             const transaction = compileTransaction(message);
             return {
               bytes: new Uint8Array(getTransactionEncoder().encode(transaction)),
-              instructions: instructions.map(instructionRecord),
               requiredSigners: Object.keys(transaction.signatures),
-              attachedSignatures: Object.values(transaction.signatures).filter((value) =>
-                Option.isSome(Option.fromNullOr(value))
-              ).length,
-              quoteOwner: quote.result.value.owner,
               quoteReadSlot: quote.result.context.slot,
-              pdas: { eventAuthority, pool, baseVault, quoteVault, mintMetadata },
             };
           },
           catch: (cause) => new ConstructionError({ operation: "Meteora.encodeUnsignedTransaction", cause }),

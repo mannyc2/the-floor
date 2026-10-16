@@ -1,81 +1,37 @@
-import { Context, DateTime, Effect, Layer, Option, Redacted, Schema, type Scope } from "effect";
+import { WalletId } from "@floor/contract/identifiers";
+import { Context, type DateTime, Effect, flow, Layer, Option, Redacted, Schema } from "effect";
 import { FetchHttpClient, HttpClient, HttpClientRequest, HttpClientResponse } from "effect/http";
 import { P256 } from "./authorization";
 import { canonicalize } from "./canonical";
-import { classifyFailure, PrivyFailure, PrivyPolicyRefusal } from "./error";
+import { classify, PrivyFailure, type PrivyPolicyRefusal } from "./error";
 import {
+  Base64Value,
   Created,
   CreatedWallet,
-  Id,
+  type IdempotencyKey,
+  Message,
   Policy,
+  type PolicyId,
   PolicyInput,
   PolicyUpdateInput,
   QuorumInput,
+  RequestExpiry,
   Signature,
   SignedMessage,
   SignedTransaction,
-  SignMessageInput,
-  SignTransactionInput,
   Wallet,
   WalletInput,
   WalletUpdateInput,
 } from "./schema";
 
-export {
-  PolicyInput,
-  PolicyUpdateInput,
-  QuorumInput,
-  SolanaPolicyInput,
-  SolanaPolicyRule,
-  SolanaTokenTransferInstructionRule,
-  SolanaTransferInstructionRule,
-  WalletInput,
-  WalletUpdateInput,
-} from "./schema";
-
+const origin = "https://api.privy.io/v1/";
 const strict = { onExcessProperty: "error" } satisfies Parameters<typeof Schema.decodeEffect>[1];
-const wrap = (operation: string) => (cause: unknown) =>
-  classifyFailure(operation, cause).pipe(Effect.flatMap(Effect.fail));
 type RequestFailure = PrivyFailure | PrivyPolicyRefusal;
-const decodeResponse =
-  <S extends Schema.Constraint>(operation: string, schema: S) => (response: HttpClientResponse.HttpClientResponse) =>
-    HttpClientResponse.schemaBodyJson(schema)(response).pipe(
-      // Input Schema errors identify bad caller data. The same error from a
-      // response belongs to the provider edge and must stay distinguishable.
-      Effect.mapError(cause =>
-        new PrivyFailure({
-          operation,
-          detail: "Privy response could not be decoded",
-          kind: "response",
-          status: response.status,
-          cause: Redacted.make(cause),
-        })
-      ),
-    );
-
-// The deadline owns the entire response, including decoding and error-code
-// inspection. Scoping the transport aborts its body when that deadline expires.
-const complete = (operation: string) => <A, E>(effect: Effect.Effect<A, E, Scope.Scope>) =>
-  effect.pipe(
-    Effect.catch(wrap(operation)),
-    Effect.scoped,
-    Effect.timeout("10 seconds"),
-    Effect.mapError(cause =>
-      Schema.is(PrivyFailure)(cause) || Schema.is(PrivyPolicyRefusal)(cause)
-        ? cause
-        : new PrivyFailure({
-          operation,
-          detail: "Privy request deadline exceeded",
-          kind: "transport",
-          cause: Redacted.make(cause),
-        })
-    ),
-  );
 
 export interface Authorization {
   readonly keys: readonly CryptoKey[];
   readonly coSignatures: readonly string[];
-  readonly idempotencyKey: string;
+  readonly idempotencyKey: IdempotencyKey;
   readonly requestExpiry?: DateTime.Utc;
 }
 export class PrivySettings extends Context.Service<PrivySettings, {
@@ -87,29 +43,31 @@ export class PrivyWallets extends Context.Service<PrivyWallets, {
   readonly createQuorum: (input: typeof QuorumInput.Type) => Effect.Effect<typeof Created.Type, RequestFailure>;
   readonly createPolicy: (
     input: typeof PolicyInput.Type,
-    idempotencyKey: string,
+    idempotencyKey: IdempotencyKey,
   ) => Effect.Effect<typeof Created.Type, RequestFailure>;
   readonly createWallet: (
     input: typeof WalletInput.Type,
-    idempotencyKey: string,
+    idempotencyKey: IdempotencyKey,
   ) => Effect.Effect<typeof CreatedWallet.Type, RequestFailure>;
   readonly signMessage: (
-    input: typeof SignMessageInput.Type,
+    input: { readonly walletId: WalletId; readonly message: string },
     authorization: Authorization,
   ) => Effect.Effect<typeof SignedMessage.Type, RequestFailure>;
   readonly signTransaction: (
-    input: typeof SignTransactionInput.Type,
+    input: { readonly walletId: WalletId; readonly transaction: string },
     authorization: Authorization,
   ) => Effect.Effect<typeof SignedTransaction.Type, RequestFailure>;
+  // The offline transport regression calls this with a plain string, so it
+  // still decodes its own id; every other id arrives decoded and branded.
   readonly getWallet: (walletId: string) => Effect.Effect<typeof Wallet.Type, RequestFailure>;
-  readonly getPolicy: (policyId: string) => Effect.Effect<typeof Policy.Type, RequestFailure>;
+  readonly getPolicy: (policyId: PolicyId) => Effect.Effect<typeof Policy.Type, RequestFailure>;
   readonly updateWallet: (
-    walletId: string,
+    walletId: WalletId,
     input: typeof WalletUpdateInput.Type,
     authorization: Authorization,
   ) => Effect.Effect<typeof Wallet.Type, RequestFailure>;
   readonly updatePolicy: (
-    policyId: string,
+    policyId: PolicyId,
     input: typeof PolicyUpdateInput.Type,
     authorization: Authorization,
   ) => Effect.Effect<typeof Policy.Type, RequestFailure>;
@@ -119,147 +77,134 @@ export class PrivyWallets extends Context.Service<PrivyWallets, {
     Effect.gen(function*() {
       const settings = yield* PrivySettings;
       const p256 = yield* P256;
-      const client = (yield* HttpClient.HttpClient).pipe(HttpClient.filterStatusOk, HttpClient.withScope);
-      const send = Effect.fn("Privy.send")(
-        function*(
-          method: "POST" | "PATCH",
-          path: string,
-          body: Schema.Json,
-          headers: Readonly<Record<string, string>>,
-        ) {
-          const json = yield* canonicalize(body);
-          return yield* HttpClientRequest.make(method)(`https://api.privy.io/v1/${path}`).pipe(
-            HttpClientRequest.basicAuth(settings.appId, Redacted.value(settings.appSecret)),
-            HttpClientRequest.setHeaders({ "privy-app-id": settings.appId, ...headers }),
-            HttpClientRequest.bodyText(json, "application/json"),
-            client.execute,
-          );
-        },
-      );
-      const get = Effect.fn("Privy.get")(function*(path: string) {
-        return yield* HttpClientRequest.get(`https://api.privy.io/v1/${path}`).pipe(
-          HttpClientRequest.basicAuth(settings.appId, Redacted.value(settings.appSecret)),
+      const client = (yield* HttpClient.HttpClient).pipe(
+        HttpClient.mapRequest(flow(
+          HttpClientRequest.prependUrl(origin),
+          HttpClientRequest.basicAuth(settings.appId, settings.appSecret),
           HttpClientRequest.setHeader("privy-app-id", settings.appId),
-          client.execute,
+        )),
+        HttpClient.filterStatusOk,
+        HttpClient.withScope,
+      );
+      // Every operation runs through this one pipeline, and nothing is retried.
+      // The deadline owns the whole exchange, including decoding and error-code
+      // inspection; the scope aborts the transport body when it expires.
+      const exchange =
+        <S extends Schema.Constraint>(operation: string, success: S) =>
+        <E, R>(request: Effect.Effect<HttpClientRequest.HttpClientRequest, E, R>) =>
+          request.pipe(
+            Effect.flatMap(client.execute),
+            Effect.flatMap((response) =>
+              HttpClientResponse.schemaBodyJson(success)(response).pipe(
+                // A decoding failure here is the provider's, and its status keeps
+                // it apart from invalid caller input.
+                Effect.mapError(cause =>
+                  new PrivyFailure({ operation, status: response.status, cause: Redacted.make(cause) })
+                ),
+              )
+            ),
+            Effect.catch(classify(operation)),
+            Effect.scoped,
+            Effect.timeout("10 seconds"),
+            // Only the deadline's own failure is still unclassified here.
+            Effect.catch(classify(operation)),
+          );
+      const withBody = Effect.fnUntraced(function*(
+        method: "POST" | "PATCH",
+        path: string,
+        body: Schema.Json,
+        headers: Readonly<Record<string, string>>,
+      ) {
+        return HttpClientRequest.make(method)(path).pipe(
+          HttpClientRequest.setHeaders(headers),
+          HttpClientRequest.bodyText(yield* canonicalize(body), "application/json"),
         );
       });
-      // Mutations are never retried. Every authorizer signs the actual HTTP
-      // method, stable idempotency identity and optional expiry with the body.
-      const request = Effect.fn("Privy.request")(
-        function*(method: "POST" | "PATCH", path: string, body: Schema.Json, authorization: Authorization) {
-          const idempotencyKey = yield* Schema.decodeEffect(Id)(authorization.idempotencyKey);
-          const supplied = yield* Schema.decodeEffect(Schema.Array(Signature))(authorization.coSignatures);
-          if (
-            new Set(authorization.keys).size !== authorization.keys.length || new Set(supplied).size !== supplied.length
-          ) {
-            return yield* new PrivyFailure({
-              operation: path,
-              detail: "Duplicate request authorizers are not allowed",
-              kind: "authorization",
-            });
-          }
-          const expiry = Option.fromUndefinedOr(authorization.requestExpiry);
-          const expiryHeaders = yield* Option.match(expiry, {
-            onNone: () => Effect.succeed({}),
-            onSome: value =>
-              Schema.decodeEffect(Schema.DateTimeUtc)(value).pipe(
-                Effect.map(DateTime.toEpochMillis),
-                Effect.flatMap(Schema.decodeEffect(Schema.Int.check(Schema.isGreaterThan(0)))),
-                Effect.map(millis => ({ "privy-request-expiry": String(millis) })),
-              ),
-          });
-          const url = `https://api.privy.io/v1/${path}`;
-          const headers = { "privy-app-id": settings.appId, "privy-idempotency-key": idempotencyKey, ...expiryHeaders };
-          const payload = { version: 1, method, url, body, headers };
-          const signatures = yield* Effect.forEach(authorization.keys, key => p256.sign(key, payload));
-          const signed = [...supplied, ...signatures];
-          if (signed.length === 0) {
-            return yield* new PrivyFailure({
-              operation: path,
-              detail: "At least one request signature is required",
-              kind: "authorization",
-            });
-          }
-          // Privy checks cryptographic signer identities and the configured
-          // quorum. Distinct CryptoKey objects need not be distinct signers.
-          return yield* send(method, path, body, { ...headers, "privy-authorization-signature": signed.join(",") });
-        },
-      );
+      // Every authorizer signs the actual method, URL and body with the app id,
+      // the stable idempotency key and any expiry. Privy, not this edge, checks
+      // signer identities and the quorum: distinct CryptoKey objects need not be
+      // distinct signers.
+      const signed = Effect.fnUntraced(function*(
+        method: "POST" | "PATCH",
+        path: string,
+        body: Schema.Json,
+        authorization: Authorization,
+      ) {
+        const { keys } = authorization;
+        const coSignatures = yield* Schema.decodeEffect(Schema.Array(Signature))(authorization.coSignatures);
+        if (
+          keys.length + coSignatures.length === 0 || new Set(keys).size !== keys.length
+          || new Set(coSignatures).size !== coSignatures.length
+        ) {
+          return yield* new PrivyFailure({ operation: "authorize" });
+        }
+        const expiry = yield* Option.match(Option.fromUndefinedOr(authorization.requestExpiry), {
+          onNone: () => Effect.succeed({}),
+          onSome: value =>
+            Schema.encodeEffect(RequestExpiry)(value).pipe(Effect.map(header => ({ "privy-request-expiry": header }))),
+        });
+        const headers = {
+          "privy-app-id": settings.appId,
+          "privy-idempotency-key": authorization.idempotencyKey,
+          ...expiry,
+        };
+        const payload = { version: 1, method, url: `${origin}${path}`, body, headers };
+        const signatures = yield* Effect.forEach(keys, key => p256.sign(key, payload));
+        return yield* withBody(method, path, body, {
+          ...headers,
+          "privy-authorization-signature": [...coSignatures, ...signatures].join(","),
+        });
+      });
       return PrivyWallets.of({
         createQuorum: Effect.fn("Privy.createQuorum")(function*(input) {
-          const parsed = yield* Schema.decodeEffect(QuorumInput, strict)(input);
+          const quorum = yield* Schema.decodeEffect(QuorumInput, strict)(input);
           // Optional user_ids must be nonempty when present in Privy's API.
-          const body = parsed.user_ids.length === 0
+          const body = quorum.user_ids.length === 0
             ? {
-              display_name: parsed.display_name,
-              public_keys: parsed.public_keys,
-              authorization_threshold: parsed.authorization_threshold,
+              display_name: quorum.display_name,
+              public_keys: quorum.public_keys,
+              authorization_threshold: quorum.authorization_threshold,
             }
-            : parsed;
-          return yield* send("POST", "key_quorums", body, {}).pipe(
-            Effect.flatMap(decodeResponse("create-quorum", Created)),
-          );
-        }, complete("create-quorum")),
+            : quorum;
+          return yield* withBody("POST", "key_quorums", body, {});
+        }, exchange("create-quorum", Created)),
         createPolicy: Effect.fn("Privy.createPolicy")(function*(input, idempotencyKey) {
           const body = yield* Schema.decodeEffect(PolicyInput, strict)(input);
-          const key = yield* Schema.decodeEffect(Id)(idempotencyKey);
-          return yield* send("POST", "policies", body, { "privy-idempotency-key": key }).pipe(
-            Effect.flatMap(decodeResponse("create-policy", Created)),
-          );
-        }, complete("create-policy")),
+          return yield* withBody("POST", "policies", body, { "privy-idempotency-key": idempotencyKey });
+        }, exchange("create-policy", Created)),
         createWallet: Effect.fn("Privy.createWallet")(function*(input, idempotencyKey) {
           const body = yield* Schema.decodeEffect(WalletInput, strict)(input);
-          const key = yield* Schema.decodeEffect(Id)(idempotencyKey);
-          return yield* send("POST", "wallets", body, { "privy-idempotency-key": key }).pipe(
-            Effect.flatMap(decodeResponse("create-wallet", CreatedWallet)),
-          );
-        }, complete("create-wallet")),
-        signMessage: Effect.fn("Privy.signMessage")(function*(input, authorization) {
-          const parsed = yield* Schema.decodeEffect(SignMessageInput, strict)(input);
-          const body = {
-            chain_type: "ethereum",
-            method: "personal_sign",
-            params: { message: parsed.message, encoding: "utf-8" },
-          };
-          return yield* request("POST", `wallets/${parsed.walletId}/rpc`, body, authorization).pipe(
-            Effect.flatMap(decodeResponse("sign-message", SignedMessage)),
-          );
-        }, complete("sign-message")),
-        signTransaction: Effect.fn("Privy.signTransaction")(function*(input, authorization) {
-          const parsed = yield* Schema.decodeEffect(SignTransactionInput, strict)(input);
+          return yield* withBody("POST", "wallets", body, { "privy-idempotency-key": idempotencyKey });
+        }, exchange("create-wallet", CreatedWallet)),
+        signMessage: Effect.fn("Privy.signMessage")(function*({ walletId, message }, authorization) {
+          const params = { message: yield* Schema.decodeEffect(Message)(message), encoding: "utf-8" };
+          const body = { chain_type: "ethereum", method: "personal_sign", params };
+          return yield* signed("POST", `wallets/${walletId}/rpc`, body, authorization);
+        }, exchange("sign-message", SignedMessage)),
+        signTransaction: Effect.fn("Privy.signTransaction")(function*({ walletId, transaction }, authorization) {
           // The chain adapter owns construction and serialization. This edge
           // only signs; broadcasting would bypass the fork used before launch.
-          const body = {
-            chain_type: "solana",
-            method: "signTransaction",
-            params: { transaction: parsed.transaction, encoding: "base64" },
-          };
-          return yield* request("POST", `wallets/${parsed.walletId}/rpc`, body, authorization).pipe(
-            Effect.flatMap(decodeResponse("sign-transaction", SignedTransaction)),
-          );
-        }, complete("sign-transaction")),
-        getWallet: Effect.fn("Privy.getWallet")(function*(walletId) {
-          const id = yield* Schema.decodeEffect(Id)(walletId);
-          return yield* get(`wallets/${id}`).pipe(Effect.flatMap(decodeResponse("get-wallet", Wallet)));
-        }, complete("get-wallet")),
-        getPolicy: Effect.fn("Privy.getPolicy")(function*(policyId) {
-          const id = yield* Schema.decodeEffect(Id)(policyId);
-          return yield* get(`policies/${id}`).pipe(Effect.flatMap(decodeResponse("get-policy", Policy)));
-        }, complete("get-policy")),
+          const params = { transaction: yield* Schema.decodeEffect(Base64Value)(transaction), encoding: "base64" };
+          const body = { chain_type: "solana", method: "signTransaction", params };
+          return yield* signed("POST", `wallets/${walletId}/rpc`, body, authorization);
+        }, exchange("sign-transaction", SignedTransaction)),
+        getWallet: Effect.fn("Privy.getWallet")(
+          (walletId) =>
+            Schema.decodeEffect(WalletId)(walletId).pipe(Effect.map(id => HttpClientRequest.get(`wallets/${id}`))),
+          exchange("get-wallet", Wallet),
+        ),
+        getPolicy: Effect.fn("Privy.getPolicy")(
+          (policyId) => Effect.succeed(HttpClientRequest.get(`policies/${policyId}`)),
+          exchange("get-policy", Policy),
+        ),
         updateWallet: Effect.fn("Privy.updateWallet")(function*(walletId, input, authorization) {
-          const id = yield* Schema.decodeEffect(Id)(walletId);
           const body = yield* Schema.decodeEffect(WalletUpdateInput, strict)(input);
-          return yield* request("PATCH", `wallets/${id}`, body, authorization).pipe(
-            Effect.flatMap(decodeResponse("update-wallet", Wallet)),
-          );
-        }, complete("update-wallet")),
+          return yield* signed("PATCH", `wallets/${walletId}`, body, authorization);
+        }, exchange("update-wallet", Wallet)),
         updatePolicy: Effect.fn("Privy.updatePolicy")(function*(policyId, input, authorization) {
-          const id = yield* Schema.decodeEffect(Id)(policyId);
           const body = yield* Schema.decodeEffect(PolicyUpdateInput, strict)(input);
-          return yield* request("PATCH", `policies/${id}`, body, authorization).pipe(
-            Effect.flatMap(decodeResponse("update-policy", Policy)),
-          );
-        }, complete("update-policy")),
+          return yield* signed("PATCH", `policies/${policyId}`, body, authorization);
+        }, exchange("update-policy", Policy)),
       });
     }),
   ).pipe(Layer.provide(FetchHttpClient.layer));

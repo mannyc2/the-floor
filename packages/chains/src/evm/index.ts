@@ -13,7 +13,8 @@ import { ConstructionError, UnsupportedConstruction } from "../error";
 export { ConstructionError, UnsupportedConstruction } from "../error";
 
 export interface DopplerLaunchInput {
-  readonly chainId: 8453;
+  // The tested path is Base only, so the type admits no other chain.
+  readonly chainId: typeof CHAIN_IDS.BASE;
   readonly owner: string;
   readonly salt: `0x${string}`;
   readonly token: { readonly name: string; readonly symbol: string; readonly tokenURI: string };
@@ -34,7 +35,6 @@ export interface UnsignedEvmLaunch {
   readonly bytes: Uint8Array;
   readonly destination: string;
   readonly intendedSender: string;
-  readonly attachedSignatures: 0;
 }
 
 class ConstructionRpcForbidden extends Schema.TaggedError<ConstructionRpcForbidden>()("ConstructionRpcForbidden", {}) {}
@@ -62,7 +62,7 @@ export class DopplerLaunch extends Context.Service<DopplerLaunch, {
         });
         const sdk = new DopplerSDK<typeof CHAIN_IDS.BASE>({ publicClient, chainId: CHAIN_IDS.BASE });
         const construct = Effect.fn("DopplerLaunch.construct")(function*(input: DopplerLaunchInput) {
-          if (input.chainId !== CHAIN_IDS.BASE || input.initialSupply <= 0n || input.numTokensToSell <= 0n) {
+          if (input.initialSupply <= 0n || input.numTokensToSell <= 0n) {
             return yield* new UnsupportedConstruction({
               invariant: "The tested Base multicurve path requires positive sale amounts",
             });
@@ -92,7 +92,6 @@ export class DopplerLaunch extends Context.Service<DopplerLaunch, {
                 bytes: hexToBytes(data),
                 destination: getAddresses(CHAIN_IDS.BASE).airlock,
                 intendedSender: owner,
-                attachedSignatures: 0,
               };
             },
             catch: (cause) => new ConstructionError({ operation: "Doppler.encodeCreateMulticurveParams", cause }),

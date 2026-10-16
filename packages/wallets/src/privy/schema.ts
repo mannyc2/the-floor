@@ -1,7 +1,20 @@
 import { Address as EthereumAddress, Signature as EthereumSignature } from "@floor/chains/evm/validation";
+import { systemProgram, token2022Program, tokenProgram } from "@floor/chains/solana/programs";
 import { Option, Schema } from "effect";
 
-export const Id = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_-]{1,128}$/));
+const Id = Schema.String.check(Schema.isPattern(/^[a-zA-Z0-9_-]{1,128}$/));
+// Ids reach URL paths and signed headers, so callers decode them once with the
+// path-safe rule above. Contract's WalletId has that rule already; its
+// PrivyPolicyId is a broader label, so policy ids keep a brand of their own.
+export const PolicyId = Id.pipe(Schema.brand("@floor/wallets/PolicyId"));
+export type PolicyId = typeof PolicyId.Type;
+export const IdempotencyKey = Id.pipe(Schema.brand("@floor/wallets/IdempotencyKey"));
+export type IdempotencyKey = typeof IdempotencyKey.Type;
+// Privy reads the request expiry header as positive epoch milliseconds.
+export const RequestExpiry = Schema.FiniteFromString.pipe(
+  Schema.decodeTo(Schema.Int.check(Schema.isGreaterThan(0))),
+  Schema.decodeTo(Schema.DateTimeUtcFromMillis),
+);
 const Label = Schema.NonEmptyString.check(Schema.isMaxLength(50));
 export const Message = Schema.NonEmptyString.check(Schema.isMaxLength(1024));
 export const Base64Value = Schema.NonEmptyString.check(
@@ -11,9 +24,6 @@ export const Signature = Base64Value;
 const SolanaAddress = Schema.String.check(Schema.isPattern(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/));
 const Amount = Schema.String.check(Schema.isPattern(/^(0|[1-9][0-9]*)$/));
 const Chain = Schema.Literals(["ethereum", "solana"]);
-const SystemProgram = "11111111111111111111111111111111";
-const TokenProgram = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
-const Token2022Program = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
 
 export const QuorumInput = Schema.Struct({
   display_name: Label,
@@ -54,7 +64,7 @@ const ProgramRule = Schema.Struct({
     // A broad ALLOW for these programs overrides the transfer limits below.
     value: Schema.NonEmptyArray(
       SolanaAddress.check(
-        Schema.makeFilter(address => ![SystemProgram, TokenProgram, Token2022Program].includes(address)),
+        Schema.makeFilter(address => ![systemProgram, tokenProgram, token2022Program].includes(address)),
       ),
     ),
   })]),
@@ -70,7 +80,7 @@ export const SolanaTransferInstructionRule = Schema.Struct({
       field_source: Schema.Literal("solana_program_instruction"),
       field: Schema.Literal("programId"),
       operator: Schema.Literal("eq"),
-      value: Schema.Literal(SystemProgram),
+      value: Schema.Literal(systemProgram),
     }),
     Schema.Struct({
       field_source: Schema.Literal("solana_system_program_instruction"),
@@ -95,7 +105,7 @@ export const SolanaTokenTransferInstructionRule = Schema.Struct({
       field_source: Schema.Literal("solana_program_instruction"),
       field: Schema.Literal("programId"),
       operator: Schema.Literal("in"),
-      value: Schema.NonEmptyArray(Schema.Literals([TokenProgram, Token2022Program])),
+      value: Schema.NonEmptyArray(Schema.Literals([tokenProgram, token2022Program])),
     }),
     Schema.Struct({
       field_source: Schema.Literal("solana_token_program_instruction"),
@@ -202,5 +212,3 @@ export const SignedTransaction = Schema.Struct({
   method: Schema.Literal("signTransaction"),
   data: Schema.Struct({ signed_transaction: Base64Value, encoding: Schema.Literal("base64") }),
 });
-export const SignMessageInput = Schema.Struct({ walletId: Id, message: Message });
-export const SignTransactionInput = Schema.Struct({ walletId: Id, transaction: Base64Value });

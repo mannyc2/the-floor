@@ -1,84 +1,20 @@
 import { formatRequestForAuthorizationSignature, PrivyClient } from "@privy-io/node";
 import { expect } from "bun:test";
-import { Effect, Layer, Option, Redacted, Schema } from "effect";
+import { Effect, Option, Schema } from "effect";
 import { Base64 } from "effect/encoding";
-import { FetchHttpClient } from "effect/http";
-import { P256 } from "../src/privy/authorization";
 import { canonicalize } from "../src/privy/canonical";
-import { PrivySettings, PrivyWallets } from "../src/privy/client";
-import { PrivyFailure } from "../src/privy/error";
+import { appId, appSecret, type Captured } from "./_fixture";
+import { fromDer, verify } from "./_p256";
 
-export const appId = "synthetic-oracle-app";
-export const appSecret = "synthetic-oracle-secret";
-export interface Captured {
-  readonly request: Request;
-  readonly body: string;
-}
-
-// These are synthetic response bytes, not recordings or evidence of provider acceptance.
-export const capture = <E = never>(
-  reply: Schema.Json,
-  status = 200,
-  accept: (call: Captured) => Effect.Effect<boolean, E> = () => Effect.succeed(true),
-) => {
-  const calls: Captured[] = [];
-  const fetch = FetchHttpClient.Fetch.of(Object.assign(
-    (input: Parameters<typeof globalThis.fetch>[0], init?: Parameters<typeof globalThis.fetch>[1]) =>
-      Effect.runPromise(Effect.gen(function*() {
-        const request = input instanceof Request ? new Request(input, init) : new Request(String(input), init);
-        const call = { request, body: yield* Effect.promise(() => request.text()) };
-        calls.push(call);
-        const accepted = yield* accept(call);
-        const result = accepted ? reply : { code: "insufficient_correct_authorization_signatures" };
-        return new Response(yield* Schema.encodeEffect(Schema.fromJsonString(Schema.Json))(result), {
-          status: accepted ? status : 401,
-          headers: { "content-type": "application/json" },
-        });
-      })),
-    { preconnect: () => {} },
-  ));
-  return {
-    calls,
-    sdk: new PrivyClient({
-      appId,
-      appSecret,
-      fetch,
-      maxRetries: 0,
-      requestExpiry: { disabled: true },
-    }),
-    layer: PrivyWallets.layer.pipe(Layer.provideMerge(Layer.mergeAll(
-      P256.layer,
-      Layer.succeed(PrivySettings, PrivySettings.of({ appId, appSecret: Redacted.make(appSecret) })),
-      Layer.succeed(FetchHttpClient.Fetch, fetch),
-    ))),
-  };
-};
+// The pinned SDK over the same fake transport as the native client.
+export const oracleClient = (fetch: typeof globalThis.fetch) =>
+  new PrivyClient({ appId, appSecret, fetch, maxRetries: 0, requestExpiry: { disabled: true } });
 
 export const privateKey = Effect.fn("Privy.oracle.privateKey")((key: CryptoKey) =>
   Effect.promise(() => globalThis.crypto.subtle.exportKey("pkcs8", key)).pipe(
     Effect.map(bytes => Base64.encode(new Uint8Array(bytes))),
   )
 );
-
-// Decode the SDK's DER format independently of the native DER encoder.
-export const fromDer = Effect.fn("Privy.oracle.fromDer")(function*(encoded: string) {
-  const bytes = yield* Effect.fromResult(Base64.decode(encoded));
-  const rLength = bytes[3] ?? 0;
-  const sTag = 4 + rLength;
-  const sLength = bytes[sTag + 1] ?? 0;
-  if (
-    bytes[0] !== 48 || bytes[1] !== bytes.length - 2 || bytes[2] !== 2 || bytes[sTag] !== 2
-    || rLength < 1 || rLength > 33 || sLength < 1 || sLength > 33 || sTag + 2 + sLength !== bytes.length
-  ) {
-    return yield* new PrivyFailure({ operation: "oracle-der", detail: "Malformed DER signature" });
-  }
-  const r = bytes.slice(4, sTag).slice(-32);
-  const s = bytes.slice(sTag + 2).slice(-32);
-  const raw = new Uint8Array(64);
-  raw.set(r, 32 - r.length);
-  raw.set(s, 64 - s.length);
-  return raw;
-});
 
 export const signingInput = Effect.fn("Privy.oracle.signingInput")(function*(call: Captured) {
   const body = yield* Schema.decodeEffect(Schema.fromJsonString(Schema.Json))(call.body);
@@ -136,7 +72,6 @@ export const compareSignatures = Effect.fn("Privy.oracle.compareSignatures")(fun
   sdk: Captured,
   publicKeys: readonly CryptoKey[],
 ) {
-  const p256 = yield* P256;
   const nativeInput = yield* signingInput(native);
   const sdkInput = yield* signingInput(sdk);
   const nativePayload = yield* canonicalize(nativeInput);
@@ -147,7 +82,7 @@ export const compareSignatures = Effect.fn("Privy.oracle.compareSignatures")(fun
     expect(signatures).toHaveLength(publicKeys.length);
     for (const [index, publicKey] of publicKeys.entries()) {
       const raw = yield* fromDer(signatures[index] ?? "");
-      expect(yield* p256.verifyRaw(publicKey, oppositePayload, raw)).toBe(true);
+      expect(yield* verify(publicKey, oppositePayload, raw)).toBe(true);
     }
   }
 });

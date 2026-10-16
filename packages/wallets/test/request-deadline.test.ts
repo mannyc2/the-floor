@@ -3,9 +3,9 @@ import { expect } from "bun:test";
 import { Cause, Deferred, Effect, Fiber, Layer, Option, Redacted, Result, Schema } from "effect";
 import { FetchHttpClient } from "effect/http";
 import { TestClock } from "effect/testing";
-import { P256 } from "../src/privy/authorization";
-import { PrivySettings, PrivyWallets } from "../src/privy/client";
+import { PrivyWallets } from "../src/privy/client";
 import { PrivyFailure } from "../src/privy/error";
+import { walletLayer } from "./_fixture";
 
 const { test } = Test.make({ providers: Layer.empty, dev: true, sidecar: false });
 
@@ -28,7 +28,7 @@ const stalled = Effect.fn("Privy.test.stalled")(function*(status: number) {
             // aborts. This fixture models that contract without a real socket.
             request.signal.addEventListener("abort", () => {
               aborted.push(request);
-              controller.error(new PrivyFailure({ operation: "synthetic-fetch", detail: "Body cancelled" }));
+              controller.error(new PrivyFailure({ operation: "synthetic-fetch" }));
             }, { once: true });
           },
           pull() {
@@ -39,15 +39,7 @@ const stalled = Effect.fn("Privy.test.stalled")(function*(status: number) {
       })),
     { preconnect: () => {} },
   ));
-  const layer = PrivyWallets.layer.pipe(Layer.provideMerge(Layer.mergeAll(
-    P256.layer,
-    Layer.succeed(
-      PrivySettings,
-      PrivySettings.of({ appId: "synthetic-timeout-app", appSecret: Redacted.make("synthetic-secret") }),
-    ),
-    Layer.succeed(FetchHttpClient.Fetch, fetch),
-  )));
-  return { layer, requests, aborted, reading };
+  return { layer: walletLayer(fetch), requests, aborted, reading };
 });
 
 for (const status of [200, 403]) {
@@ -73,7 +65,8 @@ for (const status of [200, 403]) {
     if (Result.isFailure(result)) {
       expect(Schema.is(PrivyFailure)(result.failure)).toBe(true);
       if (Schema.is(PrivyFailure)(result.failure)) {
-        expect(result.failure.kind).toBe("transport");
+        // No status: the deadline expired before Privy's answer was complete.
+        expect(Option.isNone(Option.fromUndefinedOr(result.failure.status))).toBe(true);
         expect(result.failure.operation).toBe("get-wallet");
         expect(Option.isNone(Option.fromUndefinedOr(result.failure.code))).toBe(true);
       }
