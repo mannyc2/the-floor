@@ -1,5 +1,5 @@
 import { SqliteClient } from "@effect/sql-sqlite-do";
-import { SignerHttpApi, SignerRequestError } from "@floor/api/signer";
+import { SignerRequestError, SignerRpcs } from "@floor/api/signer";
 import { Signer, SignerError } from "@floor/chains/signer";
 import { readPoolLayer } from "@floor/chains/solana/read-pool";
 import { SolanaRpc } from "@floor/chains/solana/rpc";
@@ -14,7 +14,7 @@ import { Worker, type WorkerEnv } from "alchemy/Cloudflare/Workers/Worker";
 import { Config, ConfigProvider, Context, Effect, Layer, Option, Redacted, Schema } from "effect";
 import { Base64 } from "effect/encoding";
 import { HttpRouter, HttpServer } from "effect/http";
-import { HttpApiBuilder } from "effect/http-api";
+import { RpcSerialization, RpcServer } from "effect/rpc";
 import { SqlSchema } from "effect/sql";
 import { ForkKey } from "./fork-key";
 import { SubmissionJournal } from "./journal";
@@ -90,27 +90,27 @@ const SignersLive = Signers.make(
     })),
 );
 
-const Handlers = HttpApiBuilder.group(
-  SignerHttpApi,
-  "signer",
-  Effect.fn("Signer.handlers")(function*(handlers) {
+const Handlers = SignerRpcs.toLayer(
+  Effect.gen(function*() {
     const objects = yield* Signers;
-    return handlers.handleAll({
-      submit: ({ payload }) =>
+    return {
+      submit: payload =>
         Schema.encodeEffect(IntentJson)(payload).pipe(
           Effect.flatMap(intent => objects.getByName("local-fork").submit(intent)),
           Effect.flatMap(Schema.decodeEffect(ReceiptJson)),
           Effect.mapError(cause => new SignerRequestError({ operation: "submit", cause })),
         ),
-      settle: ({ payload }) =>
+      settle: payload =>
         objects.getByName("local-fork").settle(payload.intentId).pipe(
           Effect.flatMap(Schema.decodeEffect(ReceiptJson)),
           Effect.mapError(cause => new SignerRequestError({ operation: "settle", cause })),
         ),
-    });
+    };
   }),
 );
-const Routes = HttpApiBuilder.layer(SignerHttpApi).pipe(Layer.provide(Handlers));
+const Routes = RpcServer.layerHttp({ group: SignerRpcs, path: "/signer/rpc", protocol: "http" }).pipe(
+  Layer.provide([Handlers, RpcSerialization.layerJson]),
+);
 
 export const makeSignerWorker = Effect.fn("makeSignerWorker")(
   function*(options: { readonly env?: WorkerEnv } = {}): Effect.fn.Return<Worker<{}>, never, Providers> {

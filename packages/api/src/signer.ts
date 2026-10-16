@@ -1,24 +1,18 @@
 import { IntentId, Receipt, SwapIntent } from "@floor/contract";
 import { Schema } from "effect";
-import { HttpApi, HttpApiEndpoint, HttpApiGroup } from "effect/http-api";
+import { Rpc, RpcGroup } from "effect/rpc";
 
 export class SignerRequestError extends Schema.TaggedError<SignerRequestError>()("SignerRequestError", {
   operation: Schema.String,
   cause: Schema.Defect(),
-}, { httpApiStatus: 400 }) {}
+}) {}
 
 /** @stability unstable */
-export const SignerHttpApi = HttpApi.make("Signer").add(
-  HttpApiGroup.make("signer").add(
-    HttpApiEndpoint.post("submit", "/signer/submit", {
-      payload: SwapIntent,
-      success: Receipt,
-      error: SignerRequestError,
-    }),
-    HttpApiEndpoint.post("settle", "/signer/settle", {
-      payload: Schema.Struct({ intentId: IntentId }),
-      success: Receipt,
-      error: SignerRequestError,
-    }),
-  ),
+export const SignerRpcs = RpcGroup.make(
+  Rpc.make("submit", { payload: SwapIntent, success: Receipt, error: SignerRequestError }),
+  Rpc.make("settle", {
+    payload: Schema.Struct({ intentId: IntentId }),
+    success: Receipt,
+    error: SignerRequestError,
+  }),
 );
