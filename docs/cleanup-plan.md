@@ -1,6 +1,22 @@
 # Cleanup plan
 
-15 October 2026. The owner's decisions are the 15 October rows in the [decision log](decisions.md#repository-ci-and-spending). The program halves the moving parts before the Stage 0 branches merge, so later stages build on less. It runs before the [Stage 0 plan](stage-0-plan.md)'s integration, which then resumes on the cleaned `main`.
+The owner's 15 October decisions in the [decision log](decisions.md#repository-ci-and-spending) authorize this cleanup before the remaining [Stage 0](stage-0-plan.md) branches integrate. The code cleanup below has landed locally; the program remains open until the remaining branches, documentation and final accounting are complete. [First trade, live](first-trade-plan.md) is a separately authorized parallel slice, not a cleanup completion claim.
+
+## Current status
+
+| Workstream | Status |
+| --- | --- |
+| T: tooling | Merged. One typecheck build, consolidated rules and browser projects, reasoned suppression checks and smaller artifact tooling |
+| R: floor runtime | Merged. Effect SQL admissions, typed snapshots and errors, and test-only fixtures outside production |
+| S: chains and wallets | Merged. Simplified request/construction edges and generation, with planned APIs and offline transport guards retained |
+| D1 and RPC | Merged. Renderer snapshots retain deterministic/CPU gates; health RPC and the server-only read-only MCP adapter share Schemas |
+| K: Atlas | Merged. Plain values and one value snapshot replace approval wrappers, generated outputs and their generators |
+| W: map | Merged. Effect scopes own renderer lifetime; diagnostics and replay controls are workbench-only; camera motion has one tagged state |
+| Remaining Stage 0 branches | Asset-kit, shading-options, hosted-renderer-flow and world-layout-proposal still follow the branch requirements below and their owner gates |
+| Documentation | Stage 0 status, README and current architecture are reconciled; the wider Atlas/look/Stage 1/plan and decision-log cleanup remains open |
+| Closing checks | Combined verification on the final integrated `main` and final size accounting remain open |
+
+The approximate size targets do not override behavior checks. K and W preserve the recorded values and independent native observations; the accepted refinements and retained code are explained in the decision log, with actual counts and results in their commit bodies.
 
 ## Rules
 
@@ -16,7 +32,7 @@
 
 Counted on `main` at `7a3c263`: tracked `.ts`, `.tsx`, `.js`, `.mjs` and `.sql` files outside `vendor/`, excluding blank lines and lines that are only a `//` comment. Targets come from the 15 October audit's enumerated candidates; each workstream measures its actual result with the same method.
 
-| Area | Production now | Target | Tests now | Target |
+| Area | Production baseline | Target | Test baseline | Target |
 | --- | --- | --- | --- | --- |
 | `apps/web/src` | 2,286 | ~1,600 | 665 | ~365 |
 | `apps/web/workbench` | 2,001 | ~1,000 | — | — |
@@ -33,6 +49,8 @@ Also: about 8,600 lines of generated `tokens.json`, `atlas.css` and `manifest.js
 
 ## Order
 
+T, D1, R, S, K and W have completed this order; RPC also landed ahead of asset-kit under the first-trade decision. The remaining branch and documentation steps below are still active.
+
 1. **T** alone first. It changes lint, typecheck and the Playwright config that every other workstream runs.
 2. **D1, R and S** in parallel. D1 is the [Stage 0 plan](stage-0-plan.md#d-integration)'s renderer-stream merge: rebase onto T, rerun the full flow with the unchanged limits, merge, nothing more. R and S don't touch the renderer.
 3. **K and W** in parallel, after D1. W rebases onto K if K lands first; K owns only the palette lines in `engine.ts`.
@@ -43,7 +61,7 @@ Browser slot priority: T, D1, W, K, R.
 
 ## T. Tooling
 
-Branch `codex/cleanup-tooling`. Browser slot for the final run.
+Merged from `codex/cleanup-tooling`. The following defines its retained scope; verification results are in the commit body.
 
 - `typecheck` becomes one `tsc -b` over project references instead of eleven runs.
 - The import fences move into `no-restricted-imports` overrides in `.oxlintrc.json`: contract imports only Effect, three.js stays in web, the signer exclusions, testing and workbench code stay out of production, and the retired and forbidden packages, including the Privy SDK, stay out. Custom rule code remains only for app/feature isolation and the Atlas visual-literal rule. The file-read rules (no production source reads files) and the chain-neutral Schema rule (contract's branded CAIP types carry it) go, with their fixtures.
@@ -61,7 +79,7 @@ Branch `codex/cleanup-tooling`. Browser slot for the final run.
 
 ## K. Atlas
 
-Branch `codex/cleanup-atlas`. Browser slot for one renderer run.
+Merged from `codex/cleanup-atlas`. Plain values and unchanged palette bytes are retained; approval history lives only in the decision log and git.
 
 - `packages/atlas/src` holds plain `as const` values. The approval wrapper (status, date, decision link, brief, scope, reason) and the duplicate wrapped and plain exports go. A one-line comment says why only where a value isn't obvious.
 - `generated/` goes (`palette.ts`, `tokens.json`, `atlas.css`, `manifest.json`), with `scripts/build-atlas.ts`, `scripts/atlas/`, the manifest check, `atlas-approvals.test.ts` and the generated-output tests. One snapshot test pins the approved values.
@@ -75,7 +93,7 @@ Branch `codex/cleanup-atlas`. Browser slot for one renderer run.
 
 ## W. Web map
 
-Branch `codex/cleanup-map`. Browser slot.
+Merged from `codex/cleanup-map`. The retained behavior scope follows; the independent native probes take priority over the approximate line target.
 
 - Delete `lease-pool.ts`, `transactional-host.ts`, `contracts.ts`, the unused parts of `model.ts`, `test/protocols.test.ts` and `workbench/reconciliation-probe.ts`. The reconciliation spec's 2,000-step test drives the deleted host through that probe and goes with it; W re-adds the memory-to-baseline assertion against the instance path D1 merged. The partial-acquisition test stays.
 - Renderer-stream's slimming, merged in D1: its upload wrapper and frame observers leave the production frame loop for the test page or workbench, and its interpolation replaces the old gauge path rather than running beside it. The stream's deterministic budgets and CPU limit must still pass.
@@ -92,7 +110,7 @@ Branch `codex/cleanup-map`. Browser slot.
 
 ## R. Floor runtime
 
-Branch `codex/cleanup-floor`. Browser slot for the shell flow (Worker port 19740).
+Merged from `codex/cleanup-floor`. The retained runtime scope follows.
 
 - The `admissions` table uses Effect SQL instead of raw `sql.exec` strings: the installed `@effect/sql-sqlite-do` client, or Alchemy's `SqlMigrations`, which the test probe already uses. Check in installed source which one binds to the Durable Object's storage. The schema lives in a migration, not an inline `CREATE TABLE IF NOT EXISTS`.
 - `completed_at` is nullable and decodes to `Option`; `0` no longer means "not done".
@@ -105,7 +123,7 @@ Branch `codex/cleanup-floor`. Browser slot for the shell flow (Worker port 19740
 
 ## S. Chains and wallets
 
-Branch `codex/cleanup-chains-wallets`. No browser slot.
+Merged from `codex/cleanup-chains-wallets`. The retained edge and fixture boundaries follow.
 
 - **Wallets:** one request pipeline (execute, decode, scope, timeout, one `classify`) replaces `decodeResponse`, `complete`, `wrap` and `classifyFailure`. `PrivyFailure` keeps status and code and drops the free-text `kind` and `detail`.
 - Base URL and auth are set once with `HttpClient.mapRequest`. Ids are decoded once, at the caller, as branded types, reusing contract's brands where the rules match. The expiry is encoded once.
@@ -120,18 +138,18 @@ Branch `codex/cleanup-chains-wallets`. No browser slot.
 
 ## Branches
 
-After the cleanup lands, rebase each remaining branch onto `main` and slim it:
+The renderer-stream and RPC branches are integrated. Rebase and slim each remaining branch onto the cleaned `main` before its existing integration or owner gate:
 
 - **`codex/renderer-stream`:** merged as D1 after T; its slimming is W's.
 - **`codex/asset-kit`:** the workbench calls `makePost` and `makeStation` directly. The committed GLB models, manifests, codec, pipeline and their checks go until a modelled asset exists, and so does the JSON scene that mirrors code. Preflight keeps only the rule run. Approved frames use Playwright's `toHaveScreenshot` with zero tolerance. No approval labels remain in models or code, and the branch's committed-models decision row goes.
 - **`codex/shading-options`:** a `SIDE_MODE` define in `shaders.ts` replaces patching GLSL text, and a contact sheet for the owner's pick replaces the 48-case suite. After the pick, the losing mode is deleted.
-- **`codex/rpc-api`:** rebase only. The MCP adapter stays as it is.
+- **`codex/rpc-api`:** integrated after its rebase. The MCP adapter remains.
 - **`codex/hosted-renderer-flow`:** rebase after rpc-api, onto the single Playwright config.
 - **`codex/world-layout-proposal`:** rebase. It stays unchanged until the owner adopts it.
 
 ## Docs
 
-Doc-only, after the code lands.
+The status reconciliation is in place. The remaining documentation cleanup keeps these requirements:
 
 - `stage-0.md` keeps what's done and what's left; its verification narratives go.
 - Decision rows keep the decision and its reason; run results leave the Why column.
