@@ -34,6 +34,7 @@ export const makeFloorWorker = Effect.fn("makeFloorWorker")(function*(options: {
   readonly assets?: WorkerAssetsConfig;
   readonly env?: WorkerEnv;
   readonly devPort?: number;
+  readonly name?: string;
 } = {}): Effect.fn.Return<Worker<{}>, never, Providers> {
   const { devPort = 19740, ...workerOptions } = options;
   return yield* Worker(

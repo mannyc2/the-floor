@@ -118,12 +118,28 @@ jobs:
         run: bun install --frozen-lockfile
       - if: steps.current.outputs.deploy == 'true'
         run: bun run build
+      # A fresh secret per run gates the preview's synthetic seed Worker. It is
+      # masked in logs and bound to that Worker only for this stage's lifetime.
+      - name: Generate the preview seed secret
+        if: steps.current.outputs.deploy == 'true'
+        run: |
+          secret="$(openssl rand -hex 32)"
+          echo "::add-mask::$secret"
+          echo "FLOOR_PREVIEW_SEED_SECRET=$secret" >> "$GITHUB_ENV"
       - name: Deploy preview
         id: deploy
         if: steps.current.outputs.deploy == 'true'
         env:
           STAGE: ${{ steps.current.outputs.stage }}
         run: bun run preview --stage "$STAGE"
+      - name: Seed the synthetic preview world
+        if: steps.current.outputs.deploy == 'true'
+        run: |
+          seed="$(jq -er '.seed' work/ci/preview.json)"
+          # Seeding is idempotent; at most three retries cover edge propagation.
+          curl --fail-with-body --silent --show-error --max-time 30 --retry 3 --retry-all-errors --retry-delay 5 \
+            --header "authorization: Bearer $FLOOR_PREVIEW_SEED_SECRET" \
+            --request POST "${seed%/}/seed" --output work/ci/seed.json
       - if: steps.current.outputs.deploy == 'true'
         run: bunx --no-install playwright install --with-deps chromium
       - name: Verify production entry on preview
@@ -144,7 +160,7 @@ jobs:
             const fs = require('node:fs');
             const { url } = JSON.parse(fs.readFileSync('work/ci/preview.json', 'utf8'));
             const marker = '<!-- floor-preview -->';
-            const body = `${marker}\nPreview: [The Floor](${url})\n\nThe production-entry connection, MCP and camera flows passed against this preview, including touch at the phone viewport. The workbench renderer and phone-profile suites ran locally on the CI runner. Art approval and real-phone acceptance remain separate.`;
+            const body = `${marker}\nPreview: [The Floor](${url})\n\nThe production-entry connection, MCP and camera flows passed against this preview, including touch at the phone viewport and a click that picked the seeded synthetic desk. The workbench renderer and phone-profile suites ran locally on the CI runner. Art approval and real-phone acceptance remain separate.`;
             const comments = await github.paginate(github.rest.issues.listComments, { ...context.repo, issue_number: issueNumber });
             const previous = comments.find(comment => comment.user?.type === 'Bot' && comment.body?.includes(marker));
             if (previous) await github.rest.issues.updateComment({ ...context.repo, comment_id: previous.id, body });

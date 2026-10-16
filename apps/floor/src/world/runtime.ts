@@ -235,31 +235,38 @@ const WorldsLive = FloorWorlds.make(Effect.map(
     }),
 ));
 
+type Worlds = Effect.Success<typeof FloorWorlds>;
+const publisherFor = (worlds: Worlds) => {
+  const publish = Effect.fn("WorldPublisher.publish")(function*(input: typeof Publication.Type) {
+    const encoded = yield* Schema.encodeEffect(PublicationJson)(input);
+    return yield* worlds.getByName(input.world).publish(encoded).pipe(Effect.flatMap(Schema.decodeEffect(EventJson)));
+  });
+  return WorldPublisher.of({
+    join: input =>
+      publish(Publication.cases.Join.make(input)).pipe(
+        Effect.mapError(cause => new WorldPublishError({ operation: "join", world: input.world, cause })),
+      ),
+    state: input =>
+      publish(Publication.cases.State.make(input)).pipe(
+        Effect.mapError(cause => new WorldPublishError({ operation: "state", world: input.world, cause })),
+      ),
+    receipt: input =>
+      publish(Publication.cases.Receipt.make(input)).pipe(
+        Effect.mapError(cause => new WorldPublishError({ operation: "receipt", world: input.world, cause })),
+      ),
+  });
+};
+
+// Another script reaches a host's world namespace through a cross-script binding,
+// with the same publication wire format and journal as the host's own publisher.
+export const remoteWorldPublisher = (hostScript: string) =>
+  Layer.effect(WorldPublisher, Effect.map(FloorWorlds.from(hostScript), publisherFor));
+
 export const WorldRuntimeLive: Layer.Layer<WorldPublisher | WorldReader, never, Worker> = Layer.unwrap(
   Effect.gen(function*() {
     const worlds = yield* FloorWorlds;
-    const publish = Effect.fn("WorldPublisher.publish")(function*(input: typeof Publication.Type) {
-      const encoded = yield* Schema.encodeEffect(PublicationJson)(input);
-      return yield* worlds.getByName(input.world).publish(encoded).pipe(Effect.flatMap(Schema.decodeEffect(EventJson)));
-    });
     return Layer.mergeAll(
-      Layer.succeed(
-        WorldPublisher,
-        WorldPublisher.of({
-          join: input =>
-            publish(Publication.cases.Join.make(input)).pipe(
-              Effect.mapError(cause => new WorldPublishError({ operation: "join", world: input.world, cause })),
-            ),
-          state: input =>
-            publish(Publication.cases.State.make(input)).pipe(
-              Effect.mapError(cause => new WorldPublishError({ operation: "state", world: input.world, cause })),
-            ),
-          receipt: input =>
-            publish(Publication.cases.Receipt.make(input)).pipe(
-              Effect.mapError(cause => new WorldPublishError({ operation: "receipt", world: input.world, cause })),
-            ),
-        }),
-      ),
+      Layer.succeed(WorldPublisher, publisherFor(worlds)),
       Layer.succeed(
         WorldReader,
         WorldReader.of({

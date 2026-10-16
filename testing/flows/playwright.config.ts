@@ -1,6 +1,8 @@
+import { NodeCrypto } from "@effect/platform-node";
 import { defineConfig } from "@playwright/test";
 import type { PlaywrightTestConfig } from "@playwright/test";
-import { Config, Effect, Option } from "effect";
+import { Config, Crypto, Effect, Option } from "effect";
+import { Hex } from "effect/encoding";
 const settings = Effect.runSync(Effect.all({
   baseURL: Config.String("FLOOR_FLOW_URL").pipe(Config.option),
   remote: Config.Boolean("FLOOR_FLOW_REMOTE").pipe(Config.withDefault(false)),
@@ -9,6 +11,14 @@ const settings = Effect.runSync(Effect.all({
 }));
 const rendererURL = `http://127.0.0.1:${settings.port}`;
 const workerURL = `http://127.0.0.1:${settings.workerPort}`;
+// A fresh secret per run gates the local seed Worker, as CI's per-run secret gates a preview's.
+const seedSecret = Effect.runSync(
+  Effect.flatMap(Crypto.Crypto, crypto => crypto.randomBytes(32)).pipe(
+    Effect.map(Hex.encode),
+    // oxlint-disable-next-line effecttsgo/strict-effect-provide -- The Playwright config is this process's entry point for its one random value.
+    Effect.provide(NodeCrypto.layer),
+  ),
+);
 const swiftShader = { args: ["--use-angle=swiftshader-webgl", "--enable-unsafe-swiftshader"] };
 // The first-trade flow owns a local fork and signer; it never targets a hosted stage.
 const firstTrade = settings.remote ? [] : [{
@@ -66,7 +76,12 @@ export default defineConfig({
       } satisfies NonNullable<PlaywrightTestConfig["webServer"]>,
       {
         command: "bun --preload ./apps/floor/test/local-only.ts apps/floor/test/serve-local.ts",
-        env: { CI: "true", ALCHEMY_TELEMETRY_DISABLED: "1", FLOOR_WORKER_PORT: String(settings.workerPort) },
+        env: {
+          CI: "true",
+          ALCHEMY_TELEMETRY_DISABLED: "1",
+          FLOOR_WORKER_PORT: String(settings.workerPort),
+          FLOOR_PREVIEW_SEED_SECRET: seedSecret,
+        },
         cwd: "../..",
         url: `${workerURL}/`,
         reuseExistingServer: false,

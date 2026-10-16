@@ -101,6 +101,12 @@ export const test = base.extend<
         return;
       }
       stageBudget.browser++;
+      // The world stream's NDJSON body stays open, so a buffered fetch would never
+      // complete. It goes out natively, still counted; its status is checked below.
+      if (new URL(request.url()).pathname.startsWith("/api/world")) {
+        await route.continue();
+        return;
+      }
       // Native browser redirects bypass later route handlers. Fetch only this
       // hop so a redirect cannot escape either the origin or the request cap.
       const response = await route.fetch<unknown>({ maxRedirects: 0, maxRetries: 0 });
@@ -136,6 +142,7 @@ export const test = base.extend<
     expect(refused, "the shared production-flow request budget must not be exhausted").toBe(0);
     expect(unexpectedOrigins, "the production flow needs only its own stage origin").toEqual([]);
     expect(redirects, "the stage must serve this flow without redirects").toEqual([]);
+    expect(responses.filter(response => response.status >= 300 && response.status < 400)).toEqual([]);
     expect(errors).toEqual([]);
   }, { auto: true }],
 });

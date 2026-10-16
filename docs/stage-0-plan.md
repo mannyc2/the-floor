@@ -111,7 +111,7 @@ Only the orchestrator assembles local `main`. D1, D3 and the cleanup's T, R, S, 
 
 ### E. Hosted check
 
-The production-entry camera flow, `testing/flows/production-renderer.spec.ts`, runs in the `shell` project against `FLOOR_FLOW_URL`: the local Worker by default, the preview in CI's preview step. It records the renderer string, and checks that a drag moves the world and settles one URL/history commit, that a quarter turn persists through the URL and a reload with identical pixels, that Escape goes up a rung, and that phone touch moves the world without scrolling. Production shows a pick only in a live world's drawer, which a preview has no world for, so picking stays with the local first-trade flow. The [run sheet](platform.md#hosted-renderer-run-sheet) gives the resources, budget, 30-minute cap and teardown.
+The production-entry camera flow, `testing/flows/production-renderer.spec.ts`, runs in the `shell` project against `FLOOR_FLOW_URL`: the local Worker by default, the preview in CI's preview step. It records the renderer string, and checks that a drag moves the world and settles one URL/history commit, that a quarter turn persists through the URL and a reload with identical pixels, that Escape goes up a rung, that phone touch moves the world without scrolling, and that a click picks the seeded synthetic desk and opens its labelled drawer. A `pr-<n>` stage seeds that world through its test-built seed Worker before the flow. The [run sheet](platform.md#hosted-renderer-run-sheet) gives the resources, budget, 30-minute cap and teardown.
 
 **Left:** the owner gate for the push, admission and preview, then the hosted run, with its CI run links and teardown proof in the run's commit or pull request.
 

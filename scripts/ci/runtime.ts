@@ -48,9 +48,9 @@ export class DeploymentError
   }
 }
 const deploymentFailure = (cause: unknown) => new DeploymentError({ cause });
-const PreviewOutput = Schema.Struct({
-  url: Schema.String.check(Schema.isPattern(/^https:\/\/[^/]+\.workers\.dev\/?$/)),
-});
+const WorkersDevUrl = Schema.String.check(Schema.isPattern(/^https:\/\/[^/]+\.workers\.dev\/?$/));
+// A preview stage serves the Floor and its synthetic seed Worker.
+const PreviewOutput = Schema.Struct({ url: WorkersDevUrl, seed: WorkersDevUrl });
 const loadPreviewStack = () => import("../../alchemy.run");
 const loadAdminStack = () => import("../../stacks/github");
 
