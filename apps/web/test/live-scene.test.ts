@@ -1,11 +1,14 @@
 import { describe, expect, test } from "bun:test";
-import { Option } from "effect";
+import { Effect, Option } from "effect";
 import * as THREE from "three";
 import { liveStationVariants, makeLiveStation } from "../src/map/_lib/assets/floor-kit";
 import { isKitMesh } from "../src/map/_lib/assets/geometry";
+import { traderVariants } from "../src/map/_lib/assets/trader";
 import { postLayout } from "../src/map/_lib/live-layout";
 import { createLiveScene, wallPlan } from "../src/map/_lib/renderer/live-scene";
 import { postKeys } from "../src/map/model";
+import { effectTest } from "./_runtime";
+import { bakeKit } from "./_trader-kit";
 
 const square = (x: number, z: number, side: number) => ({ x0: x, z0: z, x1: x + side, z1: z + side });
 const length = (pieces: ReadonlyArray<{ readonly from: number; readonly to: number }>) =>
@@ -94,47 +97,60 @@ describe("live stations", () => {
 });
 
 describe("live scene", () => {
-  test("allocates a station per desk, one trader mesh and two meshes of post slots", () => {
-    const material = new THREE.MeshBasicMaterial();
-    const scene = createLiveScene(
-      {
-        unitsPerH: 8 / postLayout.pitch,
-        stationsPerPost: 10,
-        monitorsPerPost: 7,
-        posts: 3,
-        rooms: [{ areas: [square(-20, -20, 40)], blueprint: false }],
-        lobby: [],
-        doors: [],
-        places: [],
-        plots: [],
-        postAnchors: [{ x: 0, z: 0 }, { x: 8, z: 0 }, { x: 0, z: 8 }],
-        bounds: square(-20, -20, 40),
-        snapshot: { revision: 0, instances: [] },
-      },
-      20,
-      material,
-      material,
-    );
-    const slots = (name: string) => scene.entities.filter(entity => entity.mesh.name === name);
-    const stationIds = Array.from({ length: liveStationVariants }, (_, variant) => slots(`live-station-${variant}`))
-      .flat().map(entity => entity.id).toSorted((a, b) => a - b);
-    expect(stationIds).toEqual(Array.from({ length: 20 }, (_, index) => index + 2));
-    expect(slots("live-post").map(entity => entity.id)).toEqual([0, 1, 2].map(index => postKeys.open + index));
-    expect(slots("live-blueprint-post").map(entity => entity.id)).toEqual(
-      [0, 1, 2].map(index => postKeys.blueprint + index),
-    );
-    // Every desk has a trader instance, picking as its desk; the crowd, not
-    // the snapshot, places them.
-    const traders = Option.getOrThrow(Option.fromUndefinedOr(scene.traders));
-    expect(traders.count).toBe(20);
-    expect(scene.entities.some(entity => entity.mesh === traders)).toBe(false);
-    expect(traders.geometry.getAttribute("_ENTITY").getX(5)).toBe(7);
-    const picked = (name: string) =>
-      Option.fromUndefinedOr(scene.meshes.find(mesh => mesh.name === name)?.geometry.getAttribute("_ENTITY"));
-    expect(Option.map(picked("live-post"), attribute => attribute.getX(0))).toEqual(Option.some(4094));
-    // The room's four outside walls are cut away by camera corner.
-    expect(scene.boundaries.length).toBeGreaterThanOrEqual(4);
-    scene.geometries.forEach(geometry => geometry.dispose());
-    material.dispose();
-  });
+  effectTest(
+    "allocates a station per desk, one trader mesh and two meshes of post slots",
+    () =>
+      Effect.gen(function*() {
+        const traderKit = yield* bakeKit;
+        const material = new THREE.MeshBasicMaterial();
+        const scene = createLiveScene(
+          {
+            unitsPerH: 8 / postLayout.pitch,
+            stationsPerPost: 10,
+            monitorsPerPost: 7,
+            posts: 3,
+            rooms: [{ areas: [square(-20, -20, 40)], blueprint: false }],
+            lobby: [],
+            doors: [],
+            places: [],
+            plots: [],
+            postAnchors: [{ x: 0, z: 0 }, { x: 8, z: 0 }, { x: 0, z: 8 }],
+            bounds: square(-20, -20, 40),
+            snapshot: { revision: 0, instances: [] },
+          },
+          20,
+          material,
+          material,
+          traderKit,
+        );
+        const slots = (name: string) => scene.entities.filter(entity => entity.mesh.name === name);
+        const stationIds = Array.from({ length: liveStationVariants }, (_, variant) => slots(`live-station-${variant}`))
+          .flat().map(entity => entity.id).toSorted((a, b) => a - b);
+        expect(stationIds).toEqual(Array.from({ length: 20 }, (_, index) => index + 2));
+        expect(slots("live-post").map(entity => entity.id)).toEqual([0, 1, 2].map(index => postKeys.open + index));
+        expect(slots("live-blueprint-post").map(entity => entity.id)).toEqual(
+          [0, 1, 2].map(index => postKeys.blueprint + index),
+        );
+        // Every desk has a trader lane, picking as its desk; the crowd, not the
+        // snapshot, places them. A desk joins its variant's instances when its
+        // look arrives (a parted hairstyle, a jacket, the first body).
+        const traders = Option.getOrThrow(Option.fromUndefinedOr(scene.traders));
+        expect(traders.count).toBe(20);
+        expect(traders.meshes.length).toBe(traderVariants.length);
+        expect(scene.entities.some(entity => traders.meshes.some(mesh => mesh === entity.mesh))).toBe(false);
+        traders.look.setXYZW(5, 0, 0, 0, 1);
+        traders.show(5);
+        traders.flush();
+        const first = Option.getOrThrow(Option.fromUndefinedOr(traders.meshes[0]));
+        expect(first.count).toBe(1);
+        expect(first.geometry.getAttribute("_ENTITY").getX(0)).toBe(7);
+        const picked = (name: string) =>
+          Option.fromUndefinedOr(scene.meshes.find(mesh => mesh.name === name)?.geometry.getAttribute("_ENTITY"));
+        expect(Option.map(picked("live-post"), attribute => attribute.getX(0))).toEqual(Option.some(4094));
+        // The room's four outside walls are cut away by camera corner.
+        expect(scene.boundaries.length).toBeGreaterThanOrEqual(4);
+        scene.geometries.forEach(geometry => geometry.dispose());
+        material.dispose();
+      }),
+  );
 });

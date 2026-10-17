@@ -7,9 +7,11 @@ import { type GroundArea, type LiveScene, postKeys } from "../../model";
 import { liveStationVariants, makeLivePost, makeLiveStation } from "../assets/floor-kit";
 import { cylinder, isKitMesh } from "../assets/geometry";
 import { furnishPlace, furnishWall, litter, seeded, tickerBand } from "../assets/room-kit";
-import { makeTrader } from "../assets/trader";
+import { makeTraderVariant, traderVariants } from "../assets/trader";
+import type { TraderKit } from "../assets/trader-kit";
 import { postLayout } from "../live-layout";
 import type { Boundary, Entity, SceneData } from "./scene";
+import { makeTraderLanes } from "./trader-lanes";
 
 // The live floor: the asset kit's posts, stations and Roomy figures, drawn at
 // the layout's scale on timber rooms with low walls. Kit geometry is authored
@@ -544,31 +546,34 @@ const addStations = (registry: Registry, live: LiveScene, desks: number) => {
   }
 };
 
-// Every desk's trader in one mesh, one instance per desk. The crowd places,
-// turns and animates them, so they stay out of the snapshot's members.
-const addTraders = (registry: Registry, desks: number, material: THREE.Material) => {
-  const geometry = makeTrader(surfaces.figures);
-  const mesh = new THREE.InstancedMesh(geometry, material, Math.max(1, desks));
-  mesh.name = "live-traders";
-  mesh.count = desks;
-  mesh.frustumCulled = false;
-  const lanes = (size: number, first: number) => {
-    const array = new Float32Array(Math.max(1, desks) * size);
-    for (let index = 0; index < array.length; index += size) array[index] = first;
-    return new THREE.InstancedBufferAttribute(array, size).setUsage(THREE.DynamicDrawUsage);
-  };
-  geometry.setAttribute("_ANIM_A", lanes(4, -1));
-  geometry.setAttribute("_ANIM_B", lanes(4, -1));
-  geometry.setAttribute("_LOOK", lanes(4, 0));
-  geometry.setAttribute(
-    "_ENTITY",
-    new THREE.InstancedBufferAttribute(Float32Array.from({ length: Math.max(1, desks) }, (_, index) => index + 2), 1),
-  );
-  geometry.computeBoundingSphere();
-  registry.meshes.push(mesh);
-  registry.geometries.push(geometry);
-  registry.scene.add(mesh);
-  return mesh;
+// Every desk's trader, drawn by the variant mesh for its body and hairstyle,
+// each with an instance slot for every desk. The crowd places, turns and
+// animates them, so they stay out of the snapshot's members.
+const addTraders = (registry: Registry, desks: number, material: THREE.Material, kit: TraderKit) => {
+  const slots = Math.max(1, desks);
+  const meshes = traderVariants.map(variant => {
+    const geometry = makeTraderVariant(surfaces.figures, kit, variant);
+    const lanes = (size: number, first: number) => {
+      const array = new Float32Array(slots * size);
+      for (let index = 0; index < array.length; index += size) array[index] = first;
+      return new THREE.InstancedBufferAttribute(array, size).setUsage(THREE.DynamicDrawUsage);
+    };
+    geometry.setAttribute("_ANIM_A", lanes(4, -1));
+    geometry.setAttribute("_ANIM_B", lanes(4, -1));
+    geometry.setAttribute("_LOOK", lanes(4, 0));
+    geometry.setAttribute("_ENTITY", lanes(1, 0));
+    geometry.computeBoundingSphere();
+    const mesh = new THREE.InstancedMesh(geometry, material, slots);
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    mesh.name = `live-traders-${variant.body}-${variant.style}`;
+    mesh.count = 0;
+    mesh.frustumCulled = false;
+    registry.meshes.push(mesh);
+    registry.geometries.push(geometry);
+    registry.scene.add(mesh);
+    return mesh;
+  });
+  return makeTraderLanes(meshes, desks, 2);
 };
 
 // One wing of a paper plane, nose toward +Z.
@@ -618,6 +623,7 @@ export const createLiveScene = (
   desks: number,
   material: THREE.Material,
   traderMaterial: THREE.Material,
+  kit: TraderKit,
 ): SceneData => {
   const registry = makeRegistry(material);
   const ground = makeStatic(surfaces.ground, surfaces.posts - surfaces.ground);
@@ -632,7 +638,7 @@ export const createLiveScene = (
   }
   addPosts(registry, live);
   addStations(registry, live, desks);
-  const traders = addTraders(registry, desks, traderMaterial);
+  const traders = addTraders(registry, desks, traderMaterial, kit);
   const planes = addPlanes(registry, 24);
   registry.scene.updateMatrixWorld(true);
   return {

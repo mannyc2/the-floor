@@ -3,6 +3,7 @@ import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import type { Theme } from "../../model";
+import type { TraderLanes } from "./trader-lanes";
 export { syntheticPalette } from "@floor/atlas/materials";
 
 export const names = PaletteName.literals;
@@ -44,7 +45,7 @@ export interface SceneData {
   // The interpolation gauge exists only in the synthetic room.
   readonly gauge: Option.Option<number>;
   // The live floor's traders, animated by the crowd rather than snapshots.
-  readonly traders?: THREE.InstancedMesh;
+  readonly traders?: TraderLanes;
   // The paper planes the crowd throws.
   readonly planes?: THREE.InstancedMesh;
 }

@@ -13,7 +13,7 @@ Deployables live under `apps/`; code shared by at least two apps, or isolated by
 | `packages/wallets` | Wallet provider service shared by floor and signer |
 | `packages/world` | World model: desks, plots, layout, the unadopted layout proposal, and the piece kit's types and checks; no three.js |
 | `packages/atlas` | Plain tokens, materials, look, camera and proportions; no generated output or three.js. Approval history lives in the decision log. Other design-system modules and asset/scene Schemas remain planned |
-| `assets` | *Planned.* Asset sources and manifests, including reproducible generated models |
+| `assets` | Asset sources: the trader's CC0 bodies, hairstyles and motion capture, which `apps/web/kit` bakes at build time |
 | `testing` | Flows, look scenes, approved reference frames, bench, recordings and fixtures |
 | `scripts` | Build, lint, budget and verification tooling |
 | `stacks` | Infrastructure helpers composed by the root `alchemy.run.ts` |

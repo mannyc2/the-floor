@@ -1,10 +1,11 @@
 import { type FigureColor, PaletteName } from "@floor/atlas/materials";
 import { Option } from "effect";
 import * as THREE from "three";
-import { clipIndex, type ClipName, clips, cyclesPerUnit } from "../assets/rig";
-import { hairStyles } from "../assets/trader";
+import { clipIndex, type ClipName, clips, cyclesPerUnit } from "../assets/clips";
+import { type bodies, type hairStyles, visibility } from "../assets/trader-kit";
 import { postLayout, traderKinds, traderPlaces, traderReach, traderStates } from "../live-layout";
 import type { Flights } from "./flights";
+import type { TraderLanes } from "./trader-lanes";
 
 // The crowd: what each trader on the floor is doing from moment to moment.
 // The world says where an agent is and what state it reports; the crowd
@@ -128,10 +129,13 @@ const looks = {
     ["hair-blond-0", 1],
   ],
 } as const satisfies Record<string, ReadonlyArray<readonly [FigureColor, number]>>;
-const styleWeights: ReadonlyArray<readonly [number, number]> = hairStyles.map((_style, index) => [
-  index + 1,
-  [3, 2, 1.5, 1.2, 1.2][index] ?? 1,
-]);
+// Hairstyles by body, as visibility groups with their weights.
+const styled = (pairs: ReadonlyArray<readonly [(typeof hairStyles)[number], number]>) =>
+  pairs.map(([style, weight]) => [visibility.hair(style), weight] as const);
+const styleWeights = {
+  male: styled([["parted", 4], ["buzzed", 3], ["long", .3]]),
+  female: styled([["long", 3], ["bun", 3], ["cropped", 1.5], ["parted", 1]]),
+} satisfies Record<(typeof bodies)[number], ReadonlyArray<readonly [number, number]>>;
 
 // One trader's appearance from its agent's seed: colours as palette slots in
 // the shader's pairs, hair style and outfit, and its build.
@@ -141,12 +145,13 @@ export const lookOf = (seed: number) => {
     slotOf(weighted(random, choices, choices[0]?.[0] ?? "jacket-navy-0"));
   const jacket = pick(looks.jacket), trousers = pick(looks.trousers);
   const skin = pick(looks.skin);
-  const style = weighted(random, styleWeights, 1);
+  const body = random() < .36 ? 1 : 0;
+  const style = weighted(random, body === 1 ? styleWeights.female : styleWeights.male, 1);
   const hair = pick(looks.hair);
   const shirt = pick(looks.shirt), tie = pick(looks.tie);
   const outfit = random() < .18 ? 1 : 0;
   return {
-    look: [jacket + 256 * trousers, skin + 256 * hair, shirt + 256 * tie, style + 16 * outfit] as const,
+    look: [jacket + 256 * trousers, skin + 256 * hair, shirt + 256 * tie, style + 16 * outfit + 64 * body] as const,
     // Heights vary little: the furniture does not scale, and a short trader's
     // arms would sink into the worktop.
     width: .92 + random() * .18,
@@ -179,7 +184,9 @@ interface Trader {
 // much would push its knees through the counter's panel.
 export const depthOf = (width: number) => 1 + (width - 1) * .4;
 
-const speeds = { walk: .8, hurry: 1.55 } as const;
+// Close to each capture's own pace, so cadence looks natural: a brisk walk,
+// and a runner's dash between posts.
+const speeds = { walk: .7, hurry: 2.4 } as const;
 // Where in the throw clip's loop the plane leaves the hand.
 const throwRelease = .41;
 // Far moves hurry; nobody strolls across a whole floor.
@@ -233,20 +240,13 @@ export const route = (from: Point, to: Point, posts: ReadonlyArray<Point>, radiu
 };
 
 export const makeCrowd = (
-  mesh: THREE.InstancedMesh,
+  lanes: TraderLanes,
   unitsPerH: number,
   // The desk identity of instance zero.
   firstId: number,
   flights: Option.Option<Flights> = Option.none(),
 ) => {
-  const count = mesh.count;
-  const animA = mesh.geometry.getAttribute("_ANIM_A");
-  const animB = mesh.geometry.getAttribute("_ANIM_B");
-  const lookAttribute = mesh.geometry.getAttribute("_LOOK");
-  if (
-    !(animA instanceof THREE.InstancedBufferAttribute) || !(animB instanceof THREE.InstancedBufferAttribute)
-    || !(lookAttribute instanceof THREE.InstancedBufferAttribute)
-  ) return Option.none();
+  const { count, animA, animB, look: lookAttribute } = lanes;
   const traders: Array<Trader> = Array.from({ length: count }, () => ({
     present: false,
     target: Option.none(),
@@ -340,7 +340,7 @@ export const makeCrowd = (
     rotation.setFromAxisAngle(up, trader.yaw);
     scale.set(unitsPerH * trader.width, unitsPerH * trader.height, unitsPerH * depthOf(trader.width));
     matrix.compose(position, rotation, scale);
-    mesh.setMatrixAt(index, matrix);
+    lanes.setMatrixAt(index, matrix);
     touched.matrix = true;
   };
 
@@ -358,7 +358,7 @@ export const makeCrowd = (
       if (!trader.present) {
         const { look, width, height } = lookOf(target.seed);
         lookAttribute.setXYZW(index, ...look);
-        lookAttribute.needsUpdate = true;
+        lanes.show(index);
         trader.random = generator(target.seed);
         trader.width = width;
         trader.height = height;
@@ -387,11 +387,9 @@ export const makeCrowd = (
       trader.present = false;
       trader.target = Option.none();
       animA.setX(index, -1);
-      touched.animation = true;
+      lanes.hide(index);
     });
-    // Desks fill in order, so drawing up to the last one standing skips the
-    // empty tail of a partly filled world.
-    mesh.count = Math.max(1, traders.findLastIndex(trader => trader.present) + 1);
+    lanes.flush();
   };
 
   // Walks a trader along its route; arriving settles it into an activity.
@@ -481,13 +479,10 @@ export const makeCrowd = (
         if (moved) writeMatrix(index, trader);
       });
     });
-    if (touched.animation) {
-      animA.needsUpdate = true;
-      animB.needsUpdate = true;
+    if (touched.animation || touched.matrix) {
+      lanes.touch();
+      lanes.flush();
       touched.animation = false;
-    }
-    if (touched.matrix) {
-      mesh.instanceMatrix.needsUpdate = true;
       touched.matrix = false;
     }
     return flying || traders.some(trader => trader.present);

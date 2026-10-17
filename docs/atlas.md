@@ -319,9 +319,9 @@ Sound is off by default and is never needed to understand anything. Under reduce
 
 ## Assets
 
-There is no Blender for the MVP. Every asset is made as code, following the same conventions a Blender asset would, so modelled assets can join later without changes.
+There is no Blender for the MVP. Every asset is made as code, following the same conventions a Blender asset would, so modelled assets can join later without changes. The live trader is the one exception: its bodies, hair and motion capture are CC0 sources under `assets/traders/source`, converted, dressed and baked by code in `apps/web/kit/traders` at build time.
 - **Code makes it.** three.js generators, and SVG profiles that are lathed, extruded or swept. Generators live in the web asset kit, because three.js may only be imported in `apps/web`.
-- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. The post and station generators and the picked Roomy figure live in `apps/web/src/map/_lib/assets/`, which the workbench builds directly; the live viewer draws its own provisional floor kit, room kit and rigged trader from the same folder. Models and manifests under `assets/<kind>/<id>/` arrive with the first modelled asset ([decision](decisions.md#the-look)).
+- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. The post and station generators and the picked Roomy figure live in `apps/web/src/map/_lib/assets/`, which the workbench builds directly; the live viewer draws its own provisional floor kit and room kit from the same folder, and its trader from the baked trader kit. Models and manifests under `assets/<kind>/<id>/` arrive with the first modelled asset ([decision](decisions.md#the-look)).
 - **The desk gets the most care.** Most of what people see is desks, so the desk has variants, and neighbouring desks differ.
 - **The conventions:**
   - `_SURFACE` holds per-vertex surface ids. Technique B draws a line where the surface id or the depth changes, so where lines fall is authored, and a cylinder is one surface with no stripes.

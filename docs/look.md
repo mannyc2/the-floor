@@ -19,7 +19,7 @@ There is no human artist or art director.
 | Role | Who | Notes |
 | --- | --- | --- |
 | Reference images | Codex's image generation | From the prompts below |
-| Assets | Claude and Codex, as code | three.js generators, and SVG profiles lathed or extruded into geometry. No Blender for the MVP |
+| Assets | Claude and Codex, as code | three.js generators, and SVG profiles lathed or extruded into geometry. No Blender for the MVP. The live trader is converted by code from CC0 human sources ([decision](decisions.md#the-look)) |
 | Review | The agent that didn't make the thing | It checks against the rules and the lessons below, then shortlists. It filters; it doesn't approve |
 | Approval | The owner, by picking | The owner sees a short set of options and picks one, or answers "none, because…". Nobody asks the owner to draw, model or tune values |
 | Newcomer test | Someone who hasn't seen the Floor | If nobody is available, it is recorded as not run, not as passed |
@@ -30,7 +30,7 @@ Lines come from technique B: a surface-id-and-depth edge pass on WebGL, one CSS 
 - Thin lines don't survive being baked into 64-pixel impostors, so distant zoom levels need their own outline pass or level of detail.
 - No real phone has been tested. The phone profile (390×844, pixel ratio 3, CPU throttled four times) is a stand-in.
 
-The technique is implemented in `apps/web/src/map/_lib/renderer`. The workbench's neutral synthetic desk scene exercises geometry and camera behavior; it does not choose the floor's art direction. The live viewer draws its own floor kit (faceted posts, stools, CRTs, a hanging crown and room furnishings) and a rigged, animated trader in the Roomy frames' palette with provisional figure colours, posts drawn tighter than the Roomy pitch; that drawing is provisional and approves no asset design.
+The technique is implemented in `apps/web/src/map/_lib/renderer`. The workbench's neutral synthetic desk scene exercises geometry and camera behavior; it does not choose the floor's art direction. The live viewer draws its own floor kit (faceted posts, stools, CRTs, a hanging crown and room furnishings) and a skinned, motion-captured trader in the Roomy frames' palette with provisional figure colours, posts drawn tighter than the Roomy pitch; that drawing is provisional and approves no asset design.
 
 The 12 October local renderer checks passed 360 repeat captures and nine independent primitive comparisons through `bun run test:flow`. Mean one-CSS-pixel tolerant F1 was 0.999882, and the 256→64 bake retained 15.4% of edges at half darkness. `bun run test:phone:mac` also passed the desktop phone profile on Apple M1 Pro. The complete measurements and their limits are in [Stage 0](stage-0.md#local-renderer-verification); none is art approval.
 

@@ -16,6 +16,7 @@
     "vite.config.ts",
     "workbench/**/*.ts",
     "dev-world/**/*.ts",
+    "kit/**/*.ts",
     "test/**/*.ts"
   ],
   "exclude": [

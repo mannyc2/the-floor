@@ -4,7 +4,7 @@ import { proportionPalette } from "@floor/atlas/materials";
 import { Effect, Option, Result, Schema, Scope } from "effect";
 import * as THREE from "three";
 import type { Camera, LiveScene, Presentation, Theme } from "../../model";
-import { bakeMotion } from "../assets/rig";
+import { loadTraderKit } from "../assets/trader-kit-source";
 import { makeCrowd } from "./crowd";
 import { makeFlights } from "./flights";
 import { makeInstanceSnapshots } from "./instances";
@@ -156,11 +156,20 @@ export const openEngine = (
         defines: live ? { LIVE_SCENE: "" } : {},
       })
     );
-    // Traders skin their parts from a baked motion texture; the crowd moves
-    // them and picks their clips, and the shader plays the clips.
-    const baked = bakeMotion();
+    // Traders are skinned from the trader kit's baked motion texture; the
+    // crowd moves them and picks their clips, and the shader plays the clips.
+    // The synthetic scene draws no traders and loads no kit.
+    const kit = live
+      ? Option.some(
+        yield* loadTraderKit.pipe(Effect.mapError(cause => new RendererFailure({ operation: "trader-kit", cause }))),
+      )
+      : Option.none();
     const motion = yield* own(() =>
-      new THREE.DataTexture(baked.data, baked.width, baked.height, THREE.RGBAFormat, THREE.FloatType)
+      Option.match(kit, {
+        onNone: () => new THREE.DataTexture(new Float32Array(4), 1, 1, THREE.RGBAFormat, THREE.FloatType),
+        onSome: ({ header, motion: baked }) =>
+          new THREE.DataTexture(baked, header.motion.width, header.motion.height, THREE.RGBAFormat, THREE.FloatType),
+      })
     );
     motion.minFilter = THREE.NearestFilter;
     motion.magFilter = THREE.NearestFilter;
@@ -172,12 +181,16 @@ export const openEngine = (
         fragmentShader: colorFragment,
         // Shared uniform objects keep theme and palette changes in step.
         uniforms: { ...surfaceUniforms, motion: { value: motion }, motionTime },
-        defines: { LIVE_SCENE: "", TRADER: "" },
+        defines: {
+          LIVE_SCENE: "",
+          TRADER: "",
+          FRAMES_PER_CLIP: String(Option.match(kit, { onNone: () => 1, onSome: ({ header }) => header.frames })),
+        },
       })
     );
-    const data: SceneData = Option.match(options.live, {
+    const data: SceneData = Option.match(Option.all({ scene: options.live, kit }), {
       onNone: () => createScene({ width: element.clientWidth, height: element.clientHeight, desks }, material),
-      onSome: scene => createLiveScene(scene, desks, material, traderMaterial),
+      onSome: ({ scene, kit: trader }) => createLiveScene(scene, desks, material, traderMaterial, trader),
     });
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
