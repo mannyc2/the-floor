@@ -129,6 +129,10 @@ const awayFrom = (seat: Seat): Effect.Effect<Option.Option<typeof AgentLocation.
       AgentLocation.cases.AtPlace.make({ floorId: seat.floor.id, place: value }));
   });
 
+// A bustle publish that fails is logged; the world carries on.
+const tolerant = <A, E>(publish: Effect.Effect<A, E>) =>
+  publish.pipe(Effect.asVoid, Effect.catch(error => Effect.logWarning("Synthetic bustle publish failed", error)));
+
 const serve = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
@@ -232,30 +236,34 @@ const serve = Effect.gen(function*() {
     encodeState({ world, checkpoint, agent, state }).pipe(Effect.flatMap(body => post("/state", body)));
   const publishMove = (agent: AgentId, location: typeof AgentLocation.Type) =>
     encodeMove({ world, checkpoint, agent, location }).pipe(Effect.flatMap(body => post("/move", body)));
-  // Every agent's first state, in the background; the world is already open.
-  yield* Effect.forEach(seats, seat => weightedState.pipe(Effect.flatMap(state => publishState(seat.agent, state))), {
-    concurrency: 8,
-    discard: true,
-  }).pipe(Random.withSeed(seed), Effect.forkScoped);
+  // The world stores a full snapshot with every event, so the bustle stays
+  // light: a sixth of the agents report a first state, one at a time, and a
+  // publish that fails is logged rather than ending the world. Agents with no
+  // reported state still work at their desks in the viewer.
+  yield* Effect.forEach(
+    seats.filter((_seat, index) => index % 6 === 0),
+    seat => weightedState.pipe(Effect.flatMap(state => tolerant(publishState(seat.agent, state)))),
+    { discard: true },
+  ).pipe(Random.withSeed(seed), Effect.forkScoped);
   const away = yield* Ref.make(HashSet.empty<string>());
   const bustle = Effect.gen(function*() {
     const awayNow = yield* Ref.get(away);
-    // About one agent in twelve is away from its desk at a time.
-    const limit = Math.ceil(seats.length / 12);
-    for (let turn = 0; turn < 3 + Math.ceil(seats.length / 400); turn++) {
+    // Up to one agent in fifteen is away from its desk at a time.
+    const limit = Math.ceil(seats.length / 15);
+    for (let turn = 0; turn < 2; turn++) {
       const seat = Array.get(seats, yield* Random.nextIntBetween(0, Math.max(0, seats.length - 1)));
       if (Option.isNone(seat)) continue;
       const { agent, home } = seat.value;
       const roll = yield* Random.next;
       if (HashSet.has(awayNow, agent) && roll < .6) {
-        yield* publishMove(agent, AgentLocation.cases.AtDesk.make({ deskId: home.desk.id }));
+        yield* tolerant(publishMove(agent, AgentLocation.cases.AtDesk.make({ deskId: home.desk.id })));
         yield* Ref.update(away, set => HashSet.remove(set, agent));
-      } else if (roll < .55 || HashSet.size(awayNow) >= limit) {
-        yield* publishState(agent, yield* weightedState);
+      } else if (roll < .5 || HashSet.size(awayNow) >= limit) {
+        yield* tolerant(publishState(agent, yield* weightedState));
       } else {
         const location = yield* awayFrom(seat.value);
         if (Option.isSome(location)) {
-          yield* publishMove(agent, location.value);
+          yield* tolerant(publishMove(agent, location.value));
           yield* Ref.update(away, set => HashSet.add(set, agent));
         }
       }
@@ -268,7 +276,7 @@ const serve = Effect.gen(function*() {
         onSome: location => publishMove(mover.agent, location),
       }), { discard: true });
   yield* Stream.iterate(0, step => step + 1).pipe(
-    Stream.schedule(Schedule.spaced("1200 millis")),
+    Stream.schedule(Schedule.spaced("2500 millis")),
     Stream.runForEach(() => bustle),
     Random.withSeed(seed + 1),
     Effect.forkScoped,
