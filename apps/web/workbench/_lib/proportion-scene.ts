@@ -3,10 +3,10 @@ import { type PaletteName, proportionPalette } from "@floor/atlas/materials";
 import { figureHeight, roomyRecipe, studyCounts, studyLayout } from "@floor/atlas/proportions";
 import { Effect, Option } from "effect";
 import * as THREE from "three";
+import { chairParts, figureParts, type FigurePose } from "../../src/map/_lib/assets/figure";
 import type { Camera } from "../../src/map/model";
 import type { Engine } from "../renderer-probe";
 import { WorkbenchFailure } from "../runtime";
-import { figureParts, type FigurePose } from "./proportion-figure";
 import {
   box,
   createProportionGeometry,
@@ -59,18 +59,6 @@ const ring = (outer: number, inner: number, height: number, y: number, slot: Pal
 };
 const cylinder = (r: number, h: number, x: number, y: number, z: number, slot: PaletteName) =>
   part(new THREE.CylinderGeometry(r, r, h, 32).translate(x, y, z), slot);
-const chairParts = (top: number): ReadonlyArray<Part> => {
-  const seat = top - .215;
-  return [
-    box(.28, .035, .27, 0, seat, 0, "steel-0"),
-    cylinder(.027, seat - .035, 0, (seat - .035) / 2, 0, "steel-0"),
-    box(.025, .30, .025, -.11, seat + .10, -.115, "steel-0"),
-    box(.025, .30, .025, .11, seat + .10, -.115, "steel-0"),
-    box(.27, .16, .035, 0, seat + .23, -.115, "steel-0"),
-    box(.34, .025, .045, 0, .025, 0, "steel-0"),
-    box(.045, .025, .34, 0, .025, 0, "steel-0"),
-  ];
-};
 
 const installPost = (geometry: ProportionGeometry, centre: Point, index: number, night: boolean) => {
   const radius = roomyRecipe.counterRadiusRatio, top = roomyRecipe.worktopRatio;

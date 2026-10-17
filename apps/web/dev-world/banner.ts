@@ -25,19 +25,31 @@ const describe = (value: DevelopmentLayout) =>
     }`;
 const is = (predicate: (value: DevelopmentLayout) => boolean) => Option.exists(selection, predicate);
 
+// The strip wears the shell's paper and ink, set from the Atlas in its entry.
+const style = document.createElement("style");
+style.textContent = `
+  .dev-world-strip {
+    position: fixed; top: .9rem; left: 50%; transform: translateX(-50%); z-index: 3; max-width: calc(100vw - 26rem);
+    padding: .25rem .7rem; border: .0625rem dashed color-mix(in srgb, var(--floor-ink-day) 45%, transparent);
+    background: color-mix(in srgb, var(--floor-paper-day) 94%, transparent); color: var(--floor-ink-day);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", P052, serif;
+    font-size: .76rem; line-height: 1.4; font-variant-caps: all-small-caps; letter-spacing: .06em; text-align: center;
+  }
+  .dev-world-strip a { color: inherit; text-decoration-thickness: .0625rem; text-underline-offset: .15em; }
+  .dev-world-strip a[aria-current="page"] { font-weight: 700; text-decoration: none; }
+  body:has(.floor-shell[data-theme="night"]) .dev-world-strip {
+    border-color: color-mix(in srgb, var(--floor-ink-night) 45%, transparent);
+    background: color-mix(in srgb, var(--floor-ground-night) 94%, transparent); color: var(--floor-ink-night);
+  }
+  @media (max-width: 64rem) {
+    .dev-world-strip { top: auto; bottom: 3.9rem; max-width: calc(100vw - 2rem); font-size: .66rem; padding: .15rem .5rem; }
+    body:has(.has-drawer) .dev-world-strip { display: none; }
+  }
+`;
+document.head.append(style);
 const banner = document.createElement("nav");
 banner.setAttribute("aria-label", "Development layout");
-banner.style.cssText = [
-  "position: fixed",
-  "top: .75rem",
-  "left: 50%",
-  "transform: translateX(-50%)",
-  "z-index: 3",
-  "padding: .25rem .75rem",
-  "font-size: .8rem",
-  "background: var(--floor-paper)",
-  "color: var(--floor-ink)",
-].join("; ");
+banner.className = "dev-world-strip";
 const status = document.createElement("span");
 status.textContent = `Development world, synthetic · ${
   Option.match(selection, {

@@ -1,5 +1,10 @@
 import { PaletteName } from "@floor/atlas/materials";
+import { Schema } from "effect";
 import * as THREE from "three";
+
+// Specialize Three's generic constructor before narrowing, so its
+// unconstrained geometry and material parameters cannot introduce any.
+export const isKitMesh = Schema.is(Schema.instanceOf(THREE.Mesh));
 
 export type Point = readonly [number, number, number];
 // 1 marks a screen face and 2 a lamp aperture; night lights them flat.

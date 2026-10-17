@@ -44,6 +44,9 @@ test("a live desk follows its agent and opens the settled fork receipt", async (
   await page.goto(url.href);
   await expect(page.getByText("World connected", { exact: true })).toBeVisible();
   await expect(page.getByText("Rendering live world", { exact: true })).toBeVisible();
+  // The observer reads agent states from the desk list, which stays folded until asked for.
+  const desks = page.getByRole("button", { name: "Desks", exact: true });
+  await desks.click();
   const ready = page.waitForEvent("console", message => message.text() === "first-trade observer ready");
   const observations = page.evaluate(({ activeColor }) => {
     // @effect-diagnostics-next-line newPromise:off -- This browser-only observer reports real DOM/GPU changes without replacing application behavior.
@@ -116,6 +119,7 @@ test("a live desk follows its agent and opens the settled fork receipt", async (
   expect(observed.states.at(-1)).toBe("idle");
   expect(observed.states.indexOf("researching")).toBeLessThan(observed.states.indexOf("trading"));
   expect(observed.activeFrames).toBeGreaterThan(0);
+  await desks.click();
 
   // This point is the first canonical desk's tabletop, projected with the
   // production camera basis. The click goes through the GPU picking path.
@@ -177,6 +181,7 @@ test("a live desk follows its agent and opens the settled fork receipt", async (
   await expect(drawer.locator("[data-transaction]")).toHaveText(receipt.transaction.hash);
   await page.reload();
   await expect(page.getByText("World connected", { exact: true })).toBeVisible();
+  await desks.click();
   await page.getByRole("button", { name: `Open desk for ${metadata.identity.intent.agent}` }).click();
   await expect(drawer.locator("[data-transaction]")).toHaveText(receipt.transaction.hash);
   await test.info().attach("world-observation", {

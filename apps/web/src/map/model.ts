@@ -1,3 +1,4 @@
+import { FloorPlace } from "@floor/contract/world";
 import { Schema } from "effect";
 
 export const EntityId = Schema.Int.check(Schema.isGreaterThan(0));
@@ -25,27 +26,40 @@ export const cameraFromQuery = (query: URLSearchParams) =>
 // so the first floor's origin sits at zero.
 export const GroundArea = Schema.Struct({ x0: Schema.Finite, z0: Schema.Finite, x1: Schema.Finite, z1: Schema.Finite });
 export type GroundArea = typeof GroundArea.Type;
-// Markings a layout declares on the ground: door passages, the envelopes of
-// open and blueprint posts, named-place reservations and lobby plots.
-export const GroundMark = Schema.Struct({
-  kind: Schema.Literals(["door", "post", "blueprintPost", "place", "plot"]),
-  area: GroundArea,
-});
-export type GroundMark = typeof GroundMark.Type;
-// What a live mount needs that a synthetic one does not: each floor's ground
-// and any lobby ground, the layout's markings, the reachable extent of the
-// world and its first reconciled instances. A layout that declares no lobby or
-// markings leaves those lists empty.
+// The figure meshes a live slot owns, in marker-variant order: seated at its
+// own desk, standing at a place or another desk, walking among other posts.
+export const livePoses = ["seated", "standing", "walking"] as const;
+export type LivePose = (typeof livePoses)[number];
+// Post slots ride in the instance snapshot beside desks, under keys clear of
+// the 12-bit desk identities; a post picks as ground. A slot is drawn open or
+// as an unbuilt footprint by which of its two keys the snapshot lists.
+export const postKeys = { open: 100_000, blueprint: 200_000 } as const;
+// What a live mount needs that a synthetic one does not. The layout's scale
+// (plan units per nominal figure height H) sizes the asset kit; each floor's
+// ground, the lobby, door passages, named places and lobby plots are static
+// for a mount, as is the reachable extent of the world. Desks, figures and
+// posts arrive in the snapshot. A layout that declares no lobby, doors or
+// places leaves those lists empty.
 export const LiveScene = Schema.Struct({
-  floors: Schema.Array(GroundArea),
+  unitsPerH: Schema.Finite.check(Schema.isGreaterThan(0)),
+  stationsPerPost: Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 12 })),
+  monitorsPerPost: Schema.Int.check(Schema.isBetween({ minimum: 1, maximum: 12 })),
+  posts: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
+  rooms: Schema.Array(Schema.Struct({ areas: Schema.Array(GroundArea), blueprint: Schema.Boolean })),
   lobby: Schema.Array(GroundArea),
-  marks: Schema.Array(GroundMark),
+  doors: Schema.Array(GroundArea),
+  // A place's furniture backs onto its room's outer wall; `facing` is the
+  // yaw that turns +Z toward it, which an agent standing there also takes.
+  places: Schema.Array(Schema.Struct({ place: FloorPlace, area: GroundArea, facing: Schema.Finite })),
+  plots: Schema.Array(GroundArea),
   bounds: GroundArea,
   snapshot: Schema.Json,
 });
 export type LiveScene = typeof LiveScene.Type;
 export const Theme = Schema.Literals(["day", "night"]);
 export type Theme = typeof Theme.Type;
+// A link may carry the night view; anything else opens by day.
+export const themeFromQuery = (query: URLSearchParams) => Schema.decodeUnknownOption(Theme)(query.get("theme"));
 export const Presentation = Schema.Struct({
   revision: Schema.Int,
   theme: Theme,

@@ -1,5 +1,11 @@
 import type { AgentId, ChainRef, DeskId, FloorId, TradingPostId } from "@floor/contract/identifiers";
-import { AgentLocation, canonicalFloorSpan, type FloorPlace, type World } from "@floor/contract/world";
+import {
+  AgentLocation,
+  canonicalFloorSpan,
+  canonicalPostAnchor,
+  type FloorPlace,
+  type World,
+} from "@floor/contract/world";
 import { Array, Option } from "effect";
 
 // Plan coordinates are absolute topology units on the ground plane. Floor
@@ -60,6 +66,10 @@ export interface LobbyPlan {
   readonly places: ReadonlyArray<{ readonly place: "entrance" | "plots"; readonly position: PlanPoint }>;
 }
 export interface WorldPlan {
+  // The least distance the layout keeps between neighbouring post anchors. A
+  // viewer draws it at the approved Roomy post pitch, which fixes how many
+  // plan units one figure height spans. None where the layout keeps none.
+  readonly postPitch: Option.Option<number>;
   readonly floors: Array.NonEmptyReadonlyArray<FloorPlan>;
   readonly stations: ReadonlyArray<StationPlan>;
   readonly lobby: LobbyPlan;
@@ -109,6 +119,8 @@ export const squareSpiralLayout: WorldLayout = {
       places: [],
     }));
     return {
+      // Neighbouring anchors on the square spiral are one post spacing apart.
+      postPitch: Option.map(canonicalPostAnchor(1), anchor => Math.hypot(anchor.x, anchor.z)),
       floors,
       stations: world.floors.flatMap(floor =>
         floor.posts.flatMap(post =>

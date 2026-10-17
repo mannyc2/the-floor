@@ -24,7 +24,7 @@ export const cornerCamera = (rotation: Rotation) => {
 
 // Every generated model at every quarter turn, by day and by night.
 export const inspectGeneratedAssets = Effect.acquireRelease(
-  Effect.sync(() => [makePost(), ...stationVariants.map(makeStation)]),
+  Effect.sync(() => [makePost(), ...stationVariants.map(variant => makeStation(variant))]),
   objects => Effect.sync(() => objects.forEach(disposeAsset)),
 ).pipe(
   Effect.map(objects =>

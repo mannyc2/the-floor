@@ -459,6 +459,8 @@ test("the proposal positions named places on its floors and scales by the chosen
   expect(doubled.stations.map(station => station.position)).toEqual(
     plan.stations.map(station => ({ x: station.position.x * 2, z: station.position.z * 2 })),
   );
+  // The approved 4.25H post pitch is the proposal's least post distance.
+  expect(doubled.postPitch).toEqual(Option.some(postDistance / unit * 4));
   expect(doubled.floors.map(floor => floor.posts.map(post => post.envelope))).toEqual(
     plan.floors.map(floor => floor.posts.map(() => Option.some(postEnvelope / unit * 4))),
   );

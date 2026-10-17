@@ -2,13 +2,12 @@ import { PaletteName, proportionPalette } from "@floor/atlas/materials";
 import { figureHeight, roomyRecipe, studyLayout } from "@floor/atlas/proportions";
 import { Effect, Option, Order, Schema } from "effect";
 import * as THREE from "three";
-import { makePost, makeStation } from "../../src/map/_lib/assets";
+import { figureParts, makePost, makeStation } from "../../src/map/_lib/assets";
 import type { Engine } from "../renderer-probe";
 import { WorkbenchFailure } from "../runtime";
 import { disposeAsset, isAssetMesh } from "./asset-mesh";
 import { assetCamera, type AssetReview } from "./asset-review-model";
 import { assetFaceStyle, inspectAssetRules } from "./asset-rules";
-import { figureParts } from "./proportion-figure";
 import { box, createProportionGeometry, type Point, type ProportionGeometry } from "./proportion-geometry";
 
 const isWorkbenchFailure = Schema.is(WorkbenchFailure);

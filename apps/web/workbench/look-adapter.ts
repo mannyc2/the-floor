@@ -103,7 +103,10 @@ export const prepareLookAdapter = Effect.fn("Workbench.prepareLookAdapter")(func
   yield* installScene(engine, config, reference, assets);
   if (config.asset === "rack") {
     const scene = engine.diagnosticScene();
-    const gauge = Option.fromUndefinedOr(scene.entities.find((entity) => entity.id === scene.gaugeId));
+    const gauge = Option.flatMap(
+      scene.gauge,
+      id => Option.fromUndefinedOr(scene.entities.find(entity => entity.id === id)),
+    );
     if (Option.isNone(gauge)) {
       return yield* new WorkbenchFailure({ operation: "capture-asset", cause: "Synthetic gauge is absent" });
     }

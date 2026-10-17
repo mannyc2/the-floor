@@ -1,5 +1,6 @@
 import { NodeServices } from "@effect/platform-node";
 import { cameraValues } from "@floor/atlas/camera";
+import { roomyRecipe } from "@floor/atlas/proportions";
 import {
   AgentId,
   ChainRef,
@@ -58,6 +59,7 @@ const travellerDesk = relative(
   Option.getOrThrow(canonicalStationPosition(0, 0, defaultWorldLayout.stationsPerPost)),
 );
 const travellerPost = relative(1, Option.getOrThrow(canonicalPostAnchor(0)));
+const pitch = Option.getOrThrow(Option.map(canonicalPostAnchor(1), anchor => Math.hypot(anchor.x, anchor.z)));
 
 const encodeMove = Schema.encodeEffect(Schema.toCodecJson(MoveInWorld));
 const cameraOf = (page: Page) => {
@@ -136,8 +138,13 @@ test("a viewer reaches the second floor, picks a desk there and follows its agen
   await expect.poll(() => cameraOf(page).x).toBeCloseTo(secondFloor.x, 3);
   await expect.poll(() => cameraOf(page).z).toBeCloseTo(secondFloor.z, 3);
   const deskButton = page.getByRole("button", { name: `Open desk for ${traveller}`, exact: true });
+  const desks = page.getByRole("button", { name: "Desks", exact: true });
+  // The desk list stays folded until asked for, so it never covers the floor.
+  await expect(deskButton).toHaveCount(0);
+  await desks.click();
   await expect(deskButton).toBeVisible();
   await expect(page.getByRole("button", { name: `Open desk for ${agents[0]}`, exact: true })).toHaveCount(0);
+  await desks.click();
 
   // The post anchor at the view's centre is empty, so picking it selects nothing.
   const drawer = page.getByRole("complementary", { name: "Agent desk" });
@@ -165,8 +172,12 @@ test("a viewer reaches the second floor, picks a desk there and follows its agen
   const beforeMove = cameraOf(page);
   await move(AgentLocation.cases.AtPost.make({ postId: post }));
   await expect(drawer.locator("[data-agent-location]")).toHaveText(`At post ${post}`);
-  await expect.poll(() => cameraOf(page).x).toBeCloseTo(travellerPost.x, 3);
-  await expect.poll(() => cameraOf(page).z).toBeCloseTo(travellerPost.z, 3);
+  // A visitor joins the crowd just outside the post's seated ring, so the
+  // camera rests beside the post: past its counter, short of the next post.
+  const fromPost = () => Math.hypot(cameraOf(page).x - travellerPost.x, cameraOf(page).z - travellerPost.z);
+  const counter = roomyRecipe.counterRadiusRatio * pitch / roomyRecipe.postPitchRatio;
+  await expect.poll(fromPost).toBeGreaterThan(counter);
+  await expect.poll(fromPost).toBeLessThan(pitch / 2);
   expect(cameraOf(page).sequence).toBe(beforeMove.sequence + 1);
   // The marker now stands at the view's centre: picking there selects the agent.
   await drawer.getByRole("button", { name: "Close desk", exact: true }).click();
@@ -194,6 +205,7 @@ test("a viewer reaches the second floor, picks a desk there and follows its agen
   await expect(page.getByText("World connected", { exact: true })).toBeVisible();
   await expect(second).toHaveAttribute("aria-current", "location");
   await expect.poll(() => cameraOf(page).sequence).toBe(left + 1);
+  await desks.click();
   await deskButton.click();
   await expect(drawer.locator("[data-agent-location]")).toHaveText("At its desk");
 

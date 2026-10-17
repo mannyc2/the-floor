@@ -1,5 +1,8 @@
 import { shading } from "@floor/atlas/look";
 
+// The live floor's material defines LIVE_SCENE. Every difference from the
+// synthetic and approved scenes sits behind it, so their programs keep the
+// exact preprocessed source the picked frames were captured with.
 export const surfaceVertex = `
 attribute float _SURFACE;
 attribute float _MAT;
@@ -17,6 +20,15 @@ attribute float _PREVIOUS;
 attribute float _NEXT;
 uniform float interpolation;
 #endif
+#ifdef LIVE_SCENE
+uniform float paletteTheme;
+varying float flatTone;
+#ifdef USE_INSTANCING
+attribute float _TINT;
+uniform vec3 tintSlots;
+uniform vec2 nightSlots;
+#endif
+#endif
 varying vec3 faceNormal;
 varying float materialSlot;
 varying float lineClass;
@@ -32,18 +44,63 @@ void main() {
   identity = vec3(mod(id, 256.0), mod(floor(id / 256.0), 256.0), floor(id / 65536.0)) / 255.0;
   lineClass = _LINE;
   materialSlot = _PALETTE >= 0.0 ? _PALETTE : _MAT;
+  #ifdef LIVE_SCENE
+    // Geometry carries its night line classes; by day every outline is
+    // ordinary, as in the approved day frames. A theme change needs no rebuild.
+    float night = step(0.5, paletteTheme);
+    lineClass = _LINE * night;
+    flatTone = 0.0;
+    vec3 objectNormal = normal;
+  #endif
   #ifdef USE_INSTANCING
-    // A negative authored material marks the monitor face. Its activity shares
-    // the target-position lane, preserving WebGL's sixteen-attribute ceiling.
-    if (_MAT < 0.0) materialSlot = mix(screenSlots.x, screenSlots.y, _INSTANCE_TO.w);
-    // Instances translate authored geometry; shape transforms are baked into
-    // its vertices and normals, so a general matrix transform adds no information.
-    point.xyz += instanceMatrix[3].xyz;
+    #ifdef LIVE_SCENE
+      // A hidden slot (a desk nobody holds yet, or a pose its agent is not in)
+      // leaves the clip volume before any transform.
+      if (_INSTANCE_FROM.w < 0.5) {
+        gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+        return;
+      }
+      // Negative authored materials name lit faces and jackets: -1 a desk
+      // screen and -3 its lamp follow the agent's activity, -4 a crown screen
+      // lights at night, and -2 takes the agent's jacket. Lit and dark screens
+      // hold one flat tone, so the top band of glass never imitates a lit face.
+      float lit = _INSTANCE_TO.w;
+      if (_MAT < -3.5) {
+        materialSlot = nightSlots.y;
+        flatTone = 1.0;
+        lineClass = night;
+      } else if (_MAT < -2.5) {
+        materialSlot = mix(screenSlots.x, nightSlots.x, lit);
+        flatTone = 1.0;
+        lineClass = night * lit;
+      } else if (_MAT < -1.5) {
+        materialSlot = _TINT < 0.5 ? tintSlots.x : _TINT < 1.5 ? tintSlots.y : tintSlots.z;
+      } else if (_MAT < 0.0) {
+        materialSlot = mix(screenSlots.x, screenSlots.y, lit);
+        flatTone = 1.0;
+        lineClass = night * lit;
+      }
+      // Live slots turn to face their post or their place: the instance's
+      // rotation applies to the authored vertices and normals.
+      objectNormal = mat3(instanceMatrix) * normal;
+      point.xyz = mat3(instanceMatrix) * point.xyz + instanceMatrix[3].xyz;
+    #else
+      // A negative authored material marks the monitor face. Its activity shares
+      // the target-position lane, preserving WebGL's sixteen-attribute ceiling.
+      if (_MAT < 0.0) materialSlot = mix(screenSlots.x, screenSlots.y, _INSTANCE_TO.w);
+      // Instances translate authored geometry; shape transforms are baked into
+      // its vertices and normals, so a general matrix transform adds no information.
+      point.xyz += instanceMatrix[3].xyz;
+    #endif
     point.xyz += mix(_INSTANCE_FROM.xyz, _INSTANCE_TO.xyz, instanceInterpolation);
     point.xyz *= _INSTANCE_FROM.w;
   #endif
   // Inverse view rotation gives world normals, so tops are found on world Y.
-  faceNormal = normalize((vec4(normalMatrix * normal, 0.0) * viewMatrix).xyz);
+  #ifdef LIVE_SCENE
+    faceNormal = normalize((vec4(normalMatrix * objectNormal, 0.0) * viewMatrix).xyz);
+  #else
+    faceNormal = normalize((vec4(normalMatrix * normal, 0.0) * viewMatrix).xyz);
+  #endif
   gl_Position = projectionMatrix * modelViewMatrix * point;
 }
 `;
@@ -54,6 +111,9 @@ uniform float paletteTheme;
 varying vec3 faceNormal;
 varying float materialSlot;
 varying float lineClass;
+#ifdef LIVE_SCENE
+varying float flatTone;
+#endif
 flat in vec3 identity;
 layout(location = 1) out highp vec4 identityColor;
 void main() {
@@ -70,6 +130,9 @@ void main() {
     // Faces turned straight at the camera lie on the side-band boundary.
     // Absorb view-transform roundoff there so they keep one tone.
     index = base + (n.y > ${shading.verticalThreshold} ? 3.0 : n.y < -${shading.verticalThreshold} ? 0.0 : side >= ${shading.sideTolerance} ? 2.0 : 1.0);
+    #ifdef LIVE_SCENE
+      if (flatTone > 0.5) index = base + 1.0;
+    #endif
   }
   gl_FragColor = vec4(texture2D(palette, vec2((index + 0.5) / paletteSize, paletteTheme)).rgb, 1.0);
   // RGB remains the exact picking identity. Alpha carries ordinary (1),
@@ -90,10 +153,15 @@ uniform sampler2D colorDecode;
 uniform sampler2D ids;
 uniform sampler2D depths;
 uniform vec2 edgeSpan;
+uniform float depthThreshold;
 uniform vec3 lineColor;
 uniform vec3 darkLineColor;
 uniform float lineOpacity;
 uniform float mask;
+#ifdef LIVE_SCENE
+uniform float surfaceLines;
+uniform float farLines;
+#endif
 varying vec2 coordinate;
 float decodeChannel(float encoded) {
   return texelFetch(colorDecode, ivec2(int(floor(encoded * 255.0 + 0.5)), 0), 0).r;
@@ -103,11 +171,24 @@ vec2 edgeAt(ivec2 neighbor, vec4 a, vec4 b, float centerDepth) {
   // IDs are nearest-sampled bytes: every nonzero distance is at least 1/255.
   // Squaring the same threshold preserves that decision without a per-pixel sqrt.
   vec3 difference = a.rgb - b.rgb;
-  float edge = max(step(0.001 * 0.001, dot(difference, difference)), step(0.0012, depth));
+  float edge = max(step(0.001 * 0.001, dot(difference, difference)), step(depthThreshold, depth));
   // Only instrument plates and markings extend dark contours across an edge.
   // Surface-dark lights cannot spread dark ink onto their dim steel housing.
   return vec2(edge, edge * (1.0 - step(0.25, b.a)));
 }
+#ifdef LIVE_SCENE
+// The picking entity is the identity's top twelve bits: the high byte and the
+// green byte's upper nibble.
+float entityOf(vec4 id) {
+  return floor(id.g * 255.0 / 16.0 + 0.5 / 16.0) + floor(id.b * 255.0 + 0.5) * 16.0;
+}
+// An outline between things (another entity, or a step in depth) as opposed
+// to one between two surfaces of the same thing at the same depth.
+float strongAt(ivec2 neighbor, vec4 a, vec4 b, float centerDepth) {
+  float depth = abs(centerDepth - texelFetch(depths, neighbor, 0).r);
+  return max(step(0.5, abs(entityOf(a) - entityOf(b))), step(depthThreshold, depth));
+}
+#endif
 void main() {
   // The composite and its nearest-sampled inputs have the same pixel dimensions.
   // Integer texels avoid normalized filtering work; explicit clamping preserves
@@ -145,6 +226,17 @@ void main() {
       float dark = max(step(0.25, 1.0 - centerId.a), edge.y);
       vec3 stroke = mix(lineColor, darkLineColor, dark);
       float opacity = mix(lineOpacity, 1.0, dark);
+      #ifdef LIVE_SCENE
+        // Far from the floor a post's or a figure's inner outlines crowd into
+        // solid ink; they fade with distance while silhouettes stay.
+        float strong = max(
+          max(strongAt(right, centerId, rightId, centerDepth), strongAt(left, centerId, leftId, centerDepth)),
+          max(strongAt(up, centerId, upId, centerDepth), strongAt(down, centerId, downId, centerDepth))
+        );
+        // From the farthest rungs a post is a dozen pixels across; every outline
+        // lightens so posts and crowds keep their colour instead of going black.
+        opacity *= mix(surfaceLines, 1.0, max(strong, dark)) * farLines;
+      #endif
       if (opacity == 1.0) {
         gl_FragColor = sRGBTransferOETF(vec4(stroke, 1.0));
       } else {

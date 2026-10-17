@@ -162,3 +162,75 @@ effectTest("an agent marker shares its desk's slot and moves on the position clo
     expect(snapshots.revision()).toBe(3);
     expect(snapshots.positions()[0]?.x).toBe(2);
   }));
+
+const shown = (pose: THREE.InstancedMesh) => pose.geometry.getAttribute("_INSTANCE_FROM").getW(0);
+const turn = (pose: THREE.InstancedMesh) => {
+  const matrix = new THREE.Matrix4();
+  pose.getMatrixAt(0, matrix);
+  const front = new THREE.Vector3(0, 0, 1).transformDirection(matrix);
+  return Math.atan2(front.x, front.z);
+};
+const posedInstances = Effect.gen(function*() {
+  const geometry = yield* Effect.acquireRelease(
+    Effect.sync(() => new THREE.BoxGeometry()),
+    value => Effect.sync(() => value.dispose()),
+  );
+  const material = yield* Effect.acquireRelease(
+    Effect.sync(() => new THREE.MeshBasicMaterial()),
+    value => Effect.sync(() => value.dispose()),
+  );
+  const mesh = (count: number) =>
+    Effect.acquireRelease(
+      Effect.sync(() => new THREE.InstancedMesh(geometry.clone(), material, count)),
+      value => Effect.sync(() => value.dispose()),
+    );
+  const desks = yield* mesh(1);
+  const seated = yield* mesh(1);
+  const walking = yield* mesh(1);
+  for (const pose of [seated, walking]) {
+    pose.geometry.setAttribute("_TINT", new THREE.InstancedBufferAttribute(new Float32Array(1), 1));
+  }
+  const clock = { now: 0 };
+  const snapshots = makeInstanceSnapshots(
+    [
+      { id: 2, mesh: desks, maybeInstance: Option.some(0) },
+      { id: 2, mesh: seated, maybeInstance: Option.some(0), marker: true, variant: 0 },
+      { id: 2, mesh: walking, maybeInstance: Option.some(0), marker: true, variant: 1 },
+    ],
+    () => clock.now,
+    () => {},
+    { value: 1 },
+    { value: 0 },
+    true,
+  );
+  return { snapshots, desks, seated, walking };
+});
+
+effectTest("a figure stands in one pose at a time, turned and dressed by the snapshot", () =>
+  Effect.gen(function*() {
+    const { snapshots, desks, seated, walking } = yield* posedInstances;
+    yield* snapshots.snapshotLatest({
+      revision: 1,
+      instances: [{ id: 2, x: 2, y: 0, z: 0, yaw: .5, marker: { x: 3, y: 0, z: 0, yaw: 2, variant: 0, tint: 2 } }],
+    }, () => true);
+    expect([shown(seated), shown(walking)]).toEqual([1, 0]);
+    expect(turn(desks)).toBeCloseTo(.5, 6);
+    expect(turn(seated)).toBeCloseTo(2, 6);
+    expect(seated.geometry.getAttribute("_TINT").getX(0)).toBe(2);
+    expect(snapshots.marker(2)).toEqual(Option.some({ x: 3, y: 0, z: 0 }));
+    // Walking elsewhere swaps the pose; it appears where it stands, in the same jacket.
+    yield* snapshots.snapshotLatest({
+      revision: 2,
+      instances: [{ id: 2, x: 2, y: 0, z: 0, yaw: .5, marker: { x: 9, y: 0, z: 1, yaw: 1, variant: 1, tint: 2 } }],
+    }, () => true);
+    expect([shown(seated), shown(walking)]).toEqual([0, 1]);
+    expect(walking.geometry.getAttribute("_TINT").getX(0)).toBe(2);
+    expect(snapshots.marker(2)).toEqual(Option.some({ x: 9, y: 0, z: 1 }));
+    // A pose the slot does not own fails the whole packet.
+    const invalid = yield* snapshots.snapshotLatest({
+      revision: 3,
+      instances: [{ id: 2, x: 2, y: 0, z: 0, marker: { x: 0, y: 0, z: 0, yaw: 0, variant: 2, tint: 0 } }],
+    }, () => true).pipe(Effect.result);
+    expect(Result.isFailure(invalid)).toBe(true);
+    expect(snapshots.revision()).toBe(2);
+  }));

@@ -1,9 +1,11 @@
 import { WorldSnapshot } from "@floor/contract/world-stream";
 import { Effect, Option, Result, Schema, Stream } from "effect";
 import { Command, Subscription, type Update } from "foldkit";
+import type { HtmlBuilder } from "foldkit/html";
 import { modifyFields } from "foldkit/struct";
 import { defineView } from "foldkit/submodel";
 import { deskDrawer } from "./_components/desk-drawer";
+import { worldPanel } from "./_components/world-panel";
 import {
   acceptWorldFrame,
   deskCapacity,
@@ -17,7 +19,7 @@ import {
 } from "./_lib/live-world";
 import { makeMountMap, MapCommands } from "./_lib/renderer/service";
 import { Message, WorldConnection } from "./message";
-import { Camera, EntityId, Presentation, Turn } from "./model";
+import { Camera, EntityId, Presentation, type Theme, Turn } from "./model";
 
 export { MapCommands } from "./_lib/renderer/service";
 export { Message } from "./message";
@@ -41,6 +43,9 @@ export const Model = Schema.Struct({
   worldRevision: Schema.Natural,
   // Advanced when the Model rejects a frame, restarting the stream from the cursor.
   worldEpoch: Schema.Natural,
+  // The desk list stays folded away until asked for, so it never covers the floor.
+  desksOpen: Schema.Boolean,
+  deskQuery: Schema.String,
 });
 export type Model = typeof Model.Type;
 
@@ -68,10 +73,11 @@ export const initialModel = (
   camera = Option.none<Camera>(),
   selection = Option.none<WorldSelection>(),
   resume = Option.none<number>(),
+  theme: Theme = "day",
 ): Model => ({
   presentation: {
     revision: 1,
-    theme: "day",
+    theme,
     camera: Option.getOrElse(camera, () => ({ x: 0, z: 0, extent: desks > 12 ? 380 : 21, rotation: 0 })),
     sampleTime: 0,
     playbackRate: 0,
@@ -89,6 +95,8 @@ export const initialModel = (
   worldConnection: "connecting",
   worldRevision: 0,
   worldEpoch: 0,
+  desksOpen: false,
+  deskQuery: "",
 });
 
 const ApplyWorld = Command.define("ApplyWorld", {
@@ -130,6 +138,27 @@ const SyncSequence = Command.define("SyncSequence", {
   args: { sequence: Schema.Natural },
   messages: [Message.CompletedUrl, Message.FailedMap],
   execute: ({ sequence }) => writeUrl(url => url.searchParams.set("sequence", String(sequence)), false),
+});
+// The theme rides in the URL like the camera, without a history entry.
+const SyncTheme = Command.define("SyncTheme", {
+  args: { theme: Schema.Literals(["day", "night"]) },
+  messages: [Message.CompletedUrl, Message.FailedMap],
+  execute: ({ theme }) =>
+    writeUrl(url => {
+      if (theme === "night") url.searchParams.set("theme", "night");
+      else url.searchParams.delete("theme");
+    }, false),
+});
+// Hands the renderer a new presentation, keeping whatever view the camera holds.
+const Present = Command.define("Present", {
+  args: { presentation: Presentation },
+  messages: [Message.CompletedPresent, Message.FailedMap],
+  execute: ({ presentation }) =>
+    Effect.gen(function*() {
+      const commands = yield* MapCommands;
+      yield* commands.present(presentation, false, true);
+      return Message.CompletedPresent();
+    }).pipe(Effect.catch(error => Effect.succeed(Message.FailedMap({ reason: error.message })))),
 });
 const Rotate = Command.define("Rotate", {
   args: { direction: Turn },
@@ -227,6 +256,21 @@ export const update = (model: Model, message: Message) =>
       ),
     }),
     ClickedFollow: ({ entity }) => ({ model, commands: [FollowAgent({ entity })] }),
+    ClickedTheme: () => {
+      const presentation = modifyFields(model.presentation, {
+        theme: theme => theme === "day" ? "night" : "day",
+        revision: revision => revision + 1,
+      });
+      return {
+        model: modifyFields(model, { presentation: () => presentation }),
+        commands: [
+          SyncTheme({ theme: presentation.theme }),
+          ...(model.status._tag === "Ready" ? [Present({ presentation })] : []),
+        ],
+      };
+    },
+    ToggledDesks: () => ({ model: modifyFields(model, { desksOpen: open => !open }) }),
+    ChangedDeskQuery: ({ query }) => ({ model: modifyFields(model, { deskQuery: () => query }) }),
     ReceivedWorldFrame: ({ frame }) =>
       Option.match(model.selection, {
         onNone: () => ({ model }),
@@ -256,6 +300,29 @@ export const update = (model: Model, message: Message) =>
     CompletedUrl: () => ({ model }),
   });
 
+// Connection and renderer state, small at the foot of the view.
+const mapFooter = (model: Model, h: HtmlBuilder<Message>) =>
+  h.footer([h.Class("map-footer")], [
+    h.p([h.Class("world-status"), h.AriaLive("polite")], [
+      Option.isNone(model.selection)
+        ? "Open a world link with world and chain parameters to watch agents."
+        : model.worldConnection === "live"
+        ? "World connected"
+        : model.worldConnection === "reconnecting"
+        ? "World disconnected · reconnecting from the last event"
+        : "Connecting to the world…",
+    ]),
+    h.p([h.Class(model.status._tag === "Failed" ? "map-status failed" : "map-status")], [
+      model.status._tag === "Failed"
+        ? model.status.reason
+        : model.status._tag === "Ready"
+        ? Option.isSome(model.selection) ? "Rendering live world" : "Synthetic desks"
+        : Option.isSome(model.selection)
+        ? "Waiting for the world…"
+        : "Preparing synthetic desks…",
+    ]),
+  ]);
+
 export const makeView = (commands: MapCommands["Service"]) => {
   const MountMap = makeMountMap(commands);
   return defineView<Model, Message>((model, h) => {
@@ -268,22 +335,12 @@ export const makeView = (commands: MapCommands["Service"]) => {
     );
     const selectedAgent = Option.flatMap(selectedDesk, desk => desk.record);
     const canMount = Option.isNone(model.selection) || Option.isSome(model.world);
+    const ready = model.status._tag === "Ready";
+    const night = model.presentation.theme === "night";
     return h.section([
       h.Class(Option.isSome(selectedAgent) ? "map-shell has-drawer" : "map-shell"),
       h.AriaLabel("Trading floor"),
     ], [
-      h.div([h.Class("camera-rotation"), h.AriaLabel("Camera rotation")], [
-        h.button([
-          h.Id("rotate-left"),
-          h.Disabled(model.status._tag !== "Ready"),
-          h.OnClick(Message.ClickedRotate({ direction: "left" })),
-        ], ["Rotate left"]),
-        h.button([
-          h.Id("rotate-right"),
-          h.Disabled(model.status._tag !== "Ready"),
-          h.OnClick(Message.ClickedRotate({ direction: "right" })),
-        ], ["Rotate right"]),
-      ]),
       canMount && model.desks <= 4085
         ? h.keyed("div")(`map-${model.desks}`, [
           h.Id("map"),
@@ -295,62 +352,51 @@ export const makeView = (commands: MapCommands["Service"]) => {
           })),
         ])
         : h.empty,
-      h.p([h.Class("map-status")], [
-        model.status._tag === "Failed"
-          ? model.status.reason
-          : model.status._tag === "Ready"
-          ? Option.isSome(model.selection) ? "Rendering live world" : "Synthetic desks"
-          : Option.isSome(model.selection)
-          ? "Waiting for the world…"
-          : "Preparing synthetic desks…",
+      h.div([h.Class("camera-controls"), h.AriaLabel("Camera")], [
+        h.button([
+          h.Id("rotate-left"),
+          h.Class("chrome-button"),
+          h.AriaLabel("Rotate left"),
+          h.Title("Rotate left"),
+          h.Disabled(!ready),
+          h.OnClick(Message.ClickedRotate({ direction: "left" })),
+        ], ["↺"]),
+        h.button([
+          h.Id("rotate-right"),
+          h.Class("chrome-button"),
+          h.AriaLabel("Rotate right"),
+          h.Title("Rotate right"),
+          h.Disabled(!ready),
+          h.OnClick(Message.ClickedRotate({ direction: "right" })),
+        ], ["↻"]),
+        h.button([
+          h.Id("theme"),
+          h.Class("chrome-button chrome-text"),
+          h.AriaPressed(night ? "true" : "false"),
+          h.OnClick(Message.ClickedTheme()),
+        ], ["Night"]),
       ]),
-      h.div([h.Class("world-status"), h.AriaLive("polite")], [
-        h.p([], [
-          Option.isNone(model.selection)
-            ? "Open a world link with world and chain parameters to watch agents."
-            : model.worldConnection === "live"
-            ? "World connected"
-            : model.worldConnection === "reconnecting"
-            ? "World disconnected · reconnecting from the last event"
-            : "Connecting to the world…",
-        ]),
-        Option.match(view, {
-          onNone: () => h.empty,
-          onSome: value =>
-            h.nav(
-              [h.AriaLabel("Floors"), h.Class("world-floors")],
-              value.floors.map(floor =>
-                h.button([
-                  h.AriaCurrent(Option.exists(inView, current => current.index === floor.index) ? "location" : "false"),
-                  h.OnClick(Message.ClickedFloor({ floor: floor.index })),
-                  h.Disabled(model.status._tag !== "Ready"),
-                ], [
-                  `Floor ${floor.index + 1} · ${
-                    floor.blueprint ? "blueprint" : `${floor.desks} ${floor.desks === 1 ? "desk" : "desks"}`
-                  }`,
-                ])
-              ),
-            ),
-        }),
-        // Desks on the floor in view; the floor list reaches the others.
-        h.div(
-          [h.Class("world-desks")],
-          desks.filter(desk => Option.exists(inView, floor => floor.index === desk.floor)).map(desk =>
-            h.button([
-              h.AriaLabel(`Open desk for ${desk.agent}`),
-              h.DataAttribute("agent-state", Option.getOrElse(desk.state, () => "unreported")),
-              h.OnClick(Message.SelectedEntity({ entity: Option.some(desk.id) })),
-            ], [desk.agent])
-          ),
-        ),
-      ]),
+      Option.match(view, {
+        onNone: () => h.empty,
+        onSome: value =>
+          worldPanel({
+            floors: value.floors,
+            inView,
+            desks,
+            open: model.desksOpen,
+            query: model.deskQuery,
+            selected: model.selected,
+            ready,
+          }, h),
+      }),
+      mapFooter(model, h),
       Option.match(Option.all({ agent: selectedAgent, desk: selectedDesk }), {
         onNone: () => h.empty,
         onSome: ({ agent, desk }) =>
           deskDrawer({
             agent,
             location: locationText(desk),
-            follow: Option.isSome(desk.marker) && model.status._tag === "Ready"
+            follow: Option.isSome(desk.marker) && ready
               ? Option.some(Message.ClickedFollow({ entity: desk.id }))
               : Option.none(),
           }, h),

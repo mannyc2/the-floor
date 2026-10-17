@@ -3,14 +3,25 @@ import * as THREE from "three";
 import type { Entity } from "./scene";
 
 const Position = Schema.Struct({ x: Schema.Finite, y: Schema.Finite, z: Schema.Finite });
+// A slot's turn about +Y in radians; omitted, it keeps its authored heading.
+const yaw = Schema.optionalKey(Schema.Finite);
+const Index = Schema.Int.check(Schema.isGreaterThanOrEqualTo(0));
 export const InstanceSnapshot = Schema.Struct({
   revision: Schema.Int.check(Schema.isGreaterThanOrEqualTo(0)),
   instances: Schema.Array(Schema.Struct({
     id: Schema.Int.check(Schema.isGreaterThan(0)),
     ...Position.fields,
     active: Schema.optionalKey(Schema.Boolean),
+    yaw,
     // Where this slot's agent stands; omitted while its place has no position.
-    marker: Schema.optionalKey(Position),
+    marker: Schema.optionalKey(Schema.Struct({
+      ...Position.fields,
+      yaw,
+      // Which of the slot's marker meshes stands there (a live figure's pose)
+      // and which colour its tinted faces take (the figure's jacket).
+      variant: Schema.optionalKey(Index),
+      tint: Schema.optionalKey(Index),
+    })),
   })),
 });
 export type InstanceSnapshot = typeof InstanceSnapshot.Type;
@@ -83,6 +94,22 @@ const interpolationClock = (now: () => number, dirty: () => void, uniform: { val
   };
 };
 
+const turn = new THREE.Matrix4();
+const writeYaw = (matrices: THREE.InstancedBufferAttribute, index: number, base: Position, value: number) => {
+  turn.makeRotationY(value).setPosition(base.x, base.y, base.z).toArray(matrices.array, index * 16);
+  matrices.addUpdateRange(index * 16, 16);
+  matrices.needsUpdate = true;
+  return 1;
+};
+const writeTint = (geometry: THREE.BufferGeometry, index: number, value: number) => {
+  const attribute = geometry.getAttribute("_TINT");
+  if (!(attribute instanceof THREE.InstancedBufferAttribute) || attribute.getX(index) === value) return 0;
+  attribute.setX(index, value);
+  attribute.addUpdateRange(index, 1);
+  attribute.needsUpdate = true;
+  return 1;
+};
+
 export const makeInstanceSnapshots = (
   entities: ReadonlyArray<Entity>,
   now: () => number,
@@ -121,26 +148,51 @@ export const makeInstanceSnapshots = (
     return [{
       id: entity.id,
       marker: entity.marker === true,
+      variant: entity.variant ?? 0,
       mesh: entity.mesh,
+      matrices: mesh.instanceMatrix,
+      geometry,
       index,
       attributes,
       base: { x: base.x, y: base.y, z: base.z },
       from: { x: 0, y: 0, z: 0 },
       to: { x: 0, y: 0, z: 0 },
       visible: !live,
-      staged: { x: 0, y: 0, z: 0, present: false, active: false },
+      yaw: 0,
+      tint: 0,
+      staged: { x: 0, y: 0, z: 0, present: false, active: false, yaw: 0, tint: 0 },
     }];
   });
-  const byId = new Map<number, (typeof members)[number]>();
-  const markers = new Map<number, (typeof members)[number]>();
-  for (const member of members) (member.marker ? markers : byId).set(member.id, member);
+  type Member = (typeof members)[number];
+  const byId = new Map<number, Member>();
+  // A slot can own several marker meshes (a figure's poses); one stands at a time.
+  const markers = new Map<number, Map<number, Member>>();
+  for (const member of members) {
+    if (!member.marker) byId.set(member.id, member);
+    else {
+      const variants = markers.get(member.id) ?? new Map<number, Member>();
+      variants.set(member.variant, member);
+      markers.set(member.id, variants);
+    }
+  }
+  const standing = (id: number) => {
+    for (const member of markers.get(id)?.values() ?? []) if (member.visible) return Option.some(member);
+    return Option.none<Member>();
+  };
   // Staging is reusable and invisible to rendering. Validation can reject a
   // complete packet without changing accepted buffers, while avoiding thousands
   // of short-lived plans and Option wrappers on every 4 Hz arrival.
   const state = { revision: -1 };
   const stage = (
-    member: (typeof members)[number],
-    target: { readonly id: number; readonly x: number; readonly y: number; readonly z: number },
+    member: Member,
+    target: {
+      readonly id: number;
+      readonly x: number;
+      readonly y: number;
+      readonly z: number;
+      readonly yaw?: number;
+      readonly tint?: number;
+    },
     active: boolean,
   ): Result.Result<void, InstanceSnapshotFailure> => {
     const x = Math.fround(target.x - member.base.x);
@@ -154,6 +206,8 @@ export const makeInstanceSnapshots = (
     member.staged.z = z;
     member.staged.present = true;
     member.staged.active = active;
+    member.staged.yaw = target.yaw ?? 0;
+    member.staged.tint = target.tint ?? 0;
     return Result.void;
   };
   const stageSnapshot = (next: InstanceSnapshot): Result.Result<void, InstanceSnapshotFailure> => {
@@ -173,7 +227,7 @@ export const makeInstanceSnapshots = (
       if (Result.isFailure(staged)) return staged;
       const placement = target.marker;
       if (placement) {
-        const marker = markers.get(target.id);
+        const marker = markers.get(target.id)?.get(placement.variant ?? 0);
         if (!marker) {
           return Result.fail(new InstanceSnapshotFailure({ phase: "identity", cause: { unknownMarker: target.id } }));
         }
@@ -182,6 +236,19 @@ export const makeInstanceSnapshots = (
       }
     }
     return Result.void;
+  };
+  // A live slot's heading and tint change only when its agent moves or arrives.
+  const restyle = (member: Member) => {
+    let changes = 0;
+    if (member.staged.yaw !== member.yaw) {
+      changes += writeYaw(member.matrices, member.index, member.base, member.staged.yaw);
+      member.yaw = member.staged.yaw;
+    }
+    if (member.staged.tint !== member.tint) {
+      changes += writeTint(member.geometry, member.index, member.staged.tint);
+      member.tint = member.staged.tint;
+    }
+    return changes;
   };
   const commitSnapshot = (next: InstanceSnapshot) => {
     const amount = positions.read();
@@ -204,6 +271,7 @@ export const makeInstanceSnapshots = (
         changes += write(member.attributes.from, member.index, member.from.x, member.from.y, member.from.z);
         changes += write(member.attributes.to, member.index, x, y, z);
         changes += writeFourth(member.attributes.to, member.index, Number(member.staged.active));
+        changes += restyle(member);
         moving ||= !same(member.from, member.to);
       }
       if (member.visible !== visible) {
@@ -270,15 +338,12 @@ export const makeInstanceSnapshots = (
       recorded.advance();
     },
     // The marker's interpolated ground position, read every frame by Follow.
-    marker: (id: number): Option.Option<Position> => {
-      const member = markers.get(id);
-      if (!member || !member.visible) return Option.none();
-      return Option.some({
+    marker: (id: number): Option.Option<Position> =>
+      Option.map(standing(id), member => ({
         x: member.base.x + member.from.x + (member.to.x - member.from.x) * interpolation.value,
         y: member.base.y + member.from.y + (member.to.y - member.from.y) * interpolation.value,
         z: member.base.z + member.from.z + (member.to.z - member.from.z) * interpolation.value,
-      });
-    },
+      })),
     positions: () =>
       members.flatMap(member => {
         if (member.marker) return [];

@@ -1,12 +1,13 @@
 import { cameraCorners, cameraValues } from "@floor/atlas/camera";
 import { lineWidthCssPx } from "@floor/atlas/look";
-import { materialPalette } from "@floor/atlas/materials";
+import { proportionPalette } from "@floor/atlas/materials";
 import { Effect, Option, Result, Schema, Scope } from "effect";
 import * as THREE from "three";
 import type { Camera, LiveScene, Presentation, Theme } from "../../model";
 import { makeInstanceSnapshots } from "./instances";
+import { createLiveScene } from "./live-scene";
 import type { Palette } from "./palette";
-import { createScene, names, syntheticPalette } from "./scene";
+import { createScene, names, type SceneData, syntheticPalette } from "./scene";
 import { colorFragment, screenFragment, screenVertex, surfaceVertex } from "./shaders";
 
 export class RendererFailure extends Schema.TaggedError<RendererFailure>()("RendererFailure", {
@@ -60,7 +61,12 @@ export const openEngine = (
     if (Result.isFailure(count)) failForeign("desk-count", count.failure);
     const canvas = document.createElement("canvas");
     canvas.style.touchAction = "none";
-    canvas.setAttribute("aria-label", "Synthetic desk scene — unapproved geometry and palette");
+    canvas.setAttribute(
+      "aria-label",
+      Option.isSome(options.live)
+        ? "Live trading floor — provisional kit posts, stations and figures"
+        : "Synthetic desk scene — unapproved geometry and palette",
+    );
     canvas.tabIndex = 0;
     // The canvas receives only the full-screen composite. Scene depth belongs
     // to the offscreen target, so the default framebuffer needs no depth buffer.
@@ -95,21 +101,9 @@ export const openEngine = (
         });
       }
     };
-    const livePalette: Palette = {
-      ...syntheticPalette,
-      colors: {
-        ...syntheticPalette.colors,
-        "steel-0": materialPalette.colors["steel-0"],
-        "steel-1": materialPalette.colors["steel-1"],
-        "steel-2": materialPalette.colors["steel-2"],
-        "steel-3": materialPalette.colors["steel-3"],
-        "screen-light-0": materialPalette.colors["screen-light-0"],
-        "screen-light-1": materialPalette.colors["screen-light-1"],
-        "screen-light-2": materialPalette.colors["screen-light-2"],
-        "screen-light-3": materialPalette.colors["screen-light-3"],
-      },
-    };
-    const initialPalette = Option.isNone(options.live) ? syntheticPalette : livePalette;
+    // The live floor wears the palette of the picked Roomy frames; the
+    // synthetic room keeps its neutral test palette.
+    const initialPalette: Palette = Option.isNone(options.live) ? syntheticPalette : proportionPalette;
     writePaletteBytes(initialPalette);
     const palette = yield* own(() =>
       new THREE.DataTexture(paletteBytes, names.length, 2, THREE.RGBAFormat, THREE.UnsignedByteType)
@@ -130,30 +124,39 @@ export const openEngine = (
     colorDecode.minFilter = THREE.NearestFilter;
     colorDecode.magFilter = THREE.NearestFilter;
     colorDecode.needsUpdate = true;
+    const live = Option.isSome(options.live);
+    // A live desk's dark screen is glass; the synthetic desk's is steel.
+    const darkScreen = names.indexOf(live ? "glass-0" : "steel-0");
     const surfaceUniforms = {
       palette: { value: palette },
       paletteSize: { value: names.length },
       paletteTheme: { value: .25 },
       interpolation: { value: 0 },
       instanceInterpolation: { value: 1 },
-      screenSlots: { value: new THREE.Vector2(names.indexOf("steel-0"), names.indexOf("screen-light-0")) },
+      screenSlots: { value: new THREE.Vector2(darkScreen, names.indexOf("screen-light-0")) },
+      // Live only: the three jackets, and what a working lamp and a crown
+      // screen show, which setTheme lights at night.
+      tintSlots: {
+        value: new THREE.Vector3(
+          names.indexOf("jacket-blue-0"),
+          names.indexOf("jacket-red-0"),
+          names.indexOf("jacket-green-0"),
+        ),
+      },
+      nightSlots: { value: new THREE.Vector2(darkScreen, darkScreen) },
     };
     const material = yield* own(() =>
       new THREE.ShaderMaterial({
         vertexShader: surfaceVertex,
         fragmentShader: colorFragment,
         uniforms: surfaceUniforms,
+        defines: live ? { LIVE_SCENE: "" } : {},
       })
     );
-    const data = createScene({
-      width: element.clientWidth,
-      height: element.clientHeight,
-      desks,
-      ...Option.match(options.live, {
-        onNone: () => ({}),
-        onSome: live => ({ live: { floors: live.floors, lobby: live.lobby, marks: live.marks } }),
-      }),
-    }, material);
+    const data: SceneData = Option.match(options.live, {
+      onNone: () => createScene({ width: element.clientWidth, height: element.clientHeight, desks }, material),
+      onSome: scene => createLiveScene(scene, desks, material),
+    });
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 500);
@@ -181,10 +184,13 @@ export const openEngine = (
       ids: { value: idTexture },
       depths: { value: sceneTarget.depthTexture },
       edgeSpan: { value: new THREE.Vector2(0, 1) },
+      depthThreshold: { value: .0012 },
       lineColor: { value: new THREE.Color() },
       darkLineColor: { value: new THREE.Color() },
       lineOpacity: { value: 1 },
       mask: { value: 0 },
+      surfaceLines: { value: 1 },
+      farLines: { value: 1 },
     };
     const screenMaterial = yield* own(() =>
       new THREE.ShaderMaterial({
@@ -193,8 +199,17 @@ export const openEngine = (
         depthTest: false,
         depthWrite: false,
         uniforms: screenUniforms,
+        defines: live ? { LIVE_SCENE: "" } : {},
       })
     );
+    // Live line weights follow how tall a figure is on screen. Inner outlines
+    // keep full strength from sixty CSS pixels and are gone below twelve, where
+    // they would only scribble; below about ten every outline lightens, to a
+    // third, so distant posts keep their colour. The synthetic room ignores both.
+    const unitsPerH = Option.match(options.live, { onNone: () => 1, onSome: scene => scene.unitsPerH });
+    const figurePixels = (extent: number) => unitsPerH * state.height / extent;
+    const surfaceLines = (extent: number) => Math.max(0, Math.min(1, (figurePixels(extent) - 12) / 48));
+    const farLines = (extent: number) => Math.max(1 / 3, Math.min(1, (figurePixels(extent) - 2) / 8));
     const quad = new THREE.Mesh(yield* own(() => new THREE.PlaneGeometry(2, 2)), screenMaterial);
     const screenScene = new THREE.Scene();
     screenScene.add(quad);
@@ -240,6 +255,18 @@ export const openEngine = (
         cameraValues.distance,
       );
       data.cutaway(towardCamera);
+      // A top face's depth changes about 1.73 world units per unit up the
+      // screen at this pitch, so far rungs crossed the fixed threshold on every
+      // pixel and inked floors solid. The threshold follows the depth change
+      // across the edge span with headroom; at every approved frame's rung the
+      // scaled value stays below the fixed one, so those frames are unchanged.
+      const unitsPerDevicePixel = view.extent / (state.height * state.dpr);
+      screenUniforms.surfaceLines.value = surfaceLines(view.extent);
+      screenUniforms.farLines.value = farLines(view.extent);
+      screenUniforms.depthThreshold.value = Math.max(
+        .0012,
+        2.5 * unitsPerDevicePixel * screenUniforms.edgeSpan.value.y / (camera.far - camera.near),
+      );
       camera.lookAt(target);
       camera.updateProjectionMatrix();
       camera.updateMatrixWorld();
@@ -247,6 +274,9 @@ export const openEngine = (
     };
     const setTheme = (theme: Theme) => {
       surfaceUniforms.paletteTheme.value = theme === "day" ? .25 : .75;
+      if (theme === "night") {
+        surfaceUniforms.nightSlots.value.set(names.indexOf("lamp-light-0"), names.indexOf("screen-light-0"));
+      } else surfaceUniforms.nightSlots.value.set(darkScreen, darkScreen);
       state.theme = theme;
       screenUniforms.lineColor.value.setHex(state.palette.colors.line[theme]);
       screenUniforms.darkLineColor.value.setHex(state.palette.darkLine[theme]);
@@ -275,12 +305,12 @@ export const openEngine = (
       if (presentation.theme !== state.theme) {
         setTheme(presentation.theme);
       }
-      if (presentation.previousValue !== state.previousValue) {
-        writeAttribute("_PREVIOUS", presentation.previousValue, data.gaugeId);
+      if (Option.isSome(data.gauge) && presentation.previousValue !== state.previousValue) {
+        writeAttribute("_PREVIOUS", presentation.previousValue, data.gauge.value);
         state.previousValue = presentation.previousValue;
       }
-      if (presentation.nextValue !== state.nextValue) {
-        writeAttribute("_NEXT", presentation.nextValue, data.gaugeId);
+      if (Option.isSome(data.gauge) && presentation.nextValue !== state.nextValue) {
+        writeAttribute("_NEXT", presentation.nextValue, data.gauge.value);
         state.nextValue = presentation.nextValue;
       }
       state.revision = presentation.revision;

@@ -30,7 +30,7 @@ Lines come from technique B: a surface-id-and-depth edge pass on WebGL, one CSS 
 - Thin lines don't survive being baked into 64-pixel impostors, so distant zoom levels need their own outline pass or level of detail.
 - No real phone has been tested. The phone profile (390×844, pixel ratio 3, CPU throttled four times) is a stand-in.
 
-The technique is implemented in `apps/web/src/map/_lib/renderer`. The neutral synthetic desk scene exercises geometry and camera behavior; it does not choose the floor's art direction.
+The technique is implemented in `apps/web/src/map/_lib/renderer`. The workbench's neutral synthetic desk scene exercises geometry and camera behavior; it does not choose the floor's art direction. The live viewer draws the unpicked kit post and station and the picked Roomy figure in the Roomy frames' palette, with timber rooms and low walls; that drawing is provisional and approves no asset design.
 
 The 12 October local renderer checks passed 360 repeat captures and nine independent primitive comparisons through `bun run test:flow`. Mean one-CSS-pixel tolerant F1 was 0.999882, and the 256→64 bake retained 15.4% of edges at half darkness. `bun run test:phone:mac` also passed the desktop phone profile on Apple M1 Pro. The complete measurements and their limits are in [Stage 0](stage-0.md#local-renderer-verification); none is art approval.
 

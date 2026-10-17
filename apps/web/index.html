@@ -6,31 +6,162 @@
     <title>The Floor</title>
     <link rel="icon" href="data:," />
     <style>
+      /* Colours arrive as custom properties from the Atlas (src/entry.ts); one
+         old-style serif, set in small capitals for labels, reads as the
+         captions of an engraved atlas plate. */
       html, body, #root { margin: 0; width: 100%; height: 100%; overflow: hidden; overscroll-behavior: none; }
-      .floor-shell, #floor-map, .map-shell, .map { position: absolute; inset: 0; }
+      body { background: var(--floor-ground-day); }
+      .floor-shell {
+        --ground: var(--floor-ground-day);
+        --paper: var(--floor-paper-day);
+        --ink: var(--floor-ink-day);
+        --lit: var(--floor-lit-day);
+        --soft: color-mix(in srgb, var(--ink) 62%, var(--paper));
+        --rule: color-mix(in srgb, var(--ink) 30%, transparent);
+        --hairline: .0625rem;
+        position: absolute; inset: 0; background: var(--ground); color: var(--ink);
+        font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", P052, serif;
+        font-size: 1rem; line-height: 1.35; font-variant-numeric: lining-nums tabular-nums;
+        -webkit-font-smoothing: antialiased;
+      }
+      .floor-shell[data-theme="night"] {
+        --ground: var(--floor-ground-night);
+        --paper: var(--floor-ground-night);
+        --ink: var(--floor-ink-night);
+        --lit: var(--floor-lit-night);
+      }
+      #floor-map, .map-shell, .map { position: absolute; inset: 0; }
       .map canvas { display: block; outline: none; }
-      .camera-rotation { position: fixed; top: 1rem; right: 1rem; z-index: 2; display: flex; gap: .25rem; }
-      .floor-heading { position: fixed; left: 1rem; top: 0; z-index: 2; pointer-events: none; }
-      .floor-connection { position: fixed; right: 1rem; bottom: 1rem; z-index: 2; }
-      .floor-heading h1 { font-size: 1rem; }
-      #status { position: fixed; left: 1rem; bottom: 1rem; max-width: 55%; font-size: .75rem; }
-      .map-status { position: absolute; left: 1rem; bottom: 3rem; font-size: .75rem; }
-      .world-status { position: absolute; left: 1rem; top: 5rem; max-width: 24rem; max-height: calc(100% - 10rem); overflow-y: auto; font-size: .8rem; }
-      .world-status p { margin: 0 0 .5rem; }
-      .world-status button { margin: 0 .5rem .5rem 0; }
-      .world-floors { margin-bottom: .5rem; }
-      .world-floors [aria-current="location"] { font-weight: bold; }
-      .desk-drawer { position: absolute; top: 4rem; right: 0; bottom: 5rem; width: 20rem; padding: 1.25rem; overflow-y: auto; overflow-wrap: anywhere; background: var(--floor-paper); color: var(--floor-ink); }
-      .desk-drawer h2 { font-size: 1.1rem; }
-      .desk-drawer h3 { font-size: 1rem; }
-      .desk-drawer dt { margin-top: .75rem; font-weight: bold; font-size: .8rem; }
-      .desk-drawer dd { margin: .25rem 0 0; font-size: .8rem; }
-      .desk-drawer p { font-size: .85rem; }
+      .floor-shell button, .floor-shell input { font-family: inherit; color: inherit; }
+      .floor-shell :focus-visible { outline: var(--hairline) solid var(--ink); outline-offset: .125rem; }
+      .floor-shell h1, .floor-shell h2, .floor-shell h3, .floor-shell p, .floor-shell dl, .floor-shell dd { margin: 0; }
+
+      /* Small capitals, spaced, for every label and caption. */
+      .floor-heading h1, .floor-note, .world-floors, .floor-caption, .chrome-button, .chrome-link, .desk-count,
+      .map-footer, .floor-connection, .drawer-kicker, .drawer-facts dt, .receipt h3, .desk-state {
+        font-variant-caps: all-small-caps; letter-spacing: .07em;
+      }
+      .chrome-button {
+        min-width: 2rem; height: 2rem; padding: 0 .5rem; border: var(--hairline) solid var(--rule);
+        background: color-mix(in srgb, var(--paper) 92%, transparent); cursor: pointer; font-size: 1rem;
+      }
+      .chrome-button:hover:not(:disabled), .chrome-button[aria-pressed="true"], .chrome-button[aria-expanded="true"] {
+        background: var(--ink); color: var(--paper); border-color: var(--ink);
+      }
+      .chrome-button:disabled { opacity: .45; cursor: default; }
+      .chrome-text { font-size: .9rem; }
+      .chrome-link {
+        padding: 0; border: 0; background: none; cursor: pointer; text-decoration: underline;
+        text-decoration-thickness: var(--hairline); text-underline-offset: .18em;
+      }
+      .chrome-link:disabled { opacity: .5; cursor: default; }
+
+      /* Captions sit on small paper plates so they stay legible over a busy floor. */
+      .plate, .floor-heading, .map-footer, .floor-connection {
+        padding: .3rem .55rem; background: color-mix(in srgb, var(--paper) 94%, transparent);
+      }
+      .floor-heading { position: fixed; left: .5rem; top: .5rem; z-index: 2; pointer-events: none; }
+      .floor-heading h1 {
+        display: inline-block; padding-bottom: .1rem; border-bottom: var(--hairline) solid var(--ink);
+        font-size: 1.15rem; font-weight: 600; letter-spacing: .16em;
+      }
+      .floor-note { margin-top: .2rem; font-size: .78rem; font-style: italic; color: var(--soft); }
+
+      .world-panel { position: fixed; left: 1.05rem; top: 4.5rem; z-index: 2; width: 18rem; max-width: calc(100vw - 2rem); }
+      .world-floors { display: flex; flex-wrap: wrap; gap: .25rem; }
+      .floor-button {
+        width: 2rem; height: 2rem; padding: 0; border: var(--hairline) solid var(--rule); cursor: pointer;
+        background: color-mix(in srgb, var(--paper) 92%, transparent); font-size: .95rem;
+      }
+      .floor-button.blueprint { border-style: dashed; background: transparent; }
+      .floor-button[aria-current="location"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+      .floor-button:hover:not(:disabled):not([aria-current="location"]) { border-color: var(--ink); }
+      .floor-button:disabled { opacity: .45; cursor: default; }
+      .floor-caption {
+        display: inline-block; margin: .3rem 0 .4rem; padding: .05rem .4rem; font-size: .82rem; color: var(--soft);
+        background: color-mix(in srgb, var(--paper) 94%, transparent);
+      }
+      .desks-toggle { display: block; }
+      #rotate-left, #rotate-right { font-size: 1.2rem; line-height: 1; }
+      .toggle-mark { display: inline-block; margin-left: .3rem; font-size: .7em; }
+      .desks-toggle[aria-expanded="true"] .toggle-mark { transform: rotate(180deg); }
+      .desk-panel {
+        margin-top: .4rem; padding: .6rem; border: var(--hairline) solid var(--rule);
+        background: color-mix(in srgb, var(--paper) 96%, transparent);
+        box-shadow: 0 .3rem 1rem color-mix(in srgb, var(--ink) 14%, transparent);
+      }
+      .desk-search {
+        box-sizing: border-box; width: 100%; padding: .35rem .5rem; border: var(--hairline) solid var(--rule);
+        background: var(--ground); font-size: .9rem;
+      }
+      .desk-search::placeholder { color: var(--soft); font-style: italic; }
+      .desk-count { margin: .4rem 0 .3rem; font-size: .75rem; color: var(--soft); }
+      .desk-list { max-height: min(24rem, calc(100vh - 17rem)); overflow-y: auto; border-top: var(--hairline) solid var(--rule); }
+      .desk-row {
+        display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; width: 100%;
+        padding: .3rem .15rem; border: 0; border-bottom: var(--hairline) solid var(--rule); background: none;
+        cursor: pointer; text-align: left; font-size: .85rem;
+      }
+      .desk-row:hover, .desk-row[aria-current="true"] { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+      .desk-agent { overflow-wrap: anywhere; }
+      .desk-state { flex: none; font-size: .78rem; color: var(--soft); }
+      .desk-row[data-agent-state="researching"] .desk-state, .desk-row[data-agent-state="trading"] .desk-state {
+        color: var(--ink); text-decoration: underline; text-decoration-color: var(--lit);
+        text-decoration-thickness: .2em; text-underline-offset: .15em;
+      }
+
+      .camera-controls { position: fixed; top: .9rem; right: 1rem; z-index: 2; display: flex; gap: .25rem; }
+      .map-footer {
+        position: fixed; left: .5rem; bottom: .5rem; z-index: 2; display: flex; flex-wrap: wrap; gap: 0 .5rem;
+        max-width: calc(100vw - 18rem); font-size: .78rem; color: var(--soft); pointer-events: none;
+      }
+      .map-footer .map-status::before { content: "· "; }
+      .map-footer .failed { color: var(--ink); }
+      .floor-connection {
+        position: fixed; right: .5rem; bottom: .5rem; z-index: 2; display: flex; align-items: baseline; gap: .5rem;
+        font-size: .78rem; color: var(--soft);
+      }
+      .floor-connection button { color: var(--ink); }
+
+      .desk-drawer {
+        position: absolute; top: 3.6rem; right: 1rem; z-index: 3; box-sizing: border-box; width: 21rem;
+        max-height: calc(100% - 6.4rem);
+        padding: 1rem 1.15rem 1.25rem; overflow-y: auto; overflow-wrap: anywhere; border: var(--hairline) solid var(--rule);
+        background: color-mix(in srgb, var(--paper) 97%, transparent);
+        box-shadow: 0 .3rem 1.2rem color-mix(in srgb, var(--ink) 16%, transparent);
+      }
+      .drawer-head { display: grid; grid-template-columns: 1fr auto; gap: .15rem .5rem; align-items: baseline; }
+      .drawer-kicker { font-size: .78rem; color: var(--soft); }
+      .drawer-close { grid-column: 2; grid-row: 1; font-size: .78rem; }
+      .drawer-head h2 {
+        grid-column: 1 / -1; padding-bottom: .4rem; border-bottom: var(--hairline) solid var(--ink);
+        font-size: 1.2rem; font-weight: 600;
+      }
+      .drawer-facts { display: grid; grid-template-columns: auto 1fr; gap: .3rem .9rem; margin: .8rem 0; font-size: .9rem; }
+      .drawer-facts dt { font-size: .8rem; color: var(--soft); }
+      .drawer-follow { margin-bottom: .9rem; }
+      .drawer-empty { font-size: .88rem; font-style: italic; color: var(--soft); }
+      .receipt { border-top: var(--hairline) solid var(--rule); padding-top: .7rem; font-size: .85rem; }
+      .receipt h3 { margin: .3rem 0 .4rem; font-size: .9rem; font-weight: 600; }
+      .receipt dl { display: grid; grid-template-columns: auto 1fr; gap: .25rem .9rem; margin: .4rem 0 .8rem; }
+      .receipt dt { color: var(--soft); }
+      .receipt p { margin: .2rem 0; }
       .has-drawer .map { right: 23rem; }
-      @media (max-width: 48rem) {
-        .desk-drawer { top: auto; left: 0; width: auto; bottom: 0; height: 35%; }
-        .has-drawer .map { right: 0; bottom: 40%; }
-        .has-drawer .map-status, .has-drawer .world-status { display: none; }
+
+      @media (max-width: 40rem) {
+        .floor-heading { left: .35rem; top: .35rem; max-width: 14rem; }
+        .floor-heading h1 { font-size: 1rem; }
+        .floor-note { font-size: .72rem; }
+        .world-panel { left: .7rem; top: 4.6rem; width: calc(100vw - 1.4rem); }
+        .floor-button, .chrome-button { min-width: 2.1rem; height: 2.1rem; }
+        .floor-button { width: 2.1rem; }
+        .camera-controls { top: .7rem; right: .75rem; }
+        .desk-list { max-height: 40vh; }
+        .map-footer { left: .35rem; bottom: .35rem; max-width: calc(100vw - .7rem); }
+        .floor-connection { right: .35rem; bottom: 2.1rem; }
+        .desk-drawer { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 46%; border-width: var(--hairline) 0 0; }
+        .has-drawer .map { right: 0; bottom: 46%; }
+        .has-drawer .map-footer, .has-drawer .world-panel, .floor-shell:has(.has-drawer) .floor-connection { display: none; }
       }
     </style>
   </head>

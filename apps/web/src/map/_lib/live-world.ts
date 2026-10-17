@@ -1,4 +1,5 @@
 import { WorldRpcs } from "@floor/api/world-rpc";
+import { figureHeight, roomyRecipe } from "@floor/atlas/proportions";
 import { ChainRef, WorldId } from "@floor/contract/identifiers";
 import { AgentLocation } from "@floor/contract/world";
 import { WorldFrame, WorldSnapshot } from "@floor/contract/world-stream";
@@ -8,7 +9,7 @@ import { Array, Effect, Layer, Option, Queue, Ref, Result, Schema, Stream } from
 import { RpcClient, RpcSerialization } from "effect/rpc";
 import { Http } from "foldkit";
 import { Message } from "../message";
-import type { Camera, GroundArea, GroundMark, LiveScene } from "../model";
+import { type Camera, type GroundArea, type LivePose, livePoses, type LiveScene, postKeys } from "../model";
 
 export const WorldSelection = Schema.Struct({ world: WorldId, chain: ChainRef });
 export type WorldSelection = typeof WorldSelection.Type;
@@ -30,16 +31,55 @@ type Snapshot = typeof WorldSnapshot.Type;
 export const deskCapacity = (snapshot: Snapshot) =>
   Math.max(1, snapshot.model.floors.length - 1) * snapshot.model.layout.postsPerFloor
   * snapshot.model.layout.stationsPerPost;
-
-// The synthetic desk's chair faces +z; an agent at a desk stands just behind it.
-// This belongs to the synthetic geometry, not to the world layout.
-const deskStance = { x: .3, z: 2 };
-const ground = .05;
+// Post slots cover the desk capacity's floors and the blueprint beyond them,
+// so they change exactly when the desk capacity does and a mount's allocation
+// holds every post its world can show. A first arrival turns a lone blueprint
+// into an occupied floor and a new blueprint without changing either.
+export const postCapacity = (snapshot: Snapshot) =>
+  (Math.max(1, snapshot.model.floors.length - 1) + 1) * snapshot.model.layout.postsPerFloor;
 
 const bounding = (areas: ReadonlyArray<GroundArea>, points: ReadonlyArray<PlanPoint>): GroundArea => {
   const xs = [...areas.flatMap(area => [area.x0, area.x1]), ...points.map(point => point.x)];
   const zs = [...areas.flatMap(area => [area.z0, area.z1]), ...points.map(point => point.z)];
   return { x0: Math.min(...xs), z0: Math.min(...zs), x1: Math.max(...xs), z1: Math.max(...zs) };
+};
+
+// A stable, unbiased spread of an agent's id: its jacket and where it stands
+// when it visits a post. FNV-1a, so every viewer derives the same values.
+const spread = (text: string) => {
+  let hash = 2166136261;
+  for (let index = 0; index < text.length; index++) hash = Math.imul(hash ^ text.charCodeAt(index), 16777619);
+  return hash >>> 0;
+};
+export const jackets = 3;
+// Visitors stand just outside a post's seated ring, as the picked Roomy floor's
+// spillover figures do, and a desk's visitor a little to its occupant's side.
+const visitorRadius = roomyRecipe.counterRadiusRatio + .48;
+const visitorSide = .3;
+
+// A placed thing on the ground plane: where it stands and the yaw that turns
+// its +Z (a station's trader side, a figure's front) the way it faces.
+export interface Placement {
+  readonly x: number;
+  readonly z: number;
+  readonly yaw: number;
+}
+// Where and how an agent's figure stands.
+export interface Stance extends Placement {
+  readonly pose: LivePose;
+}
+const stance = (placement: Placement, pose: LivePose): Stance => ({ ...placement, pose });
+
+// Which way a named place's furniture backs: away from the rest of its room,
+// toward the outer wall of the wing that holds it.
+const facingOf = (place: GroundArea, areas: ReadonlyArray<GroundArea>) => {
+  const x = (place.x0 + place.x1) / 2, z = (place.z0 + place.z1) / 2;
+  const holder = areas.find(area => x >= area.x0 && x <= area.x1 && z >= area.z0 && z <= area.z1);
+  const rest = areas.filter(area => area !== holder);
+  const box = holder ?? place;
+  const other = rest.length > 0 ? bounding(rest, []) : box;
+  const away = { x: (box.x0 + box.x1 - other.x0 - other.x1) / 2, z: (box.z0 + box.z1 - other.z0 - other.z1) / 2 };
+  return Math.abs(away.x) >= Math.abs(away.z) ? (away.x >= 0 ? Math.PI / 2 : -Math.PI / 2) : away.z >= 0 ? 0 : Math.PI;
 };
 
 // Everything the viewer draws about places comes from a layout's plan. The
@@ -56,17 +96,88 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     x1: value.x1 - origin.x,
     z1: value.z1 - origin.z,
   });
+  // The layout's post pitch is drawn at the approved Roomy pitch; a layout
+  // without one draws H at the Atlas figure height.
+  const unitsPerH = Option.match(plan.postPitch, {
+    onNone: () => figureHeight,
+    onSome: pitch => pitch / roomyRecipe.postPitchRatio,
+  });
+  const ring = (anchor: PlanPoint, bearing: number, radius: number, turn: number): Placement => ({
+    x: anchor.x + Math.sin(bearing) * radius * unitsPerH,
+    z: anchor.z + Math.cos(bearing) * radius * unitsPerH,
+    yaw: bearing + turn,
+  });
   const slots = world.layout.postsPerFloor * world.layout.stationsPerPost;
+  const postSlot = (floor: number, post: number) => floor * world.layout.postsPerFloor + post;
+  const anchors = new Map(
+    plan.floors.flatMap(floor =>
+      floor.posts.map(post => [postSlot(floor.index, post.index), point(post.anchor)] as const)
+    ),
+  );
+  const openPosts = new Map(
+    plan.floors.flatMap(floor =>
+      floor.posts.filter(post => post.open).map(post => [post.id, point(post.anchor)] as const)
+    ),
+  );
+  // A station keeps its plan position's bearing from its post. The kit sets
+  // the radii: the counter where the station sits, the stance where its agent
+  // sits, so a station never meets its post under any layout or scale.
+  const stations = new Map(plan.stations.map(station => {
+    const anchor = Option.getOrElse(
+      Option.fromUndefinedOr(anchors.get(postSlot(station.floor, station.post))),
+      () => point(station.position),
+    );
+    const at = point(station.position);
+    const bearing = Math.atan2(at.x - anchor.x, at.z - anchor.z);
+    return [station.desk, { anchor, bearing }] as const;
+  }));
+  const places = new Map(plan.floors.flatMap(floor =>
+    floor.places.map(place => {
+      const reserved = area(place.area);
+      return [`${floor.id}/${place.place}`, {
+        place: place.place,
+        area: reserved,
+        facing: facingOf(reserved, floor.areas.map(area)),
+        built: !floor.blueprint,
+      }] as const;
+    })
+  ));
   // One lookup per world rather than a scan per desk: a full floor has hundreds.
   const locations = new Map(world.agents.map(agent => [agent.agentId, agent.location]));
   const records = new Map(snapshot.agents.map(agent => [agent.agent, agent]));
   const desks = plan.stations.map(station => {
     const location = Option.fromUndefinedOr(locations.get(station.agent));
     const record = Option.fromUndefinedOr(records.get(station.agent));
-    const marker = Option.flatMap(location, value =>
-      Option.map(locate(plan, value), position => {
-        const placed = point(position);
-        return value._tag === "AtDesk" ? { x: placed.x + deskStance.x, z: placed.z + deskStance.z } : placed;
+    const own = Option.fromUndefinedOr(stations.get(station.desk));
+    const hash = spread(station.agent);
+    // Seated at its own desk; standing at a place or beside another desk;
+    // walking among another post's crowd.
+    const marker = Option.flatMap(location, (value): Option.Option<Stance> =>
+      AgentLocation.match(value, {
+        AtDesk: target =>
+          Option.map(Option.fromUndefinedOr(stations.get(target.deskId)), at =>
+            target.deskId === station.desk
+              ? stance(ring(at.anchor, at.bearing, roomyRecipe.figureRadiusRatio, Math.PI), "seated")
+              : stance(
+                ring(at.anchor, at.bearing + visitorSide / visitorRadius, visitorRadius, Math.PI),
+                "standing",
+              )),
+        AtPost: target =>
+          Option.map(Option.fromUndefinedOr(openPosts.get(target.postId)), anchor => {
+            const gap = Math.floor(hash / jackets) % world.layout.stationsPerPost + .5;
+            return stance(
+              ring(anchor, gap * Math.PI * 2 / world.layout.stationsPerPost, visitorRadius, Math.PI),
+              "walking",
+            );
+          }),
+        AtPlace: target =>
+          Option.map(Option.fromUndefinedOr(places.get(`${target.floorId}/${target.place}`)), place =>
+            stance({
+              x: (place.area.x0 + place.area.x1) / 2,
+              z: (place.area.z0 + place.area.z1) / 2,
+              yaw: place.facing,
+            }, "standing")),
+        InLobby: () => Option.map(locate(plan, value), position => stance({ ...point(position), yaw: 0 }, "standing")),
       }));
     return {
       id: station.floor * slots + station.post * world.layout.stationsPerPost + station.station + 2,
@@ -74,6 +185,8 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
       desk: station.desk,
       floor: station.floor,
       ...point(station.position),
+      station: Option.map(own, at => ring(at.anchor, at.bearing, roomyRecipe.counterRadiusRatio, 0)),
+      jacket: hash % jackets,
       record,
       state: Option.flatMap(record, value => value.state),
       location,
@@ -96,31 +209,24 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     };
   });
   const lobby = plan.lobby.areas.map(area);
-  const envelope = (anchor: PlanPoint, radius: number): GroundArea => {
-    const centre = point(anchor);
-    return { x0: centre.x - radius, z0: centre.z - radius, x1: centre.x + radius, z1: centre.z + radius };
-  };
-  const marks: ReadonlyArray<GroundMark> = [
-    ...plan.floors.flatMap(floor => [
-      ...floor.doors.map(door => ({ kind: "door" as const, area: area(door) })),
-      ...floor.posts.flatMap(post =>
-        Option.toArray(Option.map(post.envelope, radius => ({
-          kind: post.open ? "post" as const : "blueprintPost" as const,
-          area: envelope(post.anchor, radius),
-        })))
-      ),
-      ...floor.places.map(place => ({ kind: "place" as const, area: area(place.area) })),
-    ]),
-    ...plan.lobby.plots.map(plot => ({ kind: "plot" as const, area: area(plot) })),
-  ];
-  const anchors = plan.floors.flatMap(floor => [floor.origin, ...floor.posts.map(post => post.anchor)]).map(point);
+  const posts = plan.floors.flatMap(floor =>
+    floor.posts.map(post => ({ slot: postSlot(floor.index, post.index), open: post.open, ...point(post.anchor) }))
+  );
   return {
+    unitsPerH,
     desks,
     floors,
     lobby,
-    marks,
+    posts,
+    doors: plan.floors.flatMap(floor => floor.doors.map(area)),
+    // A blueprint floor's places are reserved but not yet furnished.
+    places: [...places.values()].flatMap(({ built, ...place }) => built ? [place] : []),
+    plots: plan.lobby.plots.map(area),
     // Static for a mount: floors and posts never move, and markers stay among them.
-    bounds: bounding([...floors.flatMap(floor => floor.areas), ...lobby], [...anchors, ...desks]),
+    bounds: bounding(
+      [...floors.flatMap(floor => floor.areas), ...lobby],
+      [...plan.floors.map(floor => point(floor.origin)), ...posts, ...desks],
+    ),
   };
 };
 export type WorldView = ReturnType<typeof planView>;
@@ -135,20 +241,65 @@ export const worldView = (snapshot: Snapshot): WorldView => {
   return view;
 };
 
-export const rendererSnapshot = (snapshot: Snapshot, revision: number) => ({
-  revision,
-  instances: worldView(snapshot).desks.map(desk => ({
-    id: desk.id,
-    x: desk.x,
-    y: ground,
-    z: desk.z,
-    active: Option.exists(desk.state, value => value === "researching" || value === "trading"),
-    ...Option.match(desk.marker, {
-      onNone: () => ({}),
-      onSome: marker => ({ marker: { x: marker.x, y: ground, z: marker.z } }),
-    }),
-  })),
-});
+// Every desk, figure and post the renderer places. A desk's station turns to
+// face its trader; a figure stands in the pose its location asks for, in its
+// agent's jacket; a post is drawn open or as an unbuilt footprint.
+// The renderer's instance snapshot, as the deferred renderer decodes it. A
+// type alias, not an interface, so it remains plain JSON.
+export type RendererInstance = {
+  readonly id: number;
+  readonly x: number;
+  readonly y: number;
+  readonly z: number;
+  readonly yaw?: number;
+  readonly active?: boolean;
+  readonly marker?: {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+    readonly yaw: number;
+    readonly variant: number;
+    readonly tint: number;
+  };
+};
+export type RendererSnapshot = { readonly revision: number; readonly instances: ReadonlyArray<RendererInstance> };
+export const rendererSnapshot = (snapshot: Snapshot, revision: number): RendererSnapshot => {
+  const view = worldView(snapshot);
+  return {
+    revision,
+    instances: [
+      ...view.desks.flatMap(desk =>
+        Option.toArray(Option.map(desk.station, station => ({
+          id: desk.id,
+          x: station.x,
+          y: 0,
+          z: station.z,
+          yaw: station.yaw,
+          active: Option.exists(desk.state, value => value === "researching" || value === "trading"),
+          ...Option.match(desk.marker, {
+            onNone: () => ({}),
+            onSome: marker => ({
+              marker: {
+                x: marker.x,
+                y: 0,
+                z: marker.z,
+                yaw: marker.yaw,
+                variant: livePoses.indexOf(marker.pose),
+                tint: desk.jacket,
+              },
+            }),
+          }),
+        })))
+      ),
+      ...view.posts.map(post => ({
+        id: (post.open ? postKeys.open : postKeys.blueprint) + post.slot,
+        x: post.x,
+        y: 0,
+        z: post.z,
+      })),
+    ],
+  };
+};
 
 // The view describes its mount on every render, though only a new mount reads it.
 const scenes = new WeakMap<Snapshot, { readonly revision: number; readonly scene: LiveScene }>();
@@ -157,9 +308,15 @@ export const liveScene = (snapshot: Snapshot, revision: number): LiveScene => {
   if (cached?.revision === revision) return cached.scene;
   const view = worldView(snapshot);
   const scene = {
-    floors: view.floors.flatMap(floor => floor.areas),
+    unitsPerH: view.unitsPerH,
+    stationsPerPost: snapshot.model.layout.stationsPerPost,
+    monitorsPerPost: snapshot.model.layout.monitorsPerPost,
+    posts: postCapacity(snapshot),
+    rooms: view.floors.map(floor => ({ areas: floor.areas, blueprint: floor.blueprint })),
     lobby: view.lobby,
-    marks: view.marks,
+    doors: view.doors,
+    places: view.places,
+    plots: view.plots,
     bounds: view.bounds,
     snapshot: rendererSnapshot(snapshot, revision),
   };

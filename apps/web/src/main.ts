@@ -82,10 +82,15 @@ export const makeView = (commands: MapCommands["Service"]) => {
   const mapView = Map.makeView(commands);
   return (model: Model, h: HtmlBuilder<Message>): Document => ({
     title: "The Floor",
-    body: h.main([h.Class("floor-shell")], [
+    body: h.main([h.Class("floor-shell"), h.DataAttribute("theme", model.map.presentation.theme)], [
       h.header([h.Class("floor-heading")], [
         h.h1([], ["The Floor"]),
-        h.p([], ["Synthetic renderer test scene — geometry and palette unapproved"]),
+        // The look is provisional until the owner picks the kit's assets.
+        h.p([h.Class("floor-note")], [
+          Option.isSome(model.map.selection)
+            ? "Provisional look · kit posts, stations and figures unpicked"
+            : "Synthetic renderer test scene · no world selected",
+        ]),
       ]),
       h.div([h.Id("floor-map")], [h.submodel({
         slotId: "map",
@@ -95,9 +100,11 @@ export const makeView = (commands: MapCommands["Service"]) => {
       })]),
       h.section([h.AriaLabel("Connection"), h.Class("floor-connection")], [
         h.p([h.Role("status"), h.AriaLive("polite")], [connectionText[model.connection]]),
-        h.button([h.OnClick(Message.ClickedCheckConnection()), h.Disabled(model.connection === "checking")], [
-          "Check connection",
-        ]),
+        h.button([
+          h.Class("chrome-link"),
+          h.OnClick(Message.ClickedCheckConnection()),
+          h.Disabled(model.connection === "checking"),
+        ], ["Check connection"]),
       ]),
     ]),
   });

@@ -321,7 +321,7 @@ Sound is off by default and is never needed to understand anything. Under reduce
 
 There is no Blender for the MVP. Every asset is made as code, following the same conventions a Blender asset would, so modelled assets can join later without changes.
 - **Code makes it.** three.js generators, and SVG profiles that are lathed, extruded or swept. Generators live in the web asset kit, because three.js may only be imported in `apps/web`.
-- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. The post and station generators live in `apps/web/src/map/_lib/assets/`, and the workbench builds them directly. Models and manifests under `assets/<kind>/<id>/` arrive with the first modelled asset ([decision](decisions.md#the-look)).
+- **Code runs where its input is.** Parts that follow live data, the brass instruments, are built in the renderer. The post and station generators and the picked Roomy figure live in `apps/web/src/map/_lib/assets/`; the workbench builds them directly and the live viewer draws them. Models and manifests under `assets/<kind>/<id>/` arrive with the first modelled asset ([decision](decisions.md#the-look)).
 - **The desk gets the most care.** Most of what people see is desks, so the desk has variants, and neighbouring desks differ.
 - **The conventions:**
   - `_SURFACE` holds per-vertex surface ids. Technique B draws a line where the surface id or the depth changes, so where lines fall is authored, and a cylinder is one surface with no stripes.

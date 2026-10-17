@@ -65,6 +65,8 @@ test("plans place every floor, post and station from the canonical rules", () =>
   for (const [index, area] of areas.entries()) {
     expect(areas.slice(index + 1).some(other => overlaps(area, other))).toBe(false);
   }
+  // Neighbouring anchors are one post spacing apart, which viewers draw at the Roomy pitch.
+  expect(plan.postPitch).toEqual(Option.some(8));
   // The square spiral declares no doors, post envelopes or lobby.
   expect(plan.floors.every(floor => floor.doors.length === 0)).toBe(true);
   expect(plan.floors.every(floor => floor.posts.every(post => Option.isNone(post.envelope)))).toBe(true);

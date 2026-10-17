@@ -3,30 +3,15 @@ import { PaletteName } from "@floor/atlas/materials";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import type { Part } from "../../src/map/_lib/assets/figure";
+import type { Point } from "../../src/map/_lib/assets/geometry";
 import type { Engine } from "../renderer-probe";
 import { WorkbenchFailure } from "../runtime";
 
-export type Point = readonly [number, number, number];
-export type Part = { readonly geometry: THREE.BufferGeometry; readonly slot: PaletteName };
-export const part = (geometry: THREE.BufferGeometry, slot: PaletteName): Part => ({ geometry, slot });
-export const box = (w: number, h: number, d: number, x: number, y: number, z: number, slot: PaletteName) =>
-  part(new THREE.BoxGeometry(w, h, d).translate(x, y, z), slot);
-export const oval = (w: number, h: number, d: number, x: number, y: number, z: number, slot: PaletteName) =>
-  part(new THREE.SphereGeometry(1, 16, 10).scale(w / 2, h / 2, d / 2).translate(x, y, z), slot);
-export const limb = (a: Point, b: Point, radius: number, slot: PaletteName) => {
-  const from = new THREE.Vector3(...a), to = new THREE.Vector3(...b);
-  const distance = from.distanceTo(to);
-  const rotation = new THREE.Quaternion().setFromUnitVectors(
-    new THREE.Vector3(0, 1, 0),
-    to.clone().sub(from).normalize(),
-  );
-  const centre = from.add(to).multiplyScalar(.5);
-  return part(
-    new THREE.CapsuleGeometry(radius, Math.max(.001, distance), 4, 10)
-      .applyQuaternion(rotation).translate(centre.x, centre.y, centre.z),
-    slot,
-  );
-};
+// The figure's part helpers live with the figure in the asset kit; the picked
+// proportion frames build their posts and chairs from the same primitives.
+export { type Part, part, partBox as box } from "../../src/map/_lib/assets/figure";
+export type { Point } from "../../src/map/_lib/assets/geometry";
 
 // Entity and surface numbering decide where technique B draws lines, so the
 // picked proportion frames depend on this exact allocation order.

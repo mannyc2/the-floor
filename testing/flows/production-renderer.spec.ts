@@ -19,7 +19,7 @@ const urlCamera = (url: string) => {
 // Hiding them only while capturing keeps hover and focus paint from imitating
 // or hiding world movement; every canvas pixel is still compared exactly.
 const overlays =
-  ".floor-heading, .camera-rotation, .floor-connection, .map-status, .world-status { visibility: hidden !important; }";
+  ".floor-heading, .camera-controls, .floor-connection, .map-footer, .world-panel { visibility: hidden !important; }";
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright captures the composited canvas at this native boundary.
 const capture = async (canvas: Locator) => PNG.sync.read(await canvas.screenshot({ style: overlays }));
 // @effect-diagnostics-next-line asyncFunction:off -- Playwright retains each compared canvas capture at this native boundary.
@@ -168,7 +168,10 @@ test("a click picks the seeded synthetic desk and opens its labelled drawer", as
   await page.goto(`/?${new URLSearchParams({ world: seeded.world, chain: seeded.chain })}`);
   await expect(page.getByText("World connected", { exact: true })).toBeVisible();
   await expect(page.getByText("Rendering live world", { exact: true })).toBeVisible();
+  // The desk list stays folded until asked for, so it never covers the floor.
+  await page.getByRole("button", { name: "Desks", exact: true }).click();
   await expect(page.getByRole("button", { name: `Open desk for ${seeded.agent}`, exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Desks", exact: true }).click();
   const drawer = page.getByRole("complementary", { name: "Agent desk" });
   await expect(drawer).toHaveCount(0);
   const canvas = page.locator("#map canvas");

@@ -13,7 +13,7 @@ A strip at the top of the page names the layout and links to the others; followi
 - **pitch** (default) draws the 4.25H minimum post distance at the grid's 8-unit post pitch, so both layouts share one post density and the camera's rungs.
 - **figure** draws one H at the Atlas figure height of 8 units, the conversion this proposal's renderer study used. Rooms are then about four times the grid's floors.
 
-The viewer draws the proposal with existing synthetic primitives and palette slots only: each room's hall and wing are ground slabs, as is the lobby; doors are flat paper patches across the shared wall; open posts' reserved envelopes are flat steel discs and blueprint posts' are paper discs; the five named places and the lobby plots are low synthetic blocks. There are no walls. Agents at a named place stand at its reservation's centre, so a walk to the board is visible; under the grid the drawer says the layout does not position it.
+The viewer draws the proposal like the grid, with the provisional live floor: the kit's posts and stations and Roomy figures on timber room slabs, a paper lobby with low plinths for its plots, and paper footprints for unopened posts and the blueprint room. Built rooms and the lobby have low timber walls, cut away on the camera's side; shared walls open at each door over a steel sill. The five named places are simple furniture in existing slots (a steel wall of screens, a bell on a timber stand, a podium, file cabinets, a pinned board) backing onto the wing's outer wall. Agents at a named place stand at its reservation's centre facing it, so a walk to the board is visible; under the grid the drawer says the layout does not position it.
 
 ## What must remain true
 
@@ -57,7 +57,7 @@ Figures are for seed `20261014` with the default 40 posts of 10 stations.
 - **Spacing sits at the minimum.** Nearest neighbours are 4.25–5.33H apart, 4.53H on average, so a 40-post room reads as a loose, irregular crowd rather than rows, but also rather than the clusters of the floor frame.
 - **Rooms are near-square at 40 posts.** Halls come out about 37H square with a 4–6H by 6–9H wing, so the irregularity is in the posts more than the outlines. Fewer posts per floor give more varied rooms.
 - **Scale.** At the figure scale a room is about 295 units across against the grid's 72; at the pitch scale four floors and a blueprint span about 274 by 252 units.
-- **Viewer limits.** At the 380 rung the existing depth-edge pass inks distant floor tops under either layout; level of detail is Stage 2. The synthetic desks predate Roomy, there are no walls, and doors are markings rather than openings.
+- **Viewer limits.** Level of detail is Stage 2: far rungs fade each thing's inner outlines and keep silhouettes. The walls and place furniture are provisional blockout, and the lobby is a large empty paper floor.
 
 ## Adopting it
 

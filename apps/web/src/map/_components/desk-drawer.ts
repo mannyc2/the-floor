@@ -20,7 +20,7 @@ const receiptView = (receipt: Receipt, h: HtmlBuilder<Message>) => {
     : receipt._tag === "RefusedReceipt"
     ? "Refused"
     : "Outcome unknown";
-  return h.section([h.AriaLabel("Last receipt")], [
+  return h.section([h.AriaLabel("Last receipt"), h.Class("receipt")], [
     h.h3([], ["Last receipt"]),
     h.p([h.DataAttribute("receipt-outcome", receipt._tag)], [outcome]),
     h.dl([], [
@@ -85,21 +85,33 @@ export const deskDrawer = (
   h: HtmlBuilder<Message>,
 ) =>
   h.aside([h.Class("desk-drawer"), h.AriaLabel("Agent desk")], [
-    h.button([h.OnClick(Message.SelectedEntity({ entity: Option.none() }))], ["Close desk"]),
-    h.h2([], [agent.agent]),
-    h.p([h.DataAttribute("agent-state", Option.getOrElse(agent.state, () => "unreported"))], [
-      Option.getOrElse(agent.state, () => "State not reported"),
+    h.header([h.Class("drawer-head")], [
+      h.p([h.Class("drawer-kicker")], ["Agent desk"]),
+      h.button([h.Class("chrome-link drawer-close"), h.OnClick(Message.SelectedEntity({ entity: Option.none() }))], [
+        "Close desk",
+      ]),
+      h.h2([], [agent.agent]),
     ]),
-    h.p([h.DataAttribute("agent-location", location)], [location]),
+    h.dl([h.Class("drawer-facts")], [
+      h.dt([], ["State"]),
+      h.dd([h.DataAttribute("agent-state", Option.getOrElse(agent.state, () => "unreported"))], [
+        Option.getOrElse(agent.state, () => "State not reported"),
+      ]),
+      h.dt([], ["Where"]),
+      h.dd([h.DataAttribute("agent-location", location)], [location]),
+    ]),
     h.button(
-      Option.match(follow, {
-        onNone: () => [h.Disabled(true)],
-        onSome: message => [h.OnClick(message)],
-      }),
+      [
+        h.Class("chrome-button chrome-text drawer-follow"),
+        ...Option.match(follow, {
+          onNone: () => [h.Disabled(true)],
+          onSome: message => [h.OnClick(message)],
+        }),
+      ],
       ["Follow agent"],
     ),
     Option.match(agent.receipt, {
-      onNone: () => h.p([], ["No receipt recorded yet."]),
+      onNone: () => h.p([h.Class("drawer-empty")], ["No receipt recorded yet."]),
       onSome: receipt => receiptView(receipt, h),
     }),
   ]);

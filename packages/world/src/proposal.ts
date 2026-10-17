@@ -570,6 +570,7 @@ export const proposalLayout = (options: {
         })),
       }));
       return {
+        postPitch: Option.some(scale(postDistance)),
         floors,
         stations: rooms.flatMap(([floor, room]) =>
           Array.zip(floor.posts, room.posts).flatMap(([post, reserved]) =>

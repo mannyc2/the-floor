@@ -118,7 +118,10 @@ test("the development world draws the proposal's rooms and picks a desk in its s
   // A named place the proposal reserves is a place the viewer draws an agent:
   // the second room's walker reaches one within a circuit of four moves.
   const drawer = page.getByRole("complementary", { name: "Agent desk" });
+  const desks = page.getByRole("button", { name: "Desks", exact: true });
+  await desks.click();
   await page.getByRole("button", { name: `Open desk for synthetic-dev-agent-${capacity}`, exact: true }).click();
+  await desks.click();
   await expect(drawer.locator("[data-agent-location]")).toHaveText(
     /^At the (wall of screens|bell|podium|file room|board) on floor_1$/,
     { timeout: 30_000 },

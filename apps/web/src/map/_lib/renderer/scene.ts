@@ -2,7 +2,7 @@ import { PaletteName, syntheticPalette } from "@floor/atlas/materials";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import type { GroundArea, GroundMark, Theme } from "../../model";
+import type { Theme } from "../../model";
 export { syntheticPalette } from "@floor/atlas/materials";
 
 export const names = PaletteName.literals;
@@ -15,13 +15,6 @@ export interface SceneConfig {
   readonly width: number;
   readonly height: number;
   readonly desks: number;
-  // A live scene draws the world's floors, lobby and layout markings instead of
-  // the synthetic test room.
-  readonly live?: {
-    readonly floors: ReadonlyArray<GroundArea>;
-    readonly lobby: ReadonlyArray<GroundArea>;
-    readonly marks: ReadonlyArray<GroundMark>;
-  };
 }
 export interface Entity {
   readonly id: number;
@@ -30,12 +23,26 @@ export interface Entity {
   // An agent marker shares its desk's identity, so picking either selects the
   // same agent without spending a second slot of the 12-bit entity channel.
   readonly marker?: boolean;
+  // Which of a slot's marker meshes this is; a live figure has one per pose.
+  readonly variant?: number;
 }
-interface Boundary {
+export interface Boundary {
   readonly name: string;
   readonly id: number;
   readonly mesh: THREE.Mesh;
   readonly outward: THREE.Vector3;
+}
+// What the Engine draws, picks and reconciles, for the synthetic room and the
+// live floor alike.
+export interface SceneData {
+  readonly scene: THREE.Scene;
+  readonly meshes: Array<THREE.Mesh>;
+  readonly geometries: Array<THREE.BufferGeometry>;
+  readonly entities: Array<Entity>;
+  readonly boundaries: Array<Boundary>;
+  readonly cutaway: (towardCamera: THREE.Vector3) => void;
+  // The interpolation gauge exists only in the synthetic room.
+  readonly gauge: Option.Option<number>;
 }
 
 const joined = (parts: Array<THREE.BufferGeometry>) => {
@@ -45,7 +52,7 @@ const joined = (parts: Array<THREE.BufferGeometry>) => {
   return geometry;
 };
 
-export const createScene = (config: SceneConfig, material: THREE.Material) => {
+export const createScene = (config: SceneConfig, material: THREE.Material): SceneData => {
   const counter = { surface: 1 };
   const geometries: Array<THREE.BufferGeometry> = [];
   const meshes: Array<THREE.Mesh> = [];
@@ -107,17 +114,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     scene.add(mesh);
     return mesh;
   };
-  const monitor = (variant: number) => {
-    const geometry = box(.75 + variant * .1, .52, .1, 0, 1.7, -.48, 2);
-    if (config.live) {
-      const normals = geometry.getAttribute("normal");
-      const materials = geometry.getAttribute("_MAT");
-      for (let index = 0; index < normals.count; index++) {
-        if (normals.getZ(index) > 0) materials.setX(index, -1);
-      }
-    }
-    return geometry;
-  };
+  const monitor = (variant: number) => box(.75 + variant * .1, .52, .1, 0, 1.7, -.48, 2);
   const desk = (variant: number) =>
     joined([
       box(2.4, .16, 1.8, 0, 1.2, 0),
@@ -137,40 +134,7 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   const depth = config.desks > 12
     ? Math.max(15, 2 * (Math.max(15 * 2.7 + .9, (rows - 16) * 2.7 + 1.46) + .5))
     : 15;
-  // The ground slab's top face, which every marking stands on.
-  const slabTop = -.025;
-  const steel = names.indexOf("steel-0");
-  const slab = (area: GroundArea) =>
-    box(area.x1 - area.x0, .25, area.z1 - area.z0, (area.x0 + area.x1) / 2, -.15, (area.z0 + area.z1) / 2, 4);
-  // Markings stand on the slab's top face with the existing primitives and
-  // palette slots: flat paper door passages and blueprint posts, steel post
-  // envelopes, and low synthetic blocks for reserved places and plots.
-  const mark = ({ kind, area }: GroundMark) => {
-    const x = (area.x0 + area.x1) / 2, z = (area.z0 + area.z1) / 2;
-    const spanX = area.x1 - area.x0, spanZ = area.z1 - area.z0;
-    const raised = (height: number, materialSlot: number) =>
-      box(spanX, height, spanZ, x, slabTop + height / 2, z, materialSlot);
-    const disc = (materialSlot: number) => cylinder(spanX / 2, .04, x, slabTop + .02, z, materialSlot);
-    const drawn = {
-      door: () => raised(.04, 3),
-      post: () => disc(steel),
-      blueprintPost: () => disc(3),
-      place: () => raised(.4, 5),
-      plot: () => raised(.25, 5),
-    } satisfies Record<GroundMark["kind"], () => THREE.BufferGeometry>;
-    return drawn[kind]();
-  };
-  if (!config.live) add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
-  else if (config.live.floors.length + config.live.lobby.length > 0) {
-    // All ground in one mesh: floors never move while a mount lives, and a new
-    // floor changes renderer capacity, which remounts. Markings share the
-    // ground's identity, so picking one selects no desk.
-    add(
-      "synthetic-floor",
-      1,
-      joined([...config.live.floors, ...config.live.lobby].map(slab).concat(config.live.marks.map(mark))),
-    );
-  }
+  add("synthetic-floor", 1, box(width, .25, depth, 0, -.15, 0, 4));
   Array.from({ length: 3 }, (_variantValue, variant) => {
     const geometry = desk(variant);
     const count = Math.floor((config.desks + 2 - variant) / 3);
@@ -191,20 +155,6 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
     geometries.push(geometry);
     scene.add(mesh);
   });
-  if (config.live) {
-    // The existing synthetic cylinder, standing on the floor, marks where each
-    // desk's agent is. It is not a figure design; reconciled offsets place it.
-    const geometry = cylinder(.52, 1.45, 0, .725, 0, 3);
-    const mesh = new THREE.InstancedMesh(geometry, material, config.desks);
-    mesh.name = "synthetic-agent-marker";
-    Array.from({ length: config.desks }, (_instanceValue, index) => {
-      mesh.setMatrixAt(index, new THREE.Matrix4());
-      entities.push({ id: index + 2, mesh, maybeInstance: Option.some(index), marker: true });
-    });
-    meshes.push(mesh);
-    geometries.push(geometry);
-    scene.add(mesh);
-  }
   const gaugeId = config.desks + 2;
   add(
     "synthetic-interpolation-gauge",
@@ -234,14 +184,6 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
   boundary("wall-south", gaugeId + 6, box(width, 7, .2, 0, 3.5, depth / 2, 6), new THREE.Vector3(0, 0, 1));
   boundary("wall-north", gaugeId + 7, box(width, 7, .2, 0, 3.5, -depth / 2, 6), new THREE.Vector3(0, 0, -1));
   boundary("ceiling", gaugeId + 8, box(width, .2, depth, 0, 7, 0, 7), new THREE.Vector3(0, 1, 0));
-
-  // Measurement props and the synthetic room cannot obscure canonical desks
-  // that arrive outside the renderer workbench's original rectangular field.
-  if (config.live) {
-    entities.filter(entity => entity.id >= gaugeId).forEach(entity => {
-      entity.mesh.visible = false;
-    });
-  }
 
   meshes.forEach(mesh => {
     const instanceCount = mesh instanceof THREE.InstancedMesh
@@ -277,7 +219,6 @@ export const createScene = (config: SceneConfig, material: THREE.Material) => {
         partition.mesh.layers.set(partition.outward.dot(towardCamera) <= 0 ? 0 : 1);
       });
     },
-    gaugeId,
-    syntheticCylinder: { center: { x: -3.5, y: 1.15, z: -3.5 }, radius: .52, height: 1.45 },
+    gauge: Option.some(gaugeId),
   };
 };

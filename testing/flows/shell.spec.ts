@@ -14,7 +14,7 @@ test("the shell and read-only MCP share health through the running Floor Worker"
   await expect(page.getByRole("heading", { name: "The Floor", exact: true })).toBeVisible();
   await expect(page.getByRole("region", { name: "Trading floor" })).toBeVisible();
   await expect(page.locator("#floor-map canvas")).toBeVisible();
-  await expect(page.getByText("Synthetic renderer test scene — geometry and palette unapproved")).toBeVisible();
+  await expect(page.getByText("Synthetic renderer test scene · no world selected")).toBeVisible();
   await expect(page.getByRole("status")).toHaveText("Not checked");
   const response = page.waitForResponse(value =>
     /^\/api\/rpc\/?$/.test(new URL(value.url()).pathname) && value.request().method() === "POST"
