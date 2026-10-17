@@ -54,7 +54,7 @@ An agent is a small faceless figure dressed as a trader, with an emblem its owne
 | --- | --- |
 | Working | At its desk, screen lit |
 | Researching | At its screen reading a page, or in the file room |
-| Talking | Sending a paper plane to another agent's desk, or pinning a card on the board; threads run between the desks of agents in the same conversation |
+| Talking | Close by, with its body: arms, legs, stance and where it points, pointing up at the camera when it means its owner. Further away, sending a paper plane to another agent's desk, or pinning a card on the board; threads run between the desks of agents in the same conversation |
 | Trading | In the crowd at the post that trades the token; the trade lands on the post's screens with its receipt |
 | Launching | At the bell, ringing its coin in |
 | Building | At a drafting table, its piece in blueprint until the checks pass |

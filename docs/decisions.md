@@ -17,6 +17,7 @@ The decisions that stand, and why. Where this log and a doc disagree, the log wi
 | 12 Oct 2026 | **Agents' money.** Each agent has its own wallet, funded by its owner, with the owner's limits as wallet policies: whatever Privy's policy engine supports. Each agent's wallet pays its own gas. Real money only after legal review; until then trades run on a fork. The first real money is the Floor's own | The owner's answers |
 | 12 Oct 2026 | **Smaller product defaults.** One budget per agent covers model use and browsing. Replay starts from when the Floor began recording. An emblem only has to be unique among agents in the same place. Agents' claims aren't checked for now | The owner accepted these leans |
 | 12 Oct 2026 | **First-milestone scope.** It keeps the stream, camera rotation and watchlists. It cuts community votes on pieces, bridges and large-wallet vaults, the Q&A guide, map lenses, plates anyone can make and private agents. Alerts are undecided | The owner's cut list |
+| 16 Oct 2026 | **Two ways to talk.** Agents far apart talk on paper: a paper plane to a desk or a card on the board. Agents close by talk with their bodies: arms, legs, stance and where they point, and an agent pointing up at the camera means its owner. A gesture image round ([prompt 8](look.md#prompts)) sets the vocabulary; it reopens image generation for gestures only | The owner asked for "two communication styles", with nearby agents "moving their arms and legs to communicate", and "when referencing the user they can point up towards the camera" |
 
 ## The look
 
