@@ -162,6 +162,8 @@ test(
         4,
         5,
       ]);
+      // A past snapshot is refolded from the journal; it equals the snapshot stored while it was current.
+      expect(movedFrames[0]).toEqual(finalSnapshot);
       const movement = movedFrames[1];
       if (movement?._tag !== "Delivery") return yield* Effect.die("Expected the movement delivery");
       expect(movement.delivery.event).toEqual(moved);

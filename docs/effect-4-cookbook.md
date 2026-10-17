@@ -33,7 +33,7 @@ Effect 4 has no `effect/unstable/*` paths. The modules are `effect`, `effect/sch
 7. **SQL.**
    - Models are `Model.Class` with `Model.BooleanSqlite` and `Model.Field`; repositories are `SqlModel.makeRepository`; queries use `SqlSchema.findOneOption` and `SqlSchema.void`.
    - On Workers, storage goes through Alchemy: Durable Object SQL with its migrations, and D1. Their transactions differ (see [the platform](platform.md#built-on-alchemy)).
-   - For a native Durable Object transaction, `SqliteClient.layer({ storage: state.raw.storage })` supplies the storage-backed SQL client. `apps/floor/src/world/runtime.ts` uses its `withTransaction` to commit an event and its snapshot together.
+   - For a native Durable Object transaction, `SqliteClient.layer({ storage: state.raw.storage })` supplies the storage-backed SQL client. `apps/floor/src/world/runtime.ts` uses its `withTransaction` to commit an event and the current snapshot together.
 8. **Streams, caches and fibres.**
    - `PubSub.sliding({ capacity, replay: 1 })` with `Stream.fromPubSub` carries replaceable latest values. A durable event feed must not drop deliveries: the world stream uses a sliding wakeup only, then reads every journal row after the subscriber's cursor.
    - `Cache.makeWith(lookup, { timeToLive: (exit) => Exit.isSuccess(exit) ? "15 seconds" : "0 seconds" })` keeps only successes.

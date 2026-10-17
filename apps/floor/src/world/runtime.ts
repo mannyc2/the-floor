@@ -17,7 +17,7 @@ import { WorldEventId } from "@floor/contract/identifiers";
 import { WorldChangeError } from "@floor/contract/world";
 import { WorldEvent, WorldEventDelivery } from "@floor/contract/world-events";
 import { agentLocation, allStations, assignAgent, createWorld } from "@floor/world";
-import { assertReceiptEvolution, foldWorldEvent } from "@floor/world/stream";
+import { assertReceiptEvolution, foldWorld, foldWorldEvent } from "@floor/world/stream";
 import { DurableObject } from "alchemy/Cloudflare/Workers/DurableObject";
 import { DurableObjectState } from "alchemy/Cloudflare/Workers/DurableObjectState";
 import { SqlMigrations } from "alchemy/Cloudflare/Workers/SqlMigrations";
@@ -45,7 +45,8 @@ const PublicationJson = Schema.toCodecJson(Publication);
 const EventJson = Schema.toCodecJson(WorldEvent);
 const EventText = Schema.fromJsonString(EventJson);
 const SnapshotText = Schema.fromJsonString(Schema.toCodecJson(WorldSnapshot));
-const JournalRow = Schema.Struct({ sequence: Schema.Natural, event: EventText, snapshot: SnapshotText });
+const ReceiptText = Schema.OptionFromNullOr(Schema.fromJsonString(Schema.toCodecJson(Receipt)));
+const JournalRow = Schema.Struct({ sequence: Schema.Natural, event: EventText, receipt: ReceiptText });
 interface FloorWorldRpc {
   readonly publish: (input: Schema.Json) => Effect.Effect<Schema.Json, WorldPublishError>;
 }
@@ -65,16 +66,16 @@ const WorldsLive = FloorWorlds.make(Effect.map(
       );
       const updates = yield* PubSub.sliding<boolean>({ capacity: 1 });
       const writes = yield* Semaphore.make(1);
-      const findLatest = SqlSchema.findOneOption({
+      const findCurrent = SqlSchema.findOneOption({
         Request: Schema.Struct({}),
-        Result: JournalRow,
-        execute: () => sql`SELECT sequence, event, snapshot FROM world_events ORDER BY sequence DESC LIMIT 1`,
+        Result: Schema.Struct({ snapshot: SnapshotText }),
+        execute: () => sql`SELECT snapshot FROM world_snapshot`,
       });
       const findPublication = SqlSchema.findOneOption({
         Request: Schema.Struct({ kind: Schema.String, agent: Schema.String }),
         Result: JournalRow,
         execute: ({ kind, agent }) =>
-          sql`SELECT sequence, event, snapshot FROM world_events
+          sql`SELECT sequence, event, receipt FROM world_events
         WHERE json_extract(event, '$._tag') = ${kind} AND json_extract(event, '$.agent') = ${agent}
         ORDER BY sequence DESC LIMIT 1`,
       });
@@ -82,20 +83,21 @@ const WorldsLive = FloorWorlds.make(Effect.map(
         Request: Schema.String,
         Result: JournalRow,
         execute: receipt =>
-          sql`SELECT sequence, event, snapshot FROM world_events
+          sql`SELECT sequence, event, receipt FROM world_events
           WHERE json_extract(event, '$._tag') = 'ReceiptLanded' AND json_extract(event, '$.receipt') = ${receipt}
           ORDER BY sequence DESC LIMIT 1`,
       });
-      const findSequence = SqlSchema.findOneOption({
+      const findThrough = SqlSchema.findAll({
         Request: Schema.Natural,
         Result: JournalRow,
-        execute: sequence => sql`SELECT sequence, event, snapshot FROM world_events WHERE sequence = ${sequence}`,
+        execute: sequence =>
+          sql`SELECT sequence, event, receipt FROM world_events WHERE sequence <= ${sequence} ORDER BY sequence`,
       });
       const findAfter = SqlSchema.findAll({
         Request: Schema.Natural,
         Result: JournalRow,
         execute: sequence =>
-          sql`SELECT sequence, event, snapshot FROM world_events WHERE sequence > ${sequence} ORDER BY sequence`,
+          sql`SELECT sequence, event, receipt FROM world_events WHERE sequence > ${sequence} ORDER BY sequence`,
       });
       const initial = Effect.fnUntraced(
         function*(input: typeof WorldQuery.Type, layout?: typeof WorldSnapshot.Type["model"]["layout"]) {
@@ -104,13 +106,28 @@ const WorldsLive = FloorWorlds.make(Effect.map(
         },
       );
       const latest = Effect.fnUntraced(function*(input: typeof WorldQuery.Type) {
-        const row = yield* findLatest({});
+        const row = yield* findCurrent({});
         const snapshot = Option.isSome(row) ? row.value.snapshot : yield* initial(input);
         if (snapshot.model.id !== input.world || snapshot.chain !== input.chain) {
           return yield* new WorldChangeError({ reason: "wrongChain", reference: input.world });
         }
         return snapshot;
       });
+      // A past snapshot is the journal folded from the empty world, the same
+      // fold the viewer applies to deliveries, so only the current one is stored.
+      const replay = Effect.fnUntraced(
+        function*(
+          input: typeof WorldQuery.Type,
+          layout: typeof WorldSnapshot.Type["model"]["layout"],
+          through: number,
+        ) {
+          let snapshot = yield* initial(input, layout);
+          for (const row of yield* findThrough(through)) {
+            snapshot = yield* Effect.fromResult(foldWorld(snapshot, row.event, row.receipt));
+          }
+          return snapshot;
+        },
+      );
       const handlers = {
         publish: Effect.fn("FloorWorlds.publish")(function*(encoded: Schema.Json) {
           const input = yield* Schema.decodeEffect(PublicationJson)(encoded).pipe(Effect.orDie);
@@ -136,10 +153,7 @@ const WorldsLive = FloorWorlds.make(Effect.map(
               if (input._tag === "Receipt") {
                 const prior = yield* findReceipt(input.receipt.id);
                 if (Option.isSome(prior)) {
-                  const previous = yield* Effect.fromOption(Option.flatMap(
-                    Option.fromNullishOr(prior.value.snapshot.agents.find(agent => agent.agent === input.agent)),
-                    agent => agent.receipt,
-                  ));
+                  const previous = yield* Effect.fromOption(prior.value.receipt);
                   if (Schema.toEquivalence(Receipt)(previous, input.receipt)) return prior.value.event;
                   yield* assertReceiptEvolution(previous, input.receipt);
                 }
@@ -171,14 +185,13 @@ const WorldsLive = FloorWorlds.make(Effect.map(
               } else {
                 event = WorldEvent.cases.ReceiptLanded.make({ ...fields, receipt: input.receipt.id });
               }
-              const next = yield* foldWorldEvent(
-                snapshot,
-                event,
-                input._tag === "Receipt" ? Option.some(input.receipt) : Option.none(),
-              );
+              const receipt = input._tag === "Receipt" ? Option.some(input.receipt) : Option.none();
+              const next = yield* foldWorldEvent(snapshot, event, receipt);
               const eventText = yield* Schema.encodeEffect(EventText)(event);
+              const receiptText = yield* Schema.encodeEffect(ReceiptText)(receipt);
               const snapshotText = yield* Schema.encodeEffect(SnapshotText)(next);
-              yield* sql`INSERT INTO world_events (sequence, event, snapshot) VALUES (${next.sequence}, ${eventText}, ${snapshotText})`;
+              yield* sql`INSERT INTO world_events (sequence, event, receipt) VALUES (${next.sequence}, ${eventText}, ${receiptText})`;
+              yield* sql`INSERT OR REPLACE INTO world_snapshot (id, snapshot) VALUES (0, ${snapshotText})`;
               return event;
             })).pipe(
               // Notifications carry no data. A slow subscriber drains the durable log,
@@ -201,30 +214,26 @@ const WorldsLive = FloorWorlds.make(Effect.map(
             if (sequence > head.sequence) {
               return yield* new WorldChangeError({ reason: "invalidTopology", reference: String(sequence) });
             }
-            const snapshot = sequence === head.sequence ? head : sequence === 0
-              ? yield* initial(input, head.model.layout)
-              : (yield* Effect.fromOption(yield* findSequence(sequence))).snapshot;
+            const snapshot = sequence === head.sequence ? head : yield* replay(input, head.model.layout, sequence);
             const cursor = yield* Ref.make(sequence);
             const drain = Effect.gen(function*() {
               const rows = yield* findAfter(yield* Ref.get(cursor));
               // An empty world has no chain evidence yet. A subscriber that
               // guessed another chain must fail when the first event arrives.
-              if (rows.some(row => row.event.world !== input.world || row.snapshot.chain !== input.chain)) {
+              // The fold holds every journaled event to its world's chain.
+              if (rows.some(row => row.event.world !== input.world || row.event.checkpoint.chain !== input.chain)) {
                 return yield* new WorldChangeError({ reason: "wrongChain", reference: input.world });
               }
               if (rows.length > 0) {
                 yield* Ref.set(cursor, rows.at(-1)?.sequence ?? sequence);
               }
-              return rows.map(row => {
-                const event = row.event;
-                return WorldFrame.cases.Delivery.make({
+              return rows.map(row =>
+                WorldFrame.cases.Delivery.make({
                   sequence: row.sequence,
                   delivery: WorldEventDelivery.cases.Live.make({ event: row.event }),
-                  receipt: event._tag === "ReceiptLanded"
-                    ? row.snapshot.agents.find(agent => agent.agent === event.agent)?.receipt ?? Option.none()
-                    : Option.none(),
-                });
-              });
+                  receipt: row.receipt,
+                })
+              );
             });
             return Stream.concat(
               Stream.succeed(WorldFrame.cases.Snapshot.make({ snapshot })),
