@@ -1,14 +1,33 @@
 import { shading } from "@floor/atlas/look";
+import { framesPerClip } from "../assets/rig";
+import { boneStride } from "../assets/trader";
+
+// How long a trader takes to blend from one clip into the next.
+export const blendSeconds = .45;
 
 // The live floor's material defines LIVE_SCENE. Every difference from the
 // synthetic and approved scenes sits behind it, so their programs keep the
 // exact preprocessed source the picked frames were captured with.
 export const surfaceVertex = `
+#ifdef TRADER
+// A trader packs surface, material, line class and bone into one lane and
+// never repaints per instance, keeping the program within WebGL's sixteen
+// vertex attributes beside the instance matrix and its animation lanes.
+attribute vec4 _PART;
+#define _SURFACE _PART.x
+#define _MAT _PART.y
+#define _LINE _PART.z
+#define _BONE _PART.w
+#define _PALETTE -1.0
+#else
 attribute float _SURFACE;
 attribute float _MAT;
 attribute float _LINE;
+#endif
 attribute float _ENTITY;
+#ifndef TRADER
 attribute float _PALETTE;
+#endif
 #ifdef USE_INSTANCING
 attribute vec4 _INSTANCE_FROM;
 attribute vec4 _INSTANCE_TO;
@@ -27,6 +46,32 @@ varying float flatTone;
 attribute float _TINT;
 uniform vec3 tintSlots;
 uniform vec2 nightSlots;
+#endif
+#ifdef TRADER
+// A trader's bone and visibility group, its current and previous clips
+// (clip, start, cycles per second, then the current clip's fade-in start and
+// the previous clip's unused lane), and its look: palette slots packed in
+// pairs, then hair style plus sixteen times the outfit.
+attribute vec4 _ANIM_A;
+attribute vec4 _ANIM_B;
+attribute vec4 _LOOK;
+uniform highp sampler2D motion;
+uniform float motionTime;
+vec3 rotateByQuaternion(vec4 q, vec3 v) {
+  return v + 2.0 * cross(q.xyz, cross(q.xyz, v) + q.w * v);
+}
+// One bone of one clip at a loop phase: neighbouring baked frames blended.
+void sampleBone(float clip, float phase, int b, out vec4 q, out vec4 p) {
+  float f = fract(phase) * ${framesPerClip.toFixed(1)};
+  float f0 = floor(f);
+  int row0 = int(clip + 0.5) * ${framesPerClip} + int(f0);
+  int row1 = int(clip + 0.5) * ${framesPerClip} + int(mod(f0 + 1.0, ${framesPerClip.toFixed(1)}));
+  vec4 qa = texelFetch(motion, ivec2(b * 2, row0), 0);
+  vec4 qb = texelFetch(motion, ivec2(b * 2, row1), 0);
+  qb *= sign(dot(qa, qb) + 1e-6);
+  q = normalize(mix(qa, qb, f - f0));
+  p = mix(texelFetch(motion, ivec2(b * 2 + 1, row0), 0), texelFetch(motion, ivec2(b * 2 + 1, row1), 0), f - f0);
+}
 #endif
 #endif
 varying vec3 faceNormal;
@@ -52,7 +97,49 @@ void main() {
     flatTone = 0.0;
     vec3 objectNormal = normal;
   #endif
-  #ifdef USE_INSTANCING
+  #ifdef TRADER
+    // A slot with no agent standing, or a part outside this trader's hair
+    // style and outfit, leaves the clip volume before any texture read.
+    float group = floor((_BONE + 0.5) / ${boneStride.toFixed(1)});
+    float style = mod(_LOOK.w + 0.5, 16.0) - 0.5;
+    float outfit = floor((_LOOK.w + 0.5) / 16.0);
+    bool shown = group < 0.5 || (group < 7.5 ? abs(group - style) < 0.5 : abs(group - 8.0 - outfit) < 0.5);
+    if (_ANIM_A.x < -0.5 || !shown) {
+      gl_Position = vec4(0.0, 0.0, 2.0, 1.0);
+      return;
+    }
+    int b = int(mod(_BONE + 0.5, ${boneStride.toFixed(1)}));
+    vec4 q, p;
+    sampleBone(_ANIM_A.x, (motionTime - _ANIM_A.y) * _ANIM_A.z, b, q, p);
+    // The previous clip fades out over the blend after the current one starts.
+    float fade = 1.0 - clamp((motionTime - _ANIM_A.w) / ${blendSeconds.toFixed(2)}, 0.0, 1.0);
+    if (fade > 0.0 && _ANIM_B.x > -0.5) {
+      vec4 qb, pb;
+      sampleBone(_ANIM_B.x, (motionTime - _ANIM_B.y) * _ANIM_B.z, b, qb, pb);
+      float k = fade * fade * (3.0 - 2.0 * fade);
+      q = normalize(mix(q, qb * sign(dot(q, qb) + 1e-6), k));
+      p = mix(p, pb, k);
+    }
+    point.xyz = rotateByQuaternion(q, position * p.w) + p.xyz;
+    objectNormal = rotateByQuaternion(q, normal);
+    // Negative materials take this trader's colours: jacket and trousers,
+    // skin and hair, shirt and tie pack in pairs; the coat is the jacket, or
+    // the shirt in shirtsleeves.
+    if (_MAT < -1.5) {
+      vec3 low = mod(_LOOK.xyz + 0.5, 256.0) - 0.5;
+      vec3 high = floor((_LOOK.xyz + 0.5) / 256.0);
+      float m = -_MAT;
+      materialSlot = m < 2.5 ? low.x
+        : m < 5.5 ? high.x
+        : m < 6.5 ? low.y
+        : m < 7.5 ? high.y
+        : m < 8.5 ? low.z
+        : m < 9.5 ? high.z
+        : outfit < 0.5 ? low.x : low.z;
+    }
+    objectNormal = mat3(instanceMatrix) * objectNormal;
+    point.xyz = mat3(instanceMatrix) * point.xyz + instanceMatrix[3].xyz;
+  #elif defined(USE_INSTANCING)
     #ifdef LIVE_SCENE
       // A hidden slot (a desk nobody holds yet, or a pose its agent is not in)
       // leaves the clip volume before any transform.

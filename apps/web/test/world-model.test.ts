@@ -1,4 +1,3 @@
-import { roomyRecipe } from "@floor/atlas/proportions";
 import {
   AgentId,
   ChainRef,
@@ -20,10 +19,11 @@ import { proposalLayout } from "@floor/world/proposal";
 import { foldWorld } from "@floor/world/stream";
 import { expect } from "bun:test";
 import { Array, DateTime, Effect, Option, Result, Schema } from "effect";
+import { postLayout, traderKinds, traderReach } from "../src/map/_lib/live-layout";
 import { liveScene, locationText, planView, rendererSnapshot, worldView } from "../src/map/_lib/live-world";
 import { initialModel, type Model, subscriptions, update } from "../src/map/main";
 import { Message } from "../src/map/message";
-import { livePoses, postKeys } from "../src/map/model";
+import { postKeys } from "../src/map/model";
 import { effectTest } from "./_runtime";
 
 // A small layout fills a floor with eight desks, so nine arrivals on one chain
@@ -135,8 +135,8 @@ effectTest("every occupied floor and the blueprint render from the canonical lay
     });
     const scene = liveScene(snapshot, 1);
     expect(scene.rooms.map(room => room.blueprint)).toEqual([false, false, true]);
-    // The grid's eight-unit post pitch is drawn at the Roomy pitch of 4.25H.
-    expect(scene.unitsPerH).toBeCloseTo(8 / roomyRecipe.postPitchRatio, 12);
+    // The grid's eight-unit post pitch is drawn at the live floor's pitch.
+    expect(scene.unitsPerH).toBeCloseTo(8 / postLayout.pitch, 12);
     expect([scene.stationsPerPost, scene.posts]).toEqual([8, 3]);
     // The square spiral declares no lobby, doors, places or plots, so its scene adds none.
     expect([scene.lobby, scene.doors, scene.places, scene.plots]).toEqual([[], [], [], []]);
@@ -196,57 +196,64 @@ effectTest("stale, repeated and invalid frames never rewind the accepted world",
   }));
 
 const near = (actual: number, expected: number) => expect(actual).toBeCloseTo(expected, 9);
-effectTest("stations face their traders and figures sit, walk and leave with their agent", () =>
-  Effect.sync(() => {
-    const desk = traveller9(at(10));
-    const unitsPerH = worldView(at(10)).unitsPerH;
-    const plan = canonicalLayout.plan(at(10).model);
-    const origin = Array.headNonEmpty(plan.floors).origin;
-    const post = Option.getOrThrow(
-      Array.findFirst(plan.floors.flatMap(floor => floor.posts), item => item.id === atPost.postId),
-    );
-    const anchor = { x: post.anchor.x - origin.x, z: post.anchor.z - origin.z };
-    // The traveller holds station 0, two units along +x from its post: its
-    // station stands on the counter's outer lip there, turned toward +x.
-    const bearing = Math.atan2(desk.x - anchor.x, desk.z - anchor.z);
-    near(bearing, Math.PI / 2);
-    const seated = instance(at(10), desk.id);
-    near(seated.x, anchor.x + roomyRecipe.counterRadiusRatio * unitsPerH);
-    near(seated.z, anchor.z);
-    near(seated.yaw ?? NaN, bearing);
-    expect(seated.active).toBe(true);
-    // At its own desk the agent sits at the Roomy stance, facing the post.
-    const marker = Option.getOrThrow(Option.fromUndefinedOr(seated.marker));
-    near(marker.x, anchor.x + roomyRecipe.figureRadiusRatio * unitsPerH);
-    near(marker.z, anchor.z);
-    near(marker.yaw, bearing + Math.PI);
-    expect(livePoses[marker.variant]).toBe("seated");
-    expect(locationText(desk)).toBe("At its desk");
-    // Visiting a post, it walks among the crowd just outside the seated ring,
-    // between two stations, still facing the post, in the same jacket.
-    const visiting = Option.getOrThrow(Option.fromUndefinedOr(instance(at(11), desk.id).marker));
-    near(Math.hypot(visiting.x - anchor.x, visiting.z - anchor.z), (roomyRecipe.counterRadiusRatio + .48) * unitsPerH);
-    const gap = Math.atan2(visiting.x - anchor.x, visiting.z - anchor.z) / (Math.PI * 2 / 8) - .5;
-    near(gap, Math.round(gap));
-    expect(livePoses[visiting.variant]).toBe("walking");
-    expect(visiting.tint).toBe(marker.tint);
-    expect(locationText(traveller9(at(11)))).toBe("At post floor_1_post_0");
-    // The desk itself never moves.
-    expect({ x: instance(at(11), desk.id).x, z: instance(at(11), desk.id).z }).toEqual({ x: seated.x, z: seated.z });
-    expect("marker" in instance(at(12), desk.id)).toBe(false);
-    expect(locationText(traveller9(at(12)))).toBe(
-      "At the board on floor_1 · not positioned by the current layout",
-    );
-    expect(instance(at(13), desk.id).marker).toEqual(seated.marker);
-    // Every post rides in the snapshot: open where agents work, a footprint where not.
-    expect(rendererSnapshot(at(13), 1).instances.filter(item => item.id >= postKeys.open).map(item => item.id)).toEqual(
-      [
-        postKeys.open + 0,
-        postKeys.open + 1,
-        postKeys.blueprint + 2,
-      ],
-    );
-  }));
+effectTest(
+  "stations face their traders and figures sit, crowd posts and leave with their agent",
+  () =>
+    Effect.sync(() => {
+      const desk = traveller9(at(10));
+      const unitsPerH = worldView(at(10)).unitsPerH;
+      const plan = canonicalLayout.plan(at(10).model);
+      const origin = Array.headNonEmpty(plan.floors).origin;
+      const post = Option.getOrThrow(
+        Array.findFirst(plan.floors.flatMap(floor => floor.posts), item => item.id === atPost.postId),
+      );
+      const anchor = { x: post.anchor.x - origin.x, z: post.anchor.z - origin.z };
+      // The traveller holds station 0, two units along +x from its post: its
+      // station stands on the counter's outer lip there, turned toward +x.
+      const bearing = Math.atan2(desk.x - anchor.x, desk.z - anchor.z);
+      near(bearing, Math.PI / 2);
+      const seated = instance(at(10), desk.id);
+      near(seated.x, anchor.x + postLayout.counterEdge * unitsPerH);
+      near(seated.z, anchor.z);
+      near(seated.yaw ?? NaN, bearing);
+      expect(seated.active).toBe(true);
+      // At its own desk the agent sits on its stool in front of the counter
+      // edge, facing the post.
+      const marker = Option.getOrThrow(Option.fromUndefinedOr(seated.marker));
+      near(marker.x, anchor.x + (postLayout.counterEdge + traderReach.seated) * unitsPerH);
+      near(marker.z, anchor.z);
+      near(marker.yaw, bearing + Math.PI);
+      expect(traderKinds[marker.kind]).toBe("seat");
+      expect(locationText(desk)).toBe("At its desk");
+      // Visiting a post, it joins the crowd in the aisle outside the seated
+      // ring, between two stations, facing the post, with the same look seed.
+      const visiting = Option.getOrThrow(Option.fromUndefinedOr(instance(at(11), desk.id).marker));
+      const depth = (Math.hypot(visiting.x - anchor.x, visiting.z - anchor.z) / unitsPerH - postLayout.crowd) / .32;
+      near(depth, Math.round(depth));
+      expect([0, 1, 2]).toContain(Math.round(depth));
+      const gap = (Math.atan2(visiting.x - anchor.x, visiting.z - anchor.z) - Math.PI / 2) / (Math.PI * 2 / 8) - .5;
+      near(gap, Math.round(gap));
+      expect(traderKinds[visiting.kind]).toBe("post");
+      expect(visiting.seed).toBe(marker.seed);
+      expect(locationText(traveller9(at(11)))).toBe("At post floor_1_post_0");
+      // The desk itself never moves.
+      expect({ x: instance(at(11), desk.id).x, z: instance(at(11), desk.id).z }).toEqual({ x: seated.x, z: seated.z });
+      expect("marker" in instance(at(12), desk.id)).toBe(false);
+      expect(locationText(traveller9(at(12)))).toBe(
+        "At the board on floor_1 · not positioned by the current layout",
+      );
+      expect(instance(at(13), desk.id).marker).toEqual(seated.marker);
+      // Every post rides in the snapshot: open where agents work, a footprint where not.
+      expect(rendererSnapshot(at(13), 1).instances.filter(item => item.id >= postKeys.open).map(item => item.id))
+        .toEqual(
+          [
+            postKeys.open + 0,
+            postKeys.open + 1,
+            postKeys.blueprint + 2,
+          ],
+        );
+    }),
+);
 
 effectTest(
   "a first arrival keeps the mount's desk and post allocation, which holds every post",
@@ -264,11 +271,11 @@ effectTest(
     }),
 );
 
-effectTest("jackets come from agent ids alone, spread across the three", () =>
+effectTest("a trader's look seed comes from its agent id alone", () =>
   Effect.sync(() => {
     const desks = worldView(at(13)).desks;
-    expect(planView(at(13), canonicalLayout).desks.map(desk => desk.jacket)).toEqual(desks.map(desk => desk.jacket));
-    expect(new Set(desks.map(desk => desk.jacket))).toEqual(new Set([0, 1, 2]));
+    expect(planView(at(13), canonicalLayout).desks.map(desk => desk.seed)).toEqual(desks.map(desk => desk.seed));
+    expect(new Set(desks.map(desk => desk.seed)).size).toBe(desks.length);
   }));
 
 effectTest("floor navigation flies to a floor's focus without changing zoom or corner", () =>
@@ -337,9 +344,11 @@ effectTest("another layout plugs into the viewer through the plan alone", () =>
     const walker = Option.getOrThrow(Array.findFirst(notched.desks, desk => desk.agent === traveller));
     const origin = Array.headNonEmpty(canonicalLayout.plan(snapshot.model).floors).origin;
     const floor = Option.getOrThrow(Array.get(canonicalLayout.plan(snapshot.model).floors, 1));
-    expect(Option.map(walker.marker, marker => ({ x: marker.x, z: marker.z, pose: marker.pose }))).toEqual(
-      Option.some({ x: floor.origin.x - 5 - origin.x, z: floor.origin.z + 4 - origin.z, pose: "standing" }),
-    );
+    // It stands within the board's reservation, spread from others there.
+    const standing = Option.getOrThrow(walker.marker);
+    expect(standing.kind).toBe("place");
+    expect(Math.abs(standing.x - (floor.origin.x - 5 - origin.x))).toBeLessThanOrEqual(.5);
+    expect(Math.abs(standing.z - (floor.origin.z + 4 - origin.z))).toBeLessThanOrEqual(.5);
     expect(locationText(walker)).toBe("At the board on floor_1");
     expect(Option.isNone(traveller9(snapshot).marker)).toBe(true);
     for (const area of notched.floors.flatMap(item => item.areas)) {
@@ -370,8 +379,9 @@ effectTest(
         proposed.places.length,
         proposed.plots.length,
       ]).toEqual([6, 2, 1, 10, layout.lobbyPlots]);
-      // The proposal reads 4.25H as its minimum post distance, here at two units per H.
-      expect(proposed.unitsPerH).toBeCloseTo(2, 12);
+      // The proposal keeps 4.25H between posts, here at two units per H; the
+      // viewer draws that minimum at the live floor's tighter pitch.
+      expect(proposed.unitsPerH).toBeCloseTo(4.25 * 2 / postLayout.pitch, 12);
       for (const area of [...proposed.lobby, ...proposed.doors, ...proposed.places.map(place => place.area)]) {
         expect(proposed.bounds.x0 <= area.x0 && proposed.bounds.x1 >= area.x1).toBe(true);
         expect(proposed.bounds.z0 <= area.z0 && proposed.bounds.z1 >= area.z1).toBe(true);
@@ -386,7 +396,7 @@ effectTest(
           && marker.z < place.area.z1),
       );
       expect(board.place).toBe("board");
-      expect([marker.pose, marker.yaw]).toEqual(["standing", board.facing]);
+      expect([marker.kind, marker.yaw]).toEqual(["place", board.facing]);
       expect(locationText(walker)).toBe("At the board on floor_1");
       expect(Option.isNone(traveller9(snapshot).marker)).toBe(true);
     }),

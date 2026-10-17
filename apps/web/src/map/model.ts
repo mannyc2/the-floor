@@ -26,10 +26,6 @@ export const cameraFromQuery = (query: URLSearchParams) =>
 // so the first floor's origin sits at zero.
 export const GroundArea = Schema.Struct({ x0: Schema.Finite, z0: Schema.Finite, x1: Schema.Finite, z1: Schema.Finite });
 export type GroundArea = typeof GroundArea.Type;
-// The figure meshes a live slot owns, in marker-variant order: seated at its
-// own desk, standing at a place or another desk, walking among other posts.
-export const livePoses = ["seated", "standing", "walking"] as const;
-export type LivePose = (typeof livePoses)[number];
 // Post slots ride in the instance snapshot beside desks, under keys clear of
 // the 12-bit desk identities; a post picks as ground. A slot is drawn open or
 // as an unbuilt footprint by which of its two keys the snapshot lists.
@@ -52,6 +48,9 @@ export const LiveScene = Schema.Struct({
   // yaw that turns +Z toward it, which an agent standing there also takes.
   places: Schema.Array(Schema.Struct({ place: FloorPlace, area: GroundArea, facing: Schema.Finite })),
   plots: Schema.Array(GroundArea),
+  // Every post's centre, open or not: posts never move while a mount lives,
+  // so the room's furnishings keep clear of them.
+  postAnchors: Schema.Array(Schema.Struct({ x: Schema.Finite, z: Schema.Finite })),
   bounds: GroundArea,
   snapshot: Schema.Json,
 });

@@ -4,6 +4,9 @@ import { proportionPalette } from "@floor/atlas/materials";
 import { Effect, Option, Result, Schema, Scope } from "effect";
 import * as THREE from "three";
 import type { Camera, LiveScene, Presentation, Theme } from "../../model";
+import { bakeMotion } from "../assets/rig";
+import { makeCrowd } from "./crowd";
+import { makeFlights } from "./flights";
 import { makeInstanceSnapshots } from "./instances";
 import { createLiveScene } from "./live-scene";
 import type { Palette } from "./palette";
@@ -153,9 +156,28 @@ export const openEngine = (
         defines: live ? { LIVE_SCENE: "" } : {},
       })
     );
+    // Traders skin their parts from a baked motion texture; the crowd moves
+    // them and picks their clips, and the shader plays the clips.
+    const baked = bakeMotion();
+    const motion = yield* own(() =>
+      new THREE.DataTexture(baked.data, baked.width, baked.height, THREE.RGBAFormat, THREE.FloatType)
+    );
+    motion.minFilter = THREE.NearestFilter;
+    motion.magFilter = THREE.NearestFilter;
+    motion.needsUpdate = true;
+    const motionTime = { value: 0 };
+    const traderMaterial = yield* own(() =>
+      new THREE.ShaderMaterial({
+        vertexShader: surfaceVertex,
+        fragmentShader: colorFragment,
+        // Shared uniform objects keep theme and palette changes in step.
+        uniforms: { ...surfaceUniforms, motion: { value: motion }, motionTime },
+        defines: { LIVE_SCENE: "", TRADER: "" },
+      })
+    );
     const data: SceneData = Option.match(options.live, {
       onNone: () => createScene({ width: element.clientWidth, height: element.clientHeight, desks }, material),
-      onSome: scene => createLiveScene(scene, desks, material),
+      onSome: scene => createLiveScene(scene, desks, material, traderMaterial),
     });
     for (const geometry of data.geometries) yield* own(() => geometry);
     for (const mesh of data.meshes) if (mesh instanceof THREE.InstancedMesh) yield* own(() => mesh);
@@ -226,6 +248,18 @@ export const openEngine = (
       previousValue: NaN,
       nextValue: NaN,
     };
+    const unitsPerTrader = Option.match(options.live, { onNone: () => 1, onSome: scene => scene.unitsPerH });
+    const crowd = Option.flatMap(
+      Option.fromUndefinedOr(data.traders),
+      traders =>
+        makeCrowd(
+          traders,
+          unitsPerTrader,
+          2,
+          Option.map(Option.fromUndefinedOr(data.planes), planes => makeFlights(planes, unitsPerTrader)),
+        ),
+    );
+    const mountedAt = nowMonotonicMs();
     const instances = makeInstanceSnapshots(
       data.entities,
       nowMonotonicMs,
@@ -235,6 +269,7 @@ export const openEngine = (
       surfaceUniforms.instanceInterpolation,
       surfaceUniforms.interpolation,
       Option.isSome(options.live),
+      crowd,
     );
     if (Option.isSome(options.live)) yield* instances.snapshot(options.live.value.snapshot);
     const setCamera = (view: Camera) => {
@@ -367,7 +402,22 @@ export const openEngine = (
       return { drawn: true };
     };
     const drawing = { draw };
-    const advance = instances.advance;
+    // The floor is alive while anyone stands on it: every frame advances the
+    // crowd and the clips it plays. The crowd alone redraws at most thirty
+    // times a second, which small figures read as smooth and which halves the
+    // cost on a laptop; camera motion still redraws every frame.
+    const animation = { drawn: 0 };
+    const advance = () => {
+      instances.advance();
+      Option.map(crowd, value => {
+        const now = nowMonotonicMs();
+        motionTime.value = (now - mountedAt) / 1000;
+        if (value.tick(motionTime.value) && now - animation.drawn >= 1000 / 30 - 2) {
+          animation.drawn = now;
+          state.dirty = true;
+        }
+      });
+    };
     const pixelCoordinates = (x: number, y: number) => ({
       x: Math.max(0, Math.min(canvas.width - 1, Math.floor(x * state.dpr))),
       y: Math.max(0, Math.min(canvas.height - 1, canvas.height - 1 - Math.floor(y * state.dpr))),

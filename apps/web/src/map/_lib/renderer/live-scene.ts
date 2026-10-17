@@ -1,12 +1,14 @@
 import { lineClasses } from "@floor/atlas/look";
 import { PaletteName } from "@floor/atlas/materials";
-import { figureHeight, roomyRecipe } from "@floor/atlas/proportions";
 import { Option } from "effect";
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { type GroundArea, type LivePose, livePoses, type LiveScene, postKeys } from "../../model";
-import { chairParts, figureParts, liveFigureDetail, makePost, makeStation, stationVariants } from "../assets";
-import { annulus, cylinder, isKitMesh } from "../assets/geometry";
+import { type GroundArea, type LiveScene, postKeys } from "../../model";
+import { liveStationVariants, makeLivePost, makeLiveStation } from "../assets/floor-kit";
+import { cylinder, isKitMesh } from "../assets/geometry";
+import { furnishPlace, furnishWall, litter, seeded, tickerBand } from "../assets/room-kit";
+import { makeTrader } from "../assets/trader";
+import { postLayout } from "../live-layout";
 import type { Boundary, Entity, SceneData } from "./scene";
 
 // The live floor: the asset kit's posts, stations and Roomy figures, drawn at
@@ -95,44 +97,20 @@ const kitBody = (group: THREE.Group, transform: THREE.Matrix4, screen: number, o
   return merge(parts);
 };
 
-// A figure in one pose, H = 1 scaled to the layout. Its parts are smooth: one
-// surface per material, as the approved figures draw. The seated pose brings
-// its chair. Jacket faces take the agent's colour per instance.
-const figureBody = (pose: LivePose, unitsPerH: number) => {
-  const jacket: PaletteName = "jacket-blue-0";
-  const smooth = figureParts(roomyRecipe, pose, jacket, 1, liveFigureDetail);
-  const chair = pose === "seated" ? chairParts(roomyRecipe.worktopRatio, 8) : [];
-  let chairSurface = surfaces.figures + 500;
-  const parts = [...smooth.map(part => ({ part, smooth: true })), ...chair.map(part => ({ part, smooth: false }))].map(
-    ({ part, smooth: isSmooth }) => {
-      const flat = flatten(part.geometry.scale(unitsPerH, unitsPerH, unitsPerH));
-      const count = flat.getAttribute("position").count;
-      const ids = new Float32Array(count).fill(
-        isSmooth ? surfaces.figures + slot(part.slot) + 1 : chairSurface++,
-      );
-      if (!isSmooth) {
-        for (const group of flat.groups) {
-          ids.fill(chairSurface++, group.start, group.start + group.count);
-        }
-      }
-      flat.clearGroups();
-      flat.setAttribute("_SURFACE", new THREE.BufferAttribute(ids, 1));
-      flat.setAttribute("_MAT", fill(count, part.slot === jacket ? sentinel.jacket : slot(part.slot)));
-      flat.setAttribute("_LINE", fill(count, nightLine(part.slot)));
-      return flat;
-    },
-  );
-  return merge(parts);
-};
-
 // An unopened post: its counter's footprint and pole drawn in the ground's own
 // colour, so only the outline reads, as on an architect's plan.
 const blueprintBody = (unitsPerH: number) => {
   const kit = makeStatic(surfaces.blueprints, 300);
-  const radius = roomyRecipe.counterRadiusRatio * unitsPerH;
-  const depth = roomyRecipe.stationDepthRatio * unitsPerH;
-  kit.add(annulus(radius, radius - depth, .03 * unitsPerH, 0, 40), "ground");
-  kit.add(cylinder(.08 * unitsPerH, .03 * unitsPerH, [0, .015 * unitsPerH, 0], 12), "ground");
+  const sides = 10, radius = postLayout.plinth / Math.cos(Math.PI / sides) * unitsPerH;
+  kit.add(
+    new THREE.CylinderGeometry(radius, radius, .02 * unitsPerH, sides).rotateY(Math.PI / sides).translate(
+      0,
+      .01 * unitsPerH,
+      0,
+    ),
+    "ground",
+  );
+  kit.add(cylinder(.3 * unitsPerH, .03 * unitsPerH, [0, .015 * unitsPerH, 0], sides), "ground");
   return kit.finish();
 };
 
@@ -223,60 +201,51 @@ export const wallPlan = (live: Pick<LiveScene, "rooms" | "lobby" | "doors">) => 
 
 const wallHeights = { stub: .15, exterior: 1.4, partition: .5, thickness: .12, sill: .02 } as const;
 
-const furniture = (
-  kit: ReturnType<typeof makeStatic>,
-  place: LiveScene["places"][number],
-  unitsPerH: number,
-) => {
+// A named place's furniture fills its reservation with its back to the outer
+// wall; `facing` turns +Z toward that wall, and the kit's +Z faces the room.
+const furniture = (kit: ReturnType<typeof makeStatic>, place: LiveScene["places"][number], unitsPerH: number) => {
   const { area, facing } = place;
   const across = Math.abs(Math.sin(facing)) > .5;
   const depth = (across ? area.x1 - area.x0 : area.z1 - area.z0) / unitsPerH;
   const width = (across ? area.z1 - area.z0 : area.x1 - area.x0) / unitsPerH;
-  const centre = new THREE.Vector3((area.x0 + area.x1) / 2, 0, (area.z0 + area.z1) / 2);
-  // Local +Z points at the outer wall; furniture keeps the front half clear
-  // for an agent standing at the place's centre.
-  const back = depth / 2 - .05;
-  const room = Math.max(.12, Math.min(.45, depth / 2 - .3));
-  const add = (geometry: THREE.BufferGeometry, material: PaletteName) =>
-    kit.add(geometry.scale(unitsPerH, unitsPerH, unitsPerH).rotateY(facing).translate(centre.x, 0, centre.z), material);
-  const block = (w: number, h: number, d: number, x: number, y: number, z: number, material: PaletteName) =>
-    add(new THREE.BoxGeometry(w, h, d).translate(x, y, z), material);
-  const face = (w: number, h: number, x: number, y: number, z: number, material: PaletteName) =>
-    add(new THREE.PlaneGeometry(w, h).rotateY(Math.PI).translate(x, y, z), material);
-  const span = Math.max(.3, width - .2);
-  if (place.place === "wallOfScreens") {
-    const d = Math.min(room, .25);
-    block(span, 1.5, d, 0, .75, back - d / 2, "steel-0");
-    for (const side of [-1, 1]) face(span / 2 - .12, .45, side * span / 4, 1.05, back - d - .002, "glass-0");
-    for (const side of [-1, 1]) face(span / 2 - .12, .3, side * span / 4, .6, back - d - .002, "glass-0");
-  } else if (place.place === "bell") {
-    const d = Math.min(room, .35);
-    block(d, .55, d, 0, .275, back - d / 2, "timber-0");
-    add(new THREE.CylinderGeometry(.07, .15, .18, 12).translate(0, .64, back - d / 2), "steel-0");
-    add(new THREE.CylinderGeometry(.025, .025, .06, 8).translate(0, .76, back - d / 2), "steel-0");
-  } else if (place.place === "podium") {
-    const d = Math.min(room, .35), w = Math.min(span, .7);
-    block(w, .62, d, 0, .31, back - d / 2, "timber-0");
-    block(w + .06, .04, d + .06, 0, .64, back - d / 2, "timber-0");
-  } else if (place.place === "fileRoom") {
-    const d = Math.min(room, .4), count = Math.max(1, Math.floor(span / .38));
-    for (let index = 0; index < count; index++) {
-      block(.35, .8, d, (index - (count - 1) / 2) * .38, .4, back - d / 2, "steel-0");
-    }
-  } else {
-    const d = Math.min(room, .06);
-    for (const side of [-1, 1]) block(.04, .35, .04, side * (span / 2 - .06), .175, back - d / 2, "steel-0");
-    block(span, .8, d, 0, .75, back - d / 2, "timber-0");
-    face(span - .1, .7, 0, .75, back - d - .002, "paper-0");
-    for (let row = 0; row < 2; row++) {
-      for (let column = 0; column < 3; column++) {
-        block(.12, .09, .01, (column - 1) * span / 3.4, .95 - row * .3, back - d - .008, "paper-0");
-      }
+  const centre = { x: (area.x0 + area.x1) / 2, z: (area.z0 + area.z1) / 2 };
+  furnishPlace(
+    (geometry, material) =>
+      kit.add(
+        geometry.scale(unitsPerH, unitsPerH, unitsPerH).rotateY(facing + Math.PI).translate(centre.x, 0, centre.z),
+        material,
+      ),
+    place.place,
+    width,
+    depth,
+    seeded(Math.round(centre.x * 31 + centre.z * 17)),
+  );
+};
+
+const inside = (area: GroundArea, x: number, z: number, margin = 0) =>
+  x >= area.x0 - margin && x <= area.x1 + margin && z >= area.z0 - margin && z <= area.z1 + margin;
+
+type StaticKit = ReturnType<typeof makeStatic>;
+
+// The lobby's marble: a two-tone checkerboard over its slab, each tile its own
+// surface so the joints draw, as in the picked lobby frame.
+const tiles = (kit: StaticKit, area: GroundArea, u: number) => {
+  const size = 1.5 * u;
+  const columns = Math.floor((area.x1 - area.x0) / size), rows = Math.floor((area.z1 - area.z0) / size);
+  const x0 = (area.x0 + area.x1 - columns * size) / 2, z0 = (area.z0 + area.z1 - rows * size) / 2;
+  for (let column = 0; column < columns; column++) {
+    for (let row = 0; row < rows; row++) {
+      kit.add(
+        new THREE.PlaneGeometry(size, size).rotateX(-Math.PI / 2).translate(
+          x0 + (column + .5) * size,
+          .001 * u,
+          z0 + (row + .5) * size,
+        ),
+        (column + row) % 2 === 0 ? "paper-0" : "plastic-0",
+      );
     }
   }
 };
-
-type StaticKit = ReturnType<typeof makeStatic>;
 
 // Rooms, the lobby, plots and place furniture, in the ground's one mesh.
 const addGround = (kit: StaticKit, live: LiveScene) => {
@@ -291,16 +260,86 @@ const addGround = (kit: StaticKit, live: LiveScene) => {
       paint,
     );
   // A blueprint room is its outline on the ground, unbuilt.
-  for (const room of live.rooms) {
-    for (const area of room.areas) slab(area, (room.blueprint ? .02 : .12) * u, room.blueprint ? "ground" : "floor-0");
+  for (const [index, room] of live.rooms.entries()) {
+    for (const area of room.areas) {
+      slab(area, (room.blueprint ? .02 : .12) * u, room.blueprint ? "ground" : "floor-0");
+      if (room.blueprint) continue;
+      // The floor is littered with order slips, thickest where trading is.
+      const cx = (area.x0 + area.x1) / 2, cz = (area.z0 + area.z1) / 2;
+      litter(
+        (geometry, material) => kit.add(geometry.scale(u, u, u).translate(cx, 0, cz), material),
+        (area.x1 - area.x0) / u - .3,
+        (area.z1 - area.z0) / u - .3,
+        1.1,
+        seeded(index * 977 + Math.round(cx)),
+      );
+    }
   }
-  for (const area of live.lobby) slab(area, .12 * u, "paper-0");
+  for (const area of live.lobby) {
+    slab(area, .12 * u, "paper-0");
+    tiles(kit, area, u);
+  }
   for (const plot of live.plots) {
     const w = plot.x1 - plot.x0, d = plot.z1 - plot.z0, x = (plot.x0 + plot.x1) / 2, z = (plot.z0 + plot.z1) / 2;
     kit.add(new THREE.BoxGeometry(w * .8, .2 * u, d * .8).translate(x, .1 * u, z), "timber-0");
     kit.add(new THREE.BoxGeometry(w * .6, .02 * u, d * .6).translate(x, .21 * u, z), "paper-0");
   }
   for (const place of live.places) furniture(kit, place, u);
+};
+
+// Along each outside wall, the floor's clutter stands on the ground and hangs
+// on the wall (cut away with it), clear of posts, places and doors.
+const dressWalls = (
+  exterior: ReadonlyArray<Segment>,
+  ground: StaticKit,
+  hung: (outward: THREE.Vector3, geometry: THREE.BufferGeometry, material: PaletteName) => void,
+  live: LiveScene,
+) => {
+  const u = live.unitsPerH, t = wallHeights.thickness * u;
+  const blocked = (x: number, z: number, half: number) =>
+    live.postAnchors.some(anchor => Math.hypot(anchor.x - x, anchor.z - z) < (postLayout.plinth + .45) * u + half)
+    || live.places.some(place => inside(place.area, x, z, .3 * u + half))
+    || live.doors.some(door => inside(door, x, z, .35 * u + half));
+  for (const [index, piece] of exterior.entries()) {
+    const inward = piece.axis === "x" ? { x: -piece.outward, z: 0 } : { x: 0, z: -piece.outward };
+    const yaw = Math.atan2(inward.x, inward.z);
+    // The kit's +X runs along the wall; start from the end it runs away from.
+    const direction = { x: Math.cos(yaw), z: -Math.sin(yaw) };
+    const low = piece.axis === "x" ? { x: piece.at, z: piece.from } : { x: piece.from, z: piece.at };
+    const high = piece.axis === "x" ? { x: piece.at, z: piece.to } : { x: piece.to, z: piece.at };
+    const ascending = (high.x - low.x) * direction.x + (high.z - low.z) * direction.z >= 0;
+    const [first, last] = ascending ? [low, high] : [high, low];
+    const length = Math.hypot(last.x - first.x, last.z - first.z) / u;
+    const face = { x: first.x + inward.x * t / 2, z: first.z + inward.z * t / 2 };
+    const at = (along: number) => ({ x: face.x + direction.x * along * u, z: face.z + direction.z * along * u });
+    const middle = at(length / 2);
+    const lobby = live.lobby.some(area => inside(area, middle.x + inward.x * u, middle.z + inward.z * u));
+    const outward = new THREE.Vector3(
+      piece.axis === "x" ? piece.outward : 0,
+      0,
+      piece.axis === "z" ? piece.outward : 0,
+    );
+    const placed =
+      (along: number, target: (geometry: THREE.BufferGeometry, material: PaletteName) => void) =>
+      (geometry: THREE.BufferGeometry, material: PaletteName) => {
+        const point = at(along);
+        target(geometry.scale(u, u, u).rotateY(yaw).translate(point.x, 0, point.z), material);
+      };
+    const onWall = (geometry: THREE.BufferGeometry, material: PaletteName) => hung(outward, geometry, material);
+    const random = seeded(index * 7919 + Math.round(first.x * 13 + first.z * 7));
+    furnishWall(
+      length,
+      lobby ? "lobby" : "room",
+      random,
+      (along, half) => {
+        const point = at(along);
+        return !blocked(point.x + inward.x * .3 * u, point.z + inward.z * .3 * u, half * u);
+      },
+      (along, build) => build(placed(along, (geometry, material) => ground.add(geometry, material))),
+      (along, build) => build(placed(along, onWall)),
+    );
+    if (!lobby && length > 9 && random() < .7) tickerBand(placed(length / 2, onWall), length * .62);
+  }
 };
 
 // Walls stop half a thickness short of each end, where a square post joins
@@ -343,6 +382,12 @@ const addWalls = (ground: StaticKit, live: LiveScene) => {
     group.kit.add(geometry, "timber-0");
     groups.set(key, group);
   };
+  const hung = (outward: THREE.Vector3, geometry: THREE.BufferGeometry, material: PaletteName) => {
+    const key = `${Math.round(outward.x)},${Math.round(outward.z)}`;
+    const group = groups.get(key) ?? { outward: outward.clone(), kit: makeStatic(surfaces.walls, 1000, counter) };
+    group.kit.add(geometry, material);
+    groups.set(key, group);
+  };
   for (const piece of walls.exterior) {
     const outward = piece.axis === "x"
       ? new THREE.Vector3(piece.outward, 0, 0)
@@ -351,6 +396,7 @@ const addWalls = (ground: StaticKit, live: LiveScene) => {
     Option.map(run(piece, t / 2, stub, tall), geometry => cut(outward, geometry));
     endpoints(piece, Option.some(outward));
   }
+  dressWalls(walls.exterior, ground, hung, live);
   for (const piece of walls.partitions) {
     Option.map(run(piece, t / 2, 0, low), geometry => ground.add(geometry, "timber-0"));
     endpoints(piece, Option.none());
@@ -384,6 +430,7 @@ const makeRegistry = (material: THREE.Material) => {
   };
   return {
     scene,
+    material,
     meshes,
     geometries,
     entities,
@@ -429,17 +476,19 @@ const makeRegistry = (material: THREE.Material) => {
 };
 type Registry = ReturnType<typeof makeRegistry>;
 
-// Posts: the kit post where a post is open, its paper footprint where not.
-// The order slips the picked Roomy floor scatters just outside each post's
-// seated ring, placed by the golden angle as that scene places them.
+// Posts: the live kit's post where a post is open, its outline where not,
+// with order slips trodden into the aisle round each one.
 const floorPapers = (unitsPerH: number) => {
   const kit = makeStatic(surfaces.posts + 900, 90);
-  for (let paper = 0; paper < 12; paper++) {
-    const angle = paper * 2.399963229728653;
-    const r = roomyRecipe.counterRadiusRatio + .36 + (paper % 3) * .085;
+  for (let paper = 0; paper < 22; paper++) {
+    const angle = paper * 2.399963229728653 + Math.sin(paper * 12.9898) * .3;
+    const r = postLayout.plinth + .05 + ((paper * 0.618034) % 1) * .75;
     kit.add(
-      new THREE.BoxGeometry(.14, .006, .18).rotateY(angle).translate(Math.sin(angle) * r, .003, Math.cos(angle) * r)
-        .scale(unitsPerH, unitsPerH, unitsPerH),
+      new THREE.PlaneGeometry(.06, .08).rotateX(-Math.PI / 2).rotateY(angle * 3.1).translate(
+        Math.sin(angle) * r,
+        .003 + (paper % 3) * .0004,
+        Math.cos(angle) * r,
+      ).scale(unitsPerH, unitsPerH, unitsPerH),
       "paper-0",
     );
   }
@@ -447,8 +496,8 @@ const floorPapers = (unitsPerH: number) => {
 };
 
 const addPosts = (registry: Registry, live: LiveScene) => {
-  const scale = live.unitsPerH / figureHeight;
-  const post = makePost({ stations: live.stationsPerPost, monitors: live.monitorsPerPost, segments: 40 });
+  const scale = live.unitsPerH;
+  const post = makeLivePost(live.stationsPerPost, live.monitorsPerPost);
   const body = kitBody(post, new THREE.Matrix4().makeScale(scale, scale, scale), sentinel.crownScreen, surfaces.posts);
   Option.map(
     Option.flatMap(body, geometry => merge([geometry, ...Option.toArray(floorPapers(live.unitsPerH))])),
@@ -474,44 +523,101 @@ const addPosts = (registry: Registry, live: LiveScene) => {
   });
 };
 
-// Stations alternate operator and analyst around each post. The kit lays a
-// station out for eight to a post; a fuller ring narrows it by the chord
-// ratio so neighbours never meet. Desk slot k is desk k + 2.
+// Neighbouring desks take different station clutter. Desk slot k is desk k + 2.
+export const stationVariantOf = (index: number) => (Math.imul(index + 7, 2654435761) >>> 0) % liveStationVariants;
 const addStations = (registry: Registry, live: LiveScene, desks: number) => {
-  const scale = live.unitsPerH / figureHeight;
-  const narrow = Math.min(1, Math.sin(Math.PI / live.stationsPerPost) / Math.sin(Math.PI / 8));
-  const transform = new THREE.Matrix4().makeScale(scale * narrow, scale, scale);
-  stationVariants.forEach((variant, parity) => {
+  const scale = live.unitsPerH;
+  const transform = new THREE.Matrix4().makeScale(scale, scale, scale);
+  for (let variant = 0; variant < liveStationVariants; variant++) {
     const slots = Array.from({ length: desks }, (_, index) => index).filter(index =>
-      index % live.stationsPerPost % 2 === parity
+      stationVariantOf(index) === variant
     );
     Option.map(
-      kitBody(makeStation(variant, "live"), transform, sentinel.deskScreen, 0),
+      kitBody(makeLiveStation(variant, live.stationsPerPost), transform, sentinel.deskScreen, 0),
       geometry =>
         registry.instanced(`live-station-${variant}`, geometry, slots.length, index => {
           const desk = (slots[index] ?? 0) + 2;
           return { id: desk, entity: desk };
         }),
     );
+  }
+};
+
+// Every desk's trader in one mesh, one instance per desk. The crowd places,
+// turns and animates them, so they stay out of the snapshot's members.
+const addTraders = (registry: Registry, desks: number, material: THREE.Material) => {
+  const geometry = makeTrader(surfaces.figures);
+  const mesh = new THREE.InstancedMesh(geometry, material, Math.max(1, desks));
+  mesh.name = "live-traders";
+  mesh.count = desks;
+  mesh.frustumCulled = false;
+  const lanes = (size: number, first: number) => {
+    const array = new Float32Array(Math.max(1, desks) * size);
+    for (let index = 0; index < array.length; index += size) array[index] = first;
+    return new THREE.InstancedBufferAttribute(array, size).setUsage(THREE.DynamicDrawUsage);
+  };
+  geometry.setAttribute("_ANIM_A", lanes(4, -1));
+  geometry.setAttribute("_ANIM_B", lanes(4, -1));
+  geometry.setAttribute("_LOOK", lanes(4, 0));
+  geometry.setAttribute(
+    "_ENTITY",
+    new THREE.InstancedBufferAttribute(Float32Array.from({ length: Math.max(1, desks) }, (_, index) => index + 2), 1),
+  );
+  geometry.computeBoundingSphere();
+  registry.meshes.push(mesh);
+  registry.geometries.push(geometry);
+  registry.scene.add(mesh);
+  return mesh;
+};
+
+// One wing of a paper plane, nose toward +Z.
+const planeWing = (side: 1 | -1) => {
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(
+      side === 1 ? [0, 0, .07, .05, .006, -.05, 0, .014, -.05] : [0, 0, .07, 0, .014, -.05, -.05, .006, -.05],
+      3,
+    ),
+  );
+  geometry.computeVertexNormals();
+  return geometry;
+};
+
+// A pool of paper planes for the crowd to throw, hidden until launched. They
+// pick as ground, so clicking one selects nothing.
+const addPlanes = (registry: Registry, count: number) => {
+  const kit = makeStatic(surfaces.posts + 990, 9);
+  kit.add(planeWing(1), "paper-0");
+  kit.add(planeWing(-1), "paper-0");
+  return Option.map(kit.finish(), geometry => {
+    const mesh = new THREE.InstancedMesh(geometry, registry.material, count);
+    mesh.name = "live-planes";
+    mesh.frustumCulled = false;
+    const lanes = (size: number) =>
+      new THREE.InstancedBufferAttribute(new Float32Array(count * size), size).setUsage(THREE.DynamicDrawUsage);
+    for (let index = 0; index < count; index++) mesh.setMatrixAt(index, new THREE.Matrix4().makeScale(0, 0, 0));
+    geometry.setAttribute("_INSTANCE_FROM", lanes(4));
+    geometry.setAttribute("_INSTANCE_TO", lanes(4));
+    geometry.setAttribute("_TINT", lanes(1));
+    geometry.setAttribute(
+      "_ENTITY",
+      new THREE.InstancedBufferAttribute(new Float32Array(count).fill(structure.ground), 1),
+    );
+    geometry.setAttribute("_PALETTE", new THREE.InstancedBufferAttribute(new Float32Array(count).fill(-1), 1));
+    registry.meshes.push(mesh);
+    registry.geometries.push(geometry);
+    registry.scene.add(mesh);
+    return mesh;
   });
 };
 
-// One figure mesh per pose, each with a slot for every desk; the snapshot
-// stands an agent in one of them and gives it its jacket.
-const addFigures = (registry: Registry, live: LiveScene, desks: number) =>
-  livePoses.forEach((pose, variant) => {
-    Option.map(figureBody(pose, live.unitsPerH), geometry => {
-      geometry.setAttribute("_TINT", instanceAttribute(desks, 0));
-      registry.instanced(`live-figure-${pose}`, geometry, desks, index => ({
-        id: index + 2,
-        entity: index + 2,
-        marker: true,
-        variant,
-      }));
-    });
-  });
-
-export const createLiveScene = (live: LiveScene, desks: number, material: THREE.Material): SceneData => {
+export const createLiveScene = (
+  live: LiveScene,
+  desks: number,
+  material: THREE.Material,
+  traderMaterial: THREE.Material,
+): SceneData => {
   const registry = makeRegistry(material);
   const ground = makeStatic(surfaces.ground, surfaces.posts - surfaces.ground);
   addGround(ground, live);
@@ -525,7 +631,8 @@ export const createLiveScene = (live: LiveScene, desks: number, material: THREE.
   }
   addPosts(registry, live);
   addStations(registry, live, desks);
-  addFigures(registry, live, desks);
+  const traders = addTraders(registry, desks, traderMaterial);
+  const planes = addPlanes(registry, 24);
   registry.scene.updateMatrixWorld(true);
   return {
     scene: registry.scene,
@@ -539,5 +646,7 @@ export const createLiveScene = (live: LiveScene, desks: number, material: THREE.
       });
     },
     gauge: Option.none(),
+    traders,
+    ...Option.match(planes, { onNone: () => ({}), onSome: mesh => ({ planes: mesh }) }),
   };
 };

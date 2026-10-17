@@ -1,5 +1,7 @@
 import { Effect, Option, Result, Schema } from "effect";
 import * as THREE from "three";
+import { postKeys } from "../../model";
+import type { CrowdTarget } from "./crowd";
 import type { Entity } from "./scene";
 
 const Position = Schema.Struct({ x: Schema.Finite, y: Schema.Finite, z: Schema.Finite });
@@ -21,6 +23,12 @@ export const InstanceSnapshot = Schema.Struct({
       // and which colour its tinted faces take (the figure's jacket).
       variant: Schema.optionalKey(Index),
       tint: Schema.optionalKey(Index),
+      // A live trader's kind of place, reported state, named place and look
+      // seed, which the renderer's crowd reads instead of a marker mesh.
+      kind: Schema.optionalKey(Index),
+      state: Schema.optionalKey(Index),
+      place: Schema.optionalKey(Index),
+      seed: Schema.optionalKey(Schema.Int),
     })),
   })),
 });
@@ -117,6 +125,12 @@ export const makeInstanceSnapshots = (
   interpolation: { value: number },
   recordedInterpolation = { value: 0 },
   live = false,
+  // The live floor's traders: slots with no marker mesh hand their markers to
+  // the crowd, which walks and animates them.
+  crowd: Option.Option<{
+    readonly retarget: (targets: ReadonlyArray<CrowdTarget>, posts: ReadonlyArray<{ x: number; z: number }>) => void;
+    readonly position: (id: number) => Option.Option<Position>;
+  }> = Option.none(),
 ) => {
   const positions = interpolationClock(now, dirty, interpolation);
   const recorded = interpolationClock(now, dirty, recordedInterpolation);
@@ -183,6 +197,7 @@ export const makeInstanceSnapshots = (
   // complete packet without changing accepted buffers, while avoiding thousands
   // of short-lived plans and Option wrappers on every 4 Hz arrival.
   const state = { revision: -1 };
+  const crowdTargets: Array<CrowdTarget> = [];
   const stage = (
     member: Member,
     target: {
@@ -210,11 +225,34 @@ export const makeInstanceSnapshots = (
     member.staged.tint = target.tint ?? 0;
     return Result.void;
   };
+  // A slot's marker stands in one of its marker meshes, or, on the live floor
+  // where traders have none, goes to the crowd.
+  type Marker = NonNullable<InstanceSnapshot["instances"][number]["marker"]>;
+  const stageMarker = (id: number, placement: Marker): Result.Result<void, InstanceSnapshotFailure> => {
+    if (Option.isSome(crowd) && !markers.has(id)) {
+      crowdTargets.push({
+        id,
+        x: placement.x,
+        z: placement.z,
+        yaw: placement.yaw ?? 0,
+        kind: placement.kind ?? 0,
+        state: placement.state ?? 0,
+        place: placement.place ?? 0,
+        seed: placement.seed ?? id,
+      });
+      return Result.void;
+    }
+    return Option.match(Option.fromUndefinedOr(markers.get(id)?.get(placement.variant ?? 0)), {
+      onNone: () => Result.fail(new InstanceSnapshotFailure({ phase: "identity", cause: { unknownMarker: id } })),
+      onSome: marker => stage(marker, { id, ...placement }, false),
+    });
+  };
   const stageSnapshot = (next: InstanceSnapshot): Result.Result<void, InstanceSnapshotFailure> => {
     // Validate the whole snapshot before writing. Identity is independent of
     // incoming order; omitted slots disappear and can return without allocating
     // geometry. A world that needs more slots remounts with a larger allocation.
     for (const member of members) member.staged.present = false;
+    crowdTargets.length = 0;
     for (const target of next.instances) {
       const member = byId.get(target.id);
       if (!member) {
@@ -225,15 +263,11 @@ export const makeInstanceSnapshots = (
       }
       const staged = stage(member, target, target.active ?? false);
       if (Result.isFailure(staged)) return staged;
-      const placement = target.marker;
-      if (placement) {
-        const marker = markers.get(target.id)?.get(placement.variant ?? 0);
-        if (!marker) {
-          return Result.fail(new InstanceSnapshotFailure({ phase: "identity", cause: { unknownMarker: target.id } }));
-        }
-        const placed = stage(marker, { id: target.id, ...placement }, false);
-        if (Result.isFailure(placed)) return placed;
-      }
+      const placed = Option.match(Option.fromUndefinedOr(target.marker), {
+        onNone: () => Result.void,
+        onSome: placement => stageMarker(target.id, placement),
+      });
+      if (Result.isFailure(placed)) return placed;
     }
     return Result.void;
   };
@@ -286,6 +320,11 @@ export const makeInstanceSnapshots = (
     }
     state.revision = next.revision;
     positions.restart(moving);
+    Option.map(crowd, sink =>
+      sink.retarget(
+        crowdTargets,
+        next.instances.filter(target => target.id >= postKeys.open && target.id < postKeys.blueprint),
+      ));
     if (changedAttributes > 0) dirty();
     return { revision: state.revision, changedInstances, changedAttributes };
   };
@@ -339,7 +378,7 @@ export const makeInstanceSnapshots = (
     },
     // The marker's interpolated ground position, read every frame by Follow.
     marker: (id: number): Option.Option<Position> =>
-      Option.map(standing(id), member => ({
+      Option.isSome(crowd) && !markers.has(id) ? crowd.value.position(id) : Option.map(standing(id), member => ({
         x: member.base.x + member.from.x + (member.to.x - member.from.x) * interpolation.value,
         y: member.base.y + member.from.y + (member.to.y - member.from.y) * interpolation.value,
         z: member.base.z + member.from.z + (member.to.z - member.from.z) * interpolation.value,

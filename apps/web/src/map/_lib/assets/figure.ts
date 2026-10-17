@@ -12,10 +12,7 @@ interface FigureShape {
   readonly shoulderRatio: number;
   readonly worktopRatio: number;
 }
-// Segment counts, and whether the hairline lapels are drawn. The live floor
-// draws a thousand figures about eighty pixels tall, where the approved
-// tessellation costs fourteen thousand vertices each and the lapels only
-// scribble; it keeps the same rig, proportions and poses.
+// Segment counts, and whether the hairline lapels are drawn.
 export interface FigureDetail {
   readonly limb: readonly [caps: number, radial: number];
   readonly oval: readonly [width: number, height: number];
@@ -31,14 +28,6 @@ export const approvedFigureDetail: FigureDetail = {
   cap: [20, 10],
   torso: 20,
   lapels: true,
-};
-export const liveFigureDetail: FigureDetail = {
-  limb: [1, 5],
-  oval: [5, 4],
-  head: [8, 5],
-  cap: [8, 2],
-  torso: 7,
-  lapels: false,
 };
 
 export const part = (geometry: THREE.BufferGeometry, slot: PaletteName): Part => ({ geometry, slot });

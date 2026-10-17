@@ -1,3 +1,3 @@
-export { approvedFigureDetail, chairParts, figureParts, type FigurePose, liveFigureDetail } from "./figure";
+export { approvedFigureDetail, chairParts, figureParts, type FigurePose } from "./figure";
 export { makePost } from "./post";
-export { makeStation, type StationDetail, stationVariants } from "./station";
+export { makeStation, stationVariants } from "./station";

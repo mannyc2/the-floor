@@ -43,6 +43,10 @@ export interface SceneData {
   readonly cutaway: (towardCamera: THREE.Vector3) => void;
   // The interpolation gauge exists only in the synthetic room.
   readonly gauge: Option.Option<number>;
+  // The live floor's traders, animated by the crowd rather than snapshots.
+  readonly traders?: THREE.InstancedMesh;
+  // The paper planes the crowd throws.
+  readonly planes?: THREE.InstancedMesh;
 }
 
 const joined = (parts: Array<THREE.BufferGeometry>) => {

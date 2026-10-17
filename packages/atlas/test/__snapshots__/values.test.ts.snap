@@ -144,6 +144,102 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 15851460,
         "night": 855824,
       },
+      "hair-auburn-0": {
+        "day": 3612177,
+        "night": 1576199,
+      },
+      "hair-auburn-1": {
+        "day": 7683876,
+        "night": 3480592,
+      },
+      "hair-auburn-2": {
+        "day": 10179632,
+        "night": 5910812,
+      },
+      "hair-auburn-3": {
+        "day": 13332031,
+        "night": 8669225,
+      },
+      "hair-black-0": {
+        "day": 986123,
+        "night": 394501,
+      },
+      "hair-black-1": {
+        "day": 2103832,
+        "night": 920587,
+      },
+      "hair-black-2": {
+        "day": 2761504,
+        "night": 1578003,
+      },
+      "hair-black-3": {
+        "day": 3616298,
+        "night": 2367003,
+      },
+      "hair-blond-0": {
+        "day": 4799783,
+        "night": 2038289,
+      },
+      "hair-blond-1": {
+        "day": 10257235,
+        "night": 4602661,
+      },
+      "hair-blond-2": {
+        "day": 13610606,
+        "night": 7890240,
+      },
+      "hair-blond-3": {
+        "day": 16770192,
+        "night": 10916958,
+      },
+      "hair-brown-0": {
+        "day": 2562834,
+        "night": 1117192,
+      },
+      "hair-brown-1": {
+        "day": 5454118,
+        "night": 2431505,
+      },
+      "hair-brown-2": {
+        "day": 7228466,
+        "night": 4205597,
+      },
+      "hair-brown-3": {
+        "day": 9462850,
+        "night": 6177067,
+      },
+      "hair-dark-0": {
+        "day": 1643023,
+        "night": 722950,
+      },
+      "hair-dark-1": {
+        "day": 3483168,
+        "night": 1577230,
+      },
+      "hair-dark-2": {
+        "day": 4600618,
+        "night": 2694680,
+      },
+      "hair-dark-3": {
+        "day": 6046519,
+        "night": 3943460,
+      },
+      "hair-grey-0": {
+        "day": 3881528,
+        "night": 1644824,
+      },
+      "hair-grey-1": {
+        "day": 8289399,
+        "night": 3749942,
+      },
+      "hair-grey-2": {
+        "day": 11052446,
+        "night": 6381660,
+      },
+      "hair-grey-3": {
+        "day": 14473423,
+        "night": 9407623,
+      },
       "jacket-blue-0": {
         "day": 2899285,
         "night": 1251876,
@@ -159,6 +255,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-blue-3": {
         "day": 8234462,
         "night": 5597833,
+      },
+      "jacket-camel-0": {
+        "day": 3549724,
+        "night": 1511948,
+      },
+      "jacket-camel-1": {
+        "day": 7625020,
+        "night": 3418139,
+      },
+      "jacket-camel-2": {
+        "day": 10122832,
+        "night": 5850158,
+      },
+      "jacket-camel-3": {
+        "day": 13278057,
+        "night": 8611140,
+      },
+      "jacket-crimson-0": {
+        "day": 4200209,
+        "night": 1837575,
+      },
+      "jacket-crimson-1": {
+        "day": 8925219,
+        "night": 4003344,
+      },
+      "jacket-crimson-2": {
+        "day": 11878447,
+        "night": 6890779,
+      },
+      "jacket-crimson-3": {
+        "day": 15553598,
+        "night": 10106664,
+      },
+      "jacket-forest-0": {
+        "day": 1056790,
+        "night": 462345,
+      },
+      "jacket-forest-1": {
+        "day": 2311215,
+        "night": 1056533,
+      },
+      "jacket-forest-2": {
+        "day": 3037758,
+        "night": 1782820,
+      },
+      "jacket-forest-3": {
+        "day": 3962449,
+        "night": 2575669,
       },
       "jacket-green-0": {
         "day": 3162161,
@@ -176,6 +320,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 8891529,
         "night": 5926491,
       },
+      "jacket-kelly-0": {
+        "day": 1125144,
+        "night": 463370,
+      },
+      "jacket-kelly-1": {
+        "day": 2317364,
+        "night": 1059095,
+      },
+      "jacket-kelly-2": {
+        "day": 3111493,
+        "night": 1787688,
+      },
+      "jacket-kelly-3": {
+        "day": 4104282,
+        "night": 2648123,
+      },
+      "jacket-maroon-0": {
+        "day": 2953490,
+        "night": 1246984,
+      },
+      "jacket-maroon-1": {
+        "day": 6234919,
+        "night": 2822162,
+      },
+      "jacket-maroon-2": {
+        "day": 8269620,
+        "night": 4791070,
+      },
+      "jacket-maroon-3": {
+        "day": 10829380,
+        "night": 7022636,
+      },
+      "jacket-mustard-0": {
+        "day": 4864528,
+        "night": 2103559,
+      },
+      "jacket-mustard-1": {
+        "day": 10386209,
+        "night": 4667151,
+      },
+      "jacket-mustard-2": {
+        "day": 13804332,
+        "night": 8019738,
+      },
+      "jacket-mustard-3": {
+        "day": 16766522,
+        "night": 10914598,
+      },
+      "jacket-navy-0": {
+        "day": 1185830,
+        "night": 526864,
+      },
+      "jacket-navy-1": {
+        "day": 2503248,
+        "night": 1120036,
+      },
+      "jacket-navy-2": {
+        "day": 3359595,
+        "night": 1976126,
+      },
+      "jacket-navy-3": {
+        "day": 4413580,
+        "night": 2898267,
+      },
+      "jacket-olive-0": {
+        "day": 2829080,
+        "night": 1184266,
+      },
+      "jacket-olive-1": {
+        "day": 6052916,
+        "night": 2697495,
+      },
+      "jacket-olive-2": {
+        "day": 8026693,
+        "night": 4671272,
+      },
+      "jacket-olive-3": {
+        "day": 10526810,
+        "night": 6842427,
+      },
       "jacket-red-0": {
         "day": 6303016,
         "night": 2757393,
@@ -191,6 +415,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-red-3": {
         "day": 16351091,
         "night": 10049104,
+      },
+      "jacket-royal-0": {
+        "day": 1188926,
+        "night": 528155,
+      },
+      "jacket-royal-1": {
+        "day": 2575748,
+        "night": 1188667,
+      },
+      "jacket-royal-2": {
+        "day": 3434160,
+        "night": 1981286,
+      },
+      "jacket-royal-3": {
+        "day": 4490983,
+        "night": 2906006,
+      },
+      "jacket-sky-0": {
+        "day": 2964044,
+        "night": 1251617,
+      },
+      "jacket-sky-1": {
+        "day": 6257569,
+        "night": 2832200,
+      },
+      "jacket-sky-2": {
+        "day": 8365014,
+        "night": 4874108,
+      },
+      "jacket-sky-3": {
+        "day": 10934015,
+        "night": 7113638,
+      },
+      "jacket-slate-0": {
+        "day": 2566186,
+        "night": 1118482,
+      },
+      "jacket-slate-1": {
+        "day": 5395802,
+        "night": 2434601,
+      },
+      "jacket-slate-2": {
+        "day": 7172472,
+        "night": 4145734,
+      },
+      "jacket-slate-3": {
+        "day": 9409693,
+        "night": 6119526,
       },
       "lamp-light-0": {
         "day": 15456700,
@@ -232,6 +504,22 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 15456700,
         "night": 11511707,
       },
+      "plastic-0": {
+        "day": 4736319,
+        "night": 2039323,
+      },
+      "plastic-1": {
+        "day": 10064774,
+        "night": 4538940,
+      },
+      "plastic-2": {
+        "day": 13354162,
+        "night": 7762535,
+      },
+      "plastic-3": {
+        "day": 16777193,
+        "night": 10921623,
+      },
       "screen-light-0": {
         "day": 8955582,
         "night": 9153218,
@@ -247,6 +535,150 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "screen-light-3": {
         "day": 8955582,
         "night": 9153218,
+      },
+      "shirt-blue-0": {
+        "day": 4541265,
+        "night": 1974307,
+      },
+      "shirt-blue-1": {
+        "day": 9674667,
+        "night": 4343885,
+      },
+      "shirt-blue-2": {
+        "day": 12833764,
+        "night": 7436932,
+      },
+      "shirt-blue-3": {
+        "day": 16777215,
+        "night": 10921638,
+      },
+      "shirt-white-0": {
+        "day": 5394766,
+        "night": 2302754,
+      },
+      "shirt-white-1": {
+        "day": 11512997,
+        "night": 5197130,
+      },
+      "shirt-white-2": {
+        "day": 15328732,
+        "night": 8881536,
+      },
+      "shirt-white-3": {
+        "day": 16777215,
+        "night": 10921638,
+      },
+      "shoe-0": {
+        "day": 1117709,
+        "night": 460294,
+      },
+      "shoe-1": {
+        "day": 2367003,
+        "night": 1052172,
+      },
+      "shoe-2": {
+        "day": 3156004,
+        "night": 1840917,
+      },
+      "shoe-3": {
+        "day": 4142127,
+        "night": 2695711,
+      },
+      "skin-brown-0": {
+        "day": 3482647,
+        "night": 1511178,
+      },
+      "skin-brown-1": {
+        "day": 7490610,
+        "night": 3351063,
+      },
+      "skin-brown-2": {
+        "day": 9921858,
+        "night": 5782310,
+      },
+      "skin-brown-3": {
+        "day": 13010006,
+        "night": 8476216,
+      },
+      "skin-deep-0": {
+        "day": 1839887,
+        "night": 788486,
+      },
+      "skin-deep-1": {
+        "day": 3942688,
+        "night": 1774094,
+      },
+      "skin-deep-2": {
+        "day": 5256746,
+        "night": 3022616,
+      },
+      "skin-deep-3": {
+        "day": 6899511,
+        "night": 4468260,
+      },
+      "skin-fair-0": {
+        "day": 5127214,
+        "night": 2234900,
+      },
+      "skin-fair-1": {
+        "day": 10846562,
+        "night": 4864556,
+      },
+      "skin-fair-2": {
+        "day": 14461827,
+        "night": 8414028,
+      },
+      "skin-fair-3": {
+        "day": 16769196,
+        "night": 10916464,
+      },
+      "skin-pale-0": {
+        "day": 5589050,
+        "night": 2432793,
+      },
+      "skin-pale-1": {
+        "day": 11835771,
+        "night": 5326135,
+      },
+      "skin-pale-2": {
+        "day": 15780772,
+        "night": 9139807,
+      },
+      "skin-pale-3": {
+        "day": 16777175,
+        "night": 10921612,
+      },
+      "skin-tan-0": {
+        "day": 4403233,
+        "night": 1905934,
+      },
+      "skin-tan-1": {
+        "day": 9332295,
+        "night": 4206112,
+      },
+      "skin-tan-2": {
+        "day": 12420958,
+        "night": 7228983,
+      },
+      "skin-tan-3": {
+        "day": 16298363,
+        "night": 10580816,
+      },
+      "skin-umber-0": {
+        "day": 2562578,
+        "night": 1116936,
+      },
+      "skin-umber-1": {
+        "day": 5453862,
+        "night": 2431249,
+      },
+      "skin-umber-2": {
+        "day": 7227954,
+        "night": 4205341,
+      },
+      "skin-umber-3": {
+        "day": 9462082,
+        "night": 6176555,
       },
       "steel": {
         "day": 7829367,
@@ -267,6 +699,70 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "steel-3": {
         "day": 10920862,
         "night": 6908005,
+      },
+      "tie-crimson-0": {
+        "day": 3805456,
+        "night": 1640199,
+      },
+      "tie-crimson-1": {
+        "day": 8070434,
+        "night": 3608847,
+      },
+      "tie-crimson-2": {
+        "day": 10694957,
+        "night": 6233114,
+      },
+      "tie-crimson-3": {
+        "day": 14041147,
+        "night": 9120294,
+      },
+      "tie-gold-0": {
+        "day": 4535313,
+        "night": 1971719,
+      },
+      "tie-gold-1": {
+        "day": 9596451,
+        "night": 4338192,
+      },
+      "tie-gold-2": {
+        "day": 12751407,
+        "night": 7427355,
+      },
+      "tie-gold-3": {
+        "day": 16695102,
+        "night": 10845224,
+      },
+      "tie-green-0": {
+        "day": 1451544,
+        "night": 593930,
+      },
+      "tie-green-1": {
+        "day": 3035188,
+        "night": 1385495,
+      },
+      "tie-green-2": {
+        "day": 4025157,
+        "night": 2309672,
+      },
+      "tie-green-3": {
+        "day": 5278810,
+        "night": 3431227,
+      },
+      "tie-navy-0": {
+        "day": 1053729,
+        "night": 461070,
+      },
+      "tie-navy-1": {
+        "day": 2305095,
+        "night": 1053728,
+      },
+      "tie-navy-2": {
+        "day": 3029598,
+        "night": 1778231,
+      },
+      "tie-navy-3": {
+        "day": 3951739,
+        "night": 2568528,
       },
       "timber-0": {
         "day": 6109727,
@@ -299,6 +795,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "tone-3": {
         "day": 14540253,
         "night": 8421504,
+      },
+      "trousers-brown-0": {
+        "day": 2169363,
+        "night": 920328,
+      },
+      "trousers-brown-1": {
+        "day": 4667433,
+        "night": 2103570,
+      },
+      "trousers-brown-2": {
+        "day": 6179382,
+        "night": 3615519,
+      },
+      "trousers-brown-3": {
+        "day": 8085831,
+        "night": 5259054,
+      },
+      "trousers-charcoal-0": {
+        "day": 1579291,
+        "night": 658188,
+      },
+      "trousers-charcoal-1": {
+        "day": 3421496,
+        "night": 1513497,
+      },
+      "trousers-charcoal-2": {
+        "day": 4539979,
+        "night": 2631980,
+      },
+      "trousers-charcoal-3": {
+        "day": 5921890,
+        "night": 3882048,
+      },
+      "trousers-grey-0": {
+        "day": 2303015,
+        "night": 986897,
+      },
+      "trousers-grey-1": {
+        "day": 4934994,
+        "night": 2237221,
+      },
+      "trousers-grey-2": {
+        "day": 6580077,
+        "night": 3816511,
+      },
+      "trousers-grey-3": {
+        "day": 8619919,
+        "night": 5593181,
+      },
+      "trousers-khaki-0": {
+        "day": 3222305,
+        "night": 1380878,
+      },
+      "trousers-khaki-1": {
+        "day": 6839365,
+        "night": 3090719,
+      },
+      "trousers-khaki-2": {
+        "day": 9075292,
+        "night": 5261109,
+      },
+      "trousers-khaki-3": {
+        "day": 11903097,
+        "night": 7759951,
+      },
+      "trousers-navy-0": {
+        "day": 1250846,
+        "night": 526605,
+      },
+      "trousers-navy-1": {
+        "day": 2633280,
+        "night": 1185053,
+      },
+      "trousers-navy-2": {
+        "day": 3489109,
+        "night": 2040625,
+      },
+      "trousers-navy-3": {
+        "day": 4542575,
+        "night": 2962504,
       },
     },
     "darkLine": {
@@ -388,6 +964,102 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 15851460,
         "night": 855824,
       },
+      "hair-auburn-0": {
+        "day": 3612177,
+        "night": 1576199,
+      },
+      "hair-auburn-1": {
+        "day": 7683876,
+        "night": 3480592,
+      },
+      "hair-auburn-2": {
+        "day": 10179632,
+        "night": 5910812,
+      },
+      "hair-auburn-3": {
+        "day": 13332031,
+        "night": 8669225,
+      },
+      "hair-black-0": {
+        "day": 986123,
+        "night": 394501,
+      },
+      "hair-black-1": {
+        "day": 2103832,
+        "night": 920587,
+      },
+      "hair-black-2": {
+        "day": 2761504,
+        "night": 1578003,
+      },
+      "hair-black-3": {
+        "day": 3616298,
+        "night": 2367003,
+      },
+      "hair-blond-0": {
+        "day": 4799783,
+        "night": 2038289,
+      },
+      "hair-blond-1": {
+        "day": 10257235,
+        "night": 4602661,
+      },
+      "hair-blond-2": {
+        "day": 13610606,
+        "night": 7890240,
+      },
+      "hair-blond-3": {
+        "day": 16770192,
+        "night": 10916958,
+      },
+      "hair-brown-0": {
+        "day": 2562834,
+        "night": 1117192,
+      },
+      "hair-brown-1": {
+        "day": 5454118,
+        "night": 2431505,
+      },
+      "hair-brown-2": {
+        "day": 7228466,
+        "night": 4205597,
+      },
+      "hair-brown-3": {
+        "day": 9462850,
+        "night": 6177067,
+      },
+      "hair-dark-0": {
+        "day": 1643023,
+        "night": 722950,
+      },
+      "hair-dark-1": {
+        "day": 3483168,
+        "night": 1577230,
+      },
+      "hair-dark-2": {
+        "day": 4600618,
+        "night": 2694680,
+      },
+      "hair-dark-3": {
+        "day": 6046519,
+        "night": 3943460,
+      },
+      "hair-grey-0": {
+        "day": 3881528,
+        "night": 1644824,
+      },
+      "hair-grey-1": {
+        "day": 8289399,
+        "night": 3749942,
+      },
+      "hair-grey-2": {
+        "day": 11052446,
+        "night": 6381660,
+      },
+      "hair-grey-3": {
+        "day": 14473423,
+        "night": 9407623,
+      },
       "jacket-blue-0": {
         "day": 4677506,
         "night": 2107704,
@@ -403,6 +1075,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-blue-3": {
         "day": 8234462,
         "night": 5597833,
+      },
+      "jacket-camel-0": {
+        "day": 3549724,
+        "night": 1511948,
+      },
+      "jacket-camel-1": {
+        "day": 7625020,
+        "night": 3418139,
+      },
+      "jacket-camel-2": {
+        "day": 10122832,
+        "night": 5850158,
+      },
+      "jacket-camel-3": {
+        "day": 13278057,
+        "night": 8611140,
+      },
+      "jacket-crimson-0": {
+        "day": 4200209,
+        "night": 1837575,
+      },
+      "jacket-crimson-1": {
+        "day": 8925219,
+        "night": 4003344,
+      },
+      "jacket-crimson-2": {
+        "day": 11878447,
+        "night": 6890779,
+      },
+      "jacket-crimson-3": {
+        "day": 15553598,
+        "night": 10106664,
+      },
+      "jacket-forest-0": {
+        "day": 1056790,
+        "night": 462345,
+      },
+      "jacket-forest-1": {
+        "day": 2311215,
+        "night": 1056533,
+      },
+      "jacket-forest-2": {
+        "day": 3037758,
+        "night": 1782820,
+      },
+      "jacket-forest-3": {
+        "day": 3962449,
+        "night": 2575669,
       },
       "jacket-green-0": {
         "day": 5071951,
@@ -420,6 +1140,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 8891529,
         "night": 5926491,
       },
+      "jacket-kelly-0": {
+        "day": 1125144,
+        "night": 463370,
+      },
+      "jacket-kelly-1": {
+        "day": 2317364,
+        "night": 1059095,
+      },
+      "jacket-kelly-2": {
+        "day": 3111493,
+        "night": 1787688,
+      },
+      "jacket-kelly-3": {
+        "day": 4104282,
+        "night": 2648123,
+      },
+      "jacket-maroon-0": {
+        "day": 2953490,
+        "night": 1246984,
+      },
+      "jacket-maroon-1": {
+        "day": 6234919,
+        "night": 2822162,
+      },
+      "jacket-maroon-2": {
+        "day": 8269620,
+        "night": 4791070,
+      },
+      "jacket-maroon-3": {
+        "day": 10829380,
+        "night": 7022636,
+      },
+      "jacket-mustard-0": {
+        "day": 4864528,
+        "night": 2103559,
+      },
+      "jacket-mustard-1": {
+        "day": 10386209,
+        "night": 4667151,
+      },
+      "jacket-mustard-2": {
+        "day": 13804332,
+        "night": 8019738,
+      },
+      "jacket-mustard-3": {
+        "day": 16766522,
+        "night": 10914598,
+      },
+      "jacket-navy-0": {
+        "day": 1185830,
+        "night": 526864,
+      },
+      "jacket-navy-1": {
+        "day": 2503248,
+        "night": 1120036,
+      },
+      "jacket-navy-2": {
+        "day": 3359595,
+        "night": 1976126,
+      },
+      "jacket-navy-3": {
+        "day": 4413580,
+        "night": 2898267,
+      },
+      "jacket-olive-0": {
+        "day": 2829080,
+        "night": 1184266,
+      },
+      "jacket-olive-1": {
+        "day": 6052916,
+        "night": 2697495,
+      },
+      "jacket-olive-2": {
+        "day": 8026693,
+        "night": 4671272,
+      },
+      "jacket-olive-3": {
+        "day": 10526810,
+        "night": 6842427,
+      },
       "jacket-red-0": {
         "day": 9652289,
         "night": 4136990,
@@ -435,6 +1235,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-red-3": {
         "day": 16351091,
         "night": 10049104,
+      },
+      "jacket-royal-0": {
+        "day": 1188926,
+        "night": 528155,
+      },
+      "jacket-royal-1": {
+        "day": 2575748,
+        "night": 1188667,
+      },
+      "jacket-royal-2": {
+        "day": 3434160,
+        "night": 1981286,
+      },
+      "jacket-royal-3": {
+        "day": 4490983,
+        "night": 2906006,
+      },
+      "jacket-sky-0": {
+        "day": 2964044,
+        "night": 1251617,
+      },
+      "jacket-sky-1": {
+        "day": 6257569,
+        "night": 2832200,
+      },
+      "jacket-sky-2": {
+        "day": 8365014,
+        "night": 4874108,
+      },
+      "jacket-sky-3": {
+        "day": 10934015,
+        "night": 7113638,
+      },
+      "jacket-slate-0": {
+        "day": 2566186,
+        "night": 1118482,
+      },
+      "jacket-slate-1": {
+        "day": 5395802,
+        "night": 2434601,
+      },
+      "jacket-slate-2": {
+        "day": 7172472,
+        "night": 4145734,
+      },
+      "jacket-slate-3": {
+        "day": 9409693,
+        "night": 6119526,
       },
       "lamp-light-0": {
         "day": 15456700,
@@ -476,6 +1324,22 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 15456700,
         "night": 11511707,
       },
+      "plastic-0": {
+        "day": 4736319,
+        "night": 2039323,
+      },
+      "plastic-1": {
+        "day": 10064774,
+        "night": 4538940,
+      },
+      "plastic-2": {
+        "day": 13354162,
+        "night": 7762535,
+      },
+      "plastic-3": {
+        "day": 16777193,
+        "night": 10921623,
+      },
       "screen-light-0": {
         "day": 8955582,
         "night": 9153218,
@@ -491,6 +1355,150 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "screen-light-3": {
         "day": 8955582,
         "night": 9153218,
+      },
+      "shirt-blue-0": {
+        "day": 4541265,
+        "night": 1974307,
+      },
+      "shirt-blue-1": {
+        "day": 9674667,
+        "night": 4343885,
+      },
+      "shirt-blue-2": {
+        "day": 12833764,
+        "night": 7436932,
+      },
+      "shirt-blue-3": {
+        "day": 16777215,
+        "night": 10921638,
+      },
+      "shirt-white-0": {
+        "day": 5394766,
+        "night": 2302754,
+      },
+      "shirt-white-1": {
+        "day": 11512997,
+        "night": 5197130,
+      },
+      "shirt-white-2": {
+        "day": 15328732,
+        "night": 8881536,
+      },
+      "shirt-white-3": {
+        "day": 16777215,
+        "night": 10921638,
+      },
+      "shoe-0": {
+        "day": 1117709,
+        "night": 460294,
+      },
+      "shoe-1": {
+        "day": 2367003,
+        "night": 1052172,
+      },
+      "shoe-2": {
+        "day": 3156004,
+        "night": 1840917,
+      },
+      "shoe-3": {
+        "day": 4142127,
+        "night": 2695711,
+      },
+      "skin-brown-0": {
+        "day": 3482647,
+        "night": 1511178,
+      },
+      "skin-brown-1": {
+        "day": 7490610,
+        "night": 3351063,
+      },
+      "skin-brown-2": {
+        "day": 9921858,
+        "night": 5782310,
+      },
+      "skin-brown-3": {
+        "day": 13010006,
+        "night": 8476216,
+      },
+      "skin-deep-0": {
+        "day": 1839887,
+        "night": 788486,
+      },
+      "skin-deep-1": {
+        "day": 3942688,
+        "night": 1774094,
+      },
+      "skin-deep-2": {
+        "day": 5256746,
+        "night": 3022616,
+      },
+      "skin-deep-3": {
+        "day": 6899511,
+        "night": 4468260,
+      },
+      "skin-fair-0": {
+        "day": 5127214,
+        "night": 2234900,
+      },
+      "skin-fair-1": {
+        "day": 10846562,
+        "night": 4864556,
+      },
+      "skin-fair-2": {
+        "day": 14461827,
+        "night": 8414028,
+      },
+      "skin-fair-3": {
+        "day": 16769196,
+        "night": 10916464,
+      },
+      "skin-pale-0": {
+        "day": 5589050,
+        "night": 2432793,
+      },
+      "skin-pale-1": {
+        "day": 11835771,
+        "night": 5326135,
+      },
+      "skin-pale-2": {
+        "day": 15780772,
+        "night": 9139807,
+      },
+      "skin-pale-3": {
+        "day": 16777175,
+        "night": 10921612,
+      },
+      "skin-tan-0": {
+        "day": 4403233,
+        "night": 1905934,
+      },
+      "skin-tan-1": {
+        "day": 9332295,
+        "night": 4206112,
+      },
+      "skin-tan-2": {
+        "day": 12420958,
+        "night": 7228983,
+      },
+      "skin-tan-3": {
+        "day": 16298363,
+        "night": 10580816,
+      },
+      "skin-umber-0": {
+        "day": 2562578,
+        "night": 1116936,
+      },
+      "skin-umber-1": {
+        "day": 5453862,
+        "night": 2431249,
+      },
+      "skin-umber-2": {
+        "day": 7227954,
+        "night": 4205341,
+      },
+      "skin-umber-3": {
+        "day": 9462082,
+        "night": 6176555,
       },
       "steel": {
         "day": 7829367,
@@ -511,6 +1519,70 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "steel-3": {
         "day": 10920862,
         "night": 6908005,
+      },
+      "tie-crimson-0": {
+        "day": 3805456,
+        "night": 1640199,
+      },
+      "tie-crimson-1": {
+        "day": 8070434,
+        "night": 3608847,
+      },
+      "tie-crimson-2": {
+        "day": 10694957,
+        "night": 6233114,
+      },
+      "tie-crimson-3": {
+        "day": 14041147,
+        "night": 9120294,
+      },
+      "tie-gold-0": {
+        "day": 4535313,
+        "night": 1971719,
+      },
+      "tie-gold-1": {
+        "day": 9596451,
+        "night": 4338192,
+      },
+      "tie-gold-2": {
+        "day": 12751407,
+        "night": 7427355,
+      },
+      "tie-gold-3": {
+        "day": 16695102,
+        "night": 10845224,
+      },
+      "tie-green-0": {
+        "day": 1451544,
+        "night": 593930,
+      },
+      "tie-green-1": {
+        "day": 3035188,
+        "night": 1385495,
+      },
+      "tie-green-2": {
+        "day": 4025157,
+        "night": 2309672,
+      },
+      "tie-green-3": {
+        "day": 5278810,
+        "night": 3431227,
+      },
+      "tie-navy-0": {
+        "day": 1053729,
+        "night": 461070,
+      },
+      "tie-navy-1": {
+        "day": 2305095,
+        "night": 1053728,
+      },
+      "tie-navy-2": {
+        "day": 3029598,
+        "night": 1778231,
+      },
+      "tie-navy-3": {
+        "day": 3951739,
+        "night": 2568528,
       },
       "timber-0": {
         "day": 6109727,
@@ -543,6 +1615,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "tone-3": {
         "day": 14263673,
         "night": 8282959,
+      },
+      "trousers-brown-0": {
+        "day": 2169363,
+        "night": 920328,
+      },
+      "trousers-brown-1": {
+        "day": 4667433,
+        "night": 2103570,
+      },
+      "trousers-brown-2": {
+        "day": 6179382,
+        "night": 3615519,
+      },
+      "trousers-brown-3": {
+        "day": 8085831,
+        "night": 5259054,
+      },
+      "trousers-charcoal-0": {
+        "day": 1579291,
+        "night": 658188,
+      },
+      "trousers-charcoal-1": {
+        "day": 3421496,
+        "night": 1513497,
+      },
+      "trousers-charcoal-2": {
+        "day": 4539979,
+        "night": 2631980,
+      },
+      "trousers-charcoal-3": {
+        "day": 5921890,
+        "night": 3882048,
+      },
+      "trousers-grey-0": {
+        "day": 2303015,
+        "night": 986897,
+      },
+      "trousers-grey-1": {
+        "day": 4934994,
+        "night": 2237221,
+      },
+      "trousers-grey-2": {
+        "day": 6580077,
+        "night": 3816511,
+      },
+      "trousers-grey-3": {
+        "day": 8619919,
+        "night": 5593181,
+      },
+      "trousers-khaki-0": {
+        "day": 3222305,
+        "night": 1380878,
+      },
+      "trousers-khaki-1": {
+        "day": 6839365,
+        "night": 3090719,
+      },
+      "trousers-khaki-2": {
+        "day": 9075292,
+        "night": 5261109,
+      },
+      "trousers-khaki-3": {
+        "day": 11903097,
+        "night": 7759951,
+      },
+      "trousers-navy-0": {
+        "day": 1250846,
+        "night": 526605,
+      },
+      "trousers-navy-1": {
+        "day": 2633280,
+        "night": 1185053,
+      },
+      "trousers-navy-2": {
+        "day": 3489109,
+        "night": 2040625,
+      },
+      "trousers-navy-3": {
+        "day": 4542575,
+        "night": 2962504,
       },
     },
     "darkLine": {
@@ -656,6 +1808,102 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 15132390,
         "night": 1579032,
       },
+      "hair-auburn-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-auburn-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-auburn-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-auburn-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-black-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-black-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-black-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-black-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-blond-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-blond-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-blond-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-blond-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-brown-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-brown-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-brown-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-brown-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-dark-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-dark-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-dark-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-dark-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-grey-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-grey-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-grey-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "hair-grey-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
       "jacket-blue-0": {
         "day": 7829367,
         "night": 3158064,
@@ -671,6 +1919,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-blue-3": {
         "day": 14540253,
         "night": 8421504,
+      },
+      "jacket-camel-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-camel-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-camel-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-camel-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-crimson-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-crimson-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-crimson-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-crimson-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-forest-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-forest-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-forest-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-forest-3": {
+        "day": 7829367,
+        "night": 7829367,
       },
       "jacket-green-0": {
         "day": 7829367,
@@ -688,6 +1984,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 14540253,
         "night": 8421504,
       },
+      "jacket-kelly-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-kelly-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-kelly-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-kelly-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-maroon-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-maroon-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-maroon-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-maroon-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-mustard-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-mustard-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-mustard-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-mustard-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-navy-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-navy-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-navy-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-navy-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-olive-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-olive-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-olive-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-olive-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
       "jacket-red-0": {
         "day": 7829367,
         "night": 3158064,
@@ -703,6 +2079,54 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "jacket-red-3": {
         "day": 14540253,
         "night": 8421504,
+      },
+      "jacket-royal-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-royal-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-royal-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-royal-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-sky-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-sky-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-sky-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-sky-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-slate-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-slate-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-slate-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "jacket-slate-3": {
+        "day": 7829367,
+        "night": 7829367,
       },
       "lamp-light-0": {
         "day": 7829367,
@@ -744,6 +2168,22 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "day": 14540253,
         "night": 8421504,
       },
+      "plastic-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "plastic-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "plastic-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "plastic-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
       "screen-light-0": {
         "day": 7829367,
         "night": 7829367,
@@ -757,6 +2197,150 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
         "night": 7829367,
       },
       "screen-light-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-blue-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-blue-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-blue-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-blue-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-white-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-white-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-white-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shirt-white-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shoe-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shoe-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shoe-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "shoe-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-brown-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-brown-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-brown-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-brown-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-deep-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-deep-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-deep-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-deep-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-fair-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-fair-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-fair-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-fair-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-pale-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-pale-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-pale-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-pale-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-tan-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-tan-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-tan-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-tan-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-umber-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-umber-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-umber-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "skin-umber-3": {
         "day": 7829367,
         "night": 7829367,
       },
@@ -779,6 +2363,70 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "steel-3": {
         "day": 14540253,
         "night": 8421504,
+      },
+      "tie-crimson-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-crimson-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-crimson-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-crimson-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-gold-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-gold-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-gold-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-gold-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-green-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-green-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-green-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-green-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-navy-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-navy-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-navy-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "tie-navy-3": {
+        "day": 7829367,
+        "night": 7829367,
       },
       "timber-0": {
         "day": 7829367,
@@ -811,6 +2459,86 @@ exports[`drawing values retain their recorded bytes and dimensions 1`] = `
       "tone-3": {
         "day": 14540253,
         "night": 8421504,
+      },
+      "trousers-brown-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-brown-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-brown-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-brown-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-charcoal-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-charcoal-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-charcoal-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-charcoal-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-grey-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-grey-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-grey-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-grey-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-khaki-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-khaki-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-khaki-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-khaki-3": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-navy-0": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-navy-1": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-navy-2": {
+        "day": 7829367,
+        "night": 7829367,
+      },
+      "trousers-navy-3": {
+        "day": 7829367,
+        "night": 7829367,
       },
     },
     "darkLine": {

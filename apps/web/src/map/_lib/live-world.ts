@@ -1,5 +1,5 @@
 import { WorldRpcs } from "@floor/api/world-rpc";
-import { figureHeight, roomyRecipe } from "@floor/atlas/proportions";
+import { figureHeight } from "@floor/atlas/proportions";
 import { ChainRef, WorldId } from "@floor/contract/identifiers";
 import { AgentLocation } from "@floor/contract/world";
 import { WorldFrame, WorldSnapshot } from "@floor/contract/world-stream";
@@ -9,7 +9,8 @@ import { Array, Effect, Layer, Option, Queue, Ref, Result, Schema, Stream } from
 import { RpcClient, RpcSerialization } from "effect/rpc";
 import { Http } from "foldkit";
 import { Message } from "../message";
-import { type Camera, type GroundArea, type LivePose, livePoses, type LiveScene, postKeys } from "../model";
+import { type Camera, type GroundArea, type LiveScene, postKeys } from "../model";
+import { postLayout, type TraderKind, traderKinds, traderPlaces, traderReach, traderStates } from "./live-layout";
 
 export const WorldSelection = Schema.Struct({ world: WorldId, chain: ChainRef });
 export type WorldSelection = typeof WorldSelection.Type;
@@ -51,11 +52,11 @@ const spread = (text: string) => {
   for (let index = 0; index < text.length; index++) hash = Math.imul(hash ^ text.charCodeAt(index), 16777619);
   return hash >>> 0;
 };
-export const jackets = 3;
-// Visitors stand just outside a post's seated ring, as the picked Roomy floor's
-// spillover figures do, and a desk's visitor a little to its occupant's side.
-const visitorRadius = roomyRecipe.counterRadiusRatio + .48;
-const visitorSide = .3;
+// Visitors crowd the aisle just outside a post's seated ring, as the picked
+// floor's crowds do, at one of three depths so a busy post's crowd thickens;
+// a desk's visitor stands behind its occupant's shoulder.
+const crowdDepth = .32;
+const visitorRadius = postLayout.counterEdge + traderReach.standing + .12;
 
 // A placed thing on the ground plane: where it stands and the yaw that turns
 // its +Z (a station's trader side, a figure's front) the way it faces.
@@ -64,11 +65,13 @@ export interface Placement {
   readonly z: number;
   readonly yaw: number;
 }
-// Where and how an agent's figure stands.
+// Where an agent's figure is and what kind of place that is; the renderer's
+// crowd chooses how it looks there.
 export interface Stance extends Placement {
-  readonly pose: LivePose;
+  readonly kind: TraderKind;
+  readonly place: number;
 }
-const stance = (placement: Placement, pose: LivePose): Stance => ({ ...placement, pose });
+const stance = (placement: Placement, kind: TraderKind, place = 0): Stance => ({ ...placement, kind, place });
 
 // Which way a named place's furniture backs: away from the rest of its room,
 // toward the outer wall of the wing that holds it.
@@ -96,11 +99,12 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     x1: value.x1 - origin.x,
     z1: value.z1 - origin.z,
   });
-  // The layout's post pitch is drawn at the approved Roomy pitch; a layout
-  // without one draws H at the Atlas figure height.
+  // The layout's closest posts are drawn at the live floor's pitch, close
+  // enough that their crowds meet; a layout without one draws H at the Atlas
+  // figure height.
   const unitsPerH = Option.match(plan.postPitch, {
     onNone: () => figureHeight,
-    onSome: pitch => pitch / roomyRecipe.postPitchRatio,
+    onSome: pitch => pitch / postLayout.pitch,
   });
   const ring = (anchor: PlanPoint, bearing: number, radius: number, turn: number): Placement => ({
     x: anchor.x + Math.sin(bearing) * radius * unitsPerH,
@@ -108,6 +112,7 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     yaw: bearing + turn,
   });
   const slots = world.layout.postsPerFloor * world.layout.stationsPerPost;
+  const slotsPerPost = world.layout.stationsPerPost;
   const postSlot = (floor: number, post: number) => floor * world.layout.postsPerFloor + post;
   const anchors = new Map(
     plan.floors.flatMap(floor =>
@@ -120,8 +125,8 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     ),
   );
   // A station keeps its plan position's bearing from its post. The kit sets
-  // the radii: the counter where the station sits, the stance where its agent
-  // sits, so a station never meets its post under any layout or scale.
+  // the radii: the counter edge where the station sits, the stool where its
+  // agent sits, so a station never meets its post under any layout or scale.
   const stations = new Map(plan.stations.map(station => {
     const anchor = Option.getOrElse(
       Option.fromUndefinedOr(anchors.get(postSlot(station.floor, station.post))),
@@ -150,34 +155,52 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
     const record = Option.fromUndefinedOr(records.get(station.agent));
     const own = Option.fromUndefinedOr(stations.get(station.desk));
     const hash = spread(station.agent);
-    // Seated at its own desk; standing at a place or beside another desk;
-    // walking among another post's crowd.
+    // Seated at its own desk; standing beside another desk, in another post's
+    // crowd, at a named place or in the lobby.
     const marker = Option.flatMap(location, (value): Option.Option<Stance> =>
       AgentLocation.match(value, {
         AtDesk: target =>
           Option.map(Option.fromUndefinedOr(stations.get(target.deskId)), at =>
             target.deskId === station.desk
-              ? stance(ring(at.anchor, at.bearing, roomyRecipe.figureRadiusRatio, Math.PI), "seated")
+              ? stance(ring(at.anchor, at.bearing, postLayout.counterEdge + traderReach.seated, Math.PI), "seat")
               : stance(
-                ring(at.anchor, at.bearing + visitorSide / visitorRadius, visitorRadius, Math.PI),
-                "standing",
+                ring(
+                  at.anchor,
+                  at.bearing + (hash % 2 === 0 ? 1 : -1) * Math.PI / slotsPerPost * .62,
+                  visitorRadius,
+                  Math.PI,
+                ),
+                "visit",
               )),
         AtPost: target =>
           Option.map(Option.fromUndefinedOr(openPosts.get(target.postId)), anchor => {
-            const gap = Math.floor(hash / jackets) % world.layout.stationsPerPost + .5;
+            const gap = hash % slotsPerPost + .5;
+            const depth = Math.floor(hash / slotsPerPost) % 3;
             return stance(
-              ring(anchor, gap * Math.PI * 2 / world.layout.stationsPerPost, visitorRadius, Math.PI),
-              "walking",
+              ring(
+                anchor,
+                Math.PI / 2 + gap * Math.PI * 2 / slotsPerPost,
+                postLayout.crowd + depth * crowdDepth,
+                Math.PI,
+              ),
+              "post",
             );
           }),
         AtPlace: target =>
-          Option.map(Option.fromUndefinedOr(places.get(`${target.floorId}/${target.place}`)), place =>
-            stance({
-              x: (place.area.x0 + place.area.x1) / 2,
-              z: (place.area.z0 + place.area.z1) / 2,
-              yaw: place.facing,
-            }, "standing")),
-        InLobby: () => Option.map(locate(plan, value), position => stance({ ...point(position), yaw: 0 }, "standing")),
+          Option.map(Option.fromUndefinedOr(places.get(`${target.floorId}/${target.place}`)), place => {
+            // Several agents at one place spread across its reservation.
+            const spreadX = ((hash % 7) / 6 - .5) * .5, spreadZ = ((Math.floor(hash / 7) % 5) / 4 - .5) * .5;
+            return stance(
+              {
+                x: (place.area.x0 + place.area.x1) / 2 + spreadX * (place.area.x1 - place.area.x0),
+                z: (place.area.z0 + place.area.z1) / 2 + spreadZ * (place.area.z1 - place.area.z0),
+                yaw: place.facing,
+              },
+              "place",
+              traderPlaces.indexOf(place.place),
+            );
+          }),
+        InLobby: () => Option.map(locate(plan, value), position => stance({ ...point(position), yaw: 0 }, "lobby")),
       }));
     return {
       id: station.floor * slots + station.post * world.layout.stationsPerPost + station.station + 2,
@@ -185,8 +208,8 @@ export const planView = (snapshot: Snapshot, layout: WorldLayout) => {
       desk: station.desk,
       floor: station.floor,
       ...point(station.position),
-      station: Option.map(own, at => ring(at.anchor, at.bearing, roomyRecipe.counterRadiusRatio, 0)),
-      jacket: hash % jackets,
+      station: Option.map(own, at => ring(at.anchor, at.bearing, postLayout.counterEdge, 0)),
+      seed: hash,
       record,
       state: Option.flatMap(record, value => value.state),
       location,
@@ -258,8 +281,10 @@ export type RendererInstance = {
     readonly y: number;
     readonly z: number;
     readonly yaw: number;
-    readonly variant: number;
-    readonly tint: number;
+    readonly kind: number;
+    readonly state: number;
+    readonly place: number;
+    readonly seed: number;
   };
 };
 export type RendererSnapshot = { readonly revision: number; readonly instances: ReadonlyArray<RendererInstance> };
@@ -284,8 +309,10 @@ export const rendererSnapshot = (snapshot: Snapshot, revision: number): Renderer
                 y: 0,
                 z: marker.z,
                 yaw: marker.yaw,
-                variant: livePoses.indexOf(marker.pose),
-                tint: desk.jacket,
+                kind: traderKinds.indexOf(marker.kind),
+                state: Option.match(desk.state, { onNone: () => 0, onSome: value => traderStates.indexOf(value) }),
+                place: marker.place,
+                seed: desk.seed,
               },
             }),
           }),
@@ -317,6 +344,7 @@ export const liveScene = (snapshot: Snapshot, revision: number): LiveScene => {
     doors: view.doors,
     places: view.places,
     plots: view.plots,
+    postAnchors: view.posts.map(post => ({ x: post.x, z: post.z })),
     bounds: view.bounds,
     snapshot: rendererSnapshot(snapshot, revision),
   };

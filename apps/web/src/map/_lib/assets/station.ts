@@ -97,39 +97,14 @@ const tape = (kit: GeometryBuilder, x: number, y: number, z: number, longer: boo
   kit.add(box(.46, .022, longer ? .78 : .41, [x, y + .017, z + (longer ? 1.12 : .94)]), "paper-0");
 };
 
-// The live floor draws about ten pixels to a kit unit, where keys, cords, the
-// tape slit and the flag pole only scribble and a fanned paper stack's offset
-// sheets read as hatching. Its station keeps the screen, keyboard, phone, lamp,
-// papers and nameplate as plain solids and leaves out the tape and the flag,
-// which also keeps a ten-station ring's neighbours apart.
-export type StationDetail = "review" | "live";
-
-const livePhone = (kit: GeometryBuilder, x: number, y: number, z: number, yaw: number) => {
-  const orient = (geometry: THREE.BufferGeometry) => geometry.rotateY(yaw).translate(x, y, z);
-  kit.add(orient(box(.88, .31, 1.05, [0, .155, 0])), "steel-0");
-  kit.add(orient(box(.96, .16, .34, [0, .40, -.24])), "steel-0");
-};
-const liveLamp = (kit: GeometryBuilder, x: number, y: number, z: number, reach: number) => {
-  kit.add(cylinder(.34, .10, [x, y + .05, z], 12), "steel-0");
-  kit.add(box(.14, 1.65, .14, [x, y + .89, z]), "steel-0");
-  kit.add(box(.13, .13, reach, [x, y + 1.70, z + reach / 2]), "steel-0");
-  kit.add(
-    new THREE.SphereGeometry(.49, 10, 3, 0, Math.PI * 2, 0, Math.PI / 2)
-      .scale(1, .52, .66).translate(x, y + 1.58, z + reach),
-    "steel-0",
-  );
-  kit.add(box(.75, .14, .035, [x, y + 1.63, z + reach + .28]), "glass-0", 2);
-};
-
 // Origin at the floor below the outer counter lip; +Z faces the trader. It
 // attaches at a post's station placement. Screens and tape are blank.
-export const makeStation = (variant: StationVariant, detail: StationDetail = "review"): THREE.Group => {
+export const makeStation = (variant: StationVariant): THREE.Group => {
   const root = new THREE.Group();
   root.name = variant;
   const top = roomyRecipe.worktopRatio * figureHeight;
   const kit = makeGeometry();
   const analyst = variant === "analyst";
-  const live = detail === "live";
   const layout = stationLayout[variant];
   const { screenX, screenZ, screenYaw } = layout;
   const orientScreen = (geometry: THREE.BufferGeometry) => geometry.rotateY(screenYaw).translate(screenX, top, screenZ);
@@ -138,29 +113,19 @@ export const makeStation = (variant: StationVariant, detail: StationDetail = "re
   kit.add(orientScreen(box(2.76, 2.08, .86, [0, 1.37, -.10])), "steel-0");
   kit.add(orientScreen(box(2.34, 1.65, .035, [0, 1.39, .348])), "glass-0", 1);
   kit.add(box(1.70, .12, .65, [screenX, top + .06, -.52]), "steel-0");
-  if (live) {
-    livePhone(kit, layout.phoneX, top, layout.phoneZ, layout.phoneYaw);
-    liveLamp(kit, layout.lampX, top, -2.65, layout.lampReach);
+  kit.add(box(1.44, .025, .43, [screenX, top + .1325, -.52]), "glass-0");
+  for (let row = 0; row < 3; row++) {
+    kit.add(box(1.30, .022, .035, [screenX, top + .156, -.66 + row * .14]), "steel-0");
+  }
+  phone(kit, layout.phoneX, top, layout.phoneZ, layout.phoneYaw);
+  lamp(kit, layout.lampX, top, -2.65, layout.lampReach);
+  tape(kit, layout.tapeX, top, layout.tapeZ, analyst);
+  for (let index = 0; index < layout.paperCount; index++) {
     kit.add(
-      new THREE.BoxGeometry(1.04, .025 + .028 * (layout.paperCount - 1), 1.30).rotateY(layout.paperYaw)
-        .translate(layout.paperX, top + .01 + .014 * layout.paperCount, layout.paperZ),
+      new THREE.BoxGeometry(1.04, .025, 1.30).rotateY((index - 1) * .055 + layout.paperYaw)
+        .translate(layout.paperX + index * .035, top + .022 + index * .028, layout.paperZ),
       "paper-0",
     );
-  } else {
-    kit.add(box(1.44, .025, .43, [screenX, top + .1325, -.52]), "glass-0");
-    for (let row = 0; row < 3; row++) {
-      kit.add(box(1.30, .022, .035, [screenX, top + .156, -.66 + row * .14]), "steel-0");
-    }
-    phone(kit, layout.phoneX, top, layout.phoneZ, layout.phoneYaw);
-    lamp(kit, layout.lampX, top, -2.65, layout.lampReach);
-    tape(kit, layout.tapeX, top, layout.tapeZ, analyst);
-    for (let index = 0; index < layout.paperCount; index++) {
-      kit.add(
-        new THREE.BoxGeometry(1.04, .025, 1.30).rotateY((index - 1) * .055 + layout.paperYaw)
-          .translate(layout.paperX + index * .035, top + .022 + index * .028, layout.paperZ),
-        "paper-0",
-      );
-    }
   }
   if (analyst) {
     kit.add(box(1.35, .08, 1.48, [1.34, top + .04, -2.15]), "steel-0");
@@ -168,13 +133,11 @@ export const makeStation = (variant: StationVariant, detail: StationDetail = "re
   }
   kit.add(box(1.20, .34, .15, [1.20, top + .17, .055]), "steel-0");
   kit.add(box(1.06, .25, .025, [1.20, top + .18, .145]), "paper-0");
-  if (!live) {
-    const { flagX, flagCentre } = layout;
-    kit.add(cylinder(.15, .08, [flagX, top + .04, -2.94], 16), "steel-0");
-    kit.add(cylinder(.034, 2.34, [flagX, top + 1.21, -2.94], 12), "steel-0");
-    kit.add(box(.84, .56, .025, [flagCentre, top + 2.08, -2.94]), "glass-0");
-    kit.add(box(.84, .15, .035, [flagCentre, top + 2.08, -2.94]), "steel-0");
-  }
+  const { flagX, flagCentre } = layout;
+  kit.add(cylinder(.15, .08, [flagX, top + .04, -2.94], 16), "steel-0");
+  kit.add(cylinder(.034, 2.34, [flagX, top + 1.21, -2.94], 12), "steel-0");
+  kit.add(box(.84, .56, .025, [flagCentre, top + 2.08, -2.94]), "glass-0");
+  kit.add(box(.84, .15, .035, [flagCentre, top + 2.08, -2.94]), "steel-0");
   root.add(kit.finish(`${variant}_body`));
   const screenSocketAt = (front: number): Point => [
     screenX + Math.sin(screenYaw) * front,

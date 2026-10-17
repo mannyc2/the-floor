@@ -1,6 +1,7 @@
 import { BunRuntime } from "@effect/platform-bun";
-import { JoinWorld, MoveInWorld } from "@floor/api/world";
+import { ChangeWorldState, JoinWorld, MoveInWorld } from "@floor/api/world";
 import { WorldRpcs } from "@floor/api/world-rpc";
+import { AgentState } from "@floor/contract/agents";
 import { AgentId, ChainRef, Checkpoint, Digest, Height, WorldId } from "@floor/contract/identifiers";
 import { defaultWorldLayout } from "@floor/contract/settings";
 import { AgentLocation, type Floor, FloorPlace, type OpenTradingPost } from "@floor/contract/world";
@@ -16,9 +17,12 @@ import {
   DateTime,
   Effect,
   FileSystem,
+  HashSet,
   Layer,
   Option,
   Path,
+  Random,
+  Ref,
   Schedule,
   Schema,
   Stream,
@@ -34,6 +38,7 @@ import { makeWorldTestWorker } from "./_world-worker";
 const options = { providers: providers(), state: localState(), dev: true, sidecar: false, stage: "floor-dev-world" };
 const encodeJoin = Schema.encodeEffect(Schema.toCodecJson(JoinWorld));
 const encodeMove = Schema.encodeEffect(Schema.toCodecJson(MoveInWorld));
+const encodeState = Schema.encodeEffect(Schema.toCodecJson(ChangeWorldState));
 
 type OpenPost = typeof OpenTradingPost.Type;
 const openPosts = (floor: typeof Floor.Type): ReadonlyArray<OpenPost> =>
@@ -62,6 +67,66 @@ const circuits = (floors: ReadonlyArray<typeof Floor.Type>) =>
         ),
       }),
     ));
+  });
+
+// Synthetic bustle, so the viewer shows a working floor rather than hundreds
+// of agents frozen at their desks: every agent reports a state, and a few at a
+// time leave their desks for another post's crowd, a neighbour's desk or a
+// named place before going home. Seeded, so a seed always bustles the same way.
+const devStates = [
+  ["researching", 30],
+  ["trading", 20],
+  ["working", 20],
+  ["talking", 10],
+  ["idle", 10],
+  ["waitingForOwner", 5],
+  ["asleep", 5],
+] as const satisfies ReadonlyArray<readonly [AgentState, number]>;
+const weightedState = Random.next.pipe(Effect.map(roll => {
+  const total = devStates.reduce((sum, [, weight]) => sum + weight, 0);
+  const pick = devStates.reduce<{ readonly left: number; readonly state: AgentState }>(
+    (chosen, [state, weight]) => chosen.left <= 0 ? chosen : { left: chosen.left - weight, state },
+    { left: roll * total, state: "working" },
+  );
+  return pick.state;
+}));
+interface Seat {
+  readonly agent: AgentId;
+  readonly floor: typeof Floor.Type;
+  readonly posts: ReadonlyArray<OpenPost>;
+  readonly home: OpenPost["stations"][number];
+  readonly post: number;
+}
+const seatsOf = (floors: ReadonlyArray<typeof Floor.Type>, excluded: ReadonlySet<string>) =>
+  floors.flatMap(floor => {
+    const posts = openPosts(floor);
+    return posts.flatMap((post, index) =>
+      post.stations.filter(station => !excluded.has(station.desk.agentId)).map((home): Seat => ({
+        agent: home.desk.agentId,
+        floor,
+        posts,
+        home,
+        post: index,
+      }))
+    );
+  });
+// Somewhere away from home on the seat's own floor.
+const awayFrom = (seat: Seat): Effect.Effect<Option.Option<typeof AgentLocation.Type>> =>
+  Effect.gen(function*() {
+    const roll = yield* Random.next;
+    const neighbour = Array.get(seat.posts, (seat.post + (yield* Random.nextIntBetween(1, 3))) % seat.posts.length);
+    if (roll < .45) {
+      return Option.map(neighbour, post => AgentLocation.cases.AtPost.make({ postId: post.id }));
+    }
+    if (roll < .8) {
+      const station = yield* Random.nextIntBetween(0, 9);
+      return Option.flatMap(neighbour, post =>
+        Option.map(Array.get(post.stations, station % Math.max(1, post.stations.length)), visited =>
+          AgentLocation.cases.AtDesk.make({ deskId: visited.desk.id })));
+    }
+    const place = Array.get(FloorPlace.literals, yield* Random.nextIntBetween(0, FloorPlace.literals.length - 1));
+    return Option.map(place, value =>
+      AgentLocation.cases.AtPlace.make({ floorId: seat.floor.id, place: value }));
   });
 
 const serve = Effect.gen(function*() {
@@ -162,18 +227,55 @@ const serve = Effect.gen(function*() {
   );
   yield* Effect.addFinalizer(() => fs.remove(metadataPath, { force: true }).pipe(Effect.orDie));
   yield* Effect.log(`Development world ready with ${floors} occupied floors; ${movers.length} agents walk every 3 s`);
+  const seats = seatsOf(frame.snapshot.model.floors, new Set(movers.map(mover => mover.agent)));
+  const publishState = (agent: AgentId, state: AgentState) =>
+    encodeState({ world, checkpoint, agent, state }).pipe(Effect.flatMap(body => post("/state", body)));
+  const publishMove = (agent: AgentId, location: typeof AgentLocation.Type) =>
+    encodeMove({ world, checkpoint, agent, location }).pipe(Effect.flatMap(body => post("/move", body)));
+  // Every agent's first state, in the background; the world is already open.
+  yield* Effect.forEach(seats, seat => weightedState.pipe(Effect.flatMap(state => publishState(seat.agent, state))), {
+    concurrency: 8,
+    discard: true,
+  }).pipe(Random.withSeed(seed), Effect.forkScoped);
+  const away = yield* Ref.make(HashSet.empty<string>());
+  const bustle = Effect.gen(function*() {
+    const awayNow = yield* Ref.get(away);
+    // About one agent in twelve is away from its desk at a time.
+    const limit = Math.ceil(seats.length / 12);
+    for (let turn = 0; turn < 3 + Math.ceil(seats.length / 400); turn++) {
+      const seat = Array.get(seats, yield* Random.nextIntBetween(0, Math.max(0, seats.length - 1)));
+      if (Option.isNone(seat)) continue;
+      const { agent, home } = seat.value;
+      const roll = yield* Random.next;
+      if (HashSet.has(awayNow, agent) && roll < .6) {
+        yield* publishMove(agent, AgentLocation.cases.AtDesk.make({ deskId: home.desk.id }));
+        yield* Ref.update(away, set => HashSet.remove(set, agent));
+      } else if (roll < .55 || HashSet.size(awayNow) >= limit) {
+        yield* publishState(agent, yield* weightedState);
+      } else {
+        const location = yield* awayFrom(seat.value);
+        if (Option.isSome(location)) {
+          yield* publishMove(agent, location.value);
+          yield* Ref.update(away, set => HashSet.add(set, agent));
+        }
+      }
+    }
+  });
+  const circuit = (step: number) =>
+    Effect.forEach(movers, mover =>
+      Option.match(Array.get(mover.route, step % mover.route.length), {
+        onNone: () => Effect.void,
+        onSome: location => publishMove(mover.agent, location),
+      }), { discard: true });
+  yield* Stream.iterate(0, step => step + 1).pipe(
+    Stream.schedule(Schedule.spaced("1200 millis")),
+    Stream.runForEach(() => bustle),
+    Random.withSeed(seed + 1),
+    Effect.forkScoped,
+  );
   return yield* Stream.iterate(0, step => step + 1).pipe(
     Stream.schedule(Schedule.spaced("3 seconds")),
-    Stream.runForEach(step =>
-      Effect.forEach(movers, mover =>
-        Option.match(Array.get(mover.route, step % mover.route.length), {
-          onNone: () => Effect.void,
-          onSome: location =>
-            encodeMove({ world, checkpoint, agent: mover.agent, location }).pipe(
-              Effect.flatMap(body => post("/move", body)),
-            ),
-        }), { discard: true })
-    ),
+    Stream.runForEach(circuit),
   );
 });
 
