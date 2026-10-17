@@ -55,14 +55,15 @@ const cabinets = (paint: Paint, count: number, random: () => number) => {
 const coatRack = (paint: Paint, random: () => number) => {
   paint(post(.012, 1.05, 0, .525, .14), "steel-1");
   paint(post(.09, .02, 0, .01, .14, 8), "steel-1");
+  paint(post(.06, .015, 0, 1.03, .14, 8), "steel-1");
   const coats = 1 + Math.floor(random() * 3);
   for (let coat = 0; coat < coats; coat++) {
     const angle = coat * 2.1 + random() * .5;
     const jacket = jacketPaints[Math.floor(random() * jacketPaints.length)] ?? "jacket-navy-0";
-    paint(
-      block(.17, .34, .07, 0, .0, .07).rotateX(.1).rotateY(angle).translate(0, .82, .14),
-      jacket,
-    );
+    // A jacket hangs by its collar: shoulders at the hook, the body below.
+    const hang = (geometry: THREE.BufferGeometry) => geometry.rotateY(angle).translate(0, 0, .14);
+    paint(hang(new THREE.CylinderGeometry(.075, .1, .44, 6, 1).scale(1, 1, .45).translate(0, .78, .085)), jacket);
+    paint(hang(block(.07, .03, .03, 0, 1.0, .06)), jacket);
   }
   return .35;
 };
@@ -139,7 +140,7 @@ const door = (paint: Paint) => {
 export type WallThing = "cabinets" | "coatRack" | "plant" | "cooler" | "boxes" | "bench" | "gap";
 export type HungThing = "clock" | "noticeBoard" | "door" | "none";
 const floorChoices = {
-  room: [["cabinets", 3], ["coatRack", 2], ["plant", 1.5], ["cooler", .7], ["boxes", 1.5], ["gap", 3]],
+  room: [["cabinets", 3], ["coatRack", 1], ["plant", 1.5], ["cooler", .7], ["boxes", 1.5], ["gap", 3]],
   lobby: [["bench", 3], ["plant", 2], ["gap", 4]],
 } as const satisfies Record<string, ReadonlyArray<readonly [WallThing, number]>>;
 const hungChoices = {

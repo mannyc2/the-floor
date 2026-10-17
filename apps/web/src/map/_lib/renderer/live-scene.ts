@@ -227,21 +227,22 @@ const inside = (area: GroundArea, x: number, z: number, margin = 0) =>
 
 type StaticKit = ReturnType<typeof makeStatic>;
 
-// The lobby's marble: a two-tone checkerboard over its slab, each tile its own
-// surface so the joints draw, as in the picked lobby frame.
+// The lobby's marble, as in the picked lobby frame: cream tiles whose joints
+// draw (each tile is its own surface) inside a beige border band.
 const tiles = (kit: StaticKit, area: GroundArea, u: number) => {
-  const size = 1.5 * u;
+  const size = 1.1 * u;
   const columns = Math.floor((area.x1 - area.x0) / size), rows = Math.floor((area.z1 - area.z0) / size);
   const x0 = (area.x0 + area.x1 - columns * size) / 2, z0 = (area.z0 + area.z1 - rows * size) / 2;
   for (let column = 0; column < columns; column++) {
     for (let row = 0; row < rows; row++) {
+      const border = column === 1 || row === 1 || column === columns - 2 || row === rows - 2;
       kit.add(
         new THREE.PlaneGeometry(size, size).rotateX(-Math.PI / 2).translate(
           x0 + (column + .5) * size,
           .001 * u,
           z0 + (row + .5) * size,
         ),
-        (column + row) % 2 === 0 ? "paper-0" : "plastic-0",
+        border ? "plastic-0" : "paper-0",
       );
     }
   }
